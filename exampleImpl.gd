@@ -26,4 +26,4 @@ func _get_configuration_warnings():
 		arr.append("This is a dangling Inv Rep. Put into an item")
 	if(!parent.has_method("activate_item")):
 		arr.append("Parent node needs activate_item() method.")
-		return arr;
+	return arr;
