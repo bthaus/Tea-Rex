@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://dhqh1n7m1dlpt"]
+[gd_scene load_steps=5 format=3 uid="uid://dhqh1n7m1dlpt"]
 
 [ext_resource type="Script" path="res://TurretScripts/Projectiles/Projectile.gd" id="1_cdt2x"]
 [ext_resource type="Texture2D" uid="uid://c76tx8eiqiob3" path="res://Assets/Turrets/Projectiles/RED_projectile.png" id="2_jpt7y"]
+[ext_resource type="AudioStream" uid="uid://b48r3rrw2qhm1" path="res://Sounds/Soundeffects/Shot.wav" id="3_422yq"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ep7yo"]
 radius = 4.0
@@ -20,5 +21,8 @@ collision_mask = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(-2, -2)
 shape = SubResource("CapsuleShape2D_ep7yo")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_422yq")
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]

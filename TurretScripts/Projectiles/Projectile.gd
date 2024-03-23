@@ -9,6 +9,7 @@ func _ready():
 	pass # Replace with function body.
 
 func shoot(target,damage):
+	$AudioStreamPlayer2D.play();
 	self.damage=damage;
 	direction=(target.global_position-self.global_position).normalized();
 	global_rotation=direction.angle() + PI / 2.0
