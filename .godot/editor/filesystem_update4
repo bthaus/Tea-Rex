@@ -1,10 +1,8 @@
-res://test.tscn
-res://collider.gd
+res://TurretScripts/turretbase.tscn
+res://TurretScripts/turretbase.gd
+res://Red_Turret.tscn
 res://main_scene.tscn
-res://exampleImpl.gd
-res://Collider.gd
-res://TurretScripts/turret.tscn
-res://EnemyDetector.gd
 res://enemy_detector.tscn
 res://monster.tscn
-res://monster.gd
+res://Stats.gd
+res://util.gd

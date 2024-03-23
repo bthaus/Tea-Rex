@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://cdrytflh1sqcx"]
+
+[ext_resource type="Script" path="res://TurretScripts/turretbase.gd" id="1_87rlb"]
+[ext_resource type="PackedScene" uid="uid://dvwxp6msal8o6" path="res://enemy_detector.tscn" id="2_ekhvd"]
+
+[node name="Turret" type="Node2D" node_paths=PackedStringArray("detector")]
+script = ExtResource("1_87rlb")
+detector = NodePath("EnemyDetector")
+type = null
+
+[node name="EnemyDetector" parent="." instance=ExtResource("2_ekhvd")]
