@@ -1,8 +1,10 @@
 res://TurretScripts/turretbase.tscn
 res://TurretScripts/turretbase.gd
-res://Red_Turret.tscn
+res://EnemyDetector.gd
 res://main_scene.tscn
 res://enemy_detector.tscn
 res://monster.tscn
+res://TurretScripts/Projectiles/RED_projectile.tscn
+res://TurretScripts/Projectiles/Projectile.gd
 res://Stats.gd
-res://util.gd
+res://monster.gd

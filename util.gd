@@ -1,8 +1,8 @@
 extends Node
 class_name util
 
-static func p(msg, fromnode="somewhere",fromperson="Someone",type="Debug"):
-	print("Type: "+type +" From: "+ fromperson+ " MSG: "+msg+" sent from node: "+fromnode);
+static func p(msg:String,fromperson:String="Someone",type:String="Debug"):
+	print("Type: "+type +" From: "+ fromperson+ " MSG: "+msg);
 	pass;
 
 

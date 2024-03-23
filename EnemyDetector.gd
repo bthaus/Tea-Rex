@@ -16,17 +16,20 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 
 func setRange(mult):
-	$Area2D/detectionshape.apply_scale(Vector2(mult,mult));
+	$Area2D/detectionshape.scale=Vector2(mult,mult);
 	pass;
 func _process(delta):
 	pass
 
-
+func getFirstEnemy():
+	
+	if(enemiesInRange.size()==0):
+		return null;
+	return enemiesInRange[0];
 func _on_area_2d_area_entered(area):
 	if(area.get_parent().name!="Monster"):
 		return;
 	enemiesInRange.push_back(area.get_parent());
-	print("enemy added at index");
 	pass # Replace with function body.
 
 

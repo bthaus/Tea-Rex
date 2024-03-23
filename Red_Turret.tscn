@@ -8,6 +8,7 @@
 [node name="Turret" parent="." node_paths=PackedStringArray("detector") instance=ExtResource("1_fwg5w")]
 range = 100
 detector = NodePath("EnemyDetector2")
+isBasic = null
 type = 0
 
 [node name="EnemyDetector2" parent="Turret" instance=ExtResource("2_0hnhl")]
