@@ -1,9 +1,10 @@
 @tool
 extends Node2D
 @export var range=1;
-
 @export var isBasic=true;
 @export var type: Stats.TurretColor;
+
+@export var stacks:int=1;
 var shooter;
 var projectile;
 var cooldown;
@@ -51,8 +52,12 @@ func _process(delta):
 		
 		if !onCooldown:
 			shoot(target);
+	#debugg
+	if stacks>1:
+		$Barrel/second.visible=true;
 	
-	
+	if stacks>2:
+		$Barrel/third.visible=true;	
 	
 	pass;
 
@@ -62,6 +67,17 @@ func shoot(target):
 	add_child(shot);
 	shot.global_position=$Barrel/BulletPosition.global_position;
 	shot.shoot(target,damage);
+	
+	if stacks>1:
+		var sshot=projectile.instantiate();
+		add_child(sshot);
+		sshot.global_position=$Barrel/second/BulletPosition.global_position;
+		sshot.shoot(target,damage);
+	if stacks>2:
+		var tshot=projectile.instantiate();
+		add_child(tshot);
+		tshot.global_position=$Barrel/third/BulletPosition.global_position;
+		tshot.shoot(target,damage);
 	$Timer.start(cooldown);
 	onCooldown=true;
 	pass;
@@ -81,7 +97,14 @@ func _get_configuration_warnings():
 		arr.append("Add a detector to your turret");		
 	return arr;
 
-
+func levelup():
+	stacks=stacks+1;
+	if stacks==2:
+		$Barrel/second.visible=true;
+	
+	if stacks==3:
+		$Barrel/third.visible=true;		
+	pass;
 func _on_timer_timeout():
 	onCooldown=false;
 	pass # Replace with function body.

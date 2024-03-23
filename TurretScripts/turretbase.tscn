@@ -9,6 +9,7 @@
 position = Vector2(305, 255)
 script = ExtResource("1_87rlb")
 type = 3
+stacks = null
 
 [node name="EnemyDetector" parent="." instance=ExtResource("2_ekhvd")]
 
@@ -23,6 +24,22 @@ offset = Vector2(0, -32)
 
 [node name="BulletPosition" type="Node2D" parent="Barrel"]
 position = Vector2(0, -64)
+
+[node name="second" type="Sprite2D" parent="Barrel"]
+visible = false
+position = Vector2(-13, -21)
+texture = ExtResource("4_sndc2")
+
+[node name="BulletPosition" type="Node2D" parent="Barrel/second"]
+position = Vector2(-0.346161, -32.0869)
+
+[node name="third" type="Sprite2D" parent="Barrel"]
+visible = false
+position = Vector2(13, -21)
+texture = ExtResource("4_sndc2")
+
+[node name="BulletPosition" type="Node2D" parent="Barrel/third"]
+position = Vector2(0, -33)
 
 [node name="Timer" type="Timer" parent="."]
 

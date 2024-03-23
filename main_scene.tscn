@@ -14,6 +14,7 @@ position = Vector2(361, 415)
 
 [node name="Turret3" parent="." instance=ExtResource("1_eo6a4")]
 position = Vector2(455, 327)
+stacks = 3
 
 [node name="Turret4" parent="." instance=ExtResource("1_eo6a4")]
 position = Vector2(268, 414)
