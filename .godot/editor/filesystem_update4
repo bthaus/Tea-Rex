@@ -1,6 +1,7 @@
 res://TurretScripts/turretbase.tscn
 res://TurretScripts/turretbase.gd
+res://monster.tscn
+res://monster.gd
 res://main_scene.tscn
 res://enemy_detector.tscn
-res://monster.tscn
 res://TurretScripts/Projectiles/RED_projectile.tscn

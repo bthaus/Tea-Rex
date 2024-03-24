@@ -8,9 +8,11 @@
 
 [node name="Turret" parent="." instance=ExtResource("1_eo6a4")]
 position = Vector2(448, 416)
+stacks = 1
 
 [node name="Turret2" parent="." instance=ExtResource("1_eo6a4")]
 position = Vector2(361, 415)
+stacks = 1
 
 [node name="Turret3" parent="." instance=ExtResource("1_eo6a4")]
 position = Vector2(455, 327)
@@ -18,9 +20,11 @@ stacks = 3
 
 [node name="Turret4" parent="." instance=ExtResource("1_eo6a4")]
 position = Vector2(268, 414)
+stacks = 1
 
 [node name="Turret5" parent="." instance=ExtResource("1_eo6a4")]
 position = Vector2(765, 419)
+stacks = 1
 
 [node name="Monster" parent="." instance=ExtResource("2_g6fes")]
 position = Vector2(-624, 180)

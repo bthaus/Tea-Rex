@@ -9,7 +9,6 @@
 position = Vector2(305, 255)
 script = ExtResource("1_87rlb")
 type = 3
-stacks = null
 
 [node name="EnemyDetector" parent="." instance=ExtResource("2_ekhvd")]
 

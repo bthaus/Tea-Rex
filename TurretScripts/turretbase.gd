@@ -1,5 +1,6 @@
 @tool
 extends Node2D
+class_name Turret
 @export var range=1;
 @export var isBasic=true;
 @export var type: Stats.TurretColor;
@@ -12,7 +13,15 @@ var damage;
 var onCooldown=false;
 var direction:Vector2;
 
-
+static func getTurret(color:Stats.TurretColor, lvl:int,type:String="DEFAULT")->Turret:
+	var turret=load("res://TurretScripts/turretbase.tscn").instantiate() as Turret;
+	turret.type=color;
+	turret.stacks=lvl;
+	if type!="DEFAULT":
+		turret.isBasic=false;
+		util.p("a non basic turret has been created, impl rquired","Bodo","Not good");
+	return turret;
+	
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
