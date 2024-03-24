@@ -37,7 +37,7 @@ static var green_explosion_range=0.5;
 static var enemyHP=100;
 
 enum TurretColor {GREY=1, GREEN=2, RED=3, YELLOW=4,BLUE=5};
-
+enum TurretExtension {DEFAULT=1,GREENPOISON=5,REDLASER=2,BLUELASER=3,YELLOWCATAPULT=4};
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -50,6 +50,9 @@ static func getStringFromEnum(type:TurretColor):
 		4: return "YELLOW";
 		5: return "BLUE";
 	pass
+
+static func getStringFromEnumExtension(type:TurretExtension):
+	return ""
 	
 static func getCooldown(type:TurretColor):
 	match type:

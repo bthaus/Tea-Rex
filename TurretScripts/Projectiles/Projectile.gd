@@ -4,11 +4,12 @@ var shot=false;
 var damage;
 var direction:Vector2;
 var type;
-var ext="";
+var ext;
 var oneshot:bool;
-static func create(type)-> Projectile:
+static func create(type:Stats.TurretColor, extension:Stats.TurretExtension=Stats.TurretExtension.DEFAULT)-> Projectile:
 	var temp=load("res://TurretScripts/Projectiles/Base_projectile.tscn").instantiate() as Projectile;
 	temp.type=type;
+	temp.ext=extension;
 	
 	return temp;
 # Called when the node enters the scene tree for the first time.
@@ -16,9 +17,9 @@ func _ready():
 	setup();
 	pass # Replace with function body.
 func setup():
-	$Sprite2D.texture=load("res://Assets/Turrets/Projectiles/"+Stats.getStringFromEnum(type)+ext+"_projectile.png");
-	$shot.stream=load("res://Sounds/Soundeffects/"+Stats.getStringFromEnum(type)+ext+"_shot.wav")
-	$hit.stream=load("res://Sounds/Soundeffects/"+Stats.getStringFromEnum(type)+ext+"_hit.wav")
+	$Sprite2D.texture=load("res://Assets/Turrets/Projectiles/"+Stats.getStringFromEnum(type)+Stats.getStringFromEnumExtension(ext)+"_projectile.png");
+	$shot.stream=load("res://Sounds/Soundeffects/"+Stats.getStringFromEnum(type)+Stats.getStringFromEnumExtension(ext)+"_shot.wav")
+	$hit.stream=load("res://Sounds/Soundeffects/"+Stats.getStringFromEnum(type)+Stats.getStringFromEnumExtension(ext)+"_hit.wav")
 	oneshot=Stats.getOneshotType(type);
 	damage=Stats.getDamage(type);
 	pass;

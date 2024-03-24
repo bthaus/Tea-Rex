@@ -17,6 +17,7 @@ color = Color(0.694118, 0.611765, 0.8, 1)
 position = Vector2(500, 330)
 type = 2
 stacks = 3
+extension = ""
 
 [node name="AudioListener2D" type="AudioListener2D" parent="."]
 
@@ -41,3 +42,7 @@ position = Vector2(-427, 149)
 
 [node name="Monster4" parent="." instance=ExtResource("2_g6fes")]
 position = Vector2(-685, 146)
+
+[node name="Turret" parent="." instance=ExtResource("1_eo6a4")]
+position = Vector2(331, 344)
+extension = ""

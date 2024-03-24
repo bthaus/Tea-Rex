@@ -5,6 +5,7 @@ class_name Turret
 @export var isBasic=true;
 @export var type: Stats.TurretColor;
 @export var stacks:int=1;
+@export var extension:Stats.TurretExtension;
 
 var shooter;
 var projectile;
@@ -17,16 +18,18 @@ static func create(color:Stats.TurretColor, lvl:int,type:String="DEFAULT")->Turr
 	var turret=load("res://TurretScripts/turretbase.tscn").instantiate() as Turret;
 	turret.type=color;
 	turret.stacks=lvl;
+	
 	if type!="DEFAULT":
 		turret.isBasic=false;
 		util.p("a non basic turret has been created, impl rquired","Bodo","Not good");
+	else:
+		turret.extension=type;
 	return turret;
 	
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	getStats();
-	
+		
 	if isBasic:
 		setUpTower();
 	else:
@@ -35,29 +38,21 @@ func _ready():
 
 
 func setUpTower():
-	$Base.texture=load("res://Assets/Turrets/Bases/"+Stats.getStringFromEnum(type)+"_base.png")
-	var barreltext=load("res://Assets/Turrets/Barrels/"+Stats.getStringFromEnum(type)+"_barrel.png")
+	$Base.texture=load("res://Assets/Turrets/Bases/"+Stats.getStringFromEnum(type)+Stats.getStringFromEnumExtension(extension)+"_base.png")
+	var barreltext=load("res://Assets/Turrets/Barrels/"+Stats.getStringFromEnum(type)+Stats.getStringFromEnumExtension(extension)+"_barrel.png")
 	$Barrel.texture=barreltext;
 	$Barrel/second.texture=barreltext;
 	$Barrel/third.texture=barreltext;
 	
 	if type==Stats.TurretColor.RED:
-		projectile=Projectile.create(type);
+		projectile=Projectile.create(type,extension);
 		projectile.z_index=-1;
 		add_child(projectile);
 	cooldown=Stats.getCooldown(type);
 	damage=Stats.getDamage(type);
 	$EnemyDetector.setRange(Stats.getRange(type))
-	util.p("setup completed for a "+Stats.getStringFromEnum(type)+" turret");
-	
 	pass;
-func getStats():
-	$EnemyDetector.setRange(Stats.getRange(type));
-	if type==Stats.TurretColor.YELLOW:
-		util.p("implement custom yellow range","Bodo","potential");
-		
-	
-	pass;
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 
 func _process(delta):
@@ -87,18 +82,18 @@ func _process(delta):
 
 func shoot(target):
 	
-	var shot=Projectile.create(type);
+	var shot=Projectile.create(type,extension);
 	add_child(shot);
 	shot.global_position=$Barrel/BulletPosition.global_position;
 	shot.shoot(target,damage);
 	
 	if stacks>1:
-		var sshot=Projectile.create(type);;
+		var sshot=Projectile.create(type,extension);
 		add_child(sshot);
 		sshot.global_position=$Barrel/second/BulletPosition.global_position;
 		sshot.shoot(target,damage);
 	if stacks>2:
-		var tshot=Projectile.create(type);;
+		var tshot=Projectile.create(type,extension);
 		add_child(tshot);
 		tshot.global_position=$Barrel/third/BulletPosition.global_position;
 		tshot.shoot(target,damage);
