@@ -6,8 +6,15 @@ static var base_range=10;
 static var green_range=2*base_range;
 static var blue_range=2*base_range;
 static var yellow_range=4*base_range;
-static var red_range=1*base_range;
+static var red_range=0.2*base_range;
 static var grey_range=2*base_range;
+
+static var base_missile_speed=1000;
+static var green_missile_speed=2*base_missile_speed;
+static var blue_missile_speed=2*base_missile_speed;
+static var yellow_missile_speed=4*base_missile_speed;
+static var red_missile_speed=1*base_missile_speed;
+static var grey_missile_speed=2*base_missile_speed;
 
 
 static var base_cooldown=1;
@@ -15,7 +22,7 @@ static var green_cooldown=base_cooldown*1;
 static var blue_cooldown=base_cooldown*2;
 static var yellow_cooldown=base_cooldown*3;
 static var grey_cooldown=base_cooldown*1;
-static var red_cooldown=base_cooldown*1;
+static var red_cooldown=base_cooldown*0.3;
 
 static var base_damage=10;
 static var green_damage=base_damage*1;
@@ -24,6 +31,10 @@ static var yellow_damage=base_damage*3;
 static var grey_damage=base_damage*1;
 static var red_damage=base_damage*1;
 
+static var green_explosion_range=0.5;
+
+
+static var enemyHP=100;
 
 enum TurretColor {GREY=1, GREEN=2, RED=3, YELLOW=4,BLUE=5};
 
@@ -58,6 +69,22 @@ static func getDamage(type:TurretColor):
 		5: return blue_damage;
 	pass
 
+static func getMissileSpeed(type:TurretColor):
+	match type:
+		1: return green_missile_speed;
+		2: return green_missile_speed;
+		3:return red_missile_speed;
+		4: return yellow_missile_speed;
+		5: return blue_missile_speed;
+	pass
+static func getOneshotType(type:TurretColor):
+	match type:
+		1: return true;
+		2: return true;
+		3:return false;
+		4: return true;
+		5: return true;
+	pass;
 static func getRange(type:TurretColor):
 	match type:
 		1: return grey_range;

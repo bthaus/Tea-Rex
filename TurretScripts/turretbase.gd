@@ -4,8 +4,8 @@ class_name Turret
 @export var range=1;
 @export var isBasic=true;
 @export var type: Stats.TurretColor;
-
 @export var stacks:int=1;
+@export var HP=Stats.enemyHP;
 var shooter;
 var projectile;
 var cooldown;
@@ -13,7 +13,7 @@ var damage;
 var onCooldown=false;
 var direction:Vector2;
 
-static func getTurret(color:Stats.TurretColor, lvl:int,type:String="DEFAULT")->Turret:
+static func create(color:Stats.TurretColor, lvl:int,type:String="DEFAULT")->Turret:
 	var turret=load("res://TurretScripts/turretbase.tscn").instantiate() as Turret;
 	turret.type=color;
 	turret.stacks=lvl;
@@ -36,12 +36,19 @@ func _ready():
 
 func setUpTower():
 	$Base.texture=load("res://Assets/Turrets/Bases/"+Stats.getStringFromEnum(type)+"_base.png")
-	$Barrel.texture=load("res://Assets/Turrets/Barrels/"+Stats.getStringFromEnum(type)+"_barrel.png")
-	projectile=load("res://TurretScripts/Projectiles/"+Stats.getStringFromEnum(type)+"_projectile.tscn");
+	var barreltext=load("res://Assets/Turrets/Barrels/"+Stats.getStringFromEnum(type)+"_barrel.png")
+	$Barrel.texture=barreltext;
+	$Barrel/second.texture=barreltext;
+	$Barrel/third.texture=barreltext;
+	
+	if type==Stats.TurretColor.RED:
+		projectile=Projectile.create(type);
+		projectile.z_index=-1;
+		add_child(projectile);
 	cooldown=Stats.getCooldown(type);
 	damage=Stats.getDamage(type);
 	$EnemyDetector.setRange(Stats.getRange(type))
-	util.p("setup completed")
+	util.p("setup completed for a "+Stats.getStringFromEnum(type)+" turret");
 	
 	pass;
 func getStats():
@@ -54,12 +61,20 @@ func getStats():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 
 func _process(delta):
+	
+
 	if inRange():
 		var target=$EnemyDetector.enemiesInRange[0];
 		direction=(target.global_position-self.global_position).normalized();
 		$Barrel.rotation=direction.angle() + PI / 2.0;
-		
+		if type==Stats.TurretColor.RED:
+			projectile.rotate(360*2*delta);
 		if !onCooldown:
+			if type==Stats.TurretColor.RED:
+				for e in $EnemyDetector.enemiesInRange:
+					e.hit(type,self.damage)
+					projectile.playHitSound();		
+				return;
 			shoot(target);
 	#debugg
 	if stacks>1:
@@ -72,18 +87,18 @@ func _process(delta):
 
 func shoot(target):
 	
-	var shot=projectile.instantiate();
+	var shot=Projectile.create(type);
 	add_child(shot);
 	shot.global_position=$Barrel/BulletPosition.global_position;
 	shot.shoot(target,damage);
 	
 	if stacks>1:
-		var sshot=projectile.instantiate();
+		var sshot=Projectile.create(type);;
 		add_child(sshot);
 		sshot.global_position=$Barrel/second/BulletPosition.global_position;
 		sshot.shoot(target,damage);
 	if stacks>2:
-		var tshot=projectile.instantiate();
+		var tshot=Projectile.create(type);;
 		add_child(tshot);
 		tshot.global_position=$Barrel/third/BulletPosition.global_position;
 		tshot.shoot(target,damage);

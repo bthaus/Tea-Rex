@@ -5,3 +5,11 @@ res://monster.gd
 res://main_scene.tscn
 res://enemy_detector.tscn
 res://TurretScripts/Projectiles/RED_projectile.tscn
+res://Stats.gd
+res://TurretScripts/Projectiles/Projectile.gd
+res://TurretScripts/Projectiles/BLUE_projectile.tscn
+res://ConeFlash.gd
+res://UtilScenes/cone_flash.tscn
+res://TurretScripts/Projectiles/Base_projectile.tscn
+res://Explosion.gd
+res://TurretScripts/Projectiles/Explosion.tscn
