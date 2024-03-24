@@ -47,12 +47,12 @@ func playHitSound():
 	pass;
 func _on_area_2d_area_entered(area):
 	playHitSound();
-	if(area.get_parent().name!="Monster"):
-		return;
-	area.get_parent().hit(type,self.damage);
-	if type==Stats.TurretColor.GREEN:
-		Explosion.create(type,damage,global_position,get_tree().get_root(),Stats.green_explosion_range);
-	if oneshot:
-		queue_free();
+	if(area.get_parent() is Monster):
+		area.get_parent().hit(type,self.damage);
+		if type==Stats.TurretColor.GREEN:
+			Explosion.create(type,damage,global_position,get_tree().get_root(),Stats.green_explosion_range);
+		if oneshot:
+			queue_free();
+	
 	
 	pass # Replace with function body.

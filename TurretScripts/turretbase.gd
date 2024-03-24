@@ -5,7 +5,7 @@ class_name Turret
 @export var isBasic=true;
 @export var type: Stats.TurretColor;
 @export var stacks:int=1;
-@export var HP=Stats.enemyHP;
+
 var shooter;
 var projectile;
 var cooldown;

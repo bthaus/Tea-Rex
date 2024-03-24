@@ -13,3 +13,5 @@ res://UtilScenes/cone_flash.tscn
 res://TurretScripts/Projectiles/Base_projectile.tscn
 res://Explosion.gd
 res://TurretScripts/Projectiles/Explosion.tscn
+res://main_scene.gd
+res://EnemyDetector.gd

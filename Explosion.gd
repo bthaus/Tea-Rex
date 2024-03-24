@@ -23,9 +23,9 @@ func _process(delta):
 
 
 func _on_area_2d_area_entered(area):
-	if(area.get_parent().name!="Monster"):
-		return;
-	area.get_parent().hit(type,damage);
+	if(area.get_parent() is Monster):
+		area.get_parent().hit(type,damage);
+	
 	
 	pass # Replace with function body.
 
