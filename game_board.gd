@@ -21,20 +21,24 @@ func _process(_delta):
 	if selected_block != null:
 		var id = LEGAL_PLACEMENT_TILE_ID if _can_place_block(selected_block, board_pos) else ILLEGAL_PLACEMENT_TILE_ID
 		_draw_block(selected_block, board_pos, id, SELECTION_LAYER)
-	
+
+
 func _input(event):
 	var board_pos = $Board.local_to_map(get_local_mouse_position())
 	if event.is_action_pressed("left_click"):
 		if selected_block == null: #Pick up at a block
-			pass
+			var block = _get_block_from_board(board_pos, true)
+			_draw_block(block, board_pos, -1, BLOCK_LAYER)
+			selected_block = block
+			
 		elif _can_place_block(selected_block, board_pos): #Place block down if possible
 			_draw_block(selected_block, board_pos, BLUE_PIECE_TILE_ID, BLOCK_LAYER)
 	
 	if event.is_action_pressed("right_click"):
-		var block = _get_block_from_board(board_pos, true)
-		_draw_block(block, board_pos, -1, BLOCK_LAYER)
-		#selected_block = _rotate_block(selected_block)
+		selected_block = _rotate_block(selected_block)
+		
 
+#Draws a normalized block at a given position. To delete a block, set id to -1
 func _draw_block(block: PackedVector2Array, position: Vector2, id: int, layer: int):
 	for piece in block:
 		$Board.set_cell(layer, Vector2(piece.x + position.x, piece.y + position.y), id, Vector2(0,0))
