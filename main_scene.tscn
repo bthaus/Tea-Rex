@@ -17,14 +17,14 @@ type = 5
 
 [node name="Turret2" parent="." instance=ExtResource("1_eo6a4")]
 position = Vector2(361, 415)
-type = 5
+type = 2
 
 [node name="Turret4" parent="." instance=ExtResource("1_eo6a4")]
 position = Vector2(268, 414)
 
 [node name="Turret5" parent="." instance=ExtResource("1_eo6a4")]
 position = Vector2(765, 419)
-type = 2
+type = 4
 
 [node name="Monster" parent="." instance=ExtResource("2_g6fes")]
 position = Vector2(-624, 180)
@@ -42,5 +42,6 @@ stream = ExtResource("3_avl3y")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 modulate = Color(0.403922, 0.74902, 1, 1)
 z_index = -2
+position = Vector2(-15, -8)
 scale = Vector2(1000, 1000)
 texture = ExtResource("4_ykfqr")

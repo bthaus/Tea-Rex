@@ -5,22 +5,22 @@ static var block_size=64;
 static var base_range=10;
 static var green_range=2*base_range;
 static var blue_range=2*base_range;
-static var yellow_range=4*base_range;
+static var yellow_range=10*base_range;
 static var red_range=0.2*base_range;
 static var grey_range=2*base_range;
 
 static var base_missile_speed=1000;
-static var green_missile_speed=2*base_missile_speed;
+static var green_missile_speed=1*base_missile_speed;
 static var blue_missile_speed=2*base_missile_speed;
-static var yellow_missile_speed=4*base_missile_speed;
+static var yellow_missile_speed=10*base_missile_speed;
 static var red_missile_speed=1*base_missile_speed;
 static var grey_missile_speed=2*base_missile_speed;
 
 
 static var base_cooldown=1;
-static var green_cooldown=base_cooldown*1;
-static var blue_cooldown=base_cooldown*2;
-static var yellow_cooldown=base_cooldown*3;
+static var green_cooldown=base_cooldown*3;
+static var blue_cooldown=base_cooldown*1;
+static var yellow_cooldown=base_cooldown*2;
 static var grey_cooldown=base_cooldown*1;
 static var red_cooldown=base_cooldown*0.3;
 
