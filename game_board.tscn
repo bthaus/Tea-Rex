@@ -1,9 +1,9 @@
 [gd_scene load_steps=9 format=3 uid="uid://c8n0am7jadxj7"]
 
-[ext_resource type="Texture2D" uid="uid://btdmwrbhy1uix" path="res://dummy_tile.png" id="1_kiqn4"]
+[ext_resource type="Texture2D" uid="uid://08k2x4kc15jd" path="res://Assets/Tiles/dummy_tile.png" id="1_kiqn4"]
 [ext_resource type="Script" path="res://game_board.gd" id="1_yp6tt"]
-[ext_resource type="Texture2D" uid="uid://b35oueuvdph8j" path="res://dummy_tile_legal_placement.png" id="2_1fom0"]
-[ext_resource type="Texture2D" uid="uid://brnvg2faakwpa" path="res://dummy_tile_illegal_placement.png" id="3_wb0lt"]
+[ext_resource type="Texture2D" uid="uid://cl5ndrsw5go5q" path="res://Assets/Tiles/dummy_tile_legal_placement.png" id="2_1fom0"]
+[ext_resource type="Texture2D" uid="uid://qh18ogek2xiq" path="res://Assets/Tiles/dummy_tile_illegal_placement.png" id="3_wb0lt"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vgdp6"]
 texture = ExtResource("2_1fom0")
@@ -19,9 +19,12 @@ texture_region_size = Vector2i(64, 64)
 texture = ExtResource("1_kiqn4")
 texture_region_size = Vector2i(64, 64)
 0:0/0 = 0
+0:0/0/custom_data_0 = "blue"
 
 [sub_resource type="TileSet" id="TileSet_u4oll"]
 tile_size = Vector2i(64, 64)
+custom_data_layer_0/name = "color"
+custom_data_layer_0/type = 4
 sources/0 = SubResource("TileSetAtlasSource_vgdp6")
 sources/2 = SubResource("TileSetAtlasSource_qaixm")
 sources/1 = SubResource("TileSetAtlasSource_8dgb0")
