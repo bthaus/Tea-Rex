@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://cdrytflh1sqcx"]
+
+[ext_resource type="PackedScene" uid="uid://dvwxp6msal8o6" path="res://enemy_detector.tscn" id="1_hnel5"]
+
+[node name="Turret" type="Node2D"]
+
+[node name="EnemyDetector" parent="." instance=ExtResource("1_hnel5")]
+rangeMult = 5
+
+[node name="EnemyDetector2" parent="." instance=ExtResource("1_hnel5")]
