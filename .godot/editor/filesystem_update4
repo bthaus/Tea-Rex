@@ -9,3 +9,4 @@ res://TurretScripts/Projectiles/Explosion.tscn
 res://UtilScenes/point_light.tscn
 res://TurretScripts/turretbase.gd
 res://TurretScripts/Projectiles/Projectile.gd
+res://UtilScenes/DamageStacker.gd

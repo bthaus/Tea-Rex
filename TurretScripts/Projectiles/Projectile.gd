@@ -46,12 +46,15 @@ func playHitSound():
 	if !$hit.playing:
 		$hit.play();
 	pass;
-func _on_area_2d_area_entered(area):
 	
+
+func _on_area_2d_area_entered(area):
+	var enemy=area.get_parent();
 	playHitSound();
-	if(area.get_parent() is Monster):
+	if(enemy is Monster):
 		oneshot=oneshot-1;
-		area.get_parent().hit(type,self.damage);
+		applySpecials(enemy)
+		enemy.hit(type,self.damage);
 		if type==Stats.TurretColor.GREEN:
 			Explosion.create(type,damage,global_position,get_tree().get_root(),Stats.green_explosion_range);
 		
@@ -61,3 +64,19 @@ func _on_area_2d_area_entered(area):
 	
 	
 	pass # Replace with function body.
+	
+	
+func applySpecials(enemy:Monster):
+		if type==Stats.TurretColor.RED&&ext==Stats.TurretExtension.REDLASER:
+			applyRedLaser(enemy)
+		pass;
+		
+func applyRedLaser(enemy:Monster):
+	var temp=false;
+	for a in enemy.get_children():
+		if a is DamageStacker:
+			temp=true;
+			damage=damage+a.hit()
+	if !temp:
+		enemy.add_child(DamageStacker.new());
+	pass

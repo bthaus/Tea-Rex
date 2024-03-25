@@ -9,6 +9,7 @@ static var yellow_range=10*base_range;
 static var red_range=0.2*base_range;
 static var grey_range=2*base_range;
 
+static var red_laser_range=1*base_range;
 static var blue_laser_range=3*base_range;
 
 static var base_missile_speed=1000;
@@ -19,6 +20,7 @@ static var red_missile_speed=1*base_missile_speed;
 static var grey_missile_speed=2*base_missile_speed;
 
 static var blue_laser_missile_speed=base_missile_speed*4;
+static var red_laser_missile_speed=base_missile_speed*1;
 
 
 static var base_cooldown=1;
@@ -28,6 +30,7 @@ static var yellow_cooldown=base_cooldown*2;
 static var grey_cooldown=base_cooldown*1;
 static var red_cooldown=base_cooldown*0.3;
 
+static var red_laser_cooldown=base_cooldown*0.005;
 static var blue_laser_cooldown=base_cooldown*0.3;
 
 static var base_damage=5;
@@ -37,6 +40,7 @@ static var yellow_damage=base_damage*3;
 static var grey_damage=base_damage*1;
 static var red_damage=base_damage*1;
 
+static var red_laser_damage=base_damage*0.05;
 static var blue_laser_damage=base_damage*1;
 
 static var base_penetrations=1;
@@ -46,6 +50,7 @@ static var yellow_penetrations=base_penetrations*1;
 static var grey_penetrations=base_penetrations*1;
 static var red_penetrations=base_penetrations*-1000000;
 
+static var red_laser_penetrations=base_penetrations*1;
 static var blue_laser_penetrations=base_penetrations*5;
 
 static var green_explosion_range=0.5;
@@ -81,12 +86,14 @@ static func getStringFromEnumExtension(type:TurretExtension):
 	
 	match type:
 		1: return ""
+		2: return "LASER"
 		3: return "LASER"
 	
 	return "";
 static func getStringFromEnumExtensionLowercase(type:TurretExtension):
 	match type:
 		1: return ""
+		2: return "laser"
 		3: return "laser"
 	
 	return "";

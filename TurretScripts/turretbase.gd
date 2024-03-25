@@ -59,7 +59,7 @@ func setUpTower():
 	damage=Stats.getDamage(type,extension);
 	speed=Stats.getCooldown(type,extension);
 	
-	if type==Stats.TurretColor.RED:
+	if type==Stats.TurretColor.RED&&extension==Stats.TurretExtension.DEFAULT:
 		projectile=Projectile.create(type,damage*damagefactor,speed*speedfactor,extension);
 		projectile.z_index=-1;
 		add_child(projectile);
@@ -77,10 +77,10 @@ func _process(delta):
 		direction=(target.global_position-self.global_position).normalized();
 		$Barrel.rotation=direction.angle() + PI / 2.0;
 		
-		if type==Stats.TurretColor.RED:
+		if type==Stats.TurretColor.RED&&extension==Stats.TurretExtension.DEFAULT:
 			projectile.rotate(360*2*delta);
 		if !onCooldown:
-			if type==Stats.TurretColor.RED:
+			if type==Stats.TurretColor.RED&&extension==Stats.TurretExtension.DEFAULT:
 				for e in $EnemyDetector.enemiesInRange:
 					e.hit(type,self.damage)
 					projectile.playHitSound();		
