@@ -54,9 +54,10 @@ static var red_laser_penetrations=base_penetrations*1;
 static var blue_laser_penetrations=base_penetrations*5;
 
 static var green_explosion_range=0.5;
+static var red_laser_damage_stack=0.05;
 
 
-static var enemyHP=100;
+static var enemyHP=500;
 
 enum TurretColor {GREY=1, GREEN=2, RED=3, YELLOW=4,BLUE=5};
 enum TurretExtension {DEFAULT=1,REDLASER=2, BLUELASER=3, YELLOWCATAPULT=4, GREENPOISON=5};
