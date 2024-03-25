@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://dhqh1n7m1dlpt"]
+[gd_scene load_steps=7 format=3 uid="uid://dhqh1n7m1dlpt"]
 
 [ext_resource type="Script" path="res://TurretScripts/Projectiles/Projectile.gd" id="1_mhlsq"]
 [ext_resource type="Texture2D" uid="uid://raoax8o4vipw" path="res://Assets/Turrets/Projectiles/BLUE_projectile.png" id="2_84on6"]
 [ext_resource type="AudioStream" uid="uid://b48r3rrw2qhm1" path="res://Sounds/Soundeffects/BLUE_shot.wav" id="3_ap0mf"]
 [ext_resource type="AudioStream" uid="uid://bxe1kduqy6i72" path="res://Sounds/Soundeffects/BLUE_hit.wav" id="4_qoels"]
+[ext_resource type="PackedScene" uid="uid://cngb3j8spoy3q" path="res://UtilScenes/point_light.tscn" id="5_h8hy0"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ep7yo"]
 radius = 4.0
@@ -12,11 +13,12 @@ height = 20.0
 [node name="Base_Projectile" type="Node2D"]
 script = ExtResource("1_mhlsq")
 
+[node name="PointLight2D" parent="." instance=ExtResource("5_h8hy0")]
+
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_84on6")
 
 [node name="Area2D" type="Area2D" parent="."]
-collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]

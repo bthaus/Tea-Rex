@@ -28,22 +28,20 @@ static func create(color:Stats.TurretColor, lvl:int,type:String="DEFAULT")->Turr
 	var turret=load("res://TurretScripts/turretbase.tscn").instantiate() as Turret;
 	turret.type=color;
 	turret.stacks=lvl;
-	
+	turret.extension=type;
 	if type!="DEFAULT":
 		turret.isBasic=false;
 		util.p("a non basic turret has been created, impl rquired","Bodo","Not good");
-	else:
-		turret.extension=type;
+	
 	return turret;
 	
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-		
-	if isBasic:
-		setUpTower();
-	else:
-		util.p("Turret has been marked non basic and no impl has been done","IMPORTANT","Bodo");
+	print(Stats.getStringFromEnum(type))
+	print(Stats.getStringFromEnumExtension(extension))
+	setUpTower();	
+	
 	pass # Replace with function body.
 
 
@@ -76,6 +74,7 @@ func _process(delta):
 		var target=$EnemyDetector.enemiesInRange[0];
 		direction=(target.global_position-self.global_position).normalized();
 		$Barrel.rotation=direction.angle() + PI / 2.0;
+		
 		if type==Stats.TurretColor.RED:
 			projectile.rotate(360*2*delta);
 		if !onCooldown:
@@ -121,9 +120,11 @@ func inRange():
 func _get_configuration_warnings():
 	var arr=PackedStringArray([])
 	var children=get_children();
+	
 	var detector=false;
 	var sprite=false;
 	var missile=false;
+	
 	for a in children:
 		if a.name=="EnemyDetector":
 			detector=true;

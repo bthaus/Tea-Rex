@@ -13,12 +13,6 @@ script = ExtResource("1_4elap")
 visible = false
 color = Color(0.694118, 0.611765, 0.8, 1)
 
-[node name="Turret3" parent="." instance=ExtResource("1_eo6a4")]
-position = Vector2(500, 330)
-type = 2
-stacks = 3
-extension = 0
-
 [node name="AudioListener2D" type="AudioListener2D" parent="."]
 
 [node name="MusicPlayer" type="AudioStreamPlayer2D" parent="."]
@@ -43,28 +37,6 @@ position = Vector2(-427, 149)
 [node name="Monster4" parent="." instance=ExtResource("2_g6fes")]
 position = Vector2(-685, 146)
 
-[node name="Turret" parent="." instance=ExtResource("1_eo6a4")]
-position = Vector2(240, 321)
-extension = 0
-
-[node name="Turret4" parent="." instance=ExtResource("1_eo6a4")]
-position = Vector2(581, 327)
-type = 2
-stacks = 3
-extension = 0
-
-[node name="Turret5" parent="." instance=ExtResource("1_eo6a4")]
-position = Vector2(416, 325)
-type = 2
-stacks = 3
-extension = 0
-
-[node name="Turret6" parent="." instance=ExtResource("1_eo6a4")]
-position = Vector2(578, 242)
-type = 2
-stacks = 3
-extension = 0
-
 [node name="Monster5" parent="." instance=ExtResource("2_g6fes")]
 position = Vector2(-596, 238)
 
@@ -88,3 +60,7 @@ position = Vector2(-73, 150)
 
 [node name="Monster12" parent="." instance=ExtResource("2_g6fes")]
 position = Vector2(-331, 147)
+
+[node name="Turret" parent="." instance=ExtResource("1_eo6a4")]
+type = 5
+extension = 3
