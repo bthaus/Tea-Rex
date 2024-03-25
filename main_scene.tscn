@@ -1,32 +1,66 @@
-[gd_scene load_steps=4 format=3 uid="uid://ct8v030fwp2gh"]
+[gd_scene load_steps=6 format=3 uid="uid://ct8v030fwp2gh"]
 
+[ext_resource type="Script" path="res://main_scene.gd" id="1_4elap"]
 [ext_resource type="PackedScene" uid="uid://cdrytflh1sqcx" path="res://TurretScripts/turretbase.tscn" id="1_eo6a4"]
 [ext_resource type="PackedScene" uid="uid://cq7fvblvncfxh" path="res://monster.tscn" id="2_g6fes"]
 [ext_resource type="AudioStream" uid="uid://d3elhp46kr0sn" path="res://Sounds/Music/background4.wav" id="3_avl3y"]
+[ext_resource type="Texture2D" uid="uid://chsgerkqrpoy6" path="res://Assets/Level/Backgrounddummy.png" id="4_ykfqr"]
 
 [node name="MainScene" type="Node2D"]
+script = ExtResource("1_4elap")
 
-[node name="Turret" parent="." instance=ExtResource("1_eo6a4")]
-position = Vector2(448, 416)
-
-[node name="Turret2" parent="." instance=ExtResource("1_eo6a4")]
-position = Vector2(361, 415)
-
-[node name="Turret3" parent="." instance=ExtResource("1_eo6a4")]
-position = Vector2(455, 327)
-stacks = 3
-
-[node name="Turret4" parent="." instance=ExtResource("1_eo6a4")]
-position = Vector2(268, 414)
-
-[node name="Turret5" parent="." instance=ExtResource("1_eo6a4")]
-position = Vector2(765, 419)
-
-[node name="Monster" parent="." instance=ExtResource("2_g6fes")]
-position = Vector2(-624, 180)
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+visible = false
+color = Color(0.694118, 0.611765, 0.8, 1)
 
 [node name="AudioListener2D" type="AudioListener2D" parent="."]
 
 [node name="MusicPlayer" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("3_avl3y")
-autoplay = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0.403922, 0.74902, 1, 1)
+z_index = -2
+position = Vector2(-363, 170)
+scale = Vector2(1000, 1000)
+texture = ExtResource("4_ykfqr")
+
+[node name="Monster" parent="." instance=ExtResource("2_g6fes")]
+position = Vector2(-598, 152)
+
+[node name="Monster2" parent="." instance=ExtResource("2_g6fes")]
+position = Vector2(-522, 153)
+
+[node name="Monster3" parent="." instance=ExtResource("2_g6fes")]
+position = Vector2(-427, 149)
+
+[node name="Monster4" parent="." instance=ExtResource("2_g6fes")]
+position = Vector2(-685, 146)
+
+[node name="Monster5" parent="." instance=ExtResource("2_g6fes")]
+position = Vector2(-596, 238)
+
+[node name="Monster6" parent="." instance=ExtResource("2_g6fes")]
+position = Vector2(-520, 239)
+
+[node name="Monster7" parent="." instance=ExtResource("2_g6fes")]
+position = Vector2(-425, 235)
+
+[node name="Monster8" parent="." instance=ExtResource("2_g6fes")]
+position = Vector2(-683, 232)
+
+[node name="Monster9" parent="." instance=ExtResource("2_g6fes")]
+position = Vector2(-244, 153)
+
+[node name="Monster10" parent="." instance=ExtResource("2_g6fes")]
+position = Vector2(-168, 154)
+
+[node name="Monster11" parent="." instance=ExtResource("2_g6fes")]
+position = Vector2(-73, 150)
+
+[node name="Monster12" parent="." instance=ExtResource("2_g6fes")]
+position = Vector2(-331, 147)
+
+[node name="Turret" parent="." instance=ExtResource("1_eo6a4")]
+type = 5
+extension = 3

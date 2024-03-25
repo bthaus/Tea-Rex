@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://bxe1kduqy6i72"
-path="res://.godot/imported/hitBullet.wav-5498cdd97a3fc07b0844809cd91c96e2.sample"
+path="res://.godot/imported/BLUE_hit.wav-21df4b2783e4889baa31998084ecfc48.sample"
 
 [deps]
 
-source_file="res://Sounds/Soundeffects/hitBullet.wav"
-dest_files=["res://.godot/imported/hitBullet.wav-5498cdd97a3fc07b0844809cd91c96e2.sample"]
+source_file="res://Sounds/Soundeffects/BLUE_hit.wav"
+dest_files=["res://.godot/imported/BLUE_hit.wav-21df4b2783e4889baa31998084ecfc48.sample"]
 
 [params]
 

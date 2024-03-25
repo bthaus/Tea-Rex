@@ -1,7 +1,12 @@
-res://
+res://UtilScenes
+res://Assets/Lights
+res://Assets/Effects/Explosion_1
+res://TurretScripts/Projectiles
+res://Assets/Level
 res://Assets/Turrets/Barrels
+res://Assets/Turrets/Projectiles
+res://
 res://Sounds/Music
 res://Sounds/Soundeffects
-res://Assets/Turrets/Projectiles
 res://Assets/Turrets/Bases
 res://TurretScripts
