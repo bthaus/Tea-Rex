@@ -46,13 +46,15 @@ func _ready():
 
 
 func setUpTower():
+	if extension==0:
+		extension=Stats.TurretExtension.DEFAULT;
 	$Base.texture=load("res://Assets/Turrets/Bases/"+Stats.getStringFromEnum(type)+Stats.getStringFromEnumExtension(extension)+"_base.png")
 	var barreltext=load("res://Assets/Turrets/Barrels/"+Stats.getStringFromEnum(type)+Stats.getStringFromEnumExtension(extension)+"_barrel.png")
 	$Barrel.texture=barreltext;
 	$Barrel/second.texture=barreltext;
 	$Barrel/third.texture=barreltext;
 	
-
+	
 	cooldown=Stats.getCooldown(type,extension);
 	damage=Stats.getDamage(type,extension);
 	speed=Stats.getCooldown(type,extension);

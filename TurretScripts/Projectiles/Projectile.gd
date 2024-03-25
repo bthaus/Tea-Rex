@@ -47,7 +47,7 @@ func playHitSound():
 		$hit.play();
 	pass;
 func _on_area_2d_area_entered(area):
-	print(oneshot)
+	
 	playHitSound();
 	if(area.get_parent() is Monster):
 		oneshot=oneshot-1;
@@ -56,7 +56,6 @@ func _on_area_2d_area_entered(area):
 			Explosion.create(type,damage,global_position,get_tree().get_root(),Stats.green_explosion_range);
 		
 		if oneshot<=0&&oneshot>-100000:
-			print("im freed")
 			queue_free();
 	
 	

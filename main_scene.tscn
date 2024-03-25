@@ -64,3 +64,22 @@ position = Vector2(-331, 147)
 [node name="Turret" parent="." instance=ExtResource("1_eo6a4")]
 type = 5
 extension = 3
+
+[node name="Turret2" parent="." instance=ExtResource("1_eo6a4")]
+position = Vector2(451, 260)
+
+[node name="Turret3" parent="." instance=ExtResource("1_eo6a4")]
+position = Vector2(566, 261)
+type = 2
+
+[node name="Turret4" parent="." instance=ExtResource("1_eo6a4")]
+position = Vector2(450637, 260170)
+scale = Vector2(1000, 1000)
+
+[node name="Turret5" parent="." instance=ExtResource("1_eo6a4")]
+position = Vector2(196.419, 258.491)
+type = 5
+
+[node name="Turret6" parent="." instance=ExtResource("1_eo6a4")]
+position = Vector2(673.941, 254.928)
+type = 4

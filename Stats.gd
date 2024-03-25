@@ -60,6 +60,7 @@ enum TurretExtension {DEFAULT=1,REDLASER=2, BLUELASER=3, YELLOWCATAPULT=4, GREEN
 func _ready():
 	pass # Replace with function body.
 static func getStringFromEnum(type:TurretColor):
+	
 	match type:
 		1: return "GREY";
 		2: return "GREEN";
@@ -67,68 +68,56 @@ static func getStringFromEnum(type:TurretColor):
 		4: return "YELLOW";
 		5: return "BLUE"
 	pass
-
+static func getStringFromEnumLowercase(type:TurretColor):
+	
+	match type:
+		1: return "grey";
+		2: return "green";
+		3: return "red";
+		4: return "yellow";
+		5: return "blue"
+	pass
 static func getStringFromEnumExtension(type:TurretExtension):
+	
 	match type:
 		1: return ""
 		3: return "LASER"
 	
-	return "error";
+	return "";
+static func getStringFromEnumExtensionLowercase(type:TurretExtension):
+	match type:
+		1: return ""
+		3: return "laser"
+	
+	return "";
 
-
+static func getProperty(type:TurretColor,extension:TurretExtension,property:String):
+	var color=getStringFromEnumLowercase(type);
+	var ext=getStringFromEnumExtensionLowercase(extension);
+	var temp;
+	if extension==TurretExtension.DEFAULT:
+		temp = Stats.new().get(color+"_"+property);
+	else:
+		temp = Stats.new().get(color+"_"+ext+"_"+property);
+	return temp;
 
 static func getCooldown(type:TurretColor,extension:TurretExtension):
-	match type:
-		1: return grey_cooldown;
-		2: return green_cooldown;
-		3: return red_cooldown;
-		4: return yellow_cooldown;
-		5: match extension:
-			3: return blue_laser_cooldown;
-			1: return blue_cooldown;
-	pass
+	
+	return getProperty(type,extension,"cooldown");
 
 static func getDamage(type:TurretColor,extension:TurretExtension):
-	match type:
-		1: return grey_damage;
-		2: return green_damage;
-		3: return red_damage;
-		4: return yellow_damage;
-		5: match extension:
-			3: return blue_laser_damage;
-			1: return blue_damage;
-	pass
+	return getProperty(type,extension,"damage");
+
 
 static func getMissileSpeed(type:TurretColor,extension:TurretExtension):
-	match type:
-		1: return grey_missile_speed;
-		2: return green_missile_speed;
-		3: return red_missile_speed;
-		4: return yellow_missile_speed;
-		5: match extension:
-			3: return blue_laser_missile_speed;
-			1: return blue_missile_speed;
-	pass
+	return getProperty(type,extension,"missile_speed");
+
 static func getOneshotType(type:TurretColor,extension:TurretExtension):
-	match type:
-		1: return grey_penetrations;
-		2: return green_penetrations;
-		3: return red_penetrations;
-		4: return yellow_penetrations;
-		5: match extension:
-			3: return blue_laser_penetrations;
-			1: return blue_penetrations;
-	pass;
+	return getProperty(type,extension,"penetrations");
+
 static func getRange(type:TurretColor,extension:TurretExtension):
-	match type:
-		1: return grey_range;
-		2: return green_range;
-		3: return red_range;
-		4: return yellow_range;
-		5: match extension:
-			3: return blue_laser_range;
-			1: return blue_range;
-	pass
+	return getProperty(type,extension,"range")
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass

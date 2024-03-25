@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://dhqh1n7m1dlpt"]
+[gd_scene load_steps=7 format=3 uid="uid://37tlxcpt8qhm"]
 
 [ext_resource type="Script" path="res://TurretScripts/Projectiles/Projectile.gd" id="1_mhlsq"]
 [ext_resource type="Texture2D" uid="uid://raoax8o4vipw" path="res://Assets/Turrets/Projectiles/BLUE_projectile.png" id="2_84on6"]
