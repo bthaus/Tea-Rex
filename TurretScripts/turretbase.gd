@@ -9,10 +9,20 @@ class_name Turret
 
 var shooter;
 var projectile;
-var cooldown;
-var damage;
+
 var onCooldown=false;
 var direction:Vector2;
+
+
+var speed;
+var cooldown;
+var damage;
+
+var speedfactor=1;
+var damagefactor=1;
+var cooldownfactor=1;
+
+
 
 static func create(color:Stats.TurretColor, lvl:int,type:String="DEFAULT")->Turret:
 	var turret=load("res://TurretScripts/turretbase.tscn").instantiate() as Turret;
@@ -44,13 +54,17 @@ func setUpTower():
 	$Barrel/second.texture=barreltext;
 	$Barrel/third.texture=barreltext;
 	
+
+	cooldown=Stats.getCooldown(type,extension);
+	damage=Stats.getDamage(type,extension);
+	speed=Stats.getCooldown(type,extension);
+	
 	if type==Stats.TurretColor.RED:
-		projectile=Projectile.create(type,extension);
+		projectile=Projectile.create(type,damage*damagefactor,speed*speedfactor,extension);
 		projectile.z_index=-1;
 		add_child(projectile);
-	cooldown=Stats.getCooldown(type);
-	damage=Stats.getDamage(type);
-	$EnemyDetector.setRange(Stats.getRange(type))
+		
+	$EnemyDetector.setRange(Stats.getRange(type,extension))
 	pass;
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -82,22 +96,23 @@ func _process(delta):
 
 func shoot(target):
 	
-	var shot=Projectile.create(type,extension);
+	var shot=Projectile.create(type,damage*damagefactor,speed*speedfactor,extension);
 	add_child(shot);
 	shot.global_position=$Barrel/BulletPosition.global_position;
-	shot.shoot(target,damage);
+	shot.shoot(target);
 	
 	if stacks>1:
-		var sshot=Projectile.create(type,extension);
+		var sshot=Projectile.create(type,damage*damagefactor,speed*speedfactor,extension);
 		add_child(sshot);
 		sshot.global_position=$Barrel/second/BulletPosition.global_position;
-		sshot.shoot(target,damage);
+		sshot.shoot(target);
 	if stacks>2:
-		var tshot=Projectile.create(type,extension);
+		var tshot=Projectile.create(type,damage*damagefactor,speed*speedfactor,extension);
 		add_child(tshot);
 		tshot.global_position=$Barrel/third/BulletPosition.global_position;
-		tshot.shoot(target,damage);
-	$Timer.start(cooldown);
+		tshot.shoot(target);
+		
+	$Timer.start(cooldown*cooldownfactor);
 	onCooldown=true;
 	pass;
 func inRange():

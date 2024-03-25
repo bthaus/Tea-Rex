@@ -6,7 +6,7 @@ var direction:Vector2;
 var type;
 var ext;
 var oneshot:bool;
-static func create(type:Stats.TurretColor, extension:Stats.TurretExtension=Stats.TurretExtension.DEFAULT)-> Projectile:
+static func create(type:Stats.TurretColor, damage,speed,extension:Stats.TurretExtension=Stats.TurretExtension.DEFAULT)-> Projectile:
 	var temp=load("res://TurretScripts/Projectiles/Base_projectile.tscn").instantiate() as Projectile;
 	temp.type=type;
 	temp.ext=extension;
@@ -20,13 +20,11 @@ func setup():
 	$Sprite2D.texture=load("res://Assets/Turrets/Projectiles/"+Stats.getStringFromEnum(type)+Stats.getStringFromEnumExtension(ext)+"_projectile.png");
 	$shot.stream=load("res://Sounds/Soundeffects/"+Stats.getStringFromEnum(type)+Stats.getStringFromEnumExtension(ext)+"_shot.wav")
 	$hit.stream=load("res://Sounds/Soundeffects/"+Stats.getStringFromEnum(type)+Stats.getStringFromEnumExtension(ext)+"_hit.wav")
-	oneshot=Stats.getOneshotType(type);
-	damage=Stats.getDamage(type);
+	oneshot=Stats.getOneshotType(type,ext);
+	damage=Stats.getDamage(type,ext);
 	pass;
-func shoot(target,damage):
+func shoot(target):
 	$shot.play();
-	
-	self.damage=damage;
 	
 	direction=(target.global_position-self.global_position).normalized();
 	if type==Stats.TurretColor.BLUE:
@@ -39,7 +37,7 @@ func shoot(target,damage):
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if shot:
-		translate(direction*delta*Stats.getMissileSpeed(type));
+		translate(direction*delta*Stats.getMissileSpeed(type,ext));
 	pass
 
 func playHitSound():

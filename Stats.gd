@@ -54,7 +54,7 @@ static func getStringFromEnum(type:TurretColor):
 static func getStringFromEnumExtension(type:TurretExtension):
 	return ""
 	
-static func getCooldown(type:TurretColor):
+static func getCooldown(type:TurretColor,extension:TurretExtension):
 	match type:
 		1: return grey_cooldown;
 		2: return green_cooldown;
@@ -63,7 +63,7 @@ static func getCooldown(type:TurretColor):
 		5: return blue_cooldown;
 	pass
 
-static func getDamage(type:TurretColor):
+static func getDamage(type:TurretColor,extension:TurretExtension):
 	match type:
 		1: return grey_damage;
 		2: return green_damage;
@@ -72,7 +72,7 @@ static func getDamage(type:TurretColor):
 		5: return blue_damage;
 	pass
 
-static func getMissileSpeed(type:TurretColor):
+static func getMissileSpeed(type:TurretColor,extension:TurretExtension):
 	match type:
 		1: return green_missile_speed;
 		2: return green_missile_speed;
@@ -80,7 +80,7 @@ static func getMissileSpeed(type:TurretColor):
 		4: return yellow_missile_speed;
 		5: return blue_missile_speed;
 	pass
-static func getOneshotType(type:TurretColor):
+static func getOneshotType(type:TurretColor,extension:TurretExtension):
 	match type:
 		1: return true;
 		2: return true;
@@ -88,7 +88,7 @@ static func getOneshotType(type:TurretColor):
 		4: return true;
 		5: return true;
 	pass;
-static func getRange(type:TurretColor):
+static func getRange(type:TurretColor,extension:TurretExtension):
 	match type:
 		1: return grey_range;
 		2: return green_range;
