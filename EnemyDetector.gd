@@ -27,16 +27,18 @@ func getFirstEnemy():
 		return null;
 	return enemiesInRange[0];
 func _on_area_2d_area_entered(area):
-	if(area.get_parent().name!="Monster"):
-		return;
-	enemiesInRange.push_back(area.get_parent());
+	
+	if(area.get_parent() is Monster):
+		enemiesInRange.push_back(area.get_parent());
+	
 	pass # Replace with function body.
 
 
 func _on_area_2d_area_exited(area):
-	if(area.get_parent().name!="Monster"):
-		return;
-	var index=enemiesInRange.find(area.get_parent());
-	enemiesInRange.remove_at(index);
+	
+	if(area.get_parent() is Monster):
+		var index=enemiesInRange.find(area.get_parent());
+		enemiesInRange.remove_at(index);
+	
 	
 	pass # Replace with function body.

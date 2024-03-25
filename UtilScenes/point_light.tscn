@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://cngb3j8spoy3q"]
+
+[ext_resource type="Texture2D" uid="uid://b0vjaywamx3yp" path="res://Assets/Lights/spotlight.png" id="1_eo2um"]
+
+[node name="PointLight2D" type="PointLight2D"]
+color = Color(0, 1, 1, 1)
+texture = ExtResource("1_eo2um")

@@ -1,8 +1,13 @@
-Sprite2D
-AudioStreamPlayer2D
-AudioListener2D
+PointLight2D
 CollisionShape2D
 Area2D
-Node2D
+AnimationPlayer
+AnimatedSprite2D
+Label
+CanvasModulate
+Sprite2D
 Timer
+AudioStreamPlayer2D
+AudioListener2D
+Node2D
 TileMap
