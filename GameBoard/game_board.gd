@@ -1,7 +1,16 @@
 extends Node2D
 
 	
-var selected_block = Block.new()
+var color = Stats.TurretColor.BLUE
+var selected_block = Block.new(
+	[
+		Block.Piece.new(Vector2(-1,0), color, 1),
+		Block.Piece.new(Vector2(0,0), color, 1),
+		Block.Piece.new(Vector2(1,0), color, 1),
+		Block.Piece.new(Vector2(1,1), color, 1),
+	]
+)
+
 @onready var block_handler = BlockHandler.new($Board)
 
 const SELECTION_LAYER = 1
@@ -14,15 +23,9 @@ const RED_PIECE_TILE_ID = 3
 
 func _ready():
 	$Board.tile_set.tile_size = Vector2(Stats.block_size, Stats.block_size)
-	var color = Stats.TurretColor.BLUE
-	selected_block.pieces = [
-		Block.Piece.new(Vector2(-1,0), color, 1),
-		Block.Piece.new(Vector2(0,0), color, 1),
-		Block.Piece.new(Vector2(1,0), color, 1),
-		Block.Piece.new(Vector2(1,1), color, 1),
-		]
-	var block = Block.new()
-	block.pieces = [Block.Piece.new(Vector2(0,0), color, 1)]
+	
+	# draw a test block
+	var block = Block.new([Block.Piece.new(Vector2(0,0), color, 1)]) 
 	block_handler.draw_block(block, Vector2(6,6), RED_PIECE_TILE_ID, BLOCK_LAYER)
 
 	

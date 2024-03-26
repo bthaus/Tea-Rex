@@ -3,6 +3,8 @@ extends Node
 
 class_name Block
 var pieces: Array
+func _init(pieces: Array):
+	self.pieces = pieces
 
 class Piece:
 	var position: Vector2

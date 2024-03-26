@@ -17,7 +17,7 @@ func remove_block_from_board(block: Block, position: Vector2, layer: int):
 func get_block_from_board(position: Vector2, layer: int, normalize: bool) -> Block:
 	var data = board.get_cell_tile_data(layer, position)
 	if data == null: #No tile available
-		return Block.new()
+		return Block.new([])
 		
 	var color = data.get_custom_data("color")
 	var visited = []
@@ -43,9 +43,7 @@ func get_block_from_board(position: Vector2, layer: int, normalize: bool) -> Blo
 			pieces[i].position.x -= position.x
 			pieces[i].position.y -= position.y
 			
-	var block = Block.new()
-	block.pieces = pieces
-	return block
+	return Block.new(pieces)
 
 #Rotates all the pieces of a block from the origin point (0,0)
 func rotate_block(block: Block):
