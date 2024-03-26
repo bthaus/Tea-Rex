@@ -5,7 +5,4 @@ res://monster.tscn
 res://TurretScripts/Projectiles/Base_projectile.tscn
 res://UtilScenes/cone_flash.tscn
 res://TurretScripts/Projectiles/Explosion.tscn
-res://TurretScripts/turretbase.gd
-res://Stats.gd
-res://TurretScripts/Projectiles/Projectile.gd
 res://UtilScenes/point_light.tscn

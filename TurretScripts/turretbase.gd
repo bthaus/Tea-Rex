@@ -46,18 +46,20 @@ func _ready():
 
 
 func setUpTower():
+	if extension==0:
+		extension=Stats.TurretExtension.DEFAULT;
 	$Base.texture=load("res://Assets/Turrets/Bases/"+Stats.getStringFromEnum(type)+Stats.getStringFromEnumExtension(extension)+"_base.png")
 	var barreltext=load("res://Assets/Turrets/Barrels/"+Stats.getStringFromEnum(type)+Stats.getStringFromEnumExtension(extension)+"_barrel.png")
 	$Barrel.texture=barreltext;
 	$Barrel/second.texture=barreltext;
 	$Barrel/third.texture=barreltext;
 	
-
+	
 	cooldown=Stats.getCooldown(type,extension);
 	damage=Stats.getDamage(type,extension);
 	speed=Stats.getCooldown(type,extension);
 	
-	if type==Stats.TurretColor.RED:
+	if type==Stats.TurretColor.RED&&extension==Stats.TurretExtension.DEFAULT:
 		projectile=Projectile.create(type,damage*damagefactor,speed*speedfactor,extension);
 		projectile.z_index=-1;
 		add_child(projectile);
@@ -75,10 +77,10 @@ func _process(delta):
 		direction=(target.global_position-self.global_position).normalized();
 		$Barrel.rotation=direction.angle() + PI / 2.0;
 		
-		if type==Stats.TurretColor.RED:
+		if type==Stats.TurretColor.RED&&extension==Stats.TurretExtension.DEFAULT:
 			projectile.rotate(360*2*delta);
 		if !onCooldown:
-			if type==Stats.TurretColor.RED:
+			if type==Stats.TurretColor.RED&&extension==Stats.TurretExtension.DEFAULT:
 				for e in $EnemyDetector.enemiesInRange:
 					e.hit(type,self.damage)
 					projectile.playHitSound();		

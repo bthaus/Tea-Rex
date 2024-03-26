@@ -46,19 +46,39 @@ func playHitSound():
 	if !$hit.playing:
 		$hit.play();
 	pass;
+	
+
 func _on_area_2d_area_entered(area):
-	print(oneshot)
+	var enemy=area.get_parent();
 	playHitSound();
-	if(area.get_parent() is Monster):
+	if(enemy is Monster):
+		
 		oneshot=oneshot-1;
-		area.get_parent().hit(type,self.damage);
+		applySpecials(enemy)
+		print(damage)
+		enemy.hit(type,damage);
+		
+		if oneshot<=0&&oneshot>-100000:
+			queue_free();
+			
+	pass # Replace with function body.
+	
+	
+func applySpecials(enemy:Monster):
+		if type==Stats.TurretColor.RED&&ext==Stats.TurretExtension.REDLASER:
+			applyRedLaser(enemy)
 		if type==Stats.TurretColor.GREEN:
 			Explosion.create(type,damage,global_position,get_tree().get_root(),Stats.green_explosion_range);
 		
-		if oneshot<=0&&oneshot>-100000:
-			print("im freed")
-			queue_free();
-	
-	
-	
-	pass # Replace with function body.
+		pass;
+		
+func applyRedLaser(enemy:Monster):
+	add_child(load("res://UtilScenes/point_light.tscn").instantiate())
+	var temp=false;
+	for a in enemy.get_children():
+		if a is DamageStacker:
+			temp=true;
+			damage=damage+a.hit()
+	if !temp:
+		enemy.add_child(DamageStacker.new());
+	pass
