@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=3 uid="uid://ddfvtel0xtm0r"]
+
+[ext_resource type="Script" path="res://Persistency/GameSaver.gd" id="1_si3yb"]
+[ext_resource type="PackedScene" uid="uid://c8n0am7jadxj7" path="res://GameBoard/game_board.tscn" id="2_iqk2c"]
+[ext_resource type="Script" path="res://Game/GameState.gd" id="3_ilsyg"]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_si3yb")
+
+[node name="GameBoard" parent="." instance=ExtResource("2_iqk2c")]
+
+[node name="State" type="Node2D" parent="." node_paths=PackedStringArray("gameBoard")]
+script = ExtResource("3_ilsyg")
+gameBoard = NodePath("../GameBoard")
