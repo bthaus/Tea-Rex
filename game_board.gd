@@ -13,22 +13,20 @@ const RED_PIECE_TILE_ID = 3
 
 func _ready():
 	$Board.tile_set.tile_size = Vector2(Stats.block_size, Stats.block_size)
-	
+	var color = Stats.TurretColor.BLUE
 	selected_block.pieces = [
-		Block.Piece.new(Vector2(-1,0), Stats.TurretColor.BLUE, 1),
-		Block.Piece.new(Vector2(0,0), Stats.TurretColor.BLUE, 1),
-		Block.Piece.new(Vector2(1,0), Stats.TurretColor.BLUE, 1),
-		Block.Piece.new(Vector2(1,1), Stats.TurretColor.BLUE, 1),
+		Block.Piece.new(Vector2(-1,0), color, 1),
+		Block.Piece.new(Vector2(0,0), color, 1),
+		Block.Piece.new(Vector2(1,0), color, 1),
+		Block.Piece.new(Vector2(1,1), color, 1),
 		]
+	var block = Block.new()
+	block.pieces = [Block.Piece.new(Vector2(0,0), color, 1)]
+	_draw_block(block, Vector2(6,6), RED_PIECE_TILE_ID, BLOCK_LAYER)
 	
 func _process(_delta):
 	$Board.clear_layer(SELECTION_LAYER)
 	var board_pos = $Board.local_to_map(get_local_mouse_position())
-	
-	
-	var b = Block.new()
-	var f = Block.Piece.new(Vector2(1,2), Stats.TurretColor.BLUE, 2)
-	b.pieces = [f]
 	
 	#Draw preview
 	if selected_block != null:
@@ -47,8 +45,8 @@ func _input(event):
 			_draw_block(selected_block, board_pos, BLUE_PIECE_TILE_ID, BLOCK_LAYER)
 	
 	if event.is_action_pressed("right_click"):
-		#selected_block = _rotate_block(selected_block)
-		selected_block = null
+		selected_block = _rotate_block(selected_block)
+		#selected_block = null
 
 #Draws a normalized block at a given position. To delete a block, set id to -1
 func _draw_block(block: Block, position: Vector2, id: int, layer: int):
@@ -103,10 +101,32 @@ func _rotate_block(block: Block):
 	
 #Again, checks based upon (0,0) position of block
 func _can_place_block(block: Block, position: Vector2) -> bool:
+	if block.pieces.size() == 0: return true
+
+	#Get the level of the underlying piece on the board, if available (loop will take care if its the wrong color)
+	#If the level is -1 it means that there is an empty cell
+	var first_piece_data = $Board.get_cell_tile_data(BLOCK_LAYER, Vector2(block.pieces[0].position.x + position.x, block.pieces[0].position.y + position.y))
+	var level = -1 if first_piece_data == null else first_piece_data.get_custom_data("level")
+
 	for piece in block.pieces:
 		var board_pos = Vector2(piece.position.x + position.x, piece.position.y + position.y)
-		var cell_data = $Board.get_cell_tile_data(BLOCK_LAYER, board_pos)
-		if $Board.get_cell_source_id(BLOCK_LAYER, board_pos) != -1:
+		var board_data = $Board.get_cell_tile_data(BLOCK_LAYER, board_pos)
+		
+		#Check underlying piece
+		if board_data != null: #Tile exists at this position
+			if board_data.get_custom_data("color").to_upper() != Stats.getStringFromEnum(piece.color): #Wrong color
+				return false
+			if level == -1 or level != board_data.get_custom_data("level"): #We expect an empty cell but there wasnt one OR the level doesnt match
+				return false
+		elif level != -1: #We expect a non-empty cell
 			return false
+		
+		#Check near mismatching colors
+		for row in range(-1,2):
+			for col in range(-1,2):
+				var pos = Vector2(board_pos.x+col, board_pos.y+row)
+				var cell_data = $Board.get_cell_tile_data(BLOCK_LAYER, pos)
+				if cell_data != null and cell_data.get_custom_data("color").to_upper() != Stats.getStringFromEnum(piece.color):
+					return false
+				
 	return true
-	
