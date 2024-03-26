@@ -52,27 +52,28 @@ func _on_area_2d_area_entered(area):
 	var enemy=area.get_parent();
 	playHitSound();
 	if(enemy is Monster):
+		
 		oneshot=oneshot-1;
 		applySpecials(enemy)
 		print(damage)
 		enemy.hit(type,damage);
-		if type==Stats.TurretColor.GREEN:
-			Explosion.create(type,damage,global_position,get_tree().get_root(),Stats.green_explosion_range);
 		
 		if oneshot<=0&&oneshot>-100000:
 			queue_free();
-	
-	
-	
+			
 	pass # Replace with function body.
 	
 	
 func applySpecials(enemy:Monster):
 		if type==Stats.TurretColor.RED&&ext==Stats.TurretExtension.REDLASER:
 			applyRedLaser(enemy)
+		if type==Stats.TurretColor.GREEN:
+			Explosion.create(type,damage,global_position,get_tree().get_root(),Stats.green_explosion_range);
+		
 		pass;
 		
 func applyRedLaser(enemy:Monster):
+	add_child(load("res://UtilScenes/point_light.tscn").instantiate())
 	var temp=false;
 	for a in enemy.get_children():
 		if a is DamageStacker:
