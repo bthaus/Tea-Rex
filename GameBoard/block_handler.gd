@@ -5,13 +5,23 @@ var board: TileMap
 func _init(board: TileMap):
 	self.board = board
 
+#Returns the tile id for a piece. Example: Blue tower with level 12 -> Blue has enum value 5 -> id = 512
+func get_tile_id_from_block_piece(piece: Block.Piece) -> int:
+	return piece.color * 100 + piece.level
+
+#Draws a normalized block at a given position. Gets tile from color + level
+func draw_block(block: Block, position: Vector2, layer: int):
+	for piece in block.pieces:
+		var id = get_tile_id_from_block_piece(piece)
+		board.set_cell(layer, Vector2(piece.position.x + position.x, piece.position.y + position.y), id, Vector2(0,0))
+
 #Draws a normalized block at a given position
-func draw_block(block: Block, position: Vector2, id: int, layer: int):
+func draw_block_with_id(block: Block, position: Vector2, id: int, layer: int):
 	for piece in block.pieces:
 		board.set_cell(layer, Vector2(piece.position.x + position.x, piece.position.y + position.y), id, Vector2(0,0))
 
 func remove_block_from_board(block: Block, position: Vector2, layer: int):
-	draw_block(block, position, -1, layer) #Id -1 removes the tile
+	draw_block_with_id(block, position, -1, layer) #Id -1 removes the tile
 
 #If normalized, the coordinates of each piece will be based on position (=> (0,0))
 func get_block_from_board(position: Vector2, layer: int, normalize: bool) -> Block:
@@ -47,16 +57,18 @@ func get_block_from_board(position: Vector2, layer: int, normalize: bool) -> Blo
 
 #Rotates all the pieces of a block from the origin point (0,0)
 func rotate_block(block: Block):
-	for i in block.pieces.size():
-		var piece = block.pieces[i]
+	for piece in block.pieces:
 		piece.position.y *= -1 #Vector has positive side upwards, exactly opposite of tilemap
 		piece.position = piece.position.rotated(deg_to_rad(-90)) #This method rotates counter-clockwise, so we need to add the sign
 		piece.position.y *= -1 #Convert back
 		piece.position.x = round(piece.position.x) #Dont ask me, i hate it
 		piece.position.y = round(piece.position.y)
-		block.pieces[i] = piece
-	return block
-	
+
+
+func set_block_level(block: Block, level: int):
+	for piece in block.pieces:
+		piece.level = level
+
 #Again, checks based upon (0,0) position of block
 func can_place_block(block: Block, layer: int, position: Vector2) -> bool:
 	if block.pieces.size() == 0: return true
@@ -88,3 +100,4 @@ func can_place_block(block: Block, layer: int, position: Vector2) -> bool:
 					return false
 				
 	return true
+	
