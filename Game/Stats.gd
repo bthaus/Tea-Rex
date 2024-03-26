@@ -56,11 +56,15 @@ static var blue_laser_penetrations=base_penetrations*5;
 static var green_explosion_range=0.5;
 static var red_laser_damage_stack=0.05;
 
+static var enemyDamage=10;
 
 static var enemyHP=500;
+static var playerHP=100;
 
 enum TurretColor {GREY=1, GREEN=2, RED=3, YELLOW=4,BLUE=5};
 enum TurretExtension {DEFAULT=1,REDLASER=2, BLUELASER=3, YELLOWCATAPULT=4, GREENPOISON=5};
+enum GamePhase {BATTLE=1,BUILD=2};
+enum SpecialCards {HEAL=1,FIREBALL=2,UPHEALTH=3,CRYOBALL=4,MOVE=5}
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -98,7 +102,14 @@ static func getStringFromEnumExtensionLowercase(type:TurretExtension):
 		3: return "laser"
 	
 	return "";
-
+static func getColorFromLowercaseString(str:String):
+	match str:
+		"red":return TurretColor.RED;
+		"blue":return TurretColor.BLUE;
+		"green":return TurretColor.GREEN;
+		"yellow":return TurretColor.YELLOW;
+		"grey":return TurretColor.GREY;
+	pass;
 static func getProperty(type:TurretColor,extension:TurretExtension,property:String):
 	var color=getStringFromEnumLowercase(type);
 	var ext=getStringFromEnumExtensionLowercase(extension);
