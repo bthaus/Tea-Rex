@@ -13,7 +13,7 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-			
+
 	pass
 
 	
@@ -31,7 +31,13 @@ static func restoreGame(gameState:GameState):
 	
 static func saveGame(gameState:GameState):
 
-	
+		
+	save(JSON.stringify(gameState.unlockedColors),"unlockedColors",gameState.account);
+	save(JSON.stringify(gameState.unlockedExtensions),"unlockedExtensions",gameState.account);
+	save(JSON.stringify(gameState.unlockedSpecialCards),"unlockedSpecialCards",gameState.account);
+	save(JSON.stringify(gameState.phase),"phase",gameState.account);
+	save(JSON.stringify(gameState.HP),"hp",gameState.account);
+	save(JSON.stringify(gameState.handCards),"handCards",gameState.account);
 	var map=gameState.gameBoard.get_child(0) as TileMap
 	
 	var cells=map.get_used_cells(0);
@@ -47,13 +53,7 @@ static func saveGame(gameState:GameState):
 			extension=Stats.TurretExtension.DEFAULT;
 		var info=Info.new(color,level,extension,cell)
 		mapAsArray.append(info.serialise())
-			
-		save(JSON.stringify(gameState.unlockedColors),"unlockedColors",gameState.account);
-		save(JSON.stringify(gameState.unlockedExtensions),"unlockedExtensions",gameState.account);
-		save(JSON.stringify(gameState.unlockedSpecialCards),"unlockedSpecialCards",gameState.account);
-		save(JSON.stringify(gameState.phase),"phase",gameState.account);
-		save(JSON.stringify(gameState.HP),"hp",gameState.account);
-		save(JSON.stringify(gameState.handCards),"handCards",gameState.account);
+	save(JSON.stringify(mapAsArray),"map",gameState.account)
 	
 	pass;	
 static func loadGameMap(gameState):
