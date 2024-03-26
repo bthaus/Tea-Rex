@@ -1,8 +1,8 @@
 extends Node
 class_name Stats;
 static var block_size=64;
-static var board_width=32;
-static var board_height=32;
+static var board_width=16;
+static var board_height=16;
 
 static var base_range=10;
 static var green_range=2*base_range;

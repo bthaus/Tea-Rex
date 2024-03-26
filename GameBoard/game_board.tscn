@@ -78,5 +78,5 @@ layer_1/name = "block_layer"
 layer_1/tile_data = PackedInt32Array()
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(1442, 1022)
-zoom = Vector2(0.3, 0.3)
+position = Vector2(736, 503)
+zoom = Vector2(0.5, 0.5)

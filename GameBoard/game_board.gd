@@ -27,7 +27,8 @@ func _ready():
 	var block = Block.new([Block.Piece.new(Vector2(0,0), Stats.TurretColor.RED, 2)]) 
 	block_handler.draw_block(block, Vector2(6,6), BLOCK_LAYER)
 	$Board.set_cell(BLOCK_LAYER, Vector2(10,10), WALL_TILE_ID, Vector2(0,0))
-	_draw_wall()
+	_draw_walls()
+	_spawn_turrets()
 
 
 func _process(_delta):
@@ -54,12 +55,13 @@ func _input(event):
 				block_handler.set_block_level(selected_block, level + 1)
 	
 			block_handler.draw_block(selected_block, board_pos, BLOCK_LAYER)
+			_spawn_turrets()
 	
 	if event.is_action_pressed("right_click"):
 		block_handler.rotate_block(selected_block)
-		#selected_block = null	
+		#selected_block = null
 
-func _draw_wall():
+func _draw_walls():
 	for row in Stats.board_height:
 		$Board.set_cell(BLOCK_LAYER, Vector2(0,row), WALL_TILE_ID, Vector2(0,0))
 		$Board.set_cell(BLOCK_LAYER, Vector2(Stats.board_width-1,row), WALL_TILE_ID, Vector2(0,0))
@@ -67,3 +69,22 @@ func _draw_wall():
 	for col in Stats.board_width:
 		$Board.set_cell(BLOCK_LAYER, Vector2(col,0), WALL_TILE_ID, Vector2(0,0))
 		$Board.set_cell(BLOCK_LAYER, Vector2(col,Stats.board_height-1), WALL_TILE_ID, Vector2(0,0))
+		
+func _spawn_turrets():
+	_remove_turrets()
+	for row in range(1,Stats.board_height-1):
+		for col in range(1,Stats.board_width-1):
+			var data = $Board.get_cell_tile_data(BLOCK_LAYER, Vector2(col, row))
+			if data != null:
+				var color = data.get_custom_data("color")
+				if color.to_upper() == "WALL":
+					continue
+				var level = data.get_custom_data("level")
+				var turret = Turret.create(Stats.TurretColor.get(color.to_upper()), level)
+				turret.position = $Board.map_to_local(Vector2(col, row))
+				add_child(turret)
+				
+func _remove_turrets():
+	for child in get_children():
+		if child is Turret:
+			child.queue_free()
