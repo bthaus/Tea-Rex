@@ -6,28 +6,20 @@ static var extensionimplemented=false;
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	
+
 	pass # Replace with function body.
 
-func _run():
-	
-	pass;
 	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	
-	if Input.is_action_just_released("save"):
-		print("saving")
-		saveGame($State)
-	if Input.is_action_just_released("load"):
-		var map=loadfile("map",$State.account);
-		loadGameMap($State)
+			
 	pass
 
 	
 static func restoreGame(gameState:GameState):	
 	loadGameMap(gameState);
+
 	gameState.unlockedColors=JSON.parse_string(loadfile("unlockedColors",gameState.account))
 	gameState.unlockedExtensions=JSON.parse_string(loadfile("unlockedExtensions",gameState.account))
 	gameState.unlockedSpecialCards=JSON.parse_string(loadfile("unlockedSpecialCards",gameState.account))
