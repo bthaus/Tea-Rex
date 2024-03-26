@@ -80,6 +80,8 @@ func can_place_block(block: Block, layer: int, position: Vector2) -> bool:
 
 	for piece in block.pieces:
 		var board_pos = Vector2(piece.position.x + position.x, piece.position.y + position.y)
+		if board_pos.x <= 0 or board_pos.x >= Stats.board_width-1 or board_pos.y <= 0 or board_pos.y >= Stats.board_height-1: #Piece is out of bounds (walls)
+			return false
 		var board_data = board.get_cell_tile_data(layer, board_pos)
 		
 		#Check underlying piece
@@ -96,8 +98,10 @@ func can_place_block(block: Block, layer: int, position: Vector2) -> bool:
 			for col in range(-1,2):
 				var pos = Vector2(board_pos.x+col, board_pos.y+row)
 				var cell_data = board.get_cell_tile_data(layer, pos)
-				if cell_data != null and cell_data.get_custom_data("color").to_upper() != Stats.getStringFromEnum(piece.color):
-					return false
+				if cell_data != null:
+					var color = cell_data.get_custom_data("color").to_upper()
+					if color != Stats.getStringFromEnum(piece.color) and color != "WALL": #Walls are an exception
+						return false
 				
 	return true
 	
