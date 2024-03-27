@@ -55,7 +55,6 @@ func _on_area_2d_area_entered(area):
 		
 		oneshot=oneshot-1;
 		applySpecials(enemy)
-		print(damage)
 		enemy.hit(type,damage);
 		
 		if oneshot<=0&&oneshot>-100000:
