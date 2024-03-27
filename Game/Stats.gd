@@ -63,10 +63,13 @@ static var enemyDamage=10;
 static var enemyHP=500;
 static var playerHP=100;
 
+static var FIREBALL_damage=500;
+static var FIREBALL_range=1;
+
 enum TurretColor {GREY=1, GREEN=2, RED=3, YELLOW=4,BLUE=5};
 enum TurretExtension {DEFAULT=1,REDLASER=2, BLUELASER=3, YELLOWCATAPULT=4, GREENPOISON=5};
 enum GamePhase {BATTLE=1,BUILD=2};
-enum SpecialCards {HEAL=1,FIREBALL=2,UPHEALTH=3,CRYOBALL=4,MOVE=5}
+enum SpecialCards {HEAL=1,FIREBALL=2,UPHEALTH=3,CRYOBALL=4,MOVE=5, BULLDOZER=6, }
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -89,6 +92,14 @@ static func getStringFromEnumLowercase(type:TurretColor):
 		4: return "yellow";
 		5: return "blue"
 	pass
+static func getStringFromSpecialCardEnum(name:SpecialCards):
+	match name:
+		1: return "HEAL";
+		2: return "FIREBALL";
+		3: return "UPHEALTH";
+		4: return "CRYOBALL";
+		5: return "MOVE"
+	pass;
 static func getStringFromEnumExtension(type:TurretExtension):
 	
 	match type:
@@ -121,7 +132,12 @@ static func getProperty(type:TurretColor,extension:TurretExtension,property:Stri
 	else:
 		temp = Stats.new().get(color+"_"+ext+"_"+property);
 	return temp;
-
+static func getCardDamage(type:SpecialCards):
+	return Stats.new().get(getStringFromSpecialCardEnum(type)+"_damage")
+	pass;
+static func getCardRange(type:SpecialCards):
+	return Stats.new().get(getStringFromSpecialCardEnum(type)+"_range")
+	pass;
 static func getCooldown(type:TurretColor,extension:TurretExtension):
 	
 	return getProperty(type,extension,"cooldown");
