@@ -22,6 +22,7 @@ func _ready():
 
 	
 	var text=load("res://Assets/SpecialCards/"+Stats.getStringFromSpecialCardEnum(cardName)+"_preview.png")
+	
 	if text!=null:
 		$Preview.texture=text
 	
@@ -31,6 +32,7 @@ func _ready():
 	maxroundsHeld=Stats.getMaxRoundsHeld(cardName)
 	instant=Stats.getCardInstant(cardName)
 	phase=Stats.getCardPhase(cardName)
+	
 	if range!=null:
 		$Effect.apply_scale(Vector2(range,range));
 		$Effect/EnemyDetector.apply_scale(Vector2(range,range))
@@ -58,31 +60,30 @@ func select(done:Callable):
 	pass;
 
 func cast():
-	call("cast"+Stats.getStringFromSpecialCardEnum(cardName))
+	if call("cast"+Stats.getStringFromSpecialCardEnum(cardName)):
+		done.call(true)
 	$EffectSound.play();
-	done.call(true)
+	
 	pass;
 
-func castBULLDOZER():
-	var handler=gameState.gameBoard.block_handler;
-	var map=gameState.gameBoard.get_node("Board") as TileMap
-	var tile=map.local_to_map(get_global_mouse_position())
-	var block=handler.get_block_from_board(tile,0,true)
-	handler.remove_block_from_board(block,tile,0)
-	print("success?")
-	pass;	
+func castBULLDOZER()->bool:
+	gameState.gameBoard.start_bulldozer(done,damage,range);
+	return false;	
+func castMOVE()->bool:
+	gameState.gameBoard.start_move(done);
+	return false;	
 
 func castHEAL():
 	checkRoundMultiplicator()
 	damage=damage*roundsInHand*range;
 	gameState.changeHealth(damage);
-	pass;
+	return true;
 
 func castUPHEALTH():
 	checkRoundMultiplicator()
 	damage=damage*roundsInHand*range;
 	gameState.changeMaxHealth(damage);
-	pass;
+	return true;
 
 func castFIREBALL():
 	$Effect.visible=true;
@@ -90,7 +91,8 @@ func castFIREBALL():
 	$Effect.play(Stats.getStringFromSpecialCardEnum(cardName));
 	for e in $Effect/EnemyDetector.enemiesInRange:
 		e.hit(Stats.TurretColor.GREY,damage)
-	pass;	
+	return true;
+	
 func _input(event):
 	if !selected:
 		return;
@@ -101,9 +103,10 @@ func _input(event):
 		cast()
 	pass;
 
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if Input.is_action_just_pressed("right_click"):
+	if Input.is_action_just_pressed("interrupt"):
 		selected=false;
 		done.call(false)
 		$Preview.visible=false;
@@ -117,7 +120,7 @@ func _process(delta):
 	pass
 
 func testcall(returned):
-	
+	print(returned)
 	pass;
 func _on_effect_animation_finished():
 	$Effect.visible=false;

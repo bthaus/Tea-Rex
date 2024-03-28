@@ -84,11 +84,21 @@ static var UPHEALTH_instant=true;
 static var UPHEALTH_phase=GamePhase.BOTH
 
 static var BULLDOZER_phase=GamePhase.BUILD
+static var BULLDOZER_instant=true;
+#x axis
+static var BULLDOZER_damage=2;
+#y axis
+static var BULLDOZER_range=2;
+
+
+static var MOVE_phase=GamePhase.BUILD;
+static var MOVE_instant=true;
 
 enum TurretColor {GREY=1, GREEN=2, RED=3, YELLOW=4,BLUE=5};
 enum TurretExtension {DEFAULT=1,REDLASER=2, BLUELASER=3, YELLOWCATAPULT=4, GREENPOISON=5};
 enum GamePhase {BATTLE=1,BUILD=2,BOTH=3};
 enum SpecialCards {HEAL=1,FIREBALL=2,UPHEALTH=3,CRYOBALL=4,MOVE=5, BULLDOZER=6}
+enum BlockShape {}
 
 
 

@@ -30,7 +30,23 @@ func _ready():
 	_draw_walls()
 	_spawn_turrets()
 
-
+func start_bulldozer(done:Callable, sizeX:int,sizeY:int):
+	#bulldozerstuff
+	util.p("reached")
+	done.call(true);
+	pass;
+	
+func start_move(done:Callable):
+	#movestuff
+	util.p("reached")
+	done.call(true);
+	pass;
+	
+	
+func select_piece(shape:Stats.BlockShape,color:Stats.TurretColor,done:Callable,level:int,extension:Stats.TurretExtension=Stats.TurretExtension.DEFAULT):
+	
+	pass;
+	
 func _process(_delta):
 	$Board.clear_layer(SELECTION_LAYER)
 	var board_pos = $Board.local_to_map(get_global_mouse_position())
