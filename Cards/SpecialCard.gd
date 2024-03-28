@@ -2,6 +2,7 @@ extends Node2D
 class_name SpecialCard
 
 @export var cardName:Stats.SpecialCards;
+#subject to change
 @onready var gameState=get_node("/root/State") as GameState;
 var selected=false;
 var damage;
@@ -11,15 +12,18 @@ var instant=false;
 var roundsInHand=1;
 var roundReceived:int;
 var maxroundsHeld=1;
+var phase:Stats.GamePhase
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	util.p("gamestate for cards is still maldefined, please check once main scene is set up","Bodo","FutureFix")
 	$Preview.texture=load("res://Assets/SpecialCards/"+Stats.getStringFromSpecialCardEnum(cardName)+"_preview.png")
 	roundReceived=gameState.wave;
 	range=Stats.getCardRange(cardName);
 	damage=Stats.getCardDamage(cardName);
 	maxroundsHeld=Stats.getMaxRoundsHeld(cardName)
 	instant=Stats.getCardInstant(cardName)
+	phase=Stats.getCardPhase(cardName)
 	if range!=null:
 		$Effect.apply_scale(Vector2(range,range));
 		$Effect/EnemyDetector.apply_scale(Vector2(range,range))
@@ -34,6 +38,9 @@ static func create(cardname:Stats.SpecialCards)->SpecialCard:
 	return retval
 	
 func select(done:Callable):
+	if !isPhaseValid():
+		done.call(false)
+		return
 	self.done=done;
 	selected=true;
 	
@@ -110,6 +117,10 @@ func checkRoundMultiplicator():
 		if roundsInHand<=1:
 			roundsInHand=1;
 		pass;
+
+func isPhaseValid()->bool:
+	return gameState.phase==phase||phase==Stats.GamePhase.BOTH
+	
 	
 
 	

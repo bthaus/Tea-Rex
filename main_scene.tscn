@@ -62,4 +62,4 @@ position = Vector2(649, 167)
 position = Vector2(391, 164)
 
 [node name="SpecialCard" parent="." instance=ExtResource("5_5hydu")]
-cardName = 3
+cardName = 2

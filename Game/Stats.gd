@@ -67,21 +67,24 @@ static var playerMaxHP=200;
 
 static var FIREBALL_damage=500;
 static var FIREBALL_range=1;
+static var FIREBALL_phase=GamePhase.BATTLE
 
 #damage for simplicity of call, it heals you, doesnt damage you. range==multiplicator for each round held
 static var HEAL_damage=25;
 static var HEAL_range=2;
 static var HEAL_max_HeldRounds=5;
 static var HEAL_instant=true;
+static var HEAL_phase=GamePhase.BOTH
 #analog to heal
 static var UPHEALTH_damage=5;
 static var UPHEALTH_range=2;
 static var UPHEALTH_max_HeldRounds=5;
 static var UPHEALTH_instant=true;
+static var UPHEALTH_phase=GamePhase.BOTH
 
 enum TurretColor {GREY=1, GREEN=2, RED=3, YELLOW=4,BLUE=5};
 enum TurretExtension {DEFAULT=1,REDLASER=2, BLUELASER=3, YELLOWCATAPULT=4, GREENPOISON=5};
-enum GamePhase {BATTLE=1,BUILD=2};
+enum GamePhase {BATTLE=1,BUILD=2,BOTH=3};
 enum SpecialCards {HEAL=1,FIREBALL=2,UPHEALTH=3,CRYOBALL=4,MOVE=5, BULLDOZER=6}
 
 
@@ -158,6 +161,10 @@ static func getCardRange(type:SpecialCards):
 	
 static func getCardInstant(type:SpecialCards):
 	return Stats.new().get(getStringFromSpecialCardEnum(type)+"_instant")
+
+static func getCardPhase(type:SpecialCards):
+	return Stats.new().get(getStringFromSpecialCardEnum(type)+"_phase")
+
 	
 static func getCooldown(type:TurretColor,extension:TurretExtension):
 	
