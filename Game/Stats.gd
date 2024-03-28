@@ -73,6 +73,11 @@ static var HEAL_damage=25;
 static var HEAL_range=2;
 static var HEAL_max_HeldRounds=5;
 static var HEAL_instant=true;
+#analog to heal
+static var UPHEALTH_damage=5;
+static var UPHEALTH_range=2;
+static var UPHEALTH_max_HeldRounds=5;
+static var UPHEALTH_instant=true;
 
 enum TurretColor {GREY=1, GREEN=2, RED=3, YELLOW=4,BLUE=5};
 enum TurretExtension {DEFAULT=1,REDLASER=2, BLUELASER=3, YELLOWCATAPULT=4, GREENPOISON=5};

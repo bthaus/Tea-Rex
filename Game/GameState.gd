@@ -35,6 +35,12 @@ func changeHealth(amount:int):
 		player_died.emit()
 	util.p("debug hp: "+str(HP))
 	pass;
+	
+func changeMaxHealth(amount:int):
+	maxHP=maxHP+amount
+	
+	util.p("debug MAXhp: "+str(maxHP))
+	pass;
 
 
 # Called when the node enters the scene tree for the first time.

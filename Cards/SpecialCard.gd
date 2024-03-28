@@ -56,6 +56,12 @@ func castHEAL():
 	gameState.changeHealth(damage);
 	pass;
 
+func castUPHEALTH():
+	checkRoundMultiplicator()
+	damage=damage*roundsInHand*range;
+	gameState.changeMaxHealth(damage);
+	pass;
+
 func castFIREBALL():
 	$Effect.visible=true;
 	$Effect.global_position=get_global_mouse_position();
