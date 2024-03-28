@@ -3,7 +3,8 @@ class_name SpecialCard
 
 @export var cardName:Stats.SpecialCards;
 #subject to change
-@onready var gameState=get_node("/root/State") as GameState;
+@onready var gameState=get_parent() as GameState;
+
 var selected=false;
 var damage;
 var range;
@@ -16,8 +17,14 @@ var phase:Stats.GamePhase
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	
 	util.p("gamestate for cards is still maldefined, please check once main scene is set up","Bodo","FutureFix")
-	$Preview.texture=load("res://Assets/SpecialCards/"+Stats.getStringFromSpecialCardEnum(cardName)+"_preview.png")
+
+	
+	var text=load("res://Assets/SpecialCards/"+Stats.getStringFromSpecialCardEnum(cardName)+"_preview.png")
+	if text!=null:
+		$Preview.texture=text
+	
 	roundReceived=gameState.wave;
 	range=Stats.getCardRange(cardName);
 	damage=Stats.getCardDamage(cardName);
@@ -55,7 +62,15 @@ func cast():
 	$EffectSound.play();
 	done.call(true)
 	pass;
-	
+
+func castBULLDOZER():
+	var handler=gameState.gameBoard.block_handler;
+	var map=gameState.gameBoard.get_node("Board") as TileMap
+	var tile=map.local_to_map(get_global_mouse_position())
+	var block=handler.get_block_from_board(tile,0,true)
+	handler.remove_block_from_board(block,tile,0)
+	print("success?")
+	pass;	
 
 func castHEAL():
 	checkRoundMultiplicator()
@@ -119,7 +134,7 @@ func checkRoundMultiplicator():
 		pass;
 
 func isPhaseValid()->bool:
-	return gameState.phase==phase||phase==Stats.GamePhase.BOTH
+	return gameState.phase==phase||phase==Stats.GamePhase.BOTH||gameState.phase==Stats.GamePhase.BOTH
 	
 	
 

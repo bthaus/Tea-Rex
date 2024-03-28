@@ -68,6 +68,7 @@ static var playerMaxHP=200;
 static var FIREBALL_damage=500;
 static var FIREBALL_range=1;
 static var FIREBALL_phase=GamePhase.BATTLE
+static var FIREBALL_instant=false;
 
 #damage for simplicity of call, it heals you, doesnt damage you. range==multiplicator for each round held
 static var HEAL_damage=25;
@@ -81,6 +82,8 @@ static var UPHEALTH_range=2;
 static var UPHEALTH_max_HeldRounds=5;
 static var UPHEALTH_instant=true;
 static var UPHEALTH_phase=GamePhase.BOTH
+
+static var BULLDOZER_phase=GamePhase.BUILD
 
 enum TurretColor {GREY=1, GREEN=2, RED=3, YELLOW=4,BLUE=5};
 enum TurretExtension {DEFAULT=1,REDLASER=2, BLUELASER=3, YELLOWCATAPULT=4, GREENPOISON=5};
@@ -117,6 +120,7 @@ static func getStringFromSpecialCardEnum(name:SpecialCards):
 		3: return "UPHEALTH";
 		4: return "CRYOBALL";
 		5: return "MOVE"
+		6: return "BULLDOZER"
 	pass;
 static func getStringFromEnumExtension(type:TurretExtension):
 	

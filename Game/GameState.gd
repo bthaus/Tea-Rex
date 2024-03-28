@@ -11,7 +11,7 @@ var unlockedColors=[Stats.TurretColor.BLUE];
 #Stats.SpecialCards
 var unlockedSpecialCards=[Stats.SpecialCards.HEAL];
 
-var phase:Stats.GamePhase=Stats.GamePhase.BUILD;
+var phase:Stats.GamePhase=Stats.GamePhase.BOTH;
 
 var HP=Stats.playerHP;
 var maxHP=Stats.playerMaxHP;
