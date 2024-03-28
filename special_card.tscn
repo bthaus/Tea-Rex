@@ -65,4 +65,6 @@ animation = &"FIREBALL"
 [node name="EnemyDetector" parent="Effect" instance=ExtResource("12_giv3f")]
 scale = Vector2(6.31, 6.31)
 
+[node name="EffectSound" type="AudioStreamPlayer2D" parent="."]
+
 [connection signal="animation_finished" from="Effect" to="." method="_on_effect_animation_finished"]

@@ -61,15 +61,25 @@ static var red_laser_damage_stack=0.05;
 static var enemyDamage=10;
 
 static var enemyHP=500;
+
 static var playerHP=100;
+static var playerMaxHP=200;
 
 static var FIREBALL_damage=500;
 static var FIREBALL_range=1;
 
+#damage for simplicity of call, it heals you, doesnt damage you. range==multiplicator for each round held
+static var HEAL_damage=25;
+static var HEAL_range=2;
+static var HEAL_max_HeldRounds=5;
+static var HEAL_instant=true;
+
 enum TurretColor {GREY=1, GREEN=2, RED=3, YELLOW=4,BLUE=5};
 enum TurretExtension {DEFAULT=1,REDLASER=2, BLUELASER=3, YELLOWCATAPULT=4, GREENPOISON=5};
 enum GamePhase {BATTLE=1,BUILD=2};
-enum SpecialCards {HEAL=1,FIREBALL=2,UPHEALTH=3,CRYOBALL=4,MOVE=5, BULLDOZER=6, }
+enum SpecialCards {HEAL=1,FIREBALL=2,UPHEALTH=3,CRYOBALL=4,MOVE=5, BULLDOZER=6}
+
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -132,12 +142,18 @@ static func getProperty(type:TurretColor,extension:TurretExtension,property:Stri
 	else:
 		temp = Stats.new().get(color+"_"+ext+"_"+property);
 	return temp;
+static func getMaxRoundsHeld(type:SpecialCards):
+	return Stats.new().get(getStringFromSpecialCardEnum(type)+"_max_HeldRounds") 
+	
 static func getCardDamage(type:SpecialCards):
 	return Stats.new().get(getStringFromSpecialCardEnum(type)+"_damage")
-	pass;
+	
 static func getCardRange(type:SpecialCards):
 	return Stats.new().get(getStringFromSpecialCardEnum(type)+"_range")
-	pass;
+	
+static func getCardInstant(type:SpecialCards):
+	return Stats.new().get(getStringFromSpecialCardEnum(type)+"_instant")
+	
 static func getCooldown(type:TurretColor,extension:TurretExtension):
 	
 	return getProperty(type,extension,"cooldown");

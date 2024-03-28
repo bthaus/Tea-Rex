@@ -14,6 +14,9 @@ static func create(type,damage, position, root,scale=1):
 	root.add_child(temp);
 	temp.global_position=position;
 	temp.get_node("AnimatedSprite2D").play("default");
+	temp.get_node("sound").play();
+
+	
 	
 	pass;
 
@@ -24,6 +27,7 @@ func _process(delta):
 
 func _on_area_2d_area_entered(area):
 	if(area.get_parent() is Monster):
+		
 		area.get_parent().hit(type,damage);
 	
 	

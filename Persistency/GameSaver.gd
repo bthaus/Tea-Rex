@@ -26,6 +26,7 @@ static func restoreGame(gameState:GameState):
 	gameState.phase=JSON.parse_string(loadfile("phase",gameState.account))
 	gameState.HP=JSON.parse_string(loadfile("hp",gameState.account))
 	gameState.handCards=JSON.parse_string(loadfile("handCards",gameState.account))
+	gameState.wave=JSON.parse_string(loadfile("wave",gameState.account))
 
 	pass
 	
@@ -38,6 +39,7 @@ static func saveGame(gameState:GameState):
 	save(JSON.stringify(gameState.phase),"phase",gameState.account);
 	save(JSON.stringify(gameState.HP),"hp",gameState.account);
 	save(JSON.stringify(gameState.handCards),"handCards",gameState.account);
+	save(JSON.stringify(gameState.wave),"wave",gameState.account)
 	var map=gameState.gameBoard.get_child(0) as TileMap
 	
 	var cells=map.get_used_cells(0);
