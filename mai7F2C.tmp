@@ -5,7 +5,7 @@
 [ext_resource type="AudioStream" uid="uid://d3elhp46kr0sn" path="res://Sounds/Music/background4.wav" id="3_avl3y"]
 [ext_resource type="Texture2D" uid="uid://chsgerkqrpoy6" path="res://Assets/Level/Backgrounddummy.png" id="4_ykfqr"]
 [ext_resource type="PackedScene" uid="uid://ddna4qf2gbx2w" path="res://special_card.tscn" id="5_5hydu"]
-[ext_resource type="PackedScene" uid="uid://c8n0am7jadxj7" path="res://GameBoard/game_board.tscn" id="6_ghxp6"]
+[ext_resource type="PackedScene" uid="uid://c8n0am7jadxj7" path="res://GameBoard/game_board.tscn" id="6_27rvl"]
 
 [node name="MainScene" type="Node2D" node_paths=PackedStringArray("gameBoard")]
 script = ExtResource("1_g64db")
@@ -64,6 +64,6 @@ position = Vector2(649, 167)
 position = Vector2(391, 164)
 
 [node name="SpecialCard" parent="." instance=ExtResource("5_5hydu")]
-cardName = 5
+cardName = 2
 
-[node name="GameBoard" parent="." instance=ExtResource("6_ghxp6")]
+[node name="GameBoard" parent="." instance=ExtResource("6_27rvl")]

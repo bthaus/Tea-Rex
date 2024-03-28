@@ -5,11 +5,10 @@
 [ext_resource type="AudioStream" uid="uid://d3elhp46kr0sn" path="res://Sounds/Music/background4.wav" id="3_avl3y"]
 [ext_resource type="Texture2D" uid="uid://chsgerkqrpoy6" path="res://Assets/Level/Backgrounddummy.png" id="4_ykfqr"]
 [ext_resource type="PackedScene" uid="uid://ddna4qf2gbx2w" path="res://special_card.tscn" id="5_5hydu"]
-[ext_resource type="PackedScene" uid="uid://c8n0am7jadxj7" path="res://GameBoard/game_board.tscn" id="6_ghxp6"]
+[ext_resource type="PackedScene" uid="uid://cdrytflh1sqcx" path="res://TurretScripts/turretbase.tscn" id="6_t8ckt"]
 
-[node name="MainScene" type="Node2D" node_paths=PackedStringArray("gameBoard")]
+[node name="MainScene" type="Node2D"]
 script = ExtResource("1_g64db")
-gameBoard = NodePath("GameBoard")
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 visible = false
@@ -64,6 +63,17 @@ position = Vector2(649, 167)
 position = Vector2(391, 164)
 
 [node name="SpecialCard" parent="." instance=ExtResource("5_5hydu")]
-cardName = 5
+cardName = 2
 
-[node name="GameBoard" parent="." instance=ExtResource("6_ghxp6")]
+[node name="Turret" parent="." instance=ExtResource("6_t8ckt")]
+position = Vector2(199, 425)
+type = 2
+
+[node name="Turret2" parent="." instance=ExtResource("6_t8ckt")]
+position = Vector2(413, 432)
+type = 2
+
+[node name="Turret3" parent="." instance=ExtResource("6_t8ckt")]
+position = Vector2(299, 429)
+type = 2
+stacks = 4
