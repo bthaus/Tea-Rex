@@ -1,6 +1,7 @@
 @tool
 extends Node2D
 class_name Turret
+
 @export var range=1;
 @export var isBasic=true;
 @export var type: Stats.TurretColor;

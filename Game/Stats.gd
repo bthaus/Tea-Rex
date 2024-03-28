@@ -70,6 +70,14 @@ static var FIREBALL_range=1;
 static var FIREBALL_phase=GamePhase.BATTLE
 static var FIREBALL_instant=false;
 
+static var CRYOBALL_damage=100;
+static var CRYOBALL_range=1;
+static var CRYOBALL_phase=GamePhase.BATTLE
+static var CRYOBALL_instant=false;
+static var CRYOBALL_slowFactor=0.5;
+static var CRYOBALL_slowDuration=10;
+
+
 #damage for simplicity of call, it heals you, doesnt damage you. range==multiplicator for each round held
 static var HEAL_damage=25;
 static var HEAL_range=2;

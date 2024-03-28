@@ -92,6 +92,15 @@ func castFIREBALL():
 	for e in $Effect/EnemyDetector.enemiesInRange:
 		e.hit(Stats.TurretColor.GREY,damage)
 	return true;
+
+func castCRYOBALL():
+	$Effect.visible=true;
+	$Effect.global_position=get_global_mouse_position();
+	$Effect.play(Stats.getStringFromSpecialCardEnum(cardName));
+	for e in $Effect/EnemyDetector.enemiesInRange:
+		e.hit(Stats.TurretColor.GREY,damage)
+		e.add_child(Slower.create(Stats.CRYOBALL_slowDuration,Stats.CRYOBALL_slowFactor))
+	return true;
 	
 func _input(event):
 	if !selected:
