@@ -17,7 +17,7 @@ func _ready():
 	$Board.tile_set.tile_size = Vector2(Stats.block_size, Stats.block_size)
 	
 	# draw a test block
-	var block = Block.new([Block.Piece.new(Vector2(0,0), Stats.TurretColor.RED, 2)]) 
+	var block = Stats.getBlockFromShape(Stats.BlockShape.TINY, Stats.TurretColor.RED, 2)
 	block_handler.draw_block(block, Vector2(6,6), BLOCK_LAYER)
 	$Board.set_cell(BLOCK_LAYER, Vector2(10,10), WALL_TILE_ID, Vector2(0,0))
 	_draw_walls()

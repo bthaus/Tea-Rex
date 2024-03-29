@@ -86,13 +86,19 @@ func can_place_block(block: Block, layer: int, position: Vector2) -> bool:
 		
 		#Check underlying piece
 		if board_data != null: #Tile exists at this position
-			if board_data.get_custom_data("color").to_upper() != Stats.getStringFromEnum(piece.color): #Wrong color
+			var board_data_color = board_data.get_custom_data("color").to_upper()
+			if board_data_color == Stats.getStringFromEnum(Stats.TurretColor.GREY): #You can NEVER place something on grey
 				return false
-			if level == -1 or level != board_data.get_custom_data("level"): #We expect an empty cell but there wasnt one OR the level doesnt match
+			if board_data_color != Stats.getStringFromEnum(piece.color): #Wrong color
+				return false
+			if level != board_data.get_custom_data("level"): #Level does not match
 				return false
 		elif level != -1: #We expect a non-empty cell
 			return false
 		
+		if piece.color == Stats.TurretColor.GREY: #For grey pieces we do not have to check surrounding pieces
+			continue
+			
 		#Check near mismatching colors
 		for row in range(-1,2):
 			for col in range(-1,2):
@@ -100,8 +106,9 @@ func can_place_block(block: Block, layer: int, position: Vector2) -> bool:
 				var cell_data = board.get_cell_tile_data(layer, pos)
 				if cell_data != null:
 					var color = cell_data.get_custom_data("color").to_upper()
-					if color != Stats.getStringFromEnum(piece.color) and color != "WALL": #Walls are an exception
-						return false
+					if color != "WALL" and color != Stats.getStringFromEnum(Stats.TurretColor.GREY): #Walls and grey pieces are an exception, ignore them
+						if color != Stats.getStringFromEnum(piece.color): #Mismatching color
+							return false
 				
 	return true
 	
