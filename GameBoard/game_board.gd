@@ -2,14 +2,7 @@ extends Node2D
 
 	
 var color = Stats.TurretColor.BLUE
-var selected_block = Block.new(
-	[
-		Block.Piece.new(Vector2(-1,0), color, 1),
-		Block.Piece.new(Vector2(0,0), color, 1),
-		Block.Piece.new(Vector2(1,0), color, 1),
-		Block.Piece.new(Vector2(1,1), color, 1),
-	]
-)
+var selected_block = Stats.getBlockFromShape(Stats.BlockShape.J, color)
 
 @onready var block_handler = BlockHandler.new($Board)
 
