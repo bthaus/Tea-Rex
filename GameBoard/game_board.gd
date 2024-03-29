@@ -1,10 +1,14 @@
 extends Node2D
 
-	
-var color = Stats.TurretColor.BLUE
-var selected_block = Stats.getBlockFromShape(Stats.BlockShape.J, color)
+var selected_block = null
+
+var moved_from_position = Vector2.ZERO #As (0,0) will be part of the wall, it is outside of bounds and can be treated as not initialized
+var moved_from_block = null
 
 @onready var block_handler = BlockHandler.new($Board)
+enum BoardAction {NONE=0, PLAYER_BUILD=1, PLAYER_MOVE=2, PLAYER_BULLDOZER=3}
+var action: BoardAction = BoardAction.NONE
+var done: Callable
 
 const SELECTION_LAYER = 1
 const BLOCK_LAYER = 0
@@ -15,30 +19,35 @@ const WALL_TILE_ID = 3
 
 func _ready():
 	$Board.tile_set.tile_size = Vector2(Stats.block_size, Stats.block_size)
-	
+
+
 	# draw a test block
-	var block = Stats.getBlockFromShape(Stats.BlockShape.TINY, Stats.TurretColor.RED, 2)
+	var block = Stats.getBlockFromShape(Stats.BlockShape.L, Stats.TurretColor.RED, 1)
 	block_handler.draw_block(block, Vector2(6,6), BLOCK_LAYER)
 	$Board.set_cell(BLOCK_LAYER, Vector2(10,10), WALL_TILE_ID, Vector2(0,0))
 	_draw_walls()
 	_spawn_turrets()
 
-func start_bulldozer(done:Callable, sizeX:int,sizeY:int):
-	#bulldozerstuff
-	util.p("reached")
-	done.call(true);
-	pass;
+func start_bulldozer(done:Callable, size_x:int, size_y:int):
+	util.p("Bulldozering stuff now...", "Jojo")
+	var pieces = []
+	for row in size_x:
+		for col in size_y:
+			pieces.push_back(Block.Piece.new(Vector2(-col, -row), Stats.TurretColor.GREY, -1)) #Color has no particular reason
+	selected_block = Block.new(pieces)
+	action = BoardAction.PLAYER_BULLDOZER
+	self.done = done
 	
 func start_move(done:Callable):
-	#movestuff
-	util.p("reached")
-	done.call(true);
-	pass;
+	util.p("Moving stuff now...", "Jojo")
+	action = BoardAction.PLAYER_MOVE
+	self.done = done
 	
-	
-func select_piece(shape:Stats.BlockShape,color:Stats.TurretColor,done:Callable,level:int,extension:Stats.TurretExtension=Stats.TurretExtension.DEFAULT):
-	
-	pass;
+func select_piece(shape:Stats.BlockShape, color:Stats.TurretColor, done:Callable, level:int, extension:Stats.TurretExtension=Stats.TurretExtension.DEFAULT):
+	util.p("Building now...", "Jojo")
+	action = BoardAction.PLAYER_BUILD
+	selected_block = Stats.getBlockFromShape(shape, color, level)
+	self.done = done
 	
 func _process(_delta):
 	$Board.clear_layer(SELECTION_LAYER)
@@ -46,29 +55,66 @@ func _process(_delta):
 	
 	#Draw preview
 	if selected_block != null:
-		var id = LEGAL_PLACEMENT_TILE_ID if block_handler.can_place_block(selected_block, BLOCK_LAYER, board_pos) else ILLEGAL_PLACEMENT_TILE_ID
-		block_handler.draw_block_with_id(selected_block, board_pos, id, SELECTION_LAYER)
+		if action == BoardAction.PLAYER_BULLDOZER:
+			block_handler.draw_block_with_id(selected_block, board_pos, LEGAL_PLACEMENT_TILE_ID, SELECTION_LAYER)
+		elif action != BoardAction.NONE:
+			var id = LEGAL_PLACEMENT_TILE_ID if block_handler.can_place_block(selected_block, BLOCK_LAYER, board_pos) else ILLEGAL_PLACEMENT_TILE_ID
+			block_handler.draw_block_with_id(selected_block, board_pos, id, SELECTION_LAYER)
 
 func _input(event):
 	var board_pos = $Board.local_to_map(get_global_mouse_position())
-	if event.is_action_pressed("left_click"):
-		if selected_block == null: #Pick up at a block
-			var block = block_handler.get_block_from_board(board_pos, BLOCK_LAYER, true)
-			block_handler.remove_block_from_board(block, board_pos, BLOCK_LAYER)
-			selected_block = block
-			
-		elif block_handler.can_place_block(selected_block, BLOCK_LAYER, board_pos): #Place block down if possible
-			var data = $Board.get_cell_tile_data(BLOCK_LAYER, board_pos)
-			if data != null: #There is already a piece -> upgrade
-				var level = data.get_custom_data("level")
-				block_handler.set_block_level(selected_block, level + 1)
 	
-			block_handler.draw_block(selected_block, board_pos, BLOCK_LAYER)
-			_spawn_turrets()
+	if event.is_action_pressed("left_click"):
+		match action:
+			BoardAction.PLAYER_BUILD:
+				if block_handler.can_place_block(selected_block, BLOCK_LAYER, board_pos):
+					_place_block(selected_block, board_pos)
+					_action_finished(true)
+			
+			BoardAction.PLAYER_MOVE:
+				if selected_block == null:
+					var block = block_handler.get_block_from_board(board_pos, BLOCK_LAYER, true)
+					block_handler.remove_block_from_board(block, board_pos, BLOCK_LAYER)
+					selected_block = block
+					moved_from_position = board_pos #Save block information in case the user interrupts the process
+					moved_from_block = selected_block.clone()
+
+				elif block_handler.can_place_block(selected_block, BLOCK_LAYER, board_pos):
+					_place_block(selected_block, board_pos)
+					_action_finished(true)
+					
+			BoardAction.PLAYER_BULLDOZER:
+				block_handler.remove_block_from_board(selected_block, board_pos, BLOCK_LAYER)
+				_action_finished(true)
+				
+		_spawn_turrets()
 	
 	if event.is_action_pressed("right_click"):
-		block_handler.rotate_block(selected_block)
-		#selected_block = null
+		if selected_block != null:
+			block_handler.rotate_block(selected_block)
+	
+	if event.is_action_pressed("interrupt"):
+		_action_finished(false)
+
+
+func _place_block(block: Block, position: Vector2):
+	var data = $Board.get_cell_tile_data(BLOCK_LAYER, position)
+	if data != null: #There is already a piece -> upgrade
+		var level = data.get_custom_data("level")
+		block_handler.set_block_level(block, level + 1)
+
+	block_handler.draw_block(block, position, BLOCK_LAYER)
+
+func _action_finished(finished: bool):
+	if not finished and moved_from_block != null: #Restore block if there is something to restore
+		block_handler.draw_block(moved_from_block, moved_from_position, BLOCK_LAYER)
+		_spawn_turrets()
+	selected_block = null
+	moved_from_block = null
+	moved_from_position = Vector2.ZERO
+	action = BoardAction.NONE
+	done.call(finished)
+	done = Callable() #Reset callable
 
 func _draw_walls():
 	for row in Stats.board_height:
