@@ -273,7 +273,7 @@ static func getBlockFromShape(shape: BlockShape, color: TurretColor, level: int 
 				Block.Piece.new(Vector2(0,0), color, level),
 				Block.Piece.new(Vector2(0,-1), color, level),
 				Block.Piece.new(Vector2(1,0), color, level),
-				Block.Piece.new(Vector2(0,-1), color, level),
+				Block.Piece.new(Vector2(0,1), color, level),
 				Block.Piece.new(Vector2(-1,0), color, level)
 			]
 		
