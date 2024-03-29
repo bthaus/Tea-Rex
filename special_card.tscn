@@ -1,20 +1,65 @@
-[gd_scene load_steps=14 format=3 uid="uid://ddna4qf2gbx2w"]
+[gd_scene load_steps=24 format=3 uid="uid://ddna4qf2gbx2w"]
 
 [ext_resource type="Script" path="res://Cards/SpecialCard.gd" id="1_502hs"]
 [ext_resource type="Texture2D" uid="uid://qrn5jky8xocn" path="res://Assets/Effects/Explosion_1/Explosion_1.png" id="2_57ctp"]
+[ext_resource type="Texture2D" uid="uid://dqx77i4k4ns2k" path="res://Assets/Effects/Magic_Explosion/Explosion_1.png" id="2_mxllp"]
+[ext_resource type="Texture2D" uid="uid://df1tnomm4328s" path="res://Assets/Effects/Magic_Explosion/Explosion_2.png" id="3_0iqku"]
 [ext_resource type="Texture2D" uid="uid://beiupq3urywvv" path="res://Assets/Effects/Explosion_1/Explosion_2.png" id="3_nbon1"]
 [ext_resource type="Texture2D" uid="uid://q3sef4sf3ys4" path="res://Assets/Effects/Explosion_1/Explosion_3.png" id="4_262q5"]
+[ext_resource type="Texture2D" uid="uid://dyww7i73qbft0" path="res://Assets/Effects/Magic_Explosion/Explosion_3.png" id="4_rso50"]
 [ext_resource type="Texture2D" uid="uid://cvpxnuh1j3brl" path="res://Assets/Effects/Explosion_1/Explosion_4.png" id="5_1kve3"]
+[ext_resource type="Texture2D" uid="uid://bjasowt8aml5o" path="res://Assets/Effects/Magic_Explosion/Explosion_4.png" id="5_l8tqo"]
 [ext_resource type="Texture2D" uid="uid://d10tp2cpjuwxp" path="res://Assets/Effects/Explosion_1/Explosion_5.png" id="6_c4jmf"]
+[ext_resource type="Texture2D" uid="uid://dab0744diingd" path="res://Assets/Effects/Magic_Explosion/Explosion_5.png" id="6_hl81f"]
 [ext_resource type="Texture2D" uid="uid://dp4t1xnjq256" path="res://Assets/Effects/Explosion_1/Explosion_6.png" id="7_75u8y"]
+[ext_resource type="Texture2D" uid="uid://v8rwigo6pgbw" path="res://Assets/Effects/Magic_Explosion/Explosion_6.png" id="7_u16aq"]
+[ext_resource type="Texture2D" uid="uid://df0jt437brbcu" path="res://Assets/Effects/Magic_Explosion/Explosion_7.png" id="8_nxmx6"]
 [ext_resource type="Texture2D" uid="uid://blwybgasd24qt" path="res://Assets/Effects/Explosion_1/Explosion_7.png" id="8_odyp8"]
+[ext_resource type="Texture2D" uid="uid://cak81watju8xr" path="res://Assets/Effects/Magic_Explosion/Explosion_8.png" id="9_iqyyv"]
 [ext_resource type="Texture2D" uid="uid://dleuukiwqnpco" path="res://Assets/Effects/Explosion_1/Explosion_8.png" id="9_ypk42"]
+[ext_resource type="Texture2D" uid="uid://c7xlmayldmhax" path="res://Assets/Effects/Magic_Explosion/Explosion_9.png" id="10_k1kje"]
 [ext_resource type="Texture2D" uid="uid://b7niabpj7cw11" path="res://Assets/Effects/Explosion_1/Explosion_9.png" id="10_snsju"]
 [ext_resource type="Texture2D" uid="uid://c3hw04rxrxr5p" path="res://Assets/Effects/Explosion_1/Explosion_10.png" id="11_i5xdr"]
+[ext_resource type="Texture2D" uid="uid://jkiepjsxilhq" path="res://Assets/Effects/Magic_Explosion/Explosion_10.png" id="11_usiif"]
 [ext_resource type="PackedScene" uid="uid://dvwxp6msal8o6" path="res://enemy_detector.tscn" id="12_giv3f"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_qa1dp"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_mxllp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_0iqku")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_rso50")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_l8tqo")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_hl81f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_u16aq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_nxmx6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_iqyyv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_k1kje")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_usiif")
+}],
+"loop": false,
+"name": &"CRYOBALL",
+"speed": 10.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": ExtResource("2_57ctp")
@@ -60,7 +105,7 @@ visible = false
 [node name="Effect" type="AnimatedSprite2D" parent="."]
 visible = false
 sprite_frames = SubResource("SpriteFrames_qa1dp")
-animation = &"FIREBALL"
+animation = &"CRYOBALL"
 
 [node name="EnemyDetector" parent="Effect" instance=ExtResource("12_giv3f")]
 scale = Vector2(6.31, 6.31)
