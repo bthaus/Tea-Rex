@@ -6,6 +6,7 @@ var direction:Vector2;
 var type;
 var ext;
 var oneshot;
+var color;
 static func create(type:Stats.TurretColor, damage,speed,extension:Stats.TurretExtension=Stats.TurretExtension.DEFAULT)-> Projectile:
 	var temp=load("res://TurretScripts/Projectiles/Base_projectile.tscn").instantiate() as Projectile;
 	temp.type=type;
@@ -21,7 +22,11 @@ func setup():
 	$Sprite2D.texture=load("res://Assets/Turrets/Projectiles/"+Stats.getStringFromEnum(type)+Stats.getStringFromEnumExtension(ext)+"_projectile.png");
 	$shot.stream=load("res://Sounds/Soundeffects/"+Stats.getStringFromEnum(type)+Stats.getStringFromEnumExtension(ext)+"_shot.wav")
 	$hit.stream=load("res://Sounds/Soundeffects/"+Stats.getStringFromEnum(type)+Stats.getStringFromEnumExtension(ext)+"_hit.wav")
+	$PointLight2D.visible=Stats.getGlowing(type,ext)
 	oneshot=Stats.getOneshotType(type,ext);
+	
+		
+	
 	damage=Stats.getDamage(type,ext);
 	pass;
 func shoot(target):

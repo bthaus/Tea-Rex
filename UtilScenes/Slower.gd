@@ -10,7 +10,7 @@ var restore;
 func _ready():
 	monster=get_parent() as Monster
 	restore=monster.speedfactor
-	monster.speedfactor=factor
+	monster.speedfactor=monster.speedfactor*factor
 	pass # Replace with function body.
 
 static func create(duration,factor)->Slower:
@@ -23,7 +23,7 @@ static func create(duration,factor)->Slower:
 func _process(delta):
 	duration=duration-1*delta;
 	if duration<=0:
-		monster.speedfactor=restore;
+		monster.speedfactor=monster.speedfactor/factor;
 		queue_free()
 	pass
 

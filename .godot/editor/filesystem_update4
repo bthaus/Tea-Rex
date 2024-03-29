@@ -12,3 +12,6 @@ res://Game/GameState.gd
 res://TurretScripts/turretbase.gd
 res://UtilScenes/Slower.gd
 res://monster.gd
+res://TurretScripts/Projectiles/Base_projectile.tscn
+res://TurretScripts/Projectiles/Projectile.gd
+res://UtilScenes/DamageStacker.gd

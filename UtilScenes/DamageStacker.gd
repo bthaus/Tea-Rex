@@ -11,8 +11,7 @@ func _ready():
 func _process(delta):
 	time_elapsed=time_elapsed-1*delta
 	if time_elapsed<=0:
-		util.p("reset")
-		hits=1;
+		queue_free()
 	pass
 	
 func hit()->float:

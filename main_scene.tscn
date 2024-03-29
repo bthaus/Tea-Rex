@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://ct8v030fwp2gh"]
+[gd_scene load_steps=8 format=3 uid="uid://ct8v030fwp2gh"]
 
 [ext_resource type="Script" path="res://Game/GameState.gd" id="1_g64db"]
 [ext_resource type="PackedScene" uid="uid://cq7fvblvncfxh" path="res://monster.tscn" id="2_g6fes"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://chsgerkqrpoy6" path="res://Assets/Level/Backgrounddummy.png" id="4_ykfqr"]
 [ext_resource type="PackedScene" uid="uid://ddna4qf2gbx2w" path="res://special_card.tscn" id="5_5hydu"]
 [ext_resource type="PackedScene" uid="uid://c8n0am7jadxj7" path="res://GameBoard/game_board.tscn" id="6_ghxp6"]
+[ext_resource type="PackedScene" uid="uid://cdrytflh1sqcx" path="res://TurretScripts/turretbase.tscn" id="7_1aqo5"]
 
 [node name="MainScene" type="Node2D" node_paths=PackedStringArray("gameBoard")]
 script = ExtResource("1_g64db")
@@ -67,3 +68,6 @@ position = Vector2(391, 164)
 cardName = 4
 
 [node name="GameBoard" parent="." instance=ExtResource("6_ghxp6")]
+
+[node name="Turret" parent="." instance=ExtResource("7_1aqo5")]
+extension = 2
