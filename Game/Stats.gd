@@ -117,6 +117,7 @@ enum TurretExtension {DEFAULT=1,REDLASER=2, BLUELASER=3, YELLOWCATAPULT=4, GREEN
 enum GamePhase {BATTLE=1,BUILD=2,BOTH=3};
 enum SpecialCards {HEAL=1,FIREBALL=2,UPHEALTH=3,CRYOBALL=4,MOVE=5, BULLDOZER=6}
 enum BlockShape {O=1, I=2, S=3, Z=4, L=5, J=6, T=7, TINY=8, SMALL=9, ARROW=10, CROSS=11}
+enum Catastrophies {METEOR=1,SWITCH=2,EXPAND=3,ADDSPAWNER=4,EARTHQUAKE=5}
 
 
 
@@ -124,7 +125,7 @@ enum BlockShape {O=1, I=2, S=3, Z=4, L=5, J=6, T=7, TINY=8, SMALL=9, ARROW=10, C
 func _ready():
 	pass # Replace with function body.
 static func getStringFromEnum(type:TurretColor):
-	
+	return Stats.TurretColor.keys()[(type)-1];
 	match type:
 		1: return "GREY";
 		2: return "GREEN";
@@ -133,7 +134,7 @@ static func getStringFromEnum(type:TurretColor):
 		5: return "BLUE"
 	pass
 static func getStringFromEnumLowercase(type:TurretColor):
-	
+	return Stats.TurretColor.keys()[(type)-1].to_lower();
 	match type:
 		1: return "grey";
 		2: return "green";
@@ -142,6 +143,7 @@ static func getStringFromEnumLowercase(type:TurretColor):
 		5: return "blue"
 	pass
 static func getStringFromSpecialCardEnum(name:SpecialCards):
+	return Stats.SpecialCards.keys()[(name)-1];
 	match name:
 		1: return "HEAL";
 		2: return "FIREBALL";
@@ -159,6 +161,7 @@ static func getStringFromEnumExtension(type:TurretExtension):
 	
 	return "";
 static func getStringFromEnumExtensionLowercase(type:TurretExtension):
+	
 	match type:
 		1: return ""
 		2: return "laser"

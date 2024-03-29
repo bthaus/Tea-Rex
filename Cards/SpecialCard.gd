@@ -51,11 +51,13 @@ func select(done:Callable):
 		done.call(false)
 		return
 	self.done=done;
-	selected=true;
+	
 	
 	if instant:
 		cast()
 		return;
+		
+	selected=true;
 	$Preview.visible=true;
 	pass;
 
