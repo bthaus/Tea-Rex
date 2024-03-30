@@ -1,18 +1,53 @@
-[gd_scene load_steps=17 format=3 uid="uid://c8n0am7jadxj7"]
+[gd_scene load_steps=27 format=3 uid="uid://c8n0am7jadxj7"]
 
 [ext_resource type="Script" path="res://GameBoard/game_board.gd" id="1_yp6tt"]
 [ext_resource type="Texture2D" uid="uid://dhcd6oxm5j8af" path="res://Assets/Tiles/dummy_tile_legal_placement.png" id="2_1fom0"]
+[ext_resource type="Texture2D" uid="uid://bwn2avetd034w" path="res://Assets/Tiles/Extensions/extension_default.png" id="3_6mg28"]
 [ext_resource type="Texture2D" uid="uid://d04bng0sw2ggc" path="res://Assets/Tiles/dummy_tile_illegal_placement.png" id="3_wb0lt"]
-[ext_resource type="Texture2D" uid="uid://8cao7222pohc" path="res://Assets/Tiles/dummy_tile_wall.png" id="4_pfkj7"]
-[ext_resource type="Texture2D" uid="uid://c5586d6lposu0" path="res://Assets/Tiles/dummy_tile_blue.png" id="4_x6glx"]
-[ext_resource type="Texture2D" uid="uid://cnlhlcydsrs4y" path="res://Assets/Tiles/dummy_tile_red_2.png" id="5_42j8v"]
-[ext_resource type="Texture2D" uid="uid://d1vg832xj0e1w" path="res://Assets/Tiles/dummy_tile_red.png" id="5_43aqt"]
-[ext_resource type="Texture2D" uid="uid://b20sjcdq7jcou" path="res://Assets/Tiles/dummy_tile_blue_2.png" id="7_mva4p"]
+[ext_resource type="Texture2D" uid="uid://yfmg7bhjoaud" path="res://Assets/Tiles/Extensions/extension_red_laser.png" id="4_jnyco"]
+[ext_resource type="Texture2D" uid="uid://swj5q2lje25d" path="res://Assets/Tiles/dummy_tile_wall.png" id="4_pfkj7"]
+[ext_resource type="Texture2D" uid="uid://2ku4m8qdg8wk" path="res://Assets/Tiles/dummy_tile_blue.png" id="4_x6glx"]
+[ext_resource type="Texture2D" uid="uid://dpt2xdj6gw82b" path="res://Assets/Tiles/dummy_tile_red_2.png" id="5_42j8v"]
+[ext_resource type="Texture2D" uid="uid://dwyfoi341lntb" path="res://Assets/Tiles/dummy_tile_red.png" id="5_43aqt"]
+[ext_resource type="Texture2D" uid="uid://dcctngoi3vwhw" path="res://Assets/Tiles/Extensions/extension_blue_laser.png" id="5_meila"]
+[ext_resource type="Texture2D" uid="uid://4w2bxjir1bj5" path="res://Assets/Tiles/Extensions/extension_yellow_catapult.png" id="6_7ire2"]
+[ext_resource type="Texture2D" uid="uid://df7a0xo6wwwfo" path="res://Assets/Tiles/dummy_tile_blue_2.png" id="7_mva4p"]
+[ext_resource type="Texture2D" uid="uid://ch6luofwqame" path="res://Assets/Tiles/Extensions/extension_green_poison.png" id="7_x86do"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vgdp6"]
 texture = ExtResource("2_1fom0")
 texture_region_size = Vector2i(64, 64)
 0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jgjef"]
+texture = ExtResource("3_6mg28")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+0:0/0/custom_data_2 = "DEFAULT"
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_c5wpd"]
+texture = ExtResource("4_jnyco")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+0:0/0/custom_data_2 = "REDLASER"
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_sguvl"]
+texture = ExtResource("5_meila")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+0:0/0/custom_data_2 = "BLUELASER"
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_08jg4"]
+texture = ExtResource("6_7ire2")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+0:0/0/custom_data_2 = "YELLOWCATAPULT"
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_dke1w"]
+texture = ExtResource("7_x86do")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+0:0/0/custom_data_2 = "GREENPOISON"
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8dgb0"]
 texture = ExtResource("3_wb0lt")
@@ -23,34 +58,34 @@ texture_region_size = Vector2i(64, 64)
 texture = ExtResource("4_pfkj7")
 texture_region_size = Vector2i(64, 64)
 0:0/0 = 0
-0:0/0/custom_data_0 = "wall"
+0:0/0/custom_data_0 = "WALL"
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_puufv"]
 texture = ExtResource("5_43aqt")
 texture_region_size = Vector2i(64, 64)
 0:0/0 = 0
-0:0/0/custom_data_0 = "red"
+0:0/0/custom_data_0 = "RED"
 0:0/0/custom_data_1 = 1
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_38dgt"]
 texture = ExtResource("5_42j8v")
 texture_region_size = Vector2i(64, 64)
 0:0/0 = 0
-0:0/0/custom_data_0 = "red"
+0:0/0/custom_data_0 = "RED"
 0:0/0/custom_data_1 = 2
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_j0kt8"]
 texture = ExtResource("4_x6glx")
 texture_region_size = Vector2i(64, 64)
 0:0/0 = 0
-0:0/0/custom_data_0 = "blue"
+0:0/0/custom_data_0 = "BLUE"
 0:0/0/custom_data_1 = 1
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_xvjqd"]
 texture = ExtResource("7_mva4p")
 texture_region_size = Vector2i(64, 64)
 0:0/0 = 0
-0:0/0/custom_data_0 = "blue"
+0:0/0/custom_data_0 = "BLUE"
 0:0/0/custom_data_1 = 2
 
 [sub_resource type="TileSet" id="TileSet_u4oll"]
@@ -59,6 +94,8 @@ custom_data_layer_0/name = "color"
 custom_data_layer_0/type = 4
 custom_data_layer_1/name = "level"
 custom_data_layer_1/type = 2
+custom_data_layer_2/name = "extension"
+custom_data_layer_2/type = 4
 sources/501 = SubResource("TileSetAtlasSource_j0kt8")
 sources/301 = SubResource("TileSetAtlasSource_puufv")
 sources/502 = SubResource("TileSetAtlasSource_xvjqd")
@@ -66,6 +103,11 @@ sources/302 = SubResource("TileSetAtlasSource_38dgt")
 sources/2 = SubResource("TileSetAtlasSource_8dgb0")
 sources/1 = SubResource("TileSetAtlasSource_vgdp6")
 sources/3 = SubResource("TileSetAtlasSource_dfys5")
+sources/1001 = SubResource("TileSetAtlasSource_jgjef")
+sources/1003 = SubResource("TileSetAtlasSource_sguvl")
+sources/1005 = SubResource("TileSetAtlasSource_dke1w")
+sources/1002 = SubResource("TileSetAtlasSource_c5wpd")
+sources/1004 = SubResource("TileSetAtlasSource_08jg4")
 
 [node name="GameBoard" type="Node2D"]
 script = ExtResource("1_yp6tt")
@@ -73,9 +115,11 @@ script = ExtResource("1_yp6tt")
 [node name="Board" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_u4oll")
 format = 2
-layer_0/name = "selection_layer"
+layer_0/name = "extension_layer"
 layer_1/name = "block_layer"
 layer_1/tile_data = PackedInt32Array()
+layer_2/name = "selection_layer"
+layer_2/tile_data = PackedInt32Array()
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(736, 503)

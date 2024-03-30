@@ -10,8 +10,9 @@ enum BoardAction {NONE=0, PLAYER_BUILD=1, PLAYER_MOVE=2, PLAYER_BULLDOZER=3}
 var action: BoardAction = BoardAction.NONE
 var done: Callable
 
-const SELECTION_LAYER = 1
-const BLOCK_LAYER = 0
+const EXTENSION_LAYER = 0
+const BLOCK_LAYER = 1
+const SELECTION_LAYER = 2
 
 const LEGAL_PLACEMENT_TILE_ID = 1
 const ILLEGAL_PLACEMENT_TILE_ID = 2
@@ -19,11 +20,10 @@ const WALL_TILE_ID = 3
 
 func _ready():
 	$Board.tile_set.tile_size = Vector2(Stats.block_size, Stats.block_size)
-
-
+	
 	# draw a test block
-	var block = Stats.getBlockFromShape(Stats.BlockShape.L, Stats.TurretColor.RED, 1)
-	block_handler.draw_block(block, Vector2(6,6), BLOCK_LAYER)
+	var block = Stats.getBlockFromShape(Stats.BlockShape.L, Stats.TurretColor.RED, 1, Stats.TurretExtension.REDLASER)
+	block_handler.draw_block(block, Vector2(6,6), BLOCK_LAYER, EXTENSION_LAYER)
 	$Board.set_cell(BLOCK_LAYER, Vector2(10,10), WALL_TILE_ID, Vector2(0,0))
 	_draw_walls()
 	_spawn_turrets()
@@ -56,10 +56,10 @@ func _process(_delta):
 	#Draw preview
 	if selected_block != null:
 		if action == BoardAction.PLAYER_BULLDOZER:
-			block_handler.draw_block_with_id(selected_block, board_pos, LEGAL_PLACEMENT_TILE_ID, SELECTION_LAYER)
+			block_handler.draw_block_with_tile_id(selected_block, board_pos, LEGAL_PLACEMENT_TILE_ID, SELECTION_LAYER)
 		elif action != BoardAction.NONE:
 			var id = LEGAL_PLACEMENT_TILE_ID if block_handler.can_place_block(selected_block, BLOCK_LAYER, board_pos) else ILLEGAL_PLACEMENT_TILE_ID
-			block_handler.draw_block_with_id(selected_block, board_pos, id, SELECTION_LAYER)
+			block_handler.draw_block_with_tile_id(selected_block, board_pos, id, SELECTION_LAYER)
 
 func _input(event):
 	var board_pos = $Board.local_to_map(get_global_mouse_position())
@@ -73,8 +73,8 @@ func _input(event):
 			
 			BoardAction.PLAYER_MOVE:
 				if selected_block == null:
-					var block = block_handler.get_block_from_board(board_pos, BLOCK_LAYER, true)
-					block_handler.remove_block_from_board(block, board_pos, BLOCK_LAYER)
+					var block = block_handler.get_block_from_board(board_pos, BLOCK_LAYER, EXTENSION_LAYER, true)
+					block_handler.remove_block_from_board(block, board_pos, BLOCK_LAYER, EXTENSION_LAYER)
 					selected_block = block
 					moved_from_position = board_pos #Save block information in case the user interrupts the process
 					moved_from_block = selected_block.clone()
@@ -84,7 +84,7 @@ func _input(event):
 					_action_finished(true)
 					
 			BoardAction.PLAYER_BULLDOZER:
-				block_handler.remove_block_from_board(selected_block, board_pos, BLOCK_LAYER)
+				block_handler.remove_block_from_board(selected_block, board_pos, BLOCK_LAYER, EXTENSION_LAYER)
 				_action_finished(true)
 				
 		_spawn_turrets()
@@ -103,11 +103,11 @@ func _place_block(block: Block, position: Vector2):
 		var level = data.get_custom_data("level")
 		block_handler.set_block_level(block, level + 1)
 
-	block_handler.draw_block(block, position, BLOCK_LAYER)
+	block_handler.draw_block(block, position, BLOCK_LAYER, EXTENSION_LAYER)
 
 func _action_finished(finished: bool):
 	if not finished and moved_from_block != null: #Restore block if there is something to restore
-		block_handler.draw_block(moved_from_block, moved_from_position, BLOCK_LAYER)
+		block_handler.draw_block(moved_from_block, moved_from_position, BLOCK_LAYER, EXTENSION_LAYER)
 		_spawn_turrets()
 	selected_block = null
 	moved_from_block = null

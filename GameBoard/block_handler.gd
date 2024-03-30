@@ -9,27 +9,34 @@ func _init(board: TileMap):
 func get_tile_id_from_block_piece(piece: Block.Piece) -> int:
 	return piece.color * 100 + piece.level
 
+#All extensions start from 1000 and use the value from the enum
+func get_tile_id_from_extension(extension: Stats.TurretExtension):
+	return 1000 + extension
+
 #Draws a normalized block at a given position. Gets tile from color + level
-func draw_block(block: Block, position: Vector2, layer: int):
+func draw_block(block: Block, position: Vector2, block_layer: int, extension_layer: int):
 	for piece in block.pieces:
-		var id = get_tile_id_from_block_piece(piece)
+		var piece_id = get_tile_id_from_block_piece(piece)
+		board.set_cell(block_layer, Vector2(piece.position.x + position.x, piece.position.y + position.y), piece_id, Vector2(0,0))
+		var extension_id = get_tile_id_from_extension(piece.extension)
+		board.set_cell(extension_layer, Vector2(piece.position.x + position.x, piece.position.y + position.y), extension_id, Vector2(0,0))
+
+#Draws a normalized block at a given position. Does NOT draw extensions as it may override stuff (preview)
+func draw_block_with_tile_id(block: Block, position: Vector2, id: int, layer: int):
+	for piece in block.pieces:
 		board.set_cell(layer, Vector2(piece.position.x + position.x, piece.position.y + position.y), id, Vector2(0,0))
 
-#Draws a normalized block at a given position
-func draw_block_with_id(block: Block, position: Vector2, id: int, layer: int):
+func remove_block_from_board(block: Block, position: Vector2, block_layer: int, extension_layer: int):
 	for piece in block.pieces:
-		board.set_cell(layer, Vector2(piece.position.x + position.x, piece.position.y + position.y), id, Vector2(0,0))
-
-func remove_block_from_board(block: Block, position: Vector2, layer: int):
-	for piece in block.pieces:
-		var data = board.get_cell_tile_data(layer, Vector2(piece.position.x + position.x, piece.position.y + position.y))
+		var data = board.get_cell_tile_data(block_layer, Vector2(piece.position.x + position.x, piece.position.y + position.y))
 		if data != null and data.get_custom_data("color").to_upper() == "WALL": #Skip walls as they should not be removable by this function
 			continue
-		board.set_cell(layer, Vector2(piece.position.x + position.x, piece.position.y + position.y), -1, Vector2(0,0))
+		board.set_cell(block_layer, Vector2(piece.position.x + position.x, piece.position.y + position.y), -1, Vector2(0,0))
+		board.set_cell(extension_layer, Vector2(piece.position.x + position.x, piece.position.y + position.y), -1, Vector2(0,0))
 
 #If normalized, the coordinates of each piece will be based on position (=> (0,0))
-func get_block_from_board(position: Vector2, layer: int, normalize: bool) -> Block:
-	var data = board.get_cell_tile_data(layer, position)
+func get_block_from_board(position: Vector2, block_layer: int, extension_layer: int, normalize: bool) -> Block:
+	var data = board.get_cell_tile_data(block_layer, position)
 	if data == null: #No tile available
 		return Block.new([])
 		
@@ -46,10 +53,16 @@ func get_block_from_board(position: Vector2, layer: int, normalize: bool) -> Blo
 				var pos = Vector2(curr_position.x+col, curr_position.y+row)
 				if visited.has(pos) or stack.has(pos): continue #Piece is already present in either all the visited pieces or the current stack
 			
-				var cell_data = board.get_cell_tile_data(layer, pos)
-				if cell_data != null and cell_data.get_custom_data("color") == color:
+				var cell_block_data = board.get_cell_tile_data(block_layer, pos)
+				var cell_extension_data = board.get_cell_tile_data(extension_layer, pos)
+				if cell_block_data != null and cell_block_data.get_custom_data("color") == color:
 					stack.push_front(pos)
-					pieces.append(Block.Piece.new(pos, Stats.TurretColor.get(color.to_upper()), cell_data.get_custom_data("level")))
+					pieces.append(Block.Piece.new(
+						pos, 
+						Stats.TurretColor.get(color.to_upper()), 
+						cell_block_data.get_custom_data("level"),
+						Stats.TurretExtension.get(cell_extension_data.get_custom_data("extension").to_upper())
+						))
 					
 	
 	if normalize:
