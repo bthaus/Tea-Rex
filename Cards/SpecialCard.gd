@@ -114,28 +114,31 @@ func castGLUE():
 	$Effect.visible=true;
 	$Effect.z_index=-1
 	active=true;
-	$Effect/EnemyDetector.enemyEntered.connect(addGLUE)
-	$Effect/EnemyDetector.enemyLeft.connect(removeGLUE)
-	get_tree().create_timer(Stats.GLUE_Duration).timeout.connect(removeAllGLUE)
+	var removeGlue=func removeGLUE(monster:Monster):
+		for a in monster.get_children():
+			if a is Slower:
+				if a.ID==ID:
+					a.remove()
+		pass;
+	$Effect/EnemyDetector.enemyEntered.connect(
+		func addGLUE(monster:Monster):
+			if !active:
+				return
+			monster.add_child(Slower.create(Stats.GLUE_Duration,Stats.GLUE_slowFactor))	
+			pass;)
+	$Effect/EnemyDetector.enemyLeft.connect(removeGlue)
+	get_tree().create_timer(Stats.GLUE_Duration).timeout.connect(
+	func removeAllGLUE():
+		$Effect.visible=false;
+		for m in $Effect/EnemyDetector.enemiesInRange:
+			removeGlue.call(m)
+		active=false;
+		pass;)
+		
 	return true;
 
-func addGLUE(monster:Monster):
-	if !active:
-		return
-	monster.add_child(Slower.create(Stats.GLUE_Duration,Stats.GLUE_slowFactor))	
-	return false;
-func removeGLUE(monster:Monster):
-	for a in monster.get_children():
-		if a is Slower:
-			if a.ID==ID:
-				a.remove()
-	pass;
-func removeAllGLUE():
-	$Effect.visible=false;
-	for m in $Effect/EnemyDetector.enemiesInRange:
-		removeGLUE(m)
-	active=false;
-	pass;
+
+
 	
 	
 	
