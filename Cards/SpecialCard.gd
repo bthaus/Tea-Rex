@@ -125,6 +125,7 @@ func castGLUE():
 				return
 			monster.add_child(Slower.create(Stats.GLUE_Duration,Stats.GLUE_slowFactor))	
 			pass;
+	
 	for m in $Effect/EnemyDetector.enemiesInRange:
 		addGlue.call(m)
 	
