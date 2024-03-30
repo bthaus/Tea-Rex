@@ -14,6 +14,10 @@ var roundsInHand=1;
 var roundReceived:int;
 var maxroundsHeld=1;
 var phase:Stats.GamePhase
+var active=false;
+var tasks=[]
+static var cardID=0;
+var ID;
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -44,6 +48,7 @@ func _ready():
 static func create(cardname:Stats.SpecialCards)->SpecialCard:
 	var retval=load("res://special_card.tscn").instantiate() as SpecialCard;
 	retval.cardName=cardname;
+	retval.ID=cardID+1;
 	return retval
 	
 func select(done:Callable):
@@ -103,6 +108,36 @@ func castCRYOBALL():
 		e.hit(Stats.TurretColor.GREY,damage)
 		e.add_child(Slower.create(Stats.CRYOBALL_slowDuration,Stats.CRYOBALL_slowFactor))
 	return true;
+
+func castGLUE():
+	$Effect.play("GLUE")
+	$Effect.visible=true;
+	$Effect.z_index=-1
+	active=true;
+	$Effect/EnemyDetector.enemyEntered.connect(addGLUE)
+	$Effect/EnemyDetector.enemyLeft.connect(removeGLUE)
+	get_tree().create_timer(Stats.GLUE_Duration).timeout.connect(removeAllGLUE)
+	return true;
+
+func addGLUE(monster:Monster):
+	if !active:
+		return
+	monster.add_child(Slower.create(Stats.GLUE_Duration,Stats.GLUE_slowFactor))	
+	return false;
+func removeGLUE(monster:Monster):
+	for a in monster.get_children():
+		if a is Slower:
+			if a.ID==ID:
+				a.remove()
+	pass;
+func removeAllGLUE():
+	$Effect.visible=false;
+	for m in $Effect/EnemyDetector.enemiesInRange:
+		removeGLUE(m)
+	active=false;
+	pass;
+	
+	
 	
 func _input(event):
 	if !selected:
@@ -117,6 +152,10 @@ func _input(event):
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	if active:
+		for t in tasks:
+			t.call()
+	
 	if Input.is_action_just_pressed("interrupt"):
 		selected=false;
 		done.call(false)

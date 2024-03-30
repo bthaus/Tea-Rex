@@ -108,6 +108,12 @@ static var BULLDOZER_damage=2;
 #y axis
 static var BULLDOZER_range=2;
 
+static var GLUE_phase=GamePhase.BATTLE
+static var GLUE_range=GamePhase.BATTLE
+static var GLUE_instant=false;
+static var GLUE_slowFactor=0.5;
+static var GLUE_Duration=10;
+
 
 static var MOVE_phase=GamePhase.BUILD;
 static var MOVE_instant=true;
@@ -115,7 +121,7 @@ static var MOVE_instant=true;
 enum TurretColor {GREY=1, GREEN=2, RED=3, YELLOW=4,BLUE=5};
 enum TurretExtension {DEFAULT=1,REDLASER=2, BLUELASER=3, YELLOWCATAPULT=4, GREENPOISON=5};
 enum GamePhase {BATTLE=1,BUILD=2,BOTH=3};
-enum SpecialCards {HEAL=1,FIREBALL=2,UPHEALTH=3,CRYOBALL=4,MOVE=5, BULLDOZER=6}
+enum SpecialCards {HEAL=1,FIREBALL=2,UPHEALTH=3,CRYOBALL=4,MOVE=5, BULLDOZER=6,GLUE=7}
 enum BlockShape {O=1, I=2, S=3, Z=4, L=5, J=6, T=7, TINY=8, SMALL=9, ARROW=10, CROSS=11}
 enum Catastrophies {METEOR=1,SWITCH=2,EXPAND=3,ADDSPAWNER=4,EARTHQUAKE=5}
 
@@ -199,7 +205,13 @@ static func getCardInstant(type:SpecialCards):
 
 static func getCardPhase(type:SpecialCards):
 	return Stats.new().get(getStringFromSpecialCardEnum(type)+"_phase")
-
+static func get_generic_property(arr):
+	var str=""
+	for a in arr:
+		str=str+a+"_";
+	str.erase(str.length() - 1, 1)
+	return Stats.new().get(str)
+	pass;
 	
 static func getCooldown(type:TurretColor,extension:TurretExtension):
 	

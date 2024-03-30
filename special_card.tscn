@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://ddna4qf2gbx2w"]
+[gd_scene load_steps=27 format=3 uid="uid://ddna4qf2gbx2w"]
 
 [ext_resource type="Script" path="res://Cards/SpecialCard.gd" id="1_502hs"]
 [ext_resource type="Texture2D" uid="uid://qrn5jky8xocn" path="res://Assets/Effects/Explosion_1/Explosion_1.png" id="2_57ctp"]
@@ -22,6 +22,9 @@
 [ext_resource type="Texture2D" uid="uid://c3hw04rxrxr5p" path="res://Assets/Effects/Explosion_1/Explosion_10.png" id="11_i5xdr"]
 [ext_resource type="Texture2D" uid="uid://jkiepjsxilhq" path="res://Assets/Effects/Magic_Explosion/Explosion_10.png" id="11_usiif"]
 [ext_resource type="PackedScene" uid="uid://dvwxp6msal8o6" path="res://enemy_detector.tscn" id="12_giv3f"]
+[ext_resource type="Texture2D" uid="uid://c5dix547ivx4b" path="res://Assets/Effects/Glue/2.png" id="22_748fh"]
+[ext_resource type="Texture2D" uid="uid://cvbjay5he8ma3" path="res://Assets/Effects/Glue/3.png" id="23_ldlay"]
+[ext_resource type="Texture2D" uid="uid://dn5fpull00752" path="res://Assets/Effects/Glue/4.png" id="24_nrfb1"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_qa1dp"]
 animations = [{
@@ -94,6 +97,20 @@ animations = [{
 "loop": false,
 "name": &"FIREBALL",
 "speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("22_748fh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("23_ldlay")
+}, {
+"duration": 1.0,
+"texture": ExtResource("24_nrfb1")
+}],
+"loop": true,
+"name": &"GLUE",
+"speed": 2.0
 }]
 
 [node name="SpecialCard" type="Node2D"]
@@ -105,7 +122,8 @@ visible = false
 [node name="Effect" type="AnimatedSprite2D" parent="."]
 visible = false
 sprite_frames = SubResource("SpriteFrames_qa1dp")
-animation = &"CRYOBALL"
+animation = &"GLUE"
+frame_progress = 0.0829756
 
 [node name="EnemyDetector" parent="Effect" instance=ExtResource("12_giv3f")]
 scale = Vector2(6.31, 6.31)
