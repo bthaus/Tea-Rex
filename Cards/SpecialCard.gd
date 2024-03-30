@@ -120,15 +120,17 @@ func castGLUE():
 				if a.ID==ID:
 					a.remove()
 		pass;
-	$Effect/EnemyDetector.enemyEntered.connect(
-		func addGLUE(monster:Monster):
+	var addGlue=func addGLUE(monster:Monster):
 			if !active:
 				return
 			monster.add_child(Slower.create(Stats.GLUE_Duration,Stats.GLUE_slowFactor))	
-			pass;)
+			pass;
+	for m in $Effect/EnemyDetector.enemiesInRange:
+		addGlue.call(m)
+	
+	$Effect/EnemyDetector.enemyEntered.connect(addGlue)
 	$Effect/EnemyDetector.enemyLeft.connect(removeGlue)
-	get_tree().create_timer(Stats.GLUE_Duration).timeout.connect(
-	func removeAllGLUE():
+	get_tree().create_timer(Stats.GLUE_Duration).timeout.connect(func removeAllGLUE():
 		$Effect.visible=false;
 		for m in $Effect/EnemyDetector.enemiesInRange:
 			removeGlue.call(m)
@@ -136,11 +138,6 @@ func castGLUE():
 		pass;)
 		
 	return true;
-
-
-
-	
-	
 	
 func _input(event):
 	if !selected:
