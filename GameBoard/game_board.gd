@@ -31,8 +31,8 @@ func _ready():
 func start_bulldozer(done:Callable, size_x:int, size_y:int):
 	util.p("Bulldozering stuff now...", "Jojo")
 	var pieces = []
-	for row in size_x:
-		for col in size_y:
+	for row in size_y:
+		for col in size_x:
 			pieces.push_back(Block.Piece.new(Vector2(-col, -row), Stats.TurretColor.GREY, -1)) #Color has no particular reason
 	selected_block = Block.new(pieces)
 	action = BoardAction.PLAYER_BULLDOZER
