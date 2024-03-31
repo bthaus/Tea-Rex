@@ -72,16 +72,19 @@ position = Vector2(391, 164)
 cardName = 8
 
 [node name="Turret" parent="." instance=ExtResource("8_cxobk")]
-position = Vector2(783, 897)
+position = Vector2(850, 248)
 type = 2
+stacks = 3
 extension = 5
 
 [node name="Turret2" parent="." instance=ExtResource("8_cxobk")]
 position = Vector2(909, 159)
 type = 2
+stacks = 3
 extension = 5
 
 [node name="Turret3" parent="." instance=ExtResource("8_cxobk")]
-position = Vector2(738, 942)
+position = Vector2(805, 293)
 type = 2
+stacks = 3
 extension = 5

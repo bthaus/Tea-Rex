@@ -1,4 +1,6 @@
 res://main_scene.tscn
+res://monster.gd
+res://Game/Stats.gd
 res://TurretScripts/turretbase.tscn
 res://enemy_detector.tscn
 res://monster.tscn
@@ -6,7 +8,3 @@ res://GameBoard/game_board.tscn
 res://special_card.tscn
 res://TurretScripts/Projectiles/Explosion.tscn
 res://TurretScripts/Projectiles/Base_projectile.tscn
-res://UtilScenes/Poison.gd
-res://Game/Stats.gd
-res://Cards/SpecialCard.gd
-res://TurretScripts/Projectiles/Projectile.gd

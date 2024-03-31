@@ -36,7 +36,7 @@ static var red_cooldown=base_cooldown*0.3;
 
 static var red_laser_cooldown=base_cooldown*0.005;
 static var blue_laser_cooldown=base_cooldown*0.3;
-static var green_poison_cooldown=base_cooldown*2
+static var green_poison_cooldown=base_cooldown*1.5
 
 static var base_damage=5;
 static var green_damage=base_damage*1;
@@ -80,9 +80,25 @@ static var poison_propagation_rate=3;
 static var poison_propagation_range=base_range*0.3
 static var green_poison_decay=1;
 
-static var enemyDamage=10;
+static var enemy_base_HP=500;
+static var GREEN_enemy_HP=enemy_base_HP*3;
+static var BLUE_enemy_HP=enemy_base_HP*1;
+static var YELLOW_enemy_HP=enemy_base_HP*0.5;
+static var RED_enemy_HP=enemy_base_HP*2;
 
-static var enemyHP=500;
+static var enemy_base_damage=500;
+static var GREEN_enemy_damage=enemy_base_damage*1;
+static var BLUE_enemy_damage=enemy_base_damage*1;
+static var YELLOW_enemy_damage=enemy_base_damage*2;
+static var RED_enemy_damage=enemy_base_damage*3;
+
+static var enemy_base_speed=500;
+static var GREEN_enemy_speed=enemy_base_speed*1;
+static var BLUE_enemy_speed=enemy_base_speed*1;
+static var YELLOW_enemy_speed=enemy_base_speed*3;
+static var RED_enemy_speed=enemy_base_speed*0.5;
+
+
 
 static var playerHP=100;
 static var playerMaxHP=200;
@@ -216,6 +232,11 @@ static func getProperty(type:TurretColor,extension:TurretExtension,property:Stri
 	return temp;
 static func getMaxRoundsHeld(type:SpecialCards):
 	return Stats.new().get(getStringFromSpecialCardEnum(type)+"_max_HeldRounds") 
+
+static func getEnemyProperty(type:TurretColor,prop):
+	return Stats.new().get(getStringFromEnum(type)+"_enemy_"+prop) 
+	
+
 	
 static func getCardDamage(type:SpecialCards):
 	return Stats.new().get(getStringFromSpecialCardEnum(type)+"_damage")
@@ -237,7 +258,6 @@ static func get_generic_property(arr):
 	pass;
 	
 static func getCooldown(type:TurretColor,extension:TurretExtension):
-	
 	return getProperty(type,extension,"cooldown");
 
 static func getDamage(type:TurretColor,extension:TurretExtension):
