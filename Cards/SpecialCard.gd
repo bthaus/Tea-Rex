@@ -144,7 +144,7 @@ func castPOISON():
 	$Effect.global_position=get_global_mouse_position();
 	$Effect.play(Stats.getStringFromSpecialCardEnum(cardName));
 	for e in $Effect/EnemyDetector.enemiesInRange:
-		e.add_child(Poison.create(damage))
+		e.add_child(Poison.create(damage,Stats.POISON_decay))
 	return true;
 	pass;	
 func _input(event):

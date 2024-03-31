@@ -75,7 +75,10 @@ static var red_laser_glowing=true;
 static var blue_laser_glowing=true;
 static var green_poison_glowing=false;
 
-static var poison_dropoff_rate=2;
+static var poison_dropoff_rate=3;
+static var poison_propagation_rate=3;
+static var poison_propagation_range=base_range*0.3
+static var green_poison_decay=1;
 
 static var enemyDamage=10;
 
@@ -125,9 +128,11 @@ static var GLUE_Duration=10;
 
 
 static var POISON_damage=100;
-static var POISON_range=1;
+static var POISON_range=0.5;
 static var POISON_phase=GamePhase.BATTLE
 static var POISON_instant=false;
+static var POISON_decay=5;
+static var POISON_description="A quickly decaying, very potent, spreading toxin"
 
 
 static var MOVE_phase=GamePhase.BUILD;
