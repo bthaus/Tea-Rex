@@ -27,9 +27,9 @@ func _ready():
 	
 	var text=load("res://Assets/SpecialCards/"+Stats.getStringFromSpecialCardEnum(cardName)+"_preview.png")
 	
-	if text!=null:
-		$Preview.texture=text
-	
+	if text==null:
+		text=load("res://Assets/SpecialCards/DEFAULT_preview.png")
+	$Preview.texture=text
 	roundReceived=gameState.wave;
 	range=Stats.getCardRange(cardName);
 	damage=Stats.getCardDamage(cardName);
@@ -139,7 +139,14 @@ func castGLUE():
 		pass;)
 		
 	return true;
-	
+func castPOISON():
+	$Effect.visible=true;
+	$Effect.global_position=get_global_mouse_position();
+	$Effect.play(Stats.getStringFromSpecialCardEnum(cardName));
+	for e in $Effect/EnemyDetector.enemiesInRange:
+		e.add_child(Poison.create(damage))
+	return true;
+	pass;	
 func _input(event):
 	if !selected:
 		return;

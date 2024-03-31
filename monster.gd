@@ -2,6 +2,8 @@ extends Node2D
 class_name Monster;
 @export var sizemult=1;
 @export var hp=Stats.enemyHP;
+
+var damage;
 var speedfactor=1;
 
 
@@ -9,6 +11,8 @@ var speedfactor=1;
 func _ready():
 	$Hitbox/Hitboxshape.apply_scale(Vector2(sizemult,sizemult));
 	hp=Stats.enemyHP;
+	damage=Stats.enemyDamage;
+	
 	$HP.text=str(hp)
 	pass # Replace with function body.
 
@@ -18,6 +22,7 @@ func hit(color:Stats.TurretColor,damage,type="default"):
 	if hp<=0:
 		queue_free()
 	pass;
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if(Input.is_action_pressed("testright")):

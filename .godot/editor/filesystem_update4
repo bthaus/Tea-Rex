@@ -6,6 +6,7 @@ res://GameBoard/game_board.tscn
 res://special_card.tscn
 res://TurretScripts/Projectiles/Explosion.tscn
 res://TurretScripts/Projectiles/Base_projectile.tscn
+res://UtilScenes/Poison.gd
+res://Game/Stats.gd
 res://Cards/SpecialCard.gd
-res://EnemyDetector.gd
-res://UtilScenes/Slower.gd
+res://TurretScripts/Projectiles/Projectile.gd
