@@ -1,3 +1,4 @@
+PointLight2D
 Turret
 Timer
 Label
@@ -9,7 +10,5 @@ AnimatedSprite2D
 Sprite2D
 Node2D
 Node
-PointLight2D
 AnimationPlayer
 CanvasModulate
-AudioListener2D
