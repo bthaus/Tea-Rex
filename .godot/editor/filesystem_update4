@@ -10,3 +10,4 @@ res://TurretScripts/Projectiles/Explosion.tscn
 res://TurretScripts/Projectiles/Base_projectile.tscn
 res://Game/GameState.gd
 res://UtilScenes/point_light.tscn
+res://UtilScenes/Poison.gd

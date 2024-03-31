@@ -89,4 +89,9 @@ extension = 5
 position = Vector2(805, 293)
 type = 2
 stacks = 3
-extension = 5
+
+[node name="Turret4" parent="." instance=ExtResource("8_cxobk")]
+position = Vector2(368.005, 373.87)
+type = 5
+stacks = 3
+extension = 3
