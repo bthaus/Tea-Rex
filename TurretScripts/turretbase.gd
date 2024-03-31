@@ -39,8 +39,6 @@ static func create(color:Stats.TurretColor, lvl:int,type:String="DEFAULT")->Turr
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	print(Stats.getStringFromEnum(type))
-	print(Stats.getStringFromEnumExtension(extension))
 	setUpTower();	
 	
 	pass # Replace with function body.
@@ -63,17 +61,29 @@ func setUpTower():
 	if type==Stats.TurretColor.RED&&extension==Stats.TurretExtension.DEFAULT:
 		projectile=Projectile.create(type,damage*damagefactor,speed*speedfactor,self,extension);
 		projectile.z_index=-1;
-		add_child(projectile);
+	else:
+		projectile=Projectile.create(type,damage*damagefactor,speed*speedfactor,self,extension)	
 		
 	$EnemyDetector.setRange(Stats.getRange(type,extension))
 	pass;
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
+var target;
+var buildup=0;
 
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _draw():
+	if target==null:
+		return
+	
+	if inRange():
+		draw_line(Vector2(0,0),-(global_position-target.global_position),Color(1,0.3*sin(Time.get_ticks_usec()),0.2*sin(Time.get_ticks_usec()),buildup),10*buildup*sin(Time.get_ticks_usec()),true)
+	pass;
 func _process(delta):
 	
 
 	if inRange():
+		if buildup<=1:
+			buildup=buildup+1*delta*2;
 		var target=$EnemyDetector.enemiesInRange[0];
 		direction=(target.global_position-self.global_position).normalized();
 		$Barrel.rotation=direction.angle() + PI / 2.0;
@@ -84,9 +94,24 @@ func _process(delta):
 			if type==Stats.TurretColor.RED&&extension==Stats.TurretExtension.DEFAULT:
 				for e in $EnemyDetector.enemiesInRange:
 					e.hit(type,self.damage)
-					projectile.playHitSound();		
+					projectile.playHitSound();	
+				$Timer.start(cooldown*cooldownfactor);		
+				onCooldown=true;
 				return;
+			if type==Stats.TurretColor.RED&&extension==Stats.TurretExtension.REDLASER:
+				var sound=projectile.get_node("shot")
+				sound.play()
+				self.target=target;
+				projectile.hitEnemy(target)
+				queue_redraw()
+				$Timer.start(cooldown*cooldownfactor);
+				onCooldown=true;
+				return	
 			shoot(target);
+	else:
+		self.target=null;
+		buildup=0;		
+	queue_redraw()		
 	#debugg
 	if stacks>1:
 		$Barrel/second.visible=true;
@@ -98,18 +123,18 @@ func _process(delta):
 
 func shoot(target):
 	
-	var shot=Projectile.create(type,damage*damagefactor,speed*speedfactor,get_tree().get_root(),extension);
+	var shot=Projectile.create(type,damage*damagefactor,speed*speedfactor,self,extension);
 	#add_child(shot);
 	shot.global_position=$Barrel/BulletPosition.global_position;
 	shot.shoot(target);
 	
 	if stacks>1:
-		var sshot=Projectile.create(type,damage*damagefactor,speed*speedfactor,get_tree().get_root(),extension);
+		var sshot=Projectile.create(type,damage*damagefactor,speed*speedfactor,self,extension);
 		#add_child(sshot);
 		sshot.global_position=$Barrel/second/BulletPosition.global_position;
 		sshot.shoot(target);
 	if stacks>2:
-		var tshot=Projectile.create(type,damage*damagefactor,speed*speedfactor,get_tree().get_root(),extension);
+		var tshot=Projectile.create(type,damage*damagefactor,speed*speedfactor,self,extension);
 		#add_child(tshot);
 		tshot.global_position=$Barrel/third/BulletPosition.global_position;
 		tshot.shoot(target);

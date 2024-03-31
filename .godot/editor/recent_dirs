@@ -1,3 +1,5 @@
+res://Assets/Lights
+res://Assets/Level
 res://
 C:/Users/bwues/Desktop/Uni_SS_24
 res://Assets/Monsters
@@ -8,9 +10,7 @@ res://Sounds/Soundeffects
 res://Assets/Effects/Explosion_1
 res://Game
 res://UtilScenes
-res://Assets/Lights
 res://TurretScripts/Projectiles
-res://Assets/Level
 res://Assets/Turrets/Barrels
 res://Assets/Turrets/Projectiles
 res://Sounds/Music

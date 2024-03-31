@@ -16,6 +16,7 @@ var oneshot;
 var oneshotoriginal;
 var color;
 var pool;
+var target:Monster
 static var counter=0;
 enum asd {DEFAULT=1,REDLASER=2, BLUELASER=3, YELLOWCATAPULT=4, GREENPOISON=5};
 enum asdsa {GREY=1, GREEN=2, RED=3, YELLOW=4,BLUE=5};
@@ -31,7 +32,7 @@ static func getPool(color:Stats.TurretColor,type:Stats.TurretExtension):
 			1: return yellow_default_bullet_pool
 		5: match type:
 			1: return blue_default_bullet_pool
-			2: return blue_laser_bullet_pool
+			3: return blue_laser_bullet_pool
 	return 1
 	
 	
@@ -41,7 +42,6 @@ static func create(type:Stats.TurretColor, damage,speed,root,extension:Stats.Tur
 	
 	if 	pool==null||pool.size()==0:
 		temp=load("res://TurretScripts/Projectiles/Base_projectile.tscn").instantiate() as Projectile;
-		
 		root.add_child(temp);
 	else:
 		temp=pool.pop_back();
@@ -49,15 +49,13 @@ static func create(type:Stats.TurretColor, damage,speed,root,extension:Stats.Tur
 	
 	temp.type=type;
 	temp.ext=extension;	
-	temp.setup()
 	temp.pool=pool
+	temp.setup()
 	
 	return temp;
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	
-	
-
+	BulletManager.allBullets.append(self)
 	pass # Replace with function body.
 
 func remove():
@@ -86,12 +84,13 @@ func shoot(target):
 	#if type==Stats.TurretColor.BLUE:
 		#ConeFlash.flash(self.global_position,0.1,get_tree().get_root(),direction.angle() + PI / 2.0,0.2);
 	
-		
+	self.target=target;	
 	global_rotation=direction.angle() + PI / 2.0
 	shot=true;
 	pass;
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
+
 func _process(delta):
 	if shot:
 		translate(direction*delta*Stats.getMissileSpeed(type,ext));
@@ -99,7 +98,6 @@ func _process(delta):
 	if global_position.x>3000||global_position.x<-1000||abs(global_position.y)>3000:
 		remove()
 	pass
-
 func playHitSound():
 	if !$hit.playing:
 		$hit.play();
@@ -107,7 +105,12 @@ func playHitSound():
 	
 
 func _on_area_2d_area_entered(area):
-	var enemy=area.get_parent();
+	var en=area.get_parent();
+	if en is Monster:
+		hitEnemy(en)
+			
+	pass # Replace with function body.
+func hitEnemy(enemy:Monster):
 	playHitSound();
 	if(enemy is Monster):
 		
@@ -117,9 +120,7 @@ func _on_area_2d_area_entered(area):
 		
 		if oneshot<=0&&oneshot>-100000:
 			remove()
-			
-	pass # Replace with function body.
-	
+	pass;	
 	
 func applySpecials(enemy:Monster):
 		if type==Stats.TurretColor.RED&&ext==Stats.TurretExtension.REDLASER:

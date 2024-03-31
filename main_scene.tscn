@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://ct8v030fwp2gh"]
+[gd_scene load_steps=11 format=3 uid="uid://ct8v030fwp2gh"]
 
 [ext_resource type="Script" path="res://Game/GameState.gd" id="1_g64db"]
 [ext_resource type="PackedScene" uid="uid://cq7fvblvncfxh" path="res://monster.tscn" id="2_g6fes"]
@@ -9,9 +9,19 @@
 [ext_resource type="PackedScene" uid="uid://c8n0am7jadxj7" path="res://GameBoard/game_board.tscn" id="6_ghxp6"]
 [ext_resource type="PackedScene" uid="uid://cdrytflh1sqcx" path="res://TurretScripts/turretbase.tscn" id="8_dpx1q"]
 
+[sub_resource type="Environment" id="Environment_iravf"]
+background_mode = 3
+glow_enabled = true
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_4rsdi"]
+
 [node name="MainScene" type="Node2D" node_paths=PackedStringArray("gameBoard")]
 script = ExtResource("1_g64db")
 gameBoard = NodePath("GameBoard")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_iravf")
+camera_attributes = SubResource("CameraAttributesPractical_4rsdi")
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 color = Color(0.694118, 0.611765, 0.8, 1)
@@ -21,12 +31,6 @@ script = ExtResource("2_v0ad5")
 
 [node name="MusicPlayer" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("3_avl3y")
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-z_index = -2
-position = Vector2(256.164, 718.298)
-scale = Vector2(1000, 1000)
-texture = ExtResource("4_ykfqr")
 
 [node name="Monster" parent="." instance=ExtResource("2_g6fes")]
 position = Vector2(264, 706)
@@ -72,6 +76,88 @@ position = Vector2(361, 637)
 [node name="SpecialCard" parent="." instance=ExtResource("5_5hydu")]
 cardName = 8
 
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = -3
+position = Vector2(576, 491)
+scale = Vector2(4.17422, 2.64662)
+texture = ExtResource("4_ykfqr")
+
 [node name="Turret" parent="." instance=ExtResource("8_dpx1q")]
-position = Vector2(809, 587)
+position = Vector2(889, 607)
+extension = 2
+
+[node name="Turret2" parent="." instance=ExtResource("8_dpx1q")]
+position = Vector2(889, 607)
+extension = 2
+
+[node name="Turret3" parent="." instance=ExtResource("8_dpx1q")]
+position = Vector2(889, 607)
+extension = 2
+
+[node name="Turret4" parent="." instance=ExtResource("8_dpx1q")]
+position = Vector2(889, 607)
+extension = 2
+
+[node name="Turret5" parent="." instance=ExtResource("8_dpx1q")]
+position = Vector2(889, 607)
+extension = 2
+
+[node name="Turret6" parent="." instance=ExtResource("8_dpx1q")]
+position = Vector2(889, 607)
+extension = 2
+
+[node name="Turret7" parent="." instance=ExtResource("8_dpx1q")]
+position = Vector2(889, 607)
+extension = 2
+
+[node name="Turret8" parent="." instance=ExtResource("8_dpx1q")]
+position = Vector2(889, 607)
+extension = 2
+
+[node name="Turret9" parent="." instance=ExtResource("8_dpx1q")]
+position = Vector2(889, 607)
+extension = 2
+
+[node name="Turret10" parent="." instance=ExtResource("8_dpx1q")]
+position = Vector2(889, 607)
+extension = 2
+
+[node name="Turret11" parent="." instance=ExtResource("8_dpx1q")]
+position = Vector2(889, 607)
+extension = 2
+
+[node name="Turret12" parent="." instance=ExtResource("8_dpx1q")]
+position = Vector2(889, 607)
+extension = 2
+
+[node name="Turret13" parent="." instance=ExtResource("8_dpx1q")]
+position = Vector2(865, 365)
+extension = 2
+
+[node name="Turret14" parent="." instance=ExtResource("8_dpx1q")]
+position = Vector2(781, 379)
+extension = 2
+
+[node name="Turret15" parent="." instance=ExtResource("8_dpx1q")]
+position = Vector2(659, 533)
+extension = 2
+
+[node name="Turret16" parent="." instance=ExtResource("8_dpx1q")]
+position = Vector2(697, 365)
+extension = 2
+
+[node name="Turret17" parent="." instance=ExtResource("8_dpx1q")]
+position = Vector2(715, 473)
+extension = 2
+
+[node name="Turret18" parent="." instance=ExtResource("8_dpx1q")]
+position = Vector2(719, 595)
+extension = 2
+
+[node name="Turret19" parent="." instance=ExtResource("8_dpx1q")]
+position = Vector2(751, 731)
+extension = 2
+
+[node name="Turret20" parent="." instance=ExtResource("8_dpx1q")]
+position = Vector2(985, 669)
 extension = 2

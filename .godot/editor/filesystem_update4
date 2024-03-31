@@ -1,5 +1,3 @@
-res://TurretScripts/Projectiles/Base_projectile.tscn
-res://TurretScripts/Projectiles/Projectile.gd
 res://main_scene.tscn
 res://TurretScripts/turretbase.tscn
 res://enemy_detector.tscn
@@ -7,7 +5,10 @@ res://monster.tscn
 res://GameBoard/game_board.tscn
 res://special_card.tscn
 res://TurretScripts/Projectiles/Explosion.tscn
+res://TurretScripts/Projectiles/Base_projectile.tscn
 res://UtilScenes/point_light.tscn
-res://TurretScripts/turretbase.gd
+res://TurretScripts/Projectiles/BulletManager.gd
+res://TurretScripts/Projectiles/Projectile.gd
 res://Game/GameState.gd
 res://Game/Stats.gd
+res://TurretScripts/turretbase.gd

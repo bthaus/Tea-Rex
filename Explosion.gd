@@ -15,6 +15,7 @@ static func create(type,damage, position, root,scale=1):
 	temp.global_position=position;
 	temp.get_node("AnimatedSprite2D").play("default");
 	temp.get_node("sound").play();
+	temp.get_node("AnimationPlayer").play("lightup")
 
 	
 	
