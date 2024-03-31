@@ -13,6 +13,7 @@ static var grey_range=2*base_range;
 
 static var red_laser_range=1*base_range;
 static var blue_laser_range=3*base_range;
+static var green_poison_range=2*base_range;
 
 static var base_missile_speed=1000;
 static var green_missile_speed=1*base_missile_speed;
@@ -23,6 +24,7 @@ static var grey_missile_speed=2*base_missile_speed;
 
 static var blue_laser_missile_speed=base_missile_speed*4;
 static var red_laser_missile_speed=base_missile_speed*1;
+static var green_poison_missile_speed=base_missile_speed*1;
 
 
 static var base_cooldown=1;
@@ -34,6 +36,7 @@ static var red_cooldown=base_cooldown*0.3;
 
 static var red_laser_cooldown=base_cooldown*0.005;
 static var blue_laser_cooldown=base_cooldown*0.3;
+static var green_poison_cooldown=base_cooldown*1.5
 
 static var base_damage=5;
 static var green_damage=base_damage*1;
@@ -44,6 +47,7 @@ static var red_damage=base_damage*1;
 
 static var red_laser_damage=base_damage*0.05;
 static var blue_laser_damage=base_damage*1;
+static var green_poison_damage=base_damage*1;
 
 static var base_penetrations=1;
 static var green_penetrations=base_penetrations*1;
@@ -54,9 +58,12 @@ static var red_penetrations=base_penetrations*-1000000;
 
 static var red_laser_penetrations=base_penetrations*1;
 static var blue_laser_penetrations=base_penetrations*5;
+static var green_poison_penetrations=base_penetrations*1;
+
 
 static var green_explosion_range=0.5;
 static var red_laser_damage_stack=0.05;
+static var green_poison_damage_stack=1;
 
 static var green_glowing=false;
 static var blue_glowing=false;
@@ -66,11 +73,32 @@ static var red_glowing=false;
 
 static var red_laser_glowing=true;
 static var blue_laser_glowing=true;
+static var green_poison_glowing=false;
+
+static var poison_dropoff_rate=3;
+static var poison_propagation_rate=3;
+static var poison_propagation_range=base_range*0.3
+static var green_poison_decay=1;
+
+static var enemy_base_HP=500;
+static var GREEN_enemy_HP=enemy_base_HP*3;
+static var BLUE_enemy_HP=enemy_base_HP*1;
+static var YELLOW_enemy_HP=enemy_base_HP*0.5;
+static var RED_enemy_HP=enemy_base_HP*2;
+
+static var enemy_base_damage=500;
+static var GREEN_enemy_damage=enemy_base_damage*1;
+static var BLUE_enemy_damage=enemy_base_damage*1;
+static var YELLOW_enemy_damage=enemy_base_damage*2;
+static var RED_enemy_damage=enemy_base_damage*3;
+
+static var enemy_base_speed=1;
+static var GREEN_enemy_speed=enemy_base_speed*1;
+static var BLUE_enemy_speed=enemy_base_speed*1;
+static var YELLOW_enemy_speed=enemy_base_speed*3;
+static var RED_enemy_speed=enemy_base_speed*0.5;
 
 
-static var enemyDamage=10;
-
-static var enemyHP=500;
 
 static var playerHP=100;
 static var playerMaxHP=200;
@@ -108,6 +136,20 @@ static var BULLDOZER_damage=2;
 #y axis
 static var BULLDOZER_range=2;
 
+static var GLUE_phase=GamePhase.BATTLE
+static var GLUE_range=GamePhase.BATTLE
+static var GLUE_instant=false;
+static var GLUE_slowFactor=0.5;
+static var GLUE_Duration=10;
+
+
+static var POISON_damage=100;
+static var POISON_range=0.5;
+static var POISON_phase=GamePhase.BATTLE
+static var POISON_instant=false;
+static var POISON_decay=5;
+static var POISON_description="A quickly decaying, very potent, spreading toxin"
+
 
 static var MOVE_phase=GamePhase.BUILD;
 static var MOVE_instant=true;
@@ -115,8 +157,9 @@ static var MOVE_instant=true;
 enum TurretColor {GREY=1, GREEN=2, RED=3, YELLOW=4,BLUE=5};
 enum TurretExtension {DEFAULT=1,REDLASER=2, BLUELASER=3, YELLOWCATAPULT=4, GREENPOISON=5};
 enum GamePhase {BATTLE=1,BUILD=2,BOTH=3};
-enum SpecialCards {HEAL=1,FIREBALL=2,UPHEALTH=3,CRYOBALL=4,MOVE=5, BULLDOZER=6}
+enum SpecialCards {HEAL=1,FIREBALL=2,UPHEALTH=3,CRYOBALL=4,MOVE=5, BULLDOZER=6,GLUE=7,POISON=8}
 enum BlockShape {O=1, I=2, S=3, Z=4, L=5, J=6, T=7, TINY=8, SMALL=9, ARROW=10, CROSS=11}
+enum Catastrophies {METEOR=1,SWITCH=2,EXPAND=3,ADDSPAWNER=4,EARTHQUAKE=5}
 
 
 
@@ -124,7 +167,7 @@ enum BlockShape {O=1, I=2, S=3, Z=4, L=5, J=6, T=7, TINY=8, SMALL=9, ARROW=10, C
 func _ready():
 	pass # Replace with function body.
 static func getStringFromEnum(type:TurretColor):
-	
+	return Stats.TurretColor.keys()[(type)-1];
 	match type:
 		1: return "GREY";
 		2: return "GREEN";
@@ -133,7 +176,7 @@ static func getStringFromEnum(type:TurretColor):
 		5: return "BLUE"
 	pass
 static func getStringFromEnumLowercase(type:TurretColor):
-	
+	return Stats.TurretColor.keys()[(type)-1].to_lower();
 	match type:
 		1: return "grey";
 		2: return "green";
@@ -142,6 +185,7 @@ static func getStringFromEnumLowercase(type:TurretColor):
 		5: return "blue"
 	pass
 static func getStringFromSpecialCardEnum(name:SpecialCards):
+	return Stats.SpecialCards.keys()[(name)-1];
 	match name:
 		1: return "HEAL";
 		2: return "FIREBALL";
@@ -156,13 +200,17 @@ static func getStringFromEnumExtension(type:TurretExtension):
 		1: return ""
 		2: return "LASER"
 		3: return "LASER"
+		5: return "POISON"
 	
 	return "";
 static func getStringFromEnumExtensionLowercase(type:TurretExtension):
+	return getStringFromEnumExtension(type).to_lower()
 	match type:
 		1: return ""
 		2: return "laser"
 		3: return "laser"
+		5: return "poison"
+		
 	
 	return "";
 static func getColorFromLowercaseString(str:String):
@@ -184,6 +232,11 @@ static func getProperty(type:TurretColor,extension:TurretExtension,property:Stri
 	return temp;
 static func getMaxRoundsHeld(type:SpecialCards):
 	return Stats.new().get(getStringFromSpecialCardEnum(type)+"_max_HeldRounds") 
+
+static func getEnemyProperty(type:TurretColor,prop):
+	return Stats.new().get(getStringFromEnum(type)+"_enemy_"+prop) 
+	
+
 	
 static func getCardDamage(type:SpecialCards):
 	return Stats.new().get(getStringFromSpecialCardEnum(type)+"_damage")
@@ -196,10 +249,15 @@ static func getCardInstant(type:SpecialCards):
 
 static func getCardPhase(type:SpecialCards):
 	return Stats.new().get(getStringFromSpecialCardEnum(type)+"_phase")
-
+static func get_generic_property(arr):
+	var str=""
+	for a in arr:
+		str=str+a+"_";
+	str.erase(str.length() - 1, 1)
+	return Stats.new().get(str)
+	pass;
 	
 static func getCooldown(type:TurretColor,extension:TurretExtension):
-	
 	return getProperty(type,extension,"cooldown");
 
 static func getDamage(type:TurretColor,extension:TurretExtension):

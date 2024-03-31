@@ -14,6 +14,10 @@ var roundsInHand=1;
 var roundReceived:int;
 var maxroundsHeld=1;
 var phase:Stats.GamePhase
+var active=false;
+var tasks=[]
+static var cardID=0;
+var ID;
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -23,9 +27,9 @@ func _ready():
 	
 	var text=load("res://Assets/SpecialCards/"+Stats.getStringFromSpecialCardEnum(cardName)+"_preview.png")
 	
-	if text!=null:
-		$Preview.texture=text
-	
+	if text==null:
+		text=load("res://Assets/SpecialCards/DEFAULT_preview.png")
+	$Preview.texture=text
 	roundReceived=gameState.wave;
 	range=Stats.getCardRange(cardName);
 	damage=Stats.getCardDamage(cardName);
@@ -44,6 +48,7 @@ func _ready():
 static func create(cardname:Stats.SpecialCards)->SpecialCard:
 	var retval=load("res://special_card.tscn").instantiate() as SpecialCard;
 	retval.cardName=cardname;
+	retval.ID=cardID+1;
 	return retval
 	
 func select(done:Callable):
@@ -51,11 +56,13 @@ func select(done:Callable):
 		done.call(false)
 		return
 	self.done=done;
-	selected=true;
+	
 	
 	if instant:
 		cast()
 		return;
+		
+	selected=true;
 	$Preview.visible=true;
 	pass;
 
@@ -101,7 +108,45 @@ func castCRYOBALL():
 		e.hit(Stats.TurretColor.GREY,damage)
 		e.add_child(Slower.create(Stats.CRYOBALL_slowDuration,Stats.CRYOBALL_slowFactor))
 	return true;
+
+func castGLUE():
+	$Effect.play("GLUE")
+	$Effect.visible=true;
+	$Effect.z_index=-1
+	active=true;
+	var removeGlue=func removeGLUE(monster:Monster):
+		for a in monster.get_children():
+			if a is Slower:
+				if a.ID==ID:
+					a.remove()
+		pass;
+	var addGlue=func addGLUE(monster:Monster):
+			if !active:
+				return
+			monster.add_child(Slower.create(Stats.GLUE_Duration,Stats.GLUE_slowFactor))	
+			pass;
 	
+	for m in $Effect/EnemyDetector.enemiesInRange:
+		addGlue.call(m)
+	
+	$Effect/EnemyDetector.enemyEntered.connect(addGlue)
+	$Effect/EnemyDetector.enemyLeft.connect(removeGlue)
+	get_tree().create_timer(Stats.GLUE_Duration).timeout.connect(func removeAllGLUE():
+		$Effect.visible=false;
+		for m in $Effect/EnemyDetector.enemiesInRange:
+			removeGlue.call(m)
+		active=false;
+		pass;)
+		
+	return true;
+func castPOISON():
+	$Effect.visible=true;
+	$Effect.global_position=get_global_mouse_position();
+	$Effect.play(Stats.getStringFromSpecialCardEnum(cardName));
+	for e in $Effect/EnemyDetector.enemiesInRange:
+		e.add_child(Poison.create(damage,Stats.POISON_decay))
+	return true;
+	pass;	
 func _input(event):
 	if !selected:
 		return;
@@ -115,6 +160,10 @@ func _input(event):
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	if active:
+		for t in tasks:
+			t.call()
+	
 	if Input.is_action_just_pressed("interrupt"):
 		selected=false;
 		done.call(false)

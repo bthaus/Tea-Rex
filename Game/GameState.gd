@@ -24,7 +24,7 @@ var handCards=[]
 signal player_died
 
 
-
+ 
 
 func changeHealth(amount:int):
 	HP=HP+amount

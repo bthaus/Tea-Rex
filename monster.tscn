@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://cq7fvblvncfxh"]
+[gd_scene load_steps=5 format=3 uid="uid://cq7fvblvncfxh"]
 
 [ext_resource type="Script" path="res://monster.gd" id="1_g1k27"]
-[ext_resource type="Texture2D" uid="uid://b8n0busmwromw" path="res://icon.svg" id="3_ol012"]
+[ext_resource type="Texture2D" uid="uid://b0vjaywamx3yp" path="res://Assets/Lights/spotlight.png" id="2_7naar"]
+[ext_resource type="Texture2D" uid="uid://cfudr8ysiyfsl" path="res://Assets/Monsters/Monster.png" id="2_yp50u"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_wsh3g"]
 radius = 32.0
@@ -16,9 +17,10 @@ collision_layer = 2
 shape = SubResource("CircleShape2D_wsh3g")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(7.62939e-06, -7.62939e-06)
-scale = Vector2(0.484375, 0.484375)
-texture = ExtResource("3_ol012")
+self_modulate = Color(0, 0.592, 100, 1)
+position = Vector2(0, -1)
+scale = Vector2(0.135742, 0.135742)
+texture = ExtResource("2_yp50u")
 
 [node name="HP" type="Label" parent="."]
 offset_left = -21.0
@@ -26,3 +28,52 @@ offset_top = -55.0
 offset_right = 19.0
 offset_bottom = -32.0
 text = "hi"
+
+[node name="GREEN" type="PointLight2D" parent="."]
+visible = false
+scale = Vector2(3.45, 3.45)
+color = Color(0, 1, 0, 1)
+texture = ExtResource("2_7naar")
+
+[node name="GREEN2" type="PointLight2D" parent="GREEN"]
+scale = Vector2(2.3, 2.3)
+color = Color(0, 1, 0, 1)
+energy = 0.57
+texture = ExtResource("2_7naar")
+
+[node name="RED" type="PointLight2D" parent="."]
+visible = false
+scale = Vector2(3.45, 3.45)
+color = Color(1, 0, 0, 1)
+energy = 4.03
+texture = ExtResource("2_7naar")
+
+[node name="GREEN2" type="PointLight2D" parent="RED"]
+scale = Vector2(2.3, 2.3)
+color = Color(1, 0, 0, 1)
+energy = 0.57
+texture = ExtResource("2_7naar")
+
+[node name="BLUE" type="PointLight2D" parent="."]
+visible = false
+scale = Vector2(3.45, 3.45)
+color = Color(0, 1, 1, 1)
+texture = ExtResource("2_7naar")
+
+[node name="GREEN2" type="PointLight2D" parent="BLUE"]
+scale = Vector2(2.3, 2.3)
+color = Color(0, 1, 1, 1)
+energy = 0.57
+texture = ExtResource("2_7naar")
+
+[node name="YELLOW" type="PointLight2D" parent="."]
+visible = false
+scale = Vector2(3.45, 3.45)
+color = Color(1, 1, 0, 1)
+texture = ExtResource("2_7naar")
+
+[node name="GREEN2" type="PointLight2D" parent="YELLOW"]
+scale = Vector2(2.3, 2.3)
+color = Color(1, 1, 0, 1)
+energy = 0.57
+texture = ExtResource("2_7naar")

@@ -71,8 +71,10 @@ func _on_area_2d_area_entered(area):
 func applySpecials(enemy:Monster):
 		if type==Stats.TurretColor.RED&&ext==Stats.TurretExtension.REDLASER:
 			applyRedLaser(enemy)
-		if type==Stats.TurretColor.GREEN:
+		if type==Stats.TurretColor.GREEN&&ext==Stats.TurretExtension.DEFAULT:
 			Explosion.create(type,damage,global_position,get_tree().get_root(),Stats.green_explosion_range);
+		if type==Stats.TurretColor.GREEN&&ext==Stats.TurretExtension.GREENPOISON:
+			applyPoison(enemy)
 		
 		pass;
 		
@@ -85,4 +87,13 @@ func applyRedLaser(enemy:Monster):
 			damage=damage+a.hit()
 	if !temp:
 		enemy.add_child(DamageStacker.new());
+	pass
+func applyPoison(enemy:Monster):
+	var temp=false;
+	for a in enemy.get_children():
+		if a is Poison&&a.decay==Stats.green_poison_decay:
+			temp=true;
+			a.apply(Stats.green_poison_damage_stack)
+	if !temp:
+		enemy.add_child(Poison.create(damage,Stats.green_poison_decay));
 	pass

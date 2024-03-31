@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://ct8v030fwp2gh"]
+[gd_scene load_steps=8 format=3 uid="uid://ct8v030fwp2gh"]
 
 [ext_resource type="Script" path="res://Game/GameState.gd" id="1_g64db"]
 [ext_resource type="PackedScene" uid="uid://cq7fvblvncfxh" path="res://monster.tscn" id="2_g6fes"]
@@ -7,7 +7,6 @@
 [ext_resource type="Texture2D" uid="uid://chsgerkqrpoy6" path="res://Assets/Level/Backgrounddummy.png" id="4_ykfqr"]
 [ext_resource type="PackedScene" uid="uid://ddna4qf2gbx2w" path="res://special_card.tscn" id="5_5hydu"]
 [ext_resource type="PackedScene" uid="uid://c8n0am7jadxj7" path="res://GameBoard/game_board.tscn" id="6_ghxp6"]
-[ext_resource type="PackedScene" uid="uid://cdrytflh1sqcx" path="res://TurretScripts/turretbase.tscn" id="8_cxobk"]
 
 [node name="MainScene" type="Node2D" node_paths=PackedStringArray("gameBoard")]
 script = ExtResource("1_g64db")
@@ -24,25 +23,23 @@ script = ExtResource("2_v0ad5")
 stream = ExtResource("3_avl3y")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0.403922, 0.74902, 1, 1)
 z_index = -2
-position = Vector2(431, -64)
+position = Vector2(634, -6)
 scale = Vector2(1000, 1000)
 texture = ExtResource("4_ykfqr")
 
 [node name="Monster" parent="." instance=ExtResource("2_g6fes")]
 position = Vector2(124, 169)
-color = 2
 
 [node name="Monster2" parent="." instance=ExtResource("2_g6fes")]
 position = Vector2(200, 170)
 
 [node name="Monster3" parent="." instance=ExtResource("2_g6fes")]
 position = Vector2(295, 166)
-color = 3
 
 [node name="Monster4" parent="." instance=ExtResource("2_g6fes")]
 position = Vector2(37, 163)
-color = 4
 
 [node name="Monster5" parent="." instance=ExtResource("2_g6fes")]
 position = Vector2(126, 255)
@@ -68,30 +65,7 @@ position = Vector2(649, 167)
 [node name="Monster12" parent="." instance=ExtResource("2_g6fes")]
 position = Vector2(391, 164)
 
-[node name="GameBoard" parent="." instance=ExtResource("6_ghxp6")]
-
 [node name="SpecialCard" parent="." instance=ExtResource("5_5hydu")]
-cardName = 8
+cardName = 5
 
-[node name="Turret" parent="." instance=ExtResource("8_cxobk")]
-position = Vector2(850, 248)
-type = 2
-stacks = 3
-extension = 5
-
-[node name="Turret2" parent="." instance=ExtResource("8_cxobk")]
-position = Vector2(909, 159)
-type = 2
-stacks = 3
-extension = 5
-
-[node name="Turret3" parent="." instance=ExtResource("8_cxobk")]
-position = Vector2(805, 293)
-type = 2
-stacks = 3
-
-[node name="Turret4" parent="." instance=ExtResource("8_cxobk")]
-position = Vector2(368.005, 373.87)
-type = 5
-stacks = 3
-extension = 3
+[node name="GameBoard" parent="." instance=ExtResource("6_ghxp6")]

@@ -1,23 +1,45 @@
 extends Node2D
 class_name Monster;
 @export var sizemult=1;
-@export var hp=Stats.enemyHP;
-var speedfactor=1;
+var hp=Stats.enemy_base_HP;
+var damage=Stats.enemy_base_damage;
+var speedfactor=Stats.enemy_base_speed;
+@export var color:Stats.TurretColor=Stats.TurretColor.BLUE
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$Hitbox/Hitboxshape.apply_scale(Vector2(sizemult,sizemult));
-	hp=Stats.enemyHP;
+	damage=Stats.getEnemyProperty(color,"damage")
+	
+	speedfactor=Stats.getEnemyProperty(color,"speed")
+	hp=Stats.getEnemyProperty(color,"HP")
+	if color==Stats.TurretColor.GREEN:
+		$Sprite2D.self_modulate=Color(0,255,0,255);
+	if color==Stats.TurretColor.RED:
+		$Sprite2D.self_modulate=Color(255,0,0,255);
+	if color==Stats.TurretColor.YELLOW:
+		$Sprite2D.self_modulate=self_modulate
+	
+	get_node(Stats.getStringFromEnum(color)).visible=true;
+	
 	$HP.text=str(hp)
 	pass # Replace with function body.
-
+func create(type:Stats.TurretColor):
+	var en=load("res://monster.tscn").instantiate() as Monster
+	en.color=type;
+		
+	pass;
 func hit(color:Stats.TurretColor,damage,type="default"):
-	hp=hp-damage;
+	var mod=1;
+	if color==self.color:
+		mod=1.5
+	hp=hp-damage*mod;
 	$HP.text=str(hp)
 	if hp<=0:
 		queue_free()
 	pass;
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if(Input.is_action_pressed("testright")):

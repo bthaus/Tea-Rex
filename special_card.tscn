@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://ddna4qf2gbx2w"]
+[gd_scene load_steps=37 format=3 uid="uid://ddna4qf2gbx2w"]
 
 [ext_resource type="Script" path="res://Cards/SpecialCard.gd" id="1_502hs"]
 [ext_resource type="Texture2D" uid="uid://qrn5jky8xocn" path="res://Assets/Effects/Explosion_1/Explosion_1.png" id="2_57ctp"]
@@ -22,6 +22,19 @@
 [ext_resource type="Texture2D" uid="uid://c3hw04rxrxr5p" path="res://Assets/Effects/Explosion_1/Explosion_10.png" id="11_i5xdr"]
 [ext_resource type="Texture2D" uid="uid://jkiepjsxilhq" path="res://Assets/Effects/Magic_Explosion/Explosion_10.png" id="11_usiif"]
 [ext_resource type="PackedScene" uid="uid://dvwxp6msal8o6" path="res://enemy_detector.tscn" id="12_giv3f"]
+[ext_resource type="Texture2D" uid="uid://c5dix547ivx4b" path="res://Assets/Effects/Glue/2.png" id="22_748fh"]
+[ext_resource type="Texture2D" uid="uid://cvbjay5he8ma3" path="res://Assets/Effects/Glue/3.png" id="23_ldlay"]
+[ext_resource type="Texture2D" uid="uid://dn5fpull00752" path="res://Assets/Effects/Glue/4.png" id="24_nrfb1"]
+[ext_resource type="Texture2D" uid="uid://be5y15uql2qg6" path="res://Assets/Effects/Poison_Explosion/Explosion_1.png" id="25_54v6a"]
+[ext_resource type="Texture2D" uid="uid://gp2anjwgcvfk" path="res://Assets/Effects/Poison_Explosion/Explosion_2.png" id="26_e2vdu"]
+[ext_resource type="Texture2D" uid="uid://4w3gtsq0st1f" path="res://Assets/Effects/Poison_Explosion/Explosion_3.png" id="27_6ortv"]
+[ext_resource type="Texture2D" uid="uid://bfipqkvonu611" path="res://Assets/Effects/Poison_Explosion/Explosion_4.png" id="28_tjr0j"]
+[ext_resource type="Texture2D" uid="uid://deog6wekg81ld" path="res://Assets/Effects/Poison_Explosion/Explosion_5.png" id="29_lf1an"]
+[ext_resource type="Texture2D" uid="uid://bwala0pvv7f12" path="res://Assets/Effects/Poison_Explosion/Explosion_6.png" id="30_si3ny"]
+[ext_resource type="Texture2D" uid="uid://bsvj10cn37351" path="res://Assets/Effects/Poison_Explosion/Explosion_7.png" id="31_28nmu"]
+[ext_resource type="Texture2D" uid="uid://d0tej87w475a4" path="res://Assets/Effects/Poison_Explosion/Explosion_8.png" id="32_yjjpq"]
+[ext_resource type="Texture2D" uid="uid://c220ehk8jffhu" path="res://Assets/Effects/Poison_Explosion/Explosion_9.png" id="33_b16ta"]
+[ext_resource type="Texture2D" uid="uid://5st8lutbjqsw" path="res://Assets/Effects/Poison_Explosion/Explosion_10.png" id="34_tvcuf"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_qa1dp"]
 animations = [{
@@ -94,6 +107,55 @@ animations = [{
 "loop": false,
 "name": &"FIREBALL",
 "speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("22_748fh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("23_ldlay")
+}, {
+"duration": 1.0,
+"texture": ExtResource("24_nrfb1")
+}],
+"loop": true,
+"name": &"GLUE",
+"speed": 2.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("25_54v6a")
+}, {
+"duration": 1.0,
+"texture": ExtResource("26_e2vdu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("27_6ortv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("28_tjr0j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("29_lf1an")
+}, {
+"duration": 1.0,
+"texture": ExtResource("30_si3ny")
+}, {
+"duration": 1.0,
+"texture": ExtResource("31_28nmu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("32_yjjpq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("33_b16ta")
+}, {
+"duration": 1.0,
+"texture": ExtResource("34_tvcuf")
+}],
+"loop": false,
+"name": &"POISON",
+"speed": 10.0
 }]
 
 [node name="SpecialCard" type="Node2D"]
@@ -105,7 +167,7 @@ visible = false
 [node name="Effect" type="AnimatedSprite2D" parent="."]
 visible = false
 sprite_frames = SubResource("SpriteFrames_qa1dp")
-animation = &"CRYOBALL"
+animation = &"POISON"
 
 [node name="EnemyDetector" parent="Effect" instance=ExtResource("12_giv3f")]
 scale = Vector2(6.31, 6.31)
