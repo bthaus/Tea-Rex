@@ -12,3 +12,4 @@ res://TurretScripts/Projectiles/Projectile.gd
 res://Game/GameState.gd
 res://Game/Stats.gd
 res://TurretScripts/turretbase.gd
+res://ray_cast_2d.tscn

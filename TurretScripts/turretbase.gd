@@ -76,12 +76,17 @@ func _draw():
 		return
 	
 	if inRange():
-		draw_line(Vector2(0,0),-(global_position-target.global_position),Color(1,0.3*sin(Time.get_ticks_usec()),0.2*sin(Time.get_ticks_usec()),buildup),10*buildup*sin(Time.get_ticks_usec()),true)
+		
+		draw_line(Vector2(0,0),-(global_position-target.global_position),Color(5*sin(Time.get_ticks_usec()),0.2*sin(Time.get_ticks_usec()),0.5*sin(Time.get_ticks_usec()),buildup),10*buildup*sin(Time.get_ticks_usec()),true)
+	
+		
 	pass;
 func _process(delta):
 	
 
 	if inRange():
+		
+		
 		if buildup<=1:
 			buildup=buildup+1*delta*2;
 		var target=$EnemyDetector.enemiesInRange[0];
@@ -99,6 +104,7 @@ func _process(delta):
 				onCooldown=true;
 				return;
 			if type==Stats.TurretColor.RED&&extension==Stats.TurretExtension.REDLASER:
+				
 				var sound=projectile.get_node("shot")
 				sound.play()
 				self.target=target;
@@ -106,9 +112,11 @@ func _process(delta):
 				queue_redraw()
 				$Timer.start(cooldown*cooldownfactor);
 				onCooldown=true;
-				return	
+				return
+			
 			shoot(target);
 	else:
+		
 		self.target=null;
 		buildup=0;		
 	queue_redraw()		
