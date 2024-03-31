@@ -61,7 +61,7 @@ func setUpTower():
 	speed=Stats.getCooldown(type,extension);
 	
 	if type==Stats.TurretColor.RED&&extension==Stats.TurretExtension.DEFAULT:
-		projectile=Projectile.create(type,damage*damagefactor,speed*speedfactor,extension);
+		projectile=Projectile.create(type,damage*damagefactor,speed*speedfactor,self,extension);
 		projectile.z_index=-1;
 		add_child(projectile);
 		
@@ -98,19 +98,19 @@ func _process(delta):
 
 func shoot(target):
 	
-	var shot=Projectile.create(type,damage*damagefactor,speed*speedfactor,extension);
-	add_child(shot);
+	var shot=Projectile.create(type,damage*damagefactor,speed*speedfactor,get_tree().get_root(),extension);
+	#add_child(shot);
 	shot.global_position=$Barrel/BulletPosition.global_position;
 	shot.shoot(target);
 	
 	if stacks>1:
-		var sshot=Projectile.create(type,damage*damagefactor,speed*speedfactor,extension);
-		add_child(sshot);
+		var sshot=Projectile.create(type,damage*damagefactor,speed*speedfactor,get_tree().get_root(),extension);
+		#add_child(sshot);
 		sshot.global_position=$Barrel/second/BulletPosition.global_position;
 		sshot.shoot(target);
 	if stacks>2:
-		var tshot=Projectile.create(type,damage*damagefactor,speed*speedfactor,extension);
-		add_child(tshot);
+		var tshot=Projectile.create(type,damage*damagefactor,speed*speedfactor,get_tree().get_root(),extension);
+		#add_child(tshot);
 		tshot.global_position=$Barrel/third/BulletPosition.global_position;
 		tshot.shoot(target);
 		
