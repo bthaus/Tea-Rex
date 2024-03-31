@@ -24,23 +24,25 @@ script = ExtResource("2_v0ad5")
 stream = ExtResource("3_avl3y")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-modulate = Color(0.403922, 0.74902, 1, 1)
 z_index = -2
-position = Vector2(492, -76)
+position = Vector2(431, -64)
 scale = Vector2(1000, 1000)
 texture = ExtResource("4_ykfqr")
 
 [node name="Monster" parent="." instance=ExtResource("2_g6fes")]
 position = Vector2(124, 169)
+color = 2
 
 [node name="Monster2" parent="." instance=ExtResource("2_g6fes")]
 position = Vector2(200, 170)
 
 [node name="Monster3" parent="." instance=ExtResource("2_g6fes")]
 position = Vector2(295, 166)
+color = 3
 
 [node name="Monster4" parent="." instance=ExtResource("2_g6fes")]
 position = Vector2(37, 163)
+color = 4
 
 [node name="Monster5" parent="." instance=ExtResource("2_g6fes")]
 position = Vector2(126, 255)

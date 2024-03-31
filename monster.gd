@@ -4,24 +4,30 @@ class_name Monster;
 var hp=Stats.enemy_base_HP;
 var damage=Stats.enemy_base_damage;
 var speedfactor=Stats.enemy_base_speed;
-var color:Stats.TurretColor=Stats.TurretColor.GREY
+@export var color:Stats.TurretColor=Stats.TurretColor.BLUE
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$Hitbox/Hitboxshape.apply_scale(Vector2(sizemult,sizemult));
+	damage=Stats.getEnemyProperty(color,"damage")
 	
+	speedfactor=Stats.getEnemyProperty(color,"speed")
+	hp=Stats.getEnemyProperty(color,"HP")
+	if color==Stats.TurretColor.GREEN:
+		$Sprite2D.self_modulate=Color(0,255,0,255);
+	if color==Stats.TurretColor.RED:
+		$Sprite2D.self_modulate=Color(255,0,0,255);
+	if color==Stats.TurretColor.YELLOW:
+		$Sprite2D.self_modulate=Color(255,255,255,255);
 	
 	
 	$HP.text=str(hp)
 	pass # Replace with function body.
 func create(type:Stats.TurretColor):
 	var en=load("res://monster.tscn").instantiate() as Monster
-	en.damage=Stats.getEnemyProperty(color,"damage")
 	en.color=type;
-	en.speedfactor=Stats.getEnemyProperty(color,"speed")
-	en.hp=Stats.getEnemyProperty(color,"HP")
-	
+		
 	pass;
 func hit(color:Stats.TurretColor,damage,type="default"):
 	var mod=1;

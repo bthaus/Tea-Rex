@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://cq7fvblvncfxh"]
 
 [ext_resource type="Script" path="res://monster.gd" id="1_g1k27"]
-[ext_resource type="Texture2D" uid="uid://b8n0busmwromw" path="res://icon.svg" id="3_ol012"]
+[ext_resource type="Texture2D" uid="uid://cfudr8ysiyfsl" path="res://Assets/Monsters/Monster.png" id="2_yp50u"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_wsh3g"]
 radius = 32.0
@@ -16,9 +16,10 @@ collision_layer = 2
 shape = SubResource("CircleShape2D_wsh3g")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(7.62939e-06, -7.62939e-06)
-scale = Vector2(0.484375, 0.484375)
-texture = ExtResource("3_ol012")
+self_modulate = Color(0, 0.592, 100, 1)
+position = Vector2(0, -1)
+scale = Vector2(0.135742, 0.135742)
+texture = ExtResource("2_yp50u")
 
 [node name="HP" type="Label" parent="."]
 offset_left = -21.0

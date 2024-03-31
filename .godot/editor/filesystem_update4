@@ -8,3 +8,4 @@ res://GameBoard/game_board.tscn
 res://special_card.tscn
 res://TurretScripts/Projectiles/Explosion.tscn
 res://TurretScripts/Projectiles/Base_projectile.tscn
+res://Game/GameState.gd
