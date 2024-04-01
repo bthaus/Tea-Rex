@@ -78,16 +78,18 @@ func _draw():
 	if buildup>0:
 		direction=(target.global_position-self.global_position).normalized();
 		$Barrel.rotation=direction.angle() + PI / 2.0;
+		var color=Color(500,0.2+(0.2*buildup*sin(Time.get_ticks_usec())),0.2+(0.2*buildup*sin(Time.get_ticks_usec())),buildup)
+		color=color.lightened(0.5*sin(Time.get_ticks_usec()))
 		
-		draw_line($Barrel/BulletPosition.position.rotated($Barrel.rotation),-(global_position-target.global_position),Color(500,0.2+(0.2*buildup*sin(Time.get_ticks_usec())),0.2+(0.2*buildup*sin(Time.get_ticks_usec())),buildup),thickness*buildup,true)
-		draw_line($Barrel/BulletPosition.position.rotated($Barrel.rotation),-(global_position-target.global_position),Color(500,0.2+(0.2*buildup*sin(Time.get_ticks_usec())),0.2+(0.2*buildup*sin(Time.get_ticks_usec())),buildup),thickness*buildup+(3*buildup*sin(Time.get_ticks_usec())),true)
+		draw_line($Barrel/BulletPosition.position.rotated($Barrel.rotation),-(global_position-target.global_position),color,thickness*buildup,true)
+		draw_line($Barrel/BulletPosition.position.rotated($Barrel.rotation),-(global_position-target.global_position),color,thickness*buildup+(3*buildup*sin(Time.get_ticks_usec()/10000)),true)
 		
 		if stacks>=2:
-			draw_line(($Barrel/second.position+$Barrel/second/BulletPosition.position).rotated($Barrel.rotation),-(global_position-(target.global_position)-($Barrel/second.position-$Barrel/second/BulletPosition.position).rotated($Barrel.rotation)),Color(500,0.2+(0.2*buildup*sin(Time.get_ticks_usec())),0.2+(0.2*buildup*sin(Time.get_ticks_usec())),buildup),thickness/2*buildup,true)
-			draw_line(($Barrel/second.position+$Barrel/second/BulletPosition.position).rotated($Barrel.rotation),-(global_position-(target.global_position)-($Barrel/second.position-$Barrel/second/BulletPosition.position).rotated($Barrel.rotation)),Color(500,0.2+(0.2*buildup*sin(Time.get_ticks_usec())),0.2+(0.2*buildup*sin(Time.get_ticks_usec())),buildup),thickness*buildup+(3*buildup*sin(Time.get_ticks_usec())),true)
+			draw_line(($Barrel/second.position+$Barrel/second/BulletPosition.position).rotated($Barrel.rotation),-(global_position-(target.global_position)-($Barrel/second.position-$Barrel/second/BulletPosition.position).rotated($Barrel.rotation)),color,thickness/2*buildup,true)
+			draw_line(($Barrel/second.position+$Barrel/second/BulletPosition.position).rotated($Barrel.rotation),-(global_position-(target.global_position)-($Barrel/second.position-$Barrel/second/BulletPosition.position).rotated($Barrel.rotation)),color,thickness*buildup+(3*buildup*sin(Time.get_ticks_usec())),true)
 		if stacks>=3:
-			draw_line(($Barrel/third.position+$Barrel/third/BulletPosition.position).rotated($Barrel.rotation),-(global_position-(target.global_position)-($Barrel/third.position-$Barrel/third/BulletPosition.position).rotated($Barrel.rotation)),Color(500,0.2+(0.2*buildup*sin(Time.get_ticks_usec())),0.2+(0.2*buildup*sin(Time.get_ticks_usec())),buildup),thickness/2*buildup,true)
-			draw_line(($Barrel/third.position+$Barrel/third/BulletPosition.position).rotated($Barrel.rotation),-(global_position-(target.global_position)-($Barrel/third.position-$Barrel/third/BulletPosition.position).rotated($Barrel.rotation)),Color(500,0.2+(0.2*buildup*sin(Time.get_ticks_usec())),0.2+(0.2*buildup*sin(Time.get_ticks_usec())),buildup),thickness*buildup+(3*buildup*sin(Time.get_ticks_usec())),true)
+			draw_line(($Barrel/third.position+$Barrel/third/BulletPosition.position).rotated($Barrel.rotation),-(global_position-(target.global_position)-($Barrel/third.position-$Barrel/third/BulletPosition.position).rotated($Barrel.rotation)),color,thickness/2*buildup,true)
+			draw_line(($Barrel/third.position+$Barrel/third/BulletPosition.position).rotated($Barrel.rotation),-(global_position-(target.global_position)-($Barrel/third.position-$Barrel/third/BulletPosition.position).rotated($Barrel.rotation)),color,thickness*buildup+(3*buildup*sin(Time.get_ticks_usec())),true)
 		
 		
 	pass;

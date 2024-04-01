@@ -139,7 +139,8 @@ extension = 2
 
 [node name="Turret17" parent="." instance=ExtResource("8_dpx1q")]
 position = Vector2(715, 473)
-extension = 2
+type = 5
+extension = 3
 
 [node name="Turret18" parent="." instance=ExtResource("8_dpx1q")]
 position = Vector2(719, 595)
