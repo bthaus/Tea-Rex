@@ -129,8 +129,9 @@ position = Vector2(781, 379)
 extension = 2
 
 [node name="Turret15" parent="." instance=ExtResource("8_dpx1q")]
-position = Vector2(659, 533)
-extension = 2
+position = Vector2(623, 552)
+type = 2
+stacks = 3
 
 [node name="Turret16" parent="." instance=ExtResource("8_dpx1q")]
 position = Vector2(697, 365)
@@ -145,7 +146,8 @@ position = Vector2(719, 595)
 extension = 2
 
 [node name="Turret19" parent="." instance=ExtResource("8_dpx1q")]
-position = Vector2(751, 731)
+position = Vector2(743, 780)
+stacks = 3
 extension = 2
 
 [node name="Turret20" parent="." instance=ExtResource("8_dpx1q")]

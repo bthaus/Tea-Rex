@@ -74,11 +74,21 @@ var buildup=0;
 func _draw():
 	if target==null:
 		return
-	
-	if inRange():
+	var thickness=5;
+	if buildup>0:
+		direction=(target.global_position-self.global_position).normalized();
+		$Barrel.rotation=direction.angle() + PI / 2.0;
 		
-		draw_line(Vector2(0,0),-(global_position-target.global_position),Color(5*sin(Time.get_ticks_usec()),0.2*sin(Time.get_ticks_usec()),0.5*sin(Time.get_ticks_usec()),buildup),10*buildup*sin(Time.get_ticks_usec()),true)
-	
+		draw_line($Barrel/BulletPosition.position.rotated($Barrel.rotation),-(global_position-target.global_position),Color(500,0.2+(0.2*buildup*sin(Time.get_ticks_usec())),0.2+(0.2*buildup*sin(Time.get_ticks_usec())),buildup),thickness*buildup,true)
+		draw_line($Barrel/BulletPosition.position.rotated($Barrel.rotation),-(global_position-target.global_position),Color(500,0.2+(0.2*buildup*sin(Time.get_ticks_usec())),0.2+(0.2*buildup*sin(Time.get_ticks_usec())),buildup),thickness*buildup+(3*buildup*sin(Time.get_ticks_usec())),true)
+		
+		if stacks>=2:
+			draw_line(($Barrel/second.position+$Barrel/second/BulletPosition.position).rotated($Barrel.rotation),-(global_position-(target.global_position)-($Barrel/second.position-$Barrel/second/BulletPosition.position).rotated($Barrel.rotation)),Color(500,0.2+(0.2*buildup*sin(Time.get_ticks_usec())),0.2+(0.2*buildup*sin(Time.get_ticks_usec())),buildup),thickness/2*buildup,true)
+			draw_line(($Barrel/second.position+$Barrel/second/BulletPosition.position).rotated($Barrel.rotation),-(global_position-(target.global_position)-($Barrel/second.position-$Barrel/second/BulletPosition.position).rotated($Barrel.rotation)),Color(500,0.2+(0.2*buildup*sin(Time.get_ticks_usec())),0.2+(0.2*buildup*sin(Time.get_ticks_usec())),buildup),thickness*buildup+(3*buildup*sin(Time.get_ticks_usec())),true)
+		if stacks>=3:
+			draw_line(($Barrel/third.position+$Barrel/third/BulletPosition.position).rotated($Barrel.rotation),-(global_position-(target.global_position)-($Barrel/third.position-$Barrel/third/BulletPosition.position).rotated($Barrel.rotation)),Color(500,0.2+(0.2*buildup*sin(Time.get_ticks_usec())),0.2+(0.2*buildup*sin(Time.get_ticks_usec())),buildup),thickness/2*buildup,true)
+			draw_line(($Barrel/third.position+$Barrel/third/BulletPosition.position).rotated($Barrel.rotation),-(global_position-(target.global_position)-($Barrel/third.position-$Barrel/third/BulletPosition.position).rotated($Barrel.rotation)),Color(500,0.2+(0.2*buildup*sin(Time.get_ticks_usec())),0.2+(0.2*buildup*sin(Time.get_ticks_usec())),buildup),thickness*buildup+(3*buildup*sin(Time.get_ticks_usec())),true)
+		
 		
 	pass;
 func _process(delta):
@@ -104,21 +114,19 @@ func _process(delta):
 				onCooldown=true;
 				return;
 			if type==Stats.TurretColor.RED&&extension==Stats.TurretExtension.REDLASER:
-				
 				var sound=projectile.get_node("shot")
 				sound.play()
 				self.target=target;
 				projectile.hitEnemy(target)
+				
 				queue_redraw()
 				$Timer.start(cooldown*cooldownfactor);
 				onCooldown=true;
 				return
 			
 			shoot(target);
-	else:
-		
-		self.target=null;
-		buildup=0;		
+	elif buildup>0:
+		buildup=buildup-2*delta;		
 	queue_redraw()		
 	#debugg
 	if stacks>1:

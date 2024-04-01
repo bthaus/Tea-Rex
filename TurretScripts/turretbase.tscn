@@ -8,6 +8,9 @@
 [sub_resource type="Environment" id="Environment_2hhbs"]
 background_mode = 3
 glow_enabled = true
+glow_intensity = 1.75
+glow_strength = 1.53
+glow_blend_mode = 0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n8ibf"]
 size = Vector2(63, 64)
@@ -24,6 +27,7 @@ environment = SubResource("Environment_2hhbs")
 [node name="EnemyDetector" parent="." instance=ExtResource("2_ekhvd")]
 
 [node name="Base" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 57.988, 1)
 texture = ExtResource("3_qf3vo")
 
 [node name="Barrel" type="Sprite2D" parent="."]

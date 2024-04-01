@@ -81,8 +81,8 @@ func shoot(target):
 	$shot.play();
 	$Area2D/CollisionShape2D.set_deferred("disabled",false)
 	direction=(target.global_position-self.global_position).normalized();
-	#if type==Stats.TurretColor.BLUE:
-		#ConeFlash.flash(self.global_position,0.1,get_tree().get_root(),direction.angle() + PI / 2.0,0.2);
+	if type==Stats.TurretColor.BLUE:
+		ConeFlash.flash(self.global_position,0.1,get_tree().get_root(),direction.angle() + PI / 2.0,0.2);
 	
 	self.target=target;	
 	global_rotation=direction.angle() + PI / 2.0
