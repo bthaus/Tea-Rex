@@ -1,12 +1,18 @@
 extends Node2D
 class_name Projectile
 static var blue_default_bullet_pool=[]
+static var bdi=0;
 static var blue_laser_bullet_pool=[]
+static var bli=0;
 static var red_laser_bullet_pool=[]
+static var rli=0;
 static var green_default_bullet_pool=[]
+static var gdi=0;
 static var green_poison_bullet_pool=[]
+static var gpi=0;
 static var yellow_default_bullet_pool=[]
-
+static var ydi=0;
+var index;
 var shot=false;
 var damage;
 var direction:Vector2;
@@ -38,24 +44,45 @@ static func getPool(color:Stats.TurretColor,type:Stats.TurretExtension):
 	
 static func create(type:Stats.TurretColor, damage,speed,root,extension:Stats.TurretExtension=Stats.TurretExtension.DEFAULT)-> Projectile:
 	var temp;
-	var pool=getPool(type,extension)
+	var pool=getPool(type,extension) 
 	
 	if 	pool==null||pool.size()==0:
 		temp=load("res://TurretScripts/Projectiles/Base_projectile.tscn").instantiate() as Projectile;
+		temp.type=type;
+		temp.ext=extension;	
 		root.add_child(temp);
 	else:
-		temp=pool.pop_back();
+		temp=pool.pop_back()
+		var index;
+		match type:
+			2: match extension:
+				1:  index=gdi+1
+				5:  index=gpi
+			3: match extension:
+				1:  index=1
+				2:  index=rli
+			4: match extension:
+				1:  index=ydi
+			5: match extension:
+				1:  index=bdi
+				3:  index=bli+1
+		if index>=pool.size():
+			index=0;
+			bli=0;
+		
 		
 	
-	temp.type=type;
-	temp.ext=extension;	
+	
 	temp.pool=pool
 	temp.setup()
 	
 	return temp;
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	BulletManager.allBullets.append(self)
+	$Sprite2D.texture=load("res://Assets/Turrets/Projectiles/"+Stats.getStringFromEnum(type)+Stats.getStringFromEnumExtension(ext)+"_projectile.png");
+	$shot.stream=load("res://Sounds/Soundeffects/"+Stats.getStringFromEnum(type)+Stats.getStringFromEnumExtension(ext)+"_shot.wav")
+	$hit.stream=load("res://Sounds/Soundeffects/"+Stats.getStringFromEnum(type)+Stats.getStringFromEnumExtension(ext)+"_hit.wav")
+	#BulletManager.allBullets.append(self)
 	pass # Replace with function body.
 
 func remove():
@@ -70,9 +97,7 @@ func remove():
 	pool.push_back(self)
 	pass;	
 func setup():
-	$Sprite2D.texture=load("res://Assets/Turrets/Projectiles/"+Stats.getStringFromEnum(type)+Stats.getStringFromEnumExtension(ext)+"_projectile.png");
-	$shot.stream=load("res://Sounds/Soundeffects/"+Stats.getStringFromEnum(type)+Stats.getStringFromEnumExtension(ext)+"_shot.wav")
-	$hit.stream=load("res://Sounds/Soundeffects/"+Stats.getStringFromEnum(type)+Stats.getStringFromEnumExtension(ext)+"_hit.wav")
+	
 	$PointLight2D.visible=Stats.getGlowing(type,ext)
 	oneshot=Stats.getOneshotType(type,ext);
 	damage=Stats.getDamage(type,ext);
@@ -96,7 +121,7 @@ func _process(delta):
 	if shot:
 		translate(direction*delta*Stats.getMissileSpeed(type,ext));
 		
-	if global_position.x>3000||global_position.x<-1000||abs(global_position.y)>3000:
+	if abs(global_position.x)>1500||abs(global_position.y)>1500:
 		remove()
 	pass
 func playHitSound():
