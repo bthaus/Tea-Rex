@@ -22,6 +22,12 @@ script = ExtResource("2_v0ad5")
 [node name="MusicPlayer" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("3_avl3y")
 
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = -2
+position = Vector2(256.164, 718.298)
+scale = Vector2(1000, 1000)
+texture = ExtResource("4_ykfqr")
+
 [node name="Monster" parent="." instance=ExtResource("2_g6fes")]
 position = Vector2(264, 706)
 color = 2
@@ -66,90 +72,6 @@ position = Vector2(361, 637)
 [node name="SpecialCard" parent="." instance=ExtResource("5_5hydu")]
 cardName = 8
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-z_index = -3
-position = Vector2(576, 491)
-scale = Vector2(4.17422, 2.64662)
-texture = ExtResource("4_ykfqr")
-
 [node name="Turret" parent="." instance=ExtResource("8_dpx1q")]
-position = Vector2(889, 607)
-extension = 2
-
-[node name="Turret2" parent="." instance=ExtResource("8_dpx1q")]
-position = Vector2(889, 607)
-extension = 2
-
-[node name="Turret3" parent="." instance=ExtResource("8_dpx1q")]
-position = Vector2(889, 607)
-extension = 2
-
-[node name="Turret4" parent="." instance=ExtResource("8_dpx1q")]
-position = Vector2(889, 607)
-extension = 2
-
-[node name="Turret5" parent="." instance=ExtResource("8_dpx1q")]
-position = Vector2(889, 607)
-extension = 2
-
-[node name="Turret6" parent="." instance=ExtResource("8_dpx1q")]
-position = Vector2(889, 607)
-extension = 2
-
-[node name="Turret7" parent="." instance=ExtResource("8_dpx1q")]
-position = Vector2(889, 607)
-extension = 2
-
-[node name="Turret8" parent="." instance=ExtResource("8_dpx1q")]
-position = Vector2(889, 607)
-extension = 2
-
-[node name="Turret9" parent="." instance=ExtResource("8_dpx1q")]
-position = Vector2(889, 607)
-extension = 2
-
-[node name="Turret10" parent="." instance=ExtResource("8_dpx1q")]
-position = Vector2(889, 607)
-extension = 2
-
-[node name="Turret11" parent="." instance=ExtResource("8_dpx1q")]
-position = Vector2(889, 607)
-extension = 2
-
-[node name="Turret12" parent="." instance=ExtResource("8_dpx1q")]
-position = Vector2(889, 607)
-extension = 2
-
-[node name="Turret13" parent="." instance=ExtResource("8_dpx1q")]
-position = Vector2(865, 365)
-extension = 2
-
-[node name="Turret14" parent="." instance=ExtResource("8_dpx1q")]
-position = Vector2(781, 379)
-extension = 2
-
-[node name="Turret15" parent="." instance=ExtResource("8_dpx1q")]
-position = Vector2(623, 552)
-type = 2
-stacks = 3
-
-[node name="Turret16" parent="." instance=ExtResource("8_dpx1q")]
-position = Vector2(697, 365)
-extension = 2
-
-[node name="Turret17" parent="." instance=ExtResource("8_dpx1q")]
-position = Vector2(715, 473)
-extension = 2
-
-[node name="Turret18" parent="." instance=ExtResource("8_dpx1q")]
-position = Vector2(719, 595)
-extension = 2
-
-[node name="Turret19" parent="." instance=ExtResource("8_dpx1q")]
-position = Vector2(743, 780)
-stacks = 3
-extension = 2
-
-[node name="Turret20" parent="." instance=ExtResource("8_dpx1q")]
-position = Vector2(985, 669)
+position = Vector2(809, 587)
 extension = 2

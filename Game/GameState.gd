@@ -12,7 +12,7 @@ var unlockedColors=[Stats.TurretColor.BLUE];
 var unlockedSpecialCards=[Stats.SpecialCards.HEAL];
 
 var phase:Stats.GamePhase=Stats.GamePhase.BOTH;
-
+var bulletManager:BulletManager
 var HP=Stats.playerHP;
 var maxHP=Stats.playerMaxHP;
 
@@ -46,12 +46,13 @@ func changeMaxHealth(amount:int):
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	
+	bulletManager=BulletManager.new()
+	add_child(bulletManager)
 	changeHealth(-50);
 	pass # Replace with function body.
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-
+	
 	pass

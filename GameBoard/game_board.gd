@@ -48,7 +48,11 @@ func select_piece(shape:Stats.BlockShape, color:Stats.TurretColor, done:Callable
 	action = BoardAction.PLAYER_BUILD
 	selected_block = Stats.getBlockFromShape(shape, color, level)
 	self.done = done
-	
+func select_block(block,done:Callable):
+	util.p("Building now...", "Jojo")
+	action = BoardAction.PLAYER_BUILD
+	selected_block = block
+	self.done = done	
 func _process(_delta):
 	$Board.clear_layer(SELECTION_LAYER)
 	var board_pos = $Board.local_to_map(get_global_mouse_position())
@@ -63,7 +67,11 @@ func _process(_delta):
 
 func _input(event):
 	var board_pos = $Board.local_to_map(get_global_mouse_position())
-	
+	if Input.is_action_just_pressed("load"):
+		util.p("testing gameboard with random blocks for turrettesting","bodo")
+		select_block(Stats.getRandomBlock(1),func (va):print("done"));
+		
+		
 	if event.is_action_pressed("left_click"):
 		match action:
 			BoardAction.PLAYER_BUILD:

@@ -29,12 +29,12 @@ static var green_poison_missile_speed=base_missile_speed*1;
 
 static var base_cooldown=1;
 static var green_cooldown=base_cooldown*3;
-static var blue_cooldown=base_cooldown*1;
+static var blue_cooldown=base_cooldown*0.5;
 static var yellow_cooldown=base_cooldown*2;
 static var grey_cooldown=base_cooldown*1;
 static var red_cooldown=base_cooldown*0.3;
 
-static var red_laser_cooldown=base_cooldown*0.005;
+static var red_laser_cooldown=base_cooldown*0.5;
 static var blue_laser_cooldown=base_cooldown*0.3;
 static var green_poison_cooldown=base_cooldown*1.5
 
@@ -45,7 +45,7 @@ static var yellow_damage=base_damage*3;
 static var grey_damage=base_damage*1;
 static var red_damage=base_damage*1;
 
-static var red_laser_damage=base_damage*0.05;
+static var red_laser_damage=base_damage*0.5;
 static var blue_laser_damage=base_damage*1;
 static var green_poison_damage=base_damage*1;
 
@@ -80,7 +80,7 @@ static var poison_propagation_rate=3;
 static var poison_propagation_range=base_range*0.3
 static var green_poison_decay=1;
 
-static var enemy_base_HP=500;
+static var enemy_base_HP=500000;
 static var GREEN_enemy_HP=enemy_base_HP*3;
 static var BLUE_enemy_HP=enemy_base_HP*1;
 static var YELLOW_enemy_HP=enemy_base_HP*0.5;
@@ -277,7 +277,13 @@ static func getRange(type:TurretColor,extension:TurretExtension):
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
-	
+static func getRandomBlock(lvl):
+	var rng=RandomNumberGenerator.new()
+	var color=TurretColor.values()[rng.randi_range(0,TurretColor.size()-1)]
+	color=Stats.TurretColor.BLUE
+	var extension=TurretExtension.values()[rng.randi_range(0,TurretExtension.size()-1)]
+	var block=BlockShape.values()[rng.randi_range(0,BlockShape.size()-1)]
+	return getBlockFromShape(block,color,lvl,extension)		
 static func getBlockFromShape(shape: BlockShape, color: TurretColor, level: int = 1, extenstion: TurretExtension = TurretExtension.DEFAULT) -> Block:
 	var pieces = []
 	match shape:
