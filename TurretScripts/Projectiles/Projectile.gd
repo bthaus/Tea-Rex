@@ -66,6 +66,7 @@ func remove():
 	shot=false;
 	$Area2D/CollisionShape2D.set_deferred("disabled",true)
 	global_position=Vector2(3000,3000);
+	$PointLight2D.visible=false
 	pool.push_back(self)
 	pass;	
 func setup():

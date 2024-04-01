@@ -71,7 +71,7 @@ static var yellow_glowing=false;
 static var grey_glowing=false;
 static var red_glowing=false;
 
-static var red_laser_glowing=true;
+static var red_laser_glowing=false;
 static var blue_laser_glowing=true;
 static var green_poison_glowing=false;
 

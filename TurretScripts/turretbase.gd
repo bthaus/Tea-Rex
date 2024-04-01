@@ -58,11 +58,10 @@ func setUpTower():
 	damage=Stats.getDamage(type,extension);
 	speed=Stats.getCooldown(type,extension);
 	
-	if type==Stats.TurretColor.RED&&extension==Stats.TurretExtension.DEFAULT:
+	if type==Stats.TurretColor.RED:
 		projectile=Projectile.create(type,damage*damagefactor,speed*speedfactor,self,extension);
 		projectile.z_index=-1;
-	else:
-		projectile=Projectile.create(type,damage*damagefactor,speed*speedfactor,self,extension)	
+	
 		
 	$EnemyDetector.setRange(Stats.getRange(type,extension))
 	pass;
@@ -82,7 +81,7 @@ func _draw():
 		color=color.lightened(0.5*sin(Time.get_ticks_usec()))
 		
 		draw_line($Barrel/BulletPosition.position.rotated($Barrel.rotation),-(global_position-target.global_position),color,thickness*buildup,true)
-		draw_line($Barrel/BulletPosition.position.rotated($Barrel.rotation),-(global_position-target.global_position),color,thickness*buildup+(3*buildup*sin(Time.get_ticks_usec()/10000)),true)
+		draw_line($Barrel/BulletPosition.position.rotated($Barrel.rotation),-(global_position-target.global_position),color,thickness*buildup+(3*buildup*sin(Time.get_ticks_usec())),true)
 		
 		if stacks>=2:
 			draw_line(($Barrel/second.position+$Barrel/second/BulletPosition.position).rotated($Barrel.rotation),-(global_position-(target.global_position)-($Barrel/second.position-$Barrel/second/BulletPosition.position).rotated($Barrel.rotation)),color,thickness/2*buildup,true)
