@@ -53,23 +53,6 @@ static func create(type:Stats.TurretColor, damage,speed,root,extension:Stats.Tur
 		root.add_child(temp);
 	else:
 		temp=pool.pop_back()
-		var index;
-		match type:
-			2: match extension:
-				1:  index=gdi+1
-				5:  index=gpi
-			3: match extension:
-				1:  index=1
-				2:  index=rli
-			4: match extension:
-				1:  index=ydi
-			5: match extension:
-				1:  index=bdi
-				3:  index=bli+1
-		if index>=pool.size():
-			index=0;
-			bli=0;
-		
 		
 	
 	
@@ -107,8 +90,8 @@ func shoot(target):
 	$shot.play();
 	$Area2D/CollisionShape2D.set_deferred("disabled",false)
 	direction=(target.global_position-self.global_position).normalized();
-	if type==Stats.TurretColor.BLUE:
-		ConeFlash.flash(self.global_position,0.1,get_tree().get_root(),direction.angle() + PI / 2.0,0.2);
+	#if type==Stats.TurretColor.BLUE:
+	#	ConeFlash.flash(self.global_position,0.1,get_tree().get_root(),direction.angle() + PI / 2.0,0.2);
 	
 	self.target=target;	
 	global_rotation=direction.angle() + PI / 2.0
