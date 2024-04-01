@@ -12,5 +12,5 @@ func _gui_input(event):
 		if deckSize > 0 && CardsInHand < 5:
 			deckSize = $'../../'.drawCard()
 			CardsInHand=CardsInHand+1
-			if deckSize == 0 || CardsInHand < 5:
+			if deckSize == 0 || CardsInHand == 5:
 				disabled = true

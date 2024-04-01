@@ -1,5 +1,4 @@
 res://CardBase.tscn
 res://CardSpace.tscn
-res://Cards/CardSpace.gd
-res://Cards/PlayerHand.gd
-res://Cards/DrawDeck.gd
+res://Cards/CardBase.gd
+res://Game/Stats.gd

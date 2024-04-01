@@ -1,8 +1,10 @@
 extends MarginContainer
 
 var CardName = 'Testcard'
-var CardType = 'Block'	
+var CardShape = Stats.BlockShape.ARROW
 var CardColor = Stats.TurretColor.BLUE
+var Level = 0
+@onready var GameBoard = preload("res://GameBoard/game_board.gd").new()
 @onready var CardImg = str("res://Assets/cards/", "Testcard.png")
 var startpos = Vector2()
 var targetpos = Vector2()
@@ -36,6 +38,7 @@ var Zooming_In=true
 var oldstate = INF
 var CARD_SELECT = true
 var INMOUSETIME = 0.1
+var CardClicked = false
 
 
 func _ready(): #set card texture
@@ -48,29 +51,24 @@ func _ready(): #set card texture
 func _input(event):
 	match state:
 		FocusInHand, InMouse, InPlay:
-			if event.is_action_pressed("leftclick"):
+			if event.is_action_pressed("left_click"):
 				if CARD_SELECT:
-					state=InMouse		#TODO that is not needed as at this point the information needs to be moved to jojo
-					setup =true
+					state=InMouse
+					setup = true
 					oldstate = state
 					CARD_SELECT = true
+					$Card.visible = false
+					$Label.visible = false
+					CardClicked = true
 
 func _physics_process(delta):
 	match state:
-		InPlay:	#TODO card is played, delete card else Reorganise Hand and move card back into deck
-			pass
-		InMouse:			#exchange all this with method call to give jojo info
+		InMouse:			
 			if setup:
 				Setup()
-			if t <= 1:
-				position = startpos.lerp(get_global_mouse_position()-$'../../'.CardSize, t)
-				rotation_degrees = startrot * (1-t) + 0*t
-				scale = startscale * abs(1-2*t) + Orig_scale
-				t += delta/float(INMOUSETIME)
-			else:
-				position = get_global_mouse_position()
-				rotation = 0
-				
+			GameBoard.select_piece(CardShape, CardColor, cardPlayed, Level) #TODO: add cases for bulldozer/move card
+			CardClicked = true
+			
 		FocusInHand:
 			if setup:
 				Setup()
@@ -165,11 +163,12 @@ func Setup():
 func _on_focus_mouse_entered():
 	match state:
 		InHand, ReOrganiseHand:
-			setup = true
-			targetrot = 0
-			targetpos = Cardpos
-			targetpos.y = get_viewport().size.y - $'../../'.CardSize.y*ZoomInSize
-			state = FocusInHand
+			if CardClicked == false:
+				setup = true
+				targetrot = 0
+				targetpos = Cardpos
+				targetpos.y = get_viewport().size.y - $'../../'.CardSize.y*ZoomInSize
+				state = FocusInHand
 
 
 func _on_focus_mouse_exited():
@@ -181,6 +180,21 @@ func _on_focus_mouse_exited():
 
 func setNameAndColor():
 	var split = CardName.split("_")
-	CardColor = split[0]
-	CardType = split[1]
+	CardColor = Stats.getColorFromString(split[0])
+	#CardShape = Stats.getShapeFromString(split[1])
+	
+	
+func cardPlayed (CardPlayed: bool):
+	if CardPlayed:
+		$Cards.remove_child($Card)
+	else:
+		CARD_SELECT = false
+		$Card.visible = true
+		$Label.visible = true
+		CardClicked = false
+		Setup()
+		state = InHand
+	pass
+	#TODO: Check if card was placed or not, either delete card or put it back into hand
+	
 	

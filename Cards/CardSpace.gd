@@ -15,7 +15,7 @@ var CardSpread = 0.25
 var Card_Number = 0
 var NumberCardsHand = 0
 var OvalAngleVector = Vector2()
-enum{ InHand, InPlay, InMouse, FocuseInHand, MoveDrawnCardToHand, ReOrganiseHand}
+enum{InHand, InPlay, InMouse, FocuseInHand, MoveDrawnCardToHand, ReOrganiseHand}
 
 func _ready():
 	PlayerHand.fillCardDeck()
