@@ -1,12 +1,5 @@
-res://TurretScripts/turretbase.tscn
-res://TurretScripts/turretbase.gd
-res://main_scene.tscn
-res://enemy_detector.tscn
-res://monster.tscn
-res://GameBoard/game_board.tscn
-res://special_card.tscn
-res://TurretScripts/Projectiles/Explosion.tscn
-res://TurretScripts/Projectiles/Base_projectile.tscn
-res://UtilScenes/point_light.tscn
-res://ray_cast_2d.tscn
-res://TurretScripts/Projectiles/Projectile.gd
+res://CardBase.tscn
+res://CardSpace.tscn
+res://Cards/CardSpace.gd
+res://Cards/PlayerHand.gd
+res://Cards/DrawDeck.gd
