@@ -15,9 +15,9 @@ func _ready():
 	speedfactor=Stats.getEnemyProperty(color,"speed")
 	hp=Stats.getEnemyProperty(color,"HP")
 	if color==Stats.TurretColor.GREEN:
-		$Sprite2D.self_modulate=Color(0,255,0,255);
+		$Sprite2D.self_modulate=Color(0,1,0,1);
 	if color==Stats.TurretColor.RED:
-		$Sprite2D.self_modulate=Color(255,0,0,255);
+		$Sprite2D.self_modulate=Color(1,0,0,1);
 	if color==Stats.TurretColor.YELLOW:
 		$Sprite2D.self_modulate=self_modulate
 	

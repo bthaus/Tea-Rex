@@ -68,7 +68,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.2, 0.6),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [0.0, 1.52, 0.0]
+"values": [0.0, 3.68, 0.0]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -80,7 +80,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.2, 0.6),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [0.0, 0.84, 0.0]
+"values": [0.0, 1.42, 0.0]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ifi2h"]
@@ -105,6 +105,7 @@ shape = SubResource("CircleShape2D_nikvq")
 
 [node name="sound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("12_oh833")
+volume_db = 7.495
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
 scale = Vector2(14.695, 14.695)
