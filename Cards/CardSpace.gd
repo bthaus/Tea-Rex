@@ -41,7 +41,7 @@ func drawCard():
 		Card.targetpos = CentreCardOval + OvalAngleVector - CardSize
 		Card.Cardpos = Card.targetpos	#card default position
 		Card.startrot = Card.rotation
-		Card.targetrot = (90 - rad_to_deg(angle))/4
+		Card.targetrot = (90 - angle)/4
 		Card_Number+=1
 		if Card.state == InHand:
 			Card.state = ReOrganiseHand

@@ -50,16 +50,15 @@ func _ready(): #set card texture
 
 func _input(event):
 	match state:
-		FocusInHand, InMouse, InPlay:
-			if event.is_action_pressed("left_click"):
+		FocusInHand, InMouse:
+			
+			if event.is_action_pressed("left_click")&& !CardClicked:
 				if CARD_SELECT:
 					state=InMouse
 					setup = true
 					oldstate = state
 					CARD_SELECT = true
-					$Card.visible = false
-					$Label.visible = false
-					CardClicked = true
+					
 
 func _physics_process(delta):
 	match state:
@@ -68,6 +67,15 @@ func _physics_process(delta):
 				Setup()
 			GameBoard.select_piece(CardShape, CardColor, cardPlayed, Level) #TODO: add cases for bulldozer/move card
 			CardClicked = true
+			state = InPlay
+			
+		InPlay:
+			$Card.visible = false
+			$Focus.visible=false
+			$Focus.mouse_filter = MOUSE_FILTER_IGNORE
+			$Label.visible = false
+			CardClicked = true
+			
 			
 		FocusInHand:
 			if setup:
@@ -107,6 +115,7 @@ func _physics_process(delta):
 				rotation = targetrot
 				state = InHand
 				t=0
+				
 		ReOrganiseHand:
 			if setup:
 				Setup()
@@ -165,7 +174,7 @@ func _on_focus_mouse_entered():
 		InHand, ReOrganiseHand:
 			if CardClicked == false:
 				setup = true
-				targetrot = 0
+				#targetrot = 0
 				targetpos = Cardpos
 				targetpos.y = get_viewport().size.y - $'../../'.CardSize.y*ZoomInSize
 				state = FocusInHand
@@ -181,20 +190,22 @@ func _on_focus_mouse_exited():
 func setNameAndColor():
 	var split = CardName.split("_")
 	CardColor = Stats.getColorFromString(split[0])
-	#CardShape = Stats.getShapeFromString(split[1])
+	CardShape = Stats.getShapeFromString(split[1])
 	
 	
-func cardPlayed (CardPlayed: bool):
+func cardPlayed (CardPlayed: bool): #Check if card was placed or not, either delete card or put it back into hand
 	if CardPlayed:
 		$Cards.remove_child($Card)
 	else:
 		CARD_SELECT = false
 		$Card.visible = true
+		$Focus.visible=true
+		$Card.mouse_filter = MOUSE_FILTER_PASS
 		$Label.visible = true
 		CardClicked = false
 		Setup()
 		state = InHand
-	pass
-	#TODO: Check if card was placed or not, either delete card or put it back into hand
+	
+	
 	
 	
