@@ -221,6 +221,28 @@ static func getColorFromLowercaseString(str:String):
 		"yellow":return TurretColor.YELLOW;
 		"grey":return TurretColor.GREY;
 	pass;
+static func getColorFromString(str:String):
+	match str:
+		"RED":return TurretColor.RED;
+		"BLUE":return TurretColor.BLUE;
+		"GREEN":return TurretColor.GREEN;
+		"YELLOW":return TurretColor.YELLOW;
+		"GREY":return TurretColor.GREY;
+	pass;
+static func getShapeFromString(str:String):
+	match str:
+		"O":return BlockShape.O
+		"I":return BlockShape.I
+		"S":return BlockShape.S
+		"Z":return BlockShape.Z
+		"L":return BlockShape.L
+		"J":return BlockShape.J
+		"T":return BlockShape.T
+		"TINY":return BlockShape.TINY
+		"SMALL":return BlockShape.SMALL
+		"ARROW":return BlockShape.ARROW
+		"CROSS":return BlockShape.CROSS
+	pass;
 static func getProperty(type:TurretColor,extension:TurretExtension,property:String):
 	var color=getStringFromEnumLowercase(type);
 	var ext=getStringFromEnumExtensionLowercase(extension);
