@@ -52,6 +52,7 @@ func setUpTower():
 	$Barrel.texture=barreltext;
 	$Barrel/second.texture=barreltext;
 	$Barrel/third.texture=barreltext;
+	$AudioStreamPlayer2D.stream=load("res://Sounds/Soundeffects/"+Stats.getStringFromEnum(type)+Stats.getStringFromEnumExtension(extension)+"_shot.wav")
 	
 	
 	cooldown=Stats.getCooldown(type,extension);
@@ -61,6 +62,7 @@ func setUpTower():
 	if type==Stats.TurretColor.RED:
 		projectile=Projectile.create(type,damage*damagefactor,speed*speedfactor,self,extension);
 		projectile.z_index=-1;
+		$AudioStreamPlayer2D.finished.connect(func(): if inRange():$AudioStreamPlayer2D.play)
 	
 		
 	$EnemyDetector.setRange(Stats.getRange(type,extension))
@@ -116,7 +118,9 @@ func _process(delta):
 				return;
 			if type==Stats.TurretColor.RED&&extension==Stats.TurretExtension.REDLASER:
 				var sound=projectile.get_node("shot")
-				sound.play()
+				if !$AudioStreamPlayer2D.playing:
+					$AudioStreamPlayer2D.play()
+					
 				self.target=target;
 				projectile.hitEnemy(target)
 				

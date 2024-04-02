@@ -9,6 +9,3 @@ res://TurretScripts/Projectiles/Explosion.tscn
 res://TurretScripts/Projectiles/Base_projectile.tscn
 res://UtilScenes/point_light.tscn
 res://ray_cast_2d.tscn
-res://TurretScripts/Projectiles/Projectile.gd
-res://Game/Stats.gd
-res://Explosion.gd
