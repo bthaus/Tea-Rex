@@ -70,28 +70,35 @@ func setUpTower():
 
 var target;
 var buildup=0;
+var targetposition;
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _draw():
-	if target==null:
+	if type==Stats.TurretColor.RED&&extension==Stats.TurretExtension.REDLASER:
+		draw_redlaser()
+		
+	pass;
+func draw_redlaser():
+	if target!=null:
+		targetposition=target.global_position;
+	if target==null&&buildup<=0:
 		return
 	var thickness=5;
 	if buildup>0:
-		direction=(target.global_position-self.global_position).normalized();
+		direction=(targetposition-self.global_position).normalized();
 		$Barrel.rotation=direction.angle() + PI / 2.0;
 		var color=Color(500,0.2+(0.2*buildup*sin(Time.get_ticks_usec())),0.2+(0.2*buildup*sin(Time.get_ticks_usec())),buildup)
 		color=color.lightened(0.5*sin(Time.get_ticks_usec()))
 		
-		draw_line($Barrel/BulletPosition.position.rotated($Barrel.rotation),-(global_position-target.global_position),color,thickness*buildup,true)
-		draw_line($Barrel/BulletPosition.position.rotated($Barrel.rotation),-(global_position-target.global_position),color,thickness*buildup+(3*buildup*sin(Time.get_ticks_usec())),true)
+		draw_line($Barrel/BulletPosition.position.rotated($Barrel.rotation),-(global_position-targetposition),color,thickness*buildup,true)
+		draw_line($Barrel/BulletPosition.position.rotated($Barrel.rotation),-(global_position-targetposition),color,thickness*buildup+(3*buildup*sin(Time.get_ticks_usec())),true)
 		
 		if stacks>=2:
-			draw_line(($Barrel/second.position+$Barrel/second/BulletPosition.position).rotated($Barrel.rotation),-(global_position-(target.global_position)-($Barrel/second.position-$Barrel/second/BulletPosition.position).rotated($Barrel.rotation)),color,thickness/2*buildup,true)
-			draw_line(($Barrel/second.position+$Barrel/second/BulletPosition.position).rotated($Barrel.rotation),-(global_position-(target.global_position)-($Barrel/second.position-$Barrel/second/BulletPosition.position).rotated($Barrel.rotation)),color,thickness*buildup+(3*buildup*sin(Time.get_ticks_usec())),true)
+			draw_line(($Barrel/second.position+$Barrel/second/BulletPosition.position).rotated($Barrel.rotation),-(global_position-(targetposition)-($Barrel/second.position-$Barrel/second/BulletPosition.position).rotated($Barrel.rotation)),color,thickness/2*buildup,true)
+			draw_line(($Barrel/second.position+$Barrel/second/BulletPosition.position).rotated($Barrel.rotation),-(global_position-(targetposition)-($Barrel/second.position-$Barrel/second/BulletPosition.position).rotated($Barrel.rotation)),color,thickness*buildup+(3*buildup*sin(Time.get_ticks_usec())),true)
 		if stacks>=3:
-			draw_line(($Barrel/third.position+$Barrel/third/BulletPosition.position).rotated($Barrel.rotation),-(global_position-(target.global_position)-($Barrel/third.position-$Barrel/third/BulletPosition.position).rotated($Barrel.rotation)),color,thickness/2*buildup,true)
-			draw_line(($Barrel/third.position+$Barrel/third/BulletPosition.position).rotated($Barrel.rotation),-(global_position-(target.global_position)-($Barrel/third.position-$Barrel/third/BulletPosition.position).rotated($Barrel.rotation)),color,thickness*buildup+(3*buildup*sin(Time.get_ticks_usec())),true)
-		
+			draw_line(($Barrel/third.position+$Barrel/third/BulletPosition.position).rotated($Barrel.rotation),-(global_position-(targetposition)-($Barrel/third.position-$Barrel/third/BulletPosition.position).rotated($Barrel.rotation)),color,thickness/2*buildup,true)
+			draw_line(($Barrel/third.position+$Barrel/third/BulletPosition.position).rotated($Barrel.rotation),-(global_position-(targetposition)-($Barrel/third.position-$Barrel/third/BulletPosition.position).rotated($Barrel.rotation)),color,thickness*buildup+(3*buildup*sin(Time.get_ticks_usec())),true)
 		
 	pass;
 func _process(delta):

@@ -15,7 +15,6 @@ script = ExtResource("1_mhlsq")
 [node name="PointLight2D" parent="." instance=ExtResource("5_h8hy0")]
 visible = false
 scale = Vector2(5.555, 5.555)
-energy = 1.72
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 z_index = -1
@@ -31,6 +30,7 @@ shape = SubResource("CircleShape2D_8idil")
 
 [node name="shot" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("3_ap0mf")
+volume_db = -10.306
 
 [node name="hit" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_qoels")

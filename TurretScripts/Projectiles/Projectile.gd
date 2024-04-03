@@ -53,6 +53,7 @@ static func create(type:Stats.TurretColor, damage,speed,root,extension:Stats.Tur
 		root.add_child(temp);
 	else:
 		temp=pool.pop_back()
+		temp.visible=true;
 		
 	
 	
@@ -76,7 +77,7 @@ func remove():
 	shot=false;
 	$Area2D/CollisionShape2D.set_deferred("disabled",true)
 	global_position=Vector2(3000,3000);
-	$PointLight2D.visible=false
+	visible=false
 	pool.push_back(self)
 	pass;	
 func setup():
