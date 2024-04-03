@@ -1,17 +1,24 @@
 extends Node2D
 class_name Explosion
-
+static var cache=[]
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
 var damage;
 var type
 static func create(type,damage, position, root,scale=1):
-	var temp=load("res://TurretScripts/Projectiles/Explosion.tscn").instantiate() as Explosion;
-	temp.type=type;
-	temp.apply_scale(Vector2(scale,scale));
-	temp.damage=damage;
-	root.add_child(temp);
+	var temp;
+	if cache.size()==0:
+		temp=load("res://TurretScripts/Projectiles/Explosion.tscn").instantiate() as Explosion;
+		temp.type=type;
+		temp.apply_scale(Vector2(scale,scale));
+		temp.damage=damage;
+		root.add_child(temp);
+		
+	else:
+		temp=cache.pop_back();
+		temp.visible=true;
+		
 	temp.global_position=position;
 	temp.get_node("AnimatedSprite2D").play("default");
 	temp.get_node("sound").play();
@@ -36,5 +43,6 @@ func _on_area_2d_area_entered(area):
 
 
 func _on_animated_sprite_2d_animation_finished():
-	queue_free()
+	visible=false;
+	cache.push_back(self)
 	pass # Replace with function body.
