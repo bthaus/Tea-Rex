@@ -10,6 +10,9 @@ enum BoardAction {NONE=0, PLAYER_BUILD=1, PLAYER_MOVE=2, PLAYER_BULLDOZER=3}
 var action: BoardAction = BoardAction.NONE
 var done: Callable
 
+var is_dragging_camera = false
+var ignore_click = false
+
 const EXTENSION_LAYER = 0
 const BLOCK_LAYER = 1
 const SELECTION_LAYER = 2
@@ -21,6 +24,7 @@ const WALL_TILE_ID = 3
 func _ready():
 	$Board.tile_set.tile_size = Vector2(Stats.block_size, Stats.block_size)
 	
+	$Camera2D.is_dragging_camera.connect(dragging_camera)
 	# draw a test block
 	var block = Stats.getBlockFromShape(Stats.BlockShape.L, Stats.TurretColor.RED, 1, Stats.TurretExtension.REDLASER)
 	block_handler.draw_block(block, Vector2(6,6), BLOCK_LAYER, EXTENSION_LAYER)
@@ -48,14 +52,19 @@ func select_piece(shape:Stats.BlockShape, color:Stats.TurretColor, done:Callable
 	action = BoardAction.PLAYER_BUILD
 	selected_block = Stats.getBlockFromShape(shape, color, level)
 	self.done = done
+	
 func select_block(block,done:Callable):
 	util.p("Building now...", "Jojo")
 	action = BoardAction.PLAYER_BUILD
 	selected_block = block
-	self.done = done	
+	self.done = done
+	
 func _process(_delta):
 	$Board.clear_layer(SELECTION_LAYER)
 	var board_pos = $Board.local_to_map(get_global_mouse_position())
+	
+	if is_dragging_camera:
+		ignore_click = true
 	
 	#Draw preview
 	if selected_block != null:
@@ -71,8 +80,11 @@ func _input(event):
 		util.p("testing gameboard with random blocks for turrettesting","bodo")
 		select_block(Stats.getRandomBlock(1),func (va):print("done"));
 		
-		
-	if event.is_action_pressed("left_click"):
+	if not event is InputEventMouseMotion and ignore_click: #Ignore the next click
+		ignore_click = false
+		return
+	
+	if event.is_action_released("left_click"):
 		match action:
 			BoardAction.PLAYER_BUILD:
 				if block_handler.can_place_block(selected_block, BLOCK_LAYER, board_pos):
@@ -97,11 +109,11 @@ func _input(event):
 				
 		_spawn_turrets()
 	
-	if event.is_action_pressed("right_click"):
+	if event.is_action_released("right_click"):
 		if selected_block != null:
 			block_handler.rotate_block(selected_block)
 	
-	if event.is_action_pressed("interrupt"):
+	if event.is_action_released("interrupt"):
 		_action_finished(false)
 
 
@@ -151,3 +163,6 @@ func _remove_turrets():
 	for child in get_children():
 		if child is Turret:
 			child.queue_free()
+			
+func dragging_camera(is_dragging: bool):
+	self.is_dragging_camera = is_dragging

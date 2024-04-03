@@ -1,18 +1,19 @@
-[gd_scene load_steps=27 format=3 uid="uid://c8n0am7jadxj7"]
+[gd_scene load_steps=28 format=3 uid="uid://c8n0am7jadxj7"]
 
 [ext_resource type="Script" path="res://GameBoard/game_board.gd" id="1_yp6tt"]
 [ext_resource type="Texture2D" uid="uid://dhcd6oxm5j8af" path="res://Assets/Tiles/dummy_tile_legal_placement.png" id="2_1fom0"]
-[ext_resource type="Texture2D" uid="uid://b3wcw3yk4f6io" path="res://Assets/Tiles/Extensions/extension_default.png" id="3_6mg28"]
+[ext_resource type="Texture2D" uid="uid://bwn2avetd034w" path="res://Assets/Tiles/Extensions/extension_default.png" id="3_6mg28"]
 [ext_resource type="Texture2D" uid="uid://d04bng0sw2ggc" path="res://Assets/Tiles/dummy_tile_illegal_placement.png" id="3_wb0lt"]
-[ext_resource type="Texture2D" uid="uid://c74t01yj03jci" path="res://Assets/Tiles/Extensions/extension_red_laser.png" id="4_jnyco"]
-[ext_resource type="Texture2D" uid="uid://8cao7222pohc" path="res://Assets/Tiles/dummy_tile_wall.png" id="4_pfkj7"]
-[ext_resource type="Texture2D" uid="uid://c5586d6lposu0" path="res://Assets/Tiles/dummy_tile_blue.png" id="4_x6glx"]
-[ext_resource type="Texture2D" uid="uid://cnlhlcydsrs4y" path="res://Assets/Tiles/dummy_tile_red_2.png" id="5_42j8v"]
-[ext_resource type="Texture2D" uid="uid://d1vg832xj0e1w" path="res://Assets/Tiles/dummy_tile_red.png" id="5_43aqt"]
-[ext_resource type="Texture2D" uid="uid://cnhd12u7858fw" path="res://Assets/Tiles/Extensions/extension_blue_laser.png" id="5_meila"]
-[ext_resource type="Texture2D" uid="uid://44ikivf4t4a2" path="res://Assets/Tiles/Extensions/extension_yellow_catapult.png" id="6_7ire2"]
-[ext_resource type="Texture2D" uid="uid://b20sjcdq7jcou" path="res://Assets/Tiles/dummy_tile_blue_2.png" id="7_mva4p"]
-[ext_resource type="Texture2D" uid="uid://b4wmn2r6tyvaw" path="res://Assets/Tiles/Extensions/extension_green_poison.png" id="7_x86do"]
+[ext_resource type="Texture2D" uid="uid://yfmg7bhjoaud" path="res://Assets/Tiles/Extensions/extension_red_laser.png" id="4_jnyco"]
+[ext_resource type="Texture2D" uid="uid://swj5q2lje25d" path="res://Assets/Tiles/dummy_tile_wall.png" id="4_pfkj7"]
+[ext_resource type="Texture2D" uid="uid://2ku4m8qdg8wk" path="res://Assets/Tiles/dummy_tile_blue.png" id="4_x6glx"]
+[ext_resource type="Texture2D" uid="uid://dpt2xdj6gw82b" path="res://Assets/Tiles/dummy_tile_red_2.png" id="5_42j8v"]
+[ext_resource type="Texture2D" uid="uid://dwyfoi341lntb" path="res://Assets/Tiles/dummy_tile_red.png" id="5_43aqt"]
+[ext_resource type="Texture2D" uid="uid://dcctngoi3vwhw" path="res://Assets/Tiles/Extensions/extension_blue_laser.png" id="5_meila"]
+[ext_resource type="Texture2D" uid="uid://4w2bxjir1bj5" path="res://Assets/Tiles/Extensions/extension_yellow_catapult.png" id="6_7ire2"]
+[ext_resource type="Texture2D" uid="uid://df7a0xo6wwwfo" path="res://Assets/Tiles/dummy_tile_blue_2.png" id="7_mva4p"]
+[ext_resource type="Texture2D" uid="uid://ch6luofwqame" path="res://Assets/Tiles/Extensions/extension_green_poison.png" id="7_x86do"]
+[ext_resource type="Script" path="res://GameBoard/game_board_camera.gd" id="14_7fjk4"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vgdp6"]
 texture = ExtResource("2_1fom0")
@@ -124,3 +125,4 @@ layer_2/tile_data = PackedInt32Array()
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(736, 503)
 zoom = Vector2(0.5, 0.5)
+script = ExtResource("14_7fjk4")
