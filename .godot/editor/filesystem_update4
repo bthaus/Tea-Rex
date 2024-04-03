@@ -1,3 +1,10 @@
-res://CardBase.tscn
-res://CardSpace.tscn
-res://Cards/CardBase.gd
+res://main_scene.tscn
+res://TurretScripts/turretbase.tscn
+res://monster.tscn
+res://monster.gd
+res://TurretScripts/Projectiles/Base_projectile.tscn
+res://TurretScripts/Projectiles/Explosion.tscn
+res://TurretScripts/Projectiles/Projectile.gd
+res://Game/Stats.gd
+res://TurretScripts/turretbase.gd
+
