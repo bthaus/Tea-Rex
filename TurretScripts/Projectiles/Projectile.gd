@@ -24,6 +24,8 @@ var color;
 var pool;
 var speed;
 var target:Monster
+static var shotsplayed=0;
+static var hitsplayed=0;
 static var counter=0;
 enum asd {DEFAULT=1,REDLASER=2, BLUELASER=3, YELLOWCATAPULT=4, GREENPOISON=5};
 enum asdsa {GREY=1, GREEN=2, RED=3, YELLOW=4,BLUE=5};
@@ -112,8 +114,11 @@ func _process(delta):
 		remove()
 	pass
 func playHitSound():
-	#if !$hit.playing:
-		#$hit.play();
+	if(hitsplayed>25):
+		return
+	if !$hit.playing:
+		$hit.play();
+		hitsplayed=hitsplayed+1
 	pass;
 	
 
@@ -136,7 +141,10 @@ func hitEnemy(enemy:Monster):
 	pass;	
 
 func playShootSound():
-	#$shot.play();
+	if(shotsplayed>25):
+		return
+	$shot.play();
+	shotsplayed=shotsplayed+1;
 	pass;	
 
 func applySpecials(enemy:Monster):
@@ -168,3 +176,13 @@ func applyPoison(enemy:Monster):
 	if !temp:
 		enemy.add_child(Poison.create(damage,Stats.green_poison_decay));
 	pass
+
+
+func _on_shot_finished():
+	shotsplayed=shotsplayed-1;
+	pass # Replace with function body.
+
+
+func _on_hit_finished():
+	hitsplayed=hitsplayed-1;
+	pass # Replace with function body.

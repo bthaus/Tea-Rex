@@ -6,6 +6,7 @@ func _ready():
 	pass # Replace with function body.
 var damage;
 var type
+static var sounds=0;
 static func create(type,damage, position, root,scale=1):
 	var temp;
 	if cache.size()==0:
@@ -21,7 +22,9 @@ static func create(type,damage, position, root,scale=1):
 		
 	temp.global_position=position;
 	temp.get_node("AnimatedSprite2D").play("default");
-	#temp.get_node("sound").play();
+	if sounds<25:
+		temp.get_node("sound").play();
+		sounds=sounds+1;
 	temp.get_node("AnimationPlayer").play("lightup")
 
 	
@@ -45,4 +48,10 @@ func _on_area_2d_area_entered(area):
 func _on_animated_sprite_2d_animation_finished():
 	visible=false;
 	cache.push_back(self)
+	pass # Replace with function body.
+
+
+func _on_sound_finished():
+	
+	sounds=sounds-1
 	pass # Replace with function body.
