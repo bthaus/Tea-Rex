@@ -25,7 +25,7 @@ func drawCard():
 	angle = PI/2 + CardSpread*(float(NumberCardsHand)/2 - NumberCardsHand)
 	var new_card = CardBase.instantiate()
 	CardSelected = randi() % deckSize
-	new_card.CardName = PlayerHand.cardList[CardSelected]
+	new_card.CardName = PlayerHand.cardList[CardSelected]	#random card gamestate class --> there unlocked colors/blocks/extensions/special cards
 	new_card.setNameAndColor()
 	OvalAngleVector = Vector2(Hor_rad*cos(angle), -Ver_rad*sin(angle))
 	new_card.startpos = $Deck.position - CardSize/2
@@ -41,7 +41,7 @@ func drawCard():
 		Card.targetpos = CentreCardOval + OvalAngleVector - CardSize
 		Card.Cardpos = Card.targetpos	#card default position
 		Card.startrot = Card.rotation
-		Card.targetrot = (90 - rad_to_deg(angle))/4
+		Card.targetrot = (90 - angle)/4
 		Card_Number+=1
 		if Card.state == InHand:
 			Card.state = ReOrganiseHand
