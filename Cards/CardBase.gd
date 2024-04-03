@@ -65,7 +65,7 @@ func _physics_process(delta):
 		InMouse:			
 			if setup:
 				Setup()
-			GameBoard.select_piece(CardShape, CardColor, cardPlayed, Level) #TODO: add cases for bulldozer/move card
+			GameBoard.select_piece(CardShape, CardColor, Callable(cardPlayed), Level) #TODO: add cases for bulldozer/move card
 			CardClicked = true
 			state = InPlay
 			

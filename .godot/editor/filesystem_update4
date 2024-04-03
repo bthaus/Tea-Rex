@@ -1,5 +1,3 @@
 res://CardBase.tscn
-res://Cards/CardBase.gd
 res://CardSpace.tscn
-res://Cards/PlayerHand.gd
-res://Cards/CardSpace.gd
+res://Cards/CardBase.gd
