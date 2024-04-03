@@ -27,6 +27,7 @@ var target:Monster
 static var shotsplayed=0;
 static var hitsplayed=0;
 static var counter=0;
+
 enum asd {DEFAULT=1,REDLASER=2, BLUELASER=3, YELLOWCATAPULT=4, GREENPOISON=5};
 enum asdsa {GREY=1, GREEN=2, RED=3, YELLOW=4,BLUE=5};
 static func getPool(color:Stats.TurretColor,type:Stats.TurretExtension):
@@ -69,8 +70,8 @@ static func create(type:Stats.TurretColor, damage,speed,root,extension:Stats.Tur
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$Sprite2D.texture=load("res://Assets/Turrets/Projectiles/"+Stats.getStringFromEnum(type)+Stats.getStringFromEnumExtension(ext)+"_projectile.png");
-	#$shot.stream=load("res://Sounds/Soundeffects/"+Stats.getStringFromEnum(type)+Stats.getStringFromEnumExtension(ext)+"_shot.wav")
-	#$hit.stream=load("res://Sounds/Soundeffects/"+Stats.getStringFromEnum(type)+Stats.getStringFromEnumExtension(ext)+"_hit.wav")
+	$shot.stream=load("res://Sounds/Soundeffects/"+Stats.getStringFromEnum(type)+Stats.getStringFromEnumExtension(ext)+"_shot.wav")
+	$hit.stream=load("res://Sounds/Soundeffects/"+Stats.getStringFromEnum(type)+Stats.getStringFromEnumExtension(ext)+"_hit.wav")
 	oneshot=Stats.getOneshotType(type,ext);
 	
 	$PointLight2D.visible=Stats.getGlowing(type,ext)
@@ -113,9 +114,18 @@ func _process(delta):
 	if abs(global_position.x)>3000||abs(global_position.y)>3000:
 		remove()
 	pass
+	
+static var cam;
+func getCam():
+	if cam == null:
+		cam=get_tree().get_root().get_node("MainScene").get_node("GameBoard").get_node("Camera2D")
+	return cam;
+	pass;
 func playHitSound():
 	if(hitsplayed>25):
 		return
+	var mod=getCam().zoom.y-3;
+	$hit.volume_db=mod*1
 	if !$hit.playing:
 		$hit.play();
 		hitsplayed=hitsplayed+1
@@ -143,6 +153,8 @@ func hitEnemy(enemy:Monster):
 func playShootSound():
 	if(shotsplayed>25):
 		return
+	var mod=getCam().zoom.y-3;
+	$shot.volume_db=mod*15
 	$shot.play();
 	shotsplayed=shotsplayed+1;
 	pass;	

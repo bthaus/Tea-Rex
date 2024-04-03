@@ -1,10 +1,11 @@
 res://TurretScripts/Projectiles/Base_projectile.tscn
-res://Game/GameState.gd
-res://main_scene.tscn
 res://TurretScripts/Projectiles/Projectile.gd
+res://GameBoard/game_board.tscn
+res://GameBoard/game_board_camera.gd
+res://main_scene.tscn
 res://TurretScripts/turretbase.tscn
 res://monster.tscn
 res://TurretScripts/Projectiles/Explosion.tscn
-res://Explosion.gd
+res://CardSpace.tscn
 res://TurretScripts/turretbase.gd
-
+res://Explosion.gd

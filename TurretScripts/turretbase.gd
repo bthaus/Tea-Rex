@@ -42,8 +42,12 @@ func _ready():
 	setUpTower();	
 	
 	pass # Replace with function body.
-
-
+static var cam;
+func getCam():
+	if cam == null:
+		cam=get_tree().get_root().get_node("MainScene").get_node("GameBoard").get_node("Camera2D")
+	return cam;
+	pass;
 func setUpTower():
 	if extension==0:
 		extension=Stats.TurretExtension.DEFAULT;
@@ -125,7 +129,10 @@ func _process(delta):
 				onCooldown=true;
 				return;
 			if type==Stats.TurretColor.RED&&extension==Stats.TurretExtension.REDLASER:
-				var sound=projectile.get_node("shot")
+				
+				var mod=getCam().zoom.y-3;
+				$AudioStreamPlayer2D.volume_db=mod*10
+					
 				if !$AudioStreamPlayer2D.playing&&sounds<25:
 					$AudioStreamPlayer2D.play()
 					sounds=sounds+1

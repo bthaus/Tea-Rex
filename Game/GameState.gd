@@ -2,7 +2,7 @@ extends Node2D
 class_name GameState;
 
 @export var gameBoard:Node2D;
-
+var cardhand;
 var account:String="player1";
 #Stats.TurretExtension
 var unlockedExtensions=[];
@@ -47,10 +47,9 @@ func changeMaxHealth(amount:int):
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	
+	
 	Engine.max_fps=30;
-	bulletManager=BulletManager.new()
-	add_child(bulletManager)
-	changeHealth(-50);
+	
 	pass # Replace with function body.
 
 
