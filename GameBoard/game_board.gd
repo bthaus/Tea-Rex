@@ -26,7 +26,7 @@ func _ready():
 	
 	$Camera2D.is_dragging_camera.connect(dragging_camera)
 	# draw a test block
-	var block = Stats.getBlockFromShape(Stats.BlockShape.L, Stats.TurretColor.RED, 1, Stats.TurretExtension.REDLASER)
+	var block = Stats.getBlockFromShape(Stats.BlockShape.L, Stats.TurretColor.BLUE, 1, Stats.TurretExtension.BLUELASER)
 	block_handler.draw_block(block, Vector2(6,6), BLOCK_LAYER, EXTENSION_LAYER)
 	$Board.set_cell(BLOCK_LAYER, Vector2(10,10), WALL_TILE_ID, Vector2(0,0))
 	_draw_walls()
@@ -149,13 +149,15 @@ func _spawn_turrets():
 	_remove_turrets()
 	for row in range(1,Stats.board_height-1):
 		for col in range(1,Stats.board_width-1):
-			var data = $Board.get_cell_tile_data(BLOCK_LAYER, Vector2(col, row))
-			if data != null:
-				var color = data.get_custom_data("color")
-				if color.to_upper() == "WALL":
+			var block_data = $Board.get_cell_tile_data(BLOCK_LAYER, Vector2(col, row))
+			var extension_data = $Board.get_cell_tile_data(EXTENSION_LAYER, Vector2(col, row))
+			if block_data != null:
+				var color = block_data.get_custom_data("color").to_upper()
+				if color == "WALL" or color == "GREY":
 					continue
-				var level = data.get_custom_data("level")
-				var turret = Turret.create(Stats.TurretColor.get(color.to_upper()), level)
+				var level = block_data.get_custom_data("level")
+				var extension = extension_data.get_custom_data("extension").to_upper()
+				var turret = Turret.create(Stats.TurretColor.get(color), level, Stats.TurretExtension.get(extension))
 				turret.position = $Board.map_to_local(Vector2(col, row))
 				add_child(turret)
 				
