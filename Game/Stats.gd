@@ -62,10 +62,10 @@ static var green_poison_penetrations=base_penetrations*1;
 
 
 static var green_explosion_range=0.5;
-static var red_laser_damage_stack=0.05;
+static var red_laser_damage_stack=1;
 static var green_poison_damage_stack=1;
 
-static var green_glowing=false;
+static var green_glowing=true;
 static var blue_glowing=false;
 static var yellow_glowing=false;
 static var grey_glowing=false;
@@ -161,7 +161,7 @@ enum SpecialCards {HEAL=1,FIREBALL=2,UPHEALTH=3,CRYOBALL=4,MOVE=5, BULLDOZER=6,G
 enum BlockShape {O=1, I=2, S=3, Z=4, L=5, J=6, T=7, TINY=8, SMALL=9, ARROW=10, CROSS=11}
 enum Catastrophies {METEOR=1,SWITCH=2,EXPAND=3,ADDSPAWNER=4,EARTHQUAKE=5}
 
-
+static var stats=Stats.new()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
