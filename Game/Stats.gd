@@ -248,35 +248,35 @@ static func getProperty(type:TurretColor,extension:TurretExtension,property:Stri
 	var ext=getStringFromEnumExtensionLowercase(extension);
 	var temp;
 	if extension==TurretExtension.DEFAULT:
-		temp = Stats.new().get(color+"_"+property);
+		temp = stats.get(color+"_"+property);
 	else:
-		temp = Stats.new().get(color+"_"+ext+"_"+property);
+		temp = stats.get(color+"_"+ext+"_"+property);
 	return temp;
 static func getMaxRoundsHeld(type:SpecialCards):
-	return Stats.new().get(getStringFromSpecialCardEnum(type)+"_max_HeldRounds") 
+	return stats.get(getStringFromSpecialCardEnum(type)+"_max_HeldRounds") 
 
 static func getEnemyProperty(type:TurretColor,prop):
-	return Stats.new().get(getStringFromEnum(type)+"_enemy_"+prop) 
+	return stats.get(getStringFromEnum(type)+"_enemy_"+prop) 
 	
 
 	
 static func getCardDamage(type:SpecialCards):
-	return Stats.new().get(getStringFromSpecialCardEnum(type)+"_damage")
+	return stats.get(getStringFromSpecialCardEnum(type)+"_damage")
 	
 static func getCardRange(type:SpecialCards):
-	return Stats.new().get(getStringFromSpecialCardEnum(type)+"_range")
+	return stats.get(getStringFromSpecialCardEnum(type)+"_range")
 	
 static func getCardInstant(type:SpecialCards):
-	return Stats.new().get(getStringFromSpecialCardEnum(type)+"_instant")
+	return stats.get(getStringFromSpecialCardEnum(type)+"_instant")
 
 static func getCardPhase(type:SpecialCards):
-	return Stats.new().get(getStringFromSpecialCardEnum(type)+"_phase")
+	return stats.get(getStringFromSpecialCardEnum(type)+"_phase")
 static func get_generic_property(arr):
 	var str=""
 	for a in arr:
 		str=str+a+"_";
 	str.erase(str.length() - 1, 1)
-	return Stats.new().get(str)
+	return stats.get(str)
 	pass;
 	
 static func getCooldown(type:TurretColor,extension:TurretExtension):
