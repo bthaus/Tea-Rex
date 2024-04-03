@@ -46,7 +46,7 @@ static var grey_damage=base_damage*1;
 static var red_damage=base_damage*1;
 
 static var red_laser_damage=base_damage*0.5;
-static var blue_laser_damage=base_damage*1;
+static var blue_laser_damage=base_damage*2;
 static var green_poison_damage=base_damage*1;
 
 static var base_penetrations=1;
@@ -57,7 +57,7 @@ static var grey_penetrations=base_penetrations*1;
 static var red_penetrations=base_penetrations*-1000000;
 
 static var red_laser_penetrations=base_penetrations*1;
-static var blue_laser_penetrations=base_penetrations*5;
+static var blue_laser_penetrations=base_penetrations*3;
 static var green_poison_penetrations=base_penetrations*1;
 
 
@@ -80,7 +80,7 @@ static var poison_propagation_rate=3;
 static var poison_propagation_range=base_range*0.3
 static var green_poison_decay=1;
 
-static var enemy_base_HP=5000;
+static var enemy_base_HP=5000000;
 static var GREEN_enemy_HP=enemy_base_HP*3;
 static var BLUE_enemy_HP=enemy_base_HP*1;
 static var YELLOW_enemy_HP=enemy_base_HP*0.5;

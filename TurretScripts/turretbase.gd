@@ -57,7 +57,7 @@ func setUpTower():
 	
 	cooldown=Stats.getCooldown(type,extension);
 	damage=Stats.getDamage(type,extension);
-	speed=Stats.getCooldown(type,extension);
+	speed=Stats.getMissileSpeed(type,extension);
 	
 	if type==Stats.TurretColor.RED:
 		projectile=Projectile.create(type,damage*damagefactor,speed*speedfactor,self,extension);

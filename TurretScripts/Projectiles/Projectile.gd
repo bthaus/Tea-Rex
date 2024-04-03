@@ -22,6 +22,7 @@ var oneshot;
 var oneshotoriginal;
 var color;
 var pool;
+var speed;
 var target:Monster
 static var counter=0;
 enum asd {DEFAULT=1,REDLASER=2, BLUELASER=3, YELLOWCATAPULT=4, GREENPOISON=5};
@@ -57,6 +58,8 @@ static func create(type:Stats.TurretColor, damage,speed,root,extension:Stats.Tur
 		
 	
 	
+	temp.damage=damage;
+	temp.speed=speed;
 	temp.pool=pool
 	temp.setup()
 	
@@ -64,8 +67,11 @@ static func create(type:Stats.TurretColor, damage,speed,root,extension:Stats.Tur
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$Sprite2D.texture=load("res://Assets/Turrets/Projectiles/"+Stats.getStringFromEnum(type)+Stats.getStringFromEnumExtension(ext)+"_projectile.png");
-	$shot.stream=load("res://Sounds/Soundeffects/"+Stats.getStringFromEnum(type)+Stats.getStringFromEnumExtension(ext)+"_shot.wav")
-	$hit.stream=load("res://Sounds/Soundeffects/"+Stats.getStringFromEnum(type)+Stats.getStringFromEnumExtension(ext)+"_hit.wav")
+	#$shot.stream=load("res://Sounds/Soundeffects/"+Stats.getStringFromEnum(type)+Stats.getStringFromEnumExtension(ext)+"_shot.wav")
+	#$hit.stream=load("res://Sounds/Soundeffects/"+Stats.getStringFromEnum(type)+Stats.getStringFromEnumExtension(ext)+"_hit.wav")
+	oneshot=Stats.getOneshotType(type,ext);
+	
+	$PointLight2D.visible=Stats.getGlowing(type,ext)
 	#BulletManager.allBullets.append(self)
 	pass # Replace with function body.
 
@@ -76,19 +82,16 @@ func remove():
 		return;
 	shot=false;
 	$Area2D/CollisionShape2D.set_deferred("disabled",true)
-	global_position=Vector2(3000,3000);
-	visible=false
+	visible=false;
 	pool.push_back(self)
 	pass;	
 func setup():
 	
-	$PointLight2D.visible=Stats.getGlowing(type,ext)
-	oneshot=Stats.getOneshotType(type,ext);
-	damage=Stats.getDamage(type,ext);
+	
 	
 	pass;
 func shoot(target):
-	$shot.play();
+	playShootSound()
 	$Area2D/CollisionShape2D.set_deferred("disabled",false)
 	direction=(target.global_position-self.global_position).normalized();
 	#if type==Stats.TurretColor.BLUE:
@@ -103,14 +106,14 @@ func shoot(target):
 
 func _process(delta):
 	if shot:
-		translate(direction*delta*Stats.getMissileSpeed(type,ext));
+		translate(direction*delta*speed);
 		
-	if abs(global_position.x)>1500||abs(global_position.y)>1500:
+	if abs(global_position.x)>3000||abs(global_position.y)>3000:
 		remove()
 	pass
 func playHitSound():
-	if !$hit.playing:
-		$hit.play();
+	#if !$hit.playing:
+		#$hit.play();
 	pass;
 	
 
@@ -131,7 +134,11 @@ func hitEnemy(enemy:Monster):
 		if oneshot<=0&&oneshot>-100000:
 			remove()
 	pass;	
-	
+
+func playShootSound():
+	#$shot.play();
+	pass;	
+
 func applySpecials(enemy:Monster):
 		if type==Stats.TurretColor.RED&&ext==Stats.TurretExtension.REDLASER:
 			applyRedLaser(enemy)

@@ -46,6 +46,8 @@ func changeMaxHealth(amount:int):
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	
+	Engine.max_fps=30;
 	bulletManager=BulletManager.new()
 	add_child(bulletManager)
 	changeHealth(-50);
