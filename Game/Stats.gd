@@ -22,7 +22,7 @@ static var yellow_missile_speed=10*base_missile_speed;
 static var red_missile_speed=1*base_missile_speed;
 static var grey_missile_speed=2*base_missile_speed;
 
-static var blue_laser_missile_speed=base_missile_speed*4;
+static var blue_laser_missile_speed=base_missile_speed*3;
 static var red_laser_missile_speed=base_missile_speed*1;
 static var green_poison_missile_speed=base_missile_speed*1;
 
@@ -35,7 +35,7 @@ static var grey_cooldown=base_cooldown*1;
 static var red_cooldown=base_cooldown*0.3;
 
 static var red_laser_cooldown=base_cooldown*0.5;
-static var blue_laser_cooldown=base_cooldown*0.3;
+static var blue_laser_cooldown=base_cooldown*0.5;
 static var green_poison_cooldown=base_cooldown*1.5
 
 static var base_damage=5;
@@ -71,7 +71,7 @@ static var yellow_glowing=false;
 static var grey_glowing=false;
 static var red_glowing=false;
 
-static var red_laser_glowing=true;
+static var red_laser_glowing=false;
 static var blue_laser_glowing=true;
 static var green_poison_glowing=false;
 
