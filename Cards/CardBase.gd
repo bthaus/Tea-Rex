@@ -1,9 +1,11 @@
 extends MarginContainer
-
+class_name cardbase
 var CardName = 'Testcard'
 var CardShape = Stats.BlockShape.ARROW
 var CardColor = Stats.TurretColor.BLUE
 var Level = 0
+#TODO extension
+
 @onready var GameBoard = preload("res://GameBoard/game_board.gd").new()
 @onready var CardImg = str("res://Assets/cards/", "Testcard.png")
 var startpos = Vector2()
