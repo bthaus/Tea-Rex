@@ -18,6 +18,9 @@ const LEGAL_PLACEMENT_TILE_ID = 1
 const ILLEGAL_PLACEMENT_TILE_ID = 2
 const WALL_TILE_ID = 3
 
+var navigation_polygon = NavigationPolygon.new()
+var points = PackedVector2Array([Vector2(),Vector2(),Vector2(),Vector2()])
+
 func _ready():
 	$Board.tile_set.tile_size = Vector2(Stats.block_size, Stats.block_size)
 	
@@ -27,6 +30,10 @@ func _ready():
 	$Board.set_cell(BLOCK_LAYER, Vector2(10,10), WALL_TILE_ID, Vector2(0,0))
 	_draw_walls()
 	_spawn_turrets()
+	_set_navigation_region()
+	
+	
+	
 
 func start_bulldozer(done:Callable, size_x:int, size_y:int):
 	util.p("Bulldozering stuff now...", "Jojo")
@@ -128,7 +135,7 @@ func _draw_walls():
 	for row in Stats.board_height:
 		$Board.set_cell(BLOCK_LAYER, Vector2(0,row), WALL_TILE_ID, Vector2(0,0))
 		$Board.set_cell(BLOCK_LAYER, Vector2(Stats.board_width-1,row), WALL_TILE_ID, Vector2(0,0))
-	
+		
 	for col in Stats.board_width:
 		$Board.set_cell(BLOCK_LAYER, Vector2(col,0), WALL_TILE_ID, Vector2(0,0))
 		$Board.set_cell(BLOCK_LAYER, Vector2(col,Stats.board_height-1), WALL_TILE_ID, Vector2(0,0))
@@ -151,3 +158,15 @@ func _remove_turrets():
 	for child in get_children():
 		if child is Turret:
 			child.queue_free()
+
+func _set_navigation_region():
+	#Create 4 Vectors for the 4 corners
+	points[0] = Vector2(0,0)
+	points[1] = Vector2(Stats.board_width * Stats.block_size,0)
+	points[2] = Vector2(Stats.board_width * Stats.block_size,Stats.board_height * Stats.block_size)
+	points[3] = Vector2(0,Stats.board_height * Stats.block_size)
+	
+	navigation_polygon.add_outline(points) #add the Vector array to create the outline for the polygon
+	$NavigationRegion2D.set_navigation_polygon(navigation_polygon) #add the  Polygon to the Navigation Region
+	$NavigationRegion2D.bake_navigation_polygon() #create the area inside the outlines
+
