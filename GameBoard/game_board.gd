@@ -22,7 +22,12 @@ var navigation_polygon = NavigationPolygon.new()
 var points = PackedVector2Array([Vector2(),Vector2(),Vector2(),Vector2()])
 
 func _ready():
+	
 	$Board.tile_set.tile_size = Vector2(Stats.block_size, Stats.block_size)
+	navigation_polygon.source_geometry_group_name = "navigation"
+	$Board.add_to_group("navigation")
+	navigation_polygon.source_geometry_mode = NavigationPolygon.SOURCE_GEOMETRY_GROUPS_WITH_CHILDREN
+	
 	
 	# draw a test block
 	var block = Stats.getBlockFromShape(Stats.BlockShape.L, Stats.TurretColor.RED, 1, Stats.TurretExtension.REDLASER)
@@ -31,7 +36,6 @@ func _ready():
 	_draw_walls()
 	_spawn_turrets()
 	_set_navigation_region()
-	
 	
 	
 
@@ -71,7 +75,7 @@ func _process(_delta):
 		elif action != BoardAction.NONE:
 			var id = LEGAL_PLACEMENT_TILE_ID if block_handler.can_place_block(selected_block, BLOCK_LAYER, board_pos) else ILLEGAL_PLACEMENT_TILE_ID
 			block_handler.draw_block_with_tile_id(selected_block, board_pos, id, SELECTION_LAYER)
-
+	
 func _input(event):
 	var board_pos = $Board.local_to_map(get_global_mouse_position())
 	if Input.is_action_just_pressed("load"):
@@ -119,7 +123,7 @@ func _place_block(block: Block, position: Vector2):
 		block_handler.set_block_level(block, level + 1)
 
 	block_handler.draw_block(block, position, BLOCK_LAYER, EXTENSION_LAYER)
-
+	
 func _action_finished(finished: bool):
 	if not finished and moved_from_block != null: #Restore block if there is something to restore
 		block_handler.draw_block(moved_from_block, moved_from_position, BLOCK_LAYER, EXTENSION_LAYER)
@@ -169,4 +173,4 @@ func _set_navigation_region():
 	navigation_polygon.add_outline(points) #add the Vector array to create the outline for the polygon
 	$NavigationRegion2D.set_navigation_polygon(navigation_polygon) #add the  Polygon to the Navigation Region
 	$NavigationRegion2D.bake_navigation_polygon() #create the area inside the outlines
-
+	

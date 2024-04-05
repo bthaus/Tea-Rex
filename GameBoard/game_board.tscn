@@ -18,52 +18,72 @@
 texture = ExtResource("2_1fom0")
 texture_region_size = Vector2i(64, 64)
 0:0/0 = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jgjef"]
 texture = ExtResource("3_6mg28")
 texture_region_size = Vector2i(64, 64)
 0:0/0 = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
 0:0/0/custom_data_2 = "DEFAULT"
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_c5wpd"]
 texture = ExtResource("4_jnyco")
 texture_region_size = Vector2i(64, 64)
 0:0/0 = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
 0:0/0/custom_data_2 = "REDLASER"
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_sguvl"]
 texture = ExtResource("5_meila")
 texture_region_size = Vector2i(64, 64)
 0:0/0 = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
 0:0/0/custom_data_2 = "BLUELASER"
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_08jg4"]
 texture = ExtResource("6_7ire2")
 texture_region_size = Vector2i(64, 64)
 0:0/0 = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
 0:0/0/custom_data_2 = "YELLOWCATAPULT"
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_dke1w"]
 texture = ExtResource("7_x86do")
 texture_region_size = Vector2i(64, 64)
 0:0/0 = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
 0:0/0/custom_data_2 = "GREENPOISON"
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8dgb0"]
 texture = ExtResource("3_wb0lt")
 texture_region_size = Vector2i(64, 64)
 0:0/0 = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_dfys5"]
 texture = ExtResource("4_pfkj7")
 texture_region_size = Vector2i(64, 64)
 0:0/0 = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)
 0:0/0/custom_data_0 = "WALL"
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_puufv"]
 texture = ExtResource("5_43aqt")
 texture_region_size = Vector2i(64, 64)
 0:0/0 = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)
 0:0/0/custom_data_0 = "RED"
 0:0/0/custom_data_1 = 1
 
@@ -71,6 +91,9 @@ texture_region_size = Vector2i(64, 64)
 texture = ExtResource("5_42j8v")
 texture_region_size = Vector2i(64, 64)
 0:0/0 = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)
 0:0/0/custom_data_0 = "RED"
 0:0/0/custom_data_1 = 2
 
@@ -78,6 +101,9 @@ texture_region_size = Vector2i(64, 64)
 texture = ExtResource("4_x6glx")
 texture_region_size = Vector2i(64, 64)
 0:0/0 = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)
 0:0/0/custom_data_0 = "BLUE"
 0:0/0/custom_data_1 = 1
 
@@ -85,11 +111,15 @@ texture_region_size = Vector2i(64, 64)
 texture = ExtResource("7_mva4p")
 texture_region_size = Vector2i(64, 64)
 0:0/0 = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)
 0:0/0/custom_data_0 = "BLUE"
 0:0/0/custom_data_1 = 2
 
 [sub_resource type="TileSet" id="TileSet_u4oll"]
 tile_size = Vector2i(64, 64)
+physics_layer_0/collision_layer = 1
 custom_data_layer_0/name = "color"
 custom_data_layer_0/type = 4
 custom_data_layer_1/name = "level"
@@ -112,7 +142,7 @@ sources/1004 = SubResource("TileSetAtlasSource_08jg4")
 [node name="GameBoard" type="Node2D"]
 script = ExtResource("1_yp6tt")
 
-[node name="Board" type="TileMap" parent="."]
+[node name="Board" type="TileMap" parent="." groups=["navigation"]]
 tile_set = SubResource("TileSet_u4oll")
 format = 2
 layer_0/name = "extension_layer"
@@ -121,8 +151,8 @@ layer_1/tile_data = PackedInt32Array()
 layer_2/name = "selection_layer"
 layer_2/tile_data = PackedInt32Array()
 
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(736, 503)
 zoom = Vector2(0.5, 0.5)
-
-[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]

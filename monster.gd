@@ -1,11 +1,15 @@
-extends Node2D
+extends CharacterBody2D
 class_name Monster;
 @export var sizemult=1;
 var hp=Stats.enemy_base_HP;
 var damage=Stats.enemy_base_damage;
-var speedfactor=Stats.enemy_base_speed;
+var speedfactor=Stats.enemy_base_speed_factor;
+var speed = Stats.enemy_base_speed;
+var accel = Stats.enemy_base_acceleration;
 @export var color:Stats.TurretColor=Stats.TurretColor.BLUE
 
+@export var target: Node2D #goal
+@onready var nav: NavigationAgent2D = $NavigationAgent2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -41,13 +45,10 @@ func hit(color:Stats.TurretColor,damage,type="default"):
 	pass;
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	if(Input.is_action_pressed("testright")):
-		translate(Vector2(500*speedfactor*delta,0))
-	if(Input.is_action_pressed("testleft")):
-		translate(Vector2(-500*speedfactor*delta,0))
-	if(Input.is_action_pressed("testdown")):
-		translate(Vector2(0,500*speedfactor*delta))
-	if(Input.is_action_pressed("testup")):
-		translate(Vector2(0,-500*speedfactor*delta))
-	pass
+func _physics_process(delta):
+	var direction = Vector3()
+	nav.target_position = target.global_position  
+	direction = nav.get_next_path_position() - global_position
+	direction = direction.normalized()
+	velocity = velocity.lerp(direction * (speedfactor * speed),accel * delta)
+	move_and_slide()

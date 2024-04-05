@@ -92,7 +92,9 @@ static var BLUE_enemy_damage=enemy_base_damage*1;
 static var YELLOW_enemy_damage=enemy_base_damage*2;
 static var RED_enemy_damage=enemy_base_damage*3;
 
-static var enemy_base_speed=1;
+static var enemy_base_speed_factor =1;
+static var enemy_base_speed=15;
+static var enemy_base_acceleration = 7;
 static var GREEN_enemy_speed=enemy_base_speed*1;
 static var BLUE_enemy_speed=enemy_base_speed*1;
 static var YELLOW_enemy_speed=enemy_base_speed*3;
