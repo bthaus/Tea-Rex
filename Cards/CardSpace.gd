@@ -9,9 +9,9 @@ var deckSize = 0
 
 @onready var CentreCardOval = Vector2(get_viewport().size) * Vector2(0.5,1.3)
 @onready var Hor_rad = get_viewport().size.x*0.45
-@onready var Ver_rad = get_viewport().size.y*0.4
+@onready var Ver_rad = get_viewport().size.y*0.3
 var angle = 0
-var CardSpread = 0.25
+var CardSpread = 0.2
 var Card_Number = 0
 var NumberCardsHand = 0
 var OvalAngleVector = Vector2()
@@ -26,6 +26,7 @@ func drawCard():
 	var new_card = CardBase.instantiate()
 	CardSelected = randi() % deckSize
 	new_card.CardName = PlayerHand.cardList[CardSelected]	#random card gamestate class --> there unlocked colors/blocks/extensions/special cards
+	#selectCard()
 	new_card.setNameAndColor()
 	OvalAngleVector = Vector2(Hor_rad*cos(angle), -Ver_rad*sin(angle))
 	new_card.startpos = $Deck.position - CardSize/2
@@ -56,3 +57,6 @@ func drawCard():
 	Card_Number += 1
 	
 	return deckSize
+	
+func selectCard(): #TODO select card form possible cards from gamestats
+	pass

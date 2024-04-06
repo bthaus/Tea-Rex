@@ -4,7 +4,7 @@ var CardName = 'Testcard'
 var CardShape = Stats.BlockShape.ARROW
 var CardColor = Stats.TurretColor.BLUE
 var Level = 0
-#TODO extension
+#TODO var CardExtension = Stats.
 
 @onready var GameBoard = preload("res://GameBoard/game_board.gd").new()
 @onready var CardImg = str("res://Assets/cards/", "Testcard.png")
@@ -63,6 +63,7 @@ func _input(event):
 					
 
 func _physics_process(delta):
+	
 	match state:
 		InMouse:			
 			if setup:
@@ -84,23 +85,23 @@ func _physics_process(delta):
 				Setup()
 			if t <= 1: # Always be a 1
 				position = startpos.lerp(targetpos, t)
-				rotation = startrot * (1-t) + 0*t
+				#rotation = startrot * (1-t) + 0*t
 				scale = startscale * (1-t) + Orig_scale*ZoomInSize*t
 				t += delta/float(ZOOMINTIME)
-				if ReorganiseNeighbours:
-					ReorganiseNeighbours = false
-					NumberCardsHand = $'../../'.NumberCardsHand - 1 # offset for zeroth item
-					if Card_Numb - 1 >= 0:
-						Move_Neighbour_Card(Card_Numb - 1,true,1) # true is left!
-					if Card_Numb - 2 >= 0:
-						Move_Neighbour_Card(Card_Numb - 2,true,0.25)
-					if Card_Numb + 1 <= NumberCardsHand:
-						Move_Neighbour_Card(Card_Numb + 1,false,1)
-					if Card_Numb + 2 <= NumberCardsHand:
-						Move_Neighbour_Card(Card_Numb + 2,false,0.25)
+				#if ReorganiseNeighbours:
+				#	ReorganiseNeighbours = false
+				#	NumberCardsHand = $'../../'.NumberCardsHand - 1 # offset for zeroth item
+				#	if Card_Numb - 1 >= 0:
+				#		Move_Neighbour_Card(Card_Numb - 1,true,1) # true is left!
+				#	if Card_Numb - 2 >= 0:
+				#		Move_Neighbour_Card(Card_Numb - 2,true,0.25)
+				#	if Card_Numb + 1 <= NumberCardsHand:
+				#		Move_Neighbour_Card(Card_Numb + 1,false,1)
+				#	if Card_Numb + 2 <= NumberCardsHand:
+				#		Move_Neighbour_Card(Card_Numb + 2,false,0.25)
 			else:
 				position = targetpos
-				rotation = 0
+				#rotation = 0
 				scale = Orig_scale*ZoomInSize
 				
 		MoveDrawnCardToHand: #animate from the deck to my hand
@@ -198,6 +199,7 @@ func setNameAndColor():
 func cardPlayed (CardPlayed: bool): #Check if card was placed or not, either delete card or put it back into hand
 	if CardPlayed:
 		$Cards.remove_child($Card)
+		print($Cards)
 	else:
 		CARD_SELECT = false
 		$Card.visible = true
