@@ -2,10 +2,13 @@ extends Node2D
 
 var selected_block = null
 
+@export var gameState:GameState;
+@export var camera:Camera2D
 var moved_from_position = Vector2.ZERO #As (0,0) will be part of the wall, it is outside of bounds and can be treated as not initialized
 var moved_from_block = null
 
 @onready var block_handler = BlockHandler.new($Board)
+
 enum BoardAction {NONE=0, PLAYER_BUILD=1, PLAYER_MOVE=2, PLAYER_BULLDOZER=3}
 var action: BoardAction = BoardAction.NONE
 var done: Callable
@@ -21,10 +24,16 @@ const LEGAL_PLACEMENT_TILE_ID = 1
 const ILLEGAL_PLACEMENT_TILE_ID = 2
 const WALL_TILE_ID = 3
 
+
+
+
+
+
 func _ready():
 	$Board.tile_set.tile_size = Vector2(Stats.block_size, Stats.block_size)
 	
-	$Camera2D.is_dragging_camera.connect(dragging_camera)
+	camera.is_dragging_camera.connect(dragging_camera)
+	
 	# draw a test block
 	var block = Stats.getBlockFromShape(Stats.BlockShape.L, Stats.TurretColor.RED, 1, Stats.TurretExtension.REDLASER)
 	block_handler.draw_block(block, Vector2(6,6), BLOCK_LAYER, EXTENSION_LAYER)

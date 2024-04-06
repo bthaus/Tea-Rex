@@ -22,7 +22,8 @@ var wave:int=0;
 var handCards=[]
 
 signal player_died
-
+@export   var cam:Camera2D;
+static var gameState;
 
  
 
@@ -46,12 +47,17 @@ func changeMaxHealth(amount:int):
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	
-	
+	gameState=self;
+	print(cam)
 	Engine.max_fps=30;
 	
 	pass # Replace with function body.
 
+func getCamera():
+
+	return cam	
+	
+	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):

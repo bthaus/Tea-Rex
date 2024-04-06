@@ -27,6 +27,8 @@ var target:Monster
 static var shotsplayed=0;
 static var hitsplayed=0;
 static var counter=0;
+static var gamestate:GameState;
+static var camera;
 
 enum asd {DEFAULT=1,REDLASER=2, BLUELASER=3, YELLOWCATAPULT=4, GREENPOISON=5};
 enum asdsa {GREY=1, GREEN=2, RED=3, YELLOW=4,BLUE=5};
@@ -73,7 +75,10 @@ func _ready():
 	$shot.stream=load("res://Sounds/Soundeffects/"+Stats.getStringFromEnum(type)+Stats.getStringFromEnumExtension(ext)+"_shot.wav")
 	$hit.stream=load("res://Sounds/Soundeffects/"+Stats.getStringFromEnum(type)+Stats.getStringFromEnumExtension(ext)+"_hit.wav")
 	oneshot=Stats.getOneshotType(type,ext);
-	
+	if gamestate==null:
+		gamestate=GameState.gameState;
+	if camera==null:
+		camera=gamestate.getCamera();
 	$PointLight2D.visible=Stats.getGlowing(type,ext)
 	#BulletManager.allBullets.append(self)
 	pass # Replace with function body.
@@ -115,17 +120,13 @@ func _process(delta):
 		remove()
 	pass
 	
-static var cam;
-func getCam():
-	if cam == null:
-		cam=get_tree().get_root().get_node("MainScene").get_node("GameBoard").get_node("Camera2D")
-	return cam;
-	pass;
+
 func playHitSound():
 	if(hitsplayed>25):
 		return
-	var mod=getCam().zoom.y-3;
-	$hit.volume_db=mod*1
+	if camera!= null:
+		var mod=GameState.gameState.getCamera().zoom.y-3;
+		$hit.volume_db=mod*1
 	if !$hit.playing:
 		$hit.play();
 		hitsplayed=hitsplayed+1
@@ -153,8 +154,11 @@ func hitEnemy(enemy:Monster):
 func playShootSound():
 	if(shotsplayed>25):
 		return
-	var mod=getCam().zoom.y-3;
-	$shot.volume_db=mod*15
+	if camera!=null:
+		var mod=camera.zoom.y-3;
+		$shot.volume_db=mod*15
+		
+	
 	$shot.play();
 	shotsplayed=shotsplayed+1;
 	pass;	

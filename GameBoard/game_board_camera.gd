@@ -8,7 +8,10 @@ var clicked = false
 signal is_dragging_camera
 
 const CAMERA_ZOOM = 0.1
-
+func _ready():
+	Projectile.camera=self;
+	Turret.camera=self;
+	pass;
 func _input(event):
 	if event.is_action("left_click"):
 		if event.is_pressed():
