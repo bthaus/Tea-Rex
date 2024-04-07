@@ -10,8 +10,8 @@ enum BoardAction {NONE=0, PLAYER_BUILD=1, PLAYER_MOVE=2, PLAYER_BULLDOZER=3}
 var action: BoardAction = BoardAction.NONE
 var done: Callable
 
-const EXTENSION_LAYER = 0
-const BLOCK_LAYER = 1
+const EXTENSION_LAYER = 1
+const BLOCK_LAYER = 0
 const SELECTION_LAYER = 2
 
 const LEGAL_PLACEMENT_TILE_ID = 1
@@ -22,7 +22,6 @@ var navigation_polygon = NavigationPolygon.new()
 var points = PackedVector2Array([Vector2(),Vector2(),Vector2(),Vector2()])
 
 func _ready():
-	
 	$Board.tile_set.tile_size = Vector2(Stats.block_size, Stats.block_size)
 	navigation_polygon.source_geometry_group_name = "navigation"
 	$Board.add_to_group("navigation")
@@ -33,6 +32,7 @@ func _ready():
 	var block = Stats.getBlockFromShape(Stats.BlockShape.L, Stats.TurretColor.RED, 1, Stats.TurretExtension.REDLASER)
 	block_handler.draw_block(block, Vector2(6,6), BLOCK_LAYER, EXTENSION_LAYER)
 	$Board.set_cell(BLOCK_LAYER, Vector2(10,10), WALL_TILE_ID, Vector2(0,0))
+	
 	_draw_walls()
 	_spawn_turrets()
 	_set_navigation_region()
@@ -105,6 +105,7 @@ func _input(event):
 			BoardAction.PLAYER_BULLDOZER:
 				block_handler.remove_block_from_board(selected_block, board_pos, BLOCK_LAYER, EXTENSION_LAYER)
 				_action_finished(true)
+				$NavigationRegion2D.bake_navigation_polygon()
 				
 		_spawn_turrets()
 	
@@ -123,7 +124,7 @@ func _place_block(block: Block, position: Vector2):
 		block_handler.set_block_level(block, level + 1)
 
 	block_handler.draw_block(block, position, BLOCK_LAYER, EXTENSION_LAYER)
-	
+	$NavigationRegion2D.bake_navigation_polygon()
 func _action_finished(finished: bool):
 	if not finished and moved_from_block != null: #Restore block if there is something to restore
 		block_handler.draw_block(moved_from_block, moved_from_position, BLOCK_LAYER, EXTENSION_LAYER)
@@ -143,7 +144,7 @@ func _draw_walls():
 	for col in Stats.board_width:
 		$Board.set_cell(BLOCK_LAYER, Vector2(col,0), WALL_TILE_ID, Vector2(0,0))
 		$Board.set_cell(BLOCK_LAYER, Vector2(col,Stats.board_height-1), WALL_TILE_ID, Vector2(0,0))
-		
+	$NavigationRegion2D.bake_navigation_polygon()
 func _spawn_turrets():
 	_remove_turrets()
 	for row in range(1,Stats.board_height-1):
@@ -164,6 +165,7 @@ func _remove_turrets():
 			child.queue_free()
 
 func _set_navigation_region():
+	navigation_polygon.clear()
 	#Create 4 Vectors for the 4 corners
 	points[0] = Vector2(0,0)
 	points[1] = Vector2(Stats.board_width * Stats.block_size,0)
@@ -173,4 +175,7 @@ func _set_navigation_region():
 	navigation_polygon.add_outline(points) #add the Vector array to create the outline for the polygon
 	$NavigationRegion2D.set_navigation_polygon(navigation_polygon) #add the  Polygon to the Navigation Region
 	$NavigationRegion2D.bake_navigation_polygon() #create the area inside the outlines
+	
+	
+		
 	
