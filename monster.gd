@@ -10,6 +10,7 @@ var accel = Stats.enemy_base_acceleration;
 
 @export var target: Node2D #goal
 @onready var nav: NavigationAgent2D = $NavigationAgent2D
+signal monster_died
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -29,10 +30,12 @@ func _ready():
 	
 	$HP.text=str(hp)
 	pass # Replace with function body.
-func create(type:Stats.TurretColor):
+static func create(type:Stats.TurretColor,target:Node2D)->Monster:
 	var en=load("res://monster.tscn").instantiate() as Monster
 	en.color=type;
-		
+	en.target=target;
+	
+	return en
 	pass;
 func hit(color:Stats.TurretColor,damage,type="default"):
 	var mod=1;
@@ -41,6 +44,7 @@ func hit(color:Stats.TurretColor,damage,type="default"):
 	hp=hp-damage*mod;
 	$HP.text=str(hp)
 	if hp<=0:
+		monster_died.emit()
 		queue_free()
 	pass;
 

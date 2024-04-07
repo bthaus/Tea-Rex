@@ -80,7 +80,7 @@ static var poison_propagation_rate=3;
 static var poison_propagation_range=base_range*0.3
 static var green_poison_decay=1;
 
-static var enemy_base_HP=5000000;
+static var enemy_base_HP=125;
 static var GREEN_enemy_HP=enemy_base_HP*3;
 static var BLUE_enemy_HP=enemy_base_HP*1;
 static var YELLOW_enemy_HP=enemy_base_HP*0.5;
@@ -305,7 +305,7 @@ static func getRandomBlock(lvl):
 	var rng=RandomNumberGenerator.new()
 	var color=TurretColor.values()[rng.randi_range(0,TurretColor.size()-1)]
 	color=Stats.TurretColor.BLUE
-	var extension=TurretExtension.values()[rng.randi_range(0,TurretExtension.size()-1)]
+	var extension=TurretExtension.DEFAULT
 	var block=BlockShape.values()[rng.randi_range(0,BlockShape.size()-1)]
 	return getBlockFromShape(block,color,lvl,extension)		
 static func getBlockFromShape(shape: BlockShape, color: TurretColor, level: int = 1, extenstion: TurretExtension = TurretExtension.DEFAULT) -> Block:

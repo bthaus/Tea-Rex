@@ -52,14 +52,20 @@ static func create(type:Stats.TurretColor, damage,speed,root,extension:Stats.Tur
 	var temp;
 	var pool=getPool(type,extension) 
 	
-	if 	pool==null||pool.size()==0:
+	if 	pool!=null||pool.size()!=0:
+		temp=pool.pop_back()
+		if temp==null:
+			temp=load("res://TurretScripts/Projectiles/Base_projectile.tscn").instantiate() as Projectile;
+			temp.type=type;
+			temp.ext=extension;	
+			root.add_child(temp);
+		temp.visible=true;
+		
+	else:
 		temp=load("res://TurretScripts/Projectiles/Base_projectile.tscn").instantiate() as Projectile;
 		temp.type=type;
 		temp.ext=extension;	
 		root.add_child(temp);
-	else:
-		temp=pool.pop_back()
-		temp.visible=true;
 		
 	
 	

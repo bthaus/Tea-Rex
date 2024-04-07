@@ -17,6 +17,7 @@ var NumberCardsHand = 0
 var OvalAngleVector = Vector2()
 enum{InHand, InPlay, InMouse, FocuseInHand, MoveDrawnCardToHand, ReOrganiseHand}
 
+
 func _ready():
 	PlayerHand.fillCardDeck()
 	deckSize = PlayerHand.cardList.size()
@@ -58,4 +59,6 @@ func drawCard():
 	Card_Number += 1
 	
 	return deckSize
+
+
 

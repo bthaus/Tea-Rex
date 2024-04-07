@@ -50,6 +50,7 @@ func _ready():
 	gameState=self;
 	print(cam)
 	Engine.max_fps=30;
+
 	
 	pass # Replace with function body.
 
@@ -63,3 +64,17 @@ func getCamera():
 func _process(delta):
 	
 	pass
+
+
+func _on_start_battle_phase_pressed():
+	$Spawner.start(wave)
+	phase=Stats.GamePhase.BATTLE
+	$CanvasLayer/PHASE.text="BATTLEPHASE"
+	pass # Replace with function body.
+
+
+func _on_spawner_wave_done():
+	phase=Stats.GamePhase.BUILD
+	
+	$CanvasLayer/PHASE.text="BUILDPHASE"
+	pass # Replace with function body.

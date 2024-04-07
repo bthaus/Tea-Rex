@@ -34,7 +34,9 @@ func _input(event):
 		zoom = Vector2(zoom.x + CAMERA_ZOOM, zoom.y + CAMERA_ZOOM)
 		
 		
+		
 	if event.is_action_pressed("zoom_out"):
 		zoom = Vector2(zoom.x - CAMERA_ZOOM, zoom.y - CAMERA_ZOOM)
+		
 	
 		
