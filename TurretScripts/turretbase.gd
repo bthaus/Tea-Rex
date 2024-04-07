@@ -25,15 +25,11 @@ var cooldownfactor=1;
 
 
 
-static func create(color:Stats.TurretColor, lvl:int,type:String="DEFAULT")->Turret:
+static func create(color:Stats.TurretColor, lvl:int, type:Stats.TurretExtension=Stats.TurretExtension.DEFAULT)->Turret:
 	var turret=load("res://TurretScripts/turretbase.tscn").instantiate() as Turret;
 	turret.type=color;
 	turret.stacks=lvl;
 	turret.extension=type;
-	if type!="DEFAULT":
-		turret.isBasic=false;
-		util.p("a non basic turret has been created, impl rquired","Bodo","Not good");
-	
 	return turret;
 	
 
@@ -57,7 +53,7 @@ func setUpTower():
 	
 	cooldown=Stats.getCooldown(type,extension);
 	damage=Stats.getDamage(type,extension);
-	speed=Stats.getCooldown(type,extension);
+	speed=Stats.getMissileSpeed(type,extension);
 	
 	if type==Stats.TurretColor.RED:
 		projectile=Projectile.create(type,damage*damagefactor,speed*speedfactor,self,extension);
@@ -71,6 +67,7 @@ func setUpTower():
 var target;
 var buildup=0;
 var targetposition;
+static var sounds=0;
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _draw():
@@ -125,8 +122,9 @@ func _process(delta):
 				return;
 			if type==Stats.TurretColor.RED&&extension==Stats.TurretExtension.REDLASER:
 				var sound=projectile.get_node("shot")
-				if !$AudioStreamPlayer2D.playing:
+				if !$AudioStreamPlayer2D.playing&&sounds<25:
 					$AudioStreamPlayer2D.play()
+					sounds=sounds+1
 					
 				self.target=target;
 				projectile.hitEnemy(target)
@@ -198,4 +196,9 @@ func levelup():
 	pass;
 func _on_timer_timeout():
 	onCooldown=false;
+	pass # Replace with function body.
+
+
+func _on_audio_stream_player_2d_finished():
+	sounds=sounds-1
 	pass # Replace with function body.

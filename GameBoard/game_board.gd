@@ -10,8 +10,14 @@ enum BoardAction {NONE=0, PLAYER_BUILD=1, PLAYER_MOVE=2, PLAYER_BULLDOZER=3}
 var action: BoardAction = BoardAction.NONE
 var done: Callable
 
+
 const EXTENSION_LAYER = 1
 const BLOCK_LAYER = 0
+
+var is_dragging_camera = false
+var ignore_click = false
+
+
 const SELECTION_LAYER = 2
 
 const LEGAL_PLACEMENT_TILE_ID = 1
@@ -28,8 +34,9 @@ func _ready():
 	navigation_polygon.source_geometry_mode = NavigationPolygon.SOURCE_GEOMETRY_GROUPS_WITH_CHILDREN
 	
 	
+	$Camera2D.is_dragging_camera.connect(dragging_camera)
 	# draw a test block
-	var block = Stats.getBlockFromShape(Stats.BlockShape.L, Stats.TurretColor.RED, 1, Stats.TurretExtension.REDLASER)
+	var block = Stats.getBlockFromShape(Stats.BlockShape.L, Stats.TurretColor.BLUE, 1, Stats.TurretExtension.BLUELASER)
 	block_handler.draw_block(block, Vector2(6,6), BLOCK_LAYER, EXTENSION_LAYER)
 	$Board.set_cell(BLOCK_LAYER, Vector2(10,10), WALL_TILE_ID, Vector2(0,0))
 	
@@ -59,14 +66,19 @@ func select_piece(shape:Stats.BlockShape, color:Stats.TurretColor, done:Callable
 	action = BoardAction.PLAYER_BUILD
 	selected_block = Stats.getBlockFromShape(shape, color, level)
 	self.done = done
+	
 func select_block(block,done:Callable):
 	util.p("Building now...", "Jojo")
 	action = BoardAction.PLAYER_BUILD
 	selected_block = block
-	self.done = done	
+	self.done = done
+	
 func _process(_delta):
 	$Board.clear_layer(SELECTION_LAYER)
 	var board_pos = $Board.local_to_map(get_global_mouse_position())
+	
+	if is_dragging_camera:
+		ignore_click = true
 	
 	#Draw preview
 	if selected_block != null:
@@ -82,8 +94,11 @@ func _input(event):
 		util.p("testing gameboard with random blocks for turrettesting","bodo")
 		select_block(Stats.getRandomBlock(1),func (va):print("done"));
 		
-		
-	if event.is_action_pressed("left_click"):
+	if not event is InputEventMouseMotion and ignore_click: #Ignore the next click
+		ignore_click = false
+		return
+	
+	if event.is_action_released("left_click"):
 		match action:
 			BoardAction.PLAYER_BUILD:
 				if block_handler.can_place_block(selected_block, BLOCK_LAYER, board_pos):
@@ -109,11 +124,11 @@ func _input(event):
 				
 		_spawn_turrets()
 	
-	if event.is_action_pressed("right_click"):
+	if event.is_action_released("right_click"):
 		if selected_block != null:
 			block_handler.rotate_block(selected_block)
 	
-	if event.is_action_pressed("interrupt"):
+	if event.is_action_released("interrupt"):
 		_action_finished(false)
 
 
@@ -149,13 +164,15 @@ func _spawn_turrets():
 	_remove_turrets()
 	for row in range(1,Stats.board_height-1):
 		for col in range(1,Stats.board_width-1):
-			var data = $Board.get_cell_tile_data(BLOCK_LAYER, Vector2(col, row))
-			if data != null:
-				var color = data.get_custom_data("color")
-				if color.to_upper() == "WALL":
+			var block_data = $Board.get_cell_tile_data(BLOCK_LAYER, Vector2(col, row))
+			var extension_data = $Board.get_cell_tile_data(EXTENSION_LAYER, Vector2(col, row))
+			if block_data != null:
+				var color = block_data.get_custom_data("color").to_upper()
+				if color == "WALL" or color == "GREY":
 					continue
-				var level = data.get_custom_data("level")
-				var turret = Turret.create(Stats.TurretColor.get(color.to_upper()), level)
+				var level = block_data.get_custom_data("level")
+				var extension = extension_data.get_custom_data("extension").to_upper()
+				var turret = Turret.create(Stats.TurretColor.get(color), level, Stats.TurretExtension.get(extension))
 				turret.position = $Board.map_to_local(Vector2(col, row))
 				add_child(turret)
 				
@@ -163,6 +180,7 @@ func _remove_turrets():
 	for child in get_children():
 		if child is Turret:
 			child.queue_free()
+
 
 func _set_navigation_region():
 	navigation_polygon.clear()
@@ -179,3 +197,8 @@ func _set_navigation_region():
 	
 		
 	
+
+			
+func dragging_camera(is_dragging: bool):
+	self.is_dragging_camera = is_dragging
+
