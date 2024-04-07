@@ -27,11 +27,15 @@ static var camera;
 
 
 
-static func create(color:Stats.TurretColor, lvl:int, type:Stats.TurretExtension=Stats.TurretExtension.DEFAULT)->Turret:
+static func create(color:Stats.TurretColor, lvl:int,type:String="DEFAULT")->Turret:
 	var turret=load("res://TurretScripts/turretbase.tscn").instantiate() as Turret;
 	turret.type=color;
 	turret.stacks=lvl;
 	turret.extension=type;
+	if type!="DEFAULT":
+		turret.isBasic=false;
+		util.p("a non basic turret has been created, impl rquired","Bodo","Not good");
+	
 	return turret;
 	
 
