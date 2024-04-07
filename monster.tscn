@@ -2,13 +2,17 @@
 
 [ext_resource type="Script" path="res://monster.gd" id="1_g1k27"]
 [ext_resource type="Texture2D" uid="uid://b0vjaywamx3yp" path="res://Assets/Lights/spotlight.png" id="2_7naar"]
-[ext_resource type="Texture2D" uid="uid://cfudr8ysiyfsl" path="res://Assets/Monsters/Monster.png" id="2_yp50u"]
+[ext_resource type="Texture2D" uid="uid://22epcv2dtrh2" path="res://Assets/Monsters/Monster.png" id="2_yp50u"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_wsh3g"]
 radius = 32.0
 
-[node name="Monster" type="Node2D"]
+
+[node name="Monster" type="CharacterBody2D"]
+=======
+
 process_mode = 1
+
 script = ExtResource("1_g1k27")
 
 [node name="Hitbox" type="Area2D" parent="."]
@@ -80,3 +84,7 @@ scale = Vector2(2.3, 2.3)
 color = Color(1, 1, 0, 1)
 energy = 0.57
 texture = ExtResource("2_7naar")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+path_postprocessing = 1
+avoidance_enabled = true
