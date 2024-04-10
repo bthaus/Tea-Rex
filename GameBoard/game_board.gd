@@ -63,6 +63,7 @@ func start_move(done:Callable):
 	
 func select_piece(shape:Stats.BlockShape, color:Stats.TurretColor, done:Callable, level:int, extension:Stats.TurretExtension=Stats.TurretExtension.DEFAULT):
 	util.p("Building now...", "Jojo")
+	util.p(Stats.getStringFromEnumExtension(extension))
 	action = BoardAction.PLAYER_BUILD
 	selected_block = Stats.getBlockFromShape(shape, color, level)
 	self.done = done

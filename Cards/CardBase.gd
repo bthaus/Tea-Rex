@@ -3,7 +3,7 @@ class_name cardbase
 var CardName = 'Testcard'
 var CardShape = Stats.BlockShape.ARROW
 var CardColor = Stats.TurretColor.BLUE
-var Level = 0
+var Level = 1
 #TODO extension
 
 @onready var GameBoard = get_parent().get_parent().gameBoard
@@ -200,7 +200,7 @@ func cardPlayed (CardPlayed: bool):
 	
 	 #Check if card was placed or not, either delete card or put it back into hand
 	if CardPlayed:
-		$Cards.remove_child($Card)
+		get_parent().remove_child($Card)
 		
 	else:
 		CARD_SELECT = false
