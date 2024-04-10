@@ -1,5 +1,5 @@
 extends Node2D
-
+class_name GameBoard
 var selected_block = null
 
 var moved_from_position = Vector2.ZERO #As (0,0) will be part of the wall, it is outside of bounds and can be treated as not initialized

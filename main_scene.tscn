@@ -78,8 +78,9 @@ extension = 2
 scale = Vector2(0.565, 0.565)
 transform = Transform2D(0.565, 0, 0, 0.565, 0, 0)
 
-[node name="Cardspace" parent="CanvasLayer" instance=ExtResource("10_5a5mt")]
+[node name="Cardspace" parent="CanvasLayer" node_paths=PackedStringArray("gameBoard") instance=ExtResource("10_5a5mt")]
 position = Vector2(79.646, 437.168)
+gameBoard = NodePath("../../GameBoard")
 
 [node name="StartBattlePhase" type="TextureButton" parent="CanvasLayer"]
 clip_contents = true
