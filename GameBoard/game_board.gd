@@ -1,5 +1,5 @@
 extends Node2D
-
+class_name GameBoard
 var selected_block = null
 
 var moved_from_position = Vector2.ZERO #As (0,0) will be part of the wall, it is outside of bounds and can be treated as not initialized
@@ -63,6 +63,7 @@ func start_move(done:Callable):
 	
 func select_piece(shape:Stats.BlockShape, color:Stats.TurretColor, done:Callable, level:int, extension:Stats.TurretExtension=Stats.TurretExtension.DEFAULT):
 	util.p("Building now...", "Jojo")
+	util.p(Stats.getStringFromEnumExtension(extension))
 	action = BoardAction.PLAYER_BUILD
 	selected_block = Stats.getBlockFromShape(shape, color, level)
 	self.done = done
