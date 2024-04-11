@@ -22,6 +22,7 @@ static func create(type,damage, position, root,scale=1):
 		
 	temp.global_position=position;
 	temp.get_node("AnimatedSprite2D").play("default");
+	
 	if sounds<25:
 		temp.get_node("sound").play();
 		sounds=sounds+1;
@@ -33,6 +34,9 @@ static func create(type,damage, position, root,scale=1):
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	if $sound.playing:
+		var mod=getCam().zoom.y-3;
+		$sound.volume_db=mod*10
 	pass
 
 
@@ -44,7 +48,12 @@ func _on_area_2d_area_entered(area):
 	
 	pass # Replace with function body.
 
-
+static var cam;
+func getCam():
+	if cam == null:
+		cam=get_tree().get_root().get_node("MainScene").get_node("GameBoard").get_node("Camera2D")
+	return cam;
+	pass;
 func _on_animated_sprite_2d_animation_finished():
 	visible=false;
 	cache.push_back(self)

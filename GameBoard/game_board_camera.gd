@@ -8,7 +8,10 @@ var clicked = false
 signal is_dragging_camera
 
 const CAMERA_ZOOM = 0.1
-
+func _ready():
+	Projectile.camera=self;
+	Turret.camera=self;
+	pass;
 func _input(event):
 	if event.is_action("left_click"):
 		if event.is_pressed():
@@ -30,5 +33,10 @@ func _input(event):
 	if event.is_action_pressed("zoom_in"):
 		zoom = Vector2(zoom.x + CAMERA_ZOOM, zoom.y + CAMERA_ZOOM)
 		
+		
+		
 	if event.is_action_pressed("zoom_out"):
 		zoom = Vector2(zoom.x - CAMERA_ZOOM, zoom.y - CAMERA_ZOOM)
+		
+	
+		

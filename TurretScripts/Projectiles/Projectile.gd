@@ -27,6 +27,9 @@ var target:Monster
 static var shotsplayed=0;
 static var hitsplayed=0;
 static var counter=0;
+static var gamestate:GameState;
+static var camera;
+
 enum asd {DEFAULT=1,REDLASER=2, BLUELASER=3, YELLOWCATAPULT=4, GREENPOISON=5};
 enum asdsa {GREY=1, GREEN=2, RED=3, YELLOW=4,BLUE=5};
 static func getPool(color:Stats.TurretColor,type:Stats.TurretExtension):
@@ -49,14 +52,20 @@ static func create(type:Stats.TurretColor, damage,speed,root,extension:Stats.Tur
 	var temp;
 	var pool=getPool(type,extension) 
 	
-	if 	pool==null||pool.size()==0:
+	if 	pool!=null||pool.size()!=0:
+		temp=pool.pop_back()
+		if temp==null:
+			temp=load("res://TurretScripts/Projectiles/Base_projectile.tscn").instantiate() as Projectile;
+			temp.type=type;
+			temp.ext=extension;	
+			root.add_child(temp);
+		temp.visible=true;
+		
+	else:
 		temp=load("res://TurretScripts/Projectiles/Base_projectile.tscn").instantiate() as Projectile;
 		temp.type=type;
 		temp.ext=extension;	
 		root.add_child(temp);
-	else:
-		temp=pool.pop_back()
-		temp.visible=true;
 		
 	
 	
@@ -69,10 +78,13 @@ static func create(type:Stats.TurretColor, damage,speed,root,extension:Stats.Tur
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$Sprite2D.texture=load("res://Assets/Turrets/Projectiles/"+Stats.getStringFromEnum(type)+Stats.getStringFromEnumExtension(ext)+"_projectile.png");
-	#$shot.stream=load("res://Sounds/Soundeffects/"+Stats.getStringFromEnum(type)+Stats.getStringFromEnumExtension(ext)+"_shot.wav")
-	#$hit.stream=load("res://Sounds/Soundeffects/"+Stats.getStringFromEnum(type)+Stats.getStringFromEnumExtension(ext)+"_hit.wav")
+	$shot.stream=load("res://Sounds/Soundeffects/"+Stats.getStringFromEnum(type)+Stats.getStringFromEnumExtension(ext)+"_shot.wav")
+	$hit.stream=load("res://Sounds/Soundeffects/"+Stats.getStringFromEnum(type)+Stats.getStringFromEnumExtension(ext)+"_hit.wav")
 	oneshot=Stats.getOneshotType(type,ext);
-	
+	if gamestate==null:
+		gamestate=GameState.gameState;
+	if camera==null:
+		camera=gamestate.getCamera();
 	$PointLight2D.visible=Stats.getGlowing(type,ext)
 	#BulletManager.allBullets.append(self)
 	pass # Replace with function body.
@@ -113,9 +125,14 @@ func _process(delta):
 	if abs(global_position.x)>3000||abs(global_position.y)>3000:
 		remove()
 	pass
+	
+
 func playHitSound():
 	if(hitsplayed>25):
 		return
+	if camera!= null:
+		var mod=GameState.gameState.getCamera().zoom.y-3;
+		$hit.volume_db=mod*1
 	if !$hit.playing:
 		$hit.play();
 		hitsplayed=hitsplayed+1
@@ -143,6 +160,11 @@ func hitEnemy(enemy:Monster):
 func playShootSound():
 	if(shotsplayed>25):
 		return
+	if camera!=null:
+		var mod=camera.zoom.y-3;
+		$shot.volume_db=mod*15
+		
+	
 	$shot.play();
 	shotsplayed=shotsplayed+1;
 	pass;	

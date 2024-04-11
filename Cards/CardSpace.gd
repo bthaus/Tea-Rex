@@ -17,10 +17,13 @@ var NumberCardsHand = 0
 var OvalAngleVector = Vector2()
 enum{InHand, InPlay, InMouse, FocuseInHand, MoveDrawnCardToHand, ReOrganiseHand}
 
+
 func _ready():
 	PlayerHand.fillCardDeck()
 	deckSize = PlayerHand.cardList.size()
-
+func _process(delta):
+	
+	pass;
 func drawCard():
 	angle = PI/2 + CardSpread*(float(NumberCardsHand)/2 - NumberCardsHand)
 	var new_card = CardBase.instantiate()
