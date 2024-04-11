@@ -41,7 +41,7 @@ var Zooming_In=true
 var oldstate = INF
 var CARD_SELECT = true
 var INMOUSETIME = 0.1
-var CardClicked = false
+#TODO possible not needed var CardClicked = false
 
 
 func _ready(): #set card texture
@@ -54,8 +54,7 @@ func _ready(): #set card texture
 func _input(event):
 	match state:
 		FocusInHand, InMouse:
-			
-			if event.is_action_pressed("left_click")&& !CardClicked:
+			if event.is_action_pressed("left_click"): #&& !CardClicked:
 				if CARD_SELECT:
 					state=InMouse
 					setup = true
@@ -70,7 +69,7 @@ func _physics_process(delta):
 			if setup:
 				Setup()
 			GameBoard.select_piece(CardShape, CardColor, Callable(cardPlayed), Level) #TODO: add cases for bulldozer/move card
-			CardClicked = true
+			#CardClicked = true
 			state = InPlay
 			
 		InPlay:
@@ -78,7 +77,7 @@ func _physics_process(delta):
 			$Focus.visible=false
 			$Focus.mouse_filter = MOUSE_FILTER_IGNORE
 			$Label.visible = false
-			CardClicked = true
+			#CardClicked = true
 			
 			
 		FocusInHand:
@@ -86,7 +85,7 @@ func _physics_process(delta):
 				Setup()
 			if t <= 1: # Always be a 1
 				position = startpos.lerp(targetpos, t)
-				#rotation = startrot * (1-t) + 0*t
+				rotation_degrees = startrot * (1-t) + 0*t
 				scale = startscale * (1-t) + Orig_scale*ZoomInSize*t
 				t += delta/float(ZOOMINTIME)
 				#if ReorganiseNeighbours:
@@ -102,7 +101,7 @@ func _physics_process(delta):
 				#		Move_Neighbour_Card(Card_Numb + 2,false,0.25)
 			else:
 				position = targetpos
-				#rotation = 0
+				rotation = 0
 				scale = Orig_scale*ZoomInSize
 				
 		MoveDrawnCardToHand: #animate from the deck to my hand
@@ -116,7 +115,7 @@ func _physics_process(delta):
 				t += delta/float(DRAWTIME)
 			else:
 				position = targetpos
-				rotation = targetrot
+				rotation_degrees = targetrot
 				state = InHand
 				t=0
 				
@@ -127,7 +126,7 @@ func _physics_process(delta):
 				if Move_Neightbour_Card_Check:
 					Move_Neightbour_Card_Check = false
 				position = startpos.lerp(targetpos, t)
-				rotation = startrot * (1-t) + targetrot*t
+				rotation_degrees = startrot * (1-t) + targetrot*t
 				scale = startscale * (1-t) + Orig_scale*t
 				t += delta/float(ORGANISETIME)
 				if ReorganiseNeighbours == false:
@@ -142,7 +141,7 @@ func _physics_process(delta):
 						Reset_Card(Card_Numb + 2)
 			else:
 				position = targetpos
-				rotation = targetrot
+				rotation_degrees = targetrot
 				scale = Orig_scale
 				state = InHand
 
@@ -166,7 +165,7 @@ func Reset_Card(Card_Numb):
 
 func Setup():
 	startpos = position
-	startrot = rotation
+	#startrot = rotation
 	startscale = scale
 	t = 0
 	setup = false
@@ -176,11 +175,13 @@ func Setup():
 func _on_focus_mouse_entered():
 	match state:
 		InHand, ReOrganiseHand:
-			if CardClicked == false:
+			#if CardClicked == false:
 				setup = true
+				rotation = 0
 				#targetrot = 0
 				targetpos = Cardpos
 				targetpos.y = get_viewport().size.y - $'../../'.CardSize.y*ZoomInSize
+				print ("position: ", get_viewport().size)
 				state = FocusInHand
 
 
@@ -188,6 +189,7 @@ func _on_focus_mouse_exited():
 	match state:
 		FocusInHand:
 			setup = true
+			rotation_degrees = targetrot
 			targetpos = Cardpos
 			state = ReOrganiseHand
 
@@ -202,16 +204,18 @@ func cardPlayed (CardPlayed: bool):
 	 #Check if card was placed or not, either delete card or put it back into hand
 	if CardPlayed:
 		get_parent().remove_child($Card)
+		NumberCardsHand -=1
 		
 	else:
-		CARD_SELECT = false
+		CARD_SELECT = true
 		$Card.visible = true
 		$Focus.visible=true
-		$Card.mouse_filter = MOUSE_FILTER_PASS
+		$Focus.mouse_filter = MOUSE_FILTER_PASS
 		$Label.visible = true
-		CardClicked = false
+		#CardClicked = true
 		Setup()
-		state = InHand
+		state = FocusInHand
+		_on_focus_mouse_exited()
 	
 	
 	

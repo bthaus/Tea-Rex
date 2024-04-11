@@ -1,10 +1,2 @@
-res://main_scene.tscn
-res://monster.tscn
-res://Game/Waves.gd
-res://monster.gd
-res://Game/GameState.gd
-res://Cards/CardSpace.gd
 res://CardSpace.tscn
-res://Game/Stats.gd
-res://TurretScripts/Projectiles/Projectile.gd
-res://GameBoard/game_board_camera.gd
+res://CardBase.tscn
