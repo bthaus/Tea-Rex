@@ -3,10 +3,10 @@ class_name cardbase
 var CardName = 'Testcard'
 var CardShape = Stats.BlockShape.ARROW
 var CardColor = Stats.TurretColor.BLUE
-var Level = 0
-#TODO var CardExtension = Stats.
+var Level = 1
+#TODO extension
 
-@onready var GameBoard = preload("res://GameBoard/game_board.gd").new()
+@onready var GameBoard = get_parent().get_parent().gameBoard
 @onready var CardImg = str("res://Assets/cards/", "Testcard.png")
 var startpos = Vector2()
 var targetpos = Vector2()
@@ -15,6 +15,7 @@ var targetrot = 0
 var t = 0
 var DRAWTIME = 1
 var ORGANISETIME = 0.5
+
 @onready var Orig_scale = scale
 enum{
 	InHand,
@@ -195,11 +196,13 @@ func setNameAndColor():
 	CardColor = Stats.getColorFromString(split[0])
 	CardShape = Stats.getShapeFromString(split[1])
 	
+
+func cardPlayed (CardPlayed: bool):
 	
-func cardPlayed (CardPlayed: bool): #Check if card was placed or not, either delete card or put it back into hand
+	 #Check if card was placed or not, either delete card or put it back into hand
 	if CardPlayed:
-		$Cards.remove_child($Card)
-		print($Cards)
+		get_parent().remove_child($Card)
+		
 	else:
 		CARD_SELECT = false
 		$Card.visible = true

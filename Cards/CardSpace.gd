@@ -1,6 +1,6 @@
 extends Node2D
 
-
+@export var gameBoard:GameBoard;
 const CardSize = Vector2(116,192)
 const CardBase = preload("res://CardBase.tscn")
 const PlayerHand = preload("res://Cards/PlayerHand.gd")
