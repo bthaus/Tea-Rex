@@ -17,8 +17,8 @@ ambient_light_color = Color(0.0745098, 0.0431373, 0.172549, 1)
 tonemap_white = 1.67
 glow_enabled = true
 glow_normalized = true
-glow_intensity = 3.49
-glow_strength = 1.53
+glow_intensity = 1.87
+glow_strength = 0.75
 glow_blend_mode = 0
 glow_hdr_threshold = 0.92
 glow_hdr_scale = 1.33
@@ -66,13 +66,13 @@ position = Vector2(2129.05, 393.775)
 
 [node name="Sprite2D" type="Sprite2D" parent="DebugAndTesting"]
 z_index = -3
-position = Vector2(-215, 445)
+position = Vector2(-431, 642)
 scale = Vector2(38.789, 24.599)
 texture = ExtResource("4_ykfqr")
 
 [node name="Turret" parent="DebugAndTesting" instance=ExtResource("8_dpx1q")]
 position = Vector2(38, 782)
-extension = 2
+type = 5
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 scale = Vector2(0.565, 0.565)

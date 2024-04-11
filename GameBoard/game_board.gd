@@ -68,6 +68,7 @@ func select_piece(shape:Stats.BlockShape, color:Stats.TurretColor, done:Callable
 	self.done = done
 	
 func select_block(block,done:Callable):
+	
 	util.p("Building now...", "Jojo")
 	action = BoardAction.PLAYER_BUILD
 	selected_block = block

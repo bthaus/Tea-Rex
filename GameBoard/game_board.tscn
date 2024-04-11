@@ -2,27 +2,23 @@
 
 [ext_resource type="Script" path="res://GameBoard/game_board.gd" id="1_yp6tt"]
 [ext_resource type="Texture2D" uid="uid://dhcd6oxm5j8af" path="res://Assets/Tiles/dummy_tile_legal_placement.png" id="2_1fom0"]
-
-[ext_resource type="Texture2D" uid="uid://ds7oditv4qv4" path="res://Assets/Tiles/Extensions/extension_default.png" id="3_6mg28"]
+[ext_resource type="Texture2D" uid="uid://b3wcw3yk4f6io" path="res://Assets/Tiles/Extensions/extension_default.png" id="3_6mg28"]
 [ext_resource type="Texture2D" uid="uid://d04bng0sw2ggc" path="res://Assets/Tiles/dummy_tile_illegal_placement.png" id="3_wb0lt"]
-[ext_resource type="Texture2D" uid="uid://behy5gth2m463" path="res://Assets/Tiles/Extensions/extension_red_laser.png" id="4_jnyco"]
-[ext_resource type="Texture2D" uid="uid://carrpoopcjc5k" path="res://Assets/Tiles/dummy_tile_wall.png" id="4_pfkj7"]
-[ext_resource type="Texture2D" uid="uid://b16prxt0gtyps" path="res://Assets/Tiles/dummy_tile_blue.png" id="4_x6glx"]
-[ext_resource type="Texture2D" uid="uid://ds768eg8eyrft" path="res://Assets/Tiles/dummy_tile_red_2.png" id="5_42j8v"]
-[ext_resource type="Texture2D" uid="uid://bi7ptinuehwyr" path="res://Assets/Tiles/dummy_tile_red.png" id="5_43aqt"]
-[ext_resource type="Texture2D" uid="uid://36csjo5ukh4k" path="res://Assets/Tiles/Extensions/extension_blue_laser.png" id="5_meila"]
-[ext_resource type="Texture2D" uid="uid://b4qi1nnfbww6q" path="res://Assets/Tiles/Extensions/extension_yellow_catapult.png" id="6_7ire2"]
-[ext_resource type="Texture2D" uid="uid://byjom45t3cl4q" path="res://Assets/Tiles/dummy_tile_blue_2.png" id="7_mva4p"]
-[ext_resource type="Texture2D" uid="uid://dqilp8n6rr2mh" path="res://Assets/Tiles/Extensions/extension_green_poison.png" id="7_x86do"]
-
-
-[ext_resource type="Texture2D" uid="uid://ddd56jv0wxi3w" path="res://Assets/Tiles/dummy_tile_grey.png" id="8_ekfr4"]
-[ext_resource type="Texture2D" uid="uid://csqoyadp3oo20" path="res://Assets/Tiles/dummy_tile_green.png" id="10_omibm"]
-[ext_resource type="Texture2D" uid="uid://dbbkt2rnol328" path="res://Assets/Tiles/dummy_tile_green_2.png" id="11_j2cwr"]
+[ext_resource type="Texture2D" uid="uid://c74t01yj03jci" path="res://Assets/Tiles/Extensions/extension_red_laser.png" id="4_jnyco"]
+[ext_resource type="Texture2D" uid="uid://8cao7222pohc" path="res://Assets/Tiles/dummy_tile_wall.png" id="4_pfkj7"]
+[ext_resource type="Texture2D" uid="uid://c5586d6lposu0" path="res://Assets/Tiles/dummy_tile_blue.png" id="4_x6glx"]
+[ext_resource type="Texture2D" uid="uid://cnlhlcydsrs4y" path="res://Assets/Tiles/dummy_tile_red_2.png" id="5_42j8v"]
+[ext_resource type="Texture2D" uid="uid://d1vg832xj0e1w" path="res://Assets/Tiles/dummy_tile_red.png" id="5_43aqt"]
+[ext_resource type="Texture2D" uid="uid://cnhd12u7858fw" path="res://Assets/Tiles/Extensions/extension_blue_laser.png" id="5_meila"]
+[ext_resource type="Texture2D" uid="uid://44ikivf4t4a2" path="res://Assets/Tiles/Extensions/extension_yellow_catapult.png" id="6_7ire2"]
+[ext_resource type="Texture2D" uid="uid://b20sjcdq7jcou" path="res://Assets/Tiles/dummy_tile_blue_2.png" id="7_mva4p"]
+[ext_resource type="Texture2D" uid="uid://b4wmn2r6tyvaw" path="res://Assets/Tiles/Extensions/extension_green_poison.png" id="7_x86do"]
+[ext_resource type="Texture2D" uid="uid://clxue3qq8l8uu" path="res://Assets/Tiles/dummy_tile_grey.png" id="8_ekfr4"]
+[ext_resource type="Texture2D" uid="uid://dvqa2bkkcpm6v" path="res://Assets/Tiles/dummy_tile_green.png" id="10_omibm"]
+[ext_resource type="Texture2D" uid="uid://biwcdbpxu1ah2" path="res://Assets/Tiles/dummy_tile_green_2.png" id="11_j2cwr"]
 [ext_resource type="Script" path="res://GameBoard/game_board_camera.gd" id="14_7fjk4"]
-[ext_resource type="Texture2D" uid="uid://crslymasjrwta" path="res://Assets/Tiles/dummy_tile_yellow.png" id="14_wq08t"]
-[ext_resource type="Texture2D" uid="uid://bvkywmlnq6kdn" path="res://Assets/Tiles/dummy_tile_yellow_2.png" id="16_805pv"]
-
+[ext_resource type="Texture2D" uid="uid://k6wtmqhilvrs" path="res://Assets/Tiles/dummy_tile_yellow.png" id="14_wq08t"]
+[ext_resource type="Texture2D" uid="uid://d36ccdic4r7cg" path="res://Assets/Tiles/dummy_tile_yellow_2.png" id="16_805pv"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vgdp6"]
 texture = ExtResource("2_1fom0")
@@ -75,6 +71,8 @@ texture_region_size = Vector2i(64, 64)
 texture = ExtResource("8_ekfr4")
 texture_region_size = Vector2i(64, 64)
 0:0/0 = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
 0:0/0/custom_data_0 = "GREY"
 0:0/0/custom_data_1 = 1
 
@@ -89,6 +87,8 @@ texture_region_size = Vector2i(64, 64)
 texture = ExtResource("10_omibm")
 texture_region_size = Vector2i(64, 64)
 0:0/0 = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
 0:0/0/custom_data_0 = "GREEN"
 0:0/0/custom_data_1 = 1
 
@@ -96,6 +96,8 @@ texture_region_size = Vector2i(64, 64)
 texture = ExtResource("11_j2cwr")
 texture_region_size = Vector2i(64, 64)
 0:0/0 = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
 0:0/0/custom_data_0 = "GREEN"
 0:0/0/custom_data_1 = 2
 
@@ -132,6 +134,8 @@ texture_region_size = Vector2i(64, 64)
 texture = ExtResource("14_wq08t")
 texture_region_size = Vector2i(64, 64)
 0:0/0 = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
 0:0/0/custom_data_0 = "YELLOW"
 0:0/0/custom_data_1 = 1
 
@@ -139,6 +143,8 @@ texture_region_size = Vector2i(64, 64)
 texture = ExtResource("16_805pv")
 texture_region_size = Vector2i(64, 64)
 0:0/0 = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
 0:0/0/custom_data_0 = "YELLOW"
 0:0/0/custom_data_1 = 2
 
