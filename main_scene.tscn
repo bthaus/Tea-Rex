@@ -17,8 +17,8 @@ ambient_light_color = Color(0.0745098, 0.0431373, 0.172549, 1)
 tonemap_white = 1.67
 glow_enabled = true
 glow_normalized = true
-glow_intensity = 1.87
-glow_strength = 0.75
+glow_intensity = 2.39
+glow_strength = 1.11
 glow_blend_mode = 0
 glow_hdr_threshold = 0.92
 glow_hdr_scale = 1.33
@@ -78,9 +78,8 @@ type = 5
 scale = Vector2(0.565, 0.565)
 transform = Transform2D(0.565, 0, 0, 0.565, 0, 0)
 
-[node name="Cardspace" parent="CanvasLayer" node_paths=PackedStringArray("gameBoard") instance=ExtResource("10_5a5mt")]
+[node name="Cardspace" parent="CanvasLayer" instance=ExtResource("10_5a5mt")]
 position = Vector2(79.646, 437.168)
-gameBoard = NodePath("../../GameBoard")
 
 [node name="StartBattlePhase" type="TextureButton" parent="CanvasLayer"]
 clip_contents = true
