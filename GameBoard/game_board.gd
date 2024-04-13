@@ -74,6 +74,20 @@ func select_block(block,done:Callable):
 	selected_block = block
 	self.done = done
 	
+func bulldozer_catastrophy(done: Callable):
+	self.done = done
+	var width = 3
+	var height = 3
+	var start = Vector2(randi_range(1, Stats.board_width-1-width), randi_range(1, Stats.board_height-1-height))
+	print(start)
+	var pieces = []
+	for y in height:
+		for x in width:
+			#No constructor overloading in Godot, gotta init some nonsense
+			pieces.push_back(Block.Piece.new(Vector2(x,y), Stats.TurretColor.BLUE, 1))
+	block_handler.remove_block_from_board(Block.new(pieces), start, BLOCK_LAYER, EXTENSION_LAYER, true)
+	_action_finished(true)
+
 func _process(_delta):
 	$Board.clear_layer(SELECTION_LAYER)
 	var board_pos = $Board.local_to_map(get_global_mouse_position())
@@ -109,7 +123,7 @@ func _input(event):
 			BoardAction.PLAYER_MOVE:
 				if selected_block == null:
 					var block = block_handler.get_block_from_board(board_pos, BLOCK_LAYER, EXTENSION_LAYER, true)
-					block_handler.remove_block_from_board(block, board_pos, BLOCK_LAYER, EXTENSION_LAYER)
+					block_handler.remove_block_from_board(block, board_pos, BLOCK_LAYER, EXTENSION_LAYER, false)
 					selected_block = block
 					moved_from_position = board_pos #Save block information in case the user interrupts the process
 					moved_from_block = selected_block.clone()
@@ -119,7 +133,7 @@ func _input(event):
 					_action_finished(true)
 					
 			BoardAction.PLAYER_BULLDOZER:
-				block_handler.remove_block_from_board(selected_block, board_pos, BLOCK_LAYER, EXTENSION_LAYER)
+				block_handler.remove_block_from_board(selected_block, board_pos, BLOCK_LAYER, EXTENSION_LAYER, false)
 				_action_finished(true)
 				$NavigationRegion2D.bake_navigation_polygon()
 				
@@ -141,6 +155,7 @@ func _place_block(block: Block, position: Vector2):
 
 	block_handler.draw_block(block, position, BLOCK_LAYER, EXTENSION_LAYER)
 	$NavigationRegion2D.bake_navigation_polygon()
+	
 func _action_finished(finished: bool):
 	if not finished and moved_from_block != null: #Restore block if there is something to restore
 		block_handler.draw_block(moved_from_block, moved_from_position, BLOCK_LAYER, EXTENSION_LAYER)
@@ -161,6 +176,7 @@ func _draw_walls():
 		$Board.set_cell(BLOCK_LAYER, Vector2(col,0), WALL_TILE_ID, Vector2(0,0))
 		$Board.set_cell(BLOCK_LAYER, Vector2(col,Stats.board_height-1), WALL_TILE_ID, Vector2(0,0))
 	$NavigationRegion2D.bake_navigation_polygon()
+	
 func _spawn_turrets():
 	_remove_turrets()
 	for row in range(1,Stats.board_height-1):
@@ -195,11 +211,7 @@ func _set_navigation_region():
 	$NavigationRegion2D.set_navigation_polygon(navigation_polygon) #add the  Polygon to the Navigation Region
 	$NavigationRegion2D.bake_navigation_polygon() #create the area inside the outlines
 	
-	
-		
-	
 
-			
 func dragging_camera(is_dragging: bool):
 	self.is_dragging_camera = is_dragging
 

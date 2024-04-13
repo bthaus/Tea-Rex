@@ -26,11 +26,12 @@ func draw_block_with_tile_id(block: Block, position: Vector2, id: int, layer: in
 	for piece in block.pieces:
 		board.set_cell(layer, Vector2(piece.position.x + position.x, piece.position.y + position.y), id, Vector2(0,0))
 
-func remove_block_from_board(block: Block, position: Vector2, block_layer: int, extension_layer: int):
+func remove_block_from_board(block: Block, position: Vector2, block_layer: int, extension_layer: int, remove_walls: bool):
 	for piece in block.pieces:
-		var data = board.get_cell_tile_data(block_layer, Vector2(piece.position.x + position.x, piece.position.y + position.y))
-		if data != null and data.get_custom_data("color").to_upper() == "WALL": #Skip walls as they should not be removable by this function
-			continue
+		if not remove_walls:
+			var data = board.get_cell_tile_data(block_layer, Vector2(piece.position.x + position.x, piece.position.y + position.y))
+			if data != null and data.get_custom_data("color").to_upper() == "WALL": #Skip walls as they should not be removable by this function
+				continue
 		board.set_cell(block_layer, Vector2(piece.position.x + position.x, piece.position.y + position.y), -1, Vector2(0,0))
 		board.set_cell(extension_layer, Vector2(piece.position.x + position.x, piece.position.y + position.y), -1, Vector2(0,0))
 
