@@ -130,7 +130,7 @@ func _input(event):
 		if selected_block != null:
 			block_handler.rotate_block(selected_block)
 	
-	if event.is_action_released("interrupt")&&action==BoardAction.PLAYER_BUILD:
+	if event.is_action_released("interrupt"):
 		_action_finished(false)
 
 
@@ -150,6 +150,8 @@ func _action_finished(finished: bool):
 	moved_from_block = null
 	moved_from_position = Vector2.ZERO
 	action = BoardAction.NONE
+	if done.is_null():
+		return
 	done.call(finished)
 	done = Callable() #Reset callable
 
