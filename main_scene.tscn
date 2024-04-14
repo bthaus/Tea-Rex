@@ -1,6 +1,7 @@
-[gd_scene load_steps=12 format=3 uid="uid://ct8v030fwp2gh"]
+[gd_scene load_steps=13 format=3 uid="uid://ct8v030fwp2gh"]
 
 [ext_resource type="Script" path="res://Game/GameState.gd" id="1_g64db"]
+[ext_resource type="Script" path="res://Persistency/GameSaver.gd" id="2_7eagx"]
 [ext_resource type="AudioStream" uid="uid://d3elhp46kr0sn" path="res://Sounds/Music/background4.wav" id="3_avl3y"]
 [ext_resource type="Texture2D" uid="uid://chsgerkqrpoy6" path="res://Assets/Level/Backgrounddummy.png" id="4_ykfqr"]
 [ext_resource type="Texture2D" uid="uid://65ulpuoik3sk" path="res://Assets/Cards/deck.png" id="6_cef84"]
@@ -35,8 +36,10 @@ script = ExtResource("1_g64db")
 gameBoard = NodePath("GameBoard")
 cam = NodePath("Camera2D")
 
-[node name="CanvasModulate" type="CanvasModulate" parent="."]
+[node name="CanvasModulate" type="CanvasModulate" parent="." node_paths=PackedStringArray("state")]
 color = Color(0.694118, 0.611765, 0.8, 1)
+script = ExtResource("2_7eagx")
+state = NodePath("..")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_83ue6")

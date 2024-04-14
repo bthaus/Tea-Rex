@@ -51,7 +51,7 @@ func _on_area_2d_area_entered(area):
 static var cam;
 func getCam():
 	if cam == null:
-		cam=get_tree().get_root().get_node("MainScene").get_node("GameBoard").get_node("Camera2D")
+		cam=get_tree().get_root().get_node("main_scene").getCamera()
 	return cam;
 	pass;
 func _on_animated_sprite_2d_animation_finished():
