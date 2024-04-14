@@ -1,9 +1,9 @@
-extends Node2D
+extends Card
 class_name SpecialCard
 
-@export var cardName:Stats.SpecialCards;
+var cardName:Stats.SpecialCards;
 #subject to change
-@onready var gameState=get_parent() as GameState;
+var gameState;
 
 var selected=false;
 var damage;
@@ -18,7 +18,7 @@ var active=false;
 var tasks=[]
 static var cardID=0;
 var ID;
-
+static var rng=RandomNumberGenerator.new()
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	
@@ -45,10 +45,16 @@ func _ready():
 	$EffectSound.stream=load("res://Sounds/Soundeffects/"+Stats.getStringFromSpecialCardEnum(cardName)+"_sound.wav");
 	pass # Replace with function body.
 #just pass the method name, like "card.select(cast)". first parameter is a boolean. true for successfully played card, false for not played card
-static func create(cardname:Stats.SpecialCards)->SpecialCard:
+static func create(gameState:GameState):
+
 	var retval=load("res://special_card.tscn").instantiate() as SpecialCard;
-	retval.cardName=cardname;
 	retval.ID=cardID+1;
+	var rand=rng.randi_range(0,Stats.SpecialCards.keys().size()-1)
+
+	retval.cardName=rand;
+	retval.gameState=gameState
+
+	
 	return retval
 	
 func select(done:Callable):
@@ -98,7 +104,7 @@ func castFIREBALL():
 	$Effect.play(Stats.getStringFromSpecialCardEnum(cardName));
 	for e in $Effect/EnemyDetector.enemiesInRange:
 		e.hit(Stats.TurretColor.GREY,damage)
-	return true;
+	return false;
 
 func castCRYOBALL():
 	$Effect.visible=true;
@@ -145,7 +151,7 @@ func castPOISON():
 	$Effect.play(Stats.getStringFromSpecialCardEnum(cardName));
 	for e in $Effect/EnemyDetector.enemiesInRange:
 		e.add_child(Poison.create(damage,Stats.POISON_decay))
-	return true;
+	return false;
 	pass;	
 func _input(event):
 	if !selected:
@@ -164,7 +170,7 @@ func _process(delta):
 		for t in tasks:
 			t.call()
 	
-	if Input.is_action_just_pressed("interrupt"):
+	if Input.is_action_just_pressed("interrupt")&&selected:
 		selected=false;
 		done.call(false)
 		$Preview.visible=false;
@@ -182,6 +188,7 @@ func testcall(returned):
 	pass;
 func _on_effect_animation_finished():
 	$Effect.visible=false;
+	done.call(true)
 	pass # Replace with function body.
 	
 func checkRoundMultiplicator():

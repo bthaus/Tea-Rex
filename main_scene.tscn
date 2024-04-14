@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://ct8v030fwp2gh"]
+[gd_scene load_steps=15 format=3 uid="uid://ct8v030fwp2gh"]
 
 [ext_resource type="Script" path="res://Game/GameState.gd" id="1_g64db"]
 [ext_resource type="Script" path="res://Persistency/GameSaver.gd" id="2_7eagx"]
@@ -12,6 +12,7 @@
 [ext_resource type="Script" path="res://GameBoard/game_board_camera.gd" id="9_18cub"]
 [ext_resource type="PackedScene" uid="uid://crxh6rxjn4mro" path="res://CardSpace.tscn" id="10_5a5mt"]
 [ext_resource type="Script" path="res://Game/Waves.gd" id="10_tv5je"]
+[ext_resource type="PackedScene" uid="uid://dfv1yobm3u5hn" path="res://hand.tscn" id="13_bgxnb"]
 
 [sub_resource type="Environment" id="Environment_83ue6"]
 background_mode = 3
@@ -84,6 +85,7 @@ scale = Vector2(0.565, 0.565)
 transform = Transform2D(0.565, 0, 0, 0.565, 0, 0)
 
 [node name="Cardspace" parent="CanvasLayer" instance=ExtResource("10_5a5mt")]
+visible = false
 position = Vector2(79.646, 437.168)
 
 [node name="StartBattlePhase" type="TextureButton" parent="CanvasLayer"]
@@ -104,5 +106,17 @@ offset_top = 169.0
 offset_right = 1694.0
 offset_bottom = 192.0
 
+[node name="Hand" parent="CanvasLayer" node_paths=PackedStringArray("state") instance=ExtResource("13_bgxnb")]
+position = Vector2(141.593, 945.133)
+state = NodePath("../..")
+
+[node name="Button" type="Button" parent="CanvasLayer"]
+offset_left = 1624.78
+offset_top = 957.522
+offset_right = 1729.78
+offset_bottom = 1114.52
+text = "sadasdasd"
+
 [connection signal="wave_done" from="Spawner" to="." method="_on_spawner_wave_done"]
 [connection signal="pressed" from="CanvasLayer/StartBattlePhase" to="." method="_on_start_battle_phase_pressed"]
+[connection signal="pressed" from="CanvasLayer/Button" to="CanvasLayer/Hand" method="_on_button_pressed"]
