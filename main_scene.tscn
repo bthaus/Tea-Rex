@@ -1,8 +1,9 @@
-[gd_scene load_steps=13 format=3 uid="uid://ct8v030fwp2gh"]
+[gd_scene load_steps=14 format=3 uid="uid://ct8v030fwp2gh"]
 
 [ext_resource type="Script" path="res://Game/GameState.gd" id="1_g64db"]
 [ext_resource type="Script" path="res://Persistency/GameSaver.gd" id="2_7eagx"]
 [ext_resource type="AudioStream" uid="uid://d3elhp46kr0sn" path="res://Sounds/Music/background4.wav" id="3_avl3y"]
+[ext_resource type="Script" path="res://Game/Stats.gd" id="3_j6i2j"]
 [ext_resource type="Texture2D" uid="uid://chsgerkqrpoy6" path="res://Assets/Level/Backgrounddummy.png" id="4_ykfqr"]
 [ext_resource type="Texture2D" uid="uid://65ulpuoik3sk" path="res://Assets/Cards/deck.png" id="6_cef84"]
 [ext_resource type="PackedScene" uid="uid://c8n0am7jadxj7" path="res://GameBoard/game_board.tscn" id="6_ghxp6"]
@@ -43,6 +44,7 @@ state = NodePath("..")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_83ue6")
+script = ExtResource("3_j6i2j")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(736, 503)

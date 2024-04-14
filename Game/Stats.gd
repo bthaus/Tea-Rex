@@ -1,160 +1,156 @@
 extends Node
 class_name Stats;
-static var block_size=64;
-static var board_width=16;
-static var board_height=16;
+const block_size=64;
+const board_width=16;
+const board_height=16;
 
-static var base_range=10;
-static var green_range=2*base_range;
-static var blue_range=2*base_range;
-static var yellow_range=10*base_range;
-static var red_range=0.2*base_range;
-static var grey_range=2*base_range;
+const base_range=10;
+const green_range=2*base_range;
+const blue_range=2*base_range;
+const yellow_range=10*base_range;
+const red_range=0.2*base_range;
+const grey_range=2*base_range;
 
-static var red_laser_range=1*base_range;
-static var blue_laser_range=3*base_range;
-static var green_poison_range=2*base_range;
+const red_laser_range=1*base_range;
+const blue_laser_range=3*base_range;
+const green_poison_range=2*base_range;
 
-static var base_missile_speed=1000;
-static var green_missile_speed=1*base_missile_speed;
-static var blue_missile_speed=2*base_missile_speed;
-static var yellow_missile_speed=10*base_missile_speed;
-static var red_missile_speed=1*base_missile_speed;
-static var grey_missile_speed=2*base_missile_speed;
+const base_missile_speed=1000;
+const green_missile_speed=1*base_missile_speed;
+const blue_missile_speed=2*base_missile_speed;
+const yellow_missile_speed=10*base_missile_speed;
+const red_missile_speed=1*base_missile_speed;
+const grey_missile_speed=2*base_missile_speed;
 
-static var blue_laser_missile_speed=base_missile_speed*3;
-static var red_laser_missile_speed=base_missile_speed*1;
-static var green_poison_missile_speed=base_missile_speed*1;
-
-
-static var base_cooldown=1;
-static var green_cooldown=base_cooldown*3;
-static var blue_cooldown=base_cooldown*0.5;
-static var yellow_cooldown=base_cooldown*2;
-static var grey_cooldown=base_cooldown*1;
-static var red_cooldown=base_cooldown*0.3;
-
-static var red_laser_cooldown=base_cooldown*0.5;
-static var blue_laser_cooldown=base_cooldown*0.5;
-static var green_poison_cooldown=base_cooldown*1.5
-
-static var base_damage=5;
-static var green_damage=base_damage*1;
-static var blue_damage=base_damage*2;
-static var yellow_damage=base_damage*3;
-static var grey_damage=base_damage*1;
-static var red_damage=base_damage*1;
-
-static var red_laser_damage=base_damage*0.5;
-static var blue_laser_damage=base_damage*2;
-static var green_poison_damage=base_damage*1;
-
-static var base_penetrations=1;
-static var green_penetrations=base_penetrations*1;
-static var blue_penetrations=base_penetrations*1;
-static var yellow_penetrations=base_penetrations*1;
-static var grey_penetrations=base_penetrations*1;
-static var red_penetrations=base_penetrations*-1000000;
-
-static var red_laser_penetrations=base_penetrations*1;
-static var blue_laser_penetrations=base_penetrations*3;
-static var green_poison_penetrations=base_penetrations*1;
+const blue_laser_missile_speed=base_missile_speed*3;
+const red_laser_missile_speed=base_missile_speed*1;
+const green_poison_missile_speed=base_missile_speed*1;
 
 
-static var green_explosion_range=0.5;
-static var red_laser_damage_stack=1;
-static var green_poison_damage_stack=1;
+const base_cooldown=1;
+const green_cooldown=base_cooldown*3;
+const blue_cooldown=base_cooldown*0.5;
+const yellow_cooldown=base_cooldown*2;
+const grey_cooldown=base_cooldown*1;
+const red_cooldown=base_cooldown*0.3;
 
-static var green_glowing=true;
-static var blue_glowing=false;
-static var yellow_glowing=false;
-static var grey_glowing=false;
-static var red_glowing=false;
+const red_laser_cooldown=base_cooldown*0.5;
+const blue_laser_cooldown=base_cooldown*0.5;
+const green_poison_cooldown=base_cooldown*1.5
 
-static var red_laser_glowing=false;
-static var blue_laser_glowing=true;
-static var green_poison_glowing=false;
+const base_damage=5;
+const green_damage=base_damage*1;
+const blue_damage=base_damage*2;
+const yellow_damage=base_damage*3;
+const grey_damage=base_damage*1;
+const red_damage=base_damage*1;
 
-static var poison_dropoff_rate=3;
-static var poison_propagation_rate=3;
-static var poison_propagation_range=base_range*0.3
-static var green_poison_decay=1;
+const red_laser_damage=base_damage*0.5;
+const blue_laser_damage=base_damage*2;
+const green_poison_damage=base_damage*1;
 
-static var enemy_base_HP=1000;
-static var GREEN_enemy_HP=enemy_base_HP*3;
-static var BLUE_enemy_HP=enemy_base_HP*1;
-static var YELLOW_enemy_HP=enemy_base_HP*0.5;
-static var RED_enemy_HP=enemy_base_HP*2;
+const base_penetrations=1;
+const green_penetrations=base_penetrations*1;
+const blue_penetrations=base_penetrations*1;
+const yellow_penetrations=base_penetrations*1;
+const grey_penetrations=base_penetrations*1;
+const red_penetrations=base_penetrations*-1000000;
 
-static var enemy_base_damage=500;
-static var GREEN_enemy_damage=enemy_base_damage*1;
-static var BLUE_enemy_damage=enemy_base_damage*1;
-static var YELLOW_enemy_damage=enemy_base_damage*2;
-static var RED_enemy_damage=enemy_base_damage*3;
+const red_laser_penetrations=base_penetrations*1;
+const blue_laser_penetrations=base_penetrations*3;
+const green_poison_penetrations=base_penetrations*1;
 
-static var enemy_base_speed_factor =1;
-static var enemy_base_speed=15;
-static var enemy_base_acceleration = 7;
-static var GREEN_enemy_speed=enemy_base_speed*1;
-static var BLUE_enemy_speed=enemy_base_speed*1;
-static var YELLOW_enemy_speed=enemy_base_speed*3;
-static var RED_enemy_speed=enemy_base_speed*0.5;
+const green_explosion_range=0.5;
+const red_laser_damage_stack=1;
+const green_poison_damage_stack=1;
 
+const green_glowing=true;
+const blue_glowing=false;
+const yellow_glowing=false;
+const grey_glowing=false;
+const red_glowing=false;
 
+const red_laser_glowing=false;
+const blue_laser_glowing=true;
+const green_poison_glowing=false;
 
-static var playerHP=100;
-static var playerMaxHP=200;
+const poison_dropoff_rate=3;
+const poison_propagation_rate=3;
+const poison_propagation_range=base_range*0.3
+const green_poison_decay=1;
 
-static var FIREBALL_damage=500;
-static var FIREBALL_range=1;
-static var FIREBALL_phase=GamePhase.BATTLE
-static var FIREBALL_instant=false;
+const enemy_base_HP=1000;
+const GREEN_enemy_HP=enemy_base_HP*3;
+const BLUE_enemy_HP=enemy_base_HP*1;
+const YELLOW_enemy_HP=enemy_base_HP*0.5;
+const RED_enemy_HP=enemy_base_HP*2;
 
-static var CRYOBALL_damage=100;
-static var CRYOBALL_range=1;
-static var CRYOBALL_phase=GamePhase.BATTLE
-static var CRYOBALL_instant=false;
-static var CRYOBALL_slowFactor=0.5;
-static var CRYOBALL_slowDuration=10;
+const enemy_base_damage=500;
+const GREEN_enemy_damage=enemy_base_damage*1;
+const BLUE_enemy_damage=enemy_base_damage*1;
+const YELLOW_enemy_damage=enemy_base_damage*2;
+const RED_enemy_damage=enemy_base_damage*3;
 
+const enemy_base_speed_factor =1;
+const enemy_base_speed=15;
+const enemy_base_acceleration = 7;
+const GREEN_enemy_speed=enemy_base_speed*1;
+const BLUE_enemy_speed=enemy_base_speed*1;
+const YELLOW_enemy_speed=enemy_base_speed*3;
+const RED_enemy_speed=enemy_base_speed*0.5;
+
+const playerHP=100;
+const playerMaxHP=200;
+
+const FIREBALL_damage=500;
+const FIREBALL_range=1;
+const FIREBALL_phase=GamePhase.BATTLE
+const FIREBALL_instant=false;
+
+const CRYOBALL_damage=100;
+const CRYOBALL_range=1;
+const CRYOBALL_phase=GamePhase.BATTLE
+const CRYOBALL_instant=false;
+const CRYOBALL_slowFactor=0.5;
+const CRYOBALL_slowDuration=10;
 
 #damage for simplicity of call, it heals you, doesnt damage you. range==multiplicator for each round held
-static var HEAL_damage=25;
-static var HEAL_range=2;
-static var HEAL_max_HeldRounds=5;
-static var HEAL_instant=true;
-static var HEAL_phase=GamePhase.BOTH
+const HEAL_damage=25;
+const HEAL_range=2;
+const HEAL_max_HeldRounds=5;
+const HEAL_instant=true;
+const HEAL_phase=GamePhase.BOTH
 #analog to heal
-static var UPHEALTH_damage=5;
-static var UPHEALTH_range=2;
-static var UPHEALTH_max_HeldRounds=5;
-static var UPHEALTH_instant=true;
-static var UPHEALTH_phase=GamePhase.BOTH
+const UPHEALTH_damage=5;
+const UPHEALTH_range=2;
+const UPHEALTH_max_HeldRounds=5;
+const UPHEALTH_instant=true;
+const UPHEALTH_phase=GamePhase.BOTH
 
-static var BULLDOZER_phase=GamePhase.BUILD
-static var BULLDOZER_instant=true;
+const BULLDOZER_phase=GamePhase.BUILD
+const BULLDOZER_instant=true;
 #x axis
-static var BULLDOZER_damage=2;
+const BULLDOZER_damage=2;
 #y axis
-static var BULLDOZER_range=2;
+const BULLDOZER_range=2;
 
-static var GLUE_phase=GamePhase.BATTLE
-static var GLUE_range=GamePhase.BATTLE
-static var GLUE_instant=false;
-static var GLUE_slowFactor=0.5;
-static var GLUE_Duration=10;
-
-
-static var POISON_damage=100;
-static var POISON_range=0.5;
-static var POISON_phase=GamePhase.BATTLE
-static var POISON_instant=false;
-static var POISON_decay=5;
-static var POISON_description="A quickly decaying, very potent, spreading toxin"
+const GLUE_phase=GamePhase.BATTLE
+const GLUE_range=GamePhase.BATTLE
+const GLUE_instant=false;
+const GLUE_slowFactor=0.5;
+const GLUE_Duration=10;
 
 
-static var MOVE_phase=GamePhase.BUILD;
-static var MOVE_instant=true;
+const POISON_damage=100;
+const POISON_range=0.5;
+const POISON_phase=GamePhase.BATTLE
+const POISON_instant=false;
+const POISON_decay=5;
+const POISON_description="A quickly decaying, very potent, spreading toxin"
+
+
+const MOVE_phase=GamePhase.BUILD;
+const MOVE_instant=true;
 
 enum TurretColor {GREY=1, GREEN=2, RED=3, YELLOW=4,BLUE=5};
 enum TurretExtension {DEFAULT=1,REDLASER=2, BLUELASER=3, YELLOWCATAPULT=4, GREENPOISON=5};
@@ -164,9 +160,11 @@ enum BlockShape {O=1, I=2, S=3, Z=4, L=5, J=6, T=7, TINY=8, SMALL=9, ARROW=10, C
 enum Catastrophies {METEOR=1,SWITCH=2,EXPAND=3,ADDSPAWNER=4,EARTHQUAKE=5}
 
 static var stats=Stats.new()
-
+var map;
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	
+	
 	pass # Replace with function body.
 static func getStringFromEnum(type:TurretColor):
 	return Stats.TurretColor.keys()[(type)-1];
@@ -249,10 +247,14 @@ static func getProperty(type:TurretColor,extension:TurretExtension,property:Stri
 	var color=getStringFromEnumLowercase(type);
 	var ext=getStringFromEnumExtensionLowercase(extension);
 	var temp;
+	if stats.map==null:
+		stats.map=stats.get_script().get_script_constant_map()
 	if extension==TurretExtension.DEFAULT:
-		temp = stats.get(color+"_"+property);
+		#temp = stats.get(color+"_"+property);
+		temp=stats.map[color+"_"+property]
 	else:
-		temp = stats.get(color+"_"+ext+"_"+property);
+		temp=stats.map[color+"_"+ext+"_"+property]
+		
 	return temp;
 static func getMaxRoundsHeld(type:SpecialCards):
 	return stats.get(getStringFromSpecialCardEnum(type)+"_max_HeldRounds") 
