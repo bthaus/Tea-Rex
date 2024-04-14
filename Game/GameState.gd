@@ -5,11 +5,11 @@ class_name GameState;
 var cardhand;
 var account:String="player1";
 #Stats.TurretExtension
-var unlockedsExtensions=[];
+var unlockedExtensions=[];
 #Stats.TurretColor
-var unlockedsColors=[Stats.TurretColor.BLUE];
+var unlockedColors=[Stats.TurretColor.BLUE];
 #Stats.SpecialCards
-var unlockedsSpecialCards=[Stats.SpecialCards.HEAL];
+var unlockedSpecialCards=[Stats.SpecialCards.HEAL];
 
 var phase:Stats.GamePhase=Stats.GamePhase.BOTH;
 var bulletManager:BulletManager
