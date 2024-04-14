@@ -315,7 +315,7 @@ static func getiterativeColor(skip:int=10):
 static func getRandomBlock(lvl):
 	var rng=RandomNumberGenerator.new()
 	var color = getiterativeColor()
-	color=TurretColor.BLUE
+	
 	var extension=TurretExtension.DEFAULT
 	var block=BlockShape.values()[rng.randi_range(0,BlockShape.size()-1)]
 	return getBlockFromShape(block,color,lvl,extension)		
