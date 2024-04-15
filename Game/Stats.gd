@@ -303,6 +303,15 @@ static func getRange(type:TurretColor,extension:TurretExtension):
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
+
+static func getiterativeColor(skip:int=10):
+	colorit=(colorit+1)%5
+	if colorit==skip:
+		colorit=skip+1;
+	util.p(Stats.TurretColor.keys()[colorit])
+	return Stats.TurretColor.values()[colorit];
+	
+	pass;
 static var colorit=1;
 static var counter=0;
 static func getRandomCard(gamestate):
@@ -315,16 +324,9 @@ static func getRandomCard(gamestate):
 	else:
 		card= BlockCard.create(gamestate)
 	return card;	
-static func getiterativeColor(skip:int=10):
-	colorit=(colorit+1)%5
-	if colorit==skip:
-		colorit=skip+1;
-	util.p(Stats.TurretColor.keys()[colorit])
-	return Stats.TurretColor.values()[colorit];
-	
-	pass;
+
 static var blueChance=100;
-static func getRandomBlock(lvl):
+func getRandomBlock(lvl,gamestate):
 	#TODO: add card chances
 	var rng=RandomNumberGenerator.new()
 	var color = getiterativeColor()
