@@ -304,6 +304,17 @@ static func getRange(type:TurretColor,extension:TurretExtension):
 func _process(delta):
 	pass
 static var colorit=1;
+static var counter=0;
+static func getRandomCard(gamestate):
+	#add random card chances
+	var card;
+	counter=counter+1;
+	if counter%2 == 0:
+		card=SpecialCard.create(gamestate)
+		
+	else:
+		card= BlockCard.create(gamestate)
+	return card;	
 static func getiterativeColor(skip:int=10):
 	colorit=(colorit+1)%5
 	if colorit==skip:
@@ -312,7 +323,9 @@ static func getiterativeColor(skip:int=10):
 	return Stats.TurretColor.values()[colorit];
 	
 	pass;
+static var blueChance=100;
 static func getRandomBlock(lvl):
+	#TODO: add card chances
 	var rng=RandomNumberGenerator.new()
 	var color = getiterativeColor()
 	
