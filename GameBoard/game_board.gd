@@ -92,9 +92,7 @@ func _process(_delta):
 	
 func _input(event):
 	var board_pos = $Board.local_to_map(get_global_mouse_position())
-	if Input.is_action_just_pressed("load"):
-		util.p("testing gameboard with random blocks for turrettesting","bodo")
-		select_block(Stats.getRandomBlock(1),func (va):print("done"));
+	
 		
 	if not event is InputEventMouseMotion and ignore_click: #Ignore the next click
 		ignore_click = false

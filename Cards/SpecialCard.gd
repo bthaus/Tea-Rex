@@ -113,9 +113,10 @@ func castCRYOBALL():
 	for e in $Effect/EnemyDetector.enemiesInRange:
 		e.hit(Stats.TurretColor.GREY,damage)
 		e.add_child(Slower.create(Stats.CRYOBALL_slowDuration,Stats.CRYOBALL_slowFactor))
-	return true;
+	return false;
 
 func castGLUE():
+
 	$Effect.play("GLUE")
 	$Effect.visible=true;
 	$Effect.z_index=-1
@@ -142,9 +143,10 @@ func castGLUE():
 		for m in $Effect/EnemyDetector.enemiesInRange:
 			removeGlue.call(m)
 		active=false;
+		
 		pass;)
 		
-	return true;
+	return false;
 func castPOISON():
 	$Effect.visible=true;
 	$Effect.global_position=get_global_mouse_position();

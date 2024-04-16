@@ -10,7 +10,7 @@ func _ready():
 static func create(gameState:GameState):
 	var card=load("res://Cards/BlockCard.gd").new() as BlockCard;
 	card.state=gameState;
-	card.block=Stats.getRandomBlock(1);
+	card.block=Stats.new().getRandomBlock(1,gameState);
 
 	return card;
 func select(done:Callable):
