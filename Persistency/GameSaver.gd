@@ -2,7 +2,7 @@ extends  Node
 
 class_name GameSaver
 static var extensionimplemented=false;
-
+@export var state:GameState;
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -19,27 +19,28 @@ func _process(delta):
 	
 static func restoreGame(gameState:GameState):	
 	loadGameMap(gameState);
-
-	gameState.unlockedColors=JSON.parse_string(loadfile("unlockedColors",gameState.account))
-	gameState.unlockedExtensions=JSON.parse_string(loadfile("unlockedExtensions",gameState.account))
-	gameState.unlockedSpecialCards=JSON.parse_string(loadfile("unlockedSpecialCards",gameState.account))
-	gameState.phase=JSON.parse_string(loadfile("phase",gameState.account))
-	gameState.HP=JSON.parse_string(loadfile("hp",gameState.account))
-	gameState.handCards=JSON.parse_string(loadfile("handCards",gameState.account))
-	gameState.wave=JSON.parse_string(loadfile("wave",gameState.account))
+	gameState.stateDictionary=JSON.parse_string((loadfile("state",gameState.account)))
+	gameState.updateValues()
+	#gameState.unlockedColors=JSON.parse_string(loadfile("unlockedColors",gameState.account))
+	#gameState.unlockedExtensions=JSON.parse_string(loadfile("unlockedExtensions",gameState.account))
+	#gameState.unlockedSpecialCards=JSON.parse_string(loadfile("unlockedSpecialCards",gameState.account))
+	#gameState.phase=JSON.parse_string(loadfile("phase",gameState.account))
+	#gameState.HP=JSON.parse_string(loadfile("hp",gameState.account))
+	#gameState.handCards=JSON.parse_string(loadfile("handCards",gameState.account))
+	#gameState.wave=JSON.parse_string(loadfile("wave",gameState.account))
 
 	pass
 	
 static func saveGame(gameState:GameState):
-
-		
-	save(JSON.stringify(gameState.unlockedColors),"unlockedColors",gameState.account);
-	save(JSON.stringify(gameState.unlockedExtensions),"unlockedExtensions",gameState.account);
-	save(JSON.stringify(gameState.unlockedSpecialCards),"unlockedSpecialCards",gameState.account);
-	save(JSON.stringify(gameState.phase),"phase",gameState.account);
-	save(JSON.stringify(gameState.HP),"hp",gameState.account);
-	save(JSON.stringify(gameState.handCards),"handCards",gameState.account);
-	save(JSON.stringify(gameState.wave),"wave",gameState.account)
+	gameState.updateDic()
+	save(JSON.stringify(gameState.stateDictionary),"state",gameState.account);	
+	#save(JSON.stringify(gameState.unlockedColors),"unlockedColors",gameState.account);
+	#save(JSON.stringify(gameState.unlockedExtensions),"unlockedExtensions",gameState.account);
+	#save(JSON.stringify(gameState.unlockedSpecialCards),"unlockedSpecialCards",gameState.account);
+	#save(JSON.stringify(gameState.phase),"phase",gameState.account);
+	#save(JSON.stringify(gameState.HP),"hp",gameState.account);
+	#save(JSON.stringify(gameState.handCards),"handCards",gameState.account);
+	#save(JSON.stringify(gameState.wave),"wave",gameState.account)
 	var map=gameState.gameBoard.get_child(0) as TileMap
 	
 	var cells=map.get_used_cells(0);

@@ -24,7 +24,7 @@ var damagefactor=1;
 var cooldownfactor=1;
 
 static var camera;
-
+var instantHit=false;
 
 
 static func create(color:Stats.TurretColor, lvl:int, type:Stats.TurretExtension=Stats.TurretExtension.DEFAULT)->Turret:
@@ -55,10 +55,11 @@ func setUpTower():
 	cooldown=Stats.getCooldown(type,extension);
 	damage=Stats.getDamage(type,extension);
 	speed=Stats.getMissileSpeed(type,extension);
-	
+	projectile=Projectile.create(type,damage*damagefactor,speed*speedfactor,self,extension);
+	projectile.visible=false;
 	if type==Stats.TurretColor.RED:
-		projectile=Projectile.create(type,damage*damagefactor,speed*speedfactor,self,extension);
 		projectile.z_index=-1;
+		projectile.visible=true;
 		$AudioStreamPlayer2D.finished.connect(func(): if inRange():$AudioStreamPlayer2D.play)
 	
 		
@@ -157,18 +158,36 @@ func shoot(target):
 	var shot=Projectile.create(type,damage*damagefactor,speed*speedfactor,self,extension);
 	#add_child(shot);
 	shot.global_position=$Barrel/BulletPosition.global_position;
-	shot.shoot(target);
+	
+	if instantHit:
+		projectile.global_position=target.global_position
+		projectile.hitEnemy(target)
+		projectile.global_position=global_position
+	else:
+		shot.shoot(target);
 	
 	if stacks>1:
-		var sshot=Projectile.create(type,damage*damagefactor,speed*speedfactor,self,extension);
-		#add_child(sshot);
-		sshot.global_position=$Barrel/second/BulletPosition.global_position;
-		sshot.shoot(target);
+		
+		
+		if instantHit:
+			projectile.global_position=target.global_position
+			projectile.hitEnemy(target)
+			projectile.global_position=global_position
+		else:
+			var sshot=Projectile.create(type,damage*damagefactor,speed*speedfactor,self,extension);
+			sshot.global_position=$Barrel/second/BulletPosition.global_position;
+			sshot.shoot(target);
+			
 	if stacks>2:
-		var tshot=Projectile.create(type,damage*damagefactor,speed*speedfactor,self,extension);
-		#add_child(tshot);
-		tshot.global_position=$Barrel/third/BulletPosition.global_position;
-		tshot.shoot(target);
+	
+		if instantHit:
+			projectile.global_position=target.global_position
+			projectile.hitEnemy(target)
+			projectile.global_position=global_position
+		else:
+			var tshot=Projectile.create(type,damage*damagefactor,speed*speedfactor,self,extension);
+			tshot.global_position=$Barrel/third/BulletPosition.global_position;
+			shot.shoot(target);
 		
 	$Timer.start(cooldown*cooldownfactor);
 	onCooldown=true;

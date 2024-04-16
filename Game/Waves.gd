@@ -9,7 +9,7 @@ func _ready():
 	pass # Replace with function body.
 func start(wavenumber:int):
 	for n in range(0,13):
-		get_tree().create_timer(n*0.5).timeout.connect(spawnEnemy.bind(Stats.TurretColor.BLUE,$Base))
+		get_tree().create_timer(n*0.5).timeout.connect(spawnEnemy.bind(Stats.getiterativeColor(0),$Base))
 
 		
 	pass;

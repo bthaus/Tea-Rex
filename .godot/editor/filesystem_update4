@@ -1,2 +1,9 @@
+res://simulation.tscn
+res://Persistency/GameSaver.gd
+res://main_scene.tscn
+res://monster.tscn
 res://CardSpace.tscn
-res://CardBase.tscn
+res://GameBoard/game_board.tscn
+res://Game/GameState.gd
+res://Simulation.gd
+res://GameBoard/game_board.gd

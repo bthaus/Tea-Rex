@@ -22,7 +22,6 @@ shape = SubResource("CircleShape2D_wsh3g")
 self_modulate = Color(0, 0.592, 100, 1)
 z_index = 1
 position = Vector2(0, -1)
-scale = Vector2(0.135742, 0.135742)
 texture = ExtResource("2_yp50u")
 
 [node name="HP" type="Label" parent="."]

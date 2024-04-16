@@ -25,7 +25,7 @@ func _ready():
 		$Sprite2D.self_modulate=Color(1,0,0,1);
 	if color==Stats.TurretColor.YELLOW:
 		$Sprite2D.self_modulate=self_modulate
-	
+
 	get_node(Stats.getStringFromEnum(color)).visible=false;
 	
 	$HP.text=str(hp)
