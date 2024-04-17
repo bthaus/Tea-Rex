@@ -79,7 +79,7 @@ const poison_propagation_rate=3;
 const poison_propagation_range=base_range*0.3
 const green_poison_decay=1;
 
-const enemy_base_HP=1000;
+const enemy_base_HP=50;
 const GREEN_enemy_HP=enemy_base_HP*3;
 const BLUE_enemy_HP=enemy_base_HP*1;
 const YELLOW_enemy_HP=enemy_base_HP*0.5;
@@ -148,6 +148,10 @@ const POISON_instant=false;
 const POISON_decay=5;
 const POISON_description="A quickly decaying, very potent, spreading toxin"
 
+const UPDRAW_instant=true;
+const UPDRAW_phase=GamePhase.BOTH;
+const UPMAXCARDS_instant=true;
+const UPMAXCARDS_phase=GamePhase.BOTH;
 
 const MOVE_phase=GamePhase.BUILD;
 const MOVE_instant=true;
@@ -155,7 +159,7 @@ const MOVE_instant=true;
 enum TurretColor {GREY=1, GREEN=2, RED=3, YELLOW=4,BLUE=5};
 enum TurretExtension {DEFAULT=1,REDLASER=2, BLUELASER=3, YELLOWCATAPULT=4, GREENPOISON=5};
 enum GamePhase {BATTLE=1,BUILD=2,BOTH=3};
-enum SpecialCards {HEAL=1,FIREBALL=2,UPHEALTH=3,CRYOBALL=4,MOVE=5, BULLDOZER=6,GLUE=7,POISON=8}
+enum SpecialCards {HEAL=1,FIREBALL=2,UPHEALTH=3,CRYOBALL=4,MOVE=5, BULLDOZER=6,GLUE=7,POISON=8, UPDRAW=9, UPMAXCARDS=10}
 enum BlockShape {O=1, I=2, S=3, Z=4, L=5, J=6, T=7, TINY=8, SMALL=9, ARROW=10, CROSS=11}
 enum Catastrophies {METEOR=1,SWITCH=2,EXPAND=3,ADDSPAWNER=4,EARTHQUAKE=5}
 
@@ -308,7 +312,7 @@ static var counter=0;
 static func getRandomCard(gamestate):
 	#add random card chances
 	var card;
-	counter=counter+0;
+	counter=counter+1;
 	
 	if counter%2 == 0:
 		card=SpecialCard.create(gamestate)

@@ -8,7 +8,9 @@ var numMonstersActive=0;
 func _ready():
 	pass # Replace with function body.
 func start(wavenumber:int):
-	for n in range(0,13):
+	var amountmonsters=13;
+	numMonstersActive=amountmonsters;
+	for n in range(0,amountmonsters):
 		get_tree().create_timer(n*0.5).timeout.connect(spawnEnemy.bind(Stats.getiterativeColor(0),$Base))
 
 		
@@ -16,7 +18,7 @@ func start(wavenumber:int):
 func spawnEnemy(c,t):
 	var mo=Monster.create(c,t)
 	mo.monster_died.connect(monsterDied)
-	numMonstersActive=numMonstersActive+1;
+	
 	add_child(mo)
 
 	pass;
