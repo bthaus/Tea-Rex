@@ -1,9 +1,11 @@
+res://Assets/Turrets/Barrels
+res://Assets/Turrets/Bases
+res://Assets/Lights
+res://
+res://Assets/Cards
 C:/Users/bwues/Desktop/Uni_SS_24/t
 res://Cards
-res://Assets/Cards
 res://Assets/Effects/Magic_Explosion
-res://
-res://Assets/Lights
 res://Assets/Level
 C:/Users/bwues/Desktop/Uni_SS_24
 res://Assets/Monsters
@@ -14,8 +16,6 @@ res://Assets/Effects/Explosion_1
 res://Game
 res://UtilScenes
 res://TurretScripts/Projectiles
-res://Assets/Turrets/Barrels
 res://Assets/Turrets/Projectiles
 res://Sounds/Music
-res://Assets/Turrets/Bases
 res://TurretScripts

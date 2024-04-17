@@ -44,24 +44,35 @@ func _ready():
 func setUpTower():
 	if extension==0:
 		extension=Stats.TurretExtension.DEFAULT;
-	$Base.texture=load("res://Assets/Turrets/Bases/"+Stats.getStringFromEnum(type)+Stats.getStringFromEnumExtension(extension)+"_base.png")
+	var text=load("res://Assets/Turrets/Bases/"+Stats.getStringFromEnum(type)+Stats.getStringFromEnumExtension(extension)+"_base.png")
+	$Base.texture=text
 	var barreltext=load("res://Assets/Turrets/Barrels/"+Stats.getStringFromEnum(type)+Stats.getStringFromEnumExtension(extension)+"_barrel.png")
 	$Barrel.texture=barreltext;
 	$Barrel/second.texture=barreltext;
 	$Barrel/third.texture=barreltext;
 	$AudioStreamPlayer2D.stream=load("res://Sounds/Soundeffects/"+Stats.getStringFromEnum(type)+Stats.getStringFromEnumExtension(extension)+"_shot.wav")
-	
-	
+	match type:
+		1:$PointLight2D.color=Color(Color.BLUE)
+		2: $PointLight2D.color=Color(Color.GREEN)
+		3: $PointLight2D.color=Color(Color.RED)
+		4:$PointLight2D.color=Color(Color.YELLOW)
 	cooldown=Stats.getCooldown(type,extension);
 	damage=Stats.getDamage(type,extension);
 	speed=Stats.getMissileSpeed(type,extension);
-	projectile=Projectile.create(type,damage*damagefactor,speed*speedfactor,self,extension);
-	projectile.visible=false;
+	
 	if type==Stats.TurretColor.RED:
+		
+		projectile=Projectile.create(type,damage*damagefactor,speed*speedfactor,self,extension);
+		projectile.visible=false;
 		projectile.z_index=-1;
 		projectile.visible=true;
 		$AudioStreamPlayer2D.finished.connect(func(): if inRange():$AudioStreamPlayer2D.play)
-	
+	if type==Stats.TurretColor.RED and extension==Stats.TurretExtension.REDLASER:
+		$Barrel.scale=Vector2(-1,-1)
+		$Barrel.offset=Vector2(-0,15)
+		$Barrel/second.position=$Barrel/second.position*1.5
+		$Barrel/third.position=$Barrel/third.position*1.5
+		
 		
 	$EnemyDetector.setRange(Stats.getRange(type,extension))
 	pass;
@@ -111,6 +122,7 @@ func _process(delta):
 		var target=$EnemyDetector.enemiesInRange[0];
 		direction=(target.global_position-self.global_position).normalized();
 		$Barrel.rotation=direction.angle() + PI / 2.0;
+		$Base.rotation=direction.angle() + PI / 2.0;
 		
 		if type==Stats.TurretColor.RED&&extension==Stats.TurretExtension.DEFAULT:
 			projectile.rotate(360*2*delta);

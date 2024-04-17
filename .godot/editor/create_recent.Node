@@ -1,3 +1,4 @@
+PointLight2D
 CanvasLayer
 Label
 Node2D
@@ -8,7 +9,6 @@ GPUParticles2D
 WorldEnvironment
 Line2D
 RayCast2D
-PointLight2D
 Sprite2D
 Area2D
 AnimationPlayer
