@@ -98,7 +98,15 @@ func castUPHEALTH():
 	damage=damage*roundsInHand*range;
 	gameState.changeMaxHealth(damage);
 	return true;
-
+func castUPDRAW():
+	gameState.upRedraws()
+	return true;
+	
+	
+func castUPMAXCARDS():
+	gameState.upMaxCards()
+	return true;	
+	
 func castFIREBALL():
 	$Effect.visible=true;
 	$Effect.global_position=get_global_mouse_position();

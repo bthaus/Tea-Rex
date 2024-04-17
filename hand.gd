@@ -3,10 +3,11 @@ extends Node2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	
+	state.hand=self
 	pass # Replace with function body.
 
 func drawCard():
+	if state.maxCards<=get_children().size(): return
 	var card=Card.create(state)
 	add_child(card)
 	#add fancification here for initial animation
