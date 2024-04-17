@@ -4,6 +4,7 @@ static var blue_default_bullet_pool=[]
 static var bdi=0;
 static var blue_laser_bullet_pool=[]
 static var bli=0;
+static var red_default_bullet_pool=[]
 static var red_laser_bullet_pool=[]
 static var rli=0;
 static var green_default_bullet_pool=[]
@@ -38,7 +39,7 @@ static func getPool(color:Stats.TurretColor,type:Stats.TurretExtension):
 			1: return green_default_bullet_pool
 			5: return green_poison_bullet_pool
 		3: match type:
-			1: return null
+			1: return red_default_bullet_pool
 			2: return red_laser_bullet_pool
 		4: match type:
 			1: return yellow_default_bullet_pool
@@ -129,8 +130,8 @@ func _process(delta):
 	
 
 func playHitSound():
-	if(hitsplayed>25):
-		return
+	#if(hitsplayed>25):
+		#return
 	if camera!= null:
 		var mod=GameState.gameState.getCamera().zoom.y-3;
 		$hit.volume_db=mod*1
@@ -138,7 +139,17 @@ func playHitSound():
 		$hit.play();
 		hitsplayed=hitsplayed+1
 	pass;
+func playShootSound():
+	#if(shotsplayed>25):
+		#return
+	if camera!=null:
+		var mod=camera.zoom.y-3;
+		$shot.volume_db=mod*15
+		
 	
+	$shot.play();
+	shotsplayed=shotsplayed+1;
+	pass;		
 
 func _on_area_2d_area_entered(area):
 	var en=area.get_parent();
@@ -158,17 +169,7 @@ func hitEnemy(enemy:Monster):
 			remove()
 	pass;	
 
-func playShootSound():
-	if(shotsplayed>25):
-		return
-	if camera!=null:
-		var mod=camera.zoom.y-3;
-		$shot.volume_db=mod*15
-		
-	
-	$shot.play();
-	shotsplayed=shotsplayed+1;
-	pass;	
+
 
 func applySpecials(enemy:Monster):
 		if type==Stats.TurretColor.RED&&ext==Stats.TurretExtension.REDLASER:

@@ -69,7 +69,7 @@ func changeHealth(amount:int):
 		
 	if HP<=0:
 		player_died.emit()
-	util.p("debug hp: "+str(HP))
+	$CanvasLayer/HP.text=str(HP)
 	pass;
 	
 func changeMaxHealth(amount:int):
@@ -125,6 +125,14 @@ func _on_spawner_wave_done():
 
 
 func _on_button_pressed():
+	gameBoard._draw_walls()
 	drawCards(maxCards)
 	$CanvasLayer/Button.queue_free()
+	pass # Replace with function body.
+
+
+func _on_area_2d_area_entered(area):
+	var m=area.get_parent()
+	if m is Monster:
+		changeHealth(-m.damage)
 	pass # Replace with function body.
