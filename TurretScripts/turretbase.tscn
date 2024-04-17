@@ -1,15 +1,15 @@
-[gd_scene load_steps=6 format=3 uid="uid://cdrytflh1sqcx"]
+[gd_scene load_steps=7 format=3 uid="uid://cdrytflh1sqcx"]
 
 [ext_resource type="Script" path="res://TurretScripts/turretbase.gd" id="1_87rlb"]
 [ext_resource type="PackedScene" uid="uid://dvwxp6msal8o6" path="res://enemy_detector.tscn" id="2_ekhvd"]
-[ext_resource type="Texture2D" uid="uid://d2gvjcqige384" path="res://Assets/Turrets/Bases/RED_base.png" id="3_qf3vo"]
+[ext_resource type="Texture2D" uid="uid://d2gvjcqige384" path="res://Assets/Turrets/Bases/RED_base.png" id="3_641jc"]
 [ext_resource type="Texture2D" uid="uid://dsk1waondj0bx" path="res://Assets/Turrets/Barrels/RED_barrel.png" id="4_banfs"]
+[ext_resource type="Texture2D" uid="uid://b0vjaywamx3yp" path="res://Assets/Lights/spotlight.png" id="5_cl5yn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n8ibf"]
 size = Vector2(63, 64)
 
 [node name="Turret" type="Node2D"]
-position = Vector2(305, 255)
 script = ExtResource("1_87rlb")
 type = 3
 extension = 1
@@ -17,33 +17,34 @@ extension = 1
 [node name="EnemyDetector" parent="." instance=ExtResource("2_ekhvd")]
 
 [node name="Base" type="Sprite2D" parent="."]
-modulate = Color(1, 1, 57.988, 1)
-texture = ExtResource("3_qf3vo")
+z_index = 2
+texture = ExtResource("3_641jc")
 
 [node name="Barrel" type="Sprite2D" parent="."]
-z_index = -1
-position = Vector2(0, -1)
+z_index = 2
 texture = ExtResource("4_banfs")
-offset = Vector2(0, -32)
 
 [node name="BulletPosition" type="Node2D" parent="Barrel"]
-position = Vector2(0, -64)
+z_index = 2
 
 [node name="second" type="Sprite2D" parent="Barrel"]
 visible = false
-position = Vector2(-13, -21)
+z_index = 2
+position = Vector2(-13, 0)
 texture = ExtResource("4_banfs")
 
 [node name="BulletPosition" type="Node2D" parent="Barrel/second"]
-position = Vector2(-0.346161, -32.0869)
+z_index = 2
+position = Vector2(-0.346161, 0)
 
 [node name="third" type="Sprite2D" parent="Barrel"]
 visible = false
-position = Vector2(13, -21)
+z_index = 2
+position = Vector2(13, 0)
 texture = ExtResource("4_banfs")
 
 [node name="BulletPosition" type="Node2D" parent="Barrel/third"]
-position = Vector2(0, -33)
+position = Vector2(1.34808, -0.526505)
 
 [node name="Timer" type="Timer" parent="."]
 
@@ -55,6 +56,12 @@ position = Vector2(-0.5, 0)
 shape = SubResource("RectangleShape2D_n8ibf")
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+scale = Vector2(1.68, 1.68)
+color = Color(1, 0, 0, 1)
+energy = 1.94
+texture = ExtResource("5_cl5yn")
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="finished" from="AudioStreamPlayer2D" to="." method="_on_audio_stream_player_2d_finished"]

@@ -37,10 +37,10 @@ func _ready():
 	$Camera2D.is_dragging_camera.connect(dragging_camera)
 	# draw a test block
 	var block = Stats.getBlockFromShape(Stats.BlockShape.L, Stats.TurretColor.BLUE, 1, Stats.TurretExtension.BLUELASER)
-	block_handler.draw_block(block, Vector2(6,6), BLOCK_LAYER, EXTENSION_LAYER)
-	$Board.set_cell(BLOCK_LAYER, Vector2(10,10), WALL_TILE_ID, Vector2(0,0))
+	#block_handler.draw_block(block, Vector2(6,6), BLOCK_LAYER, EXTENSION_LAYER)
+	#$Board.set_cell(BLOCK_LAYER, Vector2(10,10), WALL_TILE_ID, Vector2(0,0))
 	
-	_draw_walls()
+	#_draw_walls()
 	_spawn_turrets()
 	_set_navigation_region()
 	
@@ -69,6 +69,7 @@ func select_piece(shape:Stats.BlockShape, color:Stats.TurretColor, done:Callable
 	self.done = done
 	
 func select_block(block,done:Callable):
+	
 	util.p("Building now...", "Jojo")
 	action = BoardAction.PLAYER_BUILD
 	selected_block = block
@@ -105,9 +106,7 @@ func _process(_delta):
 	
 func _input(event):
 	var board_pos = $Board.local_to_map(get_global_mouse_position())
-	if Input.is_action_just_pressed("load"):
-		util.p("testing gameboard with random blocks for turrettesting","bodo")
-		select_block(Stats.getRandomBlock(1),func (va):print("done"));
+	
 		
 	if not event is InputEventMouseMotion and ignore_click: #Ignore the next click
 		ignore_click = false
@@ -164,6 +163,8 @@ func _action_finished(finished: bool):
 	moved_from_block = null
 	moved_from_position = Vector2.ZERO
 	action = BoardAction.NONE
+	if done.is_null():
+		return
 	done.call(finished)
 	done = Callable() #Reset callable
 
