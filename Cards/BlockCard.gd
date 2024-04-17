@@ -8,7 +8,7 @@ func _ready():
 	pass # Replace with function body.
 
 static func create(gameState:GameState):
-	var card=load("res://Cards/BlockCard.gd").new() as BlockCard;
+	var card=load("res://Cards/block_card.tscn").instantiate() as BlockCard;
 	card.state=gameState;
 	card.block=Stats.getRandomBlock(1);
 

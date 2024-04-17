@@ -7,8 +7,7 @@ func _ready():
 	pass # Replace with function body.
 
 func drawCard():
-	var card=Card.create(state) as Button
-	card.pressed.connect(card.get_child(0).select.bind( func(done:bool): if  done: card.queue_free() else: util.p("still in hand")))
+	var card=Card.create(state)
 	add_child(card)
 	#add fancification here for initial animation
 
