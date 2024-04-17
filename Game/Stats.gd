@@ -308,7 +308,8 @@ static var counter=0;
 static func getRandomCard(gamestate):
 	#add random card chances
 	var card;
-	counter=counter+1;
+	counter=counter+0;
+	
 	if counter%2 == 0:
 		card=SpecialCard.create(gamestate)
 		
