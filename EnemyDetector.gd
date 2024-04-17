@@ -45,3 +45,7 @@ func _on_area_2d_area_exited(area):
 	
 	
 	pass # Replace with function body.
+
+
+func _on_enemy_left(enemy):
+	pass # Replace with function body.

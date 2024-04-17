@@ -94,6 +94,7 @@ func remove():
 	if pool==null:
 		queue_free()
 		return;
+	
 	shot=false;
 	$Area2D/CollisionShape2D.set_deferred("disabled",true)
 	visible=false;

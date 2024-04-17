@@ -73,6 +73,7 @@ func select(done:Callable):
 	pass;
 
 func cast():
+	reparentToState()
 	if call("cast"+Stats.getStringFromSpecialCardEnum(cardName)):
 		done.call(true)
 	$EffectSound.play();
@@ -97,23 +98,33 @@ func castUPHEALTH():
 	damage=damage*roundsInHand*range;
 	gameState.changeMaxHealth(damage);
 	return true;
-
+func castUPDRAW():
+	gameState.upRedraws()
+	return true;
+	
+	
+func castUPMAXCARDS():
+	gameState.upMaxCards()
+	return true;	
+	
 func castFIREBALL():
 	$Effect.visible=true;
 	$Effect.global_position=get_global_mouse_position();
 	$Effect.play(Stats.getStringFromSpecialCardEnum(cardName));
-	for e in $Effect/EnemyDetector.enemiesInRange:
-		e.hit(Stats.TurretColor.GREY,damage)
-	return false;
+	$Effect/EnemyDetector.enemyEntered.connect(func(e):
+		print("enemy hit")
+		e.hit(Stats.TurretColor.GREY,damage))
+	return true;
 
 func castCRYOBALL():
 	$Effect.visible=true;
 	$Effect.global_position=get_global_mouse_position();
 	$Effect.play(Stats.getStringFromSpecialCardEnum(cardName));
-	for e in $Effect/EnemyDetector.enemiesInRange:
+	$Effect/EnemyDetector.enemyEntered.connect(func(e):
 		e.hit(Stats.TurretColor.GREY,damage)
-		e.add_child(Slower.create(Stats.CRYOBALL_slowDuration,Stats.CRYOBALL_slowFactor))
-	return false;
+		e.add_child(Slower.create(Stats.CRYOBALL_slowDuration,Stats.CRYOBALL_slowFactor)))
+
+	return true;
 
 func castGLUE():
 
@@ -121,6 +132,7 @@ func castGLUE():
 	$Effect.visible=true;
 	$Effect.z_index=-1
 	active=true;
+	$Effect.global_position=get_global_mouse_position();
 	var removeGlue=func removeGLUE(monster:Monster):
 		for a in monster.get_children():
 			if a is Slower:
@@ -130,31 +142,39 @@ func castGLUE():
 	var addGlue=func addGLUE(monster:Monster):
 			if !active:
 				return
-			monster.add_child(Slower.create(Stats.GLUE_Duration,Stats.GLUE_slowFactor))	
+			var slower=Slower.create(Stats.GLUE_Duration,Stats.GLUE_slowFactor)	
+			$Effect/EnemyDetector.enemyLeft.connect(func(e): if e==monster:slower.remove())
+			monster.add_child(slower)
+				
 			pass;
 	
 	for m in $Effect/EnemyDetector.enemiesInRange:
 		addGlue.call(m)
 	
 	$Effect/EnemyDetector.enemyEntered.connect(addGlue)
-	$Effect/EnemyDetector.enemyLeft.connect(removeGlue)
-	get_tree().create_timer(Stats.GLUE_Duration).timeout.connect(func removeAllGLUE():
+	#$Effect/EnemyDetector.enemyLeft.connect(removeGlue)
+	get_tree().create_timer(Stats.GLUE_Duration-0.5).timeout.connect(func removeAllGLUE():
 		$Effect.visible=false;
 		for m in $Effect/EnemyDetector.enemiesInRange:
 			removeGlue.call(m)
 		active=false;
-		
+		queue_free()
 		pass;)
 		
-	return false;
+	return true;
 func castPOISON():
 	$Effect.visible=true;
 	$Effect.global_position=get_global_mouse_position();
 	$Effect.play(Stats.getStringFromSpecialCardEnum(cardName));
-	for e in $Effect/EnemyDetector.enemiesInRange:
-		e.add_child(Poison.create(damage,Stats.POISON_decay))
-	return false;
+	$Effect/EnemyDetector.enemyEntered.connect(func(e):e.add_child(Poison.create(damage,Stats.POISON_decay)))
+		
+		
+	return true;
 	pass;	
+func reparentToState():
+	get_parent().remove_child(self)
+	gameState.add_child(self)
+	pass;
 func _input(event):
 	if !selected:
 		return;
@@ -190,7 +210,8 @@ func testcall(returned):
 	pass;
 func _on_effect_animation_finished():
 	$Effect.visible=false;
-	done.call(true)
+	queue_free()
+	#done.call(true)
 	pass # Replace with function body.
 	
 func checkRoundMultiplicator():
@@ -209,3 +230,6 @@ func isPhaseValid()->bool:
 	
 
 	
+
+
+

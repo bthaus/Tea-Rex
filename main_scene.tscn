@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://ct8v030fwp2gh"]
+[gd_scene load_steps=16 format=3 uid="uid://ct8v030fwp2gh"]
 
 [ext_resource type="Script" path="res://Game/GameState.gd" id="1_g64db"]
 [ext_resource type="Script" path="res://Persistency/GameSaver.gd" id="2_7eagx"]
@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://crxh6rxjn4mro" path="res://CardSpace.tscn" id="10_5a5mt"]
 [ext_resource type="Script" path="res://Game/Waves.gd" id="10_tv5je"]
 [ext_resource type="PackedScene" uid="uid://dfv1yobm3u5hn" path="res://hand.tscn" id="13_bgxnb"]
+[ext_resource type="Texture2D" uid="uid://b8n0busmwromw" path="res://icon.svg" id="14_fosf7"]
 
 [sub_resource type="Environment" id="Environment_83ue6"]
 background_mode = 3
@@ -33,9 +34,10 @@ adjustment_brightness = 1.08
 adjustment_contrast = 1.1
 adjustment_saturation = 1.34
 
-[node name="MainScene" type="Node2D" node_paths=PackedStringArray("gameBoard", "cam")]
+[node name="MainScene" type="Node2D" node_paths=PackedStringArray("gameBoard", "hand", "cam")]
 script = ExtResource("1_g64db")
 gameBoard = NodePath("GameBoard")
+hand = NodePath("CanvasLayer/Hand")
 cam = NodePath("Camera2D")
 
 [node name="CanvasModulate" type="CanvasModulate" parent="." node_paths=PackedStringArray("state")]
@@ -72,13 +74,14 @@ position = Vector2(2129.05, 393.775)
 
 [node name="Sprite2D" type="Sprite2D" parent="DebugAndTesting"]
 z_index = -3
-position = Vector2(-431, 642)
+position = Vector2(-418, 464)
 scale = Vector2(38.789, 24.599)
 texture = ExtResource("4_ykfqr")
 
 [node name="Turret" parent="DebugAndTesting" instance=ExtResource("8_dpx1q")]
-position = Vector2(38, 782)
+position = Vector2(966.886, 738.814)
 type = 5
+stacks = 3
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 scale = Vector2(0.565, 0.565)
@@ -115,8 +118,32 @@ offset_left = 1624.78
 offset_top = 957.522
 offset_right = 1729.78
 offset_bottom = 1114.52
-text = "sadasdasd"
+text = "StartGame"
+
+[node name="maxcards" type="Label" parent="CanvasLayer"]
+offset_left = 56.6372
+offset_top = 994.69
+offset_right = 144.637
+offset_bottom = 1052.69
+text = "maxcards"
+
+[node name="redraws" type="Label" parent="CanvasLayer"]
+offset_left = 54.8818
+offset_top = 1061.66
+offset_right = 118.882
+offset_bottom = 1084.66
+text = "redraws
+"
+
+[node name="drawcard" type="Button" parent="CanvasLayer"]
+offset_left = 1734.51
+offset_top = 815.929
+offset_right = 1956.51
+offset_bottom = 951.929
+text = "Draw Card"
+icon = ExtResource("14_fosf7")
 
 [connection signal="wave_done" from="Spawner" to="." method="_on_spawner_wave_done"]
 [connection signal="pressed" from="CanvasLayer/StartBattlePhase" to="." method="_on_start_battle_phase_pressed"]
-[connection signal="pressed" from="CanvasLayer/Button" to="CanvasLayer/Hand" method="_on_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/drawcard" to="." method="drawCards" binds= [1]]
