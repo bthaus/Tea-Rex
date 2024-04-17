@@ -338,7 +338,7 @@ func getRandomBlock(lvl,gamestate):
 	
 	var extension=TurretExtension.DEFAULT
 	var block=BlockShape.values()[rng.randi_range(0,BlockShape.size()-1)]
-	return getBlockFromShape(block,color,lvl,extension)		
+	return getBlockFromShape(block,color,2,extension)		
 static func getBlockFromShape(shape: BlockShape, color: TurretColor, level: int = 1, extenstion: TurretExtension = TurretExtension.DEFAULT) -> Block:
 	var pieces = []
 	match shape:

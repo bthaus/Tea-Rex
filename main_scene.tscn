@@ -74,13 +74,14 @@ position = Vector2(2129.05, 393.775)
 
 [node name="Sprite2D" type="Sprite2D" parent="DebugAndTesting"]
 z_index = -3
-position = Vector2(-431, 642)
+position = Vector2(-418, 464)
 scale = Vector2(38.789, 24.599)
 texture = ExtResource("4_ykfqr")
 
 [node name="Turret" parent="DebugAndTesting" instance=ExtResource("8_dpx1q")]
-position = Vector2(38, 782)
+position = Vector2(966.886, 738.814)
 type = 5
+stacks = 3
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 scale = Vector2(0.565, 0.565)
