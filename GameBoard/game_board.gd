@@ -44,7 +44,6 @@ func _ready():
 	_spawn_turrets()
 	_set_navigation_region()
 	
-	
 
 func start_bulldozer(done:Callable, size_x:int, size_y:int):
 	util.p("Bulldozering stuff now...", "Jojo")
@@ -60,7 +59,7 @@ func start_move(done:Callable):
 	util.p("Moving stuff now...", "Jojo")
 	action = BoardAction.PLAYER_MOVE
 	self.done = done
-	
+
 func select_piece(shape:Stats.BlockShape, color:Stats.TurretColor, done:Callable, level:int, extension:Stats.TurretExtension=Stats.TurretExtension.DEFAULT):
 	util.p("Building now...", "Jojo")
 	util.p(Stats.getStringFromEnumExtension(extension))
@@ -69,18 +68,17 @@ func select_piece(shape:Stats.BlockShape, color:Stats.TurretColor, done:Callable
 	self.done = done
 	
 func select_block(block,done:Callable):
-	
 	util.p("Building now...", "Jojo")
 	action = BoardAction.PLAYER_BUILD
 	selected_block = block
 	self.done = done
 	
 func bulldozer_catastrophy(done: Callable):
+	util.p("Bulldozer catastrophe starting", "Jojo")
 	self.done = done
 	var width = 3
 	var height = 3
 	var start = Vector2(randi_range(1, Stats.board_width-1-width), randi_range(1, Stats.board_height-1-height))
-	print(start)
 	var pieces = []
 	for y in height:
 		for x in width:
@@ -88,7 +86,29 @@ func bulldozer_catastrophy(done: Callable):
 			pieces.push_back(Block.Piece.new(Vector2(x,y), Stats.TurretColor.BLUE, 1))
 	block_handler.remove_block_from_board(Block.new(pieces), start, BLOCK_LAYER, EXTENSION_LAYER, true)
 	_action_finished(true)
-
+	
+func drill_catastrophy(done: Callable):
+	util.p("Drill catastrophe starting", "Jojo")
+	self.done = done
+	var drill_width = 1
+	var drill_horizontal = randi() % 2 == 0 #Get a random bool
+	var pieces = []
+	if drill_horizontal:
+		for x in Stats.board_width-2:
+			pieces.push_back(Block.Piece.new(Vector2(x, 0), Stats.TurretColor.BLUE, 1))
+		var y = randi_range(1, Stats.board_height-1-drill_width)
+		for row in range(y, y + drill_width):
+			block_handler.remove_block_from_board(Block.new(pieces), Vector2(1, row), BLOCK_LAYER, EXTENSION_LAYER, true)
+	else:
+		for y in Stats.board_height-2:
+			pieces.push_back(Block.Piece.new(Vector2(0, y), Stats.TurretColor.BLUE, 1))
+		var x = randi_range(1, Stats.board_width-1-drill_width)
+		for col in range(x, x + drill_width):
+			block_handler.remove_block_from_board(Block.new(pieces), Vector2(col, 1), BLOCK_LAYER, EXTENSION_LAYER, true)
+			
+	_action_finished(true)
+	
+	
 func _process(_delta):
 	$Board.clear_layer(SELECTION_LAYER)
 	var board_pos = $Board.local_to_map(get_global_mouse_position())
