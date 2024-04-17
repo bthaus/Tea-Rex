@@ -142,6 +142,8 @@ func _input(event):
 			BoardAction.PLAYER_MOVE:
 				if selected_block == null:
 					var block = block_handler.get_block_from_board(board_pos, BLOCK_LAYER, EXTENSION_LAYER, true)
+					if block.pieces.size() == 0: #If no block got selected (nothing found at the clicked pos), ignore
+						return
 					block_handler.remove_block_from_board(block, board_pos, BLOCK_LAYER, EXTENSION_LAYER, false)
 					selected_block = block
 					moved_from_position = board_pos #Save block information in case the user interrupts the process
