@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://ct8v030fwp2gh"]
+[gd_scene load_steps=16 format=3 uid="uid://ct8v030fwp2gh"]
 
 [ext_resource type="Script" path="res://Game/GameState.gd" id="1_g64db"]
 [ext_resource type="Script" path="res://Persistency/GameSaver.gd" id="2_7eagx"]
@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://crxh6rxjn4mro" path="res://CardSpace.tscn" id="10_5a5mt"]
 [ext_resource type="Script" path="res://Game/Waves.gd" id="10_tv5je"]
 [ext_resource type="PackedScene" uid="uid://dfv1yobm3u5hn" path="res://hand.tscn" id="13_bgxnb"]
+[ext_resource type="Texture2D" uid="uid://b8n0busmwromw" path="res://icon.svg" id="14_fosf7"]
 
 [sub_resource type="Environment" id="Environment_83ue6"]
 background_mode = 3
@@ -133,6 +134,15 @@ offset_bottom = 1084.66
 text = "redraws
 "
 
+[node name="drawcard" type="Button" parent="CanvasLayer"]
+offset_left = 1734.51
+offset_top = 815.929
+offset_right = 1956.51
+offset_bottom = 951.929
+text = "Draw Card"
+icon = ExtResource("14_fosf7")
+
 [connection signal="wave_done" from="Spawner" to="." method="_on_spawner_wave_done"]
 [connection signal="pressed" from="CanvasLayer/StartBattlePhase" to="." method="_on_start_battle_phase_pressed"]
 [connection signal="pressed" from="CanvasLayer/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/drawcard" to="." method="drawCards" binds= [1]]

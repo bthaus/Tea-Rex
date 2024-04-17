@@ -4,6 +4,7 @@ class_name GameState;
 @export var gameBoard:Node2D;
 @export var hand:Node2D
 
+
 var cardhand;
 var account:String="player1";
 #Stats.TurretExtension
@@ -19,6 +20,7 @@ var HP=Stats.playerHP;
 var maxHP=Stats.playerMaxHP;
 var maxCards=5;
 var cardRedraws=1;
+
 
 var wave:int=0;
 var stateDictionary={
@@ -81,7 +83,7 @@ func changeMaxHealth(amount:int):
 func _ready():
 	
 	gameState=self;
-
+	
 	Engine.max_fps=30;
 	#get_tree().create_timer(1).timeout.connect(drawCards.bind(maxCards))
 	pass # Replace with function body.
