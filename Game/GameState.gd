@@ -118,12 +118,12 @@ func startBuildPhase():
 		
 	pass;
 func startCatastrophy():
-	if wave%5!=0:	return
+	if wave%1!=0:	return
 	
 	var cat=Stats.getRandomCatastrophy();
-	
+	util.p(cat+"_catastrophy called")
 	if not gameBoard.has_method(cat+"_catastrophy"): return
-	gameBoard.call(cat+"_catastrophy")
+	gameBoard.call(cat+"_catastrophy").bind(func():print("catastrophy done"))
 	
 	pass;
 func _on_spawner_wave_done():
