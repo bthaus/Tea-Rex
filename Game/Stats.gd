@@ -312,33 +312,66 @@ static func getiterativeColor(skip:int=10):
 	colorit=(colorit+1)%5
 	if colorit==skip:
 		colorit=skip+1;
-	util.p(Stats.TurretColor.keys()[colorit])
+	#util.p(Stats.TurretColor.keys()[colorit])
 	return Stats.TurretColor.values()[colorit];
 	
 	pass;
+	
+	
 static var colorit=1;
 static var counter=0;
+
+static var blueChance=20;
+static var redChance=20;
+static var greenChance=20;
+static var yellowChance=20;
+static var greyChance=20;
+static var colorChances = [greyChance, greenChance, redChance, yellowChance, blueChance]
+static var specialCardChance = 20; #chance whether for a special card !specialCardChance = chance for Block Card
+static var extensionChance = 50; #chance if a color get's the extrension
+
 static func getRandomCard(gamestate):
-	#add random card chances
 	var card;
-	counter=counter+1;
+	var rng=RandomNumberGenerator.new()
 	
-	if counter%2 == 0:
+	if (rng.randi_range(0,100) < specialCardChance):
 		card=SpecialCard.create(gamestate)
-		
 	else:
 		card= BlockCard.create(gamestate)
 	return card;	
 
-static var blueChance=100;
+
 func getRandomBlock(lvl,gamestate):
 	#TODO: add card chances
 	var rng=RandomNumberGenerator.new()
+	var chance = rng.randi_range(0,100)
+	var sum = 0
 	var color = getiterativeColor()
-	
+	for i in colorChances.size():
+		sum += colorChances[i]
+		if chance < sum:
+			color= TurretColor.values()[i]
+			print ("ype: Debug From: cc MSG: ", color, " i:", i)
+			
 	var extension=TurretExtension.DEFAULT
+	if gamestate.unlockedExtensions.size() != 0 && color != TurretColor.GREY:
+		for ex in gamestate.unlockedExtensions.length():
+			if gamestate.unlockedExtensions[ex] == getExtensionFromColor(color):
+				if rng.randi_range(0,100) < extensionChance:
+					extension = getExtensionFromColor(color)
+	
 	var block=BlockShape.values()[rng.randi_range(0,BlockShape.size()-1)]
-	return getBlockFromShape(block,color,2,extension)		
+	return getBlockFromShape(block,color,2,extension)
+	
+static func getExtensionFromColor(color: TurretColor):
+	match color:
+		1: return TurretExtension.DEFAULT;
+		2: return TurretExtension.GREENPOISON;
+		3: return TurretExtension.REDLASER;
+		4: return TurretExtension.DEFAULT;	#TODO: it's actually TurretExtension.YELLOWCATAPULT but it's not implemented yet
+		5: return TurretExtension.BLUELASER
+	pass	
+
 static func getBlockFromShape(shape: BlockShape, color: TurretColor, level: int = 1, extenstion: TurretExtension = TurretExtension.DEFAULT) -> Block:
 	var pieces = []
 	match shape:
