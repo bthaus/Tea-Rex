@@ -140,7 +140,7 @@ const GLUE_instant=false;
 const GLUE_slowFactor=0.5;
 const GLUE_Duration=10;
 
-
+static var rng=RandomNumberGenerator.new()
 const POISON_damage=100;
 const POISON_range=0.5;
 const POISON_phase=GamePhase.BATTLE
@@ -329,11 +329,13 @@ static func getRandomCard(gamestate):
 	else:
 		card= BlockCard.create(gamestate)
 	return card;	
-
+static func getRandomCatastrophy():
+	return Catastrophies.values()[rng.randi_range(0,Catastrophies.size()-1)]
+	
 static var blueChance=100;
 func getRandomBlock(lvl,gamestate):
 	#TODO: add card chances
-	var rng=RandomNumberGenerator.new()
+	
 	var color = getiterativeColor()
 	
 	var extension=TurretExtension.DEFAULT
