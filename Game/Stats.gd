@@ -351,7 +351,7 @@ func getRandomBlock(lvl,gamestate):
 		sum += colorChances[i]
 		if chance < sum:
 			color= TurretColor.values()[i]
-			print ("ype: Debug From: cc MSG: ", color, " i:", i)
+			break;
 			
 	var extension=TurretExtension.DEFAULT
 	if gamestate.unlockedExtensions.size() != 0 && color != TurretColor.GREY:
@@ -371,6 +371,17 @@ static func getExtensionFromColor(color: TurretColor):
 		4: return TurretExtension.DEFAULT;	#TODO: it's actually TurretExtension.YELLOWCATAPULT but it's not implemented yet
 		5: return TurretExtension.BLUELASER
 	pass	
+
+static func changeColorChance(color:TurretColor, chance):
+	match color:
+		TurretColor.RED: redChance = chance;
+		TurretColor.BLUE: blueChance = chance;
+		TurretColor.GREEN: greenChance = chance;
+		TurretColor.YELLOW: yellowChance = chance;
+		TurretColor.GREY: greyChance = chance;
+	pass
+		
+	
 
 static func getBlockFromShape(shape: BlockShape, color: TurretColor, level: int = 1, extenstion: TurretExtension = TurretExtension.DEFAULT) -> Block:
 	var pieces = []
