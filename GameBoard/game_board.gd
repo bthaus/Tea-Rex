@@ -73,7 +73,7 @@ func select_block(block,done:Callable):
 	selected_block = block
 	self.done = done
 	
-func bulldozer_catastrophy(done: Callable):
+func BULLDOZER_catastrophy(done: Callable):
 	util.p("Bulldozer catastrophe starting", "Jojo")
 	self.done = done
 	var width = 3
@@ -87,7 +87,7 @@ func bulldozer_catastrophy(done: Callable):
 	block_handler.remove_block_from_board(Block.new(pieces), start, BLOCK_LAYER, EXTENSION_LAYER, true)
 	_action_finished(true)
 	
-func drill_catastrophy(done: Callable):
+func DRILL_catastrophy(done: Callable):
 	util.p("Drill catastrophe starting", "Jojo")
 	self.done = done
 	var drill_width = 1
