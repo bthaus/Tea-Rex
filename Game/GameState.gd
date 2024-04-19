@@ -110,14 +110,22 @@ func _on_start_battle_phase_pressed():
 	$CanvasLayer/PHASE.text="BATTLEPHASE"
 	pass # Replace with function body.
 func startBuildPhase():
-	
+	startCatastrophy()	
 	start_build_phase.emit()
 	phase=Stats.GamePhase.BUILD
 	$CanvasLayer/PHASE.text="BUILDPHASE"
 	drawCards(cardRedraws)	
 		
 	pass;
-
+func startCatastrophy():
+	if wave%1!=0:	return
+	
+	var cat=Stats.getRandomCatastrophy();
+	util.p(cat+"_catastrophy called")
+	if not gameBoard.has_method(cat+"_catastrophy"): return
+	gameBoard.call(cat+"_catastrophy").bind(func():print("catastrophy done"))
+	
+	pass;
 func _on_spawner_wave_done():
 	startBuildPhase()
 	

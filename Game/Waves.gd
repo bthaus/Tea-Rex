@@ -13,6 +13,7 @@ func start(wavenumber:int):
 	var cells=map.get_used_cells(0);
 	amountmonsters=cells.size()-16*4+4
 	Stats.enemy_base_HP=Stats.enemy_base_HP*1.1
+	print(Stats.enemy_base_HP)
 	numMonstersActive=amountmonsters;
 	for n in range(0,amountmonsters):
 		get_tree().create_timer(n*0.5).timeout.connect(spawnEnemy.bind(Stats.getiterativeColor(0),$Base))

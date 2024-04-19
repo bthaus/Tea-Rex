@@ -68,7 +68,6 @@ func setUpTower():
 		projectile.visible=true;
 		$AudioStreamPlayer2D.finished.connect(func(): if inRange():$AudioStreamPlayer2D.play)
 	if type==Stats.TurretColor.RED and extension==Stats.TurretExtension.REDLASER:
-		
 		$Base.visible=false
 		$Barrel.scale=Vector2(-1,-1)
 		$Barrel.offset=Vector2(-0,15)

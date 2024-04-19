@@ -79,7 +79,7 @@ const poison_propagation_rate=3;
 const poison_propagation_range=base_range*0.3
 const green_poison_decay=1;
 
-static var enemy_base_HP=50;
+static var enemy_base_HP:float=50;
 static var GREEN_enemy_HP=enemy_base_HP*3;
 static var BLUE_enemy_HP=enemy_base_HP*1;
 static var YELLOW_enemy_HP=enemy_base_HP*0.5;
@@ -140,7 +140,7 @@ const GLUE_instant=false;
 const GLUE_slowFactor=0.5;
 const GLUE_Duration=10;
 
-
+static var rng=RandomNumberGenerator.new()
 const POISON_damage=100;
 const POISON_range=0.5;
 const POISON_phase=GamePhase.BATTLE
@@ -161,7 +161,7 @@ enum TurretExtension {DEFAULT=1,REDLASER=2, BLUELASER=3, YELLOWCATAPULT=4, GREEN
 enum GamePhase {BATTLE=1,BUILD=2,BOTH=3};
 enum SpecialCards {HEAL=1,FIREBALL=2,UPHEALTH=3,CRYOBALL=4,MOVE=5, BULLDOZER=6,GLUE=7,POISON=8, UPDRAW=9, UPMAXCARDS=10}
 enum BlockShape {O=1, I=2, S=3, Z=4, L=5, J=6, T=7, TINY=8, SMALL=9, ARROW=10, CROSS=11}
-enum Catastrophies {METEOR=1,SWITCH=2,EXPAND=3,ADDSPAWNER=4,EARTHQUAKE=5}
+enum Catastrophies {METEOR=1,EXPAND=3,ADDSPAWNER=4,EARTHQUAKE=5}
 
 static var stats=Stats.new()
 var map;
@@ -323,17 +323,19 @@ static func getRandomCard(gamestate):
 	var card;
 	counter=counter+1;
 	
-	if counter%2 == 0:
+	if counter%4 == 0:
 		card=SpecialCard.create(gamestate)
 		
 	else:
 		card= BlockCard.create(gamestate)
 	return card;	
-
+static func getRandomCatastrophy():
+	return Catastrophies.keys()[rng.randi_range(0,Catastrophies.size()-1)]
+	
 static var blueChance=100;
 func getRandomBlock(lvl,gamestate):
 	#TODO: add card chances
-	var rng=RandomNumberGenerator.new()
+	
 	var color = getiterativeColor()
 	
 	var extension=TurretExtension.DEFAULT
