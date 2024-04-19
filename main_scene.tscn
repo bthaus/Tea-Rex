@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://ct8v030fwp2gh"]
+[gd_scene load_steps=20 format=3 uid="uid://ct8v030fwp2gh"]
 
 [ext_resource type="Script" path="res://Game/GameState.gd" id="1_g64db"]
 [ext_resource type="Script" path="res://Persistency/GameSaver.gd" id="2_7eagx"]
@@ -16,6 +16,7 @@
 [ext_resource type="Script" path="res://Game/Waves.gd" id="10_tv5je"]
 [ext_resource type="PackedScene" uid="uid://dfv1yobm3u5hn" path="res://hand.tscn" id="13_bgxnb"]
 [ext_resource type="Texture2D" uid="uid://b8n0busmwromw" path="res://icon.svg" id="14_fosf7"]
+[ext_resource type="Script" path="res://UnlockedItemList.gd" id="17_7nh6c"]
 
 [sub_resource type="Environment" id="Environment_83ue6"]
 background_mode = 3
@@ -169,6 +170,21 @@ offset_top = 86.7257
 offset_right = 1048.85
 offset_bottom = 109.726
 text = "100"
+
+[node name="EXP" type="Label" parent="CanvasLayer"]
+offset_left = 51.3274
+offset_top = 936.283
+offset_right = 91.3274
+offset_bottom = 959.283
+text = "0"
+
+[node name="ItemList" type="ItemList" parent="CanvasLayer" node_paths=PackedStringArray("gamestate")]
+offset_right = 40.0
+offset_bottom = 40.0
+item_count = 1
+item_0/text = ""
+script = ExtResource("17_7nh6c")
+gamestate = NodePath("../..")
 
 [connection signal="wave_done" from="Spawner" to="." method="_on_spawner_wave_done"]
 [connection signal="area_entered" from="Spawner/Base/Area2D" to="." method="_on_area_2d_area_entered"]

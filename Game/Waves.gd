@@ -23,11 +23,11 @@ func start(wavenumber:int):
 func spawnEnemy(c,t):
 	var mo=Monster.create(c,t)
 	mo.monster_died.connect(monsterDied)
-	
+	mo.monster_died.connect(state.addExp)
 	add_child(mo)
 
 	pass;
-func monsterDied():
+func monsterDied(monster:Monster):
 	
 	numMonstersActive=numMonstersActive-1;
 	print(numMonstersActive)

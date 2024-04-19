@@ -20,6 +20,8 @@ var HP=Stats.playerHP;
 var maxHP=Stats.playerMaxHP;
 var maxCards=5;
 var cardRedraws=1;
+var totalExp=0;
+var levelUp=10;
 
 
 var wave:int=0;
@@ -40,6 +42,7 @@ var handCards=[]
 signal player_died
 signal start_build_phase;
 signal start_combat_phase;
+signal level_up
 
 @export   var cam:Camera2D;
 static var gameState;
@@ -137,7 +140,33 @@ func _on_button_pressed():
 	drawCards(maxCards)
 	$CanvasLayer/Button.queue_free()
 	pass # Replace with function body.
-
+func addExp(monster:Monster):
+	totalExp=totalExp+monster.getExp()
+	$CanvasLayer/EXP.text=str(totalExp)
+	checkLevelUp()
+	
+	pass;
+func checkLevelUp():
+	if totalExp<levelUp: return
+	levelUp=levelUp*2;
+	
+	var rand=Stats.rng.randi_range(0,100);
+	if rand>50:
+		unlockRandom(Stats.TurretExtension.values(),unlockedExtensions)
+	else:
+		unlockRandom(Stats.SpecialCards.values(),unlockedSpecialCards)
+	
+	pass;
+func unlockRandom(base,pool):
+	var tounlock=[]
+	for a in base:
+		if not pool.has(a):
+			tounlock.append(a)
+	var unlocked=tounlock[Stats.rng.randi_range(0,tounlock.size()-1)]
+	pool.append(unlocked)
+	level_up.emit()
+	pass;
+	
 
 func _on_area_2d_area_entered(area):
 	var m=area.get_parent()

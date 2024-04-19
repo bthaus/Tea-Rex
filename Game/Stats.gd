@@ -99,6 +99,8 @@ const BLUE_enemy_speed=enemy_base_speed*1;
 const YELLOW_enemy_speed=enemy_base_speed*3;
 const RED_enemy_speed=enemy_base_speed*0.5;
 
+static var enemy_base_exp=10;
+
 const playerHP=100;
 const playerMaxHP=200;
 

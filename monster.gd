@@ -1,16 +1,18 @@
 extends CharacterBody2D
 class_name Monster;
-@export var sizemult=1;
+var sizemult=1;
 var hp=Stats.enemy_base_HP;
 var damage=Stats.enemy_base_damage;
 var speedfactor=Stats.enemy_base_speed_factor;
 var speed = Stats.enemy_base_speed;
 var accel = Stats.enemy_base_acceleration;
+var minionExp;
+var currentMinionPower=1;
 @export var color:Stats.TurretColor=Stats.TurretColor.BLUE
 var died=false;
 @export var target: Node2D #goal
 @onready var nav: NavigationAgent2D = $NavigationAgent2D
-signal monster_died
+signal monster_died(monster:Monster)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -19,6 +21,8 @@ func _ready():
 	
 	speedfactor=Stats.getEnemyProperty(color,"speed")
 	hp=Stats.getEnemyProperty(color,"HP")
+	minionExp=Stats.enemy_base_exp;
+	
 	if color==Stats.TurretColor.GREEN:
 		$Sprite2D.self_modulate=Color(0,1,0,1);
 	if color==Stats.TurretColor.RED:
@@ -37,6 +41,9 @@ static func create(type:Stats.TurretColor,target:Node2D)->Monster:
 	
 	return en
 	pass;
+func getExp():
+	return currentMinionPower*minionExp;
+	pass;
 func hit(color:Stats.TurretColor,damage,type="default"):
 	var mod=1;
 	if color==self.color:
@@ -45,7 +52,7 @@ func hit(color:Stats.TurretColor,damage,type="default"):
 	$HP.text=str(hp)
 	if hp<=0 and not died:
 		died=true
-		monster_died.emit()
+		monster_died.emit(self)
 		queue_free()
 	pass;
 
