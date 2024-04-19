@@ -66,14 +66,15 @@ func get_block_from_board(position: Vector2, block_layer: int, extension_layer: 
 			
 	return Block.new(pieces)
 	
+#Note: Walls will be ignored as the information cannot be stored in a piece properly!
 func get_piece_from_board(position: Vector2, block_layer: int, extension_layer: int) -> Block.Piece:
 	var cell_block_data = board.get_cell_tile_data(block_layer, position)
-	if cell_block_data == null:
+	if cell_block_data == null or cell_block_data.get_custom_data("color").to_upper() == "WALL":
 		return null
 	var cell_extension_data = board.get_cell_tile_data(extension_layer, position)
 	return Block.Piece.new(
 						position, 
-						Stats.TurretColor.get(cell_block_data.get_custom_data("color")), 
+						Stats.TurretColor.get(cell_block_data.get_custom_data("color").to_upper()), 
 						cell_block_data.get_custom_data("level"),
 						Stats.TurretExtension.get(cell_extension_data.get_custom_data("extension").to_upper())
 						)
