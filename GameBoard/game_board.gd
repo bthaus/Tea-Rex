@@ -66,7 +66,7 @@ func select_piece(shape:Stats.BlockShape, color:Stats.TurretColor, done:Callable
 	action = BoardAction.PLAYER_BUILD
 	selected_block = Stats.getBlockFromShape(shape, color, level)
 	self.done = done
-	
+
 func select_block(block,done:Callable):
 	util.p("Building now...", "Jojo")
 	action = BoardAction.PLAYER_BUILD
@@ -106,6 +106,26 @@ func DRILL_catastrophy(done: Callable):
 		for col in range(x, x + drill_width):
 			block_handler.remove_block_from_board(Block.new(pieces), Vector2(col, 1), BLOCK_LAYER, EXTENSION_LAYER, true)
 			
+	_action_finished(true)
+
+func LEVELDOWN_catastrophy(done: Callable):
+	util.p("Level down catastrophy starting", "Jojo")
+	self.done = done
+	var width = 3
+	var height = 3
+	var start = Vector2(randi_range(1, Stats.board_width-1-width), randi_range(1, Stats.board_height-1-height))
+	var pieces = []
+	for y in height:
+		for x in width:
+			var piece = block_handler.get_piece_from_board(Vector2(start.x + x, start.y + y), BLOCK_LAYER, EXTENSION_LAYER)
+			if piece != null:
+				piece.position.x = x
+				piece.position.y = y
+				pieces.append(piece)
+			
+	var block = Block.new(pieces)
+	block_handler.set_block_level(block, 1)
+	block_handler.draw_block(block, start, BLOCK_LAYER, EXTENSION_LAYER)
 	_action_finished(true)
 	
 	
@@ -148,6 +168,7 @@ func _input(event):
 					selected_block = block
 					moved_from_position = board_pos #Save block information in case the user interrupts the process
 					moved_from_block = selected_block.clone()
+					_spawn_turrets()
 
 				elif block_handler.can_place_block(selected_block, BLOCK_LAYER, board_pos):
 					_place_block(selected_block, board_pos)
@@ -158,7 +179,6 @@ func _input(event):
 				_action_finished(true)
 				$NavigationRegion2D.bake_navigation_polygon()
 				
-		_spawn_turrets()
 	
 	if event.is_action_released("right_click"):
 		if selected_block != null:
@@ -180,15 +200,15 @@ func _place_block(block: Block, position: Vector2):
 func _action_finished(finished: bool):
 	if not finished and moved_from_block != null: #Restore block if there is something to restore
 		block_handler.draw_block(moved_from_block, moved_from_position, BLOCK_LAYER, EXTENSION_LAYER)
-		_spawn_turrets()
+
 	selected_block = null
 	moved_from_block = null
 	moved_from_position = Vector2.ZERO
 	action = BoardAction.NONE
-	if done.is_null():
-		return
-	done.call(finished)
-	done = Callable() #Reset callable
+	if not done.is_null():
+		done.call(finished)
+		done = Callable() #Reset callable
+	_spawn_turrets()
 
 func _draw_walls():
 	for row in Stats.board_height:
@@ -198,6 +218,7 @@ func _draw_walls():
 	for col in Stats.board_width:
 		$Board.set_cell(BLOCK_LAYER, Vector2(col,0), WALL_TILE_ID, Vector2(0,0))
 		$Board.set_cell(BLOCK_LAYER, Vector2(col,Stats.board_height-1), WALL_TILE_ID, Vector2(0,0))
+		
 	$NavigationRegion2D.bake_navigation_polygon()
 	
 func _spawn_turrets():
