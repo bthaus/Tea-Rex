@@ -1,8 +1,8 @@
 extends Node
 class_name Stats;
 const block_size=64;
-const board_width=16;
-const board_height=16;
+static var board_width=16;
+static var board_height=16;
 
 const base_range=5;
 const green_range=2*base_range;
@@ -156,12 +156,22 @@ const UPMAXCARDS_phase=GamePhase.BOTH;
 const MOVE_phase=GamePhase.BUILD;
 const MOVE_instant=true;
 
+
+static var bulldozer_catastrophy_width=3
+static var bulldozer_catastrophy_height=3
+
+static var drill_catastrophy_width=3
+
+static var level_down_catastrophy_width=3
+static var level_down_catastrophy_height=3
+
+
 enum TurretColor {GREY=1, GREEN=2, RED=3, YELLOW=4,BLUE=5};
 enum TurretExtension {DEFAULT=1,REDLASER=2, BLUELASER=3, YELLOWCATAPULT=4, GREENPOISON=5};
 enum GamePhase {BATTLE=1,BUILD=2,BOTH=3};
 enum SpecialCards {HEAL=1,FIREBALL=2,UPHEALTH=3,CRYOBALL=4,MOVE=5, BULLDOZER=6,GLUE=7,POISON=8, UPDRAW=9, UPMAXCARDS=10}
 enum BlockShape {O=1, I=2, S=3, Z=4, L=5, J=6, T=7, TINY=8, SMALL=9, ARROW=10, CROSS=11}
-enum Catastrophies {METEOR=1, DRILL=2, EXPAND=3, ADDSPAWNER=4, EARTHQUAKE=5, LEVELDOWN=6}
+enum Catastrophies {METEOR=1, DRILL=2, EXPAND=3, ADDSPAWNER=4, EARTHQUAKE=5, LEVELDOWN=6, BULLDOZER=7}
 
 static var stats=Stats.new()
 var map;

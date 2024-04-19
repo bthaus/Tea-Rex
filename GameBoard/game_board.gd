@@ -76,12 +76,10 @@ func select_block(block,done:Callable):
 func BULLDOZER_catastrophy(done: Callable):
 	util.p("Bulldozer catastrophe starting", "Jojo")
 	self.done = done
-	var width = 3
-	var height = 3
-	var start = Vector2(randi_range(1, Stats.board_width-1-width), randi_range(1, Stats.board_height-1-height))
+	var start = Vector2(randi_range(1, Stats.board_width-1-Stats.bulldozer_catastrophy_width), randi_range(1, Stats.board_height-1-Stats.bulldozer_catastrophy_height))
 	var pieces = []
-	for y in height:
-		for x in width:
+	for y in Stats.bulldozer_catastrophy_height:
+		for x in Stats.bulldozer_catastrophy_width:
 			#No constructor overloading in Godot, gotta init some nonsense
 			pieces.push_back(Block.Piece.new(Vector2(x,y), Stats.TurretColor.BLUE, 1))
 	block_handler.remove_block_from_board(Block.new(pieces), start, BLOCK_LAYER, EXTENSION_LAYER, true)
@@ -90,20 +88,19 @@ func BULLDOZER_catastrophy(done: Callable):
 func DRILL_catastrophy(done: Callable):
 	util.p("Drill catastrophe starting", "Jojo")
 	self.done = done
-	var drill_width = 1
 	var drill_horizontal = randi() % 2 == 0 #Get a random bool
 	var pieces = []
 	if drill_horizontal:
 		for x in Stats.board_width-2:
 			pieces.push_back(Block.Piece.new(Vector2(x, 0), Stats.TurretColor.BLUE, 1))
-		var y = randi_range(1, Stats.board_height-1-drill_width)
-		for row in range(y, y + drill_width):
+		var y = randi_range(1, Stats.board_height-1-Stats.drill_catastrophy_width)
+		for row in range(y, y + Stats.drill_catastrophy_width):
 			block_handler.remove_block_from_board(Block.new(pieces), Vector2(1, row), BLOCK_LAYER, EXTENSION_LAYER, true)
 	else:
 		for y in Stats.board_height-2:
 			pieces.push_back(Block.Piece.new(Vector2(0, y), Stats.TurretColor.BLUE, 1))
-		var x = randi_range(1, Stats.board_width-1-drill_width)
-		for col in range(x, x + drill_width):
+		var x = randi_range(1, Stats.board_width-1-Stats.drill_catastrophy_width)
+		for col in range(x, x + Stats.drill_catastrophy_width):
 			block_handler.remove_block_from_board(Block.new(pieces), Vector2(col, 1), BLOCK_LAYER, EXTENSION_LAYER, true)
 			
 	_action_finished(true)
@@ -111,12 +108,10 @@ func DRILL_catastrophy(done: Callable):
 func LEVELDOWN_catastrophy(done: Callable):
 	util.p("Level down catastrophy starting", "Jojo")
 	self.done = done
-	var width = 3
-	var height = 3
-	var start = Vector2(randi_range(1, Stats.board_width-1-width), randi_range(1, Stats.board_height-1-height))
+	var start = Vector2(randi_range(1, Stats.board_width-1-Stats.level_down_catastrophy_width), randi_range(1, Stats.board_height-1-Stats.level_down_catastrophy_height))
 	var pieces = []
-	for y in height:
-		for x in width:
+	for y in Stats.level_down_catastrophy_height:
+		for x in Stats.level_down_catastrophy_width:
 			var piece = block_handler.get_piece_from_board(Vector2(start.x + x, start.y + y), BLOCK_LAYER, EXTENSION_LAYER)
 			if piece != null:
 				piece.position.x = x
