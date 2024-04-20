@@ -44,7 +44,6 @@ func _ready():
 	_spawn_turrets()
 	_set_navigation_region()
 	
-	
 
 func start_bulldozer(done:Callable, size_x:int, size_y:int):
 	util.p("Bulldozering stuff now...", "Jojo")
@@ -60,20 +59,70 @@ func start_move(done:Callable):
 	util.p("Moving stuff now...", "Jojo")
 	action = BoardAction.PLAYER_MOVE
 	self.done = done
-	
+
 func select_piece(shape:Stats.BlockShape, color:Stats.TurretColor, done:Callable, level:int, extension:Stats.TurretExtension=Stats.TurretExtension.DEFAULT):
 	util.p("Building now...", "Jojo")
 	util.p(Stats.getStringFromEnumExtension(extension))
 	action = BoardAction.PLAYER_BUILD
 	selected_block = Stats.getBlockFromShape(shape, color, level)
 	self.done = done
-	
+
 func select_block(block,done:Callable):
-	
 	util.p("Building now...", "Jojo")
 	action = BoardAction.PLAYER_BUILD
 	selected_block = block
 	self.done = done
+	
+func BULLDOZER_catastrophy(done: Callable):
+	util.p("Bulldozer catastrophe starting", "Jojo")
+	self.done = done
+	var start = Vector2(randi_range(1, Stats.board_width-1-Stats.bulldozer_catastrophy_width), randi_range(1, Stats.board_height-1-Stats.bulldozer_catastrophy_height))
+	var pieces = []
+	for y in Stats.bulldozer_catastrophy_height:
+		for x in Stats.bulldozer_catastrophy_width:
+			#No constructor overloading in Godot, gotta init some nonsense
+			pieces.push_back(Block.Piece.new(Vector2(x,y), Stats.TurretColor.BLUE, 1))
+	block_handler.remove_block_from_board(Block.new(pieces), start, BLOCK_LAYER, EXTENSION_LAYER, true)
+	_action_finished(true)
+	
+func DRILL_catastrophy(done: Callable):
+	util.p("Drill catastrophe starting", "Jojo")
+	self.done = done
+	var drill_horizontal = randi() % 2 == 0 #Get a random bool
+	var pieces = []
+	if drill_horizontal:
+		for x in Stats.board_width-2:
+			pieces.push_back(Block.Piece.new(Vector2(x, 0), Stats.TurretColor.BLUE, 1))
+		var y = randi_range(1, Stats.board_height-1-Stats.drill_catastrophy_width)
+		for row in range(y, y + Stats.drill_catastrophy_width):
+			block_handler.remove_block_from_board(Block.new(pieces), Vector2(1, row), BLOCK_LAYER, EXTENSION_LAYER, true)
+	else:
+		for y in Stats.board_height-2:
+			pieces.push_back(Block.Piece.new(Vector2(0, y), Stats.TurretColor.BLUE, 1))
+		var x = randi_range(1, Stats.board_width-1-Stats.drill_catastrophy_width)
+		for col in range(x, x + Stats.drill_catastrophy_width):
+			block_handler.remove_block_from_board(Block.new(pieces), Vector2(col, 1), BLOCK_LAYER, EXTENSION_LAYER, true)
+			
+	_action_finished(true)
+
+func LEVELDOWN_catastrophy(done: Callable):
+	util.p("Level down catastrophy starting", "Jojo")
+	self.done = done
+	var start = Vector2(randi_range(1, Stats.board_width-1-Stats.level_down_catastrophy_width), randi_range(1, Stats.board_height-1-Stats.level_down_catastrophy_height))
+	var pieces = []
+	for y in Stats.level_down_catastrophy_height:
+		for x in Stats.level_down_catastrophy_width:
+			var piece = block_handler.get_piece_from_board(Vector2(start.x + x, start.y + y), BLOCK_LAYER, EXTENSION_LAYER)
+			if piece != null:
+				piece.position.x = x
+				piece.position.y = y
+				pieces.append(piece)
+			
+	var block = Block.new(pieces)
+	block_handler.set_block_level(block, 1)
+	block_handler.draw_block(block, start, BLOCK_LAYER, EXTENSION_LAYER)
+	_action_finished(true)
+	
 	
 func _process(_delta):
 	$Board.clear_layer(SELECTION_LAYER)
@@ -108,21 +157,23 @@ func _input(event):
 			BoardAction.PLAYER_MOVE:
 				if selected_block == null:
 					var block = block_handler.get_block_from_board(board_pos, BLOCK_LAYER, EXTENSION_LAYER, true)
-					block_handler.remove_block_from_board(block, board_pos, BLOCK_LAYER, EXTENSION_LAYER)
+					if block.pieces.size() == 0: #If no block got selected (nothing found at the clicked pos), ignore
+						return
+					block_handler.remove_block_from_board(block, board_pos, BLOCK_LAYER, EXTENSION_LAYER, false)
 					selected_block = block
 					moved_from_position = board_pos #Save block information in case the user interrupts the process
 					moved_from_block = selected_block.clone()
+					_spawn_turrets()
 
 				elif block_handler.can_place_block(selected_block, BLOCK_LAYER, board_pos):
 					_place_block(selected_block, board_pos)
 					_action_finished(true)
 					
 			BoardAction.PLAYER_BULLDOZER:
-				block_handler.remove_block_from_board(selected_block, board_pos, BLOCK_LAYER, EXTENSION_LAYER)
+				block_handler.remove_block_from_board(selected_block, board_pos, BLOCK_LAYER, EXTENSION_LAYER, false)
 				_action_finished(true)
 				$NavigationRegion2D.bake_navigation_polygon()
 				
-		_spawn_turrets()
 	
 	if event.is_action_released("right_click"):
 		if selected_block != null:
@@ -140,18 +191,19 @@ func _place_block(block: Block, position: Vector2):
 
 	block_handler.draw_block(block, position, BLOCK_LAYER, EXTENSION_LAYER)
 	$NavigationRegion2D.bake_navigation_polygon()
+	
 func _action_finished(finished: bool):
 	if not finished and moved_from_block != null: #Restore block if there is something to restore
 		block_handler.draw_block(moved_from_block, moved_from_position, BLOCK_LAYER, EXTENSION_LAYER)
-		_spawn_turrets()
+
 	selected_block = null
 	moved_from_block = null
 	moved_from_position = Vector2.ZERO
 	action = BoardAction.NONE
-	if done.is_null():
-		return
-	done.call(finished)
-	done = Callable() #Reset callable
+	if not done.is_null():
+		done.call(finished)
+		done = Callable() #Reset callable
+	_spawn_turrets()
 
 func _draw_walls():
 	for row in Stats.board_height:
@@ -161,7 +213,9 @@ func _draw_walls():
 	for col in Stats.board_width:
 		$Board.set_cell(BLOCK_LAYER, Vector2(col,0), WALL_TILE_ID, Vector2(0,0))
 		$Board.set_cell(BLOCK_LAYER, Vector2(col,Stats.board_height-1), WALL_TILE_ID, Vector2(0,0))
+		
 	$NavigationRegion2D.bake_navigation_polygon()
+	
 func _spawn_turrets():
 	_remove_turrets()
 	for row in range(1,Stats.board_height-1):
@@ -196,11 +250,7 @@ func _set_navigation_region():
 	$NavigationRegion2D.set_navigation_polygon(navigation_polygon) #add the  Polygon to the Navigation Region
 	$NavigationRegion2D.bake_navigation_polygon() #create the area inside the outlines
 	
-	
-		
-	
 
-			
 func dragging_camera(is_dragging: bool):
 	self.is_dragging_camera = is_dragging
 
