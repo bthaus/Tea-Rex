@@ -10,19 +10,17 @@ enum BoardAction {NONE=0, PLAYER_BUILD=1, PLAYER_MOVE=2, PLAYER_BULLDOZER=3}
 var action: BoardAction = BoardAction.NONE
 var done: Callable
 
-
+const SELECTION_LAYER = 2
 const EXTENSION_LAYER = 1
 const BLOCK_LAYER = 0
 
 var is_dragging_camera = false
 var ignore_click = false
 
-
-const SELECTION_LAYER = 2
-
 const LEGAL_PLACEMENT_TILE_ID = 1
 const ILLEGAL_PLACEMENT_TILE_ID = 2
 const WALL_TILE_ID = 3
+const PREVIEW_BLOCK_TILE_ID = 4
 
 var navigation_polygon = NavigationPolygon.new()
 var points = PackedVector2Array([Vector2(),Vector2(),Vector2(),Vector2()])
@@ -126,6 +124,7 @@ func LEVELDOWN_catastrophy(done: Callable):
 	
 func _process(_delta):
 	$Board.clear_layer(SELECTION_LAYER)
+	
 	var board_pos = $Board.local_to_map(get_global_mouse_position())
 	
 	if is_dragging_camera:
@@ -136,8 +135,13 @@ func _process(_delta):
 		if action == BoardAction.PLAYER_BULLDOZER:
 			block_handler.draw_block_with_tile_id(selected_block, board_pos, LEGAL_PLACEMENT_TILE_ID, SELECTION_LAYER)
 		elif action != BoardAction.NONE:
-			var id = LEGAL_PLACEMENT_TILE_ID if block_handler.can_place_block(selected_block, BLOCK_LAYER, board_pos) else ILLEGAL_PLACEMENT_TILE_ID
-			block_handler.draw_block_with_tile_id(selected_block, board_pos, id, SELECTION_LAYER)
+			if block_handler.can_place_block(selected_block, BLOCK_LAYER, board_pos):
+				if $Board.get_cell_tile_data(BLOCK_LAYER, board_pos) == null: #Only draw invisible preview block if we place a new block (no upgrade)
+					block_handler.draw_block_with_tile_id(selected_block, board_pos, PREVIEW_BLOCK_TILE_ID, BLOCK_LAYER)
+				$NavigationRegion2D.bake_navigation_polygon()
+				block_handler.draw_block_with_tile_id(selected_block, board_pos, LEGAL_PLACEMENT_TILE_ID, SELECTION_LAYER)
+			else:
+				block_handler.draw_block_with_tile_id(selected_block, board_pos, ILLEGAL_PLACEMENT_TILE_ID, SELECTION_LAYER)
 	
 func _input(event):
 	var board_pos = $Board.local_to_map(get_global_mouse_position())
@@ -165,9 +169,10 @@ func _input(event):
 					moved_from_block = selected_block.clone()
 					_spawn_turrets()
 
-				elif block_handler.can_place_block(selected_block, BLOCK_LAYER, board_pos):
-					_place_block(selected_block, board_pos)
-					_action_finished(true)
+				else:
+					if block_handler.can_place_block(selected_block, BLOCK_LAYER, board_pos):
+						_place_block(selected_block, board_pos)
+						_action_finished(true)
 					
 			BoardAction.PLAYER_BULLDOZER:
 				block_handler.remove_block_from_board(selected_block, board_pos, BLOCK_LAYER, EXTENSION_LAYER, false)
@@ -181,7 +186,6 @@ func _input(event):
 	
 	if event.is_action_released("interrupt"):
 		_action_finished(false)
-
 
 func _place_block(block: Block, position: Vector2):
 	var data = $Board.get_cell_tile_data(BLOCK_LAYER, position)
@@ -221,8 +225,9 @@ func _spawn_turrets():
 	for row in range(1,Stats.board_height-1):
 		for col in range(1,Stats.board_width-1):
 			var block_data = $Board.get_cell_tile_data(BLOCK_LAYER, Vector2(col, row))
+			var id = $Board.get_cell_source_id(BLOCK_LAYER, Vector2(col, row))
 			var extension_data = $Board.get_cell_tile_data(EXTENSION_LAYER, Vector2(col, row))
-			if block_data != null:
+			if block_data != null and id != PREVIEW_BLOCK_TILE_ID:
 				var color = block_data.get_custom_data("color").to_upper()
 				if color == "WALL" or color == "GREY":
 					continue

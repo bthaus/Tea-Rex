@@ -1,24 +1,26 @@
-[gd_scene load_steps=38 format=3 uid="uid://c8n0am7jadxj7"]
+[gd_scene load_steps=42 format=3 uid="uid://c8n0am7jadxj7"]
 
 [ext_resource type="Script" path="res://GameBoard/game_board.gd" id="1_yp6tt"]
 [ext_resource type="Texture2D" uid="uid://dhcd6oxm5j8af" path="res://Assets/Tiles/dummy_tile_legal_placement.png" id="2_1fom0"]
-[ext_resource type="Texture2D" uid="uid://b3wcw3yk4f6io" path="res://Assets/Tiles/Extensions/extension_default.png" id="3_6mg28"]
+[ext_resource type="Texture2D" uid="uid://bwn2avetd034w" path="res://Assets/Tiles/Extensions/extension_default.png" id="3_6mg28"]
 [ext_resource type="Texture2D" uid="uid://d04bng0sw2ggc" path="res://Assets/Tiles/dummy_tile_illegal_placement.png" id="3_wb0lt"]
-[ext_resource type="Texture2D" uid="uid://c74t01yj03jci" path="res://Assets/Tiles/Extensions/extension_red_laser.png" id="4_jnyco"]
-[ext_resource type="Texture2D" uid="uid://8cao7222pohc" path="res://Assets/Tiles/dummy_tile_wall.png" id="4_pfkj7"]
-[ext_resource type="Texture2D" uid="uid://c5586d6lposu0" path="res://Assets/Tiles/dummy_tile_blue.png" id="4_x6glx"]
-[ext_resource type="Texture2D" uid="uid://cnlhlcydsrs4y" path="res://Assets/Tiles/dummy_tile_red_2.png" id="5_42j8v"]
-[ext_resource type="Texture2D" uid="uid://d1vg832xj0e1w" path="res://Assets/Tiles/dummy_tile_red.png" id="5_43aqt"]
-[ext_resource type="Texture2D" uid="uid://cnhd12u7858fw" path="res://Assets/Tiles/Extensions/extension_blue_laser.png" id="5_meila"]
-[ext_resource type="Texture2D" uid="uid://44ikivf4t4a2" path="res://Assets/Tiles/Extensions/extension_yellow_catapult.png" id="6_7ire2"]
-[ext_resource type="Texture2D" uid="uid://b20sjcdq7jcou" path="res://Assets/Tiles/dummy_tile_blue_2.png" id="7_mva4p"]
-[ext_resource type="Texture2D" uid="uid://b4wmn2r6tyvaw" path="res://Assets/Tiles/Extensions/extension_green_poison.png" id="7_x86do"]
-[ext_resource type="Texture2D" uid="uid://clxue3qq8l8uu" path="res://Assets/Tiles/dummy_tile_grey.png" id="8_ekfr4"]
-[ext_resource type="Texture2D" uid="uid://dvqa2bkkcpm6v" path="res://Assets/Tiles/dummy_tile_green.png" id="10_omibm"]
-[ext_resource type="Texture2D" uid="uid://biwcdbpxu1ah2" path="res://Assets/Tiles/dummy_tile_green_2.png" id="11_j2cwr"]
+[ext_resource type="Texture2D" uid="uid://yfmg7bhjoaud" path="res://Assets/Tiles/Extensions/extension_red_laser.png" id="4_jnyco"]
+[ext_resource type="Texture2D" uid="uid://swj5q2lje25d" path="res://Assets/Tiles/dummy_tile_wall.png" id="4_pfkj7"]
+[ext_resource type="Texture2D" uid="uid://2ku4m8qdg8wk" path="res://Assets/Tiles/dummy_tile_blue.png" id="4_x6glx"]
+[ext_resource type="Texture2D" uid="uid://dpt2xdj6gw82b" path="res://Assets/Tiles/dummy_tile_red_2.png" id="5_42j8v"]
+[ext_resource type="Texture2D" uid="uid://dwyfoi341lntb" path="res://Assets/Tiles/dummy_tile_red.png" id="5_43aqt"]
+[ext_resource type="Texture2D" uid="uid://dcctngoi3vwhw" path="res://Assets/Tiles/Extensions/extension_blue_laser.png" id="5_meila"]
+[ext_resource type="Texture2D" uid="uid://4w2bxjir1bj5" path="res://Assets/Tiles/Extensions/extension_yellow_catapult.png" id="6_7ire2"]
+[ext_resource type="Texture2D" uid="uid://df7a0xo6wwwfo" path="res://Assets/Tiles/dummy_tile_blue_2.png" id="7_mva4p"]
+[ext_resource type="Texture2D" uid="uid://ch6luofwqame" path="res://Assets/Tiles/Extensions/extension_green_poison.png" id="7_x86do"]
+[ext_resource type="Texture2D" uid="uid://ddd56jv0wxi3w" path="res://Assets/Tiles/dummy_tile_grey.png" id="8_ekfr4"]
+[ext_resource type="Texture2D" uid="uid://csqoyadp3oo20" path="res://Assets/Tiles/dummy_tile_green.png" id="10_omibm"]
+[ext_resource type="Texture2D" uid="uid://dbbkt2rnol328" path="res://Assets/Tiles/dummy_tile_green_2.png" id="11_j2cwr"]
 [ext_resource type="Script" path="res://GameBoard/game_board_camera.gd" id="14_7fjk4"]
-[ext_resource type="Texture2D" uid="uid://k6wtmqhilvrs" path="res://Assets/Tiles/dummy_tile_yellow.png" id="14_wq08t"]
-[ext_resource type="Texture2D" uid="uid://d36ccdic4r7cg" path="res://Assets/Tiles/dummy_tile_yellow_2.png" id="16_805pv"]
+[ext_resource type="Texture2D" uid="uid://crslymasjrwta" path="res://Assets/Tiles/dummy_tile_yellow.png" id="14_wq08t"]
+[ext_resource type="Texture2D" uid="uid://dvgjbw0x355ii" path="res://Assets/Tiles/preview_block.png" id="15_bp0o7"]
+[ext_resource type="Texture2D" uid="uid://dfa7hhmwvsitj" path="res://Assets/Tiles/dummy_preview_block2.png" id="15_ea3s8"]
+[ext_resource type="Texture2D" uid="uid://bvkywmlnq6kdn" path="res://Assets/Tiles/dummy_tile_yellow_2.png" id="16_805pv"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vgdp6"]
 texture = ExtResource("2_1fom0")
@@ -140,6 +142,14 @@ texture_region_size = Vector2i(64, 64)
 0:0/0/custom_data_0 = "RED"
 0:0/0/custom_data_1 = 2
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4bpl3"]
+texture = ExtResource("15_ea3s8")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)
+
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7ekb4"]
 texture = ExtResource("14_wq08t")
 texture_region_size = Vector2i(64, 64)
@@ -159,6 +169,14 @@ texture_region_size = Vector2i(64, 64)
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)
 0:0/0/custom_data_0 = "YELLOW"
 0:0/0/custom_data_1 = 2
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_tv4gf"]
+texture = ExtResource("15_bp0o7")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_j0kt8"]
 texture = ExtResource("4_x6glx")
@@ -207,6 +225,8 @@ sources/201 = SubResource("TileSetAtlasSource_yoj8j")
 sources/401 = SubResource("TileSetAtlasSource_7ekb4")
 sources/402 = SubResource("TileSetAtlasSource_ip6rj")
 sources/202 = SubResource("TileSetAtlasSource_fj2d0")
+sources/5 = SubResource("TileSetAtlasSource_tv4gf")
+sources/4 = SubResource("TileSetAtlasSource_4bpl3")
 
 [node name="GameBoard" type="Node2D"]
 script = ExtResource("1_yp6tt")
