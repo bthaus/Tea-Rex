@@ -3,10 +3,13 @@ class_name Waves
 @export var state:GameState
 signal wave_done
 var numMonstersActive=0;
-
+@onready var nav: NavigationAgent2D = $NavigationAgent2D
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	nav.target_position = $Base.global_position
+	nav.debug_enabled
+
+	
 func start(wavenumber:int):
 	var amountmonsters=10+wavenumber*3;
 	var map=state.gameBoard.get_child(0) as TileMap
@@ -36,4 +39,9 @@ func monsterDied():
 	pass;
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	pass
+	nav.get_next_path_position()
+	getPath()
+	
+func getPath():
+	var path = nav.is_target_reachable()
+	
