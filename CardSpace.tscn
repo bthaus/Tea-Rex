@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://crxh6rxjn4mro"]
 
 [ext_resource type="Script" path="res://Cards/CardSpace.gd" id="1_xvx1b"]
-[ext_resource type="Texture2D" uid="uid://65ulpuoik3sk" path="res://Assets/Cards/deck.png" id="2_36ov1"]
-[ext_resource type="Texture2D" uid="uid://c2ktmv44r7ds2" path="res://Assets/Cards/deckDisabled.png" id="3_d6ilm"]
+[ext_resource type="Texture2D" uid="uid://bo7e2a3xuu6je" path="res://Assets/Cards/deck.png" id="2_36ov1"]
+[ext_resource type="Texture2D" uid="uid://cyf64tbybyxed" path="res://Assets/Cards/deckDisabled.png" id="3_d6ilm"]
 [ext_resource type="Script" path="res://Cards/DrawDeck.gd" id="4_u23i2"]
 
 [node name="Cardspace" type="Node2D"]
