@@ -12,9 +12,11 @@ enum BoardAction {NONE=0, PLAYER_BUILD=1, PLAYER_MOVE=2, PLAYER_BULLDOZER=3}
 var action: BoardAction = BoardAction.NONE
 var done: Callable
 
-const SELECTION_LAYER = 2
-const EXTENSION_LAYER = 1
+
 const BLOCK_LAYER = 0
+const GROUND_LAYER = 1
+const EXTENSION_LAYER = 2
+const SELECTION_LAYER = 3
 
 var is_dragging_camera = false
 var ignore_click = false
@@ -23,6 +25,7 @@ const LEGAL_PLACEMENT_TILE_ID = 1
 const ILLEGAL_PLACEMENT_TILE_ID = 2
 const WALL_TILE_ID = 3
 const PREVIEW_BLOCK_TILE_ID = 4
+const EMPTY_TILE_ID = 6
 
 var navigation_polygon = NavigationPolygon.new()
 var points = PackedVector2Array([Vector2(),Vector2(),Vector2(),Vector2()])
@@ -212,7 +215,9 @@ func _action_finished(finished: bool):
 		done = Callable() #Reset callable
 	_spawn_turrets()
 
-func _draw_walls():
+func draw_field():
+	clear_field()
+	#Redraw walls and ground
 	for row in Stats.board_height:
 		$Board.set_cell(BLOCK_LAYER, Vector2(0,row), WALL_TILE_ID, Vector2(0,0))
 		$Board.set_cell(BLOCK_LAYER, Vector2(Stats.board_width-1,row), WALL_TILE_ID, Vector2(0,0))
@@ -220,9 +225,33 @@ func _draw_walls():
 	for col in Stats.board_width:
 		$Board.set_cell(BLOCK_LAYER, Vector2(col,0), WALL_TILE_ID, Vector2(0,0))
 		$Board.set_cell(BLOCK_LAYER, Vector2(col,Stats.board_height-1), WALL_TILE_ID, Vector2(0,0))
+	
+	for row in range(1, Stats.board_height-1):
+		for col in range(1, Stats.board_width-1):
+			$Board.set_cell(GROUND_LAYER, Vector2(col, row), EMPTY_TILE_ID, Vector2(0,0))
 		
 	$NavigationRegion2D.bake_navigation_polygon()
-	
+
+func clear_field():
+	var index = 0
+	var width
+	var height
+	while($Board.get_cell_tile_data(BLOCK_LAYER, Vector2(0, index)) != null): index += 1
+	height = index
+	index = 0
+	while($Board.get_cell_tile_data(BLOCK_LAYER, Vector2(index, 0)) != null): index += 1
+	width = index
+
+	for row in height:
+		$Board.set_cell(BLOCK_LAYER, Vector2(0, row), -1, Vector2(0,0))
+		$Board.set_cell(BLOCK_LAYER, Vector2(width-1, row), -1, Vector2(0,0))
+		
+	for col in width:
+		$Board.set_cell(BLOCK_LAYER, Vector2(col,0), -1, Vector2(0,0))
+		$Board.set_cell(BLOCK_LAYER, Vector2(col, height-1), -1, Vector2(0,0))
+		
+	$Board.clear_layer(GROUND_LAYER)
+
 func _spawn_turrets():
 	_remove_turrets()
 	for row in range(1,Stats.board_height-1):

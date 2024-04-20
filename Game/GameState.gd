@@ -133,7 +133,7 @@ func _on_spawner_wave_done():
 
 
 func _on_button_pressed():
-	gameBoard._draw_walls()
+	gameBoard.draw_field()
 	drawCards(maxCards)
 	$CanvasLayer/Button.queue_free()
 	pass # Replace with function body.
