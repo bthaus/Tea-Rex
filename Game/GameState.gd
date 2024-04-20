@@ -3,12 +3,12 @@ class_name GameState;
 
 @export var gameBoard:Node2D;
 @export var hand:Node2D
-
+@export var menu:Node2D
 
 var cardhand;
 var account:String="player1";
 #Stats.TurretExtension
-var unlockedExtensions=[];
+var unlockedExtensions=[Stats.TurretExtension.DEFAULT];
 #Stats.TurretColor
 var unlockedColors=[Stats.TurretColor.BLUE];
 #Stats.SpecialCards
@@ -42,7 +42,7 @@ var handCards=[]
 signal player_died
 signal start_build_phase;
 signal start_combat_phase;
-signal level_up
+signal level_up(item,base)
 
 @export   var cam:Camera2D;
 static var gameState;
@@ -58,11 +58,11 @@ func updateValues():
 	pass;
 func upMaxCards():
 	maxCards=maxCards+1;
-	$CanvasLayer/maxcards.text="MAXCARDS: "+str(maxCards)
+	$CanvasLayer/UI/maxcards.text="MAXCARDS: "+str(maxCards)
 	pass;
 func upRedraws():
 	cardRedraws=cardRedraws+1;
-	$CanvasLayer/redraws.text="REDRAWS: "+str(cardRedraws)
+	$CanvasLayer/UI/redraws.text="REDRAWS: "+str(cardRedraws)
 	pass;
 func changeHealth(amount:int):
 	HP=HP+amount
@@ -72,7 +72,7 @@ func changeHealth(amount:int):
 		
 	if HP<=0:
 		player_died.emit()
-	$CanvasLayer/HP.text=str(HP)
+	$CanvasLayer/UI/HP.text=str(HP)
 	pass;
 	
 func changeMaxHealth(amount:int):
@@ -84,7 +84,8 @@ func changeMaxHealth(amount:int):
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	
+	if get_child_count()==0:
+		queue_free()
 	gameState=self;
 	
 	Engine.max_fps=30;
@@ -110,13 +111,13 @@ func _on_start_battle_phase_pressed():
 	$Spawner.start(wave)
 	wave=wave+1;
 	phase=Stats.GamePhase.BATTLE
-	$CanvasLayer/PHASE.text="BATTLEPHASE"
+	$CanvasLayer/UI/PHASE.text="BATTLEPHASE"
 	pass # Replace with function body.
 func startBuildPhase():
 	startCatastrophy()	
 	start_build_phase.emit()
 	phase=Stats.GamePhase.BUILD
-	$CanvasLayer/PHASE.text="BUILDPHASE"
+	$CanvasLayer/UI/PHASE.text="BUILDPHASE"
 	drawCards(cardRedraws)	
 		
 	pass;
@@ -138,11 +139,10 @@ func _on_spawner_wave_done():
 func _on_button_pressed():
 	gameBoard._draw_walls()
 	drawCards(maxCards)
-	$CanvasLayer/Button.queue_free()
 	pass # Replace with function body.
 func addExp(monster:Monster):
 	totalExp=totalExp+monster.getExp()
-	$CanvasLayer/EXP.text=str(totalExp)
+	$CanvasLayer/UI/EXP.text=str(totalExp)
 	checkLevelUp()
 	
 	pass;
@@ -164,7 +164,7 @@ func unlockRandom(base,pool):
 			tounlock.append(a)
 	var unlocked=tounlock[Stats.rng.randi_range(0,tounlock.size()-1)]
 	pool.append(unlocked)
-	level_up.emit()
+	level_up.emit(unlocked,base)
 	pass;
 	
 

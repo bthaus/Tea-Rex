@@ -21,10 +21,7 @@ var ID;
 static var rng=RandomNumberGenerator.new()
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	
-	util.p("gamestate for cards is still maldefined, please check once main scene is set up","Bodo","FutureFix")
-
-	
+		
 	var text=load("res://Assets/SpecialCards/"+Stats.getStringFromSpecialCardEnum(cardName)+"_preview.png")
 	
 	if text==null:
