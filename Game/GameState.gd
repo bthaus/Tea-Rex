@@ -69,7 +69,7 @@ func changeHealth(amount:int):
 		
 	if HP<=0:
 		player_died.emit()
-	util.p("debug hp: "+str(HP))
+	$CanvasLayer/HP.text=str(HP)
 	pass;
 	
 func changeMaxHealth(amount:int):
@@ -110,14 +110,22 @@ func _on_start_battle_phase_pressed():
 	$CanvasLayer/PHASE.text="BATTLEPHASE"
 	pass # Replace with function body.
 func startBuildPhase():
-	
+	startCatastrophy()	
 	start_build_phase.emit()
 	phase=Stats.GamePhase.BUILD
 	$CanvasLayer/PHASE.text="BUILDPHASE"
 	drawCards(cardRedraws)	
 		
 	pass;
-
+func startCatastrophy():
+	if wave%1!=0:	return
+	
+	var cat=Stats.getRandomCatastrophy();
+	util.p(cat+"_catastrophy called")
+	if not gameBoard.has_method(cat+"_catastrophy"): return
+	gameBoard.call(cat+"_catastrophy").bind(func():print("catastrophy done"))
+	
+	pass;
 func _on_spawner_wave_done():
 	startBuildPhase()
 	
@@ -125,6 +133,14 @@ func _on_spawner_wave_done():
 
 
 func _on_button_pressed():
+	gameBoard._draw_walls()
 	drawCards(maxCards)
 	$CanvasLayer/Button.queue_free()
+	pass # Replace with function body.
+
+
+func _on_area_2d_area_entered(area):
+	var m=area.get_parent()
+	if m is Monster:
+		changeHealth(-m.damage)
 	pass # Replace with function body.

@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://ct8v030fwp2gh"]
+[gd_scene load_steps=19 format=3 uid="uid://ct8v030fwp2gh"]
 
 [ext_resource type="Script" path="res://Game/GameState.gd" id="1_g64db"]
 [ext_resource type="Script" path="res://Persistency/GameSaver.gd" id="2_7eagx"]
@@ -7,8 +7,10 @@
 [ext_resource type="Texture2D" uid="uid://chsgerkqrpoy6" path="res://Assets/Level/Backgrounddummy.png" id="4_ykfqr"]
 [ext_resource type="Texture2D" uid="uid://bo7e2a3xuu6je" path="res://Assets/Cards/deck.png" id="6_cef84"]
 [ext_resource type="PackedScene" uid="uid://c8n0am7jadxj7" path="res://GameBoard/game_board.tscn" id="6_ghxp6"]
-[ext_resource type="Texture2D" uid="uid://cyf64tbybyxed" path="res://Assets/Cards/deckDisabled.png" id="7_7b03k"]
+[ext_resource type="Texture2D" uid="uid://c2ktmv44r7ds2" path="res://Assets/Cards/deckDisabled.png" id="7_7b03k"]
+[ext_resource type="Texture2D" uid="uid://ciujx66e0cmmp" path="res://Assets/Level/base.png" id="7_mq4xw"]
 [ext_resource type="PackedScene" uid="uid://cdrytflh1sqcx" path="res://TurretScripts/turretbase.tscn" id="8_dpx1q"]
+[ext_resource type="Texture2D" uid="uid://cfudr8ysiyfsl" path="res://Assets/Monsters/Monster.png" id="8_ldw13"]
 [ext_resource type="Script" path="res://GameBoard/game_board_camera.gd" id="9_18cub"]
 [ext_resource type="PackedScene" uid="uid://crxh6rxjn4mro" path="res://CardSpace.tscn" id="10_5a5mt"]
 [ext_resource type="Script" path="res://Game/Waves.gd" id="10_tv5je"]
@@ -33,6 +35,9 @@ adjustment_enabled = true
 adjustment_brightness = 1.08
 adjustment_contrast = 1.1
 adjustment_saturation = 1.34
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jk75f"]
+radius = 118.271
 
 [node name="MainScene" type="Node2D" node_paths=PackedStringArray("gameBoard", "hand", "cam")]
 script = ExtResource("1_g64db")
@@ -61,12 +66,27 @@ current = true
 position = Vector2(-736, -503)
 stream = ExtResource("3_avl3y")
 
-[node name="Spawner" type="Node2D" parent="."]
-position = Vector2(-1097.01, 454.173)
+[node name="Spawner" type="Node2D" parent="." node_paths=PackedStringArray("state")]
+position = Vector2(152.286, 238.819)
 script = ExtResource("10_tv5je")
+state = NodePath("..")
 
 [node name="Base" type="Node2D" parent="Spawner"]
-position = Vector2(2129.05, 393.775)
+position = Vector2(841.122, -43.6834)
+scale = Vector2(0.58, 0.58)
+
+[node name="Sprite2D" type="Sprite2D" parent="Spawner/Base"]
+texture = ExtResource("7_mq4xw")
+
+[node name="Area2D" type="Area2D" parent="Spawner/Base"]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Spawner/Base/Area2D"]
+shape = SubResource("CircleShape2D_jk75f")
+
+[node name="Sprite2D" type="Sprite2D" parent="Spawner"]
+texture = ExtResource("8_ldw13")
 
 [node name="GameBoard" parent="." instance=ExtResource("6_ghxp6")]
 
@@ -74,14 +94,14 @@ position = Vector2(2129.05, 393.775)
 
 [node name="Sprite2D" type="Sprite2D" parent="DebugAndTesting"]
 z_index = -3
-position = Vector2(-418, 464)
+position = Vector2(-380, 498)
 scale = Vector2(38.789, 24.599)
 texture = ExtResource("4_ykfqr")
 
 [node name="Turret" parent="DebugAndTesting" instance=ExtResource("8_dpx1q")]
-position = Vector2(966.886, 738.814)
-type = 5
+position = Vector2(994, 740)
 stacks = 3
+extension = 2
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 scale = Vector2(0.565, 0.565)
@@ -114,10 +134,10 @@ position = Vector2(141.593, 945.133)
 state = NodePath("../..")
 
 [node name="Button" type="Button" parent="CanvasLayer"]
-offset_left = 1624.78
-offset_top = 957.522
-offset_right = 1729.78
-offset_bottom = 1114.52
+offset_left = 646.018
+offset_top = 414.159
+offset_right = 1439.02
+offset_bottom = 571.159
 text = "StartGame"
 
 [node name="maxcards" type="Label" parent="CanvasLayer"]
@@ -125,15 +145,15 @@ offset_left = 56.6372
 offset_top = 994.69
 offset_right = 144.637
 offset_bottom = 1052.69
-text = "maxcards"
+text = "maxcards 5"
 
 [node name="redraws" type="Label" parent="CanvasLayer"]
 offset_left = 54.8818
 offset_top = 1061.66
 offset_right = 118.882
 offset_bottom = 1084.66
-text = "redraws
-"
+text = "redraws 1
+ "
 
 [node name="drawcard" type="Button" parent="CanvasLayer"]
 offset_left = 1734.51
@@ -143,7 +163,15 @@ offset_bottom = 951.929
 text = "Draw Card"
 icon = ExtResource("14_fosf7")
 
+[node name="HP" type="Label" parent="CanvasLayer"]
+offset_left = 1008.85
+offset_top = 86.7257
+offset_right = 1048.85
+offset_bottom = 109.726
+text = "100"
+
 [connection signal="wave_done" from="Spawner" to="." method="_on_spawner_wave_done"]
+[connection signal="area_entered" from="Spawner/Base/Area2D" to="." method="_on_area_2d_area_entered"]
 [connection signal="pressed" from="CanvasLayer/StartBattlePhase" to="." method="_on_start_battle_phase_pressed"]
 [connection signal="pressed" from="CanvasLayer/Button" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/drawcard" to="." method="drawCards" binds= [1]]

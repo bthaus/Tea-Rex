@@ -4,11 +4,11 @@ const block_size=64;
 const board_width=16;
 const board_height=16;
 
-const base_range=10;
+const base_range=5;
 const green_range=2*base_range;
 const blue_range=2*base_range;
 const yellow_range=10*base_range;
-const red_range=0.2*base_range;
+const red_range=0.4*base_range;
 const grey_range=2*base_range;
 
 const red_laser_range=1*base_range;
@@ -18,7 +18,7 @@ const green_poison_range=2*base_range;
 const base_missile_speed=1000;
 const green_missile_speed=1*base_missile_speed;
 const blue_missile_speed=2*base_missile_speed;
-const yellow_missile_speed=10*base_missile_speed;
+const yellow_missile_speed=3*base_missile_speed;
 const red_missile_speed=1*base_missile_speed;
 const grey_missile_speed=2*base_missile_speed;
 
@@ -43,7 +43,7 @@ const green_damage=base_damage*1;
 const blue_damage=base_damage*2;
 const yellow_damage=base_damage*3;
 const grey_damage=base_damage*1;
-const red_damage=base_damage*1;
+const red_damage=base_damage*2;
 
 const red_laser_damage=base_damage*0.5;
 const blue_laser_damage=base_damage*2;
@@ -52,7 +52,7 @@ const green_poison_damage=base_damage*1;
 const base_penetrations=1;
 const green_penetrations=base_penetrations*1;
 const blue_penetrations=base_penetrations*1;
-const yellow_penetrations=base_penetrations*1;
+const yellow_penetrations=base_penetrations*-1000000;
 const grey_penetrations=base_penetrations*1;
 const red_penetrations=base_penetrations*-1000000;
 
@@ -79,11 +79,11 @@ const poison_propagation_rate=3;
 const poison_propagation_range=base_range*0.3
 const green_poison_decay=1;
 
-const enemy_base_HP=50;
-const GREEN_enemy_HP=enemy_base_HP*3;
-const BLUE_enemy_HP=enemy_base_HP*1;
-const YELLOW_enemy_HP=enemy_base_HP*0.5;
-const RED_enemy_HP=enemy_base_HP*2;
+static var enemy_base_HP:float=50;
+static var GREEN_enemy_HP=enemy_base_HP*3;
+static var BLUE_enemy_HP=enemy_base_HP*1;
+static var YELLOW_enemy_HP=enemy_base_HP*0.5;
+static var RED_enemy_HP=enemy_base_HP*2;
 
 const enemy_base_damage=500;
 const GREEN_enemy_damage=enemy_base_damage*1;
@@ -140,7 +140,7 @@ const GLUE_instant=false;
 const GLUE_slowFactor=0.5;
 const GLUE_Duration=10;
 
-
+static var rng=RandomNumberGenerator.new()
 const POISON_damage=100;
 const POISON_range=0.5;
 const POISON_phase=GamePhase.BATTLE
@@ -161,7 +161,7 @@ enum TurretExtension {DEFAULT=1,REDLASER=2, BLUELASER=3, YELLOWCATAPULT=4, GREEN
 enum GamePhase {BATTLE=1,BUILD=2,BOTH=3};
 enum SpecialCards {HEAL=1,FIREBALL=2,UPHEALTH=3,CRYOBALL=4,MOVE=5, BULLDOZER=6,GLUE=7,POISON=8, UPDRAW=9, UPMAXCARDS=10}
 enum BlockShape {O=1, I=2, S=3, Z=4, L=5, J=6, T=7, TINY=8, SMALL=9, ARROW=10, CROSS=11}
-enum Catastrophies {METEOR=1,SWITCH=2,EXPAND=3,ADDSPAWNER=4,EARTHQUAKE=5}
+enum Catastrophies {METEOR=1,EXPAND=3,ADDSPAWNER=4,EARTHQUAKE=5}
 
 static var stats=Stats.new()
 var map;
@@ -340,13 +340,16 @@ static func getRandomCard(gamestate):
 		card= BlockCard.create(gamestate)
 	return card;	
 
+static func getRandomCatastrophy():
+	return Catastrophies.keys()[rng.randi_range(0,Catastrophies.size()-1)]
 
 func getRandomBlock(lvl,gamestate):
 	#TODO: add card chances
 	var rng=RandomNumberGenerator.new()
 	var chance = rng.randi_range(0,100)
-	var sum = 0
+	var sum = 0	
 	var color = getiterativeColor()
+	
 	for i in colorChances.size():
 		sum += colorChances[i]
 		if chance < sum:
@@ -361,7 +364,7 @@ func getRandomBlock(lvl,gamestate):
 					extension = getExtensionFromColor(color)
 	
 	var block=BlockShape.values()[rng.randi_range(0,BlockShape.size()-1)]
-	return getBlockFromShape(block,color,2,extension)
+	return getBlockFromShape(block,color,lvl,extension)
 	
 static func getExtensionFromColor(color: TurretColor):
 	match color:

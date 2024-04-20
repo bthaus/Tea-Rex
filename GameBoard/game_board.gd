@@ -40,7 +40,7 @@ func _ready():
 	#block_handler.draw_block(block, Vector2(6,6), BLOCK_LAYER, EXTENSION_LAYER)
 	#$Board.set_cell(BLOCK_LAYER, Vector2(10,10), WALL_TILE_ID, Vector2(0,0))
 	
-	# _draw_walls()
+	#_draw_walls()
 	_spawn_turrets()
 	_set_navigation_region()
 	

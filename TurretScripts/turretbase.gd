@@ -55,19 +55,20 @@ func setUpTower():
 		1:$PointLight2D.color=Color(Color.BLUE)
 		2: $PointLight2D.color=Color(Color.GREEN)
 		3: $PointLight2D.color=Color(Color.RED)
-		4:$PointLight2D.color=Color(Color.YELLOW)
+		4: $PointLight2D.color=Color(Color.YELLOW); instantHit=true;
 	cooldown=Stats.getCooldown(type,extension);
 	damage=Stats.getDamage(type,extension);
 	speed=Stats.getMissileSpeed(type,extension);
-	
+	projectile=Projectile.create(type,damage*damagefactor,speed*speedfactor,self,extension);
 	if type==Stats.TurretColor.RED:
 		
-		projectile=Projectile.create(type,damage*damagefactor,speed*speedfactor,self,extension);
+		
 		projectile.visible=false;
 		projectile.z_index=-1;
 		projectile.visible=true;
 		$AudioStreamPlayer2D.finished.connect(func(): if inRange():$AudioStreamPlayer2D.play)
 	if type==Stats.TurretColor.RED and extension==Stats.TurretExtension.REDLASER:
+		$Base.visible=false
 		$Barrel.scale=Vector2(-1,-1)
 		$Barrel.offset=Vector2(-0,15)
 		$Barrel/second.position=$Barrel/second.position*1.5
@@ -86,15 +87,40 @@ static var sounds=0;
 func _draw():
 	if type==Stats.TurretColor.RED&&extension==Stats.TurretExtension.REDLASER:
 		draw_redlaser()
-		
+	if Stats.TurretColor.YELLOW==type:
+		draw_SniperLine()	
 	pass;
+func draw_SniperLine():
+		if target!=null:
+			targetposition=target;
+		if target==null&&buildup<=0:
+			return
+		
+		direction=(targetposition-self.global_position).normalized();
+		$Barrel.rotation=direction.angle() + PI / 2.0;
+		var color=Color(1,1,1,1*buildup)
+		var thickness=1*buildup;
+
+		draw_line($Barrel/BulletPosition.position.rotated($Barrel.rotation),-(global_position-targetposition),color,thickness,true)
+		draw_line($Barrel/BulletPosition.position.rotated($Barrel.rotation),-(global_position-targetposition),color,thickness,true)
+		
+		if stacks>=2:
+			draw_line(($Barrel/second.position+$Barrel/second/BulletPosition.position).rotated($Barrel.rotation),-(global_position-(targetposition)-($Barrel/second.position-$Barrel/second/BulletPosition.position).rotated($Barrel.rotation)),color,thickness,true)
+			draw_line(($Barrel/second.position+$Barrel/second/BulletPosition.position).rotated($Barrel.rotation),-(global_position-(targetposition)-($Barrel/second.position-$Barrel/second/BulletPosition.position).rotated($Barrel.rotation)),color,thickness,true)
+		if stacks>=3:
+			draw_line(($Barrel/third.position+$Barrel/third/BulletPosition.position).rotated($Barrel.rotation),-(global_position-(targetposition)-($Barrel/third.position-$Barrel/third/BulletPosition.position).rotated($Barrel.rotation)),color,thickness,true)
+			draw_line(($Barrel/third.position+$Barrel/third/BulletPosition.position).rotated($Barrel.rotation),-(global_position-(targetposition)-($Barrel/third.position-$Barrel/third/BulletPosition.position).rotated($Barrel.rotation)),color,thickness,true)
+		
+		pass;
+	
+	
 func draw_redlaser():
 	if target!=null:
 		targetposition=target.global_position;
 	if target==null&&buildup<=0:
 		return
 	var thickness=5;
-	if buildup>0:
+	if buildup>0&&Stats.TurretColor.RED==type:
 		direction=(targetposition-self.global_position).normalized();
 		$Barrel.rotation=direction.angle() + PI / 2.0;
 		var color=Color(500,0.2+(0.2*buildup*sin(Time.get_ticks_usec())),0.2+(0.2*buildup*sin(Time.get_ticks_usec())),buildup)
@@ -109,15 +135,16 @@ func draw_redlaser():
 		if stacks>=3:
 			draw_line(($Barrel/third.position+$Barrel/third/BulletPosition.position).rotated($Barrel.rotation),-(global_position-(targetposition)-($Barrel/third.position-$Barrel/third/BulletPosition.position).rotated($Barrel.rotation)),color,thickness/2*buildup,true)
 			draw_line(($Barrel/third.position+$Barrel/third/BulletPosition.position).rotated($Barrel.rotation),-(global_position-(targetposition)-($Barrel/third.position-$Barrel/third/BulletPosition.position).rotated($Barrel.rotation)),color,thickness*buildup+(3*buildup*sin(Time.get_ticks_usec())),true)
-		
+
 	pass;
 func _process(delta):
-	
+	if type==Stats.TurretColor.YELLOW&&extension==Stats.TurretExtension.DEFAULT:
+		buildup=buildup-4*delta;	
 
 	if inRange():
 		
 		
-		if buildup<=1:
+		if buildup<=1 and (type==Stats.TurretColor.RED&&extension==Stats.TurretExtension.REDLASER):
 			buildup=buildup+1*delta*2;
 		var target=$EnemyDetector.enemiesInRange[0];
 		direction=(target.global_position-self.global_position).normalized();
@@ -134,7 +161,7 @@ func _process(delta):
 				$Timer.start(cooldown*cooldownfactor);		
 				onCooldown=true;
 				return;
-			if type==Stats.TurretColor.RED&&extension==Stats.TurretExtension.REDLASER:
+			if (type==Stats.TurretColor.RED&&extension==Stats.TurretExtension.REDLASER):
 				
 				if camera!=null:
 					var mod=camera.zoom.y-3;
@@ -151,7 +178,22 @@ func _process(delta):
 				$Timer.start(cooldown*cooldownfactor);
 				onCooldown=true;
 				return
-			
+			if (type==Stats.TurretColor.YELLOW&&extension==Stats.TurretExtension.DEFAULT):
+				if camera!=null:
+					var mod=camera.zoom.y-3;
+					$AudioStreamPlayer2D.volume_db=mod*10
+					
+				if !$AudioStreamPlayer2D.playing&&sounds<25:
+					$AudioStreamPlayer2D.play()
+					sounds=sounds+1
+					
+				self.target=target.global_position;
+				projectile.hitEnemy(target)
+				buildup=1;
+				queue_redraw()
+				$Timer.start(cooldown*cooldownfactor);
+				onCooldown=true;
+				return
 			shoot(target);
 	elif buildup>0:
 		buildup=buildup-2*delta;		

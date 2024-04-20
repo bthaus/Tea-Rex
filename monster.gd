@@ -7,7 +7,7 @@ var speedfactor=Stats.enemy_base_speed_factor;
 var speed = Stats.enemy_base_speed;
 var accel = Stats.enemy_base_acceleration;
 @export var color:Stats.TurretColor=Stats.TurretColor.BLUE
-
+var died=false;
 @export var target: Node2D #goal
 @onready var nav: NavigationAgent2D = $NavigationAgent2D
 signal monster_died
@@ -43,7 +43,8 @@ func hit(color:Stats.TurretColor,damage,type="default"):
 		mod=1.5
 	hp=hp-damage*mod;
 	$HP.text=str(hp)
-	if hp<=0:
+	if hp<=0 and not died:
+		died=true
 		monster_died.emit()
 		queue_free()
 	pass;
