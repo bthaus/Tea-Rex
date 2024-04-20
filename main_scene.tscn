@@ -67,7 +67,7 @@ position = Vector2(-736, -503)
 stream = ExtResource("3_avl3y")
 
 [node name="Spawner" type="Node2D" parent="." node_paths=PackedStringArray("state") groups=["spawner"]]
-position = Vector2(152.286, 238.819)
+position = Vector2(163.286, 238.819)
 script = ExtResource("10_tv5je")
 state = NodePath("..")
 
@@ -89,7 +89,6 @@ shape = SubResource("CircleShape2D_jk75f")
 texture = ExtResource("8_ldw13")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="Spawner"]
-debug_enabled = true
 
 [node name="GameBoard" parent="." instance=ExtResource("6_ghxp6")]
 
