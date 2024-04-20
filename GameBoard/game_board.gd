@@ -5,6 +5,8 @@ var selected_block = null
 var moved_from_position = Vector2.ZERO #As (0,0) will be part of the wall, it is outside of bounds and can be treated as not initialized
 var moved_from_block = null
 
+var spawners 
+
 @onready var block_handler = BlockHandler.new($Board)
 enum BoardAction {NONE=0, PLAYER_BUILD=1, PLAYER_MOVE=2, PLAYER_BULLDOZER=3}
 var action: BoardAction = BoardAction.NONE
@@ -31,6 +33,7 @@ func _ready():
 	$Board.add_to_group("navigation")
 	navigation_polygon.source_geometry_mode = NavigationPolygon.SOURCE_GEOMETRY_GROUPS_WITH_CHILDREN
 	
+	spawners = get_tree().get_nodes_in_group("spawner")
 	
 	$Camera2D.is_dragging_camera.connect(dragging_camera)
 	# draw a test block
@@ -135,10 +138,10 @@ func _process(_delta):
 		if action == BoardAction.PLAYER_BULLDOZER:
 			block_handler.draw_block_with_tile_id(selected_block, board_pos, LEGAL_PLACEMENT_TILE_ID, SELECTION_LAYER)
 		elif action != BoardAction.NONE:
-			if block_handler.can_place_block(selected_block, BLOCK_LAYER, board_pos):
+			if block_handler.can_place_block(selected_block, BLOCK_LAYER, board_pos, $NavigationRegion2D, spawners):
 				if $Board.get_cell_tile_data(BLOCK_LAYER, board_pos) == null: #Only draw invisible preview block if we place a new block (no upgrade)
 					block_handler.draw_block_with_tile_id(selected_block, board_pos, PREVIEW_BLOCK_TILE_ID, BLOCK_LAYER)
-				$NavigationRegion2D.bake_navigation_polygon()
+					$NavigationRegion2D.bake_navigation_polygon()
 				block_handler.draw_block_with_tile_id(selected_block, board_pos, LEGAL_PLACEMENT_TILE_ID, SELECTION_LAYER)
 			else:
 				block_handler.draw_block_with_tile_id(selected_block, board_pos, ILLEGAL_PLACEMENT_TILE_ID, SELECTION_LAYER)
@@ -154,7 +157,7 @@ func _input(event):
 	if event.is_action_released("left_click"):
 		match action:
 			BoardAction.PLAYER_BUILD:
-				if block_handler.can_place_block(selected_block, BLOCK_LAYER, board_pos):
+				if block_handler.can_place_block(selected_block, BLOCK_LAYER, board_pos, $NavigationRegion2D, spawners):
 					_place_block(selected_block, board_pos)
 					_action_finished(true)
 			
@@ -170,7 +173,7 @@ func _input(event):
 					_spawn_turrets()
 
 				else:
-					if block_handler.can_place_block(selected_block, BLOCK_LAYER, board_pos):
+					if block_handler.can_place_block(selected_block, BLOCK_LAYER, board_pos, $NavigationRegion2D, spawners):
 						_place_block(selected_block, board_pos)
 						_action_finished(true)
 					

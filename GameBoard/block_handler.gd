@@ -98,7 +98,7 @@ func set_block_level(block: Block, level: int):
 		piece.level = level
 
 #Again, checks based upon (0,0) position of block
-func can_place_block(block: Block, layer: int, position: Vector2) -> bool:
+func can_place_block(block: Block, layer: int, position: Vector2, navigation_region: NavigationRegion2D, spawners) -> bool:
 	clear_preview_blocks(layer)
 	if block.pieces.size() == 0: return true
 
@@ -142,8 +142,15 @@ func can_place_block(block: Block, layer: int, position: Vector2) -> bool:
 	#Check if a path would be valid
 	if board.get_cell_tile_data(layer, position) == null: #We want to build something new (no upgrade)
 		draw_block_with_tile_id(block, position, PREVIEW_BLOCK_TILE_ID, layer)
-		#TODO: Check valid path
+		navigation_region.bake_navigation_polygon()
+		var all_paths_valid = true
+		for spawn in spawners:
+			if not spawn.can_reach_target():
+				all_paths_valid = false
+				break
 		remove_block_from_board(block, position, layer, -1, false)
+		if not all_paths_valid:
+			return false
 		
 	return true
 

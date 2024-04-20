@@ -40,8 +40,7 @@ func monsterDied():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	nav.get_next_path_position()
-	getPath()
 	
-func getPath():
-	var path = nav.is_target_reachable()
+func can_reach_target():
+	return nav.is_target_reachable()
 	

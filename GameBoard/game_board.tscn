@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://c8n0am7jadxj7"]
+[gd_scene load_steps=40 format=3 uid="uid://c8n0am7jadxj7"]
 
 [ext_resource type="Script" path="res://GameBoard/game_board.gd" id="1_yp6tt"]
 [ext_resource type="Texture2D" uid="uid://dhcd6oxm5j8af" path="res://Assets/Tiles/dummy_tile_legal_placement.png" id="2_1fom0"]
@@ -19,7 +19,6 @@
 [ext_resource type="Script" path="res://GameBoard/game_board_camera.gd" id="14_7fjk4"]
 [ext_resource type="Texture2D" uid="uid://crslymasjrwta" path="res://Assets/Tiles/dummy_tile_yellow.png" id="14_wq08t"]
 [ext_resource type="Texture2D" uid="uid://dvgjbw0x355ii" path="res://Assets/Tiles/preview_block.png" id="15_bp0o7"]
-[ext_resource type="Texture2D" uid="uid://dfa7hhmwvsitj" path="res://Assets/Tiles/dummy_preview_block2.png" id="15_ea3s8"]
 [ext_resource type="Texture2D" uid="uid://bvkywmlnq6kdn" path="res://Assets/Tiles/dummy_tile_yellow_2.png" id="16_805pv"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vgdp6"]
@@ -142,8 +141,8 @@ texture_region_size = Vector2i(64, 64)
 0:0/0/custom_data_0 = "RED"
 0:0/0/custom_data_1 = 2
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4bpl3"]
-texture = ExtResource("15_ea3s8")
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_tv4gf"]
+texture = ExtResource("15_bp0o7")
 texture_region_size = Vector2i(64, 64)
 0:0/0 = 0
 0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
@@ -169,14 +168,6 @@ texture_region_size = Vector2i(64, 64)
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)
 0:0/0/custom_data_0 = "YELLOW"
 0:0/0/custom_data_1 = 2
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_tv4gf"]
-texture = ExtResource("15_bp0o7")
-texture_region_size = Vector2i(64, 64)
-0:0/0 = 0
-0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
-0:0/0/physics_layer_0/angular_velocity = 0.0
-0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_j0kt8"]
 texture = ExtResource("4_x6glx")
@@ -225,8 +216,7 @@ sources/201 = SubResource("TileSetAtlasSource_yoj8j")
 sources/401 = SubResource("TileSetAtlasSource_7ekb4")
 sources/402 = SubResource("TileSetAtlasSource_ip6rj")
 sources/202 = SubResource("TileSetAtlasSource_fj2d0")
-sources/5 = SubResource("TileSetAtlasSource_tv4gf")
-sources/4 = SubResource("TileSetAtlasSource_4bpl3")
+sources/4 = SubResource("TileSetAtlasSource_tv4gf")
 
 [node name="GameBoard" type="Node2D"]
 script = ExtResource("1_yp6tt")
