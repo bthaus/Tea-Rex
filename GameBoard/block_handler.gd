@@ -2,8 +2,11 @@ extends Node
 
 class_name BlockHandler
 var board: TileMap
+
 func _init(board: TileMap):
 	self.board = board
+	
+const PREVIEW_BLOCK_TILE_ID = 4
 
 #Returns the tile id for a piece. Example: Blue tower with level 12 -> Blue has enum value 5 -> id = 512
 func get_tile_id_from_block_piece(piece: Block.Piece) -> int:
@@ -18,21 +21,24 @@ func draw_block(block: Block, position: Vector2, block_layer: int, extension_lay
 	for piece in block.pieces:
 		var piece_id = get_tile_id_from_block_piece(piece)
 		board.set_cell(block_layer, Vector2(piece.position.x + position.x, piece.position.y + position.y), piece_id, Vector2(0,0))
-		var extension_id = get_tile_id_from_extension(piece.extension)
-		board.set_cell(extension_layer, Vector2(piece.position.x + position.x, piece.position.y + position.y), extension_id, Vector2(0,0))
+		if extension_layer != -1:
+			var extension_id = get_tile_id_from_extension(piece.extension)
+			board.set_cell(extension_layer, Vector2(piece.position.x + position.x, piece.position.y + position.y), extension_id, Vector2(0,0))
 
 #Draws a normalized block at a given position. Does NOT draw extensions as it may override stuff (preview)
 func draw_block_with_tile_id(block: Block, position: Vector2, id: int, layer: int):
 	for piece in block.pieces:
 		board.set_cell(layer, Vector2(piece.position.x + position.x, piece.position.y + position.y), id, Vector2(0,0))
 
-func remove_block_from_board(block: Block, position: Vector2, block_layer: int, extension_layer: int):
+func remove_block_from_board(block: Block, position: Vector2, block_layer: int, extension_layer: int, remove_walls: bool):
 	for piece in block.pieces:
-		var data = board.get_cell_tile_data(block_layer, Vector2(piece.position.x + position.x, piece.position.y + position.y))
-		if data != null and data.get_custom_data("color").to_upper() == "WALL": #Skip walls as they should not be removable by this function
-			continue
+		if not remove_walls:
+			var data = board.get_cell_tile_data(block_layer, Vector2(piece.position.x + position.x, piece.position.y + position.y))
+			if data != null and data.get_custom_data("color").to_upper() == "WALL": #Skip walls as they should not be removable by this function
+				continue
 		board.set_cell(block_layer, Vector2(piece.position.x + position.x, piece.position.y + position.y), -1, Vector2(0,0))
-		board.set_cell(extension_layer, Vector2(piece.position.x + position.x, piece.position.y + position.y), -1, Vector2(0,0))
+		if extension_layer != -1:
+			board.set_cell(extension_layer, Vector2(piece.position.x + position.x, piece.position.y + position.y), -1, Vector2(0,0))
 
 #If normalized, the coordinates of each piece will be based on position (=> (0,0))
 func get_block_from_board(position: Vector2, block_layer: int, extension_layer: int, normalize: bool) -> Block:
@@ -40,9 +46,9 @@ func get_block_from_board(position: Vector2, block_layer: int, extension_layer: 
 	if data == null: #No tile available
 		return Block.new([])
 		
-	var color = data.get_custom_data("color")
+	var color = Stats.TurretColor.get(data.get_custom_data("color").to_upper())
 	var visited = []
-	var pieces = [Block.Piece.new(position, Stats.TurretColor.get(color.to_upper()), data.get_custom_data("level"))]
+	var pieces = [Block.Piece.new(position, color, data.get_custom_data("level"))]
 	var stack = [position]
 	while !stack.is_empty():
 		var curr_position = stack.pop_front()
@@ -52,18 +58,11 @@ func get_block_from_board(position: Vector2, block_layer: int, extension_layer: 
 			for col in range(-1,2):
 				var pos = Vector2(curr_position.x+col, curr_position.y+row)
 				if visited.has(pos) or stack.has(pos): continue #Piece is already present in either all the visited pieces or the current stack
-			
-				var cell_block_data = board.get_cell_tile_data(block_layer, pos)
-				var cell_extension_data = board.get_cell_tile_data(extension_layer, pos)
-				if cell_block_data != null and cell_block_data.get_custom_data("color") == color:
+				
+				var piece = get_piece_from_board(pos, block_layer, extension_layer)
+				if piece != null and piece.color == color:
 					stack.push_front(pos)
-					pieces.append(Block.Piece.new(
-						pos, 
-						Stats.TurretColor.get(color.to_upper()), 
-						cell_block_data.get_custom_data("level"),
-						Stats.TurretExtension.get(cell_extension_data.get_custom_data("extension").to_upper())
-						))
-					
+					pieces.append(piece)
 	
 	if normalize:
 		for i in pieces.size():
@@ -71,6 +70,19 @@ func get_block_from_board(position: Vector2, block_layer: int, extension_layer: 
 			pieces[i].position.y -= position.y
 			
 	return Block.new(pieces)
+	
+#Note: Walls will be ignored as the information cannot be stored in a piece properly!
+func get_piece_from_board(position: Vector2, block_layer: int, extension_layer: int) -> Block.Piece:
+	var cell_block_data = board.get_cell_tile_data(block_layer, position)
+	if cell_block_data == null or cell_block_data.get_custom_data("color").to_upper() == "WALL":
+		return null
+	var cell_extension_data = board.get_cell_tile_data(extension_layer, position)
+	return Block.Piece.new(
+						position, 
+						Stats.TurretColor.get(cell_block_data.get_custom_data("color").to_upper()), 
+						cell_block_data.get_custom_data("level"),
+						Stats.TurretExtension.get(cell_extension_data.get_custom_data("extension").to_upper())
+						)
 
 #Rotates all the pieces of a block from the origin point (0,0)
 func rotate_block(block: Block):
@@ -81,13 +93,13 @@ func rotate_block(block: Block):
 		piece.position.x = round(piece.position.x) #Dont ask me, i hate it
 		piece.position.y = round(piece.position.y)
 
-
 func set_block_level(block: Block, level: int):
 	for piece in block.pieces:
 		piece.level = level
 
 #Again, checks based upon (0,0) position of block
-func can_place_block(block: Block, layer: int, position: Vector2) -> bool:
+func can_place_block(block: Block, layer: int, position: Vector2, navigation_region: NavigationRegion2D, spawners) -> bool:
+	clear_preview_blocks(layer)
 	if block.pieces.size() == 0: return true
 
 	#Get the level of the underlying piece on the board, if available (loop will take care if its the wrong color)
@@ -126,6 +138,26 @@ func can_place_block(block: Block, layer: int, position: Vector2) -> bool:
 					if color != "WALL" and color != Stats.getStringFromEnum(Stats.TurretColor.GREY): #Walls and grey pieces are an exception, ignore them
 						if color != Stats.getStringFromEnum(piece.color): #Mismatching color
 							return false
-				
-	return true
 	
+	#Check if a path would be valid
+	if board.get_cell_tile_data(layer, position) == null: #We want to build something new (no upgrade)
+		draw_block_with_tile_id(block, position, PREVIEW_BLOCK_TILE_ID, layer)
+		navigation_region.bake_navigation_polygon()
+		var all_paths_valid = true
+		for spawn in spawners:
+			if not spawn.can_reach_target():
+				all_paths_valid = false
+				break
+		remove_block_from_board(block, position, layer, -1, false)
+		if not all_paths_valid:
+			return false
+		
+	return true
+
+func clear_preview_blocks(block_layer: int):
+	for y in Stats.board_height:
+		for x in Stats.board_width:
+			var id = board.get_cell_source_id(block_layer, Vector2(x,y))
+			if id == PREVIEW_BLOCK_TILE_ID:
+				var block = Block.new([Block.Piece.new(Vector2(0,0), Stats.TurretColor.BLUE, 1)]) #Dummy 1x1 block
+				remove_block_from_board(block, Vector2(x,y), block_layer, -1, false)
