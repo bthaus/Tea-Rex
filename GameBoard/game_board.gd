@@ -73,6 +73,7 @@ func select_piece(shape:Stats.BlockShape, color:Stats.TurretColor, done:Callable
 
 func select_block(block,done:Callable):
 	util.p("Building now...", "Jojo")
+	extend_field()
 	action = BoardAction.PLAYER_BUILD
 	selected_block = block
 	self.done = done
@@ -251,6 +252,24 @@ func clear_field():
 		$Board.set_cell(BLOCK_LAYER, Vector2(col, height-1), -1, Vector2(0,0))
 		
 	$Board.clear_layer(GROUND_LAYER)
+	
+func extend_field():
+	#Clear bottom row
+	for col in Stats.board_width:
+		$Board.set_cell(BLOCK_LAYER, Vector2(col, Stats.board_height-1), -1, Vector2(0,0))
+	
+	#Extend everything
+	for row in Stats.board_extend_height:
+		$Board.set_cell(BLOCK_LAYER, Vector2(0, row+Stats.board_height-1), WALL_TILE_ID, Vector2(0,0))
+		$Board.set_cell(BLOCK_LAYER, Vector2(Stats.board_width-1, row+Stats.board_height-1), WALL_TILE_ID, Vector2(0,0))
+		for col in Stats.board_width:
+			$Board.set_cell(GROUND_LAYER, Vector2(col, row+Stats.board_height-1), EMPTY_TILE_ID, Vector2(0,0))
+	
+	#Add bottom row
+	for col in Stats.board_width:
+		$Board.set_cell(BLOCK_LAYER, Vector2(col, Stats.board_height+Stats.board_extend_height-1), WALL_TILE_ID, Vector2(0,0))
+	
+	Stats.board_height += Stats.board_extend_height
 
 func _spawn_turrets():
 	_remove_turrets()
