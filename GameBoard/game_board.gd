@@ -73,7 +73,6 @@ func select_piece(shape:Stats.BlockShape, color:Stats.TurretColor, done:Callable
 
 func select_block(block,done:Callable):
 	util.p("Building now...", "Jojo")
-	extend_field()
 	action = BoardAction.PLAYER_BUILD
 	selected_block = block
 	self.done = done
@@ -142,13 +141,8 @@ func _process(_delta):
 		if action == BoardAction.PLAYER_BULLDOZER:
 			block_handler.draw_block_with_tile_id(selected_block, board_pos, LEGAL_PLACEMENT_TILE_ID, SELECTION_LAYER)
 		elif action != BoardAction.NONE:
-			if block_handler.can_place_block(selected_block, BLOCK_LAYER, board_pos, $NavigationRegion2D, spawners):
-				if $Board.get_cell_tile_data(BLOCK_LAYER, board_pos) == null: #Only draw invisible preview block if we place a new block (no upgrade)
-					block_handler.draw_block_with_tile_id(selected_block, board_pos, PREVIEW_BLOCK_TILE_ID, BLOCK_LAYER)
-					$NavigationRegion2D.bake_navigation_polygon()
-				block_handler.draw_block_with_tile_id(selected_block, board_pos, LEGAL_PLACEMENT_TILE_ID, SELECTION_LAYER)
-			else:
-				block_handler.draw_block_with_tile_id(selected_block, board_pos, ILLEGAL_PLACEMENT_TILE_ID, SELECTION_LAYER)
+			var id = LEGAL_PLACEMENT_TILE_ID if block_handler.can_place_block(selected_block, BLOCK_LAYER, board_pos, $NavigationRegion2D, spawners) else ILLEGAL_PLACEMENT_TILE_ID
+			block_handler.draw_block_with_tile_id(selected_block, board_pos, id, SELECTION_LAYER)
 	
 func _input(event):
 	var board_pos = $Board.local_to_map(get_global_mouse_position())

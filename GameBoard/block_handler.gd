@@ -99,7 +99,6 @@ func set_block_level(block: Block, level: int):
 
 #Again, checks based upon (0,0) position of block
 func can_place_block(block: Block, layer: int, position: Vector2, navigation_region: NavigationRegion2D, spawners) -> bool:
-	clear_preview_blocks(layer)
 	if block.pieces.size() == 0: return true
 
 	#Get the level of the underlying piece on the board, if available (loop will take care if its the wrong color)
@@ -109,7 +108,7 @@ func can_place_block(block: Block, layer: int, position: Vector2, navigation_reg
 
 	for piece in block.pieces:
 		var board_pos = Vector2(piece.position.x + position.x, piece.position.y + position.y)
-		if board_pos.x <= 0 or board_pos.x >= Stats.board_width-1 or board_pos.y <= 0 or board_pos.y >= Stats.board_height-1: #Piece is out of bounds (walls)
+		if not is_position_in_gameboard_bounds(layer, board_pos): #Check if piece is inside bounds (walls)
 			return false
 		var board_data = board.get_cell_tile_data(layer, board_pos)
 		
@@ -124,7 +123,6 @@ func can_place_block(block: Block, layer: int, position: Vector2, navigation_reg
 				return false
 		elif level != -1: #We expect a non-empty cell
 			return false
-		
 		if piece.color == Stats.TurretColor.GREY: #For grey pieces we do not have to check surrounding pieces
 			continue
 			
@@ -141,23 +139,39 @@ func can_place_block(block: Block, layer: int, position: Vector2, navigation_reg
 	
 	#Check if a path would be valid
 	if board.get_cell_tile_data(layer, position) == null: #We want to build something new (no upgrade)
-		draw_block_with_tile_id(block, position, PREVIEW_BLOCK_TILE_ID, layer)
+		draw_block_with_tile_id(block, position, PREVIEW_BLOCK_TILE_ID, layer) #Draw preview block for path
 		navigation_region.bake_navigation_polygon()
 		var all_paths_valid = true
 		for spawn in spawners:
 			if not spawn.can_reach_target():
 				all_paths_valid = false
 				break
-		remove_block_from_board(block, position, layer, -1, false)
+		remove_block_from_board(block, position, layer, -1, false) #Delete preview block again
 		if not all_paths_valid:
 			return false
 		
 	return true
 
-func clear_preview_blocks(block_layer: int):
-	for y in Stats.board_height:
-		for x in Stats.board_width:
-			var id = board.get_cell_source_id(block_layer, Vector2(x,y))
-			if id == PREVIEW_BLOCK_TILE_ID:
-				var block = Block.new([Block.Piece.new(Vector2(0,0), Stats.TurretColor.BLUE, 1)]) #Dummy 1x1 block
-				remove_block_from_board(block, Vector2(x,y), block_layer, -1, false)
+#Checks if a given position is in bounds the gameboard or not. This is needed since the caves allow a variable width.
+#The walls themselves are excluded, meaning positions on these walls will result in being out of bounds.
+func is_position_in_gameboard_bounds(layer: int, position: Vector2) -> bool:
+	if position.y <= 0 or position.y >= Stats.board_height-1:
+		return false
+	
+	#Check right side
+	var x = position.x
+	while x >= Stats.board_width-1:
+		var data = board.get_cell_tile_data(layer, Vector2(x, position.y))
+		if data != null and data.get_custom_data("color").to_upper() == "WALL":
+			return false
+		x -= 1
+	
+	#Check left side
+	x = position.x
+	while x <= 0:
+		var data = board.get_cell_tile_data(layer, Vector2(x, position.y))
+		if data != null and data.get_custom_data("color").to_upper() == "WALL":
+			return false
+		x += 1
+		
+	return true
