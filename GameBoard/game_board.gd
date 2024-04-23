@@ -258,19 +258,62 @@ func extend_field():
 	for col in Stats.board_width:
 		$Board.set_cell(BLOCK_LAYER, Vector2(col, Stats.board_height-1), -1, Vector2(0,0))
 	
-	#Extend everything
+	var generate_cave_left = randi_range(0, 100) <= Stats.board_cave_chance_percent
+	var generate_cave_right = randi_range(0, 100) <= Stats.board_cave_chance_percent
+	
+	if generate_cave_left: generate_cave(Stats.board_height-1, Stats.board_extend_height, false)
+	if generate_cave_right: generate_cave(Stats.board_height-1, Stats.board_extend_height, true)
+		
+	#Extend everything that is not a cave
 	for row in Stats.board_extend_height:
-		$Board.set_cell(BLOCK_LAYER, Vector2(0, row+Stats.board_height-1), WALL_TILE_ID, Vector2(0,0))
-		$Board.set_cell(BLOCK_LAYER, Vector2(Stats.board_width-1, row+Stats.board_height-1), WALL_TILE_ID, Vector2(0,0))
-		for col in Stats.board_width:
+		if not generate_cave_left:
+			$Board.set_cell(BLOCK_LAYER, Vector2(0, row+Stats.board_height-1), WALL_TILE_ID, Vector2(0,0))
+		if not generate_cave_right:
+			$Board.set_cell(BLOCK_LAYER, Vector2(Stats.board_width-1, row+Stats.board_height-1), WALL_TILE_ID, Vector2(0,0))
+	
+	#Draw the ground
+	for row in Stats.board_extend_height:
+		var col = 0
+		while $Board.get_cell_source_id(BLOCK_LAYER, Vector2(col, row+Stats.board_height-1)) == -1:
 			$Board.set_cell(GROUND_LAYER, Vector2(col, row+Stats.board_height-1), EMPTY_TILE_ID, Vector2(0,0))
+			col -= 1
+		col = 1
+		while $Board.get_cell_source_id(BLOCK_LAYER, Vector2(col, row+Stats.board_height-1)) == -1:
+			$Board.set_cell(GROUND_LAYER, Vector2(col, row+Stats.board_height-1), EMPTY_TILE_ID, Vector2(0,0))
+			col += 1
 	
 	#Add bottom row
 	for col in Stats.board_width:
 		$Board.set_cell(BLOCK_LAYER, Vector2(col, Stats.board_height+Stats.board_extend_height-1), WALL_TILE_ID, Vector2(0,0))
 	
 	Stats.board_height += Stats.board_extend_height
-
+	
+func generate_cave(pos_y: int, height: int, right_side: bool):
+	#Draw top line
+	var start_width = randi_range(4, 8)
+	for col in start_width:
+		if right_side: $Board.set_cell(BLOCK_LAYER, Vector2(Stats.board_width+col-1, pos_y), WALL_TILE_ID, Vector2(0,0))
+		else: $Board.set_cell(BLOCK_LAYER, Vector2(-col, pos_y), WALL_TILE_ID, Vector2(0,0))
+	
+	#Draw random structure
+	var curr_col = Stats.board_width+start_width-1 if right_side else -start_width+1
+	for row in height-1:
+		$Board.set_cell(BLOCK_LAYER, Vector2(curr_col, pos_y+row), WALL_TILE_ID, Vector2(0,0))
+		var rand_dir = randi_range(-1, 1) #-1 is left, 0 do nothing, 1 is right
+		curr_col += rand_dir
+		$Board.set_cell(BLOCK_LAYER, Vector2(curr_col, pos_y+row), WALL_TILE_ID, Vector2(0,0))
+	
+	#Draw bottom line
+	if right_side:
+		while curr_col >= Stats.board_width:
+			$Board.set_cell(BLOCK_LAYER, Vector2(curr_col, pos_y+height-1), WALL_TILE_ID, Vector2(0,0))
+			curr_col -= 1
+	else:
+		while curr_col <= 0:
+			$Board.set_cell(BLOCK_LAYER, Vector2(curr_col, pos_y+height-1), WALL_TILE_ID, Vector2(0,0))
+			curr_col += 1
+	
+	
 func _spawn_turrets():
 	_remove_turrets()
 	for row in range(1,Stats.board_height-1):
