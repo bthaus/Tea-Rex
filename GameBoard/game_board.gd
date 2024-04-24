@@ -294,6 +294,10 @@ func generate_cave(pos_y: int, height: int, right_side: bool):
 	for row in height-1:
 		$Board.set_cell(BLOCK_LAYER, Vector2(curr_col, pos_y+row), WALL_TILE_ID, Vector2(0,0))
 		var rand_dir = randi_range(-1, 1) #-1 is left, 0 do nothing, 1 is right
+		#Make sure the walls dont move to much towards the middle
+		if right_side and curr_col <= Stats.board_width and rand_dir == -1: rand_dir = 1
+		if not right_side and curr_col >= -1 and rand_dir == 1: rand_dir = -1 
+		
 		curr_col += rand_dir
 		$Board.set_cell(BLOCK_LAYER, Vector2(curr_col, pos_y+row), WALL_TILE_ID, Vector2(0,0))
 	
