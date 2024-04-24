@@ -8,6 +8,7 @@ var clicked = false
 signal is_dragging_camera
 
 const CAMERA_ZOOM = 0.1
+const SCROLL_SPEED = 100
 func _ready():
 	Projectile.camera=self;
 	Turret.camera=self;
@@ -30,13 +31,17 @@ func _input(event):
 		dragging = true
 		position = (mouse_start_pos - event.position) / zoom + screen_start_position
 	
-	if event.is_action_pressed("zoom_in"):
-		zoom = Vector2(zoom.x + CAMERA_ZOOM, zoom.y + CAMERA_ZOOM)
+	if event.is_action_pressed("scroll_up"):
+		if Input.is_action_pressed("control"):
+			zoom = Vector2(zoom.x + CAMERA_ZOOM, zoom.y + CAMERA_ZOOM)
+		else:
+			position -= Vector2(0, SCROLL_SPEED) / zoom
 		
-		
-		
-	if event.is_action_pressed("zoom_out"):
-		zoom = Vector2(zoom.x - CAMERA_ZOOM, zoom.y - CAMERA_ZOOM)
+	if event.is_action_pressed("scroll_down"):
+		if Input.is_action_pressed("control"):
+			zoom = Vector2(zoom.x - CAMERA_ZOOM, zoom.y - CAMERA_ZOOM)
+		else:
+			position += Vector2(0, SCROLL_SPEED) / zoom
 		
 	
 		
