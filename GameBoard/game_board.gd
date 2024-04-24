@@ -35,16 +35,10 @@ func _ready():
 	navigation_polygon.source_geometry_group_name = "navigation"
 	$Board.add_to_group("navigation")
 	navigation_polygon.source_geometry_mode = NavigationPolygon.SOURCE_GEOMETRY_GROUPS_WITH_CHILDREN
-	
 	spawners = get_tree().get_nodes_in_group("spawner")
 	
 	$Camera2D.is_dragging_camera.connect(dragging_camera)
-	# draw a test block
-	var block = Stats.getBlockFromShape(Stats.BlockShape.L, Stats.TurretColor.BLUE, 1, Stats.TurretExtension.BLUELASER)
-	#block_handler.draw_block(block, Vector2(6,6), BLOCK_LAYER, EXTENSION_LAYER)
-	#$Board.set_cell(BLOCK_LAYER, Vector2(10,10), WALL_TILE_ID, Vector2(0,0))
 	
-	#_draw_walls()
 	_spawn_turrets()
 	_set_navigation_region()
 	
@@ -311,7 +305,6 @@ func generate_cave(pos_y: int, height: int, right_side: bool):
 			$Board.set_cell(BLOCK_LAYER, Vector2(curr_col, pos_y+height-1), WALL_TILE_ID, Vector2(0,0))
 			curr_col += 1
 	
-	
 func _spawn_turrets():
 	_remove_turrets()
 	for row in range(1,Stats.board_height-1):
@@ -350,4 +343,3 @@ func _set_navigation_region():
 
 func dragging_camera(is_dragging: bool):
 	self.is_dragging_camera = is_dragging
-
