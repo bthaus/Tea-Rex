@@ -297,7 +297,7 @@ func generate_cave(pos_y: int, height: int, right_side: bool):
 	
 	#Draw bottom line
 	if right_side:
-		while curr_col >= Stats.board_width:
+		while curr_col >= Stats.board_width-1:
 			$Board.set_cell(BLOCK_LAYER, Vector2(curr_col, pos_y+height-1), WALL_TILE_ID, Vector2(0,0))
 			curr_col -= 1
 	else:
