@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://monster.gd" id="1_g1k27"]
 [ext_resource type="Texture2D" uid="uid://b0vjaywamx3yp" path="res://Assets/Lights/spotlight.png" id="2_7naar"]
-[ext_resource type="Texture2D" uid="uid://lbnho8we4t1r" path="res://Assets/Monsters/Monster.png" id="2_yp50u"]
+[ext_resource type="Texture2D" uid="uid://22epcv2dtrh2" path="res://Assets/Monsters/Monster.png" id="2_yp50u"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_wsh3g"]
 radius = 32.0
@@ -81,5 +81,4 @@ energy = 0.57
 texture = ExtResource("2_7naar")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
-path_postprocessing = 1
 avoidance_enabled = true
