@@ -35,6 +35,7 @@ func _ready():
 	navigation_polygon.source_geometry_group_name = "navigation"
 	$Board.add_to_group("navigation")
 	navigation_polygon.source_geometry_mode = NavigationPolygon.SOURCE_GEOMETRY_GROUPS_WITH_CHILDREN
+	navigation_polygon.agent_radius = 31
 	spawners = get_tree().get_nodes_in_group("spawner")
 	
 	$Camera2D.is_dragging_camera.connect(dragging_camera)
