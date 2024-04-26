@@ -1,13 +1,19 @@
 extends Node2D
 class_name Card
 var card;
+var state:GameState;
 static var isCardSelected=false;
 func select(done:Callable):
 	if isCardSelected:
 		return;
+	if self is BlockCard and state.phase!=Stats.GamePhase.BUILD:
+		return;
+		
+	
 	isCardSelected=true;
-	card.select(done)
 	scale=Vector2(1.3,1.3)
+	card.select(done)
+	
 	pass;
 static var counter=0;
 signal finished(card)
@@ -21,7 +27,7 @@ static func create(gameState:GameState):
 	var btn=c.get_child(0) as Button
 	
 	c.setCard(Stats.getRandomCard(gameState))
-	
+	c.state=gameState;
 
 	if c.card is SpecialCard:
 		c.get_child(1).text=Stats.getStringFromSpecialCardEnum(c.card.cardName);

@@ -142,7 +142,8 @@ func _process(delta):
 		buildup=buildup-4*delta;	
 
 	if inRange():
-		
+		if projectile==null:
+			projectile=Projectile.create(type,damage,speed,self,extension)
 		
 		if buildup<=1 and (type==Stats.TurretColor.RED&&extension==Stats.TurretExtension.REDLASER):
 			buildup=buildup+1*delta*2;

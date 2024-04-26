@@ -1,7 +1,7 @@
 extends Card
 class_name BlockCard
 var block:Block;
-var state:GameState;
+
 var cardName;
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -14,6 +14,9 @@ static func create(gameState:GameState):
 
 	return card;
 func select(done:Callable):
+	if state.phase==Stats.GamePhase.BATTLE:
+		done.call(false);
+		return
 	state.gameBoard.select_block(block,done)
 	pass;
 # Called every frame. 'delta' is the elapsed time since the previous frame.

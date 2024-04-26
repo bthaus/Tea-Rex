@@ -1,7 +1,7 @@
 extends Node2D
 class_name GameState;
 
-@export var gameBoard:Node2D;
+@export var gameBoard:GameBoard;
 @export var hand:Node2D
 @export var menu:Node2D
 
@@ -14,14 +14,15 @@ var unlockedColors=[Stats.TurretColor.BLUE];
 #Stats.SpecialCards
 var unlockedSpecialCards=[Stats.SpecialCards.HEAL];
 
-var phase:Stats.GamePhase=Stats.GamePhase.BOTH;
+var phase:Stats.GamePhase=Stats.GamePhase.BUILD;
 var bulletManager:BulletManager
 var HP=Stats.playerHP;
 var maxHP=Stats.playerMaxHP;
 var maxCards=5;
-var cardRedraws=1;
+var cardRedraws=2;
 var totalExp=0;
 var levelUp=10;
+var started=false;
 
 
 var wave:int=0;
@@ -42,7 +43,7 @@ var handCards=[]
 signal player_died
 signal start_build_phase;
 signal start_combat_phase;
-signal level_up(item,base)
+signal level_up(item)
 
 @export   var cam:Camera2D;
 static var gameState;
@@ -122,13 +123,18 @@ func startBuildPhase():
 		
 	pass;
 func startCatastrophy():
+	#gameBoard.BULLDOZER_catastrophy(catastrophy_done)
+	#gameBoard.call("BULLDOZER_catastrophy").bind(catastrophy_done)
 	if wave%1!=0:	return
-	
+	gameBoard.extend_field()
 	var cat=Stats.getRandomCatastrophy();
 	util.p(cat+"_catastrophy called")
 	if not gameBoard.has_method(cat+"_catastrophy"): return
-	gameBoard.call(cat+"_catastrophy").bind(func():print("catastrophy done"))
+	gameBoard.call(cat+"_catastrophy",catastrophy_done)
 	
+	pass;
+func catastrophy_done(finished):
+	print(finished)
 	pass;
 func _on_spawner_wave_done():
 	startBuildPhase()
@@ -138,7 +144,9 @@ func _on_spawner_wave_done():
 
 func _on_button_pressed():
 	gameBoard.draw_field()
-	drawCards(maxCards)
+	if not started:
+		drawCards(maxCards)
+		started=true;
 	pass # Replace with function body.
 func addExp(monster:Monster):
 	totalExp=totalExp+monster.getExp()
@@ -152,9 +160,9 @@ func checkLevelUp():
 	
 	var rand=Stats.rng.randi_range(0,100);
 	if rand>50:
-		unlockRandom(Stats.TurretExtension.values(),unlockedExtensions)
+		level_up.emit(Stats.TurretExtension.keys()[unlockRandom(Stats.TurretExtension.values(),unlockedExtensions)-1])
 	else:
-		unlockRandom(Stats.SpecialCards.values(),unlockedSpecialCards)
+		level_up.emit(Stats.SpecialCards.keys()[unlockRandom(Stats.SpecialCards.values(),unlockedSpecialCards)-1])
 	
 	pass;
 func unlockRandom(base,pool):
@@ -164,12 +172,14 @@ func unlockRandom(base,pool):
 			tounlock.append(a)
 	var unlocked=tounlock[Stats.rng.randi_range(0,tounlock.size()-1)]
 	pool.append(unlocked)
-	level_up.emit(unlocked,base)
-	pass;
+	return unlocked;
 	
 
 func _on_area_2d_area_entered(area):
 	var m=area.get_parent()
 	if m is Monster:
 		changeHealth(-m.damage)
+		m.monster_died.emit(m)
+		m.queue_free()
+		
 	pass # Replace with function body.

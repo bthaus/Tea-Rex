@@ -9,10 +9,10 @@ func _ready():
 			add_item(a,load("res://Assets/Turrets/Bases/"+a+"_base.png"))
 	pass # Replace with function body.
 
-func refreshlist(unlocked,base):
+func refreshlist(name):
 	
-	var name=Stats.TurretExtension.keys()[unlocked-1]
-	add_item(name,load("res://Assets/Turrets/Bases/"+name+"_base.png"))
+	
+	add_item(name,load("res://Assets/MenuItems/"+name+"_menu.png"))
 		
 	pass;
 # Called every frame. 'delta' is the elapsed time since the previous frame.

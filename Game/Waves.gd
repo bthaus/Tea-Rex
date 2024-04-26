@@ -18,7 +18,7 @@ func start(wavenumber:int):
 	print(Stats.enemy_base_HP)
 	numMonstersActive=amountmonsters;
 	for n in range(0,amountmonsters):
-		get_tree().create_timer(n*0.5).timeout.connect(spawnEnemy.bind(Stats.getiterativeColor(0),$Base))
+		get_tree().create_timer(n*0.2).timeout.connect(spawnEnemy.bind(Stats.getiterativeColor(0),$Base))
 
 		
 	pass;
@@ -33,7 +33,7 @@ func monsterDied(monster:Monster):
 	
 	numMonstersActive=numMonstersActive-1;
 	print(numMonstersActive)
-	if numMonstersActive==0:
+	if numMonstersActive<=0:
 		wave_done.emit()
 	pass;
 # Called every frame. 'delta' is the elapsed time since the previous frame.

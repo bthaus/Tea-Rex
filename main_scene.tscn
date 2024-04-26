@@ -16,7 +16,7 @@
 [ext_resource type="Script" path="res://Game/Waves.gd" id="10_tv5je"]
 [ext_resource type="Script" path="res://UI.gd" id="12_queuo"]
 [ext_resource type="PackedScene" uid="uid://dfv1yobm3u5hn" path="res://hand.tscn" id="13_bgxnb"]
-[ext_resource type="Texture2D" path="res://Assets/Level/mainMenu.jpg" id="14_0h3lo"]
+[ext_resource type="Texture2D" uid="uid://k8t5t02p68sh" path="res://Assets/Level/mainMenu.jpg" id="14_0h3lo"]
 [ext_resource type="Texture2D" uid="uid://b8n0busmwromw" path="res://icon.svg" id="14_fosf7"]
 [ext_resource type="Script" path="res://UnlockedItemList.gd" id="17_7nh6c"]
 
@@ -101,7 +101,7 @@ visible = false
 
 [node name="Sprite2D" type="Sprite2D" parent="DebugAndTesting"]
 z_index = -3
-position = Vector2(-380, 498)
+position = Vector2(-600, 612)
 scale = Vector2(38.789, 24.599)
 texture = ExtResource("4_ykfqr")
 
@@ -222,6 +222,7 @@ offset_right = 91.3274
 offset_bottom = 959.283
 text = "0"
 
+[connection signal="wave_done" from="Spawner" to="." method="_on_spawner_wave_done"]
 [connection signal="area_entered" from="Spawner/Base/Area2D" to="." method="_on_area_2d_area_entered"]
 [connection signal="pressed" from="CanvasLayer/MainMenu/StartButton" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/MainMenu/StartButton" to="CanvasLayer" method="_on_start_button_pressed"]
