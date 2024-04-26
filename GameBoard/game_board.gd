@@ -35,16 +35,11 @@ func _ready():
 	navigation_polygon.source_geometry_group_name = "navigation"
 	$Board.add_to_group("navigation")
 	navigation_polygon.source_geometry_mode = NavigationPolygon.SOURCE_GEOMETRY_GROUPS_WITH_CHILDREN
-	
+	navigation_polygon.agent_radius = 31
 	spawners = get_tree().get_nodes_in_group("spawner")
 	
 	$Camera2D.is_dragging_camera.connect(dragging_camera)
-	# draw a test block
-	var block = Stats.getBlockFromShape(Stats.BlockShape.L, Stats.TurretColor.BLUE, 1, Stats.TurretExtension.BLUELASER)
-	#block_handler.draw_block(block, Vector2(6,6), BLOCK_LAYER, EXTENSION_LAYER)
-	#$Board.set_cell(BLOCK_LAYER, Vector2(10,10), WALL_TILE_ID, Vector2(0,0))
 	
-	#_draw_walls()
 	_spawn_turrets()
 	_set_navigation_region()
 	
@@ -141,13 +136,8 @@ func _process(_delta):
 		if action == BoardAction.PLAYER_BULLDOZER:
 			block_handler.draw_block_with_tile_id(selected_block, board_pos, LEGAL_PLACEMENT_TILE_ID, SELECTION_LAYER)
 		elif action != BoardAction.NONE:
-			if block_handler.can_place_block(selected_block, BLOCK_LAYER, board_pos, $NavigationRegion2D, spawners):
-				if $Board.get_cell_tile_data(BLOCK_LAYER, board_pos) == null: #Only draw invisible preview block if we place a new block (no upgrade)
-					block_handler.draw_block_with_tile_id(selected_block, board_pos, PREVIEW_BLOCK_TILE_ID, BLOCK_LAYER)
-					$NavigationRegion2D.bake_navigation_polygon()
-				block_handler.draw_block_with_tile_id(selected_block, board_pos, LEGAL_PLACEMENT_TILE_ID, SELECTION_LAYER)
-			else:
-				block_handler.draw_block_with_tile_id(selected_block, board_pos, ILLEGAL_PLACEMENT_TILE_ID, SELECTION_LAYER)
+			var id = LEGAL_PLACEMENT_TILE_ID if block_handler.can_place_block(selected_block, BLOCK_LAYER, board_pos, $NavigationRegion2D, spawners) else ILLEGAL_PLACEMENT_TILE_ID
+			block_handler.draw_block_with_tile_id(selected_block, board_pos, id, SELECTION_LAYER)
 	
 func _input(event):
 	var board_pos = $Board.local_to_map(get_global_mouse_position())
@@ -251,7 +241,71 @@ func clear_field():
 		$Board.set_cell(BLOCK_LAYER, Vector2(col, height-1), -1, Vector2(0,0))
 		
 	$Board.clear_layer(GROUND_LAYER)
-
+	
+func extend_field():
+	#Clear bottom row
+	for col in Stats.board_width:
+		$Board.set_cell(BLOCK_LAYER, Vector2(col, Stats.board_height-1), -1, Vector2(0,0))
+	
+	var generate_cave_left = randi_range(0, 100) <= Stats.board_cave_chance_percent
+	var generate_cave_right = randi_range(0, 100) <= Stats.board_cave_chance_percent
+	
+	if generate_cave_left: generate_cave(Stats.board_height-1, Stats.board_extend_height, false)
+	if generate_cave_right: generate_cave(Stats.board_height-1, Stats.board_extend_height, true)
+		
+	#Extend everything that is not a cave
+	for row in Stats.board_extend_height:
+		if not generate_cave_left:
+			$Board.set_cell(BLOCK_LAYER, Vector2(0, row+Stats.board_height-1), WALL_TILE_ID, Vector2(0,0))
+		if not generate_cave_right:
+			$Board.set_cell(BLOCK_LAYER, Vector2(Stats.board_width-1, row+Stats.board_height-1), WALL_TILE_ID, Vector2(0,0))
+	
+	#Draw the ground
+	for row in Stats.board_extend_height:
+		var col = 0
+		while $Board.get_cell_source_id(BLOCK_LAYER, Vector2(col, row+Stats.board_height-1)) == -1:
+			$Board.set_cell(GROUND_LAYER, Vector2(col, row+Stats.board_height-1), EMPTY_TILE_ID, Vector2(0,0))
+			col -= 1
+		col = 1
+		while $Board.get_cell_source_id(BLOCK_LAYER, Vector2(col, row+Stats.board_height-1)) == -1:
+			$Board.set_cell(GROUND_LAYER, Vector2(col, row+Stats.board_height-1), EMPTY_TILE_ID, Vector2(0,0))
+			col += 1
+	
+	#Add bottom row
+	for col in Stats.board_width:
+		$Board.set_cell(BLOCK_LAYER, Vector2(col, Stats.board_height+Stats.board_extend_height-1), WALL_TILE_ID, Vector2(0,0))
+	
+	Stats.board_height += Stats.board_extend_height
+	
+func generate_cave(pos_y: int, height: int, right_side: bool):
+	#Draw top line
+	var start_width = randi_range(4, 8)
+	for col in start_width:
+		if right_side: $Board.set_cell(BLOCK_LAYER, Vector2(Stats.board_width+col-1, pos_y), WALL_TILE_ID, Vector2(0,0))
+		else: $Board.set_cell(BLOCK_LAYER, Vector2(-col, pos_y), WALL_TILE_ID, Vector2(0,0))
+	
+	#Draw random structure
+	var curr_col = Stats.board_width+start_width-1 if right_side else -start_width+1
+	for row in height-1:
+		$Board.set_cell(BLOCK_LAYER, Vector2(curr_col, pos_y+row), WALL_TILE_ID, Vector2(0,0))
+		var rand_dir = randi_range(-1, 1) #-1 is left, 0 do nothing, 1 is right
+		#Make sure the walls dont move to much towards the middle
+		if right_side and curr_col <= Stats.board_width and rand_dir == -1: rand_dir = 1
+		if not right_side and curr_col >= -1 and rand_dir == 1: rand_dir = -1 
+		
+		curr_col += rand_dir
+		$Board.set_cell(BLOCK_LAYER, Vector2(curr_col, pos_y+row), WALL_TILE_ID, Vector2(0,0))
+	
+	#Draw bottom line
+	if right_side:
+		while curr_col >= Stats.board_width-1:
+			$Board.set_cell(BLOCK_LAYER, Vector2(curr_col, pos_y+height-1), WALL_TILE_ID, Vector2(0,0))
+			curr_col -= 1
+	else:
+		while curr_col <= 0:
+			$Board.set_cell(BLOCK_LAYER, Vector2(curr_col, pos_y+height-1), WALL_TILE_ID, Vector2(0,0))
+			curr_col += 1
+	
 func _spawn_turrets():
 	_remove_turrets()
 	for row in range(1,Stats.board_height-1):
@@ -290,4 +344,3 @@ func _set_navigation_region():
 
 func dragging_camera(is_dragging: bool):
 	self.is_dragging_camera = is_dragging
-

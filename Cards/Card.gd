@@ -9,7 +9,7 @@ func select(done:Callable):
 	card.select(done)
 	scale=Vector2(1.3,1.3)
 	pass;
-static var counter=0;	
+static var counter=0;
 signal finished(card)
 func setCard(c):
 	card=c;
@@ -27,13 +27,11 @@ static func create(gameState:GameState):
 		c.get_child(1).text=Stats.getStringFromSpecialCardEnum(c.card.cardName);
 		c.get_child(1).visible=true;
 	if c.card is BlockCard:
-		var b=load("res://GameBoard/game_board.tscn").instantiate()
-		btn.add_child(b)
-		b.block_handler=BlockHandler.new(b.get_child(0))
-		b._place_block(c.card.block,Vector2(0,0))
-		b._spawn_turrets()
-		b.scale=Vector2(0.5,0.5)
-		b.position=Vector2(50,70)
+		var preview=load("res://Cards/block_preview.tscn").instantiate()
+		preview.set_block(c.card.block, true)
+		preview.scale=Vector2(0.4,0.4)
+		preview.position=Vector2(60,70)
+		btn.add_child(preview)
 	return c
 	
 func played(interrupted:bool):

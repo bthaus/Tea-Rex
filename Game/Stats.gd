@@ -3,6 +3,8 @@ class_name Stats;
 const block_size=64;
 static var board_width=16;
 static var board_height=16;
+static var board_extend_height=10;
+static var board_cave_chance_percent=10
 
 const base_range=5;
 const green_range=2*base_range;
