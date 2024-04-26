@@ -370,7 +370,7 @@ func getRandomBlock(lvl,gamestate):
 			
 	var extension=TurretExtension.DEFAULT
 	if gamestate.unlockedExtensions.size() != 0 && color != TurretColor.GREY:
-		for ex in gamestate.unlockedExtensions.length():
+		for ex in gamestate.unlockedExtensions.size():
 			if gamestate.unlockedExtensions[ex] == getExtensionFromColor(color):
 				if rng.randi_range(0,100) < extensionChance:
 					extension = getExtensionFromColor(color)

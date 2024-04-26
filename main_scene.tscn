@@ -5,7 +5,7 @@
 [ext_resource type="AudioStream" uid="uid://d3elhp46kr0sn" path="res://Sounds/Music/background4.wav" id="3_avl3y"]
 [ext_resource type="Script" path="res://Game/Stats.gd" id="3_j6i2j"]
 [ext_resource type="Texture2D" uid="uid://chsgerkqrpoy6" path="res://Assets/Level/Backgrounddummy.png" id="4_ykfqr"]
-[ext_resource type="Texture2D" uid="uid://bo7e2a3xuu6je" path="res://Assets/Cards/deck.png" id="6_cef84"]
+[ext_resource type="Texture2D" uid="uid://65ulpuoik3sk" path="res://Assets/Cards/deck.png" id="6_cef84"]
 [ext_resource type="PackedScene" uid="uid://c8n0am7jadxj7" path="res://GameBoard/game_board.tscn" id="6_ghxp6"]
 [ext_resource type="Texture2D" uid="uid://c2ktmv44r7ds2" path="res://Assets/Cards/deckDisabled.png" id="7_7b03k"]
 [ext_resource type="Texture2D" uid="uid://ciujx66e0cmmp" path="res://Assets/Level/base.png" id="7_mq4xw"]
@@ -16,7 +16,7 @@
 [ext_resource type="Script" path="res://Game/Waves.gd" id="10_tv5je"]
 [ext_resource type="Script" path="res://UI.gd" id="12_queuo"]
 [ext_resource type="PackedScene" uid="uid://dfv1yobm3u5hn" path="res://hand.tscn" id="13_bgxnb"]
-[ext_resource type="Texture2D" uid="uid://k8t5t02p68sh" path="res://Assets/Level/mainMenu.jpg" id="14_0h3lo"]
+[ext_resource type="Texture2D" path="res://Assets/Level/mainMenu.jpg" id="14_0h3lo"]
 [ext_resource type="Texture2D" uid="uid://b8n0busmwromw" path="res://icon.svg" id="14_fosf7"]
 [ext_resource type="Script" path="res://UnlockedItemList.gd" id="17_7nh6c"]
 
@@ -49,10 +49,9 @@ hand = NodePath("CanvasLayer/UI/Hand")
 menu = NodePath("CanvasLayer/MainMenu")
 cam = NodePath("Camera2D")
 
-[node name="CanvasModulate" type="CanvasModulate" parent="." node_paths=PackedStringArray("state")]
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
 color = Color(0.694118, 0.611765, 0.8, 1)
 script = ExtResource("2_7eagx")
-state = NodePath("")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_83ue6")
@@ -92,6 +91,8 @@ shape = SubResource("CircleShape2D_jk75f")
 
 [node name="Sprite2D" type="Sprite2D" parent="Spawner"]
 texture = ExtResource("8_ldw13")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="Spawner"]
 
 [node name="GameBoard" parent="." instance=ExtResource("6_ghxp6")]
 visible = false
