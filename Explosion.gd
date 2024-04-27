@@ -3,13 +3,14 @@ class_name Explosion
 static var cache=[]
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	$PointLight2D.visible=true;
+	$PointLight2D2.visible=true
 	pass # Replace with function body.
 var damage;
 var type
 static var sounds=0;
 static func create(type,damage, position, root,scale=1):
 	var temp;
-	print(position)
 	if cache.size()==0:
 		temp=load("res://TurretScripts/Projectiles/Explosion.tscn").instantiate() as Explosion;
 		temp.type=type;
@@ -26,19 +27,20 @@ static func create(type,damage, position, root,scale=1):
 		temp.visible=true;
 		
 	temp.global_position=position;
-	temp.get_node("AnimatedSprite2D").play("default");
-	
+	temp.get_node("AnimatedSprite2D").play("default")
+	temp.get_node("AnimationPlayer").play("lightup")
 	if sounds<25:
 		temp.get_node("sound").play();
 		sounds=sounds+1;
-	temp.get_node("AnimationPlayer").play("lightup")
-	print("created")
+	
+	
 	
 	
 	pass;
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	
 	if $sound.playing:
 		var mod=getCam().zoom.y-3;
 		$sound.volume_db=mod*10

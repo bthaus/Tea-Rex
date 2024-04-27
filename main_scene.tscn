@@ -21,15 +21,10 @@
 
 [sub_resource type="Environment" id="Environment_83ue6"]
 background_mode = 3
-ambient_light_color = Color(0.0745098, 0.0431373, 0.172549, 1)
+ambient_light_color = Color(0.552642, 0.483134, 0.873833, 1)
 tonemap_white = 1.67
-glow_enabled = true
 glow_normalized = true
-glow_intensity = 1.59
 glow_blend_mode = 0
-glow_hdr_threshold = 0.92
-glow_hdr_scale = 1.33
-glow_map_strength = 0.69
 fog_enabled = true
 fog_light_energy = 5.04
 adjustment_enabled = true
@@ -48,7 +43,7 @@ menu = NodePath("CanvasLayer/MainMenu")
 cam = NodePath("Camera2D")
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
-color = Color(0.694118, 0.611765, 0.8, 1)
+color = Color(0.717647, 0.643137, 0.819608, 1)
 script = ExtResource("2_7eagx")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
