@@ -80,7 +80,9 @@ func BULLDOZER_catastrophy(done: Callable):
 		for x in Stats.bulldozer_catastrophy_width:
 			#No constructor overloading in Godot, gotta init some nonsense
 			pieces.push_back(Block.Piece.new(Vector2(x,y), Stats.TurretColor.BLUE, 1))
-	block_handler.remove_block_from_board(Block.new(pieces), Vector2(col, row), BLOCK_LAYER, EXTENSION_LAYER, false)
+	var block = Block.new(pieces)
+	block_handler.remove_block_from_board(block, Vector2(col, row), BLOCK_LAYER, EXTENSION_LAYER, false)
+	_remove_turrets(block, Vector2(col, row))
 	_action_finished(true)
 	
 func DRILL_catastrophy(done: Callable):
@@ -93,7 +95,9 @@ func DRILL_catastrophy(done: Callable):
 		var width = block_handler.get_board_width_range(BLOCK_LAYER, row+r)
 		for col in range(width.from, width.to+1):
 			pieces.push_back(Block.Piece.new(Vector2(col, row+r), Stats.TurretColor.BLUE, 1))
-	block_handler.remove_block_from_board(Block.new(pieces), Vector2(0, 0), BLOCK_LAYER, EXTENSION_LAYER, false)
+	var block = Block.new(pieces)
+	block_handler.remove_block_from_board(block, Vector2(0, 0), BLOCK_LAYER, EXTENSION_LAYER, false)
+	_remove_turrets(block, Vector2(0, 0))
 	_action_finished(true)
 
 func LEVELDOWN_catastrophy(done: Callable):
@@ -115,6 +119,7 @@ func LEVELDOWN_catastrophy(done: Callable):
 	var block = Block.new(pieces)
 	block_handler.set_block_level(block, 1)
 	block_handler.draw_block(block, start, BLOCK_LAYER, EXTENSION_LAYER)
+	_spawn_turrets(block, start)
 	_action_finished(true)
 	
 func _process(_delta):
@@ -157,7 +162,7 @@ func _input(event):
 					selected_block = block
 					moved_from_position = board_pos #Save block information in case the user interrupts the process
 					moved_from_block = selected_block.clone()
-					_spawn_turrets()
+					_remove_turrets(selected_block, board_pos)
 
 				else:
 					if block_handler.can_place_block(selected_block, BLOCK_LAYER, board_pos, $NavigationRegion2D, spawners):
@@ -166,6 +171,7 @@ func _input(event):
 					
 			BoardAction.PLAYER_BULLDOZER:
 				block_handler.remove_block_from_board(selected_block, board_pos, BLOCK_LAYER, EXTENSION_LAYER, false)
+				_remove_turrets(selected_block, board_pos)
 				_action_finished(true)
 				$NavigationRegion2D.bake_navigation_polygon()
 				
@@ -184,6 +190,7 @@ func _place_block(block: Block, position: Vector2):
 		block_handler.set_block_level(block, level + 1)
 
 	block_handler.draw_block(block, position, BLOCK_LAYER, EXTENSION_LAYER)
+	_spawn_turrets(block, position)
 	$NavigationRegion2D.bake_navigation_polygon()
 	
 func _action_finished(finished: bool):
@@ -197,7 +204,6 @@ func _action_finished(finished: bool):
 	if not done.is_null():
 		done.call(finished)
 		done = Callable() #Reset callable
-	_spawn_turrets()
 
 func draw_field():
 	clear_field()
@@ -299,9 +305,24 @@ func generate_cave(pos_y: int, height: int, right_side: bool):
 		while curr_col <= 0:
 			$Board.set_cell(BLOCK_LAYER, Vector2(curr_col, pos_y+height-1), WALL_TILE_ID, Vector2(0,0))
 			curr_col += 1
-	
-func _spawn_turrets():
-	_remove_turrets()
+
+func _spawn_turrets(block: Block, position: Vector2):
+	_remove_turrets(block, position)
+	for piece in block.pieces:
+		if piece.color != Stats.TurretColor.GREY:
+			var turret = Turret.create(piece.color, piece.level, piece.extension)
+			turret.position = $Board.map_to_local(Vector2(position.x + piece.position.x, position.y + piece.position.y))
+			add_child(turret)
+
+func _remove_turrets(block: Block, position: Vector2):
+	for piece in block.pieces:
+		for child in get_children():
+			if child is Turret:
+				if child.position == $Board.map_to_local(Vector2(position.x + piece.position.x, position.y + piece.position.y)):
+					child.queue_free()
+
+func _spawn_all_turrets():
+	_remove_all_turrets()
 	for row in range(1,Stats.board_height-1):
 		var width = block_handler.get_board_width_range(BLOCK_LAYER, row)
 		for col in range(width.from, width.to+1):
@@ -318,7 +339,7 @@ func _spawn_turrets():
 				turret.position = $Board.map_to_local(Vector2(col, row))
 				add_child(turret)
 	
-func _remove_turrets():
+func _remove_all_turrets():
 	for child in get_children():
 		if child is Turret:
 			child.queue_free()
