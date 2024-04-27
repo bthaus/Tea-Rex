@@ -23,14 +23,9 @@ func _ready():
 	hp=Stats.getEnemyProperty(color,"HP")
 	minionExp=Stats.enemy_base_exp;
 	
-	if color==Stats.TurretColor.GREEN:
-		$Sprite2D.self_modulate=Color(0,1,0,1);
-	if color==Stats.TurretColor.RED:
-		$Sprite2D.self_modulate=Color(1,0,0,1);
-	if color==Stats.TurretColor.YELLOW:
-		$Sprite2D.self_modulate=self_modulate
+	$Sprite2D.texture=load("res://Assets/Monsters/Monster_"+Stats.getStringFromEnum(color)+".png")
 
-	get_node(Stats.getStringFromEnum(color)).visible=false;
+	#get_node(Stats.getStringFromEnum(color)).visible=false;
 	
 	$HP.text=str(hp)
 	pass # Replace with function body.
