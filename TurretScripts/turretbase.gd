@@ -24,6 +24,8 @@ var speedfactor=1;
 var damagefactor=1;
 var cooldownfactor=1;
 
+var lightamount=1.5;
+
 static var camera;
 var instantHit=false;
 static var baseFactory:BaseFactory=load("res://base_factory.tscn").instantiate() as BaseFactory
@@ -121,18 +123,7 @@ func draw_redlaser():
 			var bp=b.get_child(0).position;
 			draw_line((b.position+bp).rotated(base.rotation),-(global_position-(targetposition)-(b.position-bp).rotated(base.rotation)),color,thickness/2*buildup,true)
 			draw_line((b.position+bp).rotated(base.rotation),-(global_position-(targetposition)-(b.position-bp).rotated(base.rotation)),color,thickness*buildup+(3*buildup*sin(Time.get_ticks_usec())),true)
-			#draw_line(($Barrel/second.position+$Barrel/second/BulletPosition.position).rotated($Barrel.rotation),-(global_position-(targetposition)-($Barrel/second.position-$Barrel/second/BulletPosition.position).rotated($Barrel.rotation)),color,thickness*buildup+(3*buildup*sin(Time.get_ticks_usec())),true)
-	
-			#draw_line(bp.rotated(b.rotation),-(global_position-targetposition),color,thickness*buildup,true)
-			#draw_line(bp.rotated(b.rotation),-(global_position-targetposition),color,thickness*buildup+(3*buildup*sin(Time.get_ticks_usec())),true)
-			
-		#if stacks>=2:
-			#draw_line(($Barrel/second.position+$Barrel/second/BulletPosition.position).rotated($Barrel.rotation),-(global_position-(targetposition)-($Barrel/second.position-$Barrel/second/BulletPosition.position).rotated($Barrel.rotation)),color,thickness/2*buildup,true)
-			#draw_line(($Barrel/second.position+$Barrel/second/BulletPosition.position).rotated($Barrel.rotation),-(global_position-(targetposition)-($Barrel/second.position-$Barrel/second/BulletPosition.position).rotated($Barrel.rotation)),color,thickness*buildup+(3*buildup*sin(Time.get_ticks_usec())),true)
-		#if stacks>=3:
-			#draw_line(($Barrel/third.position+$Barrel/third/BulletPosition.position).rotated($Barrel.rotation),-(global_position-(targetposition)-($Barrel/third.position-$Barrel/third/BulletPosition.position).rotated($Barrel.rotation)),color,thickness/2*buildup,true)
-			#draw_line(($Barrel/third.position+$Barrel/third/BulletPosition.position).rotated($Barrel.rotation),-(global_position-(targetposition)-($Barrel/third.position-$Barrel/third/BulletPosition.position).rotated($Barrel.rotation)),color,thickness*buildup+(3*buildup*sin(Time.get_ticks_usec())),true)
-
+		
 	pass;
 	
 func reduceCooldown(delta):
@@ -141,11 +132,13 @@ func reduceCooldown(delta):
 	if GameState.gameState.phase==Stats.GamePhase.BUILD:
 		$PointLight2D.energy=1;
 		return
-	var ml=1.5*stacks;
+	var ml=lightamount*stacks;
 	if not onCooldown:
 		return;
-		
-	$PointLight2D.energy=$PointLight2D.energy+(ml/cooldown)*delta
+	var increase=(ml/cooldown)*delta
+	
+	
+	$PointLight2D.energy=$PointLight2D.energy+increase
 	if$PointLight2D.energy>ml: $PointLight2D.energy=ml;
 	
 	remap(255,0,0,1,254)
