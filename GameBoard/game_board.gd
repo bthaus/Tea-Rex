@@ -40,7 +40,6 @@ func _ready():
 	
 	$Camera2D.is_dragging_camera.connect(dragging_camera)
 	_set_navigation_region()
-	
 
 func start_bulldozer(done:Callable, size_x:int, size_y:int):
 	util.p("Bulldozering stuff now...", "Jojo")
@@ -277,7 +276,7 @@ func extend_field():
 	
 func generate_cave(pos_y: int, height: int, right_side: bool):
 	#Draw top line
-	var start_width = randi_range(4, 8)
+	var start_width = randi_range(Stats.board_cave_deepness.min(), Stats.board_cave_deepness.max()+1)
 	for col in start_width:
 		if right_side: $Board.set_cell(BLOCK_LAYER, Vector2(Stats.board_width+col-1, pos_y), WALL_TILE_ID, Vector2(0,0))
 		else: $Board.set_cell(BLOCK_LAYER, Vector2(-col, pos_y), WALL_TILE_ID, Vector2(0,0))
