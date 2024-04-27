@@ -60,8 +60,6 @@ shape = SubResource("RectangleShape2D_n8ibf")
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
 scale = Vector2(1.68, 1.68)
-color = Color(1, 0, 0, 1)
-energy = 1.94
 texture = ExtResource("5_cl5yn")
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

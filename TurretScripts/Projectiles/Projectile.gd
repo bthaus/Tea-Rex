@@ -32,7 +32,7 @@ static var counter=0;
 static var gamestate:GameState;
 static var camera;
 
-enum asd {DEFAULT=1,REDLASER=2, BLUELASER=3, YELLOWCATAPULT=4, GREENPOISON=5};
+enum asd {DEFAULT=1,REDLASER=2, BLUELASER=3, YELLOWMORTAR=4, GREENPOISON=5};
 enum asdsa {GREY=1, GREEN=2, RED=3, YELLOW=4,BLUE=5};
 static func getPool(color:Stats.TurretColor,type:Stats.TurretExtension):
 	match color:

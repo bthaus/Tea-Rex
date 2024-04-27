@@ -71,7 +71,7 @@ const green_explosion_range=0.5;
 const red_laser_damage_stack=1;
 const green_poison_damage_stack=1;
 
-const green_glowing=true;
+const green_glowing=false;
 const blue_glowing=false;
 const yellow_glowing=false;
 const grey_glowing=false;
@@ -386,14 +386,15 @@ func getRandomBlock(lvl,gamestate):
 					extension = getExtensionFromColor(color)
 	
 	var block=BlockShape.values()[rng.randi_range(0,BlockShape.size()-1)]
-	return getBlockFromShape(block,color,lvl,extension)
+	#return getBlockFromShape(block,color,lvl,extension)
+	return getBlockFromShape(block,TurretColor.YELLOW,lvl,TurretExtension.YELLOWMORTAR)
 	
 static func getExtensionFromColor(color: TurretColor):
 	match color:
 		1: return TurretExtension.DEFAULT;
 		2: return TurretExtension.GREENPOISON;
 		3: return TurretExtension.REDLASER;
-		4: return TurretExtension.DEFAULT;	#TODO: it's actually TurretExtension.YELLOWCATAPULT but it's not implemented yet
+		4: return TurretExtension.YELLOWMORTAR;	#TODO: it's actually TurretExtension.YELLOWCATAPULT but it's not implemented yet
 		5: return TurretExtension.BLUELASER
 	pass	
 
