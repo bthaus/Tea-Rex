@@ -93,8 +93,6 @@ script = ExtResource("1_qdan5")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_4mmyl")
-frame = 9
-frame_progress = 1.0
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 0
@@ -109,12 +107,12 @@ volume_db = 7.495
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
 scale = Vector2(14.695, 14.695)
-energy = 0.0
+energy = 1.185
 texture = ExtResource("13_ytoru")
 
 [node name="PointLight2D2" type="PointLight2D" parent="."]
 scale = Vector2(31.465, 31.465)
-energy = 0.0
+energy = 0.75
 texture = ExtResource("13_ytoru")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

@@ -106,10 +106,9 @@ scale = Vector2(38.789, 24.599)
 texture = ExtResource("4_ykfqr")
 
 [node name="Turret" parent="DebugAndTesting" instance=ExtResource("8_dpx1q")]
-visible = false
-position = Vector2(994, 740)
-stacks = 3
-extension = 2
+position = Vector2(215.23, 315.588)
+type = 4
+extension = 4
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." node_paths=PackedStringArray("gameState")]
 scale = Vector2(0.565, 0.565)

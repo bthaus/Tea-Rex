@@ -39,10 +39,11 @@ func _process(delta):
 		$sound.volume_db=mod*10
 	pass
 
-
+var num=0;
 func _on_area_2d_area_entered(area):
 	if(area.get_parent() is Monster):
-		
+		print("hit+ "+str(num) +"   dm"+str(damage))
+		num=num+1;
 		area.get_parent().hit(type,damage);
 	
 	
@@ -55,7 +56,7 @@ func getCam():
 	return cam;
 	pass;
 func _on_animated_sprite_2d_animation_finished():
-	visible=false;
+	get_parent().remove_child(self)
 	cache.push_back(self)
 	pass # Replace with function body.
 

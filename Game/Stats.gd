@@ -16,6 +16,7 @@ const grey_range=2*base_range;
 const red_laser_range=1*base_range;
 const blue_laser_range=3*base_range;
 const green_poison_range=2*base_range;
+const yellow_mortar_range=10*base_range;
 
 const base_missile_speed=1000;
 const green_missile_speed=1*base_missile_speed;
@@ -27,6 +28,7 @@ const grey_missile_speed=2*base_missile_speed;
 const blue_laser_missile_speed=base_missile_speed*3;
 const red_laser_missile_speed=base_missile_speed*1;
 const green_poison_missile_speed=base_missile_speed*1;
+const yellow_mortar_missile_speed=base_missile_speed;
 
 
 const base_cooldown=1;
@@ -39,6 +41,7 @@ const red_cooldown=base_cooldown*0.3;
 const red_laser_cooldown=base_cooldown*0.5;
 const blue_laser_cooldown=base_cooldown*0.5;
 const green_poison_cooldown=base_cooldown*1.5
+const yellow_mortar_cooldown=base_cooldown*2;
 
 const base_damage=5;
 const green_damage=base_damage*1;
@@ -50,6 +53,7 @@ const red_damage=base_damage*2;
 const red_laser_damage=base_damage*0.5;
 const blue_laser_damage=base_damage*2;
 const green_poison_damage=base_damage*1;
+const yellow_mortar_damage=base_damage*8;
 
 const base_penetrations=1;
 const green_penetrations=base_penetrations*1;
@@ -62,6 +66,7 @@ const red_laser_penetrations=base_penetrations*1;
 const blue_laser_penetrations=base_penetrations*3;
 const green_poison_penetrations=base_penetrations*1;
 
+const yellow_mortar_penetrations=1;
 const green_explosion_range=0.5;
 const red_laser_damage_stack=1;
 const green_poison_damage_stack=1;
@@ -75,6 +80,8 @@ const red_glowing=false;
 const red_laser_glowing=false;
 const blue_laser_glowing=true;
 const green_poison_glowing=false;
+const yellow_mortar_glowing=false;
+
 
 const poison_dropoff_rate=3;
 const poison_propagation_rate=3;
@@ -171,7 +178,7 @@ static var level_down_catastrophy_height=3
 
 
 enum TurretColor {GREY=1, GREEN=2, RED=3, YELLOW=4,BLUE=5};
-enum TurretExtension {DEFAULT=1,REDLASER=2, BLUELASER=3, YELLOWCATAPULT=4, GREENPOISON=5};
+enum TurretExtension {DEFAULT=1,REDLASER=2, BLUELASER=3, YELLOWMORTAR=4, GREENPOISON=5};
 enum GamePhase {BATTLE=1,BUILD=2,BOTH=3};
 enum SpecialCards {HEAL=1,FIREBALL=2,UPHEALTH=3,CRYOBALL=4,MOVE=5, BULLDOZER=6,GLUE=7,POISON=8, UPDRAW=9, UPMAXCARDS=10}
 enum BlockShape {O=1, I=2, S=3, Z=4, L=5, J=6, T=7, TINY=8, SMALL=9, ARROW=10, CROSS=11}
@@ -218,6 +225,7 @@ static func getStringFromEnumExtension(type:TurretExtension):
 		1: return ""
 		2: return "LASER"
 		3: return "LASER"
+		4: return "MORTAR"
 		5: return "POISON"
 	
 	return "";
