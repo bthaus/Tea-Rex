@@ -21,7 +21,7 @@ var maxHP=Stats.playerMaxHP;
 var maxCards=5;
 var cardRedraws=2;
 var totalExp=0;
-var levelUp=10;
+var levelUp=250;
 var started=false;
 
 
@@ -119,8 +119,15 @@ func startBuildPhase():
 	start_build_phase.emit()
 	phase=Stats.GamePhase.BUILD
 	$CanvasLayer/UI/PHASE.text="BUILDPHASE"
+	averageColorChances()
 	drawCards(cardRedraws)	
 		
+	pass;
+	
+func averageColorChances():
+	print(Stats.colorChances)
+	Stats.colorChances[Stats.TurretColor.YELLOW-1]=50
+	print(Stats.colorChances)
 	pass;
 func startCatastrophy():
 	#gameBoard.BULLDOZER_catastrophy(catastrophy_done)
@@ -170,6 +177,9 @@ func unlockRandom(base,pool):
 	for a in base:
 		if not pool.has(a):
 			tounlock.append(a)
+			
+	if tounlock.size()==0:
+		return; #todo: fix null return
 	var unlocked=tounlock[Stats.rng.randi_range(0,tounlock.size()-1)]
 	pool.append(unlocked)
 	return unlocked;

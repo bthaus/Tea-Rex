@@ -13,6 +13,7 @@ static var green_poison_bullet_pool=[]
 static var gpi=0;
 static var yellow_default_bullet_pool=[]
 static var ydi=0;
+static var yello_mortar_bullet_pool=[]
 var index;
 var shot=false;
 var damage;
@@ -31,7 +32,7 @@ static var counter=0;
 static var gamestate:GameState;
 static var camera;
 
-enum asd {DEFAULT=1,REDLASER=2, BLUELASER=3, YELLOWCATAPULT=4, GREENPOISON=5};
+enum asd {DEFAULT=1,REDLASER=2, BLUELASER=3, YELLOWMORTAR=4, GREENPOISON=5};
 enum asdsa {GREY=1, GREEN=2, RED=3, YELLOW=4,BLUE=5};
 static func getPool(color:Stats.TurretColor,type:Stats.TurretExtension):
 	match color:
@@ -43,6 +44,7 @@ static func getPool(color:Stats.TurretColor,type:Stats.TurretExtension):
 			2: return red_laser_bullet_pool
 		4: match type:
 			1: return yellow_default_bullet_pool
+			4: return yello_mortar_bullet_pool
 		5: match type:
 			1: return blue_default_bullet_pool
 			3: return blue_laser_bullet_pool
@@ -178,6 +180,8 @@ func applySpecials(enemy:Monster):
 			Explosion.create(type,damage,global_position,get_tree().get_root(),Stats.green_explosion_range);
 		if type==Stats.TurretColor.GREEN&&ext==Stats.TurretExtension.GREENPOISON:
 			applyPoison(enemy)
+		if type==Stats.TurretColor.YELLOW&&ext==Stats.TurretExtension.YELLOWMORTAR:
+			applyMortarExplosion(enemy)
 		
 		pass;
 		
@@ -201,7 +205,18 @@ func applyPoison(enemy:Monster):
 		enemy.add_child(Poison.create(damage,Stats.green_poison_decay));
 	pass
 
-
+func applyMortarExplosion(enemy:Monster):
+	var pos=enemy.global_position
+	var sprite=Sprite2D.new();
+	sprite.texture=load("res://Assets/UI/Target_Cross.png")
+	get_parent().add_child(sprite)
+	sprite.global_position=pos;
+	get_tree().create_timer(0.5).timeout.connect(func():
+		
+		Explosion.create(Stats.TurretColor.YELLOW,damage,pos,gamestate)
+		sprite.queue_free()
+	)
+	pass;
 func _on_shot_finished():
 	shotsplayed=shotsplayed-1;
 	pass # Replace with function body.

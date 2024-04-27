@@ -26,7 +26,7 @@ ambient_light_color = Color(0.0745098, 0.0431373, 0.172549, 1)
 tonemap_white = 1.67
 glow_enabled = true
 glow_normalized = true
-glow_intensity = 2.39
+glow_intensity = 4.25
 glow_strength = 1.11
 glow_blend_mode = 0
 glow_hdr_threshold = 0.92
@@ -70,13 +70,12 @@ position = Vector2(-736, -503)
 stream = ExtResource("3_avl3y")
 
 [node name="Spawner" type="Node2D" parent="." node_paths=PackedStringArray("state")]
-visible = false
 position = Vector2(152.286, 238.819)
 script = ExtResource("10_tv5je")
 state = NodePath("..")
 
 [node name="Base" type="Node2D" parent="Spawner"]
-position = Vector2(841.122, -43.6834)
+position = Vector2(571.615, 136.367)
 scale = Vector2(0.58, 0.58)
 
 [node name="Sprite2D" type="Sprite2D" parent="Spawner/Base"]
@@ -106,10 +105,9 @@ scale = Vector2(38.789, 24.599)
 texture = ExtResource("4_ykfqr")
 
 [node name="Turret" parent="DebugAndTesting" instance=ExtResource("8_dpx1q")]
-visible = false
-position = Vector2(994, 740)
-stacks = 3
-extension = 2
+position = Vector2(215.23, 315.588)
+type = 4
+extension = 4
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." node_paths=PackedStringArray("gameState")]
 scale = Vector2(0.565, 0.565)

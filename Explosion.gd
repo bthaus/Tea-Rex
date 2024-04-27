@@ -9,15 +9,20 @@ var type
 static var sounds=0;
 static func create(type,damage, position, root,scale=1):
 	var temp;
+	print(position)
 	if cache.size()==0:
 		temp=load("res://TurretScripts/Projectiles/Explosion.tscn").instantiate() as Explosion;
 		temp.type=type;
-		temp.apply_scale(Vector2(scale,scale));
+		temp.scale=Vector2(scale,scale)
+		#temp.apply_scale(Vector2(scale,scale));
 		temp.damage=damage;
 		root.add_child(temp);
+		temp.visible=true;
 		
 	else:
 		temp=cache.pop_back();
+		root.add_child(temp);
+		temp.scale=Vector2(scale,scale)
 		temp.visible=true;
 		
 	temp.global_position=position;
@@ -27,7 +32,7 @@ static func create(type,damage, position, root,scale=1):
 		temp.get_node("sound").play();
 		sounds=sounds+1;
 	temp.get_node("AnimationPlayer").play("lightup")
-
+	print("created")
 	
 	
 	pass;
@@ -39,10 +44,11 @@ func _process(delta):
 		$sound.volume_db=mod*10
 	pass
 
-
+var num=0;
 func _on_area_2d_area_entered(area):
 	if(area.get_parent() is Monster):
 		
+		num=num+1;
 		area.get_parent().hit(type,damage);
 	
 	
@@ -55,7 +61,7 @@ func getCam():
 	return cam;
 	pass;
 func _on_animated_sprite_2d_animation_finished():
-	visible=false;
+	get_parent().remove_child(self)
 	cache.push_back(self)
 	pass # Replace with function body.
 

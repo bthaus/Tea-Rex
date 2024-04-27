@@ -17,6 +17,7 @@ var direction:Vector2;
 
 var speed;
 var cooldown;
+var cdt;
 var damage;
 
 var speedfactor=1;
@@ -52,10 +53,11 @@ func setUpTower():
 	$Barrel/third.texture=barreltext;
 	$AudioStreamPlayer2D.stream=load("res://Sounds/Soundeffects/"+Stats.getStringFromEnum(type)+Stats.getStringFromEnumExtension(extension)+"_shot.wav")
 	match type:
-		1:$PointLight2D.color=Color(Color.BLUE)
-		2: $PointLight2D.color=Color(Color.GREEN)
-		3: $PointLight2D.color=Color(Color.RED)
-		4: $PointLight2D.color=Color(Color.YELLOW); instantHit=true;
+		#1:$PointLight2D.color=Color(Color.BLUE)
+		#2: $PointLight2D.color=Color(Color.GREEN)
+		#3: $PointLight2D.color=Color(Color.RED)
+		4: #$PointLight2D.color=Color(Color.YELLOW); 
+			instantHit=true;
 	cooldown=Stats.getCooldown(type,extension);
 	damage=Stats.getDamage(type,extension);
 	speed=Stats.getMissileSpeed(type,extension);
@@ -137,7 +139,22 @@ func draw_redlaser():
 			draw_line(($Barrel/third.position+$Barrel/third/BulletPosition.position).rotated($Barrel.rotation),-(global_position-(targetposition)-($Barrel/third.position-$Barrel/third/BulletPosition.position).rotated($Barrel.rotation)),color,thickness*buildup+(3*buildup*sin(Time.get_ticks_usec())),true)
 
 	pass;
+	
+func reduceCooldown(delta):
+	var ml=1.5*stacks;
+	if not onCooldown:
+		return;
+		
+	$PointLight2D.energy=$PointLight2D.energy+(ml/cooldown)*delta
+	if$PointLight2D.energy>ml: $PointLight2D.energy=ml;
+	
+	remap(255,0,0,1,254)
+	cdt=cdt-delta;
+	if cdt<0:
+		onCooldown=false;
+	pass
 func _process(delta):
+	reduceCooldown(delta)
 	if type==Stats.TurretColor.YELLOW&&extension==Stats.TurretExtension.DEFAULT:
 		buildup=buildup-4*delta;	
 
@@ -145,9 +162,11 @@ func _process(delta):
 		if projectile==null:
 			projectile=Projectile.create(type,damage,speed,self,extension)
 		
+	
 		if buildup<=1 and (type==Stats.TurretColor.RED&&extension==Stats.TurretExtension.REDLASER):
 			buildup=buildup+1*delta*2;
 		var target=$EnemyDetector.enemiesInRange[0];
+		
 		direction=(target.global_position-self.global_position).normalized();
 		$Barrel.rotation=direction.angle() + PI / 2.0;
 		$Base.rotation=direction.angle() + PI / 2.0;
@@ -159,8 +178,8 @@ func _process(delta):
 				for e in $EnemyDetector.enemiesInRange:
 					e.hit(type,self.damage)
 					projectile.playHitSound();	
-				$Timer.start(cooldown*cooldownfactor);		
-				onCooldown=true;
+				startCooldown(cooldown*cooldownfactor)		
+				
 				return;
 			if (type==Stats.TurretColor.RED&&extension==Stats.TurretExtension.REDLASER):
 				
@@ -176,8 +195,7 @@ func _process(delta):
 				projectile.hitEnemy(target)
 				
 				queue_redraw()
-				$Timer.start(cooldown*cooldownfactor);
-				onCooldown=true;
+				startCooldown(cooldown*cooldownfactor)
 				return
 			if (type==Stats.TurretColor.YELLOW&&extension==Stats.TurretExtension.DEFAULT):
 				if camera!=null:
@@ -192,7 +210,7 @@ func _process(delta):
 				projectile.hitEnemy(target)
 				buildup=1;
 				queue_redraw()
-				$Timer.start(cooldown*cooldownfactor);
+				startCooldown(cooldown*cooldownfactor)
 				onCooldown=true;
 				return
 			shoot(target);
@@ -207,13 +225,18 @@ func _process(delta):
 		$Barrel/third.visible=true;	
 	
 	pass;
-
+func startCooldown(time):
+	$PointLight2D.energy=0
+	cdt=time;
+	onCooldown=true;
+	pass;
 func shoot(target):
 	
 	var shot=Projectile.create(type,damage*damagefactor,speed*speedfactor,self,extension);
 	#add_child(shot);
 	shot.global_position=$Barrel/BulletPosition.global_position;
-	
+	if type==Stats.TurretColor.YELLOW&&Stats.TurretExtension.YELLOWMORTAR==extension:
+			Explosion.create(Stats.TurretColor.YELLOW,0,$Barrel/BulletPosition.global_position,self,0.1)
 	if instantHit:
 		projectile.global_position=target.global_position
 		projectile.hitEnemy(target)
@@ -222,7 +245,9 @@ func shoot(target):
 		shot.shoot(target);
 	
 	if stacks>1:
-		
+		if type==Stats.TurretColor.YELLOW&&Stats.TurretExtension.YELLOWMORTAR==extension:
+			Explosion.create(Stats.TurretColor.YELLOW,0,$Barrel/second/BulletPosition.global_position,self,0.3)
+	
 		
 		if instantHit:
 			projectile.global_position=target.global_position
@@ -234,6 +259,8 @@ func shoot(target):
 			sshot.shoot(target);
 			
 	if stacks>2:
+		if type==Stats.TurretColor.YELLOW&&Stats.TurretExtension.YELLOWMORTAR==extension:
+			Explosion.create(Stats.TurretColor.YELLOW,0,$Barrel/third/BulletPosition.global_position,self,0.3)
 	
 		if instantHit:
 			projectile.global_position=target.global_position
@@ -244,8 +271,7 @@ func shoot(target):
 			tshot.global_position=$Barrel/third/BulletPosition.global_position;
 			shot.shoot(target);
 		
-	$Timer.start(cooldown*cooldownfactor);
-	onCooldown=true;
+	startCooldown(cooldown*cooldownfactor)
 	pass;
 func inRange():
 	return $EnemyDetector.enemiesInRange.size()>0;
