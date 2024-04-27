@@ -70,13 +70,12 @@ position = Vector2(-736, -503)
 stream = ExtResource("3_avl3y")
 
 [node name="Spawner" type="Node2D" parent="." node_paths=PackedStringArray("state")]
-visible = false
 position = Vector2(152.286, 238.819)
 script = ExtResource("10_tv5je")
 state = NodePath("..")
 
 [node name="Base" type="Node2D" parent="Spawner"]
-position = Vector2(841.122, -43.6834)
+position = Vector2(571.615, 136.367)
 scale = Vector2(0.58, 0.58)
 
 [node name="Sprite2D" type="Sprite2D" parent="Spawner/Base"]

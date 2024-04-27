@@ -145,6 +145,7 @@ func _process(delta):
 		if projectile==null:
 			projectile=Projectile.create(type,damage,speed,self,extension)
 		
+	
 		if buildup<=1 and (type==Stats.TurretColor.RED&&extension==Stats.TurretExtension.REDLASER):
 			buildup=buildup+1*delta*2;
 		var target=$EnemyDetector.enemiesInRange[0];
@@ -213,7 +214,8 @@ func shoot(target):
 	var shot=Projectile.create(type,damage*damagefactor,speed*speedfactor,self,extension);
 	#add_child(shot);
 	shot.global_position=$Barrel/BulletPosition.global_position;
-	
+	if type==Stats.TurretColor.YELLOW&&Stats.TurretExtension.YELLOWMORTAR==extension:
+			Explosion.create(Stats.TurretColor.YELLOW,0,$Barrel/BulletPosition.global_position,self,0.1)
 	if instantHit:
 		projectile.global_position=target.global_position
 		projectile.hitEnemy(target)
@@ -222,7 +224,9 @@ func shoot(target):
 		shot.shoot(target);
 	
 	if stacks>1:
-		
+		if type==Stats.TurretColor.YELLOW&&Stats.TurretExtension.YELLOWMORTAR==extension:
+			Explosion.create(Stats.TurretColor.YELLOW,0,$Barrel/second/BulletPosition.global_position,self,0.3)
+	
 		
 		if instantHit:
 			projectile.global_position=target.global_position
@@ -234,6 +238,8 @@ func shoot(target):
 			sshot.shoot(target);
 			
 	if stacks>2:
+		if type==Stats.TurretColor.YELLOW&&Stats.TurretExtension.YELLOWMORTAR==extension:
+			Explosion.create(Stats.TurretColor.YELLOW,0,$Barrel/third/BulletPosition.global_position,self,0.3)
 	
 		if instantHit:
 			projectile.global_position=target.global_position

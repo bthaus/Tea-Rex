@@ -170,6 +170,9 @@ func unlockRandom(base,pool):
 	for a in base:
 		if not pool.has(a):
 			tounlock.append(a)
+			
+	if tounlock.size()==0:
+		return;
 	var unlocked=tounlock[Stats.rng.randi_range(0,tounlock.size()-1)]
 	pool.append(unlocked)
 	return unlocked;

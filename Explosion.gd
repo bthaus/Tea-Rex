@@ -9,10 +9,12 @@ var type
 static var sounds=0;
 static func create(type,damage, position, root,scale=1):
 	var temp;
+	print(position)
 	if cache.size()==0:
 		temp=load("res://TurretScripts/Projectiles/Explosion.tscn").instantiate() as Explosion;
 		temp.type=type;
-		temp.apply_scale(Vector2(scale,scale));
+		temp.scale=Vector2(scale,scale)
+		#temp.apply_scale(Vector2(scale,scale));
 		temp.damage=damage;
 		root.add_child(temp);
 		temp.visible=true;
@@ -20,6 +22,7 @@ static func create(type,damage, position, root,scale=1):
 	else:
 		temp=cache.pop_back();
 		root.add_child(temp);
+		temp.scale=Vector2(scale,scale)
 		temp.visible=true;
 		
 	temp.global_position=position;

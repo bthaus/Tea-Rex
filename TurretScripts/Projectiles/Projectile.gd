@@ -209,11 +209,10 @@ func applyMortarExplosion(enemy:Monster):
 	var pos=enemy.global_position
 	var sprite=Sprite2D.new();
 	sprite.texture=load("res://Assets/UI/Target_Cross.png")
-	
 	get_parent().add_child(sprite)
 	sprite.global_position=pos;
 	get_tree().create_timer(0.5).timeout.connect(func():
-		print(pos)
+		
 		Explosion.create(Stats.TurretColor.YELLOW,damage,pos,gamestate)
 		sprite.queue_free()
 	)
