@@ -39,8 +39,6 @@ func _ready():
 	spawners = get_tree().get_nodes_in_group("spawner")
 	
 	$Camera2D.is_dragging_camera.connect(dragging_camera)
-	
-	_spawn_turrets()
 	_set_navigation_region()
 	
 
@@ -309,20 +307,30 @@ func generate_cave(pos_y: int, height: int, right_side: bool):
 func _spawn_turrets():
 	_remove_turrets()
 	for row in range(1,Stats.board_height-1):
-		for col in range(1,Stats.board_width-1):
-			var block_data = $Board.get_cell_tile_data(BLOCK_LAYER, Vector2(col, row))
-			var id = $Board.get_cell_source_id(BLOCK_LAYER, Vector2(col, row))
-			var extension_data = $Board.get_cell_tile_data(EXTENSION_LAYER, Vector2(col, row))
-			if block_data != null and id != PREVIEW_BLOCK_TILE_ID:
-				var color = block_data.get_custom_data("color").to_upper()
-				if color == "WALL" or color == "GREY":
-					continue
-				var level = block_data.get_custom_data("level")
-				var extension = extension_data.get_custom_data("extension").to_upper()
-				var turret = Turret.create(Stats.TurretColor.get(color), level, Stats.TurretExtension.get(extension))
-				turret.position = $Board.map_to_local(Vector2(col, row))
-				add_child(turret)
-				
+		var col = 0
+		while(block_handler.is_position_in_gameboard_bounds(BLOCK_LAYER, Vector2(col, row))):
+			_spawn_turret(Vector2(col, row))
+			col -= 1
+		col = 1
+		while(block_handler.is_position_in_gameboard_bounds(BLOCK_LAYER, Vector2(col, row))):
+			_spawn_turret(Vector2(col, row))
+			col += 1
+
+
+func _spawn_turret(position: Vector2):
+	var block_data = $Board.get_cell_tile_data(BLOCK_LAYER, position)
+	var id = $Board.get_cell_source_id(BLOCK_LAYER, position)
+	var extension_data = $Board.get_cell_tile_data(EXTENSION_LAYER, position)
+	if block_data != null and id != PREVIEW_BLOCK_TILE_ID:
+		var color = block_data.get_custom_data("color").to_upper()
+		if color == "WALL" or color == "GREY":
+			return
+		var level = block_data.get_custom_data("level")
+		var extension = extension_data.get_custom_data("extension").to_upper()
+		var turret = Turret.create(Stats.TurretColor.get(color), level, Stats.TurretExtension.get(extension))
+		turret.position = $Board.map_to_local(position)
+		add_child(turret)
+	
 func _remove_turrets():
 	for child in get_children():
 		if child is Turret:
