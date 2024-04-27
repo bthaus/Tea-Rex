@@ -386,8 +386,8 @@ func getRandomBlock(lvl,gamestate):
 					extension = getExtensionFromColor(color)
 	
 	var block=BlockShape.values()[rng.randi_range(0,BlockShape.size()-1)]
-	#return getBlockFromShape(block,color,lvl,extension)
-	return getBlockFromShape(block,TurretColor.YELLOW,lvl,TurretExtension.YELLOWMORTAR)
+	return getBlockFromShape(block,color,lvl,extension)
+	#return getBlockFromShape(block,TurretColor.YELLOW,lvl,TurretExtension.YELLOWMORTAR)
 	
 static func getExtensionFromColor(color: TurretColor):
 	match color:
