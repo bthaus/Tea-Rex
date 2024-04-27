@@ -15,9 +15,11 @@ static func create(type,damage, position, root,scale=1):
 		temp.apply_scale(Vector2(scale,scale));
 		temp.damage=damage;
 		root.add_child(temp);
+		temp.visible=true;
 		
 	else:
 		temp=cache.pop_back();
+		root.add_child(temp);
 		temp.visible=true;
 		
 	temp.global_position=position;
@@ -27,7 +29,7 @@ static func create(type,damage, position, root,scale=1):
 		temp.get_node("sound").play();
 		sounds=sounds+1;
 	temp.get_node("AnimationPlayer").play("lightup")
-
+	print("created")
 	
 	
 	pass;
@@ -42,7 +44,7 @@ func _process(delta):
 var num=0;
 func _on_area_2d_area_entered(area):
 	if(area.get_parent() is Monster):
-		print("hit+ "+str(num) +"   dm"+str(damage))
+		
 		num=num+1;
 		area.get_parent().hit(type,damage);
 	
