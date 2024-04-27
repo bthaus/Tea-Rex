@@ -67,6 +67,17 @@ const red_laser_penetrations=base_penetrations*1;
 const blue_laser_penetrations=base_penetrations*3;
 const green_poison_penetrations=base_penetrations*1;
 
+const green_instanthit=false;
+const blue_instanthit=false;
+const red_instanthit=true;
+const yellow_instanthit=true;
+
+const red_laser_instanthit=false;
+const blue_laser_instanthit=false;
+const green_poison_instanthit=false;
+const yellow_mortar_instanthit=true;
+
+
 const yellow_mortar_penetrations=1;
 const green_explosion_range=0.5;
 const red_laser_damage_stack=1;
@@ -312,7 +323,10 @@ static func get_generic_property(arr):
 	
 static func getCooldown(type:TurretColor,extension:TurretExtension):
 	return getProperty(type,extension,"cooldown");
-
+static func getInstantHit(type:TurretColor,extension:TurretExtension):
+	return getProperty(type,extension,"instanthit");
+	
+	
 static func getDamage(type:TurretColor,extension:TurretExtension):
 	return getProperty(type,extension,"damage");
 static func getGlowing(type:TurretColor,extension:TurretExtension):
@@ -387,6 +401,7 @@ func getRandomBlock(lvl,gamestate):
 					extension = getExtensionFromColor(color)
 	
 	var block=BlockShape.values()[rng.randi_range(0,BlockShape.size()-1)]
+	
 	return getBlockFromShape(block,color,lvl,extension)
 	#return getBlockFromShape(block,TurretColor.YELLOW,lvl,TurretExtension.YELLOWMORTAR)
 	
