@@ -1,11 +1,11 @@
 extends Node
 class_name Stats;
 const block_size=64;
-static var board_width=16;
+static var board_width=20;
 static var board_height=16;
 static var board_extend_height=10;
 static var board_cave_chance_percent=10
-static var board_cave_deepness=range(4,8)
+static var board_cave_deepness=util.Distance.new(4,8)
 
 const base_range=5;
 const green_range=2*base_range;
