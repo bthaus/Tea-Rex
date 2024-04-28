@@ -266,6 +266,7 @@ static func getColorFromString(str:String):
 		"GREEN":return TurretColor.GREEN;
 		"YELLOW":return TurretColor.YELLOW;
 		"GREY":return TurretColor.GREY;
+		"WALL":return GameBoard.WALL_TILE_ID
 	pass;
 static func getShapeFromString(str:String):
 	match str:

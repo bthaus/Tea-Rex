@@ -7,7 +7,7 @@ var moved_from_block = null
 
 var spawners 
 
-@onready var block_handler = BlockHandler.new($Board)
+@onready var block_handler:BlockHandler = BlockHandler.new($Board)
 enum BoardAction {NONE=0, PLAYER_BUILD=1, PLAYER_MOVE=2, PLAYER_BULLDOZER=3}
 var action: BoardAction = BoardAction.NONE
 var done: Callable
