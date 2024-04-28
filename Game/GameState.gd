@@ -4,8 +4,10 @@ class_name GameState;
 @export var gameBoard:GameBoard;
 @export var hand:Node2D
 @export var menu:Node2D
+@export   var cam:Camera2D;
+static var gameState;
 
-var cardhand;
+
 var account:String="player1";
 #Stats.TurretExtension
 var unlockedExtensions=[Stats.TurretExtension.DEFAULT];
@@ -15,7 +17,6 @@ var unlockedColors=[Stats.TurretColor.BLUE];
 var unlockedSpecialCards=[Stats.SpecialCards.HEAL];
 
 var phase:Stats.GamePhase=Stats.GamePhase.BUILD;
-var bulletManager:BulletManager
 var HP=Stats.playerHP;
 var maxHP=Stats.playerMaxHP;
 var maxCards=5;
@@ -23,40 +24,19 @@ var cardRedraws=2;
 var totalExp=0;
 var levelUp=250;
 var started=false;
-
-
 var wave:int=0;
-var stateDictionary={
-	"account":"player1",
-	"unlockedColors":[Stats.TurretColor.BLUE],
-	"unlockedExtensions":[],	
-	"unlockedSpecialCards":[Stats.SpecialCards.HEAL],
-	"phase":Stats.GamePhase.BOTH,
-	"HP":Stats.playerHP,
-	"maxHP":Stats.playerMaxHP,
-	"handCards":[],
-	"wave":0
-}
+
 #subject to change
-var handCards=[]
+
 
 signal player_died
 signal start_build_phase;
 signal start_combat_phase;
 signal level_up(item)
 
-@export   var cam:Camera2D;
-static var gameState;
 
-func updateDic():
-	for k in stateDictionary.keys():
-		stateDictionary[k]=get(k)
-	pass
-func updateValues():
-	for k in stateDictionary.keys():
-		set(k,stateDictionary[k])
-		
-	pass;
+
+
 func upMaxCards():
 	maxCards=maxCards+1;
 	$CanvasLayer/UI/maxcards.text="MAXCARDS: "+str(maxCards)
@@ -104,7 +84,11 @@ func drawCards(amount):
 	pass;
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	
+	if Input.is_action_just_pressed("save"):
+		#GameSaver.saveGame(self)
+		GameSaver.restoreGame(self)
+		
+		
 	pass
 
 
