@@ -1,9 +1,10 @@
 extends ItemList
-@export var gamestate:GameState
-
+var gamestate:GameState
+@export var menu:Node2D;
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	gamestate.level_up.connect(refreshlist)
+	
+	
 	for a in Stats.TurretColor.keys():
 		if a!="GREY":
 			add_item(a,load("res://Assets/Turrets/Bases/"+a+"_base.png"))
@@ -21,9 +22,8 @@ func _process(delta):
 	pass
 
 
-func _on_button_pressed():
-	visible=false;
-	get_parent().get_node("StartButton").visible=true;
-	get_parent().get_node("UnlockedButton").visible=true
-	
+
+func _on_menu_state_propagation(gamestate):
+	self.gamestate=gamestate
+	gamestate.level_up.connect(refreshlist)
 	pass # Replace with function body.

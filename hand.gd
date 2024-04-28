@@ -3,7 +3,7 @@ extends Node2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	state.hand=self
+
 	pass # Replace with function body.
 
 func drawCard():
@@ -27,4 +27,10 @@ func _process(delta):
 func _on_button_pressed():
 	
 	drawCard()
+	pass # Replace with function body.
+
+
+func _on_menu_state_propagation(gamestate):
+	state=gamestate;
+	state.hand=self
 	pass # Replace with function body.

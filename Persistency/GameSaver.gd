@@ -82,7 +82,10 @@ static func save(content:String, destination:String, save:String):
 
 static func loadfile(destination:String, save:String):
 	var file = FileAccess.open("user://save_game"+destination+"_"+save+".dat", FileAccess.READ)
-	print(FileAccess.get_open_error())
+	var err=FileAccess.get_open_error()
+	if err>0:
+		print("error loading file")
+		return "";
 	var content = file.get_as_text()
 	return content
 class Data:
