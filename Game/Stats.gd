@@ -1,8 +1,7 @@
 extends Node
 class_name Stats;
 const block_size=64;
-static var board_width=20;
-static var board_height=16;
+
 static var board_extend_height=10;
 static var board_cave_chance_percent=10
 static var board_cave_deepness=util.Distance.new(4,8)
@@ -42,7 +41,7 @@ const red_cooldown=base_cooldown*0.3;
 const red_laser_cooldown=base_cooldown*0.5;
 const blue_laser_cooldown=base_cooldown*0.5;
 const green_poison_cooldown=base_cooldown*1.5
-const yellow_mortar_cooldown=base_cooldown*2;
+const yellow_mortar_cooldown=base_cooldown*3;
 
 const base_damage=5;
 const green_damage=base_damage*1;

@@ -2,9 +2,11 @@ extends Node
 
 class_name BlockHandler
 var board: TileMap
-
+var gameState:GameState
 func _init(board: TileMap):
 	self.board = board
+	self.gameState=GameState.gameState
+	
 	
 const PREVIEW_BLOCK_TILE_ID = 4
 
@@ -176,12 +178,12 @@ func get_board_width_range(layer: int, row: int) -> util.Distance:
 #Checks if a given position is in bounds the gameboard or not. This is needed since the caves allow a variable width.
 #The walls themselves are excluded, meaning positions on these walls will result in being out of bounds.
 func is_position_in_gameboard_bounds(layer: int, position: Vector2) -> bool:
-	if position.y <= 0 or position.y >= Stats.board_height-1:
+	if position.y <= 0 or position.y >= gameState.board_height-1:
 		return false
 	
 	#Check right side
 	var x = position.x
-	while x >= Stats.board_width-1:
+	while x >= gameState.board_width-1:
 		var data = board.get_cell_tile_data(layer, Vector2(x, position.y))
 		if data != null and data.get_custom_data("color").to_upper() == "WALL":
 			return false

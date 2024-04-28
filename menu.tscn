@@ -1,0 +1,240 @@
+[gd_scene load_steps=17 format=3 uid="uid://cf5heufemalnf"]
+
+[ext_resource type="Script" path="res://Menu.gd" id="1_vjikn"]
+[ext_resource type="Script" path="res://UI.gd" id="2_vouda"]
+[ext_resource type="Texture2D" uid="uid://k8t5t02p68sh" path="res://Assets/Level/mainMenu.jpg" id="3_hap75"]
+[ext_resource type="Script" path="res://UnlockedItemList.gd" id="4_4bynl"]
+[ext_resource type="Texture2D" uid="uid://dmqfkeqg0bxbu" path="res://Assets/UI/StartGameButton.png" id="4_mukw3"]
+[ext_resource type="PackedScene" uid="uid://crxh6rxjn4mro" path="res://CardSpace.tscn" id="5_8526f"]
+[ext_resource type="Texture2D" uid="uid://vq2m6pqwfk8i" path="res://Assets/UI/ShowAccountsButton.png" id="6_gg0h1"]
+[ext_resource type="Texture2D" uid="uid://65ulpuoik3sk" path="res://Assets/Cards/deck.png" id="6_in81a"]
+[ext_resource type="Texture2D" uid="uid://dbgbbq7obnmij" path="res://Assets/UI/ShowUnlockedBUtton.png" id="7_aujqc"]
+[ext_resource type="Texture2D" uid="uid://c2ktmv44r7ds2" path="res://Assets/Cards/deckDisabled.png" id="7_mc2lv"]
+[ext_resource type="PackedScene" uid="uid://dfv1yobm3u5hn" path="res://hand.tscn" id="8_4633y"]
+[ext_resource type="Texture2D" uid="uid://b8n0busmwromw" path="res://icon.svg" id="9_n0w1i"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_t26sl"]
+font_size = 106
+
+[sub_resource type="LabelSettings" id="LabelSettings_qdrky"]
+font_size = 106
+
+[sub_resource type="LabelSettings" id="LabelSettings_licme"]
+font_size = 106
+
+[sub_resource type="LabelSettings" id="LabelSettings_tx5p1"]
+font_size = 31
+font_color = Color(0, 0, 0, 1)
+
+[node name="Menu" type="Node2D"]
+z_index = 51
+script = ExtResource("1_vjikn")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." node_paths=PackedStringArray("main", "unlockedTab", "accountsTab", "menu", "ui", "parent")]
+scale = Vector2(0.565, 0.565)
+transform = Transform2D(0.565, 0, 0, 0.565, 0, 0)
+script = ExtResource("2_vouda")
+main = NodePath("MainMenu/Main")
+unlockedTab = NodePath("MainMenu/UnlockedTab")
+accountsTab = NodePath("MainMenu/AccountsTab")
+menu = NodePath("MainMenu")
+ui = NodePath("UI")
+parent = NodePath("..")
+
+[node name="MainMenu" type="Node2D" parent="CanvasLayer"]
+
+[node name="Banner" type="Sprite2D" parent="CanvasLayer/MainMenu"]
+position = Vector2(1007.3, 569.204)
+scale = Vector2(1.91056, 1.78872)
+texture = ExtResource("3_hap75")
+
+[node name="Main" type="Node2D" parent="CanvasLayer/MainMenu"]
+
+[node name="StartButton" type="TextureButton" parent="CanvasLayer/MainMenu/Main"]
+offset_left = 577.0
+offset_top = 366.0
+offset_right = 1374.0
+offset_bottom = 570.0
+texture_normal = ExtResource("4_mukw3")
+
+[node name="Label" type="Label" parent="CanvasLayer/MainMenu/Main/StartButton"]
+layout_mode = 0
+offset_left = 95.5752
+offset_top = 24.7787
+offset_right = 743.575
+offset_bottom = 171.779
+text = "Start Game"
+label_settings = SubResource("LabelSettings_t26sl")
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
+[node name="UnlockedButton" type="TextureButton" parent="CanvasLayer/MainMenu/Main"]
+offset_left = 580.531
+offset_top = 568.142
+offset_right = 1167.53
+offset_bottom = 962.142
+action_mode = 0
+texture_normal = ExtResource("6_gg0h1")
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="CanvasLayer/MainMenu/Main/UnlockedButton"]
+layout_mode = 0
+offset_left = 33.6283
+offset_top = 219.469
+offset_right = 913.628
+offset_bottom = 365.469
+text = "ITEMS"
+label_settings = SubResource("LabelSettings_qdrky")
+
+[node name="Accounts" type="TextureButton" parent="CanvasLayer/MainMenu/Main"]
+offset_left = 776.991
+offset_top = 566.372
+offset_right = 1368.99
+offset_bottom = 960.372
+rotation = 0.00497202
+action_mode = 0
+texture_normal = ExtResource("7_aujqc")
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="CanvasLayer/MainMenu/Main/Accounts"]
+layout_mode = 0
+offset_left = 10.7161
+offset_top = 19.416
+offset_right = 577.716
+offset_bottom = 165.416
+text = "ACCOUNTS"
+label_settings = SubResource("LabelSettings_licme")
+
+[node name="UnlockedTab" type="Node2D" parent="CanvasLayer/MainMenu"]
+visible = false
+
+[node name="UnlockedItems" type="ItemList" parent="CanvasLayer/MainMenu/UnlockedTab" node_paths=PackedStringArray("menu")]
+offset_left = 428.319
+offset_top = 249.558
+offset_right = 1504.32
+offset_bottom = 849.558
+script = ExtResource("4_4bynl")
+menu = NodePath("../../Main")
+
+[node name="Button" type="Button" parent="CanvasLayer/MainMenu/UnlockedTab/UnlockedItems"]
+layout_mode = 0
+offset_left = 953.982
+offset_top = -1.76994
+offset_right = 1073.98
+offset_bottom = 74.2301
+text = "Back
+"
+
+[node name="AccountsTab" type="Node2D" parent="CanvasLayer/MainMenu"]
+visible = false
+
+[node name="AccountList" type="ItemList" parent="CanvasLayer/MainMenu/AccountsTab"]
+offset_left = 584.0
+offset_top = 556.0
+offset_right = 1373.0
+offset_bottom = 1121.0
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/MainMenu/AccountsTab"]
+position = Vector2(975.221, 437.168)
+texture = ExtResource("4_mukw3")
+
+[node name="AccountInput" type="LineEdit" parent="CanvasLayer/MainMenu/AccountsTab"]
+offset_left = 600.0
+offset_top = 356.0
+offset_right = 1329.0
+offset_bottom = 513.0
+placeholder_text = "create Your account"
+
+[node name="Button" type="Button" parent="CanvasLayer/MainMenu/AccountsTab"]
+offset_left = 1246.02
+offset_top = 253.097
+offset_right = 1366.02
+offset_bottom = 329.097
+text = "Back
+"
+
+[node name="UI" type="Node2D" parent="CanvasLayer"]
+visible = false
+
+[node name="Cardspace" parent="CanvasLayer/UI" instance=ExtResource("5_8526f")]
+visible = false
+position = Vector2(79.646, 437.168)
+
+[node name="StartBattlePhase" type="TextureButton" parent="CanvasLayer/UI"]
+clip_contents = true
+offset_left = 1785.84
+offset_top = 980.531
+offset_right = 1977.84
+offset_bottom = 1172.53
+scale = Vector2(0.5, 0.5)
+texture_normal = ExtResource("6_in81a")
+texture_pressed = ExtResource("6_in81a")
+texture_hover = ExtResource("6_in81a")
+texture_disabled = ExtResource("7_mc2lv")
+
+[node name="PHASE" type="Label" parent="CanvasLayer/UI"]
+offset_left = 1103.0
+offset_top = 169.0
+offset_right = 1694.0
+offset_bottom = 192.0
+
+[node name="Hand" parent="CanvasLayer/UI" instance=ExtResource("8_4633y")]
+position = Vector2(141.593, 945.133)
+
+[node name="maxcards" type="Label" parent="CanvasLayer/UI"]
+offset_left = 56.6372
+offset_top = 994.69
+offset_right = 145.637
+offset_bottom = 1052.69
+text = "maxcards 5"
+
+[node name="redraws" type="Label" parent="CanvasLayer/UI"]
+offset_left = 54.8818
+offset_top = 1061.66
+offset_right = 131.882
+offset_bottom = 1110.66
+text = "redraws 1
+ "
+
+[node name="drawcard" type="Button" parent="CanvasLayer/UI"]
+offset_left = 1734.51
+offset_top = 815.929
+offset_right = 1956.51
+offset_bottom = 951.929
+text = "Draw Card"
+icon = ExtResource("9_n0w1i")
+
+[node name="HP" type="Label" parent="CanvasLayer/UI"]
+offset_left = 1008.85
+offset_top = 86.7257
+offset_right = 1048.85
+offset_bottom = 109.726
+text = "100"
+
+[node name="EXP" type="Label" parent="CanvasLayer/UI"]
+offset_left = 51.3274
+offset_top = 936.283
+offset_right = 91.3274
+offset_bottom = 959.283
+text = "0"
+
+[node name="PlayerName" type="Label" parent="CanvasLayer"]
+offset_right = 250.0
+offset_bottom = 90.0
+text = "no account selected"
+label_settings = SubResource("LabelSettings_tx5p1")
+
+[connection signal="statePropagation" from="." to="CanvasLayer" method="_on_menu_state_propagation"]
+[connection signal="statePropagation" from="." to="CanvasLayer/MainMenu/UnlockedTab/UnlockedItems" method="_on_menu_state_propagation"]
+[connection signal="statePropagation" from="." to="CanvasLayer/UI/Hand" method="_on_menu_state_propagation"]
+[connection signal="pressed" from="CanvasLayer/MainMenu/Main/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/MainMenu/Main/StartButton" to="CanvasLayer" method="_on_start_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/MainMenu/Main/UnlockedButton" to="CanvasLayer" method="_on_unlocked_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/MainMenu/Main/Accounts" to="CanvasLayer" method="_on_accounts_pressed"]
+[connection signal="visibility_changed" from="CanvasLayer/MainMenu/UnlockedTab" to="CanvasLayer" method="_on_unlocked_tab_visibility_changed"]
+[connection signal="pressed" from="CanvasLayer/MainMenu/UnlockedTab/UnlockedItems/Button" to="CanvasLayer" method="hideUnlocks"]
+[connection signal="item_activated" from="CanvasLayer/MainMenu/AccountsTab/AccountList" to="CanvasLayer" method="_on_account_list_item_activated"]
+[connection signal="text_submitted" from="CanvasLayer/MainMenu/AccountsTab/AccountInput" to="CanvasLayer" method="_on_account_input_text_submitted"]
+[connection signal="pressed" from="CanvasLayer/MainMenu/AccountsTab/Button" to="CanvasLayer" method="HideAccounts"]
+[connection signal="pressed" from="CanvasLayer/UI/StartBattlePhase" to="." method="_on_start_battle_phase_pressed"]

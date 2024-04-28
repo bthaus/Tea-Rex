@@ -3,12 +3,12 @@ class_name GameState;
 
 @export var gameBoard:GameBoard;
 @export var hand:Node2D
-@export var menu:Node2D
+@export var menu:Menu
 @export   var cam:Camera2D;
 static var gameState;
 
 
-var account:String="player1";
+var account:String="";
 #Stats.TurretExtension
 var unlockedExtensions=[Stats.TurretExtension.DEFAULT];
 #Stats.TurretColor
@@ -25,6 +25,8 @@ var totalExp=0;
 var levelUp=250;
 var started=false;
 var wave:int=0;
+var board_width=20;
+var board_height=16;
 
 #subject to change
 
@@ -39,11 +41,14 @@ signal level_up(item)
 
 func upMaxCards():
 	maxCards=maxCards+1;
-	$CanvasLayer/UI/maxcards.text="MAXCARDS: "+str(maxCards)
+	updateUI()
 	pass;
 func upRedraws():
 	cardRedraws=cardRedraws+1;
-	$CanvasLayer/UI/redraws.text="REDRAWS: "+str(cardRedraws)
+	updateUI()
+	pass;
+func updateUI():
+	menu.updateUI();
 	pass;
 func changeHealth(amount:int):
 	HP=HP+amount
@@ -53,13 +58,13 @@ func changeHealth(amount:int):
 		
 	if HP<=0:
 		player_died.emit()
-	$CanvasLayer/UI/HP.text=str(HP)
+	updateUI()
 	pass;
 	
 func changeMaxHealth(amount:int):
 	maxHP=maxHP+amount
 	
-	util.p("debug MAXhp: "+str(maxHP))
+	updateUI()
 	pass;
 
 
@@ -68,8 +73,8 @@ func _ready():
 	if get_child_count()==0:
 		queue_free()
 	gameState=self;
-	
 	Engine.max_fps=30;
+	GameSaver.createBaseGame(self)
 	#get_tree().create_timer(1).timeout.connect(drawCards.bind(maxCards))
 	pass # Replace with function body.
  
@@ -84,34 +89,33 @@ func drawCards(amount):
 	pass;
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if Input.is_action_just_pressed("save"):
-		#GameSaver.saveGame(self)
-		GameSaver.restoreGame(self)
-		
+
 		
 	pass
 
 
-func _on_start_battle_phase_pressed():
+func startBattlePhase():
+	gameBoard._set_navigation_region()
+	get_tree().create_timer(0.5).timeout.connect(func():GameSaver.saveGame(gameState))
 	$Spawner.start(wave)
 	wave=wave+1;
 	phase=Stats.GamePhase.BATTLE
-	$CanvasLayer/UI/PHASE.text="BATTLEPHASE"
+	updateUI()
 	pass # Replace with function body.
 func startBuildPhase():
+	GameSaver.saveGame(gameState)
+	
 	startCatastrophy()	
 	start_build_phase.emit()
 	phase=Stats.GamePhase.BUILD
-	$CanvasLayer/UI/PHASE.text="BUILDPHASE"
 	averageColorChances()
 	drawCards(cardRedraws)	
-		
+	updateUI()	
 	pass;
 	
 func averageColorChances():
-	print(Stats.colorChances)
-	Stats.colorChances[Stats.TurretColor.YELLOW-1]=50
-	print(Stats.colorChances)
+	
+
 	pass;
 func startCatastrophy():
 	#gameBoard.BULLDOZER_catastrophy(catastrophy_done)
@@ -133,7 +137,7 @@ func _on_spawner_wave_done():
 	pass # Replace with function body.
 
 
-func _on_button_pressed():
+func startGame():
 	gameBoard.draw_field()
 	if not started:
 		drawCards(maxCards)
@@ -141,8 +145,8 @@ func _on_button_pressed():
 	pass # Replace with function body.
 func addExp(monster:Monster):
 	totalExp=totalExp+monster.getExp()
-	$CanvasLayer/UI/EXP.text=str(totalExp)
 	checkLevelUp()
+	updateUI()
 	
 	pass;
 func checkLevelUp():

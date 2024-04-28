@@ -6,13 +6,12 @@ var moved_from_position = Vector2.ZERO #As (0,0) will be part of the wall, it is
 var moved_from_block = null
 
 var spawners 
-
+@export var gameState:GameState
 @onready var block_handler:BlockHandler = BlockHandler.new($Board)
 enum BoardAction {NONE=0, PLAYER_BUILD=1, PLAYER_MOVE=2, PLAYER_BULLDOZER=3}
 var action: BoardAction = BoardAction.NONE
 var done: Callable
 
-var turret_holder = util.TurretHolder.new()
 
 const BLOCK_LAYER = 0
 const GROUND_LAYER = 1
@@ -32,13 +31,14 @@ var navigation_polygon = NavigationPolygon.new()
 var points = PackedVector2Array([Vector2(),Vector2(),Vector2(),Vector2()])
 
 func _ready():
+	gameState=GameState.gameState
 	$Board.tile_set.tile_size = Vector2(Stats.block_size, Stats.block_size)
 	navigation_polygon.source_geometry_group_name = "navigation"
 	$Board.add_to_group("navigation")
 	navigation_polygon.source_geometry_mode = NavigationPolygon.SOURCE_GEOMETRY_GROUPS_WITH_CHILDREN
 	navigation_polygon.agent_radius = 31
 	spawners = get_tree().get_nodes_in_group("spawner")
-
+	
 	$Camera2D.is_dragging_camera.connect(dragging_camera)
 	_set_navigation_region()
 
@@ -73,7 +73,7 @@ func select_block(block,done:Callable):
 func BULLDOZER_catastrophy(done: Callable):
 	util.p("Bulldozer catastrophe starting", "Jojo")
 	self.done = done
-	var row = randi_range(1, Stats.board_height-1-Stats.bulldozer_catastrophy_height)
+	var row = randi_range(1, gameState.board_height-1-Stats.bulldozer_catastrophy_height)
 	var width = block_handler.get_board_width_range(BLOCK_LAYER, row)
 	var col = randi_range(width.from, width.to-Stats.bulldozer_catastrophy_width)
 	var pieces = []
@@ -89,7 +89,7 @@ func BULLDOZER_catastrophy(done: Callable):
 func DRILL_catastrophy(done: Callable):
 	util.p("Drill catastrophe starting", "Jojo")
 	self.done = done
-	var row = randi_range(1, Stats.board_height-1-Stats.drill_catastrophy_width)
+	var row = randi_range(1, gameState.board_height-1-Stats.drill_catastrophy_width)
 	var pieces = []
 	
 	for r in Stats.drill_catastrophy_width:
@@ -104,8 +104,8 @@ func DRILL_catastrophy(done: Callable):
 func LEVELDOWN_catastrophy(done: Callable):
 	util.p("Level down catastrophy starting", "Jojo")
 	self.done = done
-	var start = Vector2(randi_range(1, Stats.board_width-1-Stats.level_down_catastrophy_width), randi_range(1, Stats.board_height-1-Stats.level_down_catastrophy_height))
-	var row = randi_range(1, Stats.board_height-1-Stats.bulldozer_catastrophy_height)
+	var start = Vector2(randi_range(1, gameState.board_width-1-Stats.level_down_catastrophy_width), randi_range(1, gameState.board_height-1-Stats.level_down_catastrophy_height))
+	var row = randi_range(1, gameState.board_height-1-Stats.bulldozer_catastrophy_height)
 	var width = block_handler.get_board_width_range(BLOCK_LAYER, row)
 	var col = randi_range(width.from, width.to-Stats.bulldozer_catastrophy_width)
 	var pieces = []
@@ -120,7 +120,6 @@ func LEVELDOWN_catastrophy(done: Callable):
 	var block = Block.new(pieces)
 	block_handler.set_block_level(block, 1)
 	block_handler.draw_block(block, start, BLOCK_LAYER, EXTENSION_LAYER)
-	_remove_turrets(block, start)
 	_spawn_turrets(block, start)
 	_action_finished(true)
 	
@@ -190,7 +189,6 @@ func _place_block(block: Block, position: Vector2):
 	if data != null: #There is already a piece -> upgrade
 		var level = data.get_custom_data("level")
 		block_handler.set_block_level(block, level + 1)
-		_remove_turrets(block, position)
 
 	block_handler.draw_block(block, position, BLOCK_LAYER, EXTENSION_LAYER)
 	_spawn_turrets(block, position)
@@ -211,16 +209,16 @@ func _action_finished(finished: bool):
 func draw_field():
 	clear_field()
 	#Redraw walls and ground
-	for row in Stats.board_height:
+	for row in gameState.board_height:
 		$Board.set_cell(BLOCK_LAYER, Vector2(0,row), WALL_TILE_ID, Vector2(0,0))
-		$Board.set_cell(BLOCK_LAYER, Vector2(Stats.board_width-1,row), WALL_TILE_ID, Vector2(0,0))
+		$Board.set_cell(BLOCK_LAYER, Vector2(gameState.board_width-1,row), WALL_TILE_ID, Vector2(0,0))
 		
-	for col in Stats.board_width:
+	for col in gameState.board_width:
 		$Board.set_cell(BLOCK_LAYER, Vector2(col,0), WALL_TILE_ID, Vector2(0,0))
-		$Board.set_cell(BLOCK_LAYER, Vector2(col,Stats.board_height-1), WALL_TILE_ID, Vector2(0,0))
+		$Board.set_cell(BLOCK_LAYER, Vector2(col,gameState.board_height-1), WALL_TILE_ID, Vector2(0,0))
 	
-	for row in range(1, Stats.board_height-1):
-		for col in range(1, Stats.board_width-1):
+	for row in range(1, gameState.board_height-1):
+		for col in range(1, gameState.board_width-1):
 			$Board.set_cell(GROUND_LAYER, Vector2(col, row), EMPTY_TILE_ID, Vector2(0,0))
 		
 	$NavigationRegion2D.bake_navigation_polygon()
@@ -247,53 +245,53 @@ func clear_field():
 	
 func extend_field():
 	#Clear bottom row
-	for col in Stats.board_width:
-		$Board.set_cell(BLOCK_LAYER, Vector2(col, Stats.board_height-1), -1, Vector2(0,0))
+	for col in gameState.board_width:
+		$Board.set_cell(BLOCK_LAYER, Vector2(col, gameState.board_height-1), -1, Vector2(0,0))
 	
 	var generate_cave_left = randi_range(0, 100) <= Stats.board_cave_chance_percent
 	var generate_cave_right = randi_range(0, 100) <= Stats.board_cave_chance_percent
 	
-	if generate_cave_left: generate_cave(Stats.board_height-1, Stats.board_extend_height, false)
-	if generate_cave_right: generate_cave(Stats.board_height-1, Stats.board_extend_height, true)
+	if generate_cave_left: generate_cave(gameState.board_height-1, Stats.board_extend_height, false)
+	if generate_cave_right: generate_cave(gameState.board_height-1, Stats.board_extend_height, true)
 		
 	#Extend everything that is not a cave
 	for row in Stats.board_extend_height:
 		if not generate_cave_left:
-			$Board.set_cell(BLOCK_LAYER, Vector2(0, row+Stats.board_height-1), WALL_TILE_ID, Vector2(0,0))
+			$Board.set_cell(BLOCK_LAYER, Vector2(0, row+gameState.board_height-1), WALL_TILE_ID, Vector2(0,0))
 		if not generate_cave_right:
-			$Board.set_cell(BLOCK_LAYER, Vector2(Stats.board_width-1, row+Stats.board_height-1), WALL_TILE_ID, Vector2(0,0))
+			$Board.set_cell(BLOCK_LAYER, Vector2(gameState.board_width-1, row+gameState.board_height-1), WALL_TILE_ID, Vector2(0,0))
 	
 	#Draw the ground
 	for row in Stats.board_extend_height:
 		var col = 0
-		while $Board.get_cell_source_id(BLOCK_LAYER, Vector2(col, row+Stats.board_height-1)) == -1:
-			$Board.set_cell(GROUND_LAYER, Vector2(col, row+Stats.board_height-1), EMPTY_TILE_ID, Vector2(0,0))
+		while $Board.get_cell_source_id(BLOCK_LAYER, Vector2(col, row+gameState.board_height-1)) == -1:
+			$Board.set_cell(GROUND_LAYER, Vector2(col, row+gameState.board_height-1), EMPTY_TILE_ID, Vector2(0,0))
 			col -= 1
 		col = 1
-		while $Board.get_cell_source_id(BLOCK_LAYER, Vector2(col, row+Stats.board_height-1)) == -1:
-			$Board.set_cell(GROUND_LAYER, Vector2(col, row+Stats.board_height-1), EMPTY_TILE_ID, Vector2(0,0))
+		while $Board.get_cell_source_id(BLOCK_LAYER, Vector2(col, row+gameState.board_height-1)) == -1:
+			$Board.set_cell(GROUND_LAYER, Vector2(col, row+gameState.board_height-1), EMPTY_TILE_ID, Vector2(0,0))
 			col += 1
 	
 	#Add bottom row
-	for col in Stats.board_width:
-		$Board.set_cell(BLOCK_LAYER, Vector2(col, Stats.board_height+Stats.board_extend_height-1), WALL_TILE_ID, Vector2(0,0))
+	for col in gameState.board_width:
+		$Board.set_cell(BLOCK_LAYER, Vector2(col, gameState.board_height+Stats.board_extend_height-1), WALL_TILE_ID, Vector2(0,0))
 	
-	Stats.board_height += Stats.board_extend_height
+	gameState.board_height += Stats.board_extend_height
 	
 func generate_cave(pos_y: int, height: int, right_side: bool):
 	#Draw top line
 	var start_width = randi_range(Stats.board_cave_deepness.from, Stats.board_cave_deepness.to)
 	for col in start_width:
-		if right_side: $Board.set_cell(BLOCK_LAYER, Vector2(Stats.board_width+col-1, pos_y), WALL_TILE_ID, Vector2(0,0))
+		if right_side: $Board.set_cell(BLOCK_LAYER, Vector2(gameState.board_width+col-1, pos_y), WALL_TILE_ID, Vector2(0,0))
 		else: $Board.set_cell(BLOCK_LAYER, Vector2(-col, pos_y), WALL_TILE_ID, Vector2(0,0))
 	
 	#Draw random structure
-	var curr_col = Stats.board_width+start_width-1 if right_side else -start_width+1
+	var curr_col = gameState.board_width+start_width-1 if right_side else -start_width+1
 	for row in height-1:
 		$Board.set_cell(BLOCK_LAYER, Vector2(curr_col, pos_y+row), WALL_TILE_ID, Vector2(0,0))
 		var rand_dir = randi_range(-1, 1) #-1 is left, 0 do nothing, 1 is right
 		#Make sure the walls dont move to much towards the middle
-		if right_side and curr_col <= Stats.board_width and rand_dir == -1: rand_dir = 1
+		if right_side and curr_col <= gameState.board_width and rand_dir == -1: rand_dir = 1
 		if not right_side and curr_col >= -1 and rand_dir == 1: rand_dir = -1 
 		
 		curr_col += rand_dir
@@ -301,7 +299,7 @@ func generate_cave(pos_y: int, height: int, right_side: bool):
 	
 	#Draw bottom line
 	if right_side:
-		while curr_col >= Stats.board_width-1:
+		while curr_col >= gameState.board_width-1:
 			$Board.set_cell(BLOCK_LAYER, Vector2(curr_col, pos_y+height-1), WALL_TILE_ID, Vector2(0,0))
 			curr_col -= 1
 	else:
@@ -310,25 +308,26 @@ func generate_cave(pos_y: int, height: int, right_side: bool):
 			curr_col += 1
 
 func _spawn_turrets(block: Block, position: Vector2):
+	_remove_turrets(block, position)
 	for piece in block.pieces:
 		if piece.color != Stats.TurretColor.GREY:
 			var turret = Turret.create(piece.color, piece.level, piece.extension)
-			add_child(turret)
 			turret.position = $Board.map_to_local(Vector2(position.x + piece.position.x, position.y + piece.position.y))
-			if piece.level > 1:
-				turret.levelup(piece.level)
-			turret_holder.insert_turret(turret)
+			add_child(turret)
 
 func _remove_turrets(block: Block, position: Vector2):
 	for piece in block.pieces:
-		var pos = $Board.map_to_local(Vector2(position.x + piece.position.x, position.y + piece.position.y))
-		var turret = turret_holder.pop_turret_at(pos)
-		if turret != null:
-			turret.queue_free()
-
+		for child in get_children():
+			if child is Turret:
+				if child.position == $Board.map_to_local(Vector2(position.x + piece.position.x, position.y + piece.position.y)):
+					child.queue_free()
+func bake_nav():
+	
+	pass;
+	
 func _spawn_all_turrets():
 	_remove_all_turrets()
-	for row in range(1,Stats.board_height-1):
+	for row in range(1,gameState.board_height-1):
 		var width = block_handler.get_board_width_range(BLOCK_LAYER, row)
 		for col in range(width.from, width.to+1):
 			var block_data = $Board.get_cell_tile_data(BLOCK_LAYER, Vector2(col, row))
@@ -343,7 +342,7 @@ func _spawn_all_turrets():
 				var turret = Turret.create(Stats.TurretColor.get(color), level, Stats.TurretExtension.get(extension))
 				turret.position = $Board.map_to_local(Vector2(col, row))
 				add_child(turret)
-	
+			
 func _remove_all_turrets():
 	for child in get_children():
 		if child is Turret:
@@ -354,9 +353,9 @@ func _set_navigation_region():
 	navigation_polygon.clear()
 	#Create 4 Vectors for the 4 corners
 	points[0] = Vector2(0,0)
-	points[1] = Vector2(Stats.board_width * Stats.block_size,0)
-	points[2] = Vector2(Stats.board_width * Stats.block_size,Stats.board_height * Stats.block_size)
-	points[3] = Vector2(0,Stats.board_height * Stats.block_size)
+	points[1] = Vector2(gameState.board_width * Stats.block_size,0)
+	points[2] = Vector2(gameState.board_width * Stats.block_size,gameState.board_height * Stats.block_size)
+	points[3] = Vector2(0,gameState.board_height * Stats.block_size)
 	
 	navigation_polygon.add_outline(points) #add the Vector array to create the outline for the polygon
 	$NavigationRegion2D.set_navigation_polygon(navigation_polygon) #add the  Polygon to the Navigation Region
