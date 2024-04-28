@@ -12,6 +12,7 @@ enum BoardAction {NONE=0, PLAYER_BUILD=1, PLAYER_MOVE=2, PLAYER_BULLDOZER=3}
 var action: BoardAction = BoardAction.NONE
 var done: Callable
 
+var turret_holder = util.TurretHolder.new()
 
 const BLOCK_LAYER = 0
 const GROUND_LAYER = 1
@@ -37,7 +38,7 @@ func _ready():
 	navigation_polygon.source_geometry_mode = NavigationPolygon.SOURCE_GEOMETRY_GROUPS_WITH_CHILDREN
 	navigation_polygon.agent_radius = 31
 	spawners = get_tree().get_nodes_in_group("spawner")
-	
+
 	$Camera2D.is_dragging_camera.connect(dragging_camera)
 	_set_navigation_region()
 
@@ -119,6 +120,7 @@ func LEVELDOWN_catastrophy(done: Callable):
 	var block = Block.new(pieces)
 	block_handler.set_block_level(block, 1)
 	block_handler.draw_block(block, start, BLOCK_LAYER, EXTENSION_LAYER)
+	_remove_turrets(block, start)
 	_spawn_turrets(block, start)
 	_action_finished(true)
 	
@@ -188,6 +190,7 @@ func _place_block(block: Block, position: Vector2):
 	if data != null: #There is already a piece -> upgrade
 		var level = data.get_custom_data("level")
 		block_handler.set_block_level(block, level + 1)
+		_remove_turrets(block, position)
 
 	block_handler.draw_block(block, position, BLOCK_LAYER, EXTENSION_LAYER)
 	_spawn_turrets(block, position)
@@ -307,19 +310,21 @@ func generate_cave(pos_y: int, height: int, right_side: bool):
 			curr_col += 1
 
 func _spawn_turrets(block: Block, position: Vector2):
-	_remove_turrets(block, position)
 	for piece in block.pieces:
 		if piece.color != Stats.TurretColor.GREY:
 			var turret = Turret.create(piece.color, piece.level, piece.extension)
-			turret.position = $Board.map_to_local(Vector2(position.x + piece.position.x, position.y + piece.position.y))
 			add_child(turret)
+			turret.position = $Board.map_to_local(Vector2(position.x + piece.position.x, position.y + piece.position.y))
+			if piece.level > 1:
+				turret.levelup(piece.level)
+			turret_holder.insert_turret(turret)
 
 func _remove_turrets(block: Block, position: Vector2):
 	for piece in block.pieces:
-		for child in get_children():
-			if child is Turret:
-				if child.position == $Board.map_to_local(Vector2(position.x + piece.position.x, position.y + piece.position.y)):
-					child.queue_free()
+		var pos = $Board.map_to_local(Vector2(position.x + piece.position.x, position.y + piece.position.y))
+		var turret = turret_holder.pop_turret_at(pos)
+		if turret != null:
+			turret.queue_free()
 
 func _spawn_all_turrets():
 	_remove_all_turrets()
