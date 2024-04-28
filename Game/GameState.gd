@@ -25,6 +25,8 @@ var totalExp=0;
 var levelUp=250;
 var started=false;
 var wave:int=0;
+var board_width=20;
+var board_height=16;
 
 #subject to change
 
@@ -72,6 +74,7 @@ func _ready():
 		queue_free()
 	gameState=self;
 	Engine.max_fps=30;
+	GameSaver.createBaseGame(self)
 	#get_tree().create_timer(1).timeout.connect(drawCards.bind(maxCards))
 	pass # Replace with function body.
  
@@ -92,12 +95,16 @@ func _process(delta):
 
 
 func startBattlePhase():
+	gameBoard._set_navigation_region()
+	get_tree().create_timer(0.5).timeout.connect(func():GameSaver.saveGame(gameState))
 	$Spawner.start(wave)
 	wave=wave+1;
 	phase=Stats.GamePhase.BATTLE
 	updateUI()
 	pass # Replace with function body.
 func startBuildPhase():
+	GameSaver.saveGame(gameState)
+	
 	startCatastrophy()	
 	start_build_phase.emit()
 	phase=Stats.GamePhase.BUILD

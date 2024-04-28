@@ -129,9 +129,9 @@ func draw_redlaser():
 func reduceCooldown(delta):
 	
 
-	if GameState.gameState.phase==Stats.GamePhase.BUILD:
-		$PointLight2D.energy=1;
-		return
+	#if GameState.gameState.phase==Stats.GamePhase.BUILD:
+	#	$PointLight2D.energy=1;
+	#	return
 	var ml=lightamount*stacks;
 	if not onCooldown:
 		return;

@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://cf5heufemalnf"]
+[gd_scene load_steps=17 format=3 uid="uid://cf5heufemalnf"]
 
 [ext_resource type="Script" path="res://Menu.gd" id="1_vjikn"]
 [ext_resource type="Script" path="res://UI.gd" id="2_vouda"]
@@ -22,11 +22,15 @@ font_size = 106
 [sub_resource type="LabelSettings" id="LabelSettings_licme"]
 font_size = 106
 
+[sub_resource type="LabelSettings" id="LabelSettings_tx5p1"]
+font_size = 31
+font_color = Color(0, 0, 0, 1)
+
 [node name="Menu" type="Node2D"]
 z_index = 51
 script = ExtResource("1_vjikn")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="." node_paths=PackedStringArray("main", "unlockedTab", "accountsTab", "menu", "ui")]
+[node name="CanvasLayer" type="CanvasLayer" parent="." node_paths=PackedStringArray("main", "unlockedTab", "accountsTab", "menu", "ui", "parent")]
 scale = Vector2(0.565, 0.565)
 transform = Transform2D(0.565, 0, 0, 0.565, 0, 0)
 script = ExtResource("2_vouda")
@@ -35,6 +39,7 @@ unlockedTab = NodePath("MainMenu/UnlockedTab")
 accountsTab = NodePath("MainMenu/AccountsTab")
 menu = NodePath("MainMenu")
 ui = NodePath("UI")
+parent = NodePath("..")
 
 [node name="MainMenu" type="Node2D" parent="CanvasLayer"]
 
@@ -214,6 +219,12 @@ offset_right = 91.3274
 offset_bottom = 959.283
 text = "0"
 
+[node name="PlayerName" type="Label" parent="CanvasLayer"]
+offset_right = 250.0
+offset_bottom = 90.0
+text = "no account selected"
+label_settings = SubResource("LabelSettings_tx5p1")
+
 [connection signal="statePropagation" from="." to="CanvasLayer" method="_on_menu_state_propagation"]
 [connection signal="statePropagation" from="." to="CanvasLayer/MainMenu/UnlockedTab/UnlockedItems" method="_on_menu_state_propagation"]
 [connection signal="statePropagation" from="." to="CanvasLayer/UI/Hand" method="_on_menu_state_propagation"]
@@ -223,6 +234,7 @@ text = "0"
 [connection signal="pressed" from="CanvasLayer/MainMenu/Main/Accounts" to="CanvasLayer" method="_on_accounts_pressed"]
 [connection signal="visibility_changed" from="CanvasLayer/MainMenu/UnlockedTab" to="CanvasLayer" method="_on_unlocked_tab_visibility_changed"]
 [connection signal="pressed" from="CanvasLayer/MainMenu/UnlockedTab/UnlockedItems/Button" to="CanvasLayer" method="hideUnlocks"]
+[connection signal="item_activated" from="CanvasLayer/MainMenu/AccountsTab/AccountList" to="CanvasLayer" method="_on_account_list_item_activated"]
 [connection signal="text_submitted" from="CanvasLayer/MainMenu/AccountsTab/AccountInput" to="CanvasLayer" method="_on_account_input_text_submitted"]
 [connection signal="pressed" from="CanvasLayer/MainMenu/AccountsTab/Button" to="CanvasLayer" method="HideAccounts"]
 [connection signal="pressed" from="CanvasLayer/UI/StartBattlePhase" to="." method="_on_start_battle_phase_pressed"]

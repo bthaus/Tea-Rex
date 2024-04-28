@@ -78,8 +78,9 @@ texture = ExtResource("8_ldw13")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="Spawner"]
 
-[node name="GameBoard" parent="." instance=ExtResource("6_ghxp6")]
+[node name="GameBoard" parent="." node_paths=PackedStringArray("gameState") instance=ExtResource("6_ghxp6")]
 visible = false
+gameState = NodePath("..")
 
 [node name="DebugAndTesting" type="Node" parent="."]
 

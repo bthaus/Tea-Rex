@@ -8,6 +8,7 @@ func _ready():
 	statePropagation.emit(gamestate)
 	pass # Replace with function body.
 func updateUI():
+	$CanvasLayer/PlayerName.text=gamestate.account
 	
 	pass;
 
@@ -22,4 +23,9 @@ func _on_start_battle_phase_pressed():
 
 
 func _on_start_button_pressed():
+	pass # Replace with function body.
+
+
+func _on_button_pressed():
+	gamestate.gameBoard._spawn_all_turrets()
 	pass # Replace with function body.
