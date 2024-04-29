@@ -22,6 +22,9 @@ const SELECTION_LAYER = 3
 var is_dragging_camera = false
 var ignore_click = false
 
+var is_delayed = false
+var delay_timer: Timer
+
 const LEGAL_PLACEMENT_TILE_ID = 1
 const ILLEGAL_PLACEMENT_TILE_ID = 2
 const WALL_TILE_ID = 3
@@ -40,11 +43,20 @@ func _ready():
 	navigation_polygon.agent_radius = 31
 	spawners = get_tree().get_nodes_in_group("spawner")
 	
+	delay_timer = Timer.new()
+	delay_timer.autostart = false
+	delay_timer.one_shot = true
+	delay_timer.wait_time = Stats.CARD_PLACEMENT_DELAY
+	delay_timer.timeout.connect(func(): is_delayed = false)
+	add_child(delay_timer)
+	
 	$Camera2D.is_dragging_camera.connect(dragging_camera)
 	_set_navigation_region()
 
 func start_bulldozer(done:Callable, size_x:int, size_y:int):
 	util.p("Bulldozering stuff now...", "Jojo")
+	is_delayed = true
+	delay_timer.start()
 	var pieces = []
 	for row in size_y:
 		for col in size_x:
@@ -55,11 +67,15 @@ func start_bulldozer(done:Callable, size_x:int, size_y:int):
 	
 func start_move(done:Callable):
 	util.p("Moving stuff now...", "Jojo")
+	is_delayed = true
+	delay_timer.start()
 	action = BoardAction.PLAYER_MOVE
 	self.done = done
 
 func select_piece(shape:Stats.BlockShape, color:Stats.TurretColor, done:Callable, level:int, extension:Stats.TurretExtension=Stats.TurretExtension.DEFAULT):
 	util.p("Building now...", "Jojo")
+	is_delayed = true
+	delay_timer.start()
 	util.p(Stats.getStringFromEnumExtension(extension))
 	action = BoardAction.PLAYER_BUILD
 	selected_block = Stats.getBlockFromShape(shape, color, level)
@@ -67,6 +83,9 @@ func select_piece(shape:Stats.BlockShape, color:Stats.TurretColor, done:Callable
 
 func select_block(block,done:Callable):
 	util.p("Building now...", "Jojo")
+	is_delayed = true
+	delay_timer.start()
+	print(delay_timer.is_stopped())
 	action = BoardAction.PLAYER_BUILD
 	selected_block = block
 	self.done = done
@@ -144,7 +163,9 @@ func _process(_delta):
 func _input(event):
 	var board_pos = $Board.local_to_map(get_global_mouse_position())
 	
-		
+	if is_delayed:
+		return
+	
 	if not event is InputEventMouseMotion and ignore_click: #Ignore the next click
 		ignore_click = false
 		return

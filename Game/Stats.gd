@@ -187,6 +187,7 @@ static var drill_catastrophy_width=3
 static var level_down_catastrophy_width=3
 static var level_down_catastrophy_height=3
 
+const CARD_PLACEMENT_DELAY=0.5
 
 enum TurretColor {GREY=1, GREEN=2, RED=3, YELLOW=4,BLUE=5};
 enum TurretExtension {DEFAULT=1,REDLASER=2, BLUELASER=3, YELLOWMORTAR=4, GREENPOISON=5};
