@@ -94,8 +94,8 @@ func BULLDOZER_catastrophy(done: Callable):
 	util.p("Bulldozer catastrophe starting", "Jojo")
 	self.done = done
 	var row = randi_range(1, gameState.board_height-1-Stats.bulldozer_catastrophy_height)
-	var width = block_handler.get_board_width_range(BLOCK_LAYER, row)
-	var col = randi_range(width.from, width.to-Stats.bulldozer_catastrophy_width)
+	var distance = block_handler.get_board_distance_at_row(BLOCK_LAYER, row)
+	var col = randi_range(distance.from, distance.to-Stats.bulldozer_catastrophy_width)
 	var pieces = []
 	for y in Stats.bulldozer_catastrophy_height:
 		for x in Stats.bulldozer_catastrophy_width:
@@ -113,8 +113,8 @@ func DRILL_catastrophy(done: Callable):
 	var pieces = []
 	
 	for r in Stats.drill_catastrophy_width:
-		var width = block_handler.get_board_width_range(BLOCK_LAYER, row+r)
-		for col in range(width.from, width.to+1):
+		var distance = block_handler.get_board_distance_at_row(BLOCK_LAYER, row+r)
+		for col in range(distance.from, distance.to+1):
 			pieces.push_back(Block.Piece.new(Vector2(col, row+r), Stats.TurretColor.BLUE, 1))
 	var block = Block.new(pieces)
 	block_handler.remove_block_from_board(block, Vector2(0, 0), BLOCK_LAYER, EXTENSION_LAYER, false)
@@ -126,8 +126,8 @@ func LEVELDOWN_catastrophy(done: Callable):
 	self.done = done
 	var start = Vector2(randi_range(1, gameState.board_width-1-Stats.level_down_catastrophy_width), randi_range(1, gameState.board_height-1-Stats.level_down_catastrophy_height))
 	var row = randi_range(1, gameState.board_height-1-Stats.bulldozer_catastrophy_height)
-	var width = block_handler.get_board_width_range(BLOCK_LAYER, row)
-	var col = randi_range(width.from, width.to-Stats.bulldozer_catastrophy_width)
+	var distance = block_handler.get_board_distance_at_row(BLOCK_LAYER, row)
+	var col = randi_range(distance.from, distance.to-Stats.bulldozer_catastrophy_width)
 	var pieces = []
 	for y in Stats.level_down_catastrophy_height:
 		for x in Stats.level_down_catastrophy_width:
@@ -253,8 +253,8 @@ func draw_field_from_walls(walls_positions: PackedVector2Array):
 		height = max(height, wall_position.y)
 	
 	for row in range(1, height):
-		var width = block_handler.get_board_width_range(BLOCK_LAYER, row)
-		for col in range(width.from, width.to+1):
+		var distance = block_handler.get_board_distance_at_row(BLOCK_LAYER, row)
+		for col in range(distance.from, distance.to+1):
 			$Board.set_cell(GROUND_LAYER, Vector2(col, row), EMPTY_TILE_ID, Vector2(0,0))
 		
 
@@ -347,8 +347,8 @@ func bake_nav():
 func _spawn_all_turrets():
 	_remove_all_turrets()
 	for row in range(1,gameState.board_height-1):
-		var width = block_handler.get_board_width_range(BLOCK_LAYER, row)
-		for col in range(width.from, width.to+1):
+		var distance = block_handler.get_board_distance_at_row(BLOCK_LAYER, row)
+		for col in range(distance.from, distance.to+1):
 			var block_data = $Board.get_cell_tile_data(BLOCK_LAYER, Vector2(col, row))
 			var id = $Board.get_cell_source_id(BLOCK_LAYER, Vector2(col, row))
 			var extension_data = $Board.get_cell_tile_data(EXTENSION_LAYER, Vector2(col, row))

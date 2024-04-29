@@ -156,16 +156,21 @@ func can_place_block(block: Block, layer: int, position: Vector2, navigation_reg
 
 #Calculates how long a row (wall to wall) in a gameboard field is and
 #returns the points. The walls themselves are excluded
-func get_board_width_range(layer: int, row: int) -> util.Distance:
+func get_board_distance_at_row(layer: int, row: int) -> util.Distance:
 	var col = 0
 	var left_side = 0
 	var right_side = 1
+	var max = 200
 	while true:
 		var data = board.get_cell_tile_data(layer, Vector2(col, row))
 		if data != null and data.get_custom_data("color").to_upper() == "WALL":
 			left_side = col+1
 			break
 		col -= 1
+		if -col > max:
+			util.p(str("No limit for row ", row, " on left side found! Value ", -max, " will be taken"), "Jojo", "Error")
+			left_side = -max
+			break
 	col = 1
 	while true:
 		var data = board.get_cell_tile_data(layer, Vector2(col, row))
@@ -173,6 +178,10 @@ func get_board_width_range(layer: int, row: int) -> util.Distance:
 			right_side = col-1
 			break
 		col += 1
+		if col > max:
+			util.p(str("No limit for row ", row, " on right side found! Value ", max, " will be taken"), "Jojo", "Error")
+			right_side = max
+			break
 	return util.Distance.new(left_side, right_side)
 
 #Checks if a given position is in bounds the gameboard or not. This is needed since the caves allow a variable width.
