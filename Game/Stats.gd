@@ -266,7 +266,7 @@ static func getColorFromString(str:String):
 		"GREEN":return TurretColor.GREEN;
 		"YELLOW":return TurretColor.YELLOW;
 		"GREY":return TurretColor.GREY;
-		"WALL":return GameBoard.WALL_TILE_ID
+		"WALL":return -3
 	pass;
 static func getShapeFromString(str:String):
 	match str:
@@ -426,83 +426,86 @@ static func changeColorChance(color:TurretColor, chance):
 		
 	
 
-static func getBlockFromShape(shape: BlockShape, color: TurretColor, level: int = 1, extenstion: TurretExtension = TurretExtension.DEFAULT) -> Block:
+static func getBlockFromShape(shape: BlockShape, color: TurretColor, level: int = 1, extension: TurretExtension = TurretExtension.DEFAULT) -> Block:
 	var pieces = []
 	match shape:
 		BlockShape.O:
 			pieces = [
-				Block.Piece.new(Vector2(0,0), color, level, extenstion),
-				Block.Piece.new(Vector2(-1,0), color, level, extenstion),
-				Block.Piece.new(Vector2(-1,-1), color, level, extenstion),
-				Block.Piece.new(Vector2(0,-1), color, level, extenstion)
+				Block.Piece.new(Vector2(0,0), color, level, extension),
+				Block.Piece.new(Vector2(-1,0), color, level, extension),
+				Block.Piece.new(Vector2(-1,-1), color, level, extension),
+				Block.Piece.new(Vector2(0,-1), color, level, extension)
 			]
 		BlockShape.I:
 			pieces = [
-				Block.Piece.new(Vector2(0,0), color, level, extenstion),
-				Block.Piece.new(Vector2(0,1), color, level, extenstion),
-				Block.Piece.new(Vector2(0,-1), color, level, extenstion),
-				Block.Piece.new(Vector2(0,-2), color, level, extenstion)
+				Block.Piece.new(Vector2(0,0), color, level, extension),
+				Block.Piece.new(Vector2(0,1), color, level, extension),
+				Block.Piece.new(Vector2(0,-1), color, level, extension),
+				Block.Piece.new(Vector2(0,-2), color, level, extension)
 			]
 		BlockShape.S:
 			pieces = [
-				Block.Piece.new(Vector2(0,0), color, level, extenstion),
-				Block.Piece.new(Vector2(-1,0), color, level, extenstion),
-				Block.Piece.new(Vector2(0,1), color, level, extenstion),
-				Block.Piece.new(Vector2(1,1), color, level, extenstion)
+				Block.Piece.new(Vector2(0,0), color, level, extension),
+				Block.Piece.new(Vector2(-1,0), color, level, extension),
+				Block.Piece.new(Vector2(0,1), color, level, extension),
+				Block.Piece.new(Vector2(1,1), color, level, extension)
 			]
 		BlockShape.Z:
 			pieces = [
-				Block.Piece.new(Vector2(0,0), color, level, extenstion),
-				Block.Piece.new(Vector2(1,0), color, level, extenstion),
-				Block.Piece.new(Vector2(0,-1), color, level, extenstion),
-				Block.Piece.new(Vector2(-1,-1), color, level, extenstion)
+				Block.Piece.new(Vector2(0,0), color, level, extension),
+				Block.Piece.new(Vector2(1,0), color, level, extension),
+				Block.Piece.new(Vector2(0,-1), color, level, extension),
+				Block.Piece.new(Vector2(-1,-1), color, level, extension)
 			]
 		BlockShape.L:
 			pieces = [
-				Block.Piece.new(Vector2(0,0), color, level, extenstion),
-				Block.Piece.new(Vector2(0,1), color, level, extenstion),
-				Block.Piece.new(Vector2(0,-1), color, level, extenstion),
-				Block.Piece.new(Vector2(1,1), color, level, extenstion)
+				Block.Piece.new(Vector2(0,0), color, level, extension),
+				Block.Piece.new(Vector2(0,1), color, level, extension),
+				Block.Piece.new(Vector2(0,-1), color, level, extension),
+				Block.Piece.new(Vector2(1,1), color, level, extension)
 			]
 		BlockShape.J:
 			pieces = [
-				Block.Piece.new(Vector2(0,0), color, level, extenstion),
-				Block.Piece.new(Vector2(0,1), color, level, extenstion),
-				Block.Piece.new(Vector2(0,-1), color, level, extenstion),
-				Block.Piece.new(Vector2(-1,1), color, level, extenstion)
+				Block.Piece.new(Vector2(0,0), color, level, extension),
+				Block.Piece.new(Vector2(0,1), color, level, extension),
+				Block.Piece.new(Vector2(0,-1), color, level, extension),
+				Block.Piece.new(Vector2(-1,1), color, level, extension)
 			]
 		BlockShape.T:
 			pieces = [
-				Block.Piece.new(Vector2(0,0), color, level, extenstion),
-				Block.Piece.new(Vector2(-1,0), color, level, extenstion),
-				Block.Piece.new(Vector2(1,0), color, level, extenstion),
-				Block.Piece.new(Vector2(0,1), color, level, extenstion)
+				Block.Piece.new(Vector2(0,0), color, level, extension),
+				Block.Piece.new(Vector2(-1,0), color, level, extension),
+				Block.Piece.new(Vector2(1,0), color, level, extension),
+				Block.Piece.new(Vector2(0,1), color, level, extension)
 			]
 		BlockShape.TINY:
 			pieces = [
-				Block.Piece.new(Vector2(0,0), color, level, extenstion),
+				Block.Piece.new(Vector2(0,0), color, level, extension),
 			]
 		BlockShape.SMALL:
 			pieces = [
-				Block.Piece.new(Vector2(0,0), color, level, extenstion),
-				Block.Piece.new(Vector2(0,-1), color, level, extenstion)
+				Block.Piece.new(Vector2(0,0), color, level, extension),
+				Block.Piece.new(Vector2(0,-1), color, level, extension)
 			]
 		BlockShape.ARROW:
 			pieces = [
-				Block.Piece.new(Vector2(0,0), color, level, extenstion),
-				Block.Piece.new(Vector2(-1,0), color, level, extenstion),
-				Block.Piece.new(Vector2(0,1), color, level, extenstion)
+				Block.Piece.new(Vector2(0,0), color, level, extension),
+				Block.Piece.new(Vector2(-1,0), color, level, extension),
+				Block.Piece.new(Vector2(0,1), color, level, extension)
 			]
 		BlockShape.CROSS:
 			pieces = [
-				Block.Piece.new(Vector2(0,0), color, level, extenstion),
-				Block.Piece.new(Vector2(0,-1), color, level, extenstion),
-				Block.Piece.new(Vector2(1,0), color, level, extenstion),
-				Block.Piece.new(Vector2(0,1), color, level, extenstion),
-				Block.Piece.new(Vector2(-1,0), color, level, extenstion)
+				Block.Piece.new(Vector2(0,0), color, level, extension),
+				Block.Piece.new(Vector2(0,-1), color, level, extension),
+				Block.Piece.new(Vector2(1,0), color, level, extension),
+				Block.Piece.new(Vector2(0,1), color, level, extension),
+				Block.Piece.new(Vector2(-1,0), color, level, extension)
 			]
 		
-	return Block.new(pieces)
-	
+	var b= Block.new(pieces)
+	b.shape=shape;
+	b.color=color;
+	b.extension=extension
+	return b
 
 

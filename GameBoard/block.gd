@@ -3,6 +3,9 @@ extends Node
 
 class_name Block
 var pieces: Array
+var shape;
+var color;
+var extension;
 func _init(pieces: Array):
 	self.pieces = pieces
 	

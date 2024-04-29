@@ -69,12 +69,14 @@ func changeMaxHealth(amount:int):
 
 
 # Called when the node enters the scene tree for the first time.
+var mapdrawnOnce=false;
 func _ready():
 	if get_child_count()==0:
 		queue_free()
 	gameState=self;
 	Engine.max_fps=30;
 	GameSaver.createBaseGame(self)
+	
 	#get_tree().create_timer(1).timeout.connect(drawCards.bind(maxCards))
 	pass # Replace with function body.
  
@@ -138,10 +140,12 @@ func _on_spawner_wave_done():
 
 
 func startGame():
-	gameBoard.init_field()
+	
 	if not started:
 		drawCards(maxCards)
+		gameBoard.init_field()
 		started=true;
+	
 	pass # Replace with function body.
 func addExp(monster:Monster):
 	totalExp=totalExp+monster.getExp()

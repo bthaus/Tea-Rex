@@ -7,11 +7,14 @@ var cardName;
 func _ready():
 	pass # Replace with function body.
 
-static func create(gameState:GameState):
+static func create(gameState:GameState,block=-1):
 	var card=load("res://Cards/block_card.tscn").instantiate() as BlockCard;
 	card.state=gameState;
-	card.block=Stats.new().getRandomBlock(1,gameState);
-
+	if block is Block:
+		card.block=block
+	else:
+		card.block=Stats.new().getRandomBlock(1,gameState);
+		
 	return card;
 func select(done:Callable):
 	if state.phase==Stats.GamePhase.BATTLE:

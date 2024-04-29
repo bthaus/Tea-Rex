@@ -17,16 +17,19 @@ func select(done:Callable):
 	pass;
 static var counter=0;
 signal finished(card)
+
 func setCard(c):
 	card=c;
 	add_child(c)
 	pass;
-static func create(gameState:GameState):
+static func create(gameState:GameState,card=-1):
 	counter=counter+1;
 	var c=load("res://card.tscn").instantiate() as Card
 	var btn=c.get_child(0) as Button
-	
-	c.setCard(Stats.getRandomCard(gameState))
+	if card is Card:
+		c.setCard(card)
+	else:	
+		c.setCard(Stats.getRandomCard(gameState))
 	c.state=gameState;
 
 	if c.card is SpecialCard:

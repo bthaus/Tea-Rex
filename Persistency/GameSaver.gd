@@ -43,7 +43,7 @@ static func restoreGame(gameState:GameState):
 			gameState.set(dakey,da.get(dakey))
 			
 	loadGameMap(gameState);
-
+	loadHand(gameState)
 	
 	pass
 static func remove(name):
@@ -51,6 +51,8 @@ static func remove(name):
 	print(DirAccess.remove_absolute("user://save_gamestate_"+name+".dat"))
 	
 	DirAccess.remove_absolute("user://save_gamemap_"+name+".dat")
+	DirAccess.remove_absolute("user://save_gamehand_"+name+".dat")
+	
 	pass;	
 static func saveGame(gameState:GameState):
 	var props=gameState.get_script().get_script_property_list()
@@ -60,10 +62,19 @@ static func saveGame(gameState:GameState):
 	for p in props:
 		var d={p["name"]:gameState.get(p["name"])}
 		values.append(JSON.stringify(d))
-		
+	save(JSON.stringify(values),"state",gameState.account);		
+	storeGameMap(gameState)
+	storeHand(gameState)
+	pass;
+static func storeHand(gameState:GameState):
+	if gameState.hand==null:
+		return
+	var json=serialiseHand(gameState.hand.get_children());
+	save(json,"hand",gameState.account)
+	pass;
+static func storeGameMap(gameState:GameState):
 	if gameState.gameBoard == null: return
-	#if gameState.account==basegamename: return
-	save(JSON.stringify(values),"state",gameState.account);	
+
 	var map=gameState.gameBoard.get_child(0) as TileMap
 	
 	var cells=map.get_used_cells(0);
@@ -79,10 +90,16 @@ static func saveGame(gameState:GameState):
 			extension=extensionData.get_custom_data("extension");
 		var info=Info.new(color,level,extension,cell)
 		
-		if color!="WALL":mapAsArray.append(info.serialise())
+		mapAsArray.append(info.serialise())
 	save(JSON.stringify(mapAsArray),"map",gameState.account)
 	
 	pass;	
+static func loadHand(gameState:GameState):
+	for c in gameState.hand.get_children():
+		c.queue_free();
+	var handstring=loadfile("hand",gameState.account)
+	var hand=deserialiseHand(handstring,gameState)
+	pass;
 static func loadGameMap(gameState:GameState):
 	gameState.gameBoard.queue_free()
 	var newBoard=load("res://GameBoard/game_board.tscn").instantiate() 
@@ -92,14 +109,19 @@ static func loadGameMap(gameState:GameState):
 	var mapstring=loadfile("map",gameState.account)
 	var mapAsArray=JSON.parse_string(mapstring);
 	var pieces=[]
+	var walls=[]
 	for d in mapAsArray:
 		var p=Info.deserialise(d);
-		pieces.append(p);
+		if p.color==-3:
+			walls.append(p.position)
+		else:
+			pieces.append(p);
 		
 	var block=Block.new(pieces);
 	
 	gameState.gameBoard._place_block(block,Vector2(0,0));
-	gameState.gameBoard.init_field()
+	#gameState.gameBoard.init_field()
+	gameState.gameBoard.draw_field_from_walls(walls)
 	gameState.gameBoard.get_node("NavigationRegion2D").bake_navigation_polygon()
 	#gameState.gameBoard._spawn_all_turrets()
 	pass;
@@ -135,6 +157,31 @@ class Data:
 		return d
 			
 	pass	
+static func serialiseHand(hand:Array):
+	
+	var cards=[]
+	for ci in hand:
+		var c=ci.card
+		
+		if c is SpecialCard:
+			cards.append(JSON.stringify({"special":c.cardName}))	
+		if c is BlockCard:
+			var b=c.block as Block
+			cards.append(JSON.stringify({"block":b.shape,"color":b.color,"extension":b.extension}))
+	return JSON.stringify(cards)
+static func deserialiseHand(json,gamestate:GameState):
+	
+	var hand=JSON.parse_string(json);
+	for j in hand:
+		var card=JSON.parse_string(j) as Dictionary
+		var keys=card.keys()
+		if keys.size()==1:
+			gamestate.hand.add_child(Card.create(gamestate,SpecialCard.create(gamestate,card.get(keys[0]))))
+		else:
+			var block=Stats.getBlockFromShape(card.get("block"),card.get("color"),1,card.get("extension"))
+			gamestate.hand.add_child(Card.create(gamestate,BlockCard.create(gamestate,block)))
+	
+	pass;
 class Info:
 	var data=[]
 	func _init(color,level,extension,cell):
@@ -144,6 +191,7 @@ class Info:
 		data.append(extension);
 		data.append(cell.x);
 		data.append(cell.y);
+		
 		pass;
 	func serialise()->String:
 		return JSON.stringify(data)

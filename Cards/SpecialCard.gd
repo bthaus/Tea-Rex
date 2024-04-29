@@ -42,12 +42,14 @@ func _ready():
 	$EffectSound.stream=load("res://Sounds/Soundeffects/"+Stats.getStringFromSpecialCardEnum(cardName)+"_sound.wav");
 	pass # Replace with function body.
 #just pass the method name, like "card.select(cast)". first parameter is a boolean. true for successfully played card, false for not played card
-static func create(gameState:GameState):
-
+static func create(gameState:GameState,type=-1):
+		
 	var retval=load("res://special_card.tscn").instantiate() as SpecialCard;
 	retval.ID=cardID+1;
-	var rand=rng.randi_range(0,Stats.SpecialCards.keys().size()-1)
-
+	var rand
+	if type==-1:
+		rand=rng.randi_range(0,Stats.SpecialCards.keys().size()-1)
+	else: rand=type
 	retval.cardName=rand;
 	retval.gameState=gameState
 

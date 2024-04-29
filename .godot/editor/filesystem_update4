@@ -1,13 +1,12 @@
 res://main_scene.tscn
 res://GameBoard/game_board_tileset.tres
+res://Persistency/GameSaver.gd
 res://monster.tscn
 res://CardSpace.tscn
 res://simulation.tscn
 res://GameBoard/game_board.tscn
 res://hand.tscn
 res://special_card.tscn
-res://Game/Stats.gd
-res://TurretScripts/Projectiles/Projectile.gd
 res://TurretScripts/turretbase.tscn
-res://Explosion.gd
 res://TurretScripts/Projectiles/Explosion.tscn
+res://menu.tscn
