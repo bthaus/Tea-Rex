@@ -10,3 +10,4 @@ res://special_card.tscn
 res://TurretScripts/turretbase.tscn
 res://TurretScripts/Projectiles/Explosion.tscn
 res://menu.tscn
+res://Cards/Card.gd

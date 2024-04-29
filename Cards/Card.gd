@@ -49,7 +49,7 @@ func played(interrupted:bool):
 	if  interrupted:
 		queue_free()
 		finished.emit(self)
-		GameSaver.saveGame(state)
+		get_tree().create_timer(0.5).timeout.connect(GameSaver.saveGame.bind(state))
 		
 	pass;
 # Called when the node enters the scene tree for the first time.
