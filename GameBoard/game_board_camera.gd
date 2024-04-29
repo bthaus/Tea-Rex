@@ -9,6 +9,7 @@ signal is_dragging_camera
 
 const CAMERA_ZOOM = 0.1
 const SCROLL_SPEED = 100
+const MIN_RECOGNIZABLE_DRAG_DISTANCE = 10
 func _ready():
 	Projectile.camera=self;
 	Turret.camera=self;
@@ -26,6 +27,10 @@ func _input(event):
 			dragging = false
 			
 	if event is InputEventMouseMotion and clicked:
+		var drag_distance = mouse_start_pos.distance_to(event.position)
+		#Player has to drag for a minimum distance to be recognized as dragging motion
+		if not dragging and drag_distance < MIN_RECOGNIZABLE_DRAG_DISTANCE: 
+			return
 		if not dragging:
 			is_dragging_camera.emit(true)
 		dragging = true
