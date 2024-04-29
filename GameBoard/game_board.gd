@@ -246,6 +246,18 @@ func init_field():
 		
 	$NavigationRegion2D.bake_navigation_polygon()
 
+func draw_field_from_walls(walls_positions: PackedVector2Array):
+	var height = -1
+	for wall_position in walls_positions:
+		$Board.set_cell(BLOCK_LAYER, Vector2(wall_position.x,wall_position.y), WALL_TILE_ID, Vector2(0,0))
+		height = max(height, wall_position.y)
+	
+	for row in range(1, height):
+		var width = block_handler.get_board_width_range(BLOCK_LAYER, row)
+		for col in range(width.from, width.to+1):
+			$Board.set_cell(GROUND_LAYER, Vector2(col, row), EMPTY_TILE_ID, Vector2(0,0))
+		
+
 func extend_field():
 	#Clear bottom row
 	for col in gameState.board_width:
