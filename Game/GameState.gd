@@ -138,7 +138,7 @@ func _on_spawner_wave_done():
 
 
 func startGame():
-	gameBoard.draw_field()
+	gameBoard.init_field()
 	if not started:
 		drawCards(maxCards)
 		started=true;

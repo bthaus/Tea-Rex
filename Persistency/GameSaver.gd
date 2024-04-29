@@ -99,7 +99,7 @@ static func loadGameMap(gameState:GameState):
 	var block=Block.new(pieces);
 	
 	gameState.gameBoard._place_block(block,Vector2(0,0));
-	gameState.gameBoard.draw_field()
+	gameState.gameBoard.init_field()
 	gameState.gameBoard.get_node("NavigationRegion2D").bake_navigation_polygon()
 	#gameState.gameBoard._spawn_all_turrets()
 	pass;

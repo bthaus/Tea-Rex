@@ -230,8 +230,7 @@ func _action_finished(finished: bool):
 		done.call(finished)
 		done = Callable() #Reset callable
 
-func draw_field():
-	clear_field()
+func init_field():
 	#Redraw walls and ground
 	for row in gameState.board_height:
 		$Board.set_cell(BLOCK_LAYER, Vector2(0,row), WALL_TILE_ID, Vector2(0,0))
@@ -247,26 +246,6 @@ func draw_field():
 		
 	$NavigationRegion2D.bake_navigation_polygon()
 
-func clear_field():
-	var index = 0
-	var width
-	var height
-	while($Board.get_cell_tile_data(BLOCK_LAYER, Vector2(0, index)) != null): index += 1
-	height = index
-	index = 0
-	while($Board.get_cell_tile_data(BLOCK_LAYER, Vector2(index, 0)) != null): index += 1
-	width = index
-
-	for row in height:
-		$Board.set_cell(BLOCK_LAYER, Vector2(0, row), -1, Vector2(0,0))
-		$Board.set_cell(BLOCK_LAYER, Vector2(width-1, row), -1, Vector2(0,0))
-		
-	for col in width:
-		$Board.set_cell(BLOCK_LAYER, Vector2(col,0), -1, Vector2(0,0))
-		$Board.set_cell(BLOCK_LAYER, Vector2(col, height-1), -1, Vector2(0,0))
-		
-	$Board.clear_layer(GROUND_LAYER)
-	
 func extend_field():
 	#Clear bottom row
 	for col in gameState.board_width:
