@@ -5,6 +5,7 @@ class_name GameState;
 @export var hand:Node2D
 @export var menu:Menu
 @export   var cam:Camera2D;
+@export var lightThresholds:LightThresholds;
 static var gameState;
 
 
@@ -27,6 +28,7 @@ var started=false;
 var wave:int=0;
 var board_width=20;
 var board_height=16;
+var y;
 
 #subject to change
 
@@ -91,7 +93,7 @@ func drawCards(amount):
 	pass;
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-
+	y=cam.position.y
 		
 	pass
 

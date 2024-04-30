@@ -63,8 +63,9 @@ func setUpTower():
 		projectile.z_index=-1;
 		projectile.visible=true;
 		$AudioStreamPlayer2D.finished.connect(func(): if inRange():$AudioStreamPlayer2D.play)
-
-		
+	lightamount=GameState.gameState.lightThresholds.getLight(global_position.y)
+	util.p("my light amount is: "+str(lightamount  ))
+	$PointLight2D.energy=lightamount	
 	$EnemyDetector.setRange(Stats.getRange(type,extension))
 	pass;
 

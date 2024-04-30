@@ -1,6 +1,6 @@
 res://main_scene.tscn
 res://GameBoard/game_board_tileset.tres
-res://Persistency/GameSaver.gd
+res://Game/GameState.gd
 res://monster.tscn
 res://CardSpace.tscn
 res://simulation.tscn
@@ -10,4 +10,7 @@ res://special_card.tscn
 res://TurretScripts/turretbase.tscn
 res://TurretScripts/Projectiles/Explosion.tscn
 res://menu.tscn
-res://Cards/Card.gd
+res://LightThresholds.gd
+res://Persistency/GameSaver.gd
+res://TurretScripts/turretbase.gd
+res://Game/Waves.gd

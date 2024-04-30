@@ -13,7 +13,7 @@ func start(wavenumber:int):
 	var amountmonsters=10+wavenumber*3;
 	var map=state.gameBoard.get_child(0) as TileMap
 	var cells=map.get_used_cells(0);
-	amountmonsters=cells.size()-16*4+4
+	amountmonsters=amountmonsters+3
 	Stats.enemy_base_HP=Stats.enemy_base_HP*1.1
 	print(Stats.enemy_base_HP)
 	numMonstersActive=amountmonsters;

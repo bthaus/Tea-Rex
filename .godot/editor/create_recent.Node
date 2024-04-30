@@ -1,6 +1,6 @@
-CanvasLayer
 Label
 Node2D
+CanvasLayer
 Node
 AudioStreamPlayer2D
 CPUParticles2D
