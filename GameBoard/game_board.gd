@@ -31,6 +31,7 @@ const ILLEGAL_PLACEMENT_TILE_ID = 2
 const WALL_TILE_ID = 3
 const PREVIEW_BLOCK_TILE_ID = 4
 const EMPTY_TILE_ID = 6
+const SPAWNER_TILE_ID = 2
 
 var navigation_polygon = NavigationPolygon.new()
 var points = PackedVector2Array([Vector2(),Vector2(),Vector2(),Vector2()])
@@ -244,7 +245,7 @@ func init_field():
 	
 	#Add main spawner
 	var spawner_position = Vector2(floor(gameState.board_width/2), gameState.board_height-1)	
-	$Board.set_cell(BLOCK_LAYER, spawner_position, 301, Vector2(0,0))
+	$Board.set_cell(BLOCK_LAYER, spawner_position, SPAWNER_TILE_ID, Vector2(0,0))
 	main_spawner = Spawner.create(gameState,  $Board.map_to_local(spawner_position))
 	gameState.spawners.append(main_spawner)
 	
@@ -264,6 +265,7 @@ func draw_field_from_walls(walls_positions: PackedVector2Array):
 	#Add spawners
 	for spawner in gameState.spawners:
 		Spawner.create(gameState, spawner.position)
+		$Board.set_cell(BLOCK_LAYER, $Board.local_to_map(spawner.position), SPAWNER_TILE_ID, Vector2(0,0))
 		if main_spawner == null or main_spawner.position.y < spawner.position.y:
 			main_spawner = spawner
 	
@@ -306,6 +308,11 @@ func extend_field():
 	#Add bottom row
 	for col in gameState.board_width:
 		$Board.set_cell(BLOCK_LAYER, Vector2(col, gameState.board_height+Stats.board_extend_height-1), WALL_TILE_ID, Vector2(0,0))
+	
+	#Move spawner
+	var spawner_position = Vector2(floor(gameState.board_width/2), gameState.board_height+Stats.board_extend_height-1)
+	$Board.set_cell(BLOCK_LAYER, spawner_position, SPAWNER_TILE_ID, Vector2(0,0))
+	main_spawner.position = $Board.map_to_local(spawner_position)
 	
 	gameState.board_height += Stats.board_extend_height
 	_set_navigation_region()
