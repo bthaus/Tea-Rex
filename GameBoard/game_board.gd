@@ -5,7 +5,6 @@ var selected_block = null
 var moved_from_position = Vector2.ZERO #As (0,0) will be part of the wall, it is outside of bounds and can be treated as not initialized
 var moved_from_block = null
 
-var spawners 
 @export var gameState:GameState
 @onready var block_handler:BlockHandler = BlockHandler.new($Board)
 enum BoardAction {NONE=0, PLAYER_BUILD=1, PLAYER_MOVE=2, PLAYER_BULLDOZER=3}
@@ -43,7 +42,6 @@ func _ready():
 	$Board.add_to_group("navigation")
 	navigation_polygon.source_geometry_mode = NavigationPolygon.SOURCE_GEOMETRY_GROUPS_WITH_CHILDREN
 	navigation_polygon.agent_radius = 31
-	spawners = get_tree().get_nodes_in_group("spawner")
 	
 	delay_timer = Timer.new()
 	delay_timer.autostart = false
@@ -159,7 +157,7 @@ func _process(_delta):
 		if action == BoardAction.PLAYER_BULLDOZER:
 			block_handler.draw_block_with_tile_id(selected_block, board_pos, LEGAL_PLACEMENT_TILE_ID, SELECTION_LAYER)
 		elif action != BoardAction.NONE:
-			var id = LEGAL_PLACEMENT_TILE_ID if block_handler.can_place_block(selected_block, BLOCK_LAYER, board_pos, $NavigationRegion2D, spawners) else ILLEGAL_PLACEMENT_TILE_ID
+			var id = LEGAL_PLACEMENT_TILE_ID if block_handler.can_place_block(selected_block, BLOCK_LAYER, board_pos, $NavigationRegion2D, gameState.spawners) else ILLEGAL_PLACEMENT_TILE_ID
 			block_handler.draw_block_with_tile_id(selected_block, board_pos, id, SELECTION_LAYER)
 	
 	$NavigationRegion2D.bake_navigation_polygon()
@@ -177,7 +175,7 @@ func _input(event):
 	if event.is_action_released("left_click"):
 		match action:
 			BoardAction.PLAYER_BUILD:
-				if block_handler.can_place_block(selected_block, BLOCK_LAYER, board_pos, $NavigationRegion2D, spawners):
+				if block_handler.can_place_block(selected_block, BLOCK_LAYER, board_pos, $NavigationRegion2D, gameState.spawners):
 					_place_block(selected_block, board_pos)
 					_action_finished(true)
 			
@@ -193,7 +191,7 @@ func _input(event):
 					_remove_turrets(selected_block, board_pos)
 
 				else:
-					if block_handler.can_place_block(selected_block, BLOCK_LAYER, board_pos, $NavigationRegion2D, spawners):
+					if block_handler.can_place_block(selected_block, BLOCK_LAYER, board_pos, $NavigationRegion2D, gameState.spawners):
 						_place_block(selected_block, board_pos)
 						_action_finished(true)
 					
@@ -244,6 +242,12 @@ func init_field():
 		$Board.set_cell(BLOCK_LAYER, Vector2(col,0), WALL_TILE_ID, Vector2(0,0))
 		$Board.set_cell(BLOCK_LAYER, Vector2(col,gameState.board_height-1), WALL_TILE_ID, Vector2(0,0))
 	
+	#Add main spawner
+	var spawner_position = Vector2(floor(gameState.board_width/2), gameState.board_height-1)	
+	$Board.set_cell(BLOCK_LAYER, spawner_position, 301, Vector2(0,0))
+	main_spawner = Spawner.create(gameState,  $Board.map_to_local(spawner_position))
+	gameState.spawners.append(main_spawner)
+	
 	for row in range(1, gameState.board_height-1):
 		for col in range(1, gameState.board_width-1):
 			$Board.set_cell(GROUND_LAYER, Vector2(col, row), EMPTY_TILE_ID, Vector2(0,0))
@@ -252,10 +256,18 @@ func init_field():
 
 func draw_field_from_walls(walls_positions: PackedVector2Array):
 	var height = -1
+	#Add walls
 	for wall_position in walls_positions:
 		$Board.set_cell(BLOCK_LAYER, Vector2(wall_position.x,wall_position.y), WALL_TILE_ID, Vector2(0,0))
 		height = max(height, wall_position.y)
 	
+	#Add spawners
+	for spawner in gameState.spawners:
+		Spawner.create(gameState, spawner.position)
+		if main_spawner == null or main_spawner.position.y < spawner.position.y:
+			main_spawner = spawner
+	
+	#Add ground
 	for row in range(1, height):
 		var distance = block_handler.get_board_distance_at_row(BLOCK_LAYER, row)
 		for col in range(distance.from, distance.to+1):
