@@ -26,7 +26,7 @@ func getGlow(y):
 	pass;
 func getDark(y):
 	var Dark=remap(y,minDarkPosition.global_position.y,maxDarkPosition.global_position.y,minDark,maxDark)
-	Dark=clamp(Dark,minDark,maxDark)
+	Dark=clamp(Dark,maxDark,minDark)
 	return Dark;
 	pass;
 

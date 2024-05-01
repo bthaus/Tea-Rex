@@ -42,6 +42,7 @@ func start(wavenumber:int):
 func doBalancingLogic(waveNumber:int):
 	var amountmonsters=10+waveNumber*3;
 	numMonstersActive=numMonstersActive+amountmonsters;
+	waveMonsters.clear()
 	for n in range(amountmonsters):
 		waveMonsters.append(Monster.create(Stats.getiterativeColor(0),target))
 	util.p("Im changing the stats of the minions and adding them to the array")
