@@ -4,7 +4,7 @@ class_name GameState;
 @export var gameBoard:GameBoard;
 @export var hand:Node2D
 @export var menu:Menu
-@export   var cam:Camera2D;
+@export var cam:Camera2D;
 @export var lightThresholds:LightThresholds;
 static var gameState;
 

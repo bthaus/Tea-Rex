@@ -65,7 +65,7 @@ func monsterDied(monster:Monster):
 	numMonstersActive=numMonstersActive-1;
 	print(numMonstersActive)
 	if numMonstersActive<=0:
-		wave_done.emit()
+		state.startBuildPhase()
 	pass;
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
