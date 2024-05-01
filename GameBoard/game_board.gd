@@ -35,7 +35,7 @@ var navigation_polygon = NavigationPolygon.new()
 var points = PackedVector2Array([Vector2(),Vector2(),Vector2(),Vector2()])
 
 func _ready():
-	gameState=GameState.gameState
+	print("board initiated")
 	$Board.tile_set.tile_size = Vector2(Stats.block_size, Stats.block_size)
 	navigation_polygon.source_geometry_group_name = "navigation"
 	$Board.add_to_group("navigation")
@@ -49,10 +49,10 @@ func _ready():
 	delay_timer.wait_time = Stats.CARD_PLACEMENT_DELAY
 	delay_timer.timeout.connect(func(): is_delayed = false)
 	add_child(delay_timer)
+	gameState.getCamera().is_dragging_camera.connect(dragging_camera)
 	
-	$Camera2D.is_dragging_camera.connect(dragging_camera)
 	_set_navigation_region()
-
+	pass
 func start_bulldozer(done:Callable, size_x:int, size_y:int):
 	util.p("Bulldozering stuff now...", "Jojo")
 	is_delayed = true

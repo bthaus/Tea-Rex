@@ -1,8 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://c8n0am7jadxj7"]
+[gd_scene load_steps=3 format=3 uid="uid://c8n0am7jadxj7"]
 
 [ext_resource type="Script" path="res://GameBoard/game_board.gd" id="1_yp6tt"]
 [ext_resource type="TileSet" uid="uid://dcf0fhqgihare" path="res://GameBoard/game_board_tileset.tres" id="2_dhwah"]
-[ext_resource type="Script" path="res://GameBoard/game_board_camera.gd" id="14_7fjk4"]
 
 [node name="GameBoard" type="Node2D"]
 script = ExtResource("1_yp6tt")
@@ -23,8 +22,3 @@ layer_3/z_index = 2
 layer_3/tile_data = PackedInt32Array()
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
-
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(736, 503)
-zoom = Vector2(0.5, 0.5)
-script = ExtResource("14_7fjk4")
