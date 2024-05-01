@@ -1,5 +1,5 @@
 extends Node2D
-class_name Waves
+class_name Spawner
 @export var state:GameState
 signal wave_done
 var numMonstersActive=0;

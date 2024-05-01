@@ -29,7 +29,7 @@ var wave:int=0;
 var board_width=20;
 var board_height=16;
 var y;
-
+var spawners=[]
 #subject to change
 
 
@@ -51,6 +51,9 @@ func upRedraws():
 	pass;
 func updateUI():
 	menu.updateUI();
+	pass;
+func registerSpawner(spawner:Spawner):
+	spawners.append(spawner)
 	pass;
 func changeHealth(amount:int):
 	HP=HP+amount
@@ -101,7 +104,10 @@ func _process(delta):
 func startBattlePhase():
 	gameBoard._set_navigation_region()
 	get_tree().create_timer(0.5).timeout.connect(func():GameSaver.saveGame(gameState))
-	$Spawner.start(wave)
+	if spawners.size()==0:
+		$Spawner.start(wave)
+	for s:Spawner in spawners:
+		s.start(wave)
 	wave=wave+1;
 	phase=Stats.GamePhase.BATTLE
 	updateUI()
