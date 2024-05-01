@@ -14,6 +14,8 @@ var done: Callable
 
 var turret_holder = util.TurretHolder.new()
 
+var main_spawner
+
 const BLOCK_LAYER = 0
 const GROUND_LAYER = 1
 const EXTENSION_LAYER = 2
@@ -160,6 +162,8 @@ func _process(_delta):
 			var id = LEGAL_PLACEMENT_TILE_ID if block_handler.can_place_block(selected_block, BLOCK_LAYER, board_pos, $NavigationRegion2D, spawners) else ILLEGAL_PLACEMENT_TILE_ID
 			block_handler.draw_block_with_tile_id(selected_block, board_pos, id, SELECTION_LAYER)
 	
+	$NavigationRegion2D.bake_navigation_polygon()
+
 func _input(event):
 	var board_pos = $Board.local_to_map(get_global_mouse_position())
 	
@@ -243,7 +247,7 @@ func init_field():
 	for row in range(1, gameState.board_height-1):
 		for col in range(1, gameState.board_width-1):
 			$Board.set_cell(GROUND_LAYER, Vector2(col, row), EMPTY_TILE_ID, Vector2(0,0))
-		
+	
 	$NavigationRegion2D.bake_navigation_polygon()
 
 func draw_field_from_walls(walls_positions: PackedVector2Array):
@@ -292,6 +296,7 @@ func extend_field():
 		$Board.set_cell(BLOCK_LAYER, Vector2(col, gameState.board_height+Stats.board_extend_height-1), WALL_TILE_ID, Vector2(0,0))
 	
 	gameState.board_height += Stats.board_extend_height
+	_set_navigation_region()
 	
 func generate_cave(pos_y: int, height: int, right_side: bool):
 	#Draw top line
@@ -340,10 +345,6 @@ func _remove_turrets(block: Block, position: Vector2):
 		if turret != null:
 			turret.queue_free()
 
-func bake_nav():
-	
-	pass;
-	
 func _spawn_all_turrets():
 	_remove_all_turrets()
 	for row in range(1,gameState.board_height-1):
@@ -371,10 +372,10 @@ func _remove_all_turrets():
 func _set_navigation_region():
 	navigation_polygon.clear()
 	#Create 4 Vectors for the 4 corners
-	points[0] = Vector2(0,0)
-	points[1] = Vector2(gameState.board_width * Stats.block_size,0)
-	points[2] = Vector2(gameState.board_width * Stats.block_size,gameState.board_height * Stats.block_size)
-	points[3] = Vector2(0,gameState.board_height * Stats.block_size)
+	points[0] = Vector2(-Stats.board_cave_deepness.to * Stats.block_size,0)
+	points[1] = Vector2((gameState.board_width + Stats.board_cave_deepness.to)  * Stats.block_size,0)
+	points[2] = Vector2((gameState.board_width + Stats.board_cave_deepness.to) * Stats.block_size,gameState.board_height * Stats.block_size)
+	points[3] = Vector2(-Stats.board_cave_deepness.to * Stats.block_size,gameState.board_height * Stats.block_size)
 	
 	navigation_polygon.add_outline(points) #add the Vector array to create the outline for the polygon
 	$NavigationRegion2D.set_navigation_polygon(navigation_polygon) #add the  Polygon to the Navigation Region
