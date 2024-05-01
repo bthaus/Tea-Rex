@@ -22,10 +22,8 @@ static var rng=RandomNumberGenerator.new()
 # Called when the node enters the scene tree for the first time.
 func _ready():
 		
-	var text=load("res://Assets/SpecialCards/"+Stats.getStringFromSpecialCardEnum(cardName)+"_preview.png")
-	
-	if text==null:
-		text=load("res://Assets/SpecialCards/DEFAULT_preview.png")
+
+	var text=load("res://Assets/UI/Target_Cross.png")
 	$Preview.texture=text
 	roundReceived=gameState.wave;
 	range=Stats.getCardRange(cardName);
