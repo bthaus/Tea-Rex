@@ -2,7 +2,10 @@ extends Camera2D
 
 var mouse_start_pos
 var screen_start_position
-
+@export var brightness:CanvasModulate
+var baseBrightness;
+@export var thresholds:LightThresholds
+@export var gameState:GameState
 var dragging = false
 var clicked = false
 signal is_dragging_camera
@@ -13,6 +16,11 @@ const MIN_RECOGNIZABLE_DRAG_DISTANCE = 10
 func _ready():
 	Projectile.camera=self;
 	Turret.camera=self;
+	pass;
+func changeBrightness():
+	if baseBrightness==null:
+		baseBrightness=brightness.color
+	brightness.color=baseBrightness*thresholds.getDark(gameState.y)
 	pass;
 func _input(event):
 	if event.is_action("left_click"):
@@ -41,12 +49,14 @@ func _input(event):
 			zoom = Vector2(zoom.x + CAMERA_ZOOM, zoom.y + CAMERA_ZOOM)
 		else:
 			position -= Vector2(0, SCROLL_SPEED) / zoom
-		
+			#changeBrightness()
 	if event.is_action_pressed("scroll_down"):
 		if Input.is_action_pressed("control"):
+			
 			zoom = Vector2(zoom.x - CAMERA_ZOOM, zoom.y - CAMERA_ZOOM)
 		else:
 			position += Vector2(0, SCROLL_SPEED) / zoom
+			#changeBrightness()
 		
 	
 		

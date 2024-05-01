@@ -79,10 +79,12 @@ var mapdrawnOnce=false;
 func _ready():
 	if get_child_count()==0:
 		queue_free()
+	print("gamestate initiated")
 	gameState=self;
 	Engine.max_fps=30;
 	GameSaver.createBaseGame(self)
 	target=$Base
+	
 	#get_tree().create_timer(1).timeout.connect(drawCards.bind(maxCards))
 	pass # Replace with function body.
  
@@ -154,8 +156,7 @@ func startGame():
 		drawCards(maxCards)
 		gameBoard.init_field()
 		started=true;
-		spawners.append(Spawner.create(self,Vector2(500,400)))
-	
+		
 	pass # Replace with function body.
 func addExp(monster:Monster):
 	totalExp=totalExp+monster.getExp()
