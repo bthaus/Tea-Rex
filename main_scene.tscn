@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://ct8v030fwp2gh"]
+[gd_scene load_steps=12 format=3 uid="uid://ct8v030fwp2gh"]
 
 [ext_resource type="Script" path="res://Game/GameState.gd" id="1_g64db"]
 [ext_resource type="Script" path="res://Persistency/GameSaver.gd" id="2_7eagx"]
@@ -6,9 +6,7 @@
 [ext_resource type="Script" path="res://Game/Stats.gd" id="3_j6i2j"]
 [ext_resource type="PackedScene" uid="uid://c8n0am7jadxj7" path="res://GameBoard/game_board.tscn" id="6_ghxp6"]
 [ext_resource type="Texture2D" uid="uid://ciujx66e0cmmp" path="res://Assets/Level/base.png" id="7_mq4xw"]
-[ext_resource type="Texture2D" uid="uid://cfudr8ysiyfsl" path="res://Assets/Monsters/Monster.png" id="8_ldw13"]
 [ext_resource type="Script" path="res://GameBoard/game_board_camera.gd" id="9_18cub"]
-[ext_resource type="Script" path="res://Game/Waves.gd" id="10_tv5je"]
 [ext_resource type="Script" path="res://LightThresholds.gd" id="11_n87cu"]
 [ext_resource type="PackedScene" uid="uid://cf5heufemalnf" path="res://menu.tscn" id="11_po6a1"]
 
@@ -54,29 +52,19 @@ script = ExtResource("9_18cub")
 position = Vector2(-736, -503)
 stream = ExtResource("3_avl3y")
 
-[node name="Spawner" type="Node2D" parent="." node_paths=PackedStringArray("state")]
-position = Vector2(152.286, 238.819)
-script = ExtResource("10_tv5je")
-state = NodePath("..")
-
-[node name="Base" type="Node2D" parent="Spawner"]
-position = Vector2(571.615, 136.367)
+[node name="Base" type="Node2D" parent="."]
+position = Vector2(723.901, 375.186)
 scale = Vector2(0.58, 0.58)
 
-[node name="Sprite2D" type="Sprite2D" parent="Spawner/Base"]
+[node name="Sprite2D" type="Sprite2D" parent="Base"]
 texture = ExtResource("7_mq4xw")
 
-[node name="Area2D" type="Area2D" parent="Spawner/Base"]
+[node name="Area2D" type="Area2D" parent="Base"]
 collision_layer = 0
 collision_mask = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Spawner/Base/Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Base/Area2D"]
 shape = SubResource("CircleShape2D_jk75f")
-
-[node name="Sprite2D" type="Sprite2D" parent="Spawner"]
-texture = ExtResource("8_ldw13")
-
-[node name="NavigationAgent2D" type="NavigationAgent2D" parent="Spawner"]
 
 [node name="GameBoard" parent="." node_paths=PackedStringArray("gameState") instance=ExtResource("6_ghxp6")]
 visible = false
@@ -148,5 +136,4 @@ offset_right = 40.0
 offset_bottom = 23.0
 text = "maxglowposition"
 
-[connection signal="wave_done" from="Spawner" to="." method="_on_spawner_wave_done"]
-[connection signal="area_entered" from="Spawner/Base/Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="area_entered" from="Base/Area2D" to="." method="_on_area_2d_area_entered"]

@@ -65,6 +65,7 @@ static func saveGame(gameState:GameState):
 	save(JSON.stringify(values),"state",gameState.account);		
 	storeGameMap(gameState)
 	storeHand(gameState)
+	save(serialseSpawners(gameState),"spawners",gameState.account)
 	pass;
 static func storeHand(gameState:GameState):
 	if gameState.hand==null:
@@ -157,6 +158,17 @@ class Data:
 		return d
 			
 	pass	
+static func serialseSpawners(gameState:GameState):
+	var spawners=[]
+	for s:Spawner in gameState.spawners:
+		spawners.append(s.serialise())
+	return JSON.stringify(spawners)
+	pass
+static func deserialiseSpawners(gameState:GameState,json):
+	var jarr=JSON.parse_string(json)
+	for j in jarr:
+		Spawner.deserialise(j,gameState)
+	pass;
 static func serialiseHand(hand:Array):
 	
 	var cards=[]

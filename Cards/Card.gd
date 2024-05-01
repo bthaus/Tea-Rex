@@ -41,7 +41,7 @@ static func create(gameState:GameState,card=-1):
 		var extension=c.card.block.extension;
 		var color=c.card.block.color;
 		#use this to change color/text of card
-		var preview=load("res://Cards/block_preview.tscn").instantiate() as GameBoard
+		var preview=load("res://Cards/block_preview.tscn").instantiate()
 		
 		preview.set_block(c.card.block, true)
 		preview.scale=Vector2(0.3,0.3)

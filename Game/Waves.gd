@@ -1,16 +1,38 @@
 extends Node2D
 class_name Spawner
-@export var state:GameState
+var state:GameState
 signal wave_done
 static var numMonstersActive=0;
 var waveMonsters=[]
-var gamestate:GameState;
+
+var target:Node2D
+var level;
 @onready var nav: NavigationAgent2D = $NavigationAgent2D
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	nav.target_position = $Base.global_position
+	nav.target_position = target.global_position
 
-
+static func create(gameState:GameState,pos:Vector2,level:int=1)-> Spawner:
+	var s=load("res://Spawner.tscn").instantiate() as Spawner;
+	s.state=gameState;
+	s.target=gameState.target
+	s.level=level;
+	gameState.add_child(s)
+	s.global_position=pos
+	
+	return s
+func serialise():
+	return JSON.stringify({"x":position.x,"y":position.y,"lvl":level});
+		
+	
+static func deserialise(json:String,gameState:GameState)->Spawner:
+	var d=JSON.parse_string(json) as Dictionary
+	var p=Vector2(d.get("x"),d.get("y"))
+	var s=Spawner.create(gameState,p,d.get("lvl"))
+	gameState.spawners.clear();
+	gameState.spawners.append(s)
+	return s;
+		
 func start(wavenumber:int):
 	
 	doBalancingLogic(wavenumber)
@@ -21,7 +43,7 @@ func doBalancingLogic(waveNumber:int):
 	var amountmonsters=10+waveNumber*3;
 	numMonstersActive=numMonstersActive+amountmonsters;
 	for n in range(amountmonsters):
-		waveMonsters.append(Monster.create(Stats.getiterativeColor(0),$Base))
+		waveMonsters.append(Monster.create(Stats.getiterativeColor(0),target))
 	util.p("Im changing the stats of the minions and adding them to the array")
 	
 	pass;

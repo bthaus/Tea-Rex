@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://c5243v7di3oar"]
+
+[ext_resource type="Script" path="res://Game/Waves.gd" id="1_18m5i"]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_18m5i")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
