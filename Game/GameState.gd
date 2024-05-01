@@ -82,7 +82,7 @@ func _ready():
 	gameState=self;
 	Engine.max_fps=30;
 	GameSaver.createBaseGame(self)
-	
+	target=$Base
 	#get_tree().create_timer(1).timeout.connect(drawCards.bind(maxCards))
 	pass # Replace with function body.
  
