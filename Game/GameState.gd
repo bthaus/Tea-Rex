@@ -30,6 +30,7 @@ var board_width=20;
 var board_height=16;
 var y;
 var spawners=[]
+var target;
 #subject to change
 
 
@@ -81,7 +82,7 @@ func _ready():
 	gameState=self;
 	Engine.max_fps=30;
 	GameSaver.createBaseGame(self)
-	
+	target=$Base
 	#get_tree().create_timer(1).timeout.connect(drawCards.bind(maxCards))
 	pass # Replace with function body.
  
@@ -104,9 +105,8 @@ func _process(delta):
 func startBattlePhase():
 	gameBoard._set_navigation_region()
 	get_tree().create_timer(0.5).timeout.connect(func():GameSaver.saveGame(gameState))
-	if spawners.size()==0:
-		$Spawner.start(wave)
-	for s:Spawner in spawners:
+	
+	for s in spawners:
 		s.start(wave)
 	wave=wave+1;
 	phase=Stats.GamePhase.BATTLE
@@ -150,9 +150,11 @@ func _on_spawner_wave_done():
 func startGame():
 	
 	if not started:
+		target=$Base
 		drawCards(maxCards)
 		gameBoard.init_field()
 		started=true;
+		spawners.append(Spawner.create(self,Vector2(500,400)))
 	
 	pass # Replace with function body.
 func addExp(monster:Monster):

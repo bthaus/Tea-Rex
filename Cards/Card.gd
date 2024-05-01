@@ -35,11 +35,17 @@ static func create(gameState:GameState,card=-1):
 	if c.card is SpecialCard:
 		c.get_child(1).text=Stats.getStringFromSpecialCardEnum(c.card.cardName);
 		c.get_child(1).visible=true;
+		var cardname=c.card.cardName;
+		
 	if c.card is BlockCard:
+		var extension=c.card.block.extension;
+		var color=c.card.block.color;
+		#use this to change color/text of card
 		var preview=load("res://Cards/block_preview.tscn").instantiate()
+		
 		preview.set_block(c.card.block, true)
-		preview.scale=Vector2(0.4,0.4)
-		preview.position=Vector2(60,70)
+		preview.scale=Vector2(0.3,0.3)
+		preview.position=Vector2(50,100)
 		btn.add_child(preview)
 	return c
 	

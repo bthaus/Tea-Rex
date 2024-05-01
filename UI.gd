@@ -38,8 +38,7 @@ func _on_start_button_pressed():
 		showAccounts()
 		return
 	$MainMenu/Banner.visible=false;
-	gameState.get_node("Spawner").visible=true;
-	gameState.gameBoard.visible=true;
+	
 	ui.visible=true;
 	menu.visible=false;
 	$MainMenu/Main/StartButton/Label.text="continue"
