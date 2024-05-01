@@ -14,6 +14,13 @@ signal is_dragging_camera
 const CAMERA_ZOOM = 0.1
 const SCROLL_SPEED = 100
 const MIN_RECOGNIZABLE_DRAG_DISTANCE = 10
+var lastpos=0
+func _process(delta):
+	
+	if global_position.y!=lastpos:
+		changeBrightness()
+	lastpos=global_position.y	
+	pass;
 func _ready():
 	Projectile.camera=self;
 	Turret.camera=self;
@@ -22,6 +29,7 @@ func changeBrightness():
 	var v=thresholds.getDark(gameState.y)
 	brightness.color=Color(v,v,v,255)
 	v=thresholds.getGlow(gameState.y)
+	env.environment.glow_intensity=v
 	
 	pass;
 func _input(event):
@@ -51,14 +59,14 @@ func _input(event):
 			zoom = Vector2(zoom.x + CAMERA_ZOOM, zoom.y + CAMERA_ZOOM)
 		else:
 			position -= Vector2(0, SCROLL_SPEED) / zoom
-			changeBrightness()
+			
 	if event.is_action_pressed("scroll_down"):
 		if Input.is_action_pressed("control"):
 			
 			zoom = Vector2(zoom.x - CAMERA_ZOOM, zoom.y - CAMERA_ZOOM)
 		else:
 			position += Vector2(0, SCROLL_SPEED) / zoom
-			changeBrightness()
+			
 		
 	
 		
