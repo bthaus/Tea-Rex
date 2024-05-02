@@ -9,6 +9,8 @@ func _ready():
 	pass # Replace with function body.
 func updateUI():
 	$CanvasLayer/PlayerName.text=gamestate.account
+	$CanvasLayer/UI/HP.text=str(gamestate.HP);
+	$CanvasLayer/UI/PHASE.text=Stats.GamePhase.keys()[gamestate.phase-1]
 	
 	pass;
 

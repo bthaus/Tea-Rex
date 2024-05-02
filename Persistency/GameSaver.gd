@@ -41,10 +41,10 @@ static func restoreGame(gameState:GameState):
 		var dakey=da.keys()[0]
 		if ignoredData.find(dakey)==-1:
 			gameState.set(dakey,da.get(dakey))
+	deserialiseSpawners(gameState,loadfile("spawners",gameState.account))
 			
 	loadGameMap(gameState);
 	loadHand(gameState)
-	deserialiseSpawners(gameState,loadfile("spawners",gameState.account))
 	
 	pass
 static func remove(name):
