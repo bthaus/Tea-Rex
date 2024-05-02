@@ -20,7 +20,8 @@ func _ready():
 	damage=Stats.getEnemyProperty(color,"damage")
 	
 	speedfactor=Stats.getEnemyProperty(color,"speed")
-	hp=Stats.getEnemyProperty(color,"HP")
+	var mod=1+(currentMinionPower*Stats.enemy_scaling)
+	hp=Stats.getEnemyProperty(color,"HP")*mod
 	minionExp=Stats.enemy_base_exp;
 	
 	$Sprite2D.texture=load("res://Assets/Monsters/Monster_"+Stats.getStringFromEnum(color)+".png")
@@ -29,11 +30,11 @@ func _ready():
 	
 	$HP.text=str(hp)
 	pass # Replace with function body.
-static func create(type:Stats.TurretColor,target:Node2D)->Monster:
+static func create(type:Stats.TurretColor,target:Node2D,wave:int=1)->Monster:
 	var en=load("res://monster.tscn").instantiate() as Monster
 	en.color=type;
 	en.target=target;
-	
+	en.currentMinionPower=wave
 	return en
 	pass;
 func getExp():

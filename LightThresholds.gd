@@ -8,7 +8,10 @@ class_name LightThresholds
 @export var maxLightPosition:Node2D
 @export var minGlowPosition:Node2D
 @export var maxGlowPosition:Node2D
+@export var firstCaveCheck:Node2D
+@export var secondCaveCheck:Node2D
 
+@export var spawnerPositions:Array[int]
 @export var minDark:float
 @export var maxDark:float
 @export var minLight:float
@@ -35,6 +38,9 @@ func getLight(y):
 	Light=clamp(Light,minLight,maxLight)
 	return Light;
 	pass;
+func getCaveSpawnerProbability(y):
+	
+	pass;	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass

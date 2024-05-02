@@ -6,9 +6,10 @@ func _ready():
 
 	pass # Replace with function body.
 
-func drawCard():
+func drawCard(card:Card=null):
 	if state.maxCards<=get_children().size(): return
-	var card=Card.create(state)
+	if card==null:
+		card=Card.create(state)
 	add_child(card)
 	#add fancification here for initial animation
 

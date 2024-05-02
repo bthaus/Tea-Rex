@@ -120,6 +120,7 @@ const YELLOW_enemy_speed=enemy_base_speed*3;
 const RED_enemy_speed=enemy_base_speed*0.5;
 
 static var enemy_base_exp=10;
+static var enemy_scaling=0.1;
 
 const playerHP=100;
 const playerMaxHP=200;
@@ -259,6 +260,7 @@ static func getColorFromLowercaseString(str:String):
 		"yellow":return TurretColor.YELLOW;
 		"grey":return TurretColor.GREY;
 	pass;
+	
 static func getColorFromString(str:String):
 	match str:
 		"RED":return TurretColor.RED;
@@ -267,6 +269,15 @@ static func getColorFromString(str:String):
 		"YELLOW":return TurretColor.YELLOW;
 		"GREY":return TurretColor.GREY;
 		"WALL":return -3
+	pass;
+
+static func getEnumFromString(str:String):
+	match str:
+		"DEFAULT":return TurretExtension.DEFAULT
+		"REDLASER":return TurretExtension.REDLASER
+		"BLUELASER":return TurretExtension.BLUELASER
+		"YELLOWMORTAR":return TurretExtension.YELLOWMORTAR
+		"GREENPOISON":return TurretExtension.GREENPOISON
 	pass;
 static func getShapeFromString(str:String):
 	match str:

@@ -26,7 +26,7 @@ var totalExp=0;
 var levelUp=250;
 var started=false;
 var wave:int=0;
-var board_width=20;
+var board_width=11;
 var board_height=16;
 var y;
 var spawners=[]
@@ -77,6 +77,7 @@ func changeMaxHealth(amount:int):
 # Called when the node enters the scene tree for the first time.
 var mapdrawnOnce=false;
 func _ready():
+
 	if get_child_count()==0:
 		queue_free()
 	print("gamestate initiated")
@@ -130,9 +131,13 @@ func averageColorChances():
 
 	pass;
 func startCatastrophy():
+	
 	#gameBoard.BULLDOZER_catastrophy(catastrophy_done)
 	#gameBoard.call("BULLDOZER_catastrophy").bind(catastrophy_done)
-	if wave%1!=0:	return
+	if wave%5!=0:	return
+	if wave%10==0: hand.drawCard(Card.create(self,SpecialCard.create(self,Stats.SpecialCards.UPDRAW)))
+	if wave%7==0: hand.drawCard(Card.create(self,SpecialCard.create(self,Stats.SpecialCards.UPMAXCARDS)))
+
 	gameBoard.extend_field()
 	var cat=Stats.getRandomCatastrophy();
 	util.p(cat+"_catastrophy called")
@@ -165,6 +170,7 @@ func addExp(monster:Monster):
 	
 	pass;
 func checkLevelUp():
+	
 	if totalExp<levelUp: return
 	levelUp=levelUp*2;
 	

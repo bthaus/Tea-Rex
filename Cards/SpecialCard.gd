@@ -109,7 +109,7 @@ func castFIREBALL():
 	$Effect.global_position=get_global_mouse_position();
 	$Effect.play(Stats.getStringFromSpecialCardEnum(cardName));
 	$Effect/EnemyDetector.enemyEntered.connect(func(e):
-		print("enemy hit")
+		
 		e.hit(Stats.TurretColor.GREY,damage))
 	return true;
 
@@ -201,7 +201,7 @@ func _process(delta):
 	pass
 
 func testcall(returned):
-	print(returned)
+	
 	pass;
 func _on_effect_animation_finished():
 	$Effect.visible=false;

@@ -354,8 +354,9 @@ func _spawn_turrets(block: Block, position: Vector2):
 	for piece in block.pieces:
 		if piece.color != Stats.TurretColor.GREY:
 			var turret = Turret.create(piece.color, piece.level, piece.extension)
-			add_child(turret)
+			
 			turret.position = $Board.map_to_local(Vector2(position.x + piece.position.x, position.y + piece.position.y))
+			add_child(turret)
 			if piece.level > 1:
 				turret.levelup(piece.level)
 			turret_holder.insert_turret(turret)
