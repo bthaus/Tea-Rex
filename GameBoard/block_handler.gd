@@ -107,6 +107,10 @@ func can_place_block(block: Block, layer: int, position: Vector2, navigation_reg
 	#If the level is -1 it means that there is an empty cell
 	var first_piece_data = board.get_cell_tile_data(layer, Vector2(block.pieces[0].position.x + position.x, block.pieces[0].position.y + position.y))
 	var level = -1 if first_piece_data == null else first_piece_data.get_custom_data("level")
+	
+	var spawner_positions = []
+	for spawner in spawners:
+		spawner_positions.append(board.local_to_map(spawner.position))
 
 	for piece in block.pieces:
 		var board_pos = Vector2(piece.position.x + position.x, piece.position.y + position.y)
@@ -138,6 +142,10 @@ func can_place_block(block: Block, layer: int, position: Vector2, navigation_reg
 					if color != "WALL" and color != Stats.getStringFromEnum(Stats.TurretColor.GREY): #Walls and grey pieces are an exception, ignore them
 						if color != Stats.getStringFromEnum(piece.color): #Mismatching color
 							return false
+							
+				for spawner_pos in spawner_positions:
+					if spawner_pos.x == pos.x and spawner_pos.y == pos.y:
+						return false
 	
 	#Check if a path would be valid
 	if board.get_cell_tile_data(layer, position) == null: #We want to build something new (no upgrade)
