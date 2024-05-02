@@ -323,8 +323,8 @@ func extend_field():
 	var add_spawner_left = randi_range(1, 100) <= Stats.board_cave_spawner_chance_percent
 	var add_spawner_right = randi_range(1, 100) <= Stats.board_cave_spawner_chance_percent
 	print(randi_range(gameState.board_height+1, gameState.board_height + Stats.board_extend_height - 3))
-	if add_spawner_left: add_spawner_to_cave(randi_range(gameState.board_height+1, gameState.board_height + Stats.board_extend_height - 3), false)
-	if add_spawner_right: add_spawner_to_cave(randi_range(gameState.board_height+1, gameState.board_height + Stats.board_extend_height - 3), true)
+	if add_spawner_left: add_spawner_to_side_wall(randi_range(gameState.board_height+1, gameState.board_height + Stats.board_extend_height - 3), false)
+	if add_spawner_right: add_spawner_to_side_wall(randi_range(gameState.board_height+1, gameState.board_height + Stats.board_extend_height - 3), true)
 	
 	gameState.board_height += Stats.board_extend_height
 	_set_navigation_region()
@@ -359,17 +359,12 @@ func generate_cave(pos_y: int, height: int, right_side: bool):
 			$Board.set_cell(BLOCK_LAYER, Vector2(curr_col, pos_y+height-1), WALL_TILE_ID, Vector2(0,0))
 			curr_col += 1
 
-func add_spawner_to_cave(height: int, right_side: bool):
-	var move_dir = 1 if right_side else -1
-	var col = move_dir
-	while $Board.get_cell_source_id(BLOCK_LAYER, Vector2(col, height)) != WALL_TILE_ID:
-		col += move_dir
-		if col > 200 or col < -200:
-			util.p("Wall not found, this should never happen", "Jojo", "Error")
-			break
-	$Board.set_cell(BLOCK_LAYER, Vector2(col, height), -1, Vector2(0,0))
-	$Board.set_cell(GROUND_LAYER, Vector2(col, height), SPAWNER_TILE_ID, Vector2(0,0))
-	var spawner = Spawner.create(gameState, $Board.map_to_local(Vector2(col, height)))
+func add_spawner_to_side_wall(row: int, right_side: bool):
+	var distance = block_handler.get_board_distance_at_row(BLOCK_LAYER, row)
+	var col = distance.to + 1 if right_side else distance.from - 1
+	$Board.set_cell(BLOCK_LAYER, Vector2(col, row), -1, Vector2(0,0))
+	$Board.set_cell(GROUND_LAYER, Vector2(col, row), SPAWNER_TILE_ID, Vector2(0,0))
+	var spawner = Spawner.create(gameState, $Board.map_to_local(Vector2(col, row)))
 	gameState.spawners.append(spawner)
 
 func _spawn_turrets(block: Block, position: Vector2):
