@@ -2,6 +2,7 @@ extends Node2D
 class_name Spawner
 var state:GameState
 signal wave_done
+
 static var numMonstersActive=0;
 var waveMonsters=[]
 

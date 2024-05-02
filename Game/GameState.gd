@@ -77,6 +77,7 @@ func changeMaxHealth(amount:int):
 # Called when the node enters the scene tree for the first time.
 var mapdrawnOnce=false;
 func _ready():
+	print(get_parent().get_tree_string_pretty())
 	if get_child_count()==0:
 		queue_free()
 	print("gamestate initiated")

@@ -96,6 +96,7 @@ minLightPosition = NodePath("minLight")
 maxLightPosition = NodePath("maxLight")
 minGlowPosition = NodePath("minGlow")
 maxGlowPosition = NodePath("maxGlow")
+spawnerPositions = [null]
 minDark = 1.0
 maxDark = 0.3
 minLight = 0.6
