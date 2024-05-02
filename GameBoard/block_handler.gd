@@ -129,20 +129,20 @@ func can_place_block(block: Block, layer: int, position: Vector2, navigation_reg
 				return false
 		elif level != -1: #We expect a non-empty cell
 			return false
-		if piece.color == Stats.TurretColor.GREY: #For grey pieces we do not have to check surrounding pieces
-			continue
 			
 		#Check near mismatching colors
 		for row in range(-1,2):
 			for col in range(-1,2):
 				var pos = Vector2(board_pos.x+col, board_pos.y+row)
-				var cell_data = board.get_cell_tile_data(layer, pos)
-				if cell_data != null:
-					var color = cell_data.get_custom_data("color").to_upper()
-					if color != "WALL" and color != Stats.getStringFromEnum(Stats.TurretColor.GREY): #Walls and grey pieces are an exception, ignore them
-						if color != Stats.getStringFromEnum(piece.color): #Mismatching color
-							return false
-							
+				if piece.color != Stats.TurretColor.GREY: #Checking surrounding pieces is only for colored blocks neccessary
+					var cell_data = board.get_cell_tile_data(layer, pos)
+					if cell_data != null:
+						var color = cell_data.get_custom_data("color").to_upper()
+						if color != "WALL" and color != Stats.getStringFromEnum(Stats.TurretColor.GREY): #Walls and grey pieces are an exception, ignore them
+							if color != Stats.getStringFromEnum(piece.color): #Mismatching color
+								return false
+				
+				#Check if there are any surrounding spawners
 				for spawner_pos in spawner_positions:
 					if spawner_pos.x == pos.x and spawner_pos.y == pos.y:
 						return false
