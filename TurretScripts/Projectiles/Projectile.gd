@@ -95,7 +95,6 @@ func _ready():
 func remove():
 	
 	if pool==null:
-		queue_free()
 		return;
 	
 	shot=false;

@@ -63,7 +63,9 @@ func setUpTower():
 		projectile.z_index=-1;
 		projectile.visible=true;
 		$AudioStreamPlayer2D.finished.connect(func(): if inRange():$AudioStreamPlayer2D.play)
+	
 	lightamount=GameState.gameState.lightThresholds.getLight(global_position.y)
+	#$Ambient.energy=lightamount/ambientDropOff
 	util.p("my light amount is: "+str(lightamount  ))
 	$PointLight2D.energy=lightamount	
 	$EnemyDetector.setRange(Stats.getRange(type,extension))
@@ -73,7 +75,7 @@ var target;
 var buildup=0;
 var targetposition;
 static var sounds=0;
-
+var ambientDropOff=3;
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _draw():
 	if type==Stats.TurretColor.RED&&extension==Stats.TurretExtension.REDLASER:
@@ -102,7 +104,7 @@ func draw_SniperLine():
 	
 	
 func draw_redlaser():
-	projectile.visible=false;
+	
 	if target!=null:
 		targetposition=target.global_position;
 	if target==null&&buildup<=0:
@@ -141,6 +143,9 @@ func reduceCooldown(delta):
 	
 	$PointLight2D.energy=$PointLight2D.energy+increase
 	if$PointLight2D.energy>ml: $PointLight2D.energy=ml;
+	
+	#$Ambient.energy=$Ambient.energy+increase
+	#if$Ambient.energy>ml/ambientDropOff: $Ambient.energy=ml/ambientDropOff;
 	
 	remap(255,0,0,1,254)
 	cdt=cdt-delta;
@@ -218,6 +223,7 @@ func _process(delta):
 	pass;
 func startCooldown(time):
 	$PointLight2D.energy=0
+	#$Ambient.energy=0
 	cdt=time;
 	onCooldown=true;
 	pass;

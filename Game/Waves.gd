@@ -5,7 +5,8 @@ signal wave_done
 
 static var numMonstersActive=0;
 var waveMonsters=[]
-
+var minMonster=5
+var maxMonster=100
 var target:Node2D
 var level;
 @onready var nav: NavigationAgent2D = $NavigationAgent2D
@@ -41,11 +42,14 @@ func start(wavenumber:int):
 		
 	pass;
 func doBalancingLogic(waveNumber:int):
-	var amountmonsters=10+waveNumber*3;
-	numMonstersActive=numMonstersActive+amountmonsters;
+	var amountmonsters=int(remap(waveNumber*3,0,50,minMonster,maxMonster))
+	amountmonsters=clamp(amountmonsters,minMonster,maxMonster)
+	numMonstersActive=numMonstersActive+amountmonsters
+	print("im spawning "+str(amountmonsters)+" monsters")
 	waveMonsters.clear()
 	for n in range(amountmonsters):
-		waveMonsters.append(Monster.create(Stats.getiterativeColor(0),target))
+		var strenght=clamp(waveNumber,1,global_position.y/100)
+		waveMonsters.append(Monster.create(Stats.getiterativeColor(0),target,waveNumber))
 	util.p("Im changing the stats of the minions and adding them to the array")
 	
 	pass;

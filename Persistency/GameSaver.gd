@@ -56,6 +56,7 @@ static func remove(name):
 	
 	pass;	
 static func saveGame(gameState:GameState):
+	print("save called")
 	var props=gameState.get_script().get_script_property_list()
 	var values=[]
 	
@@ -90,6 +91,7 @@ static func storeGameMap(gameState:GameState):
 		var extensionData=map.get_cell_tile_data(GameBoard.EXTENSION_LAYER,cell)
 		if extensionData!=null:
 			extension=extensionData.get_custom_data("extension");
+			
 		var info=Info.new(color,level,extension,cell)
 		
 		mapAsArray.append(info.serialise())
@@ -213,8 +215,12 @@ class Info:
 	
 	static func deserialise(str:String)->Block.Piece:
 		var data=JSON.parse_string(str)
-		return Block.Piece.new(Vector2(data[3],data[4]),Stats.getColorFromString(data[0]),data[1]);
+		if data[2]!=null and (data[2] is String) and Stats.getEnumFromString(data[2])>1:
+			return Block.Piece.new(Vector2(data[3],data[4]),Stats.getColorFromString(data[0]),data[1],Stats.getEnumFromString(data[2]));
+		else:
+			return Block.Piece.new(Vector2(data[3],data[4]),Stats.getColorFromString(data[0]),data[1]);
 	
+		
 		return null;
 		
 	

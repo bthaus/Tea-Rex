@@ -46,7 +46,7 @@ script = ExtResource("3_j6i2j")
 
 [node name="Sprite2D2" type="Sprite2D" parent="."]
 z_index = -10
-position = Vector2(85.0989, 1115.81)
+position = Vector2(94, 1154)
 scale = Vector2(19.475, 19.475)
 texture = ExtResource("4_ykfqr")
 
@@ -96,11 +96,9 @@ minLightPosition = NodePath("minLight")
 maxLightPosition = NodePath("maxLight")
 minGlowPosition = NodePath("minGlow")
 maxGlowPosition = NodePath("maxGlow")
-spawnerPositions = [null]
 minDark = 1.0
 maxDark = 0.3
-minLight = 0.6
-maxLight = 5.0
+maxLight = 2.0
 maxGlow = 4.0
 
 [node name="minDark" type="Node2D" parent="LightThresholds"]
@@ -121,7 +119,7 @@ text = "maxDarkPoint
 "
 
 [node name="minLight" type="Node2D" parent="LightThresholds"]
-position = Vector2(498.578, 720.841)
+position = Vector2(526.079, 1138.86)
 
 [node name="Label" type="Label" parent="LightThresholds/minLight"]
 offset_right = 40.0
