@@ -11,7 +11,7 @@ func updateUI():
 	$CanvasLayer/PlayerName.text=gamestate.account
 	$CanvasLayer/UI/HP.text=str(gamestate.HP);
 	$CanvasLayer/UI/PHASE.text=Stats.GamePhase.keys()[gamestate.phase-1]
-	
+	$CanvasLayer/UI/Wave.text=str(gamestate.wave)
 	pass;
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

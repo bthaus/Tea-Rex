@@ -20,7 +20,7 @@ const yellow_mortar_range=10*base_range;
 
 const base_missile_speed=1000;
 const green_missile_speed=1*base_missile_speed;
-const blue_missile_speed=2*base_missile_speed;
+const blue_missile_speed=1*base_missile_speed;
 const yellow_missile_speed=3*base_missile_speed;
 const red_missile_speed=1*base_missile_speed;
 const grey_missile_speed=2*base_missile_speed;
@@ -120,7 +120,7 @@ const YELLOW_enemy_speed=enemy_base_speed*3;
 const RED_enemy_speed=enemy_base_speed*0.5;
 
 static var enemy_base_exp=10;
-static var enemy_scaling=0.1;
+static var enemy_scaling=0.25;
 
 const playerHP=100;
 const playerMaxHP=200;
@@ -376,7 +376,7 @@ static var greenChance=20;
 static var yellowChance=20;
 static var greyChance=20;
 static var colorChances = [greyChance, greenChance, redChance, yellowChance, blueChance]
-static var specialCardChance = 20; #chance whether for a special card !specialCardChance = chance for Block Card
+static var specialCardChance =10; #chance whether for a special card !specialCardChance = chance for Block Card
 static var extensionChance = 50; #chance if a color get's the extrension
 
 static func getRandomCard(gamestate):

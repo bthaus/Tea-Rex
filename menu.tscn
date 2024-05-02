@@ -219,6 +219,13 @@ offset_right = 91.3274
 offset_bottom = 959.283
 text = "0"
 
+[node name="Wave" type="Label" parent="CanvasLayer/UI"]
+offset_left = 555.752
+offset_top = 76.1062
+offset_right = 595.752
+offset_bottom = 99.1062
+text = "0"
+
 [node name="PlayerName" type="Label" parent="CanvasLayer"]
 offset_right = 250.0
 offset_bottom = 90.0

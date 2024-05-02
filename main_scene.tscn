@@ -66,7 +66,7 @@ position = Vector2(-736, -503)
 stream = ExtResource("3_avl3y")
 
 [node name="Base" type="Node2D" parent="."]
-position = Vector2(551, 317)
+position = Vector2(534.237, 91.9909)
 scale = Vector2(0.58, 0.58)
 
 [node name="Sprite2D" type="Sprite2D" parent="Base"]

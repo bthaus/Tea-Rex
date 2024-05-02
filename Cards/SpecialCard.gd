@@ -140,7 +140,7 @@ func castGLUE():
 			if !active:
 				return
 			var slower=Slower.create(Stats.GLUE_Duration,Stats.GLUE_slowFactor)	
-			$Effect/EnemyDetector.enemyLeft.connect(func(e): if e==monster:slower.remove())
+			$Effect/EnemyDetector.enemyLeft.connect(func(e): if e==monster&&slower!=null:slower.remove())
 			monster.add_child(slower)
 				
 			pass;

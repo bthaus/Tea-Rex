@@ -169,6 +169,7 @@ static func serialseSpawners(gameState:GameState):
 	pass
 static func deserialiseSpawners(gameState:GameState,json):
 	var jarr=JSON.parse_string(json)
+	gameState.spawners.clear()
 	for j in jarr:
 		Spawner.deserialise(j,gameState)
 	pass;
