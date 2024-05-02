@@ -36,6 +36,7 @@ static func create(gameState:GameState,card=-1):
 		c.get_child(1).text=Stats.getStringFromSpecialCardEnum(c.card.cardName);
 		c.get_child(1).visible=true;
 		var cardname=c.card.cardName;
+		c.get_node("Button").icon=load("res://Assets/SpecialCards/"+Stats.getStringFromSpecialCardEnum(cardname)+"_preview.png")
 		
 	if c.card is BlockCard:
 		var extension=c.card.block.extension;

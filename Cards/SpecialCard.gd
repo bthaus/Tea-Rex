@@ -194,8 +194,6 @@ func _process(delta):
 		done.call(false)
 		$Preview.visible=false;
 		
-	if Input.is_action_just_pressed("save"):
-		select(testcall)
 	
 	if selected:
 		$Preview.global_position=get_global_mouse_position();
