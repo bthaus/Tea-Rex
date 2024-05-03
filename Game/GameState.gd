@@ -31,6 +31,13 @@ var board_height=16;
 var y;
 var spawners=[]
 var target;
+
+static var blueChance=100;
+static var redChance=0;
+static var greenChance=0;
+static var yellowChance=0;
+static var greyChance=0;
+static var colorChances = [greyChance, greenChance, redChance, yellowChance, blueChance]
 #subject to change
 
 
@@ -106,6 +113,7 @@ func _process(delta):
 
 
 func startBattlePhase():
+	averageColorChances()
 	gameBoard._set_navigation_region()
 	get_tree().create_timer(0.5).timeout.connect(func():GameSaver.saveGame(gameState))
 	
@@ -125,10 +133,12 @@ func startBuildPhase():
 	drawCards(cardRedraws)	
 	updateUI()	
 	pass;
-	
+static var index=0;	
 func averageColorChances():
-	
-
+	if colorChances[Stats.TurretColor.BLUE-1]>20:
+		index=(index+1)%4
+		colorChances[Stats.TurretColor.BLUE-1]=colorChances[Stats.TurretColor.BLUE-1]-10
+		colorChances[index]=colorChances[index]+10
 	pass;
 func startCatastrophy():
 	
@@ -193,7 +203,9 @@ func unlockRandom(base,pool):
 	pool.append(unlocked)
 	return unlocked;
 	
+func getColorChances():
 
+	return colorChances
 func _on_area_2d_area_entered(area):
 	var m=area.get_parent()
 	if m is Monster:

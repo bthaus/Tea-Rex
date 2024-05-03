@@ -41,7 +41,7 @@ func start(wavenumber:int):
 		
 	pass;
 func doBalancingLogic(waveNumber:int):
-	var amountmonsters=int(remap(waveNumber*2+5,0,50,minMonster,maxMonster))
+	var amountmonsters=int(remap(waveNumber+5,0,50,minMonster,maxMonster))
 	amountmonsters=clamp(amountmonsters,minMonster,maxMonster)
 	numMonstersActive=numMonstersActive+amountmonsters
 	

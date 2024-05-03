@@ -26,6 +26,7 @@ font_size = 106
 
 [sub_resource type="LabelSettings" id="LabelSettings_x8uqx"]
 font_size = 32
+shadow_size = 96
 
 [sub_resource type="LabelSettings" id="LabelSettings_tx5p1"]
 font_size = 31
@@ -47,6 +48,7 @@ ui = NodePath("UI")
 parent = NodePath("..")
 
 [node name="MainMenu" type="Node2D" parent="CanvasLayer"]
+visible = false
 
 [node name="Banner" type="Sprite2D" parent="CanvasLayer/MainMenu"]
 position = Vector2(1007.3, 569.204)
@@ -160,7 +162,6 @@ text = "Back
 "
 
 [node name="UI" type="Node2D" parent="CanvasLayer"]
-visible = false
 
 [node name="Description" type="Label" parent="CanvasLayer/UI"]
 offset_left = 172.0
@@ -204,6 +205,7 @@ offset_bottom = 1073.93
 text = "5"
 
 [node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/UI/maxcards"]
+modulate = Color(0, 0.537255, 0.258824, 1)
 z_index = -1
 position = Vector2(5.30973, 10.6195)
 texture = ExtResource("12_8sn7l")
@@ -225,7 +227,7 @@ offset_bottom = 1132.19
 text = "2"
 
 [node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/UI/redraws"]
-modulate = Color(1, 0.32549, 0.207843, 1)
+modulate = Color(0.705882, 0.121569, 0, 1)
 z_index = -1
 position = Vector2(5.29519, 12.6763)
 texture = ExtResource("12_8sn7l")
@@ -278,6 +280,13 @@ fill_mode = 3
 texture_under = ExtResource("13_ucxh1")
 texture_progress = ExtResource("14_h6yjh")
 
+[node name="Label" type="Label" parent="CanvasLayer/UI/Hpbar"]
+layout_mode = 0
+offset_left = 41.0
+offset_top = -23.0
+offset_right = 103.0
+text = "HP"
+
 [node name="EXPbar" type="TextureProgressBar" parent="CanvasLayer/UI"]
 modulate = Color(0.32549, 1, 0, 1)
 offset_left = -14.1593
@@ -287,6 +296,14 @@ offset_bottom = 889.345
 fill_mode = 3
 texture_under = ExtResource("13_ucxh1")
 texture_progress = ExtResource("14_h6yjh")
+
+[node name="Label2" type="Label" parent="CanvasLayer/UI/EXPbar"]
+layout_mode = 0
+offset_left = 37.1681
+offset_top = -26.5484
+offset_right = 99.1681
+offset_bottom = -3.54843
+text = "EXP"
 
 [node name="PlayerName" type="Label" parent="CanvasLayer"]
 offset_right = 250.0

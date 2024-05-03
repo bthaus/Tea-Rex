@@ -121,7 +121,7 @@ const YELLOW_enemy_speed=enemy_base_speed*3;
 const RED_enemy_speed=enemy_base_speed*0.5;
 
 static var enemy_base_exp=10;
-static var enemy_scaling=0.25;
+static var enemy_scaling=0.2;
 
 const playerHP=200;
 const playerMaxHP=200;
@@ -392,12 +392,7 @@ static func getiterativeColor(skip:int=10):
 static var colorit=1;
 static var counter=0;
 
-static var blueChance=20;
-static var redChance=20;
-static var greenChance=20;
-static var yellowChance=20;
-static var greyChance=20;
-static var colorChances = [greyChance, greenChance, redChance, yellowChance, blueChance]
+
 static var specialCardChance =10; #chance whether for a special card !specialCardChance = chance for Block Card
 static var extensionChance = 50; #chance if a color get's the extrension
 
@@ -420,7 +415,7 @@ func getRandomBlock(lvl,gamestate):
 	var chance = rng.randi_range(0,100)
 	var sum = 0	
 	var color = getiterativeColor()
-	
+	var colorChances=gamestate.getColorChances()
 	for i in colorChances.size():
 		sum += colorChances[i]
 		if chance < sum:
@@ -448,14 +443,7 @@ static func getExtensionFromColor(color: TurretColor):
 		5: return TurretExtension.BLUELASER
 	pass	
 
-static func changeColorChance(color:TurretColor, chance):
-	match color:
-		TurretColor.RED: redChance = chance;
-		TurretColor.BLUE: blueChance = chance;
-		TurretColor.GREEN: greenChance = chance;
-		TurretColor.YELLOW: yellowChance = chance;
-		TurretColor.GREY: greyChance = chance;
-	pass
+
 		
 	
 
