@@ -80,7 +80,7 @@ const yellow_mortar_instanthit=true;
 
 const yellow_mortar_penetrations=1;
 const green_explosion_range=0.5;
-const red_laser_damage_stack=1;
+const red_laser_damage_stack=0.3;
 const green_poison_damage_stack=1;
 
 const green_glowing=false;
@@ -106,7 +106,7 @@ static var BLUE_enemy_HP=enemy_base_HP*1;
 static var YELLOW_enemy_HP=enemy_base_HP*0.5;
 static var RED_enemy_HP=enemy_base_HP*2;
 
-const enemy_base_damage=500;
+const enemy_base_damage=5;
 const GREEN_enemy_damage=enemy_base_damage*1;
 const BLUE_enemy_damage=enemy_base_damage*1;
 const YELLOW_enemy_damage=enemy_base_damage*2;
@@ -123,7 +123,7 @@ const RED_enemy_speed=enemy_base_speed*0.5;
 static var enemy_base_exp=10;
 static var enemy_scaling=0.25;
 
-const playerHP=100;
+const playerHP=200;
 const playerMaxHP=200;
 
 const FIREBALL_damage=500;
@@ -189,6 +189,24 @@ static var drill_catastrophy_width=3
 static var level_down_catastrophy_width=3
 static var level_down_catastrophy_height=3
 
+
+static var BLUE_description="A turret firing regular bullets at a medium rate."
+static var RED_description="A saw dealing high damage to close enemies."
+static var GREEN_description="A rocket launcher dealing damage to many enemies."
+static var YELLOW_description="A sniper dealing damage from afar"
+static var BLUELASER_description="Shoots lasers that perforate multiple enemies"
+static var REDLASER_description="A laser that deals high damage to a single enemy."
+static var GREENPOISON_description="Applies a spreading toxin to enemies."
+static var YELLOWMORTAR_description="Shoots explosives at a high range."
+static var HEAL_description="Heals you. The longer you hold the card, the more heal you get."
+static var FIREBALL_description="Deals damage to many enemies."
+static var UPHEALTH_description="Increases your maximum health. the longer you hold the card, the more the amount. "
+static var CRYOBALL_description="Damages and slows enemies. "
+static var MOVE_description="Allows you to move built blocks."
+static var BULLDOZER_description="Allows you to destroy blocks."
+static var GLUE_description="SLows enemies while they are on it."
+static var UPDRAW_description="Increases the number of cards you draw per round."
+static var UPMAXCARDS_description="Increases the number of cards you can hold."
 const CARD_PLACEMENT_DELAY=0.5
 
 enum TurretColor {GREY=1, GREEN=2, RED=3, YELLOW=4,BLUE=5};
@@ -214,6 +232,9 @@ static func getStringFromEnum(type:TurretColor):
 		4: return "YELLOW";
 		5: return "BLUE"
 	pass
+static func getDescription(v:String):
+	
+	return stats.get(v+"_description")	
 static func getStringFromEnumLowercase(type:TurretColor):
 	return Stats.TurretColor.keys()[(type)-1].to_lower();
 	match type:

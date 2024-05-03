@@ -31,7 +31,6 @@ static func deserialise(json:String,gameState:GameState)->Spawner:
 	var d=JSON.parse_string(json) as Dictionary
 	var p=Vector2(d.get("x"),d.get("y"))
 	var s=Spawner.create(gameState,p,d.get("lvl"))
-	gameState.spawners.clear();
 	gameState.spawners.append(s)
 	return s;
 		

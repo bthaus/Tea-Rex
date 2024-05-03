@@ -8,10 +8,19 @@ func _ready():
 	statePropagation.emit(gamestate)
 	pass # Replace with function body.
 func updateUI():
+	print(gamestate.totalExp)
+	print("for need")
+	print(gamestate.levelUp)
 	$CanvasLayer/PlayerName.text=gamestate.account
-	$CanvasLayer/UI/HP.text=str(gamestate.HP);
+	$CanvasLayer/UI/Hpbar.max_value=gamestate.maxHP
+	$CanvasLayer/UI/Hpbar.value=gamestate.HP
 	$CanvasLayer/UI/PHASE.text=Stats.GamePhase.keys()[gamestate.phase-1]
 	$CanvasLayer/UI/Wave.text=str(gamestate.wave)
+	$CanvasLayer/UI/maxcards.text=str(gamestate.maxCards)
+	$CanvasLayer/UI/redraws.text=str(gamestate.cardRedraws)
+	$CanvasLayer/UI/EXPbar.max_value=gamestate.levelUp;
+	$CanvasLayer/UI/EXPbar.value=gamestate.totalExp
+	
 	pass;
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

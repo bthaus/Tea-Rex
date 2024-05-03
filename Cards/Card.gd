@@ -2,6 +2,7 @@ extends Node2D
 class_name Card
 var card;
 var state:GameState;
+var description:String;
 static var isCardSelected=false;
 func select(done:Callable):
 	if isCardSelected:
@@ -37,7 +38,7 @@ static func create(gameState:GameState,card=-1):
 		c.get_child(1).visible=true;
 		var cardname=c.card.cardName;
 		c.get_node("Button").icon=load("res://Assets/SpecialCards/"+Stats.getStringFromSpecialCardEnum(cardname)+"_preview.png")
-		
+		Stats.ge
 	if c.card is BlockCard:
 		var extension=c.card.block.extension;
 		var color=c.card.block.color;

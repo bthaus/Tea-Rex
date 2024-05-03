@@ -8,6 +8,7 @@ func _ready():
 	for a in Stats.TurretColor.keys():
 		if a!="GREY":
 			add_item(a,load("res://Assets/Turrets/Bases/"+a+"_base.png"))
+			
 	pass # Replace with function body.
 
 func refreshlist(name):

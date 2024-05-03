@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://cf5heufemalnf"]
+[gd_scene load_steps=19 format=3 uid="uid://cf5heufemalnf"]
 
 [ext_resource type="Script" path="res://Menu.gd" id="1_vjikn"]
 [ext_resource type="Script" path="res://UI.gd" id="2_vouda"]
@@ -7,11 +7,13 @@
 [ext_resource type="Texture2D" uid="uid://dmqfkeqg0bxbu" path="res://Assets/UI/StartGameButton.png" id="4_mukw3"]
 [ext_resource type="PackedScene" uid="uid://crxh6rxjn4mro" path="res://CardSpace.tscn" id="5_8526f"]
 [ext_resource type="Texture2D" uid="uid://vq2m6pqwfk8i" path="res://Assets/UI/ShowAccountsButton.png" id="6_gg0h1"]
-[ext_resource type="Texture2D" uid="uid://65ulpuoik3sk" path="res://Assets/Cards/deck.png" id="6_in81a"]
 [ext_resource type="Texture2D" uid="uid://dbgbbq7obnmij" path="res://Assets/UI/ShowUnlockedBUtton.png" id="7_aujqc"]
-[ext_resource type="Texture2D" uid="uid://c2ktmv44r7ds2" path="res://Assets/Cards/deckDisabled.png" id="7_mc2lv"]
 [ext_resource type="PackedScene" uid="uid://dfv1yobm3u5hn" path="res://hand.tscn" id="8_4633y"]
-[ext_resource type="Texture2D" uid="uid://b8n0busmwromw" path="res://icon.svg" id="9_n0w1i"]
+[ext_resource type="Texture2D" uid="uid://bmmqmilhp5rrp" path="res://Assets/UI/BUTTON1.png" id="9_1lrx0"]
+[ext_resource type="Texture2D" uid="uid://eikafnrgw2hp" path="res://Assets/UI/BUTTON2.png" id="10_8dawl"]
+[ext_resource type="Texture2D" uid="uid://cy3lpa8r6eu27" path="res://Assets/UI/CARDMAX.png" id="12_8sn7l"]
+[ext_resource type="Texture2D" uid="uid://b1g35penkxgsp" path="res://Assets/UI/LBAR0.png" id="13_ucxh1"]
+[ext_resource type="Texture2D" uid="uid://jr77oi8084ln" path="res://Assets/UI/LBAR100.png" id="14_h6yjh"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_t26sl"]
 font_size = 106
@@ -163,15 +165,14 @@ position = Vector2(79.646, 437.168)
 
 [node name="StartBattlePhase" type="TextureButton" parent="CanvasLayer/UI"]
 clip_contents = true
-offset_left = 1785.84
-offset_top = 980.531
-offset_right = 1977.84
-offset_bottom = 1172.53
+offset_left = 1807.08
+offset_top = 939.823
+offset_right = 2105.08
+offset_bottom = 1237.82
 scale = Vector2(0.5, 0.5)
-texture_normal = ExtResource("6_in81a")
-texture_pressed = ExtResource("6_in81a")
-texture_hover = ExtResource("6_in81a")
-texture_disabled = ExtResource("7_mc2lv")
+texture_normal = ExtResource("9_1lrx0")
+texture_pressed = ExtResource("10_8dawl")
+stretch_mode = 0
 
 [node name="PHASE" type="Label" parent="CanvasLayer/UI"]
 offset_left = 1103.0
@@ -183,27 +184,45 @@ offset_bottom = 192.0
 position = Vector2(141.593, 945.133)
 
 [node name="maxcards" type="Label" parent="CanvasLayer/UI"]
-offset_left = 56.6372
-offset_top = 994.69
-offset_right = 145.637
-offset_bottom = 1052.69
-text = "maxcards 5"
+offset_left = 51.3274
+offset_top = 1015.93
+offset_right = 140.327
+offset_bottom = 1073.93
+text = "5"
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/UI/maxcards"]
+z_index = -1
+position = Vector2(5.30973, 10.6195)
+texture = ExtResource("12_8sn7l")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/UI/maxcards"]
+offset_left = 44.2478
+offset_top = -3.53979
+offset_right = 113.248
+offset_bottom = 36.4602
+text = "Wave"
+scroll_active = false
 
 [node name="redraws" type="Label" parent="CanvasLayer/UI"]
-offset_left = 54.8818
-offset_top = 1061.66
-offset_right = 131.882
-offset_bottom = 1110.66
-text = "redraws 1
- "
+offset_left = 49.5575
+offset_top = 1083.19
+offset_right = 126.558
+offset_bottom = 1132.19
+text = "2"
 
-[node name="drawcard" type="Button" parent="CanvasLayer/UI"]
-offset_left = 1734.51
-offset_top = 815.929
-offset_right = 1956.51
-offset_bottom = 951.929
-text = "Draw Card"
-icon = ExtResource("9_n0w1i")
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/UI/redraws"]
+modulate = Color(1, 0.32549, 0.207843, 1)
+z_index = -1
+position = Vector2(5.29519, 12.6763)
+texture = ExtResource("12_8sn7l")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/UI/redraws"]
+offset_left = 44.2478
+offset_top = -3.53979
+offset_right = 113.248
+offset_bottom = 36.4602
+text = "Wave"
+scroll_active = false
 
 [node name="HP" type="Label" parent="CanvasLayer/UI"]
 offset_left = 1008.85
@@ -212,19 +231,47 @@ offset_right = 1048.85
 offset_bottom = 109.726
 text = "100"
 
-[node name="EXP" type="Label" parent="CanvasLayer/UI"]
-offset_left = 51.3274
-offset_top = 936.283
-offset_right = 91.3274
-offset_bottom = 959.283
+[node name="Wave" type="Label" parent="CanvasLayer/UI"]
+offset_left = 53.0973
+offset_top = 943.363
+offset_right = 87.0974
+offset_bottom = 966.363
 text = "0"
 
-[node name="Wave" type="Label" parent="CanvasLayer/UI"]
-offset_left = 555.752
-offset_top = 76.1062
-offset_right = 595.752
-offset_bottom = 99.1062
-text = "0"
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/UI/Wave"]
+modulate = Color(0, 0, 0.945098, 1)
+z_index = -1
+position = Vector2(3.53983, 10.6195)
+texture = ExtResource("12_8sn7l")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/UI/Wave"]
+layout_mode = 0
+offset_left = 44.2478
+offset_top = -3.53979
+offset_right = 113.248
+offset_bottom = 36.4602
+text = "Wave"
+scroll_active = false
+
+[node name="Hpbar" type="TextureProgressBar" parent="CanvasLayer/UI"]
+offset_left = 63.7168
+offset_top = 695.575
+offset_right = 426.717
+offset_bottom = 887.575
+value = 100.0
+fill_mode = 3
+texture_under = ExtResource("13_ucxh1")
+texture_progress = ExtResource("14_h6yjh")
+
+[node name="EXPbar" type="TextureProgressBar" parent="CanvasLayer/UI"]
+modulate = Color(0.32549, 1, 0, 1)
+offset_left = -14.1593
+offset_top = 697.345
+offset_right = 348.841
+offset_bottom = 889.345
+fill_mode = 3
+texture_under = ExtResource("13_ucxh1")
+texture_progress = ExtResource("14_h6yjh")
 
 [node name="PlayerName" type="Label" parent="CanvasLayer"]
 offset_right = 250.0
