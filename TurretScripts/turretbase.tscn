@@ -10,15 +10,26 @@ type = 3
 extension = 1
 
 [node name="EnemyDetector" parent="." instance=ExtResource("2_ekhvd")]
+visible = false
+modulate = Color(1, 0, 1, 1)
+position = Vector2(1, 0)
 
 [node name="Timer" type="Timer" parent="."]
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
-scale = Vector2(1.68, 1.68)
+scale = Vector2(0.7775, 0.7775)
 texture = ExtResource("5_cl5yn")
 texture_scale = 2.0
 
+[node name="Button" type="Button" parent="."]
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 34.0
+offset_bottom = 34.0
+
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="finished" from="AudioStreamPlayer2D" to="." method="_on_audio_stream_player_2d_finished"]
+[connection signal="mouse_entered" from="Button" to="." method="_on_button_mouse_entered"]
+[connection signal="mouse_exited" from="Button" to="." method="_on_button_mouse_exited"]

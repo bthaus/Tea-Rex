@@ -18,6 +18,8 @@ func _ready():
 
 func setRange(mult):
 	$Area2D/detectionshape.scale=Vector2(mult,mult);
+	$Area2D/Preview.scale=$Area2D/Preview.scale*Vector2(mult,mult)
+	
 	pass;
 func _process(delta):
 	pass

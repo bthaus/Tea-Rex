@@ -11,7 +11,7 @@ const base_range=5;
 const green_range=2*base_range;
 const blue_range=2*base_range;
 const yellow_range=10*base_range;
-const red_range=0.4*base_range;
+const red_range=0.7*base_range;
 const grey_range=2*base_range;
 
 const red_laser_range=1*base_range;

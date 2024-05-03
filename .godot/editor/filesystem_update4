@@ -16,3 +16,6 @@ res://Menu.gd
 res://Game/Waves.gd
 res://GameBoard/game_board.gd
 res://Game/GameState.gd
+res://enemy_detector.tscn
+res://EnemyDetector.gd
+res://TurretScripts/turretbase.gd

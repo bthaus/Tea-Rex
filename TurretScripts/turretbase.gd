@@ -63,7 +63,12 @@ func setUpTower():
 		projectile.z_index=-1;
 		projectile.visible=true;
 		$AudioStreamPlayer2D.finished.connect(func(): if inRange():$AudioStreamPlayer2D.play)
-	
+	match type:
+		2:$EnemyDetector.modulate=Color(0,1,0)
+		3:$EnemyDetector.modulate=Color(1,0,0)
+		4:$EnemyDetector.modulate=Color(1,1,0)
+		5:$EnemyDetector.modulate=Color(0,1,1)
+		
 	lightamount=GameState.gameState.lightThresholds.getLight(global_position.y)
 	#$Ambient.energy=lightamount/ambientDropOff
 	util.p("my light amount is: "+str(lightamount  ))
@@ -276,4 +281,14 @@ func _on_timer_timeout():
 
 func _on_audio_stream_player_2d_finished():
 	sounds=sounds-1
+	pass # Replace with function body.
+
+
+func _on_button_mouse_entered():
+	$EnemyDetector.visible=true
+	pass # Replace with function body.
+
+
+func _on_button_mouse_exited():
+	$EnemyDetector.visible=false
 	pass # Replace with function body.
