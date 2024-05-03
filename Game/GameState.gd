@@ -37,7 +37,7 @@ static var redChance=0;
 static var greenChance=0;
 static var yellowChance=0;
 static var greyChance=0;
-static var colorChances = [greyChance, greenChance, redChance, yellowChance, blueChance]
+var colorChances = [greyChance, greenChance, redChance, yellowChance, blueChance]
 #subject to change
 
 
@@ -133,7 +133,7 @@ func startBuildPhase():
 	drawCards(cardRedraws)	
 	updateUI()	
 	pass;
-static var index=0;	
+var index:int=0;	
 func averageColorChances():
 	if colorChances[Stats.TurretColor.BLUE-1]>20:
 		index=(index+1)%4

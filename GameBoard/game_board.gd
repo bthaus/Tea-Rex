@@ -365,7 +365,7 @@ func add_spawner_to_side_wall(row: int, right_side: bool):
 	#Add wall to the left/right
 	if right_side: $Board.set_cell(BLOCK_LAYER, Vector2(col+1, row), WALL_TILE_ID, Vector2(0,0))
 	else: $Board.set_cell(BLOCK_LAYER, Vector2(col-1, row), WALL_TILE_ID, Vector2(0,0))
-	var spawner = Spawner.create(gameState, $Board.map_to_local(Vector2(col, row)))
+	var spawner = Spawner.create(gameState, $Board.map_to_local(Vector2(col, row)),10)
 	gameState.spawners.append(spawner)
 
 func _spawn_turrets(block: Block, position: Vector2):

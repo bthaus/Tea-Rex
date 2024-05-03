@@ -48,7 +48,6 @@ ui = NodePath("UI")
 parent = NodePath("..")
 
 [node name="MainMenu" type="Node2D" parent="CanvasLayer"]
-visible = false
 
 [node name="Banner" type="Sprite2D" parent="CanvasLayer/MainMenu"]
 position = Vector2(1007.3, 569.204)
@@ -162,6 +161,7 @@ text = "Back
 "
 
 [node name="UI" type="Node2D" parent="CanvasLayer"]
+visible = false
 
 [node name="Description" type="Label" parent="CanvasLayer/UI"]
 offset_left = 172.0

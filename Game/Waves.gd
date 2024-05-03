@@ -35,19 +35,19 @@ static func deserialise(json:String,gameState:GameState)->Spawner:
 	return s;
 		
 func start(wavenumber:int):
-	
+	if level<1:level=level-1
 	doBalancingLogic(wavenumber)
 	doSpawnLogic(wavenumber)
 		
 	pass;
 func doBalancingLogic(waveNumber:int):
-	var amountmonsters=int(remap(waveNumber+5,0,50,minMonster,maxMonster))
+	var amountmonsters=int(remap(waveNumber+5,0,50,minMonster,maxMonster)/level)
 	amountmonsters=clamp(amountmonsters,minMonster,maxMonster)
 	numMonstersActive=numMonstersActive+amountmonsters
 	
 	waveMonsters.clear()
 	for n in range(amountmonsters):
-		var strenght=clamp(waveNumber,1,global_position.y/100)
+		var strenght=clamp(waveNumber,1,global_position.y/100)/level
 		waveMonsters.append(Monster.create(Stats.getRandomColor(state),target,strenght
 		))
 	util.p("Im changing the stats of the minions and adding them to the array")
