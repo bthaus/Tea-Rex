@@ -321,7 +321,6 @@ func extend_field():
 	#Add spawners left and right
 	var add_spawner_left = randi_range(1, 100) <= Stats.board_cave_spawner_chance_percent
 	var add_spawner_right = randi_range(1, 100) <= Stats.board_cave_spawner_chance_percent
-	print(randi_range(gameState.board_height+1, gameState.board_height + Stats.board_extend_height - 3))
 	if generate_cave_left and add_spawner_left: add_spawner_to_side_wall(randi_range(gameState.board_height+1, gameState.board_height + Stats.board_extend_height - 3), false)
 	if generate_cave_right and add_spawner_right: add_spawner_to_side_wall(randi_range(gameState.board_height+1, gameState.board_height + Stats.board_extend_height - 3), true)
 	
