@@ -263,6 +263,12 @@ func draw_field_from_walls(walls_positions: PackedVector2Array):
 	for wall_position in walls_positions:
 		$Board.set_cell(BLOCK_LAYER, Vector2(wall_position.x,wall_position.y), WALL_TILE_ID, Vector2(0,0))
 		height = max(height, wall_position.y)
+
+		#Add ground
+	for row in range(1, height):
+		var distance = block_handler.get_board_distance_at_row(BLOCK_LAYER, row)
+		for col in range(distance.from, distance.to+1):
+			$Board.set_cell(GROUND_LAYER, Vector2(col, row), EMPTY_TILE_ID, Vector2(0,0))
 	
 	#Add spawners
 	for spawner in gameState.spawners:
@@ -271,13 +277,6 @@ func draw_field_from_walls(walls_positions: PackedVector2Array):
 		$Board.set_cell(GROUND_LAYER, $Board.local_to_map(spawner.position), SPAWNER_TILE_ID, Vector2(0,0))
 		if main_spawner == null or main_spawner.position.y < spawner.position.y:
 			main_spawner = spawner
-	
-	#Add ground
-	for row in range(1, height):
-		var distance = block_handler.get_board_distance_at_row(BLOCK_LAYER, row)
-		for col in range(distance.from, distance.to+1):
-			$Board.set_cell(GROUND_LAYER, Vector2(col, row), EMPTY_TILE_ID, Vector2(0,0))
-		
 
 func extend_field():
 	#Clear bottom row
@@ -322,9 +321,8 @@ func extend_field():
 	#Add spawners left and right
 	var add_spawner_left = randi_range(1, 100) <= Stats.board_cave_spawner_chance_percent
 	var add_spawner_right = randi_range(1, 100) <= Stats.board_cave_spawner_chance_percent
-	print(randi_range(gameState.board_height+1, gameState.board_height + Stats.board_extend_height - 3))
-	if add_spawner_left: add_spawner_to_side_wall(randi_range(gameState.board_height+1, gameState.board_height + Stats.board_extend_height - 3), false)
-	if add_spawner_right: add_spawner_to_side_wall(randi_range(gameState.board_height+1, gameState.board_height + Stats.board_extend_height - 3), true)
+	if generate_cave_left and add_spawner_left: add_spawner_to_side_wall(randi_range(gameState.board_height+1, gameState.board_height + Stats.board_extend_height - 3), false)
+	if generate_cave_right and add_spawner_right: add_spawner_to_side_wall(randi_range(gameState.board_height+1, gameState.board_height + Stats.board_extend_height - 3), true)
 	
 	gameState.board_height += Stats.board_extend_height
 	_set_navigation_region()
@@ -364,6 +362,9 @@ func add_spawner_to_side_wall(row: int, right_side: bool):
 	var col = distance.to + 1 if right_side else distance.from - 1
 	$Board.set_cell(BLOCK_LAYER, Vector2(col, row), -1, Vector2(0,0))
 	$Board.set_cell(GROUND_LAYER, Vector2(col, row), SPAWNER_TILE_ID, Vector2(0,0))
+	#Add wall to the left/right
+	if right_side: $Board.set_cell(BLOCK_LAYER, Vector2(col+1, row), WALL_TILE_ID, Vector2(0,0))
+	else: $Board.set_cell(BLOCK_LAYER, Vector2(col-1, row), WALL_TILE_ID, Vector2(0,0))
 	var spawner = Spawner.create(gameState, $Board.map_to_local(Vector2(col, row)))
 	gameState.spawners.append(spawner)
 
