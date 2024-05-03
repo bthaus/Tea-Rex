@@ -44,11 +44,12 @@ func doBalancingLogic(waveNumber:int):
 	var amountmonsters=int(remap(waveNumber*2+5,0,50,minMonster,maxMonster))
 	amountmonsters=clamp(amountmonsters,minMonster,maxMonster)
 	numMonstersActive=numMonstersActive+amountmonsters
-	print("im spawning "+str(amountmonsters)+" monsters")
+	
 	waveMonsters.clear()
 	for n in range(amountmonsters):
 		var strenght=clamp(waveNumber,1,global_position.y/100)
-		waveMonsters.append(Monster.create(Stats.getiterativeColor(0),target,waveNumber))
+		waveMonsters.append(Monster.create(Stats.getiterativeColor(0),target,strenght
+		))
 	util.p("Im changing the stats of the minions and adding them to the array")
 	
 	pass;

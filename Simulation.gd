@@ -31,7 +31,7 @@ func _process(delta):
 
 
 func _on_enemy_detector_enemy_entered(enemy):
-	print("damage dealt: "+str(healthstart-enemy.hp))
+	
 	var m=Monster.create(colors[1],$Target)
 	$Spawnpoint.add_child(m)
 	healthstart=m.hp

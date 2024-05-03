@@ -80,7 +80,7 @@ func _ready():
 
 	if get_child_count()==0:
 		queue_free()
-	print("gamestate initiated")
+	
 	gameState=self;
 	Engine.max_fps=30;
 	GameSaver.createBaseGame(self)
@@ -146,7 +146,7 @@ func startCatastrophy():
 	
 	pass;
 func catastrophy_done(finished):
-	print(finished)
+	
 	pass;
 func _on_spawner_wave_done():
 	startBuildPhase()
@@ -161,7 +161,7 @@ func startGame():
 		drawCards(maxCards)
 		gameBoard.init_field()
 		started=true;
-		
+	updateUI()	
 	pass # Replace with function body.
 func addExp(monster:Monster):
 	totalExp=totalExp+monster.getExp()

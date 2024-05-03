@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://cf5heufemalnf"]
+[gd_scene load_steps=20 format=3 uid="uid://cf5heufemalnf"]
 
 [ext_resource type="Script" path="res://Menu.gd" id="1_vjikn"]
 [ext_resource type="Script" path="res://UI.gd" id="2_vouda"]
@@ -23,6 +23,9 @@ font_size = 106
 
 [sub_resource type="LabelSettings" id="LabelSettings_licme"]
 font_size = 106
+
+[sub_resource type="LabelSettings" id="LabelSettings_x8uqx"]
+font_size = 32
 
 [sub_resource type="LabelSettings" id="LabelSettings_tx5p1"]
 font_size = 31
@@ -159,6 +162,15 @@ text = "Back
 [node name="UI" type="Node2D" parent="CanvasLayer"]
 visible = false
 
+[node name="Description" type="Label" parent="CanvasLayer/UI"]
+offset_left = 172.0
+offset_top = 1081.0
+offset_right = 1819.0
+offset_bottom = 1126.0
+text = "The cards will be described here.  This is subject to change. "
+label_settings = SubResource("LabelSettings_x8uqx")
+horizontal_alignment = 1
+
 [node name="Cardspace" parent="CanvasLayer/UI" instance=ExtResource("5_8526f")]
 visible = false
 position = Vector2(79.646, 437.168)
@@ -180,8 +192,9 @@ offset_top = 169.0
 offset_right = 1694.0
 offset_bottom = 192.0
 
-[node name="Hand" parent="CanvasLayer/UI" instance=ExtResource("8_4633y")]
+[node name="Hand" parent="CanvasLayer/UI" node_paths=PackedStringArray("description") instance=ExtResource("8_4633y")]
 position = Vector2(141.593, 945.133)
+description = NodePath("../Description")
 
 [node name="maxcards" type="Label" parent="CanvasLayer/UI"]
 offset_left = 51.3274
@@ -196,11 +209,12 @@ position = Vector2(5.30973, 10.6195)
 texture = ExtResource("12_8sn7l")
 
 [node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/UI/maxcards"]
-offset_left = 44.2478
-offset_top = -3.53979
-offset_right = 113.248
-offset_bottom = 36.4602
-text = "Wave"
+layout_mode = 0
+offset_left = 44.0
+offset_top = -4.0
+offset_right = 127.0
+offset_bottom = 36.0
+text = "MaxCards"
 scroll_active = false
 
 [node name="redraws" type="Label" parent="CanvasLayer/UI"]
@@ -217,11 +231,12 @@ position = Vector2(5.29519, 12.6763)
 texture = ExtResource("12_8sn7l")
 
 [node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/UI/redraws"]
+layout_mode = 0
 offset_left = 44.2478
 offset_top = -3.53979
 offset_right = 113.248
 offset_bottom = 36.4602
-text = "Wave"
+text = "Redraws"
 scroll_active = false
 
 [node name="HP" type="Label" parent="CanvasLayer/UI"]

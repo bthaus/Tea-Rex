@@ -8,9 +8,7 @@ func _ready():
 	statePropagation.emit(gamestate)
 	pass # Replace with function body.
 func updateUI():
-	print(gamestate.totalExp)
-	print("for need")
-	print(gamestate.levelUp)
+	
 	$CanvasLayer/PlayerName.text=gamestate.account
 	$CanvasLayer/UI/Hpbar.max_value=gamestate.maxHP
 	$CanvasLayer/UI/Hpbar.value=gamestate.HP

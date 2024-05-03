@@ -47,7 +47,7 @@ func _on_start_button_pressed():
 
 
 func _on_unlocked_button_pressed():
-	print("pressed")
+	
 	main.visible=false;
 	unlockedTab.visible=true;
 	pass # Replace with function body.
@@ -134,7 +134,7 @@ func HideAccounts():
 
 
 func _on_unlocked_tab_visibility_changed():
-	print("visibility changed")
+	
 	pass # Replace with function body.
 
 

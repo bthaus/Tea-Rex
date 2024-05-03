@@ -1,6 +1,6 @@
 extends Node2D
 @export var state:GameState;
-
+@export var description:Label
 # Called when the node enters the scene tree for the first time.
 func _ready():
 
@@ -10,6 +10,7 @@ func drawCard(card:Card=null):
 	if state.maxCards<=get_children().size(): return
 	if card==null:
 		card=Card.create(state)
+	card.mouseIn.connect(func():description.text=card.description)
 	add_child(card)
 	#add fancification here for initial animation
 

@@ -21,4 +21,6 @@ offset_right = 2.2088
 offset_bottom = -50.2092
 text = "Text"
 
+[connection signal="mouse_entered" from="Button" to="." method="_on_button_mouse_entered"]
+[connection signal="mouse_exited" from="Button" to="." method="_on_button_mouse_exited"]
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

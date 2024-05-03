@@ -4,6 +4,8 @@ var card;
 var state:GameState;
 var description:String;
 static var isCardSelected=false;
+signal mouseIn
+signal mouseOut
 func select(done:Callable):
 	if isCardSelected:
 		return;
@@ -38,17 +40,19 @@ static func create(gameState:GameState,card=-1):
 		c.get_child(1).visible=true;
 		var cardname=c.card.cardName;
 		c.get_node("Button").icon=load("res://Assets/SpecialCards/"+Stats.getStringFromSpecialCardEnum(cardname)+"_preview.png")
-		Stats.ge
+		c.description=Stats.getDescription(Stats.getStringFromSpecialCardEnum(cardname))
 	if c.card is BlockCard:
 		var extension=c.card.block.extension;
 		var color=c.card.block.color;
 		#use this to change color/text of card
 		var preview=load("res://Cards/block_preview.tscn").instantiate()
-		
+		if extension!=1: c.description=Stats.getDescription(Stats.TurretExtension.keys()[extension-1])
+		else: c.description=Stats.getDescription(Stats.getStringFromEnum(color))
 		preview.set_block(c.card.block, true)
 		preview.scale=Vector2(0.3,0.3)
 		preview.position=Vector2(50,100)
 		btn.add_child(preview)
+	print(c.description)
 	return c
 	
 func played(interrupted:bool):
@@ -72,4 +76,14 @@ func _process(delta):
 
 func _on_button_pressed():
 	select(played)
+	pass # Replace with function body.
+
+
+func _on_button_mouse_entered():
+	mouseIn.emit()
+	pass # Replace with function body.
+
+
+func _on_button_mouse_exited():
+	mouseOut.emit()
 	pass # Replace with function body.

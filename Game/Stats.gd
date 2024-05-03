@@ -189,7 +189,7 @@ static var drill_catastrophy_width=3
 static var level_down_catastrophy_width=3
 static var level_down_catastrophy_height=3
 
-
+static var GREY_description="This block does not spawn turrets. But you can place it anywhere you like!"
 static var BLUE_description="A turret firing regular bullets at a medium rate."
 static var RED_description="A saw dealing high damage to close enemies."
 static var GREEN_description="A rocket launcher dealing damage to many enemies."
