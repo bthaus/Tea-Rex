@@ -271,10 +271,10 @@ text = "Wave"
 scroll_active = false
 
 [node name="Hpbar" type="TextureProgressBar" parent="CanvasLayer/UI"]
-offset_left = 63.7168
-offset_top = 695.575
-offset_right = 426.717
-offset_bottom = 887.575
+offset_left = 81.4159
+offset_top = 630.089
+offset_right = 444.416
+offset_bottom = 822.089
 value = 100.0
 fill_mode = 3
 texture_under = ExtResource("13_ucxh1")
@@ -289,10 +289,10 @@ text = "HP"
 
 [node name="EXPbar" type="TextureProgressBar" parent="CanvasLayer/UI"]
 modulate = Color(0.32549, 1, 0, 1)
-offset_left = -14.1593
-offset_top = 697.345
-offset_right = 348.841
-offset_bottom = 889.345
+offset_left = -12.3894
+offset_top = 628.319
+offset_right = 350.611
+offset_bottom = 820.319
 fill_mode = 3
 texture_under = ExtResource("13_ucxh1")
 texture_progress = ExtResource("14_h6yjh")
@@ -304,6 +304,24 @@ offset_top = -26.5484
 offset_right = 99.1681
 offset_bottom = -3.54843
 text = "EXP"
+
+[node name="CatBar" type="TextureProgressBar" parent="CanvasLayer/UI"]
+offset_left = 7.07965
+offset_top = 830.089
+offset_right = 107.08
+offset_bottom = 930.089
+max_value = 5.0
+fill_mode = 4
+texture_under = ExtResource("12_8sn7l")
+texture_progress = ExtResource("9_1lrx0")
+
+[node name="Label" type="Label" parent="CanvasLayer/UI/CatBar"]
+layout_mode = 0
+offset_left = 116.814
+offset_top = 35.3982
+offset_right = 239.814
+offset_bottom = 58.3982
+text = "next Catastropy"
 
 [node name="PlayerName" type="Label" parent="CanvasLayer"]
 offset_right = 250.0

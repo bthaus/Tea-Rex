@@ -18,7 +18,7 @@ func updateUI():
 	$CanvasLayer/UI/redraws.text=str(gamestate.cardRedraws)
 	$CanvasLayer/UI/EXPbar.max_value=gamestate.levelUp;
 	$CanvasLayer/UI/EXPbar.value=gamestate.totalExp
-	
+	$CanvasLayer/UI/CatBar.value=gamestate.wave%5+1
 	pass;
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
