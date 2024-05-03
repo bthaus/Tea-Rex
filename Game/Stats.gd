@@ -408,19 +408,24 @@ static func getRandomCard(gamestate):
 
 static func getRandomCatastrophy():
 	return Catastrophies.keys()[rng.randi_range(0,Catastrophies.size()-1)]
-
-func getRandomBlock(lvl,gamestate):
-	#TODO: add card chances
-	var rng=RandomNumberGenerator.new()
-	var chance = rng.randi_range(0,100)
+static func getRandomColor(gamestate):
 	var sum = 0	
 	var color = getiterativeColor()
+	var chance = rng.randi_range(0,100)
+
 	var colorChances=gamestate.getColorChances()
 	for i in colorChances.size():
 		sum += colorChances[i]
 		if chance < sum:
 			color= TurretColor.values()[i]
 			break;
+	return color		
+			
+func getRandomBlock(lvl,gamestate):
+	#TODO: add card chances
+	var rng=RandomNumberGenerator.new()
+	var color=getRandomColor(gamestate)
+	
 			
 	var extension=TurretExtension.DEFAULT
 	if gamestate.unlockedExtensions.size() != 0 && color != TurretColor.GREY:

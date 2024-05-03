@@ -32,6 +32,8 @@ func _ready():
 	pass # Replace with function body.
 static func create(type:Stats.TurretColor,target:Node2D,wave:int=1)->Monster:
 	var en=load("res://monster.tscn").instantiate() as Monster
+	if type==Stats.TurretColor.GREY:
+		type=Stats.TurretColor.BLUE
 	en.color=type;
 	en.target=target;
 	en.currentMinionPower=wave
