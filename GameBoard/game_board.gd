@@ -37,6 +37,7 @@ var navigation_polygon = NavigationPolygon.new()
 var points = PackedVector2Array([Vector2(),Vector2(),Vector2(),Vector2()])
 
 func _ready():
+	randomize()
 	print("board initiated")
 	$Board.tile_set.tile_size = Vector2(Stats.block_size, Stats.block_size)
 	navigation_polygon.source_geometry_group_name = "navigation"
@@ -318,6 +319,13 @@ func extend_field():
 	$Board.set_cell(GROUND_LAYER, spawner_position, SPAWNER_TILE_ID, Vector2(0,0))
 	main_spawner.position = $Board.map_to_local(spawner_position)
 	
+	#Add spawners left and right
+	var add_spawner_left = randi_range(1, 100) <= Stats.board_cave_spawner_chance_percent
+	var add_spawner_right = randi_range(1, 100) <= Stats.board_cave_spawner_chance_percent
+	print(randi_range(gameState.board_height+1, gameState.board_height + Stats.board_extend_height - 3))
+	if add_spawner_left: add_spawner_to_side_wall(randi_range(gameState.board_height+1, gameState.board_height + Stats.board_extend_height - 3), false)
+	if add_spawner_right: add_spawner_to_side_wall(randi_range(gameState.board_height+1, gameState.board_height + Stats.board_extend_height - 3), true)
+	
 	gameState.board_height += Stats.board_extend_height
 	_set_navigation_region()
 	
@@ -328,6 +336,7 @@ func generate_cave(pos_y: int, height: int, right_side: bool):
 		if right_side: $Board.set_cell(BLOCK_LAYER, Vector2(gameState.board_width+col-1, pos_y), WALL_TILE_ID, Vector2(0,0))
 		else: $Board.set_cell(BLOCK_LAYER, Vector2(-col, pos_y), WALL_TILE_ID, Vector2(0,0))
 	
+
 	#Draw random structure
 	var curr_col = gameState.board_width+start_width-1 if right_side else -start_width+1
 	for row in height-1:
@@ -349,6 +358,14 @@ func generate_cave(pos_y: int, height: int, right_side: bool):
 		while curr_col <= 0:
 			$Board.set_cell(BLOCK_LAYER, Vector2(curr_col, pos_y+height-1), WALL_TILE_ID, Vector2(0,0))
 			curr_col += 1
+
+func add_spawner_to_side_wall(row: int, right_side: bool):
+	var distance = block_handler.get_board_distance_at_row(BLOCK_LAYER, row)
+	var col = distance.to + 1 if right_side else distance.from - 1
+	$Board.set_cell(BLOCK_LAYER, Vector2(col, row), -1, Vector2(0,0))
+	$Board.set_cell(GROUND_LAYER, Vector2(col, row), SPAWNER_TILE_ID, Vector2(0,0))
+	var spawner = Spawner.create(gameState, $Board.map_to_local(Vector2(col, row)))
+	gameState.spawners.append(spawner)
 
 func _spawn_turrets(block: Block, position: Vector2):
 	for piece in block.pieces:
