@@ -166,6 +166,7 @@ func reduceCooldown(delta):
 		onCooldown=false;
 	pass
 func _process(delta):
+	$LVL.text=str(stacks)
 	if not placed:
 		return;
 	reduceCooldown(delta)
@@ -279,6 +280,7 @@ func _get_configuration_warnings():
 
 func levelup(lvl:int=1):
 	stacks=lvl;
+	$LVL.text=str(stacks)
 	base.setLevel(stacks)
 	pass;
 func _on_timer_timeout():

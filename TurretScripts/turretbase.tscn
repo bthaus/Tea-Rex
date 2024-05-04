@@ -1,8 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://cdrytflh1sqcx"]
+[gd_scene load_steps=6 format=3 uid="uid://cdrytflh1sqcx"]
 
 [ext_resource type="Script" path="res://TurretScripts/turretbase.gd" id="1_87rlb"]
 [ext_resource type="PackedScene" uid="uid://dvwxp6msal8o6" path="res://enemy_detector.tscn" id="2_ekhvd"]
+[ext_resource type="Texture2D" uid="uid://cir25cbml7q1h" path="res://Assets/Level/blackBackgroundLabel.png" id="4_gxsap"]
 [ext_resource type="Texture2D" uid="uid://b0vjaywamx3yp" path="res://Assets/Lights/spotlight.png" id="5_cl5yn"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_xaibg"]
+outline_size = 10
+outline_color = Color(0, 0, 0, 1)
 
 [node name="Turret" type="Node2D"]
 script = ExtResource("1_87rlb")
@@ -29,6 +34,21 @@ offset_left = -32.0
 offset_top = -32.0
 offset_right = 34.0
 offset_bottom = 34.0
+
+[node name="LVL" type="Label" parent="."]
+z_index = 50
+offset_left = 21.0
+offset_top = -35.0
+offset_right = 61.0
+offset_bottom = -12.0
+text = "1"
+label_settings = SubResource("LabelSettings_xaibg")
+
+[node name="Sprite2D" type="Sprite2D" parent="LVL"]
+z_index = -1
+position = Vector2(3.90625, 12.0043)
+scale = Vector2(0.0168999, 0.0168999)
+texture = ExtResource("4_gxsap")
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="finished" from="AudioStreamPlayer2D" to="." method="_on_audio_stream_player_2d_finished"]
