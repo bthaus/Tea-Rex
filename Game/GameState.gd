@@ -157,12 +157,12 @@ func startCatastrophy():
 	if wave%10==0: hand.drawCard(Card.create(self,SpecialCard.create(self,Stats.SpecialCards.UPDRAW)))
 	if wave%7==0: hand.drawCard(Card.create(self,SpecialCard.create(self,Stats.SpecialCards.UPMAXCARDS)))
 
-	gameBoard.extend_field()
+	
 	var cat=Stats.getRandomCatastrophy();
 	util.p(cat+"_catastrophy called")
 	if not gameBoard.has_method(cat+"_catastrophy"): return
 	gameBoard.call(cat+"_catastrophy",catastrophy_done)
-	
+	gameBoard.extend_field()
 	pass;
 func catastrophy_done(finished):
 	

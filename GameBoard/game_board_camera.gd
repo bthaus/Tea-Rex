@@ -16,7 +16,28 @@ const SCROLL_SPEED = 100
 const MIN_RECOGNIZABLE_DRAG_DISTANCE = 10
 var lastpos=0
 
+var original_position=0;
+var shake_timer=0;
+var duration=0;
+var intensity=0;
+func shake(duration: float, intensity: float):
+	
+	shake_timer = 0.0
+	self.duration=duration;
+	self.intensity=self.intensity+intensity
+	pass	
 func _process(delta):
+	if shake_timer < duration:
+		var x_offset = randf_range(-intensity, intensity)
+		var y_offset = randf_range(-intensity, intensity)
+				
+		offset.x =x_offset
+		offset.y =y_offset
+		duration=duration-1*delta
+	
+	
+		
+
 	if global_position.y!=lastpos:
 		changeBrightness()
 	lastpos=global_position.y	
