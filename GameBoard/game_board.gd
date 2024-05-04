@@ -15,6 +15,8 @@ var turret_holder = util.TurretHolder.new()
 
 var main_spawner
 
+var preview_turrets = null
+
 const BLOCK_LAYER = 0
 const GROUND_LAYER = 1
 const EXTENSION_LAYER = 2
@@ -150,7 +152,7 @@ func LEVELDOWN_catastrophy(done: Callable):
 		_action_finished(true)
 		)
 
-	
+
 func _process(_delta):
 	$Board.clear_layer(SELECTION_LAYER)
 	
@@ -166,6 +168,13 @@ func _process(_delta):
 		elif action != BoardAction.NONE:
 			var id = LEGAL_PLACEMENT_TILE_ID if block_handler.can_place_block(selected_block, BLOCK_LAYER, board_pos, $NavigationRegion2D, gameState.spawners) else ILLEGAL_PLACEMENT_TILE_ID
 			block_handler.draw_block_with_tile_id(selected_block, board_pos, id, SELECTION_LAYER)
+		
+		if preview_turrets == null: _load_preview_turrets_from_selected_block()
+		if preview_turrets.size() == selected_block.pieces.size():
+			var idx = 0
+			for piece in selected_block.pieces:
+				preview_turrets[idx].position = $Board.map_to_local(Vector2(piece.position.x + board_pos.x, piece.position.y + board_pos.y))
+				idx += 1
 	
 	$NavigationRegion2D.bake_navigation_polygon()
 
@@ -232,6 +241,11 @@ func _action_finished(finished: bool):
 		block_handler.draw_block(moved_from_block, moved_from_position, BLOCK_LAYER, EXTENSION_LAYER)
 
 	selected_block = null
+	
+	if preview_turrets != null: 
+		for turret in preview_turrets: turret.queue_free()
+		preview_turrets = null
+		
 	moved_from_block = null
 	moved_from_position = Vector2.ZERO
 	action = BoardAction.NONE
@@ -396,6 +410,16 @@ func _set_block_and_turrets_level(block: Block, position: Vector2, level: int):
 		var turret = turret_holder.get_turret_at(pos)
 		if turret != null:
 			turret.levelup(level)
+
+func _load_preview_turrets_from_selected_block():
+	preview_turrets = []
+	for piece in selected_block.pieces:
+		if piece.color != Stats.TurretColor.GREY:
+			var turret = Turret.create(piece.color, piece.level, piece.extension)
+			turret.get_node("EnemyDetector").visible=true
+			turret.placed=false
+			add_child(turret)
+			preview_turrets.append(turret)
 
 func _spawn_all_turrets():
 	_remove_all_turrets()
