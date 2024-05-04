@@ -155,12 +155,12 @@ func DRILL_catastrophy(done: Callable):
 func LEVELDOWN_catastrophy(done: Callable):
 	util.p("Level down catastrophy starting", "Jojo")
 	self.done = done
-	var row = randi_range(1, gameState.board_height-1-Stats.bulldozer_catastrophy_height)
+	var row = randi_range(1, gameState.board_height-1-Stats.level_down_catastrophy_height)
 	gameState.getCamera().move_to($Board.map_to_local(Vector2(gameState.board_width/2, row)), func():
-		var start = Vector2(randi_range(1, gameState.board_width-1-Stats.level_down_catastrophy_width), randi_range(1, gameState.board_height-1-Stats.level_down_catastrophy_height))
 		var distance = block_handler.get_board_distance_at_row(BLOCK_LAYER, row)
-		var col = randi_range(distance.from, distance.to-Stats.bulldozer_catastrophy_width)
+		var col = randi_range(distance.from, distance.to-Stats.level_down_catastrophy_width)
 		var pieces = []
+		var preview_pieces = []
 		for y in Stats.level_down_catastrophy_height:
 			for x in Stats.level_down_catastrophy_width:
 				var piece = block_handler.get_piece_from_board(Vector2(col + x, row + y), BLOCK_LAYER, EXTENSION_LAYER)
@@ -168,13 +168,14 @@ func LEVELDOWN_catastrophy(done: Callable):
 					piece.position.x = x
 					piece.position.y = y
 					pieces.append(piece)
+				preview_pieces.append(Block.Piece.new(Vector2(x,y), Stats.TurretColor.BLUE, 1))
 				
 		var block = Block.new(pieces)
-		block_handler.draw_block_with_tile_id(block, Vector2(0, 0), CATASTROPHY_PREVIEW_TILE_ID, CATASTROPHY_LAYER)
+		block_handler.draw_block_with_tile_id(Block.new(preview_pieces), Vector2(col, row), CATASTROPHY_PREVIEW_TILE_ID, CATASTROPHY_LAYER)
 		get_tree().create_timer(Stats.CATASTROPHY_PREVIEW_DURATION).timeout.connect(func():
 			$Board.clear_layer(CATASTROPHY_LAYER)
-			_set_block_and_turrets_level(block, start, 1)
-			block_handler.draw_block(block, start, BLOCK_LAYER, EXTENSION_LAYER)
+			_set_block_and_turrets_level(block, Vector2(col, row), 1)
+			block_handler.draw_block(block, Vector2(col, row), BLOCK_LAYER, EXTENSION_LAYER)
 			_action_finished(true)
 			)
 	)
@@ -224,7 +225,7 @@ func _process(_delta):
 		if is_instance_valid(turret):
 			turret.de_highlight()
 	highlighted_turrets = []
-	var block = block_handler.get_block_from_board(board_pos, BLOCK_LAYER, EXTENSION_LAYER, false, false)
+	var block = block_handler.get_block_from_board(board_pos, BLOCK_LAYER, EXTENSION_LAYER, false, false, false)
 	if block != null:
 		for piece in block.pieces:
 			var turret = turret_holder.get_turret_at($Board.map_to_local(piece.position))
