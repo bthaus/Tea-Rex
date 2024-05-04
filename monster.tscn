@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://cq7fvblvncfxh"]
+[gd_scene load_steps=23 format=3 uid="uid://cq7fvblvncfxh"]
 
 [ext_resource type="Script" path="res://monster.gd" id="1_g1k27"]
 [ext_resource type="Texture2D" uid="uid://b0vjaywamx3yp" path="res://Assets/Lights/spotlight.png" id="2_7naar"]
@@ -19,6 +19,7 @@
 [ext_resource type="Texture2D" uid="uid://cf3e74envvc6d" path="res://Assets/Monsters/monster_yellow/2.png" id="16_vf3q0"]
 [ext_resource type="Texture2D" uid="uid://bxkvkbaqhuhaf" path="res://Assets/Monsters/monster_yellow/3.png" id="17_2ne5c"]
 [ext_resource type="Texture2D" uid="uid://cd7au2g2n44hj" path="res://Assets/Monsters/monster_yellow/4.png" id="18_w0p2p"]
+[ext_resource type="AudioStream" uid="uid://dbbobs0v85j8x" path="res://Sounds/Soundeffects/new sounds/Minion die sound.wav" id="20_230yg"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_wsh3g"]
 radius = 32.0
@@ -174,5 +175,9 @@ texture = ExtResource("2_7naar")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 avoidance_enabled = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("20_230yg")
+volume_db = -27.055
 
 [connection signal="animation_finished" from="DeathAnim" to="." method="_on_death_anim_animation_finished"]

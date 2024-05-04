@@ -15,14 +15,34 @@ const CAMERA_ZOOM = 0.1
 const SCROLL_SPEED = 100
 const MIN_RECOGNIZABLE_DRAG_DISTANCE = 10
 var lastpos=0
-
+var original_position;
+var shake_timer;
+var duration;
+var intensity;
+func shake(duration: float, intensity: float):
+	original_position = position
+	shake_timer = 0.0
+	self.duration=duration;
+	self.intensity=intensity
+	pass	
 func _process(delta):
+	if shake_timer < duration:
+		var x_offset = randf_range(-intensity, intensity)
+		var y_offset = randf_range(-intensity, intensity)
+				
+		position.x = original_position.x + x_offset
+		position.y = original_position.y + y_offset
+		duration=duration-1*delta
+	
+	
+		
 	if global_position.y!=lastpos:
 		changeBrightness()
 	lastpos=global_position.y	
 	pass;
 	
 func _ready():
+	
 	Projectile.camera=self;
 	Turret.camera=self;
 	pass;
