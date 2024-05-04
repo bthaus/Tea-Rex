@@ -43,12 +43,14 @@ func remove_block_from_board(block: Block, position: Vector2, block_layer: int, 
 			board.set_cell(extension_layer, Vector2(piece.position.x + position.x, piece.position.y + position.y), -1, Vector2(0,0))
 
 #If normalized, the coordinates of each piece will be based on position (=> (0,0))
-func get_block_from_board(position: Vector2, block_layer: int, extension_layer: int, normalize: bool) -> Block:
+func get_block_from_board(position: Vector2, block_layer: int, extension_layer: int, normalize: bool, ignore_level: bool = true) -> Block:
 	var data = board.get_cell_tile_data(block_layer, position)
 	if data == null: #No tile available
 		return Block.new([])
-		
+	
 	var color = Stats.TurretColor.get(data.get_custom_data("color").to_upper())
+	if color == null: return
+	var level = data.get_custom_data("level")
 	var visited = []
 	var pieces = [Block.Piece.new(position, color, data.get_custom_data("level"))]
 	var stack = [position]
@@ -63,6 +65,8 @@ func get_block_from_board(position: Vector2, block_layer: int, extension_layer: 
 				
 				var piece = get_piece_from_board(pos, block_layer, extension_layer)
 				if piece != null and piece.color == color:
+					if not ignore_level and piece.level != level:
+						continue
 					stack.push_front(pos)
 					pieces.append(piece)
 	
