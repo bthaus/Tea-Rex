@@ -54,7 +54,7 @@ const red_damage=base_damage*2;
 const red_laser_damage=base_damage*0.5;
 const blue_laser_damage=base_damage*2;
 const green_poison_damage=base_damage*1;
-const yellow_mortar_damage=base_damage*8;
+const yellow_mortar_damage=base_damage*2;
 
 const base_penetrations=1;
 const green_penetrations=base_penetrations*1;

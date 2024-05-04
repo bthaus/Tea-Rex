@@ -51,15 +51,24 @@ func hit(color:Stats.TurretColor,damage,type="default"):
 	if hp<=0 and not died:
 		died=true
 		monster_died.emit(self)
-		queue_free()
+		$Hitbox.queue_free()
+		$Sprite2D.queue_free()
+		$DeathAnim.visible=true;
+		$DeathAnim.play(Stats.getStringFromEnum(color))
 		return true;
 	return false;
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
+	if died: return;
 	var direction = Vector3()
 	nav.target_position = target.global_position  
 	direction = nav.get_next_path_position() - global_position
 	direction = direction.normalized()
 	velocity = velocity.lerp(direction * (speedfactor * speed),accel * delta)
 	move_and_slide()
+
+
+func _on_death_anim_animation_finished():
+	queue_free()
+	pass # Replace with function body.
