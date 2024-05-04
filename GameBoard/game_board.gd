@@ -138,7 +138,10 @@ func DRILL_catastrophy(done: Callable):
 		block_handler.draw_block_with_tile_id(block, Vector2(0, 0), CATASTROPHY_PREVIEW_TILE_ID, CATASTROPHY_LAYER)
 		get_tree().create_timer(Stats.CATASTROPHY_PREVIEW_DURATION).timeout.connect(func():
 			$Board.clear_layer(CATASTROPHY_LAYER)
-			
+			var delay=0;
+			for piece in block.pieces:
+				delay=delay+0.05
+				get_tree().create_timer(delay).timeout.connect(func():Explosion.create(0, 0, $Board.map_to_local(piece.position), self, 0.5))
 			block_handler.remove_block_from_board(block, Vector2(0, 0), BLOCK_LAYER, EXTENSION_LAYER, false)
 			_remove_turrets(block, Vector2(0, 0))
 			_action_finished(true)
