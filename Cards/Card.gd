@@ -52,7 +52,7 @@ static func create(gameState:GameState,card=-1):
 		preview.scale=Vector2(0.3,0.3)
 		preview.position=Vector2(50,100)
 		btn.add_child(preview)
-	print(c.description)
+	
 	return c
 	
 func played(interrupted:bool):
@@ -80,10 +80,12 @@ func _on_button_pressed():
 
 
 func _on_button_mouse_entered():
-	mouseIn.emit()
+	state.menu.get_node("CanvasLayer/UI/Description").text=description
+	
 	pass # Replace with function body.
 
 
 func _on_button_mouse_exited():
+	state.menu.get_node("CanvasLayer/UI/Description").text=" "
 	mouseOut.emit()
 	pass # Replace with function body.
