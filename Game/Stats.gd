@@ -7,6 +7,8 @@ static var board_cave_chance_percent=10
 static var board_cave_deepness=util.Distance.new(4,8)
 static var board_cave_spawner_chance_percent=25
 
+const CAMERA_MOVE_DURATION=2
+
 const base_range=5;
 const green_range=2*base_range;
 const blue_range=2*base_range;

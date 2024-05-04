@@ -21,6 +21,7 @@ const EXTENSION_LAYER = 2
 const SELECTION_LAYER = 3
 
 var is_dragging_camera = false
+var is_moving_camera = false
 var ignore_click = false
 
 var is_delayed = false
@@ -87,64 +88,70 @@ func select_block(block,done:Callable):
 	util.p("Building now...", "Jojo")
 	is_delayed = true
 	delay_timer.start()
-	print(delay_timer.is_stopped())
 	action = BoardAction.PLAYER_BUILD
 	selected_block = block
 	self.done = done
 	
 func BULLDOZER_catastrophy(done: Callable):
 	util.p("Bulldozer catastrophe starting", "Jojo")
-	self.done = done
 	var row = randi_range(1, gameState.board_height-1-Stats.bulldozer_catastrophy_height)
-	var distance = block_handler.get_board_distance_at_row(BLOCK_LAYER, row)
-	var col = randi_range(distance.from, distance.to-Stats.bulldozer_catastrophy_width)
-	var pieces = []
-	for y in Stats.bulldozer_catastrophy_height:
-		for x in Stats.bulldozer_catastrophy_width:
-			#No constructor overloading in Godot, gotta init some nonsense
-			pieces.push_back(Block.Piece.new(Vector2(x,y), Stats.TurretColor.BLUE, 1))
-	var block = Block.new(pieces)
-	block_handler.remove_block_from_board(block, Vector2(col, row), BLOCK_LAYER, EXTENSION_LAYER, false)
-	_remove_turrets(block, Vector2(col, row))
-	_action_finished(true)
-	
+	gameState.getCamera().move_to($Board.map_to_local(Vector2(gameState.board_width/2, row)), func():
+		self.done = done
+		var distance = block_handler.get_board_distance_at_row(BLOCK_LAYER, row)
+		var col = randi_range(distance.from, distance.to-Stats.bulldozer_catastrophy_width)
+		var pieces = []
+		for y in Stats.bulldozer_catastrophy_height:
+			for x in Stats.bulldozer_catastrophy_width:
+				#No constructor overloading in Godot, gotta init some nonsense
+				pieces.push_back(Block.Piece.new(Vector2(x,y), Stats.TurretColor.BLUE, 1))
+		var block = Block.new(pieces)
+		block_handler.remove_block_from_board(block, Vector2(col, row), BLOCK_LAYER, EXTENSION_LAYER, false)
+		_remove_turrets(block, Vector2(col, row))
+		_action_finished(true)
+		)
+
 func DRILL_catastrophy(done: Callable):
 	util.p("Drill catastrophe starting", "Jojo")
 	self.done = done
 	var row = randi_range(1, gameState.board_height-1-Stats.drill_catastrophy_width)
-	var pieces = []
-	
-	for r in Stats.drill_catastrophy_width:
-		var distance = block_handler.get_board_distance_at_row(BLOCK_LAYER, row+r)
-		for col in range(distance.from, distance.to+1):
-			pieces.push_back(Block.Piece.new(Vector2(col, row+r), Stats.TurretColor.BLUE, 1))
-	var block = Block.new(pieces)
-	block_handler.remove_block_from_board(block, Vector2(0, 0), BLOCK_LAYER, EXTENSION_LAYER, false)
-	_remove_turrets(block, Vector2(0, 0))
-	_action_finished(true)
+	gameState.getCamera().move_to($Board.map_to_local(Vector2(gameState.board_width/2, row)), func():
+		var pieces = []
+		for r in Stats.drill_catastrophy_width:
+			var distance = block_handler.get_board_distance_at_row(BLOCK_LAYER, row+r)
+			for col in range(distance.from, distance.to+1):
+				pieces.push_back(Block.Piece.new(Vector2(col, row+r), Stats.TurretColor.BLUE, 1))
+		var block = Block.new(pieces)
+		block_handler.remove_block_from_board(block, Vector2(0, 0), BLOCK_LAYER, EXTENSION_LAYER, false)
+		_remove_turrets(block, Vector2(0, 0))
+		_action_finished(true)
+		)
+
 
 func LEVELDOWN_catastrophy(done: Callable):
 	util.p("Level down catastrophy starting", "Jojo")
 	self.done = done
-	var start = Vector2(randi_range(1, gameState.board_width-1-Stats.level_down_catastrophy_width), randi_range(1, gameState.board_height-1-Stats.level_down_catastrophy_height))
 	var row = randi_range(1, gameState.board_height-1-Stats.bulldozer_catastrophy_height)
-	var distance = block_handler.get_board_distance_at_row(BLOCK_LAYER, row)
-	var col = randi_range(distance.from, distance.to-Stats.bulldozer_catastrophy_width)
-	var pieces = []
-	for y in Stats.level_down_catastrophy_height:
-		for x in Stats.level_down_catastrophy_width:
-			var piece = block_handler.get_piece_from_board(Vector2(col + x, row + y), BLOCK_LAYER, EXTENSION_LAYER)
-			if piece != null:
-				piece.position.x = x
-				piece.position.y = y
-				pieces.append(piece)
-			
-	var block = Block.new(pieces)
-	block_handler.set_block_level(block, 1)
-	block_handler.draw_block(block, start, BLOCK_LAYER, EXTENSION_LAYER)
-	_remove_turrets(block, start)
-	_spawn_turrets(block, start)
-	_action_finished(true)
+	gameState.getCamera().move_to($Board.map_to_local(Vector2(gameState.board_width/2, row)), func():
+		var start = Vector2(randi_range(1, gameState.board_width-1-Stats.level_down_catastrophy_width), randi_range(1, gameState.board_height-1-Stats.level_down_catastrophy_height))
+		var distance = block_handler.get_board_distance_at_row(BLOCK_LAYER, row)
+		var col = randi_range(distance.from, distance.to-Stats.bulldozer_catastrophy_width)
+		var pieces = []
+		for y in Stats.level_down_catastrophy_height:
+			for x in Stats.level_down_catastrophy_width:
+				var piece = block_handler.get_piece_from_board(Vector2(col + x, row + y), BLOCK_LAYER, EXTENSION_LAYER)
+				if piece != null:
+					piece.position.x = x
+					piece.position.y = y
+					pieces.append(piece)
+				
+		var block = Block.new(pieces)
+		block_handler.set_block_level(block, 1)
+		block_handler.draw_block(block, start, BLOCK_LAYER, EXTENSION_LAYER)
+		_remove_turrets(block, start)
+		_spawn_turrets(block, start)
+		_action_finished(true)
+		)
+
 	
 func _process(_delta):
 	$Board.clear_layer(SELECTION_LAYER)
@@ -426,3 +433,6 @@ func _set_navigation_region():
 
 func dragging_camera(is_dragging: bool):
 	self.is_dragging_camera = is_dragging
+	
+func moved_camera():
+	is_moving_camera = false
