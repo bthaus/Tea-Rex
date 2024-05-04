@@ -1,0 +1,68 @@
+[gd_scene load_steps=8 format=3 uid="uid://ckn34r0xe15l0"]
+
+[ext_resource type="Script" path="res://Unlock.gd" id="1_i1qcg"]
+[ext_resource type="Texture2D" uid="uid://bgb418sjl85oo" path="res://Assets/Cards/Testcard.png" id="2_d1i2e"]
+[ext_resource type="Texture2D" uid="uid://dfayulbfku7wt" path="res://Assets/UI/lock1.png" id="3_yswwd"]
+[ext_resource type="Texture2D" uid="uid://cjihoqi6wxi48" path="res://Assets/UI/lock2.png" id="4_y3upd"]
+[ext_resource type="Texture2D" uid="uid://yg4l3b5mla2h" path="res://Assets/UI/lock3.png" id="5_4pvf8"]
+[ext_resource type="Texture2D" uid="uid://bqtpkqbjl04fs" path="res://Assets/UI/lock4.png" id="6_ewsc1"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ywgeo"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_yswwd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_y3upd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_4pvf8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_ewsc1")
+}],
+"loop": false,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_i1qcg")
+
+[node name="Card" type="Sprite2D" parent="."]
+texture = ExtResource("2_d1i2e")
+
+[node name="Lock" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, 11)
+sprite_frames = SubResource("SpriteFrames_ywgeo")
+frame = 3
+frame_progress = 1.0
+
+[node name="sound" type="AudioStreamPlayer" parent="."]
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+visible = false
+emitting = false
+amount = 50
+one_shot = true
+explosiveness = 0.08
+randomness = 1.0
+emission_shape = 1
+emission_sphere_radius = 1.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 240.2
+initial_velocity_max = 240.2
+linear_accel_max = 42.16
+angle_min = -356.0
+
+[node name="Button" type="Button" parent="."]
+self_modulate = Color(1, 1, 1, 0)
+offset_left = -98.0
+offset_top = -140.0
+offset_right = 115.0
+offset_bottom = 143.0
+mouse_filter = 1
+
+[connection signal="animation_finished" from="Lock" to="." method="_on_lock_animation_finished"]
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

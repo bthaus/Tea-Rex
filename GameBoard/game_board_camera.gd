@@ -10,7 +10,7 @@ var screen_start_position
 var dragging = false
 var clicked = false
 signal is_dragging_camera
-
+const MAX_SHAKE=5
 const CAMERA_ZOOM = 0.1
 const SCROLL_SPEED = 100
 const MIN_RECOGNIZABLE_DRAG_DISTANCE = 10
@@ -19,8 +19,10 @@ var original_position=0;
 var shake_timer=0;
 var duration=0;
 var intensity=0;
-func shake(duration: float, intensity: float):
-	if intensity>6.5: return
+func shake(duration: float, intensity: float,position):
+	if abs(abs(position.y)-abs(position.y))>1000:return
+		
+	if intensity>MAX_SHAKE: return
 	shake_timer = 0.0
 	self.duration=duration;
 	self.intensity=self.intensity+intensity

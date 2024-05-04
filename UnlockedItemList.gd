@@ -11,7 +11,7 @@ func _ready():
 			
 	pass # Replace with function body.
 
-func refreshlist(name):
+func refreshlist(name,type):
 	
 	
 	add_item(name,load("res://Assets/MenuItems/"+name+"_menu.png"))

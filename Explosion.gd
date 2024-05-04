@@ -1,12 +1,7 @@
 extends Node2D
 class_name Explosion
 static var cache=[]
-static var sounds=[
-	load("res://Sounds/Soundeffects/explosion/Explosion 2 1.wav"),
-	load("res://Sounds/Soundeffects/explosion/Explosion 2 2.wav"),
-	load("res://Sounds/Soundeffects/explosion/Explosion 2 3.wav"),
-	load("res://Sounds/Soundeffects/explosion/Explosion 2.wav")
-]
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$PointLight2D.visible=true;
@@ -40,8 +35,8 @@ static func create(type,damage, position, root,scale=1):
 	temp.get_node("AnimatedSprite2D").play("default")
 	temp.get_node("AnimationPlayer").play("lightup")
 	temp.associate=root;
-	GameState.gameState.getCamera().shake(0.3,0.2)
-	temp.get_node("sound").stream=sounds.pick_random()
+	GameState.gameState.getCamera().shake(0.3,0.1,position)
+	temp.get_node("sound").stream=Sounds.explosionSounds.pick_random()
 	temp.get_node("sound").play()
 		
 	

@@ -44,10 +44,10 @@ var colorChances = [greyChance, greenChance, redChance, yellowChance, blueChance
 signal player_died
 signal start_build_phase;
 signal start_combat_phase;
-signal level_up(item)
+signal level_up(item,type)
 
 
-
+var unlock=[]
 
 func upMaxCards():
 	maxCards=maxCards+1;
@@ -124,7 +124,8 @@ func startBattlePhase():
 	averageColorChances()
 	gameBoard._set_navigation_region()
 	get_tree().create_timer(0.5).timeout.connect(func():GameSaver.saveGame(gameState))
-	
+	$Camera2D/SoundPlayer.stream=Sounds.StartBattlePhase
+	$Camera2D/SoundPlayer.play(0.2)
 	for s in spawners:
 		s.start(wave)
 	
@@ -141,6 +142,15 @@ func startBuildPhase():
 	averageColorChances()
 	drawCards(cardRedraws)	
 	updateUI()	
+	#if unlock.size()>0:
+		#$Camera2D/UnlockSpot.add_child(unlock[0])
+		#for u in range(unlock.size()):
+		#	if unlock.size()>=u+1:
+		#		unlock[u].done=func():$Camera2D/UnlockSpot.add_child(unlock[u+1])
+	for u in unlock:
+		$Camera2D/UnlockSpot.add_child(u)	
+	unlock.clear()	
+		
 	pass;
 var index:int=0;	
 func averageColorChances():
@@ -197,14 +207,32 @@ func checkLevelUp():
 	
 	if totalExp<levelUp: return
 	levelUp=levelUp*2;
-	
+	var c;
 	var rand=Stats.rng.randi_range(0,100);
 	if rand>50:
-		level_up.emit(Stats.TurretExtension.keys()[unlockRandom(Stats.TurretExtension.values(),unlockedExtensions)-1])
+		var i=unlockRandom(Stats.TurretExtension.values(),unlockedExtensions)
+		
+		if i==1:
+			i=unlockRandom(Stats.TurretExtension.values(),unlockedExtensions)
+		var b=Stats.TurretExtension.keys()[i-1]
+		level_up.emit(name,"Ext")
+		var color;
+		if b.contains("BLUE"):color=Stats.TurretColor.BLUE
+		if b.contains("GREEN"):color=Stats.TurretColor.GREEN
+		if b.contains("RED"):color=Stats.TurretColor.RED
+		if b.contains("YELLOW"):color=Stats.TurretColor.YELLOW
+		level_up.emit(b,"Spec")
+		var block=Stats.getBlockFromShape(Stats.BlockShape.O,color,1,i);
+		c=BlockCard.create(gameState,block)
+		
 	else:
-		level_up.emit(Stats.SpecialCards.keys()[unlockRandom(Stats.SpecialCards.values(),unlockedSpecialCards)-1])
-	
+		var name=unlockRandom(Stats.SpecialCards.values(),unlockedSpecialCards)
+		c=SpecialCard.create(gameState,name);
+	var card=Card.create(gameState,c);
+	var u=Unlockable.create(card)
+	unlock.append(u)
 	pass;
+	
 func unlockRandom(base,pool):
 	var tounlock=[]
 	for a in base:

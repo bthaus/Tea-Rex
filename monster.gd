@@ -47,6 +47,7 @@ func hit(color:Stats.TurretColor,damage,type="default"):
 	if color==self.color:
 		mod=1.5
 	hp=hp-damage*mod;
+	hp=int(hp)
 	$HP.text=str(hp)
 	if hp<=0 and not died:
 		died=true

@@ -22,9 +22,11 @@ position = Vector2(1, 0)
 [node name="Timer" type="Timer" parent="."]
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+volume_db = 24.0
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
-scale = Vector2(0.7775, 0.7775)
+scale = Vector2(0.777, 0.777)
+energy = 1.5
 texture = ExtResource("5_cl5yn")
 texture_scale = 2.0
 
