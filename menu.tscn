@@ -185,6 +185,7 @@ offset_bottom = 1237.82
 scale = Vector2(0.5, 0.5)
 texture_normal = ExtResource("9_1lrx0")
 texture_pressed = ExtResource("10_8dawl")
+texture_disabled = ExtResource("10_8dawl")
 stretch_mode = 0
 
 [node name="PHASE" type="Label" parent="CanvasLayer/UI"]
@@ -274,8 +275,9 @@ scroll_active = false
 [node name="Hpbar" type="TextureProgressBar" parent="CanvasLayer/UI"]
 offset_left = 81.4159
 offset_top = 630.089
-offset_right = 444.416
+offset_right = 197.416
 offset_bottom = 822.089
+scale = Vector2(1.00667, 1)
 value = 100.0
 fill_mode = 3
 texture_under = ExtResource("13_ucxh1")

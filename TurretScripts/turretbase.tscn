@@ -24,6 +24,7 @@ texture = ExtResource("5_cl5yn")
 texture_scale = 2.0
 
 [node name="Button" type="Button" parent="."]
+modulate = Color(1, 1, 1, 0)
 offset_left = -32.0
 offset_top = -32.0
 offset_right = 34.0

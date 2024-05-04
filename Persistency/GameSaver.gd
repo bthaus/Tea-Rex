@@ -45,7 +45,7 @@ static func restoreGame(gameState:GameState):
 			
 	loadGameMap(gameState);
 	loadHand(gameState)
-	
+	gameState.phase=Stats.GamePhase.BUILD
 	pass
 static func remove(name):
 	loadfile("state",name)

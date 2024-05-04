@@ -120,19 +120,21 @@ func _process(delta):
 
 
 func startBattlePhase():
+	menu.get_node("CanvasLayer/UI/StartBattlePhase").disabled=true;
 	averageColorChances()
 	gameBoard._set_navigation_region()
 	get_tree().create_timer(0.5).timeout.connect(func():GameSaver.saveGame(gameState))
 	
 	for s in spawners:
 		s.start(wave)
-	wave=wave+1;
+	
 	phase=Stats.GamePhase.BATTLE
 	updateUI()
 	pass # Replace with function body.
 func startBuildPhase():
 	GameSaver.saveGame(gameState)
-	
+	wave=wave+1;
+	menu.get_node("CanvasLayer/UI/StartBattlePhase").disabled=false;
 	startCatastrophy()	
 	start_build_phase.emit()
 	phase=Stats.GamePhase.BUILD

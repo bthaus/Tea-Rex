@@ -114,7 +114,7 @@ texture = ExtResource("2_yp50u")
 [node name="DeathAnim" type="AnimatedSprite2D" parent="."]
 visible = false
 sprite_frames = SubResource("SpriteFrames_q1oek")
-animation = &"YELLOW"
+animation = &"BLUE"
 
 [node name="HP" type="Label" parent="."]
 offset_left = -21.0

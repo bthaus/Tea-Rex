@@ -23,6 +23,7 @@ scale = Vector2(0.197222, 0.197222)
 texture = ExtResource("2_7f1ma")
 
 [node name="Preview2" type="Sprite2D" parent="Area2D"]
+visible = false
 light_mask = 0
 position = Vector2(1, 0)
 scale = Vector2(0.197222, 0.197222)
