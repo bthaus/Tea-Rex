@@ -221,7 +221,8 @@ func _process(_delta):
 	
 	#Highlight towers
 	for turret in highlighted_turrets:
-		turret.de_highlight()
+		if is_instance_valid(turret):
+			turret.de_highlight()
 	highlighted_turrets = []
 	var block = block_handler.get_block_from_board(board_pos, BLOCK_LAYER, EXTENSION_LAYER, false, false)
 	if block != null:
