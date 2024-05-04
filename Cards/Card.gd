@@ -15,6 +15,8 @@ func select(done:Callable):
 	
 	isCardSelected=true;
 	scale=Vector2(1.3,1.3)
+	
+	z_index=10
 	card.select(done)
 	
 	pass;
@@ -57,6 +59,8 @@ static func create(gameState:GameState,card=-1):
 	
 func played(interrupted:bool):
 	scale=Vector2(1,1)
+	z_index=0
+	position=Vector2(0,0)
 	isCardSelected=false;
 	if  interrupted:
 		queue_free()
@@ -80,12 +84,14 @@ func _on_button_pressed():
 
 
 func _on_button_mouse_entered():
+	z_index=10
 	state.menu.get_node("CanvasLayer/UI/Description").text=description
 	
 	pass # Replace with function body.
 
 
 func _on_button_mouse_exited():
+	z_index=0
 	state.menu.get_node("CanvasLayer/UI/Description").text=" "
 	mouseOut.emit()
 	pass # Replace with function body.
