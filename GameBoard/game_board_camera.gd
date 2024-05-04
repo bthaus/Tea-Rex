@@ -23,7 +23,6 @@ func _process(delta):
 	pass;
 	
 func _ready():
-	
 	Projectile.camera=self;
 	Turret.camera=self;
 	pass;
@@ -72,6 +71,6 @@ func _input(event):
 			position += Vector2(0, SCROLL_SPEED) / zoom
 			
 func move_to(position: Vector2, done: Callable):
-	tween = get_tree().create_tween()
-	tween.tween_property(self, "position", position, Stats.CAMERA_MOVE_DURATION).set_trans(Tween.EASE_IN_OUT).set_ease(Tween.EASE_IN_OUT)
+	var tween = get_tree().create_tween()
+	tween.tween_property(self, "position", position, Stats.CAMERA_MOVE_DURATION).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 	tween.tween_callback(func(): done.call())
