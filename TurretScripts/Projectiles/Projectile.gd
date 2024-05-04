@@ -166,7 +166,7 @@ func hitEnemy(enemy:Monster):
 		
 		oneshot=oneshot-1;
 		applySpecials(enemy)
-		if enemy.hit(type,damage): associate.addKill
+		if enemy.hit(type,damage): associate.addKill()
 		associate.addDamage(damage)
 		if oneshot<=0&&oneshot>-100000:
 			remove()
