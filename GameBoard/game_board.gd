@@ -227,8 +227,9 @@ func _process(_delta):
 	if block != null:
 		for piece in block.pieces:
 			var turret = turret_holder.get_turret_at($Board.map_to_local(piece.position))
-			turret.highlight()
-			highlighted_turrets.append(turret)
+			if turret != null:
+				turret.highlight()
+				highlighted_turrets.append(turret)
 	
 	if is_dragging_camera:
 		ignore_click = true
