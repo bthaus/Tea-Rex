@@ -52,7 +52,8 @@ func hit(color:Stats.TurretColor,damage,type="default"):
 		died=true
 		monster_died.emit(self)
 		queue_free()
-	pass;
+		return true;
+	return false;
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):

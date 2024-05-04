@@ -15,6 +15,7 @@ const CAMERA_ZOOM = 0.1
 const SCROLL_SPEED = 100
 const MIN_RECOGNIZABLE_DRAG_DISTANCE = 10
 var lastpos=0
+var titles=[]
 func _process(delta):
 	
 	if global_position.y!=lastpos:
@@ -22,6 +23,7 @@ func _process(delta):
 	lastpos=global_position.y	
 	pass;
 func _ready():
+	
 	Projectile.camera=self;
 	Turret.camera=self;
 	pass;

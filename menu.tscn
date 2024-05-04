@@ -195,6 +195,7 @@ offset_bottom = 192.0
 
 [node name="Hand" parent="CanvasLayer/UI" node_paths=PackedStringArray("description") instance=ExtResource("8_4633y")]
 position = Vector2(141.593, 945.133)
+scale = Vector2(1.5, 1.5)
 description = NodePath("../Description")
 
 [node name="maxcards" type="Label" parent="CanvasLayer/UI"]
@@ -322,6 +323,14 @@ offset_top = 35.3982
 offset_right = 239.814
 offset_bottom = 58.3982
 text = "next Catastropy"
+
+[node name="Killcount" type="RichTextLabel" parent="CanvasLayer/UI"]
+offset_left = 220.756
+offset_top = 1090.27
+offset_right = 260.756
+offset_bottom = 1130.27
+scale = Vector2(1.06742, 1.01515)
+text = "Killcount"
 
 [node name="PlayerName" type="Label" parent="CanvasLayer"]
 offset_right = 250.0
