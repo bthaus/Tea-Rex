@@ -26,6 +26,7 @@ var cooldownfactor=1;
 
 var lightamount=1.5;
 var killcount=0;
+var damagedealt=0
 static var camera;
 var instantHit=false;
 static var baseFactory:BaseFactory=load("res://base_factory.tscn").instantiate() as BaseFactory
@@ -189,7 +190,8 @@ func _process(delta):
 		if !onCooldown:
 			if type==Stats.TurretColor.RED&&extension==Stats.TurretExtension.DEFAULT:
 				for e in $EnemyDetector.enemiesInRange:
-					e.hit(type,self.damage)
+					if e.hit(type,self.damage):addKill()
+					addDamage(self.damage)
 					projectile.playHitSound();	
 				startCooldown(cooldown*cooldownfactor)		
 				
@@ -297,9 +299,12 @@ func _on_button_mouse_entered():
 		field.text=Stats.getDescription(Stats.getStringFromEnum(type))
 	
 	$EnemyDetector.visible=true
-	GameState.gameState.showCount(killcount)
+	GameState.gameState.showCount(killcount,damagedealt)
 	pass # Replace with function body.
-
+func addDamage(Damage):
+	damagedealt=damagedealt+Damage;
+	
+	pass;
 
 func _on_button_mouse_exited():
 	GameState.gameState.menu.get_node("CanvasLayer/UI/Description").text=" "

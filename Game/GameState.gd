@@ -28,7 +28,7 @@ var started=false;
 var wave:int=0;
 var board_width=11;
 var board_height=16;
-var y;
+var y=0
 var spawners=[]
 var target;
 
@@ -80,8 +80,8 @@ func changeMaxHealth(amount:int):
 	updateUI()
 	pass;
 var count=" ";
-func showCount(killcount):
-	count=str(killcount)
+func showCount(killcount,damage):
+	count=str(str(killcount)+"kills and "+str(damage)+"damage dealt")
 	updateUI()
 	pass;
 func hideCount():

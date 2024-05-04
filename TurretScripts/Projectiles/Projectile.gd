@@ -26,6 +26,7 @@ var color;
 var pool;
 var speed;
 var target:Monster
+var associate;
 static var shotsplayed=0;
 static var hitsplayed=0;
 static var counter=0;
@@ -71,7 +72,7 @@ static func create(type:Stats.TurretColor, damage,speed,root,extension:Stats.Tur
 		root.add_child(temp);
 		
 	
-	
+	temp.associate=root
 	temp.damage=damage;
 	temp.speed=speed;
 	temp.pool=pool
@@ -165,8 +166,8 @@ func hitEnemy(enemy:Monster):
 		
 		oneshot=oneshot-1;
 		applySpecials(enemy)
-		if enemy.hit(type,damage) and get_parent().has_method("addKill"): get_parent().addKill();
-		
+		if enemy.hit(type,damage): associate.addKill
+		associate.addDamage(damage)
 		if oneshot<=0&&oneshot>-100000:
 			remove()
 	pass;	
@@ -177,7 +178,7 @@ func applySpecials(enemy:Monster):
 		if type==Stats.TurretColor.RED&&ext==Stats.TurretExtension.REDLASER:
 			applyRedLaser(enemy)
 		if type==Stats.TurretColor.GREEN&&ext==Stats.TurretExtension.DEFAULT:
-			Explosion.create(type,damage,global_position,get_tree().get_root(),Stats.green_explosion_range);
+			Explosion.create(type,damage,global_position,associate,Stats.green_explosion_range);
 		if type==Stats.TurretColor.GREEN&&ext==Stats.TurretExtension.GREENPOISON:
 			applyPoison(enemy)
 		if type==Stats.TurretColor.YELLOW&&ext==Stats.TurretExtension.YELLOWMORTAR:
@@ -213,7 +214,7 @@ func applyMortarExplosion(enemy:Monster):
 	sprite.global_position=pos;
 	get_tree().create_timer(1).timeout.connect(func():
 		
-		Explosion.create(Stats.TurretColor.YELLOW,damage,pos,gamestate)
+		Explosion.create(Stats.TurretColor.YELLOW,damage,pos,associate)
 		sprite.queue_free()
 	)
 	pass;
