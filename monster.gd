@@ -54,6 +54,7 @@ func hit(color:Stats.TurretColor,damage,type="default"):
 		$Hitbox.queue_free()
 		$Sprite2D.queue_free()
 		$DeathAnim.visible=true;
+		$AudioStreamPlayer.play()
 		$DeathAnim.play(Stats.getStringFromEnum(self.color))
 		return true;
 	return false;

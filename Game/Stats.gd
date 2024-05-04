@@ -37,7 +37,7 @@ const yellow_mortar_missile_speed=base_missile_speed;
 const base_cooldown=1;
 const green_cooldown=base_cooldown*3;
 const blue_cooldown=base_cooldown*0.5;
-const yellow_cooldown=base_cooldown*2;
+const yellow_cooldown=base_cooldown*3.04;
 const grey_cooldown=base_cooldown*1;
 const red_cooldown=base_cooldown*0.3;
 
@@ -49,9 +49,9 @@ const yellow_mortar_cooldown=base_cooldown*3;
 const base_damage=5;
 const green_damage=base_damage*1;
 const blue_damage=base_damage*2;
-const yellow_damage=base_damage*3;
+const yellow_damage=base_damage*5;
 const grey_damage=base_damage*1;
-const red_damage=base_damage*2;
+const red_damage=base_damage*1;
 
 const red_laser_damage=base_damage*0.5;
 const blue_laser_damage=base_damage*2;

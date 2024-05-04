@@ -202,9 +202,9 @@ func _process(delta):
 					var mod=camera.zoom.y-3;
 					$AudioStreamPlayer2D.volume_db=mod*10
 					
-				if !$AudioStreamPlayer2D.playing&&sounds<25:
-					$AudioStreamPlayer2D.play()
-					sounds=sounds+1
+				#if !$AudioStreamPlayer2D.playing&&sounds<25:
+				$AudioStreamPlayer2D.play()
+				sounds=sounds+1
 					
 				self.target=target;
 				projectile.hitEnemy(target)
@@ -217,9 +217,9 @@ func _process(delta):
 					var mod=camera.zoom.y-3;
 					$AudioStreamPlayer2D.volume_db=mod*10
 					
-				if !$AudioStreamPlayer2D.playing&&sounds<25:
-					$AudioStreamPlayer2D.play()
-					sounds=sounds+1
+				#if !$AudioStreamPlayer2D.playing&&sounds<25:
+				$AudioStreamPlayer2D.play()
+				sounds=sounds+1
 					
 				self.target=target.global_position;
 				projectile.hitEnemy(target)
