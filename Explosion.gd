@@ -34,6 +34,8 @@ static func create(type,damage, position, root,scale=1):
 		temp.scale=Vector2(scale,scale)
 		temp.visible=true;
 		
+	temp.get_node("Area2D").monitoring=true;
+	temp.get_node("AnimatedSprite2D").visible=true	
 	temp.global_position=position;
 	temp.get_node("AnimatedSprite2D").play("default")
 	temp.get_node("AnimationPlayer").play("lightup")
@@ -73,12 +75,13 @@ func getCam():
 	return cam;
 	pass;
 func _on_animated_sprite_2d_animation_finished():
-	get_parent().remove_child(self)
-	cache.push_back(self)
+	$AnimatedSprite2D.visible=false;
+	$Area2D.monitoring=false;
 	pass # Replace with function body.
 
 
 func _on_sound_finished():
-	
+	get_parent().remove_child(self)
+	cache.push_back(self)
 
 	pass # Replace with function body.
