@@ -92,8 +92,7 @@ func select_block(block,done:Callable):
 	util.p("Building now...", "Jojo")
 	is_delayed = true
 	delay_timer.start()
-	DRILL_catastrophy(done)
-	return
+	
 	action = BoardAction.PLAYER_BUILD
 	selected_block = block
 	self.done = done
