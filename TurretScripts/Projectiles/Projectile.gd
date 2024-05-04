@@ -165,7 +165,7 @@ func hitEnemy(enemy:Monster):
 		
 		oneshot=oneshot-1;
 		applySpecials(enemy)
-		enemy.hit(type,damage);
+		if enemy.hit(type,damage) and get_parent().has_method("addKill"): get_parent().addKill();
 		
 		if oneshot<=0&&oneshot>-100000:
 			remove()

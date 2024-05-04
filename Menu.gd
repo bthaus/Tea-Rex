@@ -8,7 +8,7 @@ func _ready():
 	statePropagation.emit(gamestate)
 	pass # Replace with function body.
 func updateUI():
-	
+	$CanvasLayer/UI/Killcount.text=gamestate.count;
 	$CanvasLayer/PlayerName.text=gamestate.account
 	$CanvasLayer/UI/Hpbar.max_value=gamestate.maxHP
 	$CanvasLayer/UI/Hpbar.value=gamestate.HP

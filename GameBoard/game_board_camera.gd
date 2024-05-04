@@ -23,6 +23,7 @@ func _process(delta):
 	pass;
 	
 func _ready():
+	
 	Projectile.camera=self;
 	Turret.camera=self;
 	pass;

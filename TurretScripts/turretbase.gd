@@ -25,11 +25,12 @@ var damagefactor=1;
 var cooldownfactor=1;
 
 var lightamount=1.5;
-
+var killcount=0;
 static var camera;
 var instantHit=false;
 static var baseFactory:BaseFactory=load("res://base_factory.tscn").instantiate() as BaseFactory
 var base:Base;
+var placed=true;
 
 static func create(color:Stats.TurretColor, lvl:int, type:Stats.TurretExtension=Stats.TurretExtension.DEFAULT)->Turret:
 	var turret=load("res://TurretScripts/turretbase.tscn").instantiate() as Turret;
@@ -46,6 +47,9 @@ func _ready():
 	pass # Replace with function body.
 
 func setUpTower():
+	if not placed:
+		$Button.queue_free()
+	
 	if extension==0:
 		extension=Stats.TurretExtension.DEFAULT;
 	base=baseFactory.getBase(type,extension);
@@ -88,6 +92,9 @@ func _draw():
 	if Stats.TurretColor.YELLOW==type:
 		draw_SniperLine()	
 	pass;
+func addKill():
+	killcount=killcount+1;
+	pass;	
 func draw_SniperLine():
 		if target!=null:
 			targetposition=target;
@@ -158,7 +165,8 @@ func reduceCooldown(delta):
 		onCooldown=false;
 	pass
 func _process(delta):
-	
+	if not placed:
+		return;
 	reduceCooldown(delta)
 	if type==Stats.TurretColor.YELLOW&&extension==Stats.TurretExtension.DEFAULT:
 		buildup=buildup-4*delta;	
@@ -268,10 +276,7 @@ func _get_configuration_warnings():
 	return arr;
 
 func levelup(lvl:int=1):
-	if lvl!=1:
-		stacks=lvl;
-	else:
-		stacks=stacks+1;
+	stacks=lvl;
 	base.setLevel(stacks)
 	pass;
 func _on_timer_timeout():
@@ -285,10 +290,13 @@ func _on_audio_stream_player_2d_finished():
 
 
 func _on_button_mouse_entered():
+	
 	$EnemyDetector.visible=true
+	GameState.gameState.showCount(killcount)
 	pass # Replace with function body.
 
 
 func _on_button_mouse_exited():
 	$EnemyDetector.visible=false
+	GameState.gameState.hideCount()
 	pass # Replace with function body.

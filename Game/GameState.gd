@@ -79,8 +79,15 @@ func changeMaxHealth(amount:int):
 	
 	updateUI()
 	pass;
-
-
+var count=" ";
+func showCount(killcount):
+	count=str(killcount)
+	updateUI()
+	pass;
+func hideCount():
+	count=" "
+	updateUI()
+	pass;
 # Called when the node enters the scene tree for the first time.
 var mapdrawnOnce=false;
 func _ready():
@@ -213,4 +220,8 @@ func _on_area_2d_area_entered(area):
 		m.monster_died.emit(m)
 		m.queue_free()
 		
+	pass # Replace with function body.
+
+
+func _on_music_finished():
 	pass # Replace with function body.

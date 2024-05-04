@@ -14,7 +14,9 @@ func set_block(block: Block, spawn_turrets: bool):
 				continue
 			var turret = Turret.create(piece.color, piece.level, piece.extension)
 			turret.position = $TileMap.map_to_local(Vector2(piece.position.x, piece.position.y))
+			turret.placed=false;
 			add_child(turret)
+			
 
 
 func clear_preview():
