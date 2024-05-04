@@ -252,9 +252,9 @@ func shoot(target):
 		if type==Stats.TurretColor.YELLOW&&Stats.TurretExtension.YELLOWMORTAR==extension:
 				Explosion.create(Stats.TurretColor.YELLOW,0,bp,self,0.1)
 		if instantHit:
-			projectile.global_position=target.global_position
-			projectile.hitEnemy(target)
-			projectile.global_position=global_position
+			shot.global_position=target.global_position
+			shot.hitEnemy(target)
+			shot.global_position=global_position
 		else:
 			shot.shoot(target);
 	startCooldown(cooldown*cooldownfactor)

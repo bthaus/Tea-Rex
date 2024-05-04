@@ -32,6 +32,7 @@ static func create(type,damage, position, root,scale=1):
 	temp.get_node("AnimatedSprite2D").play("default")
 	temp.get_node("AnimationPlayer").play("lightup")
 	temp.associate=root;
+	GameState.gameState.getCamera().shake(0.3,0.2)
 	if sounds<25:
 		temp.get_node("sound").play();
 		sounds=sounds+1;
