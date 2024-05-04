@@ -49,7 +49,7 @@ func _ready():
 	navigation_polygon.source_geometry_group_name = "navigation"
 	$Board.add_to_group("navigation")
 	navigation_polygon.source_geometry_mode = NavigationPolygon.SOURCE_GEOMETRY_GROUPS_WITH_CHILDREN
-	navigation_polygon.agent_radius = 31
+	navigation_polygon.agent_radius = 26
 	
 	delay_timer = Timer.new()
 	delay_timer.autostart = false

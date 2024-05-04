@@ -1,6 +1,6 @@
 extends Node
 class_name Stats;
-const block_size=64;
+const block_size=62;
 
 static var board_extend_height=10;
 static var board_cave_chance_percent=10
