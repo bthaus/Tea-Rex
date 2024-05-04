@@ -25,6 +25,14 @@ class TurretHolder:
 		else:
 			_turrets.insert(-row-1, [turret])
 	
+	func get_turret_at(position: Vector2) -> Turret:
+		var row = _binary_search_row(position.y)
+		if row >= 0:
+			var col = _binary_search_col(position.x, row)
+			if col >= 0:
+				return _turrets[row][col]
+		return null
+	
 	func pop_turret_at(position: Vector2) -> Turret:
 		var row = _binary_search_row(position.y)
 		if row >= 0:

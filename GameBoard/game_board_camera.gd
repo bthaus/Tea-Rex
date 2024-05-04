@@ -15,18 +15,18 @@ const CAMERA_ZOOM = 0.1
 const SCROLL_SPEED = 100
 const MIN_RECOGNIZABLE_DRAG_DISTANCE = 10
 var lastpos=0
-var titles=[]
+
 func _process(delta):
-	
 	if global_position.y!=lastpos:
 		changeBrightness()
 	lastpos=global_position.y	
 	pass;
-func _ready():
 	
+func _ready():
 	Projectile.camera=self;
 	Turret.camera=self;
 	pass;
+	
 func changeBrightness():
 	var v=thresholds.getDark(gameState.y)
 	brightness.color=Color(v,v,v,255)
@@ -34,6 +34,7 @@ func changeBrightness():
 	env.environment.glow_intensity=v
 	
 	pass;
+	
 func _input(event):
 	if event.is_action("left_click"):
 		if event.is_pressed():
@@ -69,6 +70,7 @@ func _input(event):
 		else:
 			position += Vector2(0, SCROLL_SPEED) / zoom
 			
-		
-	
-		
+func move_to(position: Vector2, done: Callable):
+	var tween = get_tree().create_tween()
+	tween.tween_property(self, "position", position, Stats.CAMERA_MOVE_DURATION).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	tween.tween_callback(func(): done.call())
