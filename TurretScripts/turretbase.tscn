@@ -2,10 +2,11 @@
 
 [ext_resource type="Script" path="res://TurretScripts/turretbase.gd" id="1_87rlb"]
 [ext_resource type="PackedScene" uid="uid://dvwxp6msal8o6" path="res://enemy_detector.tscn" id="2_ekhvd"]
-[ext_resource type="Texture2D" uid="uid://cir25cbml7q1h" path="res://Assets/Level/blackBackgroundLabel.png" id="4_gxsap"]
+[ext_resource type="Texture2D" uid="uid://bdqk6ju0fvrov" path="res://Assets/Level/blackBackgroundLabel.png" id="4_gxsap"]
 [ext_resource type="Texture2D" uid="uid://b0vjaywamx3yp" path="res://Assets/Lights/spotlight.png" id="5_cl5yn"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_xaibg"]
+font_size = 15
 outline_size = 10
 outline_color = Color(0, 0, 0, 1)
 
@@ -39,10 +40,10 @@ offset_bottom = 34.0
 
 [node name="LVL" type="Label" parent="."]
 z_index = 50
-offset_left = 21.0
-offset_top = -35.0
-offset_right = 61.0
-offset_bottom = -12.0
+offset_left = 19.0
+offset_top = -34.0
+offset_right = 59.0
+offset_bottom = -11.0
 text = "1"
 label_settings = SubResource("LabelSettings_xaibg")
 
