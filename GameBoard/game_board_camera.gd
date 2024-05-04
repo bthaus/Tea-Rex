@@ -15,10 +15,10 @@ const CAMERA_ZOOM = 0.1
 const SCROLL_SPEED = 100
 const MIN_RECOGNIZABLE_DRAG_DISTANCE = 10
 var lastpos=0
-var original_position;
-var shake_timer;
-var duration;
-var intensity;
+var original_position=0;
+var shake_timer=0;
+var duration=0;
+var intensity=0;
 func shake(duration: float, intensity: float):
 	original_position = position
 	shake_timer = 0.0
