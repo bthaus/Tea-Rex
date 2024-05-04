@@ -16,6 +16,7 @@ var turret_holder = util.TurretHolder.new()
 var main_spawner
 
 var preview_turrets = null
+var highlighted_turrets = []
 
 const BLOCK_LAYER = 0
 const GROUND_LAYER = 1
@@ -217,6 +218,17 @@ func _process(_delta):
 	$Board.clear_layer(SELECTION_LAYER)
 	
 	var board_pos = $Board.local_to_map(get_global_mouse_position())
+	
+	#Highlight towers
+	for turret in highlighted_turrets:
+		turret.de_highlight()
+	highlighted_turrets = []
+	var block = block_handler.get_block_from_board(board_pos, BLOCK_LAYER, EXTENSION_LAYER, false, false)
+	if block != null:
+		for piece in block.pieces:
+			var turret = turret_holder.get_turret_at($Board.map_to_local(piece.position))
+			turret.highlight()
+			highlighted_turrets.append(turret)
 	
 	if is_dragging_camera:
 		ignore_click = true

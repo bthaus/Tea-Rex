@@ -283,6 +283,13 @@ func levelup(lvl:int=1):
 	$LVL.text=str(stacks)
 	base.setLevel(stacks)
 	pass;
+	
+func highlight():
+	pass
+	
+func de_highlight():
+	pass
+
 func _on_timer_timeout():
 	onCooldown=false;
 	pass # Replace with function body.
