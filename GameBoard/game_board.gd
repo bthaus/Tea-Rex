@@ -21,6 +21,7 @@ const BLOCK_LAYER = 0
 const GROUND_LAYER = 1
 const EXTENSION_LAYER = 2
 const SELECTION_LAYER = 3
+const CATASTROPHY_LAYER = 4
 
 var is_dragging_camera = false
 var is_moving_camera = false
@@ -35,6 +36,7 @@ const WALL_TILE_ID = 3
 const PREVIEW_BLOCK_TILE_ID = 4
 const EMPTY_TILE_ID = 6
 const SPAWNER_TILE_ID = 2
+const CATASTROPHY_PREVIEW_TILE_ID = 2
 
 var navigation_polygon = NavigationPolygon.new()
 var points = PackedVector2Array([Vector2(),Vector2(),Vector2(),Vector2()])
@@ -90,6 +92,8 @@ func select_block(block,done:Callable):
 	util.p("Building now...", "Jojo")
 	is_delayed = true
 	delay_timer.start()
+	DRILL_catastrophy(done)
+	return
 	action = BoardAction.PLAYER_BUILD
 	selected_block = block
 	self.done = done
@@ -106,11 +110,19 @@ func BULLDOZER_catastrophy(done: Callable):
 			for x in Stats.bulldozer_catastrophy_width:
 				#No constructor overloading in Godot, gotta init some nonsense
 				pieces.push_back(Block.Piece.new(Vector2(x,y), Stats.TurretColor.BLUE, 1))
+		
 		var block = Block.new(pieces)
-		block_handler.remove_block_from_board(block, Vector2(col, row), BLOCK_LAYER, EXTENSION_LAYER, false)
-		_remove_turrets(block, Vector2(col, row))
-		_action_finished(true)
-		)
+		block_handler.draw_block_with_tile_id(block, Vector2(col, row), CATASTROPHY_PREVIEW_TILE_ID, CATASTROPHY_LAYER)
+		get_tree().create_timer(Stats.CATASTROPHY_PREVIEW_DURATION).timeout.connect(func():
+			$Board.clear_layer(CATASTROPHY_LAYER)
+			var explosion_position = $Board.map_to_local(Vector2(col + Stats.bulldozer_catastrophy_width/2, row + Stats.bulldozer_catastrophy_height/2))
+			var explosion_scale = max(Stats.bulldozer_catastrophy_height/2, Stats.bulldozer_catastrophy_width/2)
+			Explosion.create(0, 0, explosion_position, self, explosion_scale)
+			block_handler.remove_block_from_board(block, Vector2(col, row), BLOCK_LAYER, EXTENSION_LAYER, false)
+			_remove_turrets(block, Vector2(col, row))
+			_action_finished(true)
+			)
+	)
 
 func DRILL_catastrophy(done: Callable):
 	util.p("Drill catastrophe starting", "Jojo")
@@ -123,9 +135,14 @@ func DRILL_catastrophy(done: Callable):
 			for col in range(distance.from, distance.to+1):
 				pieces.push_back(Block.Piece.new(Vector2(col, row+r), Stats.TurretColor.BLUE, 1))
 		var block = Block.new(pieces)
-		block_handler.remove_block_from_board(block, Vector2(0, 0), BLOCK_LAYER, EXTENSION_LAYER, false)
-		_remove_turrets(block, Vector2(0, 0))
-		_action_finished(true)
+		block_handler.draw_block_with_tile_id(block, Vector2(0, 0), CATASTROPHY_PREVIEW_TILE_ID, CATASTROPHY_LAYER)
+		get_tree().create_timer(Stats.CATASTROPHY_PREVIEW_DURATION).timeout.connect(func():
+			$Board.clear_layer(CATASTROPHY_LAYER)
+			
+			block_handler.remove_block_from_board(block, Vector2(0, 0), BLOCK_LAYER, EXTENSION_LAYER, false)
+			_remove_turrets(block, Vector2(0, 0))
+			_action_finished(true)
+			)
 		)
 
 
@@ -147,11 +164,14 @@ func LEVELDOWN_catastrophy(done: Callable):
 					pieces.append(piece)
 				
 		var block = Block.new(pieces)
-		_set_block_and_turrets_level(block, start, 1)
-		block_handler.draw_block(block, start, BLOCK_LAYER, EXTENSION_LAYER)
-		_action_finished(true)
-		)
-
+		block_handler.draw_block_with_tile_id(block, Vector2(0, 0), CATASTROPHY_PREVIEW_TILE_ID, CATASTROPHY_LAYER)
+		get_tree().create_timer(Stats.CATASTROPHY_PREVIEW_DURATION).timeout.connect(func():
+			$Board.clear_layer(CATASTROPHY_LAYER)
+			_set_block_and_turrets_level(block, start, 1)
+			block_handler.draw_block(block, start, BLOCK_LAYER, EXTENSION_LAYER)
+			_action_finished(true)
+			)
+	)
 
 func _process(_delta):
 	$Board.clear_layer(SELECTION_LAYER)
@@ -245,7 +265,7 @@ func _action_finished(finished: bool):
 	if preview_turrets != null: 
 		for turret in preview_turrets: turret.queue_free()
 		preview_turrets = null
-		
+	
 	moved_from_block = null
 	moved_from_position = Vector2.ZERO
 	action = BoardAction.NONE
