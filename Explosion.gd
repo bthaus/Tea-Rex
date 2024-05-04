@@ -1,6 +1,12 @@
 extends Node2D
 class_name Explosion
 static var cache=[]
+static var sounds=[
+	load("res://Sounds/Soundeffects/explosion/Explosion 2 1.wav"),
+	load("res://Sounds/Soundeffects/explosion/Explosion 2 2.wav"),
+	load("res://Sounds/Soundeffects/explosion/Explosion 2 3.wav"),
+	load("res://Sounds/Soundeffects/explosion/Explosion 2.wav")
+]
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$PointLight2D.visible=true;
@@ -9,7 +15,7 @@ func _ready():
 var damage;
 var type
 var associate;
-static var sounds=0;
+
 static func create(type,damage, position, root,scale=1):
 	var temp;
 
@@ -33,9 +39,9 @@ static func create(type,damage, position, root,scale=1):
 	temp.get_node("AnimationPlayer").play("lightup")
 	temp.associate=root;
 	GameState.gameState.getCamera().shake(0.3,0.2)
-	if sounds<25:
-		temp.get_node("sound").play();
-		sounds=sounds+1;
+	temp.get_node("sound").stream=sounds.pick_random()
+	temp.get_node("sound").play()
+		
 	
 	
 	
@@ -45,9 +51,7 @@ static func create(type,damage, position, root,scale=1):
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	
-	if $sound.playing:
-		var mod=getCam().zoom.y-3;
-		$sound.volume_db=mod*10
+
 	pass
 
 var num=0;
@@ -76,5 +80,5 @@ func _on_animated_sprite_2d_animation_finished():
 
 func _on_sound_finished():
 	
-	sounds=sounds-1
+
 	pass # Replace with function body.

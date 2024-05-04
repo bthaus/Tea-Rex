@@ -178,6 +178,6 @@ avoidance_enabled = true
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("20_230yg")
-volume_db = -27.055
+volume_db = -40.674
 
 [connection signal="animation_finished" from="DeathAnim" to="." method="_on_death_anim_animation_finished"]
