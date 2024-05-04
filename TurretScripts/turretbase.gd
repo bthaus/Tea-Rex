@@ -165,7 +165,35 @@ func reduceCooldown(delta):
 	if cdt<0:
 		onCooldown=false;
 	pass
+
+var oldval=1;	
+static var globlight=false;
+var melight=false;
+func highlight():
+	if GameState.gameState.phase==Stats.GamePhase.BATTLE:return
+	globlight=true;
+	melight=true;
+	oldval=$PointLight2D.energy;
+	$PointLight2D.energy=3;
+	pass
+	
+func de_highlight():
+	if GameState.gameState.phase==Stats.GamePhase.BATTLE:return
+	globlight=false;
+	melight=false;
+	$PointLight2D.energy=oldval
+	pass
+func checkLight():
+	if GameState.gameState.phase==Stats.GamePhase.BATTLE:return
+	if globlight and not melight:
+		$PointLight2D.energy=0;
+		
+	if not globlight:
+		$PointLight2D.energy=lightamount;
+	
+	pass;
 func _process(delta):
+	checkLight()
 	$LVL.text=str(stacks)
 	if not placed:
 		return;
@@ -187,7 +215,7 @@ func _process(delta):
 		base.rotation=direction.angle() + PI / 2.0;
 		
 		if type==Stats.TurretColor.RED&&extension==Stats.TurretExtension.DEFAULT:
-			projectile.rotate(360*2*delta);
+			projectile.rotate(180*2*delta);
 		if !onCooldown:
 			if type==Stats.TurretColor.RED&&extension==Stats.TurretExtension.DEFAULT:
 				for e in $EnemyDetector.enemiesInRange:
@@ -284,11 +312,7 @@ func levelup(lvl:int=1):
 	base.setLevel(stacks)
 	pass;
 	
-func highlight():
-	pass
-	
-func de_highlight():
-	pass
+
 
 func _on_timer_timeout():
 	onCooldown=false;

@@ -36,7 +36,7 @@ const yellow_mortar_missile_speed=base_missile_speed;
 
 
 const base_cooldown=1;
-const green_cooldown=base_cooldown*3;
+const green_cooldown=base_cooldown*4;
 const blue_cooldown=base_cooldown*0.5;
 const yellow_cooldown=base_cooldown*3.04;
 const grey_cooldown=base_cooldown*1;
@@ -48,7 +48,7 @@ const green_poison_cooldown=base_cooldown*1.5
 const yellow_mortar_cooldown=base_cooldown*3;
 
 const base_damage=5;
-const green_damage=base_damage*1;
+const green_damage=base_damage*3;
 const blue_damage=base_damage*2;
 const yellow_damage=base_damage*5;
 const grey_damage=base_damage*1;
@@ -123,7 +123,7 @@ const BLUE_enemy_speed=enemy_base_speed*1;
 const YELLOW_enemy_speed=enemy_base_speed*3;
 const RED_enemy_speed=enemy_base_speed*0.5;
 
-static var enemy_base_exp=10;
+static var enemy_base_exp=100;
 static var enemy_scaling=0.2;
 
 const playerHP=200;

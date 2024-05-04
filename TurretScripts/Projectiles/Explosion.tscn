@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://dn4on70p26crl"]
+[gd_scene load_steps=14 format=3 uid="uid://dn4on70p26crl"]
 
 [ext_resource type="Script" path="res://Explosion.gd" id="1_qdan5"]
 [ext_resource type="Texture2D" uid="uid://dfuvb4jb8scmn" path="res://Assets/Effects/Explosion_1/e1.png" id="2_bvduy"]
@@ -8,7 +8,6 @@
 [ext_resource type="Texture2D" uid="uid://cbdaculd0te33" path="res://Assets/Effects/Explosion_1/e5.png" id="6_kro3f"]
 [ext_resource type="Texture2D" uid="uid://bnqpjt2cqpsjk" path="res://Assets/Effects/Explosion_1/e6.png" id="7_egcnx"]
 [ext_resource type="Texture2D" uid="uid://bp6e74dyg4r0j" path="res://Assets/Effects/Explosion_1/e7.png" id="8_tkejj"]
-[ext_resource type="AudioStream" uid="uid://q8ilmk1andm5" path="res://Sounds/Soundeffects/EXPLOSION_sound.wav" id="12_oh833"]
 [ext_resource type="Texture2D" uid="uid://b0vjaywamx3yp" path="res://Assets/Lights/spotlight.png" id="13_ytoru"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_4mmyl"]
@@ -93,7 +92,7 @@ collision_mask = 2
 shape = SubResource("CircleShape2D_nikvq")
 
 [node name="sound" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("12_oh833")
+volume_db = -4.952
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
 scale = Vector2(14.695, 14.695)
