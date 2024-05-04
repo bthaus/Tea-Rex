@@ -68,6 +68,7 @@ func doSpawnLogic(waveNumber:int):
 	pass;
 	
 func spawnEnemy(mo:Monster):
+	if state.spawners.find(self)==-1:queue_free()
 	mo.monster_died.connect(monsterDied)
 	mo.monster_died.connect(state.addExp)
 	add_child(mo)
