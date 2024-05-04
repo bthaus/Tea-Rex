@@ -290,6 +290,11 @@ func _on_audio_stream_player_2d_finished():
 
 
 func _on_button_mouse_entered():
+	var field=GameState.gameState.menu.get_node("CanvasLayer/UI/Description")
+	if extension!=1:
+		field.text=Stats.getDescription(Stats.TurretExtension.keys()[extension-1])
+	else:
+		field.text=Stats.getDescription(Stats.getStringFromEnum(type))
 	
 	$EnemyDetector.visible=true
 	GameState.gameState.showCount(killcount)
@@ -297,6 +302,7 @@ func _on_button_mouse_entered():
 
 
 func _on_button_mouse_exited():
+	GameState.gameState.menu.get_node("CanvasLayer/UI/Description").text=" "
 	$EnemyDetector.visible=false
 	GameState.gameState.hideCount()
 	pass # Replace with function body.

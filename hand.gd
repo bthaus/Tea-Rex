@@ -10,7 +10,8 @@ func drawCard(card:Card=null):
 	if state.maxCards<=get_children().size(): return
 	if card==null:
 		card=Card.create(state)
-	card.mouseIn.connect(func():description.text=card.description)
+	card.get_node("Button").mouse_entered.connect(func():print(card.description))
+	#card.mouseOut.connect(func():print("hii");description.text=" ")
 	add_child(card)
 	#add fancification here for initial animation
 
