@@ -159,8 +159,13 @@ func startCatastrophy():
 
 	
 	var cat=Stats.getRandomCatastrophy();
-	util.p(cat+"_catastrophy called")
-	if not gameBoard.has_method(cat+"_catastrophy"): return
+	
+	
+	while true:
+		cat=Stats.getRandomCatastrophy();
+		if gameBoard.has_method(cat+"_catastrophy"):
+			break;
+	util.p(cat+"_catastrophy called")	
 	gameBoard.call(cat+"_catastrophy",catastrophy_done)
 	gameBoard.extend_field()
 	pass;

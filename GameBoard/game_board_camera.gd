@@ -20,10 +20,11 @@ var shake_timer=0;
 var duration=0;
 var intensity=0;
 func shake(duration: float, intensity: float):
-	
+	if intensity>6.5: return
 	shake_timer = 0.0
 	self.duration=duration;
 	self.intensity=self.intensity+intensity
+	
 	pass	
 func _process(delta):
 	if shake_timer < duration:

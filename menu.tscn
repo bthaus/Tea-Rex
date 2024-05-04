@@ -273,13 +273,14 @@ text = "Wave"
 scroll_active = false
 
 [node name="Hpbar" type="TextureProgressBar" parent="CanvasLayer/UI"]
-offset_left = 81.4159
-offset_top = 630.089
-offset_right = 197.416
-offset_bottom = 822.089
-scale = Vector2(1.00667, 1)
+offset_left = 40.708
+offset_top = 102.655
+offset_right = 156.708
+offset_bottom = 294.655
+rotation = -1.57079
+scale = Vector2(0.5, 1)
 value = 100.0
-fill_mode = 3
+fill_mode = 2
 texture_under = ExtResource("13_ucxh1")
 texture_progress = ExtResource("14_h6yjh")
 
@@ -292,11 +293,13 @@ text = "HP"
 
 [node name="EXPbar" type="TextureProgressBar" parent="CanvasLayer/UI"]
 modulate = Color(0.32549, 1, 0, 1)
-offset_left = -12.3894
-offset_top = 628.319
-offset_right = 350.611
-offset_bottom = 820.319
-fill_mode = 3
+offset_left = 40.708
+offset_top = 146.903
+offset_right = 403.708
+offset_bottom = 338.903
+rotation = -1.57079
+scale = Vector2(0.5, 1)
+fill_mode = 2
 texture_under = ExtResource("13_ucxh1")
 texture_progress = ExtResource("14_h6yjh")
 
@@ -342,8 +345,10 @@ offset_right = 283.658
 offset_bottom = 1089.67
 
 [node name="PlayerName" type="Label" parent="CanvasLayer"]
-offset_right = 250.0
-offset_bottom = 90.0
+offset_left = 61.9469
+offset_top = -109.735
+offset_right = 359.947
+offset_bottom = -19.7345
 text = "no account selected"
 label_settings = SubResource("LabelSettings_tx5p1")
 
