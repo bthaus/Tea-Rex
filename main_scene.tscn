@@ -69,7 +69,9 @@ position = Vector2(-736, -503)
 stream = ExtResource("6_qpv2c")
 
 [node name="UnlockSpot" type="Node2D" parent="Camera2D"]
+z_index = 20
 position = Vector2(-215.51, -217.247)
+scale = Vector2(3, 3)
 
 [node name="Base" type="Node2D" parent="."]
 position = Vector2(534.237, 91.9909)
