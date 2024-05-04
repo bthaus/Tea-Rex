@@ -281,6 +281,13 @@ func levelup(lvl:int=1):
 	stacks=lvl;
 	base.setLevel(stacks)
 	pass;
+	
+func highlight():
+	pass
+	
+func de_highlight():
+	pass
+
 func _on_timer_timeout():
 	onCooldown=false;
 	pass # Replace with function body.

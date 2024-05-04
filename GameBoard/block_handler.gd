@@ -47,8 +47,9 @@ func get_block_from_board(position: Vector2, block_layer: int, extension_layer: 
 	var data = board.get_cell_tile_data(block_layer, position)
 	if data == null: #No tile available
 		return Block.new([])
-
+	
 	var color = Stats.TurretColor.get(data.get_custom_data("color").to_upper())
+	if color == null: return
 	var level = data.get_custom_data("level")
 	var visited = []
 	var pieces = [Block.Piece.new(position, color, data.get_custom_data("level"))]
