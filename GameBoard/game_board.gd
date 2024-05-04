@@ -92,7 +92,6 @@ func select_block(block,done:Callable):
 	util.p("Building now...", "Jojo")
 	is_delayed = true
 	delay_timer.start()
-	
 	action = BoardAction.PLAYER_BUILD
 	selected_block = block
 	self.done = done
@@ -152,7 +151,6 @@ func DRILL_catastrophy(done: Callable):
 			)
 		)
 
-
 func LEVELDOWN_catastrophy(done: Callable):
 	util.p("Level down catastrophy starting", "Jojo")
 	self.done = done
@@ -176,6 +174,41 @@ func LEVELDOWN_catastrophy(done: Callable):
 			$Board.clear_layer(CATASTROPHY_LAYER)
 			_set_block_and_turrets_level(block, start, 1)
 			block_handler.draw_block(block, start, BLOCK_LAYER, EXTENSION_LAYER)
+			_action_finished(true)
+			)
+	)
+	
+func COLORCHANGER_catastrophy(done: Callable):
+	util.p("Grey maker catastrophy starting", "Jojo")
+	self.done = done
+	var row = randi_range(1, gameState.board_height-1-Stats.colorchanger_catastrophy_width)
+	gameState.getCamera().move_to($Board.map_to_local(Vector2(gameState.board_width/2, row)), func():
+		self.done = done
+		var distance = block_handler.get_board_distance_at_row(BLOCK_LAYER, row)
+		var col = randi_range(distance.from, distance.to-Stats.colorchanger_catastrophy_width)
+		var pieces = []
+		for y in Stats.colorchanger_catastrophy_height:
+			for x in Stats.colorchanger_catastrophy_width:
+				pieces.append(Block.Piece.new(Vector2(x,y), Stats.TurretColor.BLUE, 1))
+		
+		var block = Block.new(pieces)
+		block_handler.draw_block_with_tile_id(block, Vector2(col, row), CATASTROPHY_PREVIEW_TILE_ID, CATASTROPHY_LAYER)
+		get_tree().create_timer(Stats.CATASTROPHY_PREVIEW_DURATION).timeout.connect(func():
+			$Board.clear_layer(CATASTROPHY_LAYER)
+			gameState.getCamera().shake(1.5, 10)
+			var positions = []
+			for y in Stats.colorchanger_catastrophy_height:
+				for x in Stats.colorchanger_catastrophy_width:
+					var data = $Board.get_cell_tile_data(BLOCK_LAYER, Vector2(col+x, row+y))
+					if data != null and data.get_custom_data("color").to_upper() != "WALL":
+						positions.append(Vector2(col+x, row+y))
+			
+			if positions.size() > 0:
+				var change_block = block_handler.get_block_from_board(positions.pick_random(), BLOCK_LAYER, EXTENSION_LAYER, false)
+				var new_pieces = []
+				for piece in change_block.pieces: new_pieces.append(Block.Piece.new(piece.position, Stats.TurretColor.GREY, 1))
+				block_handler.draw_block(Block.new(new_pieces), Vector2(0, 0), BLOCK_LAYER, EXTENSION_LAYER)
+				_remove_turrets(Block.new(new_pieces), Vector2(0, 0))
 			_action_finished(true)
 			)
 	)

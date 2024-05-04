@@ -13,6 +13,7 @@ func _ready():
 	get_tree().create_timer(3).timeout.connect(propagate)
 	detector=load("res://enemy_detector.tscn").instantiate()
 	add_child(detector)
+	detector.visible=false
 	detector.apply_scale(Vector2(Stats.poison_propagation_range,Stats.poison_propagation_range));
 	pass # Replace with function body.
 
