@@ -43,7 +43,7 @@ func remove_block_from_board(block: Block, position: Vector2, block_layer: int, 
 			board.set_cell(extension_layer, Vector2(piece.position.x + position.x, piece.position.y + position.y), -1, Vector2(0,0))
 
 #If normalized, the coordinates of each piece will be based on position (=> (0,0))
-func get_block_from_board(position: Vector2, block_layer: int, extension_layer: int, normalize: bool, ignore_level: bool = true) -> Block:
+func get_block_from_board(position: Vector2, block_layer: int, extension_layer: int, normalize: bool, search_diagonal: bool = true, ignore_level: bool = true) -> Block:
 	var data = board.get_cell_tile_data(block_layer, position)
 	if data == null: #No tile available
 		return Block.new([])
@@ -60,6 +60,10 @@ func get_block_from_board(position: Vector2, block_layer: int, extension_layer: 
 		
 		for row in range(-1,2):
 			for col in range(-1,2):
+				#Check if position is one of the diagonals, if flag is not set then skip these
+				if not search_diagonal and row != 0 and (col == -1 or col == 1):
+					continue
+					
 				var pos = Vector2(curr_position.x+col, curr_position.y+row)
 				if visited.has(pos) or stack.has(pos): continue #Piece is already present in either all the visited pieces or the current stack
 				

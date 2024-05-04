@@ -225,7 +225,7 @@ func _process(_delta):
 		if is_instance_valid(turret):
 			turret.de_highlight()
 	highlighted_turrets = []
-	var block = block_handler.get_block_from_board(board_pos, BLOCK_LAYER, EXTENSION_LAYER, false, false)
+	var block = block_handler.get_block_from_board(board_pos, BLOCK_LAYER, EXTENSION_LAYER, false, false, false)
 	if block != null:
 		for piece in block.pieces:
 			var turret = turret_holder.get_turret_at($Board.map_to_local(piece.position))
