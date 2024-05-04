@@ -20,18 +20,18 @@ var shake_timer=0;
 var duration=0;
 var intensity=0;
 func shake(duration: float, intensity: float):
-	original_position = position
+	
 	shake_timer = 0.0
 	self.duration=duration;
-	self.intensity=intensity
+	self.intensity=self.intensity+intensity
 	pass	
 func _process(delta):
 	if shake_timer < duration:
 		var x_offset = randf_range(-intensity, intensity)
 		var y_offset = randf_range(-intensity, intensity)
 				
-		position.x = original_position.x + x_offset
-		position.y = original_position.y + y_offset
+		offset.x =x_offset
+		offset.y =y_offset
 		duration=duration-1*delta
 	
 	
