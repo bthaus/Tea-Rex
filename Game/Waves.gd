@@ -9,6 +9,7 @@ var minMonster=5
 var maxMonster=100
 var target:Node2D
 var level;
+var rnd = RandomNumberGenerator.new()
 @onready var nav: NavigationAgent2D = $NavigationAgent2D
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -54,12 +55,18 @@ func doBalancingLogic(waveNumber:int):
 	
 	pass;
 func doSpawnLogic(waveNumber:int):
-	var delay=1;
+	var delay=0;
+	var count = 0;
 	for mo in waveMonsters:
-		delay=delay+1;
-		get_tree().create_timer(0.2*delay).timeout.connect(spawnEnemy.bind(mo))
+		count = count + 1
+		if count % 5 == 0: #Every 5th monster longer break
+			delay = delay + 3
+		else:
+			delay = delay + rnd.randf_range(0.0,0.5) #Change for spawning time 
+		get_tree().create_timer(0.5*delay).timeout.connect(spawnEnemy.bind(mo))
 	util.p("im taking minions from the array and spawn them in a sensible way")
 	pass;
+	
 func spawnEnemy(mo:Monster):
 	mo.monster_died.connect(monsterDied)
 	mo.monster_died.connect(state.addExp)
