@@ -83,14 +83,12 @@ func _input(event):
 	
 	if event.is_action_pressed("scroll_up"):
 		if Input.is_action_pressed("control"):
-			$UnlockSpot.scale=Vector2(3,3)*zoom
 			zoom = Vector2(zoom.x + CAMERA_ZOOM, zoom.y + CAMERA_ZOOM)
 		else:
 			position -= Vector2(0, SCROLL_SPEED) / zoom
 			
 	if event.is_action_pressed("scroll_down"):
 		if Input.is_action_pressed("control"):
-			$UnlockSpot.scale=Vector2(3,3)*zoom
 			zoom = Vector2(zoom.x - CAMERA_ZOOM, zoom.y - CAMERA_ZOOM)
 		else:
 			position += Vector2(0, SCROLL_SPEED) / zoom
