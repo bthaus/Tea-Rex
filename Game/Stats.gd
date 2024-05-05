@@ -75,7 +75,7 @@ const blue_instanthit=false;
 const red_instanthit=true;
 const yellow_instanthit=true;
 
-const red_laser_instanthit=false;
+const red_laser_instanthit=true;
 const blue_laser_instanthit=false;
 const green_poison_instanthit=false;
 const yellow_mortar_instanthit=true;

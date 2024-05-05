@@ -53,15 +53,19 @@ func setUpTower():
 	
 	if extension==0:
 		extension=Stats.TurretExtension.DEFAULT;
+	if base!=null:
+		base.queue_free()
+	
 	base=baseFactory.getBase(type,extension);
 	add_child(base)
 	base.global_position=global_position
+	base.setLevel(stacks)
 	$AudioStreamPlayer2D.stream=load("res://Sounds/Soundeffects/"+Stats.getStringFromEnum(type)+Stats.getStringFromEnumExtension(extension)+"_shot.wav")
 	instantHit=Stats.getInstantHit(type,extension);
 	cooldown=Stats.getCooldown(type,extension);
 	damage=Stats.getDamage(type,extension);
 	speed=Stats.getMissileSpeed(type,extension);
-	projectile=Projectile.create(type,damage*damagefactor,speed*speedfactor,self,extension);
+	if projectile==null:projectile=Projectile.create(type,damage*damagefactor,speed*speedfactor,self,extension);
 	projectile.visible=false;
 	if type==Stats.TurretColor.RED:
 		projectile.visible=false;
@@ -122,6 +126,7 @@ func draw_redlaser():
 		targetposition=target.global_position;
 	if target==null&&buildup<=0:
 		return
+	
 	var thickness=3;
 	if buildup>0&&Stats.TurretColor.RED==type:
 		direction=(targetposition-self.global_position).normalized();
@@ -130,6 +135,8 @@ func draw_redlaser():
 		color=color.lightened(0.5*sin(Time.get_ticks_usec()))
 		var it=0;
 		for b in base.getBarrels():
+			
+			
 			it=it+1;
 			if it==1:
 				thickness=5;
@@ -200,8 +207,15 @@ func _process(delta):
 	reduceCooldown(delta)
 	if type==Stats.TurretColor.YELLOW&&extension==Stats.TurretExtension.DEFAULT:
 		buildup=buildup-4*delta;	
-
+	if extension==Stats.TurretExtension.REDLASER :
+		
+		if !$AudioStreamPlayer2D.playing and buildup>0:
+					$AudioStreamPlayer2D.play()
+		if buildup<0.1:
+			$AudioStreamPlayer2D.stop()
+					
 	if inRange():
+		
 		base.setLevel(stacks)
 		if projectile==null:
 			projectile=Projectile.create(type,damage,speed,self,extension)
@@ -229,14 +243,14 @@ func _process(delta):
 				
 				if camera!=null:
 					var mod=camera.zoom.y-3;
-					$AudioStreamPlayer2D.volume_db=mod*10
+					$AudioStreamPlayer2D.volume_db=7+mod*10
 					
 				#if !$AudioStreamPlayer2D.playing&&sounds<25:
-				$AudioStreamPlayer2D.play()
+				
 				sounds=sounds+1
 					
 				self.target=target;
-				projectile.hitEnemy(target)
+				shoot(target)
 				
 				queue_redraw()
 				startCooldown(cooldown*cooldownfactor)
@@ -244,7 +258,7 @@ func _process(delta):
 			if (type==Stats.TurretColor.YELLOW&&extension==Stats.TurretExtension.DEFAULT):
 				if camera!=null:
 					var mod=camera.zoom.y-3;
-					$AudioStreamPlayer2D.volume_db=mod*10
+					$AudioStreamPlayer2D.volume_db=10+mod*10
 					
 				#if !$AudioStreamPlayer2D.playing&&sounds<25:
 				$AudioStreamPlayer2D.play()
@@ -259,7 +273,8 @@ func _process(delta):
 				return
 			shoot(target);
 	elif buildup>0:
-		buildup=buildup-2*delta;		
+		buildup=buildup-2*delta;
+		
 	queue_redraw()		
 	#debugg
 	
@@ -307,6 +322,7 @@ func _get_configuration_warnings():
 	return arr;
 
 func levelup(lvl:int=1):
+	setUpTower()
 	stacks=lvl;
 	$LVL.text=str(stacks)
 	base.setLevel(stacks)

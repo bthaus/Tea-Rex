@@ -19,7 +19,8 @@ var original_position=0;
 var shake_timer=0;
 var duration=0;
 var intensity=0;
-func shake(duration: float, intensity: float,position):
+func shake(duration: float, intensity: float,position,maxval=MAX_SHAKE):
+	if intensity>maxval: return;
 	if abs(abs(position.y)-abs(position.y))>1000:return
 	print(zoom)	
 	if intensity>MAX_SHAKE: return
@@ -82,13 +83,14 @@ func _input(event):
 	
 	if event.is_action_pressed("scroll_up"):
 		if Input.is_action_pressed("control"):
+			$UnlockSpot.scale=Vector2(3,3)*zoom
 			zoom = Vector2(zoom.x + CAMERA_ZOOM, zoom.y + CAMERA_ZOOM)
 		else:
 			position -= Vector2(0, SCROLL_SPEED) / zoom
 			
 	if event.is_action_pressed("scroll_down"):
 		if Input.is_action_pressed("control"):
-			
+			$UnlockSpot.scale=Vector2(3,3)*zoom
 			zoom = Vector2(zoom.x - CAMERA_ZOOM, zoom.y - CAMERA_ZOOM)
 		else:
 			position += Vector2(0, SCROLL_SPEED) / zoom

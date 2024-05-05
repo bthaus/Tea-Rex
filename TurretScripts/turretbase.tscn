@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://TurretScripts/turretbase.gd" id="1_87rlb"]
 [ext_resource type="PackedScene" uid="uid://dvwxp6msal8o6" path="res://enemy_detector.tscn" id="2_ekhvd"]
-[ext_resource type="Texture2D" uid="uid://bdqk6ju0fvrov" path="res://Assets/Level/blackBackgroundLabel.png" id="4_gxsap"]
+[ext_resource type="Texture2D" uid="uid://cir25cbml7q1h" path="res://Assets/Level/blackBackgroundLabel.png" id="4_gxsap"]
 [ext_resource type="Texture2D" uid="uid://b0vjaywamx3yp" path="res://Assets/Lights/spotlight.png" id="5_cl5yn"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_xaibg"]
@@ -23,7 +23,6 @@ position = Vector2(1, 0)
 [node name="Timer" type="Timer" parent="."]
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
-volume_db = 24.0
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
 scale = Vector2(0.777, 0.777)

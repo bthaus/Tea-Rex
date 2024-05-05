@@ -32,10 +32,10 @@ var y=0
 var spawners=[]
 var target;
 
-static var blueChance=100;
+static var blueChance=0;
 static var redChance=0;
 static var greenChance=0;
-static var yellowChance=0;
+static var yellowChance=100;
 static var greyChance=0;
 var colorChances = [greyChance, greenChance, redChance, yellowChance, blueChance]
 #subject to change
@@ -133,10 +133,14 @@ func startBattlePhase():
 	updateUI()
 	pass # Replace with function body.
 func startBuildPhase():
+	Sounds.start(Sounds.startBuildPhase)
 	GameSaver.saveGame(gameState)
 	wave=wave+1;
 	menu.get_node("CanvasLayer/UI/StartBattlePhase").disabled=false;
-	startCatastrophy()	
+	if not startCatastrophy():
+		for u in unlock:
+			$Camera2D/UnlockSpot.add_child(u)	
+		unlock.clear()		
 	start_build_phase.emit()
 	phase=Stats.GamePhase.BUILD
 	averageColorChances()
@@ -147,9 +151,7 @@ func startBuildPhase():
 		#for u in range(unlock.size()):
 		#	if unlock.size()>=u+1:
 		#		unlock[u].done=func():$Camera2D/UnlockSpot.add_child(unlock[u+1])
-	for u in unlock:
-		$Camera2D/UnlockSpot.add_child(u)	
-	unlock.clear()	
+	
 		
 	pass;
 var index:int=0;	
@@ -163,7 +165,7 @@ func startCatastrophy():
 	
 	#gameBoard.BULLDOZER_catastrophy(catastrophy_done)
 	#gameBoard.call("BULLDOZER_catastrophy").bind(catastrophy_done)
-	if wave%5!=0:	return
+	if wave%5!=0:	return false
 	if wave%10==0: hand.drawCard(Card.create(self,SpecialCard.create(self,Stats.SpecialCards.UPDRAW)))
 	if wave%7==0: hand.drawCard(Card.create(self,SpecialCard.create(self,Stats.SpecialCards.UPMAXCARDS)))
 
@@ -178,8 +180,15 @@ func startCatastrophy():
 	util.p(cat+"_catastrophy called")	
 	gameBoard.call(cat+"_catastrophy",catastrophy_done)
 	gameBoard.extend_field()
+	return true;
 	pass;
 func catastrophy_done(finished):
+	get_tree().create_timer(3).timeout.connect(func():
+		for u in unlock:
+			$Camera2D/UnlockSpot.add_child(u)	
+		unlock.clear()	
+		
+		)
 	
 	pass;
 func _on_spawner_wave_done():

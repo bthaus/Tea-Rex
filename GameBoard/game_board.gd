@@ -484,6 +484,7 @@ func _set_block_and_turrets_level(block: Block, position: Vector2, level: int):
 		var pos = $Board.map_to_local(Vector2(position.x + piece.position.x, position.y + piece.position.y))
 		var turret = turret_holder.get_turret_at(pos)
 		if turret != null:
+			if block.extension!=null:turret.extension=block.extension
 			turret.levelup(level)
 
 func _load_preview_turrets_from_selected_block():
@@ -491,7 +492,7 @@ func _load_preview_turrets_from_selected_block():
 	for piece in selected_block.pieces:
 		if piece.color != Stats.TurretColor.GREY:
 			var turret = Turret.create(piece.color, piece.level, piece.extension)
-			turret.get_node("EnemyDetector").visible=true
+			#turret.get_node("EnemyDetector").visible=true
 			turret.placed=false
 			add_child(turret)
 			preview_turrets.append(turret)
