@@ -104,7 +104,7 @@ const poison_propagation_range=base_range*0.3
 const green_poison_decay=1;
 
 static var enemy_base_HP:float=50;
-static var GREEN_enemy_HP=enemy_base_HP*3;
+static var GREEN_enemy_HP=enemy_base_HP*2.5;
 static var BLUE_enemy_HP=enemy_base_HP*1;
 static var YELLOW_enemy_HP=enemy_base_HP*0.5;
 static var RED_enemy_HP=enemy_base_HP*2;

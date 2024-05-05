@@ -179,16 +179,17 @@ func startCatastrophy():
 			break;
 	util.p(cat+"_catastrophy called")	
 	gameBoard.call(cat+"_catastrophy",catastrophy_done)
-	gameBoard.extend_field()
+	
 	return true;
 	pass;
 func catastrophy_done(finished):
-	get_tree().create_timer(3).timeout.connect(func():
+	gameBoard.start_extension(func():get_tree().create_timer(3).timeout.connect(func():
 		for u in unlock:
 			$Camera2D/UnlockSpot.add_child(u)	
 		unlock.clear()	
 		
-		)
+		))
+	
 	
 	pass;
 func _on_spawner_wave_done():

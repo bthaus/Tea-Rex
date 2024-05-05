@@ -371,8 +371,11 @@ func draw_field_from_walls(walls_positions: PackedVector2Array):
 		$Board.set_cell(GROUND_LAYER, $Board.local_to_map(spawner.position), SPAWNER_TILE_ID, Vector2(0,0))
 		if main_spawner == null or main_spawner.position.y < spawner.position.y:
 			main_spawner = spawner
-
-func extend_field():
+func start_extension(done:Callable):
+	extend_field(done)
+	done.call()#debug, so my stuff works
+	pass;
+func extend_field(done:Callable):
 	#Clear bottom row
 	for col in gameState.board_width:
 		$Board.set_cell(BLOCK_LAYER, Vector2(col, gameState.board_height-1), -1, Vector2(0,0))
