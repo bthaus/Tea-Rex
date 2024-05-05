@@ -139,7 +139,7 @@ func startBuildPhase():
 	menu.get_node("CanvasLayer/UI/StartBattlePhase").disabled=false;
 	if not startCatastrophy():
 		for u in unlock:
-			$Camera2D/UnlockSpot.add_child(u)	
+			$Menu/CanvasLayer/UI/UnlockSpot.add_child(u)	
 		unlock.clear()		
 	start_build_phase.emit()
 	phase=Stats.GamePhase.BUILD
@@ -185,7 +185,7 @@ func startCatastrophy():
 func catastrophy_done(finished):
 	gameBoard.start_extension(func():get_tree().create_timer(3).timeout.connect(func():
 		for u in unlock:
-			$Camera2D/UnlockSpot.add_child(u)	
+			$Menu/CanvasLayer/UI/UnlockSpot.add_child(u)	
 		unlock.clear()	
 		
 		))
