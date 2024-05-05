@@ -127,7 +127,9 @@ func BULLDOZER_catastrophy(done: Callable):
 			gameState.getCamera().shake(1.5, 10,explosion_position)
 			block_handler.remove_block_from_board(block, Vector2(col, row), BLOCK_LAYER, EXTENSION_LAYER, false)
 			_remove_turrets(block, Vector2(col, row))
-			_action_finished(true)
+			get_tree().create_timer(1).timeout.connect(func():
+				_action_finished(true)
+				)
 			)
 	)
 
@@ -155,7 +157,9 @@ func DRILL_catastrophy(done: Callable):
 					_remove_turrets(Block.new([piece]), Vector2(0, 0))
 					)
 					
-			_action_finished(true)
+			get_tree().create_timer(1).timeout.connect(func():
+				_action_finished(true)
+				)
 			)
 		)
 
@@ -183,7 +187,9 @@ func LEVELDOWN_catastrophy(done: Callable):
 			$Board.clear_layer(CATASTROPHY_LAYER)
 			_set_block_and_turrets_level(block, Vector2(col, row), 1)
 			block_handler.draw_block(block, Vector2(col, row), BLOCK_LAYER, EXTENSION_LAYER)
-			_action_finished(true)
+			get_tree().create_timer(1).timeout.connect(func():
+				_action_finished(true)
+				)
 			)
 	)
 	
@@ -240,7 +246,9 @@ func COLORCHANGER_catastrophy(done: Callable):
 					block_handler.draw_block(Block.new(new_pieces), Vector2(0, 0), BLOCK_LAYER, EXTENSION_LAYER)
 					_remove_turrets(Block.new(new_pieces), Vector2(0, 0))
 				
-				_action_finished(true)
+				get_tree().create_timer(1).timeout.connect(func():
+					_action_finished(true)
+				)
 				)
 			)
 	)
