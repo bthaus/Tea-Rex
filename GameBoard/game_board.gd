@@ -602,7 +602,7 @@ func reset():
 			block_handler.remove_block_from_board(Block.new([p]), c, BLOCK_LAYER, EXTENSION_LAYER, false)
 			_remove_turrets(Block.new([p]),c)
 			Explosion.create(0,0,$Board.map_to_local(c),self,0.5)
-			gameState.getCamera().shake(0.1,4,c)
+			#gameState.getCamera().shake(0.1,4,c)
 			
 			if $Board.get_used_cells(2).size()==0:
 				

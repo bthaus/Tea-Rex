@@ -290,11 +290,13 @@ func getColorChances():
 
 	return colorChances
 func _on_area_2d_area_entered(area):
+	if HP<0: return
+	if area == null: return
 	var m=area.get_parent()
 	if m is Monster:
-		if m == null: return
+		if m == null or not is_instance_valid(m) : return
 		changeHealth(-m.damage)
-		m.monster_died.emit(m)
+		if HP>0: m.monster_died.emit(m)
 		m.queue_free()
 		
 	pass # Replace with function body.

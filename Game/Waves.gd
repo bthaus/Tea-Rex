@@ -13,7 +13,9 @@ var rnd = RandomNumberGenerator.new()
 @onready var nav: NavigationAgent2D = $NavigationAgent2D
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	
+	GameState.gameState.player_died.connect(func():
+		for m in waveMonsters:
+			if m != null:m.queue_free())
 	nav.target_position = target.global_position
 
 static func create(gameState:GameState,pos:Vector2,level:int=1)-> Spawner:
