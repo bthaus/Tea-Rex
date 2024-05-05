@@ -322,8 +322,8 @@ func _get_configuration_warnings():
 	return arr;
 
 func levelup(lvl:int=1):
-	setUpTower()
 	stacks=lvl;
+	setUpTower()
 	$LVL.text=str(stacks)
 	base.setLevel(stacks)
 	pass;

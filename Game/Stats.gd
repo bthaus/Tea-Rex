@@ -124,7 +124,7 @@ const YELLOW_enemy_speed=enemy_base_speed*3;
 const RED_enemy_speed=enemy_base_speed*0.5;
 
 static var enemy_base_exp=10;
-static var enemy_scaling=0.2;
+static var enemy_scaling=0.4;
 
 const playerHP=200;
 const playerMaxHP=200;

@@ -136,7 +136,7 @@ func playHitSound():
 		#return
 	if camera!= null:
 		var mod=GameState.gameState.getCamera().zoom.y-3;
-		$hit.volume_db=mod*1
+		$hit.volume_db=10+mod*1
 	if !$hit.playing:
 		$hit.play();
 		hitsplayed=hitsplayed+1
