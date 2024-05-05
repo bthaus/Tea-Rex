@@ -21,7 +21,7 @@ var duration=0;
 var intensity=0;
 func shake(duration: float, intensity: float,position):
 	if abs(abs(position.y)-abs(position.y))>1000:return
-		
+	print(zoom)	
 	if intensity>MAX_SHAKE: return
 	shake_timer = 0.0
 	self.duration=duration;
@@ -33,8 +33,8 @@ func _process(delta):
 		var x_offset = randf_range(-intensity, intensity)
 		var y_offset = randf_range(-intensity, intensity)
 				
-		offset.x =x_offset
-		offset.y =y_offset
+		offset.x =x_offset/zoom.x
+		offset.y =y_offset/zoom.x
 		duration=duration-1*delta
 	
 	
