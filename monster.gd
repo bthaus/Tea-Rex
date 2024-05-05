@@ -23,7 +23,7 @@ func _ready():
 	var mod=1+(currentMinionPower*Stats.enemy_scaling)
 	hp=Stats.getEnemyProperty(color,"HP")*mod
 	minionExp=Stats.enemy_base_exp;
-	
+	GameState.gameState.player_died.connect(func():free())
 	$Sprite2D.texture=load("res://Assets/Monsters/Monster_"+Stats.getStringFromEnum(color)+".png")
 
 	#get_node(Stats.getStringFromEnum(color)).visible=false;

@@ -13,6 +13,7 @@ var rnd = RandomNumberGenerator.new()
 @onready var nav: NavigationAgent2D = $NavigationAgent2D
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	
 	nav.target_position = target.global_position
 
 static func create(gameState:GameState,pos:Vector2,level:int=1)-> Spawner:

@@ -43,6 +43,7 @@ var navigation_polygon = NavigationPolygon.new()
 var points = PackedVector2Array([Vector2(),Vector2(),Vector2(),Vector2()])
 
 func _ready():
+	
 	randomize()
 	print("board initiated")
 	$Board.tile_set.tile_size = Vector2(Stats.block_size, Stats.block_size)
@@ -576,6 +577,42 @@ func _set_navigation_region():
 	$NavigationRegion2D.set_navigation_polygon(navigation_polygon) #add the  Polygon to the Navigation Region
 	$NavigationRegion2D.bake_navigation_polygon() #create the area inside the outlines
 	
-
+	
+func restoreBaseMap(gameState):
+	var oldname=gameState.account
+	gameState.account=GameSaver.basegamename
+	GameSaver.loadGameMap(gameState)
+	gameState.account=oldname
+	GameSaver.saveGame(gameState)
+	pass;	
+func reset():
+	var cells=$Board.get_used_cells(2)
+	
+	var delay=0;
+	var increment=5.0/cells.size()
+	
+	
+	for c in cells:
+		var p=Block.Piece.new(Vector2(0,0),0,0,0)
+		delay=delay+increment
+		
+		
+		get_tree().create_timer(delay).timeout.connect(func():
+			
+			block_handler.remove_block_from_board(Block.new([p]), c, BLOCK_LAYER, EXTENSION_LAYER, false)
+			_remove_turrets(Block.new([p]),c)
+			Explosion.create(0,0,$Board.map_to_local(c),self,0.5)
+			gameState.getCamera().shake(0.1,4,c)
+			
+			if $Board.get_used_cells(2).size()==0:
+				
+				gameState.menu.showDeathScreen()
+				
+			)
+	
+	
+				
+	
+	pass;
 func dragging_camera(is_dragging: bool):
 	self.is_dragging_camera = is_dragging

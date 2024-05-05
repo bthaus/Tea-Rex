@@ -27,6 +27,7 @@ var pool;
 var speed;
 var target:Monster
 var associate;
+var playerDied=false;
 static var shotsplayed=0;
 static var hitsplayed=0;
 static var counter=0;
@@ -81,6 +82,7 @@ static func create(type:Stats.TurretColor, damage,speed,root,extension:Stats.Tur
 	return temp;
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	GameState.gameState.player_died.connect(func():free())
 	$Sprite2D.texture=load("res://Assets/Turrets/Projectiles/"+Stats.getStringFromEnum(type)+Stats.getStringFromEnumExtension(ext)+"_projectile.png");
 	$shot.stream=load("res://Sounds/Soundeffects/"+Stats.getStringFromEnum(type)+Stats.getStringFromEnumExtension(ext)+"_shot.wav")
 	$hit.stream=load("res://Sounds/Soundeffects/"+Stats.getStringFromEnum(type)+Stats.getStringFromEnumExtension(ext)+"_hit.wav")
@@ -166,10 +168,13 @@ func hitEnemy(enemy:Monster):
 		
 		oneshot=oneshot-1;
 		applySpecials(enemy)
-		if enemy.hit(type,damage): associate.addKill()
-		associate.addDamage(damage)
+		
 		if oneshot<=0&&oneshot>-100000:
 			remove()
+		if associate==null:return
+		if enemy.hit(type,damage): associate.addKill()
+		associate.addDamage(damage)
+	
 	pass;	
 
 

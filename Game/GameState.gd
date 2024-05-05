@@ -63,13 +63,16 @@ func updateUI():
 func registerSpawner(spawner:Spawner):
 	spawners.append(spawner)
 	pass;
+var deathscalling=false;
 func changeHealth(amount:int):
 	HP=HP+amount
 	
 	if HP>=maxHP:
 		HP=maxHP;
 		
-	if HP<=0:
+	if HP<=0 and !deathscalling:
+		deathscalling=true;
+		gameBoard.reset()
 		player_died.emit()
 	updateUI()
 	pass;
@@ -91,7 +94,7 @@ func hideCount():
 # Called when the node enters the scene tree for the first time.
 var mapdrawnOnce=false;
 func _ready():
-
+	
 	if get_child_count()==0:
 		queue_free()
 	
@@ -118,7 +121,32 @@ func _process(delta):
 		
 	pass
 
-
+func initNewBoard():
+	
+	gameBoard.free()
+	board_height=16;
+	var newBoard=load("res://GameBoard/game_board.tscn").instantiate()
+	gameBoard=newBoard;
+	gameBoard.gameState=self
+	for s in spawners:
+		s.free()
+	spawners.clear()
+	gameBoard.init_field()
+	add_child(gameBoard)
+	HP=Stats.playerMaxHP
+	maxHP=Stats.playerMaxHP
+	for c in hand.get_children():
+		c.free()
+	drawCards(5)
+	maxCards=5;
+	cardRedraws=2;
+	phase=Stats.GamePhase.BUILD;
+	updateUI()
+	wave=0;
+	GameSaver.saveGame(self)
+	deathscalling=false;
+	
+	pass;
 func startBattlePhase():
 	
 	start_combat_phase.emit()
@@ -264,6 +292,7 @@ func getColorChances():
 func _on_area_2d_area_entered(area):
 	var m=area.get_parent()
 	if m is Monster:
+		if m == null: return
 		changeHealth(-m.damage)
 		m.monster_died.emit(m)
 		m.queue_free()

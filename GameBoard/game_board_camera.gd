@@ -37,6 +37,8 @@ func _process(delta):
 		offset.x =x_offset/zoom.x
 		offset.y =y_offset/zoom.x
 		duration=duration-1*delta
+		if intensity>0:intensity=intensity-1*delta
+		
 	
 	
 		

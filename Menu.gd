@@ -19,11 +19,18 @@ func updateUI():
 	$CanvasLayer/UI/EXPbar.max_value=gamestate.levelUp;
 	$CanvasLayer/UI/EXPbar.value=gamestate.totalExp
 	$CanvasLayer/UI/CatBar.value=gamestate.wave%5
-	var hpscale=remap(gamestate.maxHP,200,1000,1,10)
+	$CanvasLayer/UI/StartBattlePhase.disabled=gamestate.phase==Stats.GamePhase.BATTLE
+	var hpscale=remap(gamestate.maxHP,200,1000,1,20)
 	$CanvasLayer/UI/Hpbar.scale.y=hpscale
 	
 	pass;
-
+func showDeathScreen():
+	
+	$CanvasLayer/AnimationPlayer.play("DeathScreen")
+	pass;
+func createNewGame():
+	gamestate.initNewBoard()
+	pass;
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass

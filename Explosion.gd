@@ -67,7 +67,8 @@ func _on_area_2d_area_entered(area):
 		num=num+1;
 		if area.get_parent().hit(type,damage) :
 			associate.addKill()
-		associate.addDamage(damage)
+		if associate.has_method("addDamage"):
+			associate.addDamage(damage)
 		
 	
 	pass # Replace with function body.

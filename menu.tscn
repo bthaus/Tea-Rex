@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://cf5heufemalnf"]
+[gd_scene load_steps=25 format=3 uid="uid://cf5heufemalnf"]
 
 [ext_resource type="Script" path="res://Menu.gd" id="1_vjikn"]
 [ext_resource type="Script" path="res://UI.gd" id="2_vouda"]
@@ -15,6 +15,7 @@
 [ext_resource type="Texture2D" uid="uid://cy3lpa8r6eu27" path="res://Assets/UI/CARDMAX.png" id="12_8sn7l"]
 [ext_resource type="Texture2D" uid="uid://b1g35penkxgsp" path="res://Assets/UI/LBAR0.png" id="13_ucxh1"]
 [ext_resource type="Texture2D" uid="uid://jr77oi8084ln" path="res://Assets/UI/LBAR100.png" id="14_h6yjh"]
+[ext_resource type="Texture2D" uid="uid://cir25cbml7q1h" path="res://Assets/Level/blackBackgroundLabel.png" id="16_oeuhs"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_t26sl"]
 font_size = 106
@@ -32,6 +33,57 @@ shadow_size = 96
 [sub_resource type="LabelSettings" id="LabelSettings_tx5p1"]
 font_size = 31
 font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="Animation" id="Animation_txt5r"]
+resource_name = "DeathScreen"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimationPlayer/Sprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 2.2, 3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("..")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1.4),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"createNewGame"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_byqvo"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimationPlayer/Sprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_iyocb"]
+_data = {
+"DeathScreen": SubResource("Animation_txt5r"),
+"RESET": SubResource("Animation_byqvo")
+}
 
 [node name="Menu" type="Node2D"]
 z_index = 51
@@ -364,6 +416,18 @@ offset_right = 359.947
 offset_bottom = -19.7345
 text = "no account selected"
 label_settings = SubResource("LabelSettings_tx5p1")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer"]
+libraries = {
+"": SubResource("AnimationLibrary_iyocb")
+}
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/AnimationPlayer"]
+modulate = Color(1, 1, 1, 0)
+z_index = 4096
+position = Vector2(1001.77, 566.372)
+scale = Vector2(2.30182, 1.13103)
+texture = ExtResource("16_oeuhs")
 
 [connection signal="statePropagation" from="." to="CanvasLayer" method="_on_menu_state_propagation"]
 [connection signal="statePropagation" from="." to="CanvasLayer/MainMenu/UnlockedTab/UnlockedItems" method="_on_menu_state_propagation"]
