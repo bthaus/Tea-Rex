@@ -36,7 +36,8 @@ static func deserialise(json:String,gameState:GameState)->Spawner:
 	return s;
 		
 func start(wavenumber:int):
-	if level<1:level=level-1
+	print("my level is: "+str(level))
+	if level>1:level=level-1
 	doBalancingLogic(wavenumber)
 	doSpawnLogic(wavenumber)
 		

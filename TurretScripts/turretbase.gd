@@ -44,7 +44,11 @@ static func create(color:Stats.TurretColor, lvl:int, type:Stats.TurretExtension=
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	setUpTower();	
-	
+	GameState.gameState.start_combat_phase.connect(func():
+		globlight=false;
+		melight=false;
+		$PointLight2D.energy=lightamount;
+		)
 	pass # Replace with function body.
 
 func setUpTower():
@@ -192,7 +196,9 @@ func de_highlight():
 	$PointLight2D.energy=oldval
 	pass
 func checkLight():
-	if GameState.gameState.phase==Stats.GamePhase.BATTLE:return
+	if GameState.gameState.phase==Stats.GamePhase.BATTLE:
+		
+		return
 	if globlight and not melight:
 		$PointLight2D.energy=0;
 		

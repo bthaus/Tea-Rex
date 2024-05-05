@@ -120,6 +120,8 @@ func _process(delta):
 
 
 func startBattlePhase():
+	
+	start_combat_phase.emit()
 	menu.get_node("CanvasLayer/UI/StartBattlePhase").disabled=true;
 	averageColorChances()
 	gameBoard._set_navigation_region()
@@ -133,6 +135,7 @@ func startBattlePhase():
 	updateUI()
 	pass # Replace with function body.
 func startBuildPhase():
+	
 	Sounds.start(Sounds.startBuildPhase)
 	GameSaver.saveGame(gameState)
 	wave=wave+1;

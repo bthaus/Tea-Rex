@@ -2,19 +2,19 @@
 
 [ext_resource type="Script" path="res://Menu.gd" id="1_vjikn"]
 [ext_resource type="Script" path="res://UI.gd" id="2_vouda"]
-[ext_resource type="Texture2D" uid="uid://cmqaumynwxwxn" path="res://Assets/Level/mainMenu.jpg" id="3_hap75"]
+[ext_resource type="Texture2D" uid="uid://k8t5t02p68sh" path="res://Assets/Level/mainMenu.jpg" id="3_hap75"]
 [ext_resource type="Script" path="res://UnlockedItemList.gd" id="4_4bynl"]
-[ext_resource type="Texture2D" uid="uid://cedcwtj1qd6lj" path="res://Assets/UI/StartGameButton.png" id="4_mukw3"]
+[ext_resource type="Texture2D" uid="uid://dmqfkeqg0bxbu" path="res://Assets/UI/StartGameButton.png" id="4_mukw3"]
 [ext_resource type="PackedScene" uid="uid://crxh6rxjn4mro" path="res://CardSpace.tscn" id="5_8526f"]
-[ext_resource type="Texture2D" uid="uid://bb87nuvbgr282" path="res://Assets/UI/ShowAccountsButton.png" id="6_gg0h1"]
-[ext_resource type="Texture2D" uid="uid://sh7ckxdc17su" path="res://Assets/UI/ShowUnlockedBUtton.png" id="7_aujqc"]
+[ext_resource type="Texture2D" uid="uid://vq2m6pqwfk8i" path="res://Assets/UI/ShowAccountsButton.png" id="6_gg0h1"]
+[ext_resource type="Texture2D" uid="uid://dbgbbq7obnmij" path="res://Assets/UI/ShowUnlockedBUtton.png" id="7_aujqc"]
 [ext_resource type="PackedScene" uid="uid://dfv1yobm3u5hn" path="res://hand.tscn" id="8_4633y"]
 [ext_resource type="PackedScene" uid="uid://d3553ynahp4sx" path="res://Game/Minimap.tscn" id="8_i8iej"]
-[ext_resource type="Texture2D" uid="uid://b3ostaesjqddy" path="res://Assets/UI/BUTTON1.png" id="9_1lrx0"]
-[ext_resource type="Texture2D" uid="uid://cb4rinv8no6js" path="res://Assets/UI/BUTTON2.png" id="10_8dawl"]
-[ext_resource type="Texture2D" uid="uid://c484vbl65003a" path="res://Assets/UI/CARDMAX.png" id="12_8sn7l"]
-[ext_resource type="Texture2D" uid="uid://ddo2ox0q33ekx" path="res://Assets/UI/LBAR0.png" id="13_ucxh1"]
-[ext_resource type="Texture2D" uid="uid://d3npu11h10bgo" path="res://Assets/UI/LBAR100.png" id="14_h6yjh"]
+[ext_resource type="Texture2D" uid="uid://bmmqmilhp5rrp" path="res://Assets/UI/BUTTON1.png" id="9_1lrx0"]
+[ext_resource type="Texture2D" uid="uid://eikafnrgw2hp" path="res://Assets/UI/BUTTON2.png" id="10_8dawl"]
+[ext_resource type="Texture2D" uid="uid://cy3lpa8r6eu27" path="res://Assets/UI/CARDMAX.png" id="12_8sn7l"]
+[ext_resource type="Texture2D" uid="uid://b1g35penkxgsp" path="res://Assets/UI/LBAR0.png" id="13_ucxh1"]
+[ext_resource type="Texture2D" uid="uid://jr77oi8084ln" path="res://Assets/UI/LBAR100.png" id="14_h6yjh"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_t26sl"]
 font_size = 106
@@ -203,8 +203,8 @@ offset_right = 1694.0
 offset_bottom = 192.0
 
 [node name="Hand" parent="CanvasLayer/UI" node_paths=PackedStringArray("description") instance=ExtResource("8_4633y")]
-position = Vector2(141.593, 945.133)
-scale = Vector2(1.5, 1.5)
+position = Vector2(141.593, 1002.74)
+scale = Vector2(1.2, 1.2)
 description = NodePath("../Description")
 
 [node name="maxcards" type="Label" parent="CanvasLayer/UI"]
