@@ -14,7 +14,7 @@ func drawCard(card:Card=null):
 	#card.mouseOut.connect(func():print("hii");description.text=" ")
 	add_child(card)
 	#add fancification here for initial animation
-
+	GameSaver.saveGame(state)
 	pass; 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
