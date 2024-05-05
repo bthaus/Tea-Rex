@@ -344,6 +344,11 @@ offset_top = 1066.67
 offset_right = 283.658
 offset_bottom = 1089.67
 
+[node name="UnlockSpot" type="Node2D" parent="CanvasLayer/UI"]
+z_index = 20
+position = Vector2(992.92, 545.133)
+scale = Vector2(1.5, 1.5)
+
 [node name="PlayerName" type="Label" parent="CanvasLayer"]
 offset_left = 61.9469
 offset_top = -109.735
