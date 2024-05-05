@@ -438,6 +438,10 @@ func generate_cave(pos_y: int, height: int, right_side: bool):
 		if right_side and curr_col <= gameState.board_width and rand_dir == -1: rand_dir = 1
 		if not right_side and curr_col >= -1 and rand_dir == 1: rand_dir = -1 
 		
+		#Make sure the walls dont extend the max deepness
+		if right_side and curr_col >= gameState.board_width + Stats.board_cave_deepness.to - 1 and rand_dir == 1: rand_dir = -1
+		if not right_side and curr_col <= -Stats.board_cave_deepness.to and rand_dir == -1: rand_dir = 1
+		
 		curr_col += rand_dir
 		$Board.set_cell(BLOCK_LAYER, Vector2(curr_col, pos_y+row), WALL_TILE_ID, Vector2(0,0))
 	
