@@ -205,13 +205,36 @@ func COLORCHANGER_catastrophy(done: Callable):
 					if data != null and data.get_custom_data("color").to_upper() != "WALL":
 						positions.append(Vector2(col+x, row+y))
 			
-			if positions.size() > 0:
-				var change_block = block_handler.get_block_from_board(positions.pick_random(), BLOCK_LAYER, EXTENSION_LAYER, false)
-				var new_pieces = []
-				for piece in change_block.pieces: new_pieces.append(Block.Piece.new(piece.position, Stats.TurretColor.GREY, 1))
-				block_handler.draw_block(Block.new(new_pieces), Vector2(0, 0), BLOCK_LAYER, EXTENSION_LAYER)
-				_remove_turrets(Block.new(new_pieces), Vector2(0, 0))
-			_action_finished(true)
+			#Draw animation
+			var delay=0;
+			var rnd_pos = positions.pick_random() if positions.size() > 0 else null
+			var count = 0
+			for piece in block.pieces:
+				delay=delay+0.1
+				get_tree().create_timer(delay).timeout.connect(func():
+					$Board.clear_layer(CATASTROPHY_LAYER)
+					$Board.set_cell(CATASTROPHY_LAYER, Vector2(piece.position.x + col, piece.position.y + row), CATASTROPHY_PREVIEW_TILE_ID, Vector2(0,0))
+					block_handler.remove_block_from_board(Block.new([piece]), Vector2(0, 0), BLOCK_LAYER, EXTENSION_LAYER, false)
+					_remove_turrets(Block.new([piece]), Vector2(0, 0))
+					)
+					
+				count += 1
+				#Stop at selected position (if found)
+				if rnd_pos != null and piece.position.x + col == rnd_pos.x and piece.position.y + row == rnd_pos.y:
+					break
+			
+			#Change to grey if a piece got found
+			get_tree().create_timer(0.1*count+1).timeout.connect(func():
+				$Board.clear_layer(CATASTROPHY_LAYER)
+				if rnd_pos != null:
+					var change_block = block_handler.get_block_from_board(rnd_pos, BLOCK_LAYER, EXTENSION_LAYER, false)
+					var new_pieces = []
+					for piece in change_block.pieces: new_pieces.append(Block.Piece.new(piece.position, Stats.TurretColor.GREY, 1))
+					block_handler.draw_block(Block.new(new_pieces), Vector2(0, 0), BLOCK_LAYER, EXTENSION_LAYER)
+					_remove_turrets(Block.new(new_pieces), Vector2(0, 0))
+				
+				_action_finished(true)
+				)
 			)
 	)
 
