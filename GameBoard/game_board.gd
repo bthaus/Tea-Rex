@@ -337,6 +337,7 @@ func _place_block(block: Block, position: Vector2):
 func _action_finished(finished: bool):
 	if not finished and moved_from_block != null: #Restore block if there is something to restore
 		block_handler.draw_block(moved_from_block, moved_from_position, BLOCK_LAYER, EXTENSION_LAYER)
+		_spawn_turrets(moved_from_block, moved_from_position)
 
 	selected_block = null
 	
