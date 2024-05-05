@@ -35,7 +35,7 @@ static func restoreGame(gameState:GameState):
 	if data==null:
 		restoreBaseGame(gameState)
 		return
-	var ignoredData=["GameState.gd","gameBoard","hand","menu","cam","lightThresholds","target","spawners"]
+	var ignoredData=["GameState.gd","gameBoard","hand","menu","cam","lightThresholds","target","spawners","unlock"]
 	for d in data:
 		var da=JSON.parse_string(d) as Dictionary
 		var dakey=da.keys()[0]

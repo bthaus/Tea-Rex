@@ -10,8 +10,9 @@ func _ready():
 var damage;
 var type
 var associate;
-
-static func create(type,damage, position, root,scale=1):
+var sound;
+var cam
+static func create(type,damage, position, root,scale=1,noise=true):
 	var temp;
 
 	if cache.size()==0:
@@ -35,10 +36,16 @@ static func create(type,damage, position, root,scale=1):
 	temp.get_node("AnimatedSprite2D").play("default")
 	temp.get_node("AnimationPlayer").play("lightup")
 	temp.associate=root;
-	GameState.gameState.getCamera().shake(0.3,0.1,position)
-	temp.get_node("sound").stream=Sounds.explosionSounds.pick_random()
-	temp.get_node("sound").play()
-		
+	#GameState.gameState.getCamera().shake(0.3,0.1,position,1)
+	
+	temp.cam=GameState.gameState.getCamera()
+	if noise:
+		temp.sound=AudioStreamPlayer2D.new()
+		temp.add_child(temp.sound)
+		temp.sound.stream=Sounds.explosionSounds.pick_random().duplicate()
+		#temp.sound.stream=load("res://Sounds/Soundeffects/FIREBALL_sound.wav")
+		temp.sound.play(0.10)
+	
 	
 	
 	
@@ -47,7 +54,9 @@ static func create(type,damage, position, root,scale=1):
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	
+	if  cam!=null and  sound!=null:
+		var mod=cam.zoom.y-3;
+		sound.volume_db=20+mod*15
 
 	pass
 
@@ -63,12 +72,6 @@ func _on_area_2d_area_entered(area):
 	
 	pass # Replace with function body.
 
-static var cam;
-func getCam():
-	if cam == null:
-		cam=get_tree().get_root().get_node("MainScene").getCamera()
-	return cam;
-	pass;
 func _on_animated_sprite_2d_animation_finished():
 	$AnimatedSprite2D.visible=false;
 	$Area2D.monitoring=false;

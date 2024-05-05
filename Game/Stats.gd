@@ -75,7 +75,7 @@ const blue_instanthit=false;
 const red_instanthit=true;
 const yellow_instanthit=true;
 
-const red_laser_instanthit=false;
+const red_laser_instanthit=true;
 const blue_laser_instanthit=false;
 const green_poison_instanthit=false;
 const yellow_mortar_instanthit=true;
@@ -104,7 +104,7 @@ const poison_propagation_range=base_range*0.3
 const green_poison_decay=1;
 
 static var enemy_base_HP:float=50;
-static var GREEN_enemy_HP=enemy_base_HP*3;
+static var GREEN_enemy_HP=enemy_base_HP*2.5;
 static var BLUE_enemy_HP=enemy_base_HP*1;
 static var YELLOW_enemy_HP=enemy_base_HP*0.5;
 static var RED_enemy_HP=enemy_base_HP*2;
@@ -124,7 +124,7 @@ const YELLOW_enemy_speed=enemy_base_speed*3;
 const RED_enemy_speed=enemy_base_speed*0.5;
 
 static var enemy_base_exp=10;
-static var enemy_scaling=0.2;
+static var enemy_scaling=0.4;
 
 const playerHP=200;
 const playerMaxHP=200;

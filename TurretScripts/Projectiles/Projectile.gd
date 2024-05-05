@@ -136,7 +136,7 @@ func playHitSound():
 		#return
 	if camera!= null:
 		var mod=GameState.gameState.getCamera().zoom.y-3;
-		$hit.volume_db=mod*1
+		$hit.volume_db=10+mod*1
 	if !$hit.playing:
 		$hit.play();
 		hitsplayed=hitsplayed+1
@@ -161,7 +161,7 @@ func _on_area_2d_area_entered(area):
 	pass # Replace with function body.
 func hitEnemy(enemy:Monster):
 	
-	playHitSound();
+
 	if(enemy is Monster):
 		
 		oneshot=oneshot-1;
@@ -214,7 +214,7 @@ func applyMortarExplosion(enemy:Monster):
 	sprite.global_position=pos;
 	get_tree().create_timer(1).timeout.connect(func():
 		
-		Explosion.create(Stats.TurretColor.YELLOW,damage,pos,associate)
+		Explosion.create(Stats.TurretColor.YELLOW,damage,pos,associate,0.5)
 		sprite.queue_free()
 	)
 	pass;

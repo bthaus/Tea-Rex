@@ -371,8 +371,11 @@ func draw_field_from_walls(walls_positions: PackedVector2Array):
 		$Board.set_cell(GROUND_LAYER, $Board.local_to_map(spawner.position), SPAWNER_TILE_ID, Vector2(0,0))
 		if main_spawner == null or main_spawner.position.y < spawner.position.y:
 			main_spawner = spawner
-
-func extend_field():
+func start_extension(done:Callable):
+	extend_field(done)
+	done.call()#debug, so my stuff works
+	pass;
+func extend_field(done:Callable):
 	#Clear bottom row
 	for col in gameState.board_width:
 		$Board.set_cell(BLOCK_LAYER, Vector2(col, gameState.board_height-1), -1, Vector2(0,0))
@@ -488,6 +491,7 @@ func _set_block_and_turrets_level(block: Block, position: Vector2, level: int):
 		var pos = $Board.map_to_local(Vector2(position.x + piece.position.x, position.y + piece.position.y))
 		var turret = turret_holder.get_turret_at(pos)
 		if turret != null:
+			if block.extension!=null:turret.extension=block.extension
 			turret.levelup(level)
 
 func _load_preview_turrets_from_selected_block():
@@ -495,7 +499,7 @@ func _load_preview_turrets_from_selected_block():
 	for piece in selected_block.pieces:
 		if piece.color != Stats.TurretColor.GREY:
 			var turret = Turret.create(piece.color, piece.level, piece.extension)
-			turret.get_node("EnemyDetector").visible=true
+			#turret.get_node("EnemyDetector").visible=true
 			turret.placed=false
 			add_child(turret)
 			preview_turrets.append(turret)

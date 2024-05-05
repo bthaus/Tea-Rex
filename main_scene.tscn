@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://ct8v030fwp2gh"]
+[gd_scene load_steps=14 format=3 uid="uid://ct8v030fwp2gh"]
 
 [ext_resource type="Script" path="res://Game/GameState.gd" id="1_g64db"]
 [ext_resource type="Script" path="res://Persistency/GameSaver.gd" id="2_7eagx"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://chsgerkqrpoy6" path="res://Assets/Level/Backgrounddummy.png" id="4_ykfqr"]
 [ext_resource type="PackedScene" uid="uid://c8n0am7jadxj7" path="res://GameBoard/game_board.tscn" id="6_ghxp6"]
 [ext_resource type="AudioStream" uid="uid://b2r3sygudg6ws" path="res://Sounds/Soundeffects/new sounds/Start.wav" id="6_qpv2c"]
+[ext_resource type="Script" path="res://Sounds/Sounds.gd" id="7_cb883"]
 [ext_resource type="Texture2D" uid="uid://ciujx66e0cmmp" path="res://Assets/Level/base.png" id="7_mq4xw"]
 [ext_resource type="Script" path="res://GameBoard/game_board_camera.gd" id="9_18cub"]
 [ext_resource type="Script" path="res://LightThresholds.gd" id="11_n87cu"]
@@ -67,6 +68,7 @@ position = Vector2(-736, -503)
 [node name="SoundPlayer" type="AudioStreamPlayer2D" parent="Camera2D"]
 position = Vector2(-736, -503)
 stream = ExtResource("6_qpv2c")
+script = ExtResource("7_cb883")
 
 [node name="UnlockSpot" type="Node2D" parent="Camera2D"]
 z_index = 20
