@@ -55,7 +55,8 @@ func setUpTower():
 		extension=Stats.TurretExtension.DEFAULT;
 	if base!=null:
 		base.queue_free()
-	
+	else:
+		$EnemyDetector.setRange(Stats.getRange(type,extension))
 	base=baseFactory.getBase(type,extension);
 	add_child(base)
 	base.global_position=global_position
@@ -82,7 +83,7 @@ func setUpTower():
 	#$Ambient.energy=lightamount/ambientDropOff
 	util.p("my light amount is: "+str(lightamount  ))
 	$PointLight2D.energy=lightamount	
-	$EnemyDetector.setRange(Stats.getRange(type,extension))
+	
 	pass;
 
 var target;
