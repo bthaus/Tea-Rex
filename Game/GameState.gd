@@ -143,6 +143,7 @@ func initNewBoard():
 	phase=Stats.GamePhase.BUILD;
 	updateUI()
 	wave=0;
+	Spawner.numMonstersActive=0;
 	GameSaver.saveGame(self)
 	deathscalling=false;
 	
@@ -296,8 +297,9 @@ func _on_area_2d_area_entered(area):
 	if m is Monster:
 		if m == null or not is_instance_valid(m) : return
 		changeHealth(-m.damage)
-		if HP>0: m.monster_died.emit(m)
-		m.queue_free()
+		if HP>0: 
+			m.monster_died.emit(m)
+			m.queue_free()
 		
 	pass # Replace with function body.
 
