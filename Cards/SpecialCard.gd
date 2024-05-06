@@ -163,10 +163,14 @@ func castPOISON():
 	$Effect.visible=true;
 	$Effect.global_position=get_global_mouse_position();
 	$Effect.play(Stats.getStringFromSpecialCardEnum(cardName));
-	$Effect/EnemyDetector.enemyEntered.connect(func(e):e.add_child(Poison.create(damage,Stats.POISON_decay)))
+	$Effect/EnemyDetector.enemyEntered.connect(func(e):e.add_child(Poison.create(damage,self,Stats.POISON_decay)))
 		
 		
 	return true;
+	pass;
+func addKill():
+	pass;
+func addDamage(damage):
 	pass;	
 func reparentToState():
 	get_parent().remove_child(self)

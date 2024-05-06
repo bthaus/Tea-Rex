@@ -3,7 +3,7 @@ class_name Poison
 var stacks=0;
 var decay;
 var enemy;
-
+var associate;
 var detector:EnemyDetector;
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -17,10 +17,11 @@ func _ready():
 	detector.apply_scale(Vector2(Stats.poison_propagation_range,Stats.poison_propagation_range));
 	pass # Replace with function body.
 
-static func create(stacks,decay:int=Stats.poison_dropoff_rate):
+static func create(stacks,associate,decay:int=Stats.poison_dropoff_rate):
 	var poison=Poison.new()
 	poison.stacks=stacks;
 	poison.decay=decay
+	poison.associate=associate
 	return poison;
 	
 func propagate():
@@ -32,7 +33,7 @@ func propagate():
 				if a.stacks<stacks:
 					a.stacks=stacks
 		if !temp:
-			m.add_child(Poison.create(stacks,decay));
+			m.add_child(Poison.create(stacks,associate,decay));
 		
 	get_tree().create_timer(3).timeout.connect(propagate)
 	pass;	
@@ -45,5 +46,8 @@ func _process(delta):
 	stacks=stacks-decay*delta;
 	if stacks<0:
 		queue_free()
-	enemy.hit(Stats.TurretColor.GREY,stacks*delta)
+	if enemy.hit(Stats.TurretColor.GREY,stacks*delta):
+		associate.addKill()
+		queue_free()
+	associate.addDamage(stacks*delta)
 	pass
