@@ -188,34 +188,37 @@ func reduceCooldown(delta):
 var oldval=1;	
 static var globlight=false;
 var melight=false;
-func highlight():
+func highlight(delta):
 	if GameState.gameState.phase==Stats.GamePhase.BATTLE:return
 	globlight=true;
 	melight=true;
-	oldval=$PointLight2D.energy;
-	$PointLight2D.energy=3;
+	if $PointLight2D.energy>=3:return
+	
+	
+	$PointLight2D.energy=$PointLight2D.energy+9*delta;
 	pass
 	
-func de_highlight():
+func de_highlight(delta):
 	if GameState.gameState.phase==Stats.GamePhase.BATTLE:return
 	globlight=false;
 	melight=false;
-	$PointLight2D.energy=lightamount
+	#$PointLight2D.energy=lightamount
 	pass
-func checkLight():
+func checkLight(delta):
 	if GameState.gameState.phase==Stats.GamePhase.BATTLE:return
-	
+	if $PointLight2D.energy<=0:return
 	if globlight&&!melight:
-		$PointLight2D.energy=0;
+		$PointLight2D.energy=$PointLight2D.energy-9*delta;
 		return
-		
+	if melight:
+		return	
 	
-	$PointLight2D.energy=lightamount;
 	
+	$PointLight2D.energy=$PointLight2D.energy-9*delta;
 	pass;
 func _process(delta):
 	if GameState.gameState==null:return
-	checkLight()
+	checkLight(delta)
 	$LVL.text=str(stacks)
 	if not placed:
 		return;

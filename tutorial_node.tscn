@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://b4r0647fdt4ow"]
+
+[ext_resource type="VideoStream" path="res://Assets/TutorialVideos/RotateBlock.ogv" id="1_5j4vo"]
+
+[node name="TutorialNode" type="Node2D"]
+
+[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+stream = ExtResource("1_5j4vo")
+autoplay = true

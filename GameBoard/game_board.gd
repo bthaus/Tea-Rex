@@ -262,14 +262,14 @@ func _process(_delta):
 	#Highlight towers
 	for turret in highlighted_turrets:
 		if is_instance_valid(turret):
-			turret.de_highlight()
+			turret.de_highlight(_delta)
 	highlighted_turrets = []
 	var block = block_handler.get_block_from_board(board_pos, BLOCK_LAYER, EXTENSION_LAYER, false, false, false)
 	if block != null:
 		for piece in block.pieces:
 			var turret = turret_holder.get_turret_at($Board.map_to_local(piece.position))
 			if turret != null:
-				turret.highlight()
+				turret.highlight(_delta)
 				highlighted_turrets.append(turret)
 	
 	if is_dragging_camera:
