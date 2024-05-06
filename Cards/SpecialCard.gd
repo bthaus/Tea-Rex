@@ -46,7 +46,7 @@ static func create(gameState:GameState,type=-1):
 	retval.ID=cardID+1;
 	var rand
 	if type==-1:
-		rand=rng.randi_range(0,Stats.SpecialCards.keys().size()-1)
+		gameState.unlockedSpecialCards.pick_random()
 	else: rand=type
 	retval.cardName=rand;
 	retval.gameState=gameState
