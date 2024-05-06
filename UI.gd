@@ -47,7 +47,7 @@ func _on_start_button_pressed():
 
 
 func _on_unlocked_button_pressed():
-	
+	$MainMenu/UnlockedTab/UnlockedItems.refresh()
 	main.visible=false;
 	unlockedTab.visible=true;
 	pass # Replace with function body.

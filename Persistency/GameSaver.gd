@@ -42,7 +42,6 @@ static func restoreGame(gameState:GameState):
 		if ignoredData.find(dakey)==-1:
 			gameState.set(dakey,da.get(dakey))
 	deserialiseSpawners(gameState,loadfile("spawners",gameState.account))
-			
 	loadGameMap(gameState);
 	loadHand(gameState)
 	gameState.phase=Stats.GamePhase.BUILD

@@ -23,6 +23,7 @@ func updateUI():
 	var hpscale=remap(gamestate.maxHP,200,1000,1,20)
 	$CanvasLayer/UI/Hpbar.scale.y=hpscale
 	
+	
 	pass;
 func showDeathScreen():
 	

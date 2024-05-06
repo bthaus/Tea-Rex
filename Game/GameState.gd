@@ -16,7 +16,7 @@ var unlockedExtensions=[Stats.TurretExtension.DEFAULT];
 var unlockedColors=[Stats.TurretColor.BLUE];
 #Stats.SpecialCards
 var unlockedSpecialCards=[Stats.SpecialCards.HEAL];
-
+var toUnlock=[]
 var phase:Stats.GamePhase=Stats.GamePhase.BUILD;
 var HP=Stats.playerHP;
 var maxHP=Stats.playerMaxHP;
@@ -44,7 +44,7 @@ var colorChances = [greyChance, greenChance, redChance, yellowChance, blueChance
 signal player_died
 signal start_build_phase;
 signal start_combat_phase;
-signal level_up(item,type)
+signal level_up(item)
 
 
 var unlock=[]
@@ -94,7 +94,10 @@ func hideCount():
 # Called when the node enters the scene tree for the first time.
 var mapdrawnOnce=false;
 func _ready():
-	
+	toUnlock.append_array(Stats.TurretExtension.keys())
+	toUnlock.append_array(Stats.SpecialCards.keys())
+	toUnlock.erase("DEFAULT")
+	toUnlock.erase("HEAL")
 	if get_child_count()==0:
 		queue_free()
 	
@@ -248,42 +251,36 @@ func checkLevelUp():
 	
 	if totalExp<levelUp: return
 	levelUp=levelUp*2;
+	
+	
+	var unlocked=unlockRandom()
+	var color;
+	if unlocked.contains("BLUE"):color=Stats.TurretColor.BLUE
+	if unlocked.contains("GREEN"):color=Stats.TurretColor.GREEN
+	if unlocked.contains("RED"):color=Stats.TurretColor.RED
+	if unlocked.contains("YELLOW"):color=Stats.TurretColor.YELLOW
+	var dic=Stats.TurretExtension
 	var c;
-	var rand=Stats.rng.randi_range(0,100);
-	if rand>50:
-		var i=unlockRandom(Stats.TurretExtension.values(),unlockedExtensions)
-		
-		if i==1:
-			i=unlockRandom(Stats.TurretExtension.values(),unlockedExtensions)
-		var b=Stats.TurretExtension.keys()[i-1]
-		level_up.emit(name,"Ext")
-		var color;
-		if b.contains("BLUE"):color=Stats.TurretColor.BLUE
-		if b.contains("GREEN"):color=Stats.TurretColor.GREEN
-		if b.contains("RED"):color=Stats.TurretColor.RED
-		if b.contains("YELLOW"):color=Stats.TurretColor.YELLOW
-		level_up.emit(b,"Spec")
-		var block=Stats.getBlockFromShape(Stats.BlockShape.O,color,1,i);
-		c=BlockCard.create(gameState,block)
-		
+	if color==null:
+		var j=Stats.SpecialCards.get(unlocked)
+		unlockedSpecialCards.append(j)
+		c=SpecialCard.create(self,j)
+		level_up.emit(unlocked)
 	else:
-		var name=unlockRandom(Stats.SpecialCards.values(),unlockedSpecialCards)
-		c=SpecialCard.create(gameState,name);
+		var i=Stats.TurretExtension.get(unlocked)
+		unlockedExtensions.append(i)
+		var block=Stats.getBlockFromShape(Stats.BlockShape.O,color,1,i);
+		c=BlockCard.create(gameState,block)	
+		level_up.emit(unlocked)
+	
 	var card=Card.create(gameState,c);
 	var u=Unlockable.create(card)
 	unlock.append(u)
 	pass;
 	
-func unlockRandom(base,pool):
-	var tounlock=[]
-	for a in base:
-		if not pool.has(a):
-			tounlock.append(a)
-			
-	if tounlock.size()==0:
-		return; #todo: fix null return
-	var unlocked=tounlock[Stats.rng.randi_range(0,tounlock.size()-1)]
-	pool.append(unlocked)
+func unlockRandom():
+	var unlocked=toUnlock.pick_random()
+	toUnlock.erase(unlocked)
 	return unlocked;
 	
 func getColorChances():
