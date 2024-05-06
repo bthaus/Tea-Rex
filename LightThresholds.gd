@@ -35,7 +35,7 @@ func getDark(y):
 
 func getLight(y):
 	var Light=remap(y,minLightPosition.global_position.y,maxLightPosition.global_position.y,minLight,maxLight)
-	Light=clamp(Light,minLight,maxLight)
+	Light=clampf(Light,minLight,maxLight)
 	return Light;
 	pass;
 func getCaveSpawnerProbability(y):

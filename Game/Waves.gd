@@ -6,7 +6,7 @@ signal wave_done
 static var numMonstersActive=0;
 var waveMonsters=[]
 var minMonster=5
-var maxMonster=100
+var maxMonster=Stats.max_enemies_per_spawner
 var target:Node2D
 var level;
 var rnd = RandomNumberGenerator.new()

@@ -11,7 +11,7 @@ static var gameState;
 
 var account:String="";
 #Stats.TurretExtension
-var unlockedExtensions=[Stats.TurretExtension.DEFAULT,Stats.TurretExtension.BLUELASER];
+var unlockedExtensions=[Stats.TurretExtension.DEFAULT];
 #Stats.TurretColor
 var unlockedColors=[Stats.TurretColor.BLUE];
 #Stats.SpecialCards
@@ -231,7 +231,6 @@ func _on_spawner_wave_done():
 
 
 func startGame():
-	hand.add_child(Card.create(self,SpecialCard.create(self,Stats.SpecialCards.POISON)))
 	if not started:
 		target=$Base
 		drawCards(maxCards)

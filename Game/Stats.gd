@@ -22,7 +22,7 @@ const blue_laser_range=3*base_range;
 const green_poison_range=2*base_range;
 const yellow_mortar_range=10*base_range;
 
-const base_missile_speed=1000;
+const base_missile_speed=750;
 const green_missile_speed=1*base_missile_speed;
 const blue_missile_speed=1*base_missile_speed;
 const yellow_missile_speed=3*base_missile_speed;
@@ -35,7 +35,7 @@ const green_poison_missile_speed=base_missile_speed*1;
 const yellow_mortar_missile_speed=base_missile_speed;
 
 
-const base_cooldown=1;
+const base_cooldown=1.2;
 const green_cooldown=base_cooldown*4;
 const blue_cooldown=base_cooldown*0.5;
 const yellow_cooldown=base_cooldown*3.04;
@@ -84,7 +84,7 @@ const yellow_mortar_instanthit=true;
 const yellow_mortar_penetrations=1;
 const green_explosion_range=0.5;
 const red_laser_damage_stack=0.3;
-const green_poison_damage_stack=20;
+const green_poison_damage_stack=3;
 
 const green_glowing=false;
 const blue_glowing=false;
@@ -103,7 +103,7 @@ const poison_propagation_rate=3;
 const poison_propagation_range=base_range*0.3
 const green_poison_decay=1;
 
-static var enemy_base_HP:float=50;
+static var enemy_base_HP:float=125;
 static var GREEN_enemy_HP=enemy_base_HP*2.5;
 static var BLUE_enemy_HP=enemy_base_HP*1;
 static var YELLOW_enemy_HP=enemy_base_HP*0.5;
@@ -115,8 +115,11 @@ const BLUE_enemy_damage=enemy_base_damage*1;
 const YELLOW_enemy_damage=enemy_base_damage*2;
 const RED_enemy_damage=enemy_base_damage*3;
 
+
+const max_enemies_per_spawner=50;
+
 const enemy_base_speed_factor =1;
-const enemy_base_speed=15;
+const enemy_base_speed=11;
 const enemy_base_acceleration = 7;
 const GREEN_enemy_speed=enemy_base_speed*1;
 const BLUE_enemy_speed=enemy_base_speed*1;
@@ -184,8 +187,8 @@ const MOVE_phase=GamePhase.BUILD;
 const MOVE_instant=true;
 
 
-static var bulldozer_catastrophy_width=3
-static var bulldozer_catastrophy_height=3
+static var bulldozer_catastrophy_width=5
+static var bulldozer_catastrophy_height=5
 
 static var drill_catastrophy_width=3
 
@@ -406,6 +409,8 @@ static func getRandomCard(gamestate):
 	var card;
 	var rng=RandomNumberGenerator.new()
 	numberOfCardsDrawn=numberOfCardsDrawn+1;
+	if numberOfPiecesDrawn/numberOfCardsDrawn<TargetPieceAverage-tolerance:
+		return BlockCard.create(gamestate)
 	if (rng.randi_range(0,100) < specialCardChance):
 		card=SpecialCard.create(gamestate)
 	else:
@@ -460,7 +465,7 @@ func getEvaluatedShape(counter):
 	var shape=BlockShape.values()[rng.randi_range(0,BlockShape.size()-1)]
 	var block=getBlockFromShape(shape,0,0);
 	var currentPieces=+numberOfPiecesDrawn+block.pieces.size()
-	var currentAverage=currentPieces/numberOfCardsDrawn
+	var currentAverage=currentPieces/numberOfCardsDrawn 
 	
 	if bestCurrentAverage != null and currentAverage>bestCurrentAverage:
 		bestCurrentAverage=currentAverage

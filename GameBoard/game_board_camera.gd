@@ -19,6 +19,7 @@ var original_position=0;
 var shake_timer=0;
 var duration=0;
 var intensity=0;
+signal scrolled;
 func shake(duration: float, intensity: float,position,maxval=MAX_SHAKE):
 	if intensity>maxval: return;
 	if abs(abs(position.y)-abs(position.y))>1000:return
@@ -29,6 +30,11 @@ func shake(duration: float, intensity: float,position,maxval=MAX_SHAKE):
 	self.intensity=self.intensity+intensity
 	
 	pass	
+	
+func isOffCamera(position):
+	return abs(abs(position.y)-abs(position.y))>1000
+	
+	pass;	
 func _process(delta):
 	if shake_timer < duration:
 		var x_offset = randf_range(-intensity, intensity)
@@ -63,6 +69,7 @@ func changeBrightness():
 	
 func _input(event):
 	if event.is_action("left_click"):
+		scrolled.emit()
 		if event.is_pressed():
 			mouse_start_pos = event.position
 			screen_start_position = position
@@ -74,6 +81,7 @@ func _input(event):
 			dragging = false
 			
 	if event is InputEventMouseMotion and clicked:
+		scrolled.emit()
 		var drag_distance = mouse_start_pos.distance_to(event.position)
 		#Player has to drag for a minimum distance to be recognized as dragging motion
 		if not dragging and drag_distance < MIN_RECOGNIZABLE_DRAG_DISTANCE: 
@@ -84,12 +92,14 @@ func _input(event):
 		position = (mouse_start_pos - event.position) / zoom + screen_start_position
 	
 	if event.is_action_pressed("scroll_up"):
+		scrolled.emit()
 		if Input.is_action_pressed("control"):
 			zoom = Vector2(zoom.x + CAMERA_ZOOM, zoom.y + CAMERA_ZOOM)
 		else:
 			position -= Vector2(0, SCROLL_SPEED) / zoom
 			
 	if event.is_action_pressed("scroll_down"):
+		scrolled.emit()
 		if Input.is_action_pressed("control"):
 			zoom = Vector2(zoom.x - CAMERA_ZOOM, zoom.y - CAMERA_ZOOM)
 		else:

@@ -50,11 +50,18 @@ func _ready():
 		$PointLight2D.energy=lightamount;
 		)
 	pass # Replace with function body.
-
+func checkPosition():
+	if extension==Stats.TurretExtension.BLUELASER:return;
+	instantHit=GameState.gameState.getCamera().isOffCamera(global_position)
+	pass;
 func setUpTower():
+	
+	GameState.gameState.getCamera().scrolled.connect(checkPosition)
 	if not placed:
 		$Button.queue_free()
-	
+	GameState.gameState.start_combat_phase.connect(func():
+		$PointLight2D.energy=lightamount;
+		return)
 	if extension==0:
 		extension=Stats.TurretExtension.DEFAULT;
 	if base!=null:
@@ -193,18 +200,17 @@ func de_highlight():
 	if GameState.gameState.phase==Stats.GamePhase.BATTLE:return
 	globlight=false;
 	melight=false;
-	$PointLight2D.energy=oldval
+	$PointLight2D.energy=lightamount
 	pass
 func checkLight():
-
-	if GameState.gameState.phase==Stats.GamePhase.BATTLE:
-		$PointLight2D.energy=lightamount;
-		return
-	if globlight and not melight:
+	if GameState.gameState.phase==Stats.GamePhase.BATTLE:return
+	
+	if globlight&&!melight:
 		$PointLight2D.energy=0;
+		return
 		
-	if not globlight:
-		$PointLight2D.energy=lightamount;
+	
+	$PointLight2D.energy=lightamount;
 	
 	pass;
 func _process(delta):
@@ -242,7 +248,7 @@ func _process(delta):
 		if !onCooldown:
 			if type==Stats.TurretColor.RED&&extension==Stats.TurretExtension.DEFAULT:
 				for e in $EnemyDetector.enemiesInRange:
-					if e.hit(type,self.damage):addKill()
+					if e.hit(type,self.damage*stacks):addKill()
 					addDamage(self.damage)
 					projectile.playHitSound();	
 				startCooldown(cooldown*cooldownfactor)		
