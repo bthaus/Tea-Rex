@@ -10,6 +10,10 @@ var maxMonster=100
 var target:Node2D
 var level;
 var rnd = RandomNumberGenerator.new()
+var numReachedSpawn:float=0;
+var numDied:float=0;
+var numSpawned:float=0;
+
 @onready var nav: NavigationAgent2D = $NavigationAgent2D
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -49,7 +53,7 @@ func doBalancingLogic(waveNumber:int):
 	var amountmonsters=int(remap(waveNumber+3,0,50,minMonster,maxMonster)/level)
 	amountmonsters=clamp(amountmonsters,minMonster,maxMonster)
 	numMonstersActive=numMonstersActive+amountmonsters
-	
+	numSpawned=numSpawned+amountmonsters;
 	waveMonsters.clear()
 	for n in range(amountmonsters):
 		var strenght=clamp(waveNumber,1,global_position.y/100)/level
@@ -75,11 +79,20 @@ func spawnEnemy(mo:Monster):
 	if state.spawners.find(self)==-1:queue_free()
 	mo.monster_died.connect(monsterDied)
 	mo.monster_died.connect(state.addExp)
+	mo.reached_spawn.connect(monsterReachedSpawn)
 	add_child(mo)
 
 	pass;
+func monsterReachedSpawn(monster:Monster):
+	numReachedSpawn=numReachedSpawn+1;
+	numMonstersActive=numMonstersActive-1;
+	print(numMonstersActive)
+	if numMonstersActive<=0:
+		state.startBuildPhase()
+		
+	pass;	
 func monsterDied(monster:Monster):
-	
+	numDied=numDied+1;
 	numMonstersActive=numMonstersActive-1;
 	print(numMonstersActive)
 	if numMonstersActive<=0:
@@ -101,3 +114,22 @@ func _draw():
 	for i in range(1, path.size()):
 		draw_line(Vector2(path[i-1].x - global_position.x, path[i-1].y - global_position.y),
 		Vector2(path[i].x - global_position.x, path[i].y - global_position.y), color, 3, true)
+
+
+func _on_button_mouse_entered():
+	var percentage
+	var Risnull=numReachedSpawn==0
+	var Sisnull=numSpawned==0;
+	
+	if Risnull or Sisnull:
+		percentage="0"
+	else:
+		var p=(numReachedSpawn/ numSpawned)
+		percentage=str(float(p*100))
+	state.menu.get_node("CanvasLayer/UI/Description").text=percentage+"% of minions spawned reached your base. "
+	pass # Replace with function body.
+
+
+func _on_button_mouse_exited():
+	state.menu.get_node("CanvasLayer/UI/Description").text=""
+	pass # Replace with function body.

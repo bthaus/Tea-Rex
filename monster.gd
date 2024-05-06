@@ -13,6 +13,7 @@ var died=false;
 @export var target: Node2D #goal
 @onready var nav: NavigationAgent2D = $NavigationAgent2D
 signal monster_died(monster:Monster)
+signal reached_spawn(monster:Monster)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
