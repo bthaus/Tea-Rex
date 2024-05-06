@@ -346,7 +346,13 @@ func _place_block(block: Block, position: Vector2):
 		_set_block_and_turrets_level(block, position, level + 1)
 	else:
 		_spawn_turrets(block, position)
-
+	#soundMechanic:
+	var delay=0;
+	var inc=0.25/block.pieces.size()
+	for p in block.pieces:
+		get_tree().create_timer(delay).timeout.connect(func():Sounds.playFromCamera(gameState,Sounds.placeBlock.pick_random()))
+		delay=delay+inc;
+		
 	block_handler.draw_block(block, position, BLOCK_LAYER, EXTENSION_LAYER)
 	$NavigationRegion2D.bake_navigation_polygon()
 	
