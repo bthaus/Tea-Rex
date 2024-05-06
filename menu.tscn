@@ -255,7 +255,7 @@ offset_right = 1694.0
 offset_bottom = 192.0
 
 [node name="Hand" parent="CanvasLayer/UI" node_paths=PackedStringArray("description") instance=ExtResource("8_4633y")]
-position = Vector2(141.593, 1002.74)
+position = Vector2(141.593, 950)
 scale = Vector2(1.2, 1.2)
 description = NodePath("../Description")
 
