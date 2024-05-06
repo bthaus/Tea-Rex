@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://ckn34r0xe15l0"]
 
 [ext_resource type="Script" path="res://Unlock.gd" id="1_i1qcg"]
-[ext_resource type="Texture2D" uid="uid://bgb418sjl85oo" path="res://Assets/Cards/Testcard.png" id="2_d1i2e"]
+[ext_resource type="Texture2D" uid="uid://bgb418sjl85oo" path="res://Assets/Cards/Testcard_grey.png" id="2_d1i2e"]
 [ext_resource type="Texture2D" uid="uid://dfayulbfku7wt" path="res://Assets/UI/lock1.png" id="3_yswwd"]
 [ext_resource type="Texture2D" uid="uid://cjihoqi6wxi48" path="res://Assets/UI/lock2.png" id="4_y3upd"]
 [ext_resource type="Texture2D" uid="uid://yg4l3b5mla2h" path="res://Assets/UI/lock3.png" id="5_4pvf8"]

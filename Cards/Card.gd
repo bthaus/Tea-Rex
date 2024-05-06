@@ -44,8 +44,11 @@ static func create(gameState:GameState,card=-1):
 		c.get_node("Button").icon=load("res://Assets/SpecialCards/"+Stats.getStringFromSpecialCardEnum(cardname)+"_preview.png")
 		c.description=Stats.getDescription(Stats.getStringFromSpecialCardEnum(cardname))
 	if c.card is BlockCard:
+		
+		
 		var extension=c.card.block.extension;
 		var color=c.card.block.color;
+		c.get_node("Button").icon=load("res://Assets/Cards/Testcard_"+Stats.getStringFromEnum(color).to_lower()+".png")
 		#use this to change color/text of card
 		var preview=load("res://Cards/block_preview.tscn").instantiate()
 		if extension!=1: c.description=Stats.getDescription(Stats.TurretExtension.keys()[extension-1])
