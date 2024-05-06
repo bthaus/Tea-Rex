@@ -405,7 +405,7 @@ static var extensionChance = 50; #chance if a color get's the extrension
 static func getRandomCard(gamestate):
 	var card;
 	var rng=RandomNumberGenerator.new()
-	
+	numberOfCardsDrawn=numberOfCardsDrawn+1;
 	if (rng.randi_range(0,100) < specialCardChance):
 		card=SpecialCard.create(gamestate)
 	else:
@@ -442,7 +442,7 @@ func getRandomBlock(lvl,gamestate):
 			if gamestate.unlockedExtensions[ex] == getExtensionFromColor(color):
 				if rng.randi_range(0,100) < extensionChance:
 					extension = getExtensionFromColor(color)
-	numberOfCardsDrawn=numberOfCardsDrawn+1;
+	
 	var block=getEvaluatedShape(0)
 	
 	
@@ -451,23 +451,27 @@ func getRandomBlock(lvl,gamestate):
 static var numberOfPiecesDrawn:float=1;
 static var numberOfCardsDrawn:float=1;
 static var TargetPieceAverage:float=3.5;
-static var tolerance:float=1.5
+static var tolerance:float=0.5
 
+static var bestCurrentShape=null;
+static var bestCurrentAverage=1;
 	
 func getEvaluatedShape(counter):
 	var shape=BlockShape.values()[rng.randi_range(0,BlockShape.size()-1)]
 	var block=getBlockFromShape(shape,0,0);
 	var currentPieces=+numberOfPiecesDrawn+block.pieces.size()
-	
 	var currentAverage=currentPieces/numberOfCardsDrawn
 	
+	if bestCurrentAverage != null and currentAverage>bestCurrentAverage:
+		bestCurrentAverage=currentAverage
+		bestCurrentShape=shape
 	var difference=currentAverage-TargetPieceAverage
 	print("i am the recursion counter for shapeevaluation" + str(counter))
 	print("current average: "+str(currentAverage))
 	print("difference: "+str(difference))
 	if counter>20:
 		numberOfPiecesDrawn=numberOfPiecesDrawn+block.pieces.size();
-		return shape;
+		return bestCurrentShape;
 	if abs(difference)>tolerance:
 		return getEvaluatedShape(counter+1)
 		
