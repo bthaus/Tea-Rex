@@ -295,11 +295,11 @@ func _on_area_2d_area_entered(area):
 	if area == null: return
 	var m=area.get_parent()
 	if m is Monster:
-		if m == null or not is_instance_valid(m) : return
+		
 		changeHealth(-m.damage)
-		if HP>0: 
-			m.monster_died.emit(m)
-			m.queue_free()
+		if m == null or not is_instance_valid(m) : return
+		m.monster_died.emit(m)
+		m.queue_free()
 		
 	pass # Replace with function body.
 
