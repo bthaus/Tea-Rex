@@ -426,6 +426,14 @@ static func getRandomColor(gamestate):
 			color= TurretColor.values()[i]
 			break;
 	return color		
+		
+		
+static var numberOfPiecesDrawn:float=0;
+static var numberOfCardsDrawn:float=0;
+static var TargetPieceAverage:float=3.5;
+static var tolerance:float=1.5
+
+
 			
 func getRandomBlock(lvl,gamestate):
 	#TODO: add card chances
@@ -440,11 +448,24 @@ func getRandomBlock(lvl,gamestate):
 				if rng.randi_range(0,100) < extensionChance:
 					extension = getExtensionFromColor(color)
 	
-	var block=BlockShape.values()[rng.randi_range(0,BlockShape.size()-1)]
-	
+	var block=getEvaluatedShape(0)
+		
 	return getBlockFromShape(block,color,lvl,extension)
 	#return getBlockFromShape(block,TurretColor.YELLOW,lvl,TurretExtension.YELLOWMORTAR)
 	
+func getEvaluatedShape(counter):
+	var shape=BlockShape.values()[rng.randi_range(0,BlockShape.size()-1)]
+	var block=getBlockFromShape(shape,0,0);
+	numberOfPiecesDrawn=numberOfPiecesDrawn+block.pieces.size();
+	numberOfCardsDrawn=numberOfCardsDrawn+1;
+	var currentAverage=numberOfPiecesDrawn/numberOfCardsDrawn
+	var difference=block.pieces.size()-currentAverage
+	print("i am the recursion counter for shapeevaluation" + str(counter))
+	if counter>20:
+		return shape;
+	if abs(difference)>tolerance:
+		return getEvaluatedShape(counter+1)
+	return shape;	
 static func getExtensionFromColor(color: TurretColor):
 	match color:
 		1: return TurretExtension.DEFAULT;

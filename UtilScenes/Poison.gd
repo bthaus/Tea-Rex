@@ -47,7 +47,7 @@ func _process(delta):
 	if stacks<0:
 		queue_free()
 	if enemy.hit(Stats.TurretColor.GREY,stacks*delta):
-		associate.addKill()
+		if associate!=null:associate.addKill()
 		queue_free()
-	associate.addDamage(stacks*delta)
+	if associate!=null:associate.addDamage(stacks*delta)
 	pass

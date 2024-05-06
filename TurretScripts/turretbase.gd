@@ -196,6 +196,7 @@ func de_highlight():
 	$PointLight2D.energy=oldval
 	pass
 func checkLight():
+
 	if GameState.gameState.phase==Stats.GamePhase.BATTLE:
 		$PointLight2D.energy=lightamount;
 		return
@@ -207,6 +208,7 @@ func checkLight():
 	
 	pass;
 func _process(delta):
+	if GameState.gameState==null:return
 	checkLight()
 	$LVL.text=str(stacks)
 	if not placed:

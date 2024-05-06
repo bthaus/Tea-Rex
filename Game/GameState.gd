@@ -231,7 +231,7 @@ func _on_spawner_wave_done():
 
 
 func startGame():
-	
+	hand.add_child(Card.create(self,SpecialCard.create(self,Stats.SpecialCards.POISON)))
 	if not started:
 		target=$Base
 		drawCards(maxCards)

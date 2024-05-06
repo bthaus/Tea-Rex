@@ -163,7 +163,7 @@ func castPOISON():
 	$Effect.visible=true;
 	$Effect.global_position=get_global_mouse_position();
 	$Effect.play(Stats.getStringFromSpecialCardEnum(cardName));
-	$Effect/EnemyDetector.enemyEntered.connect(func(e):e.add_child(Poison.create(damage,self,Stats.POISON_decay)))
+	$Effect/EnemyDetector.enemyEntered.connect(func(e):e.add_child(Poison.create(damage,null,Stats.POISON_decay)))
 		
 		
 	return true;
