@@ -208,7 +208,7 @@ func applyPoison(enemy:Monster):
 			temp=true;
 			a.apply(Stats.green_poison_damage_stack)
 	if !temp:
-		enemy.add_child(Poison.create(damage,Stats.green_poison_decay));
+		enemy.add_child(Poison.create(damage,associate,Stats.green_poison_decay));
 	pass
 
 func applyMortarExplosion(enemy:Monster):
