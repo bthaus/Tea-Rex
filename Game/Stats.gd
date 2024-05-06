@@ -428,11 +428,6 @@ static func getRandomColor(gamestate):
 	return color		
 		
 		
-static var numberOfPiecesDrawn:float=0;
-static var numberOfCardsDrawn:float=0;
-static var TargetPieceAverage:float=3.5;
-static var tolerance:float=1.5
-
 
 			
 func getRandomBlock(lvl,gamestate):
@@ -447,24 +442,36 @@ func getRandomBlock(lvl,gamestate):
 			if gamestate.unlockedExtensions[ex] == getExtensionFromColor(color):
 				if rng.randi_range(0,100) < extensionChance:
 					extension = getExtensionFromColor(color)
-	
+	numberOfCardsDrawn=numberOfCardsDrawn+1;
 	var block=getEvaluatedShape(0)
-		
+	
+	
 	return getBlockFromShape(block,color,lvl,extension)
 	#return getBlockFromShape(block,TurretColor.YELLOW,lvl,TurretExtension.YELLOWMORTAR)
+static var numberOfPiecesDrawn:float=1;
+static var numberOfCardsDrawn:float=1;
+static var TargetPieceAverage:float=3.5;
+static var tolerance:float=1.5
+
 	
 func getEvaluatedShape(counter):
 	var shape=BlockShape.values()[rng.randi_range(0,BlockShape.size()-1)]
 	var block=getBlockFromShape(shape,0,0);
-	numberOfPiecesDrawn=numberOfPiecesDrawn+block.pieces.size();
-	numberOfCardsDrawn=numberOfCardsDrawn+1;
-	var currentAverage=numberOfPiecesDrawn/numberOfCardsDrawn
-	var difference=block.pieces.size()-currentAverage
+	var currentPieces=+numberOfPiecesDrawn+block.pieces.size()
+	
+	var currentAverage=currentPieces/numberOfCardsDrawn
+	
+	var difference=currentAverage-TargetPieceAverage
 	print("i am the recursion counter for shapeevaluation" + str(counter))
+	print("current average: "+str(currentAverage))
+	print("difference: "+str(difference))
 	if counter>20:
+		numberOfPiecesDrawn=numberOfPiecesDrawn+block.pieces.size();
 		return shape;
 	if abs(difference)>tolerance:
 		return getEvaluatedShape(counter+1)
+		
+	numberOfPiecesDrawn=numberOfPiecesDrawn+block.pieces.size();	
 	return shape;	
 static func getExtensionFromColor(color: TurretColor):
 	match color:
