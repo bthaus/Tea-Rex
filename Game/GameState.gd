@@ -241,6 +241,8 @@ func _on_spawner_wave_done():
 
 
 func startGame():
+	
+	
 	if not started:
 		target=$Base
 		drawCards(maxCards)

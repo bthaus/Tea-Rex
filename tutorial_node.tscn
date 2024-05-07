@@ -151,6 +151,7 @@ offset_top = -213.0
 offset_right = 690.0
 offset_bottom = 131.0
 bbcode_enabled = true
+text = "You can only place [b] same colored [/b] blocks next to each other. "
 
 [node name="Title" type="RichTextLabel" parent="ColorRestriction"]
 offset_left = 293.0
@@ -158,6 +159,9 @@ offset_top = -312.0
 offset_right = 673.0
 offset_bottom = -225.0
 bbcode_enabled = true
+text = "[font_size=24]Too easy
+
+[/font_size]"
 
 [node name="Button" type="Button" parent="ColorRestriction"]
 offset_left = 301.0
@@ -205,6 +209,8 @@ offset_top = -213.0
 offset_right = 690.0
 offset_bottom = 131.0
 bbcode_enabled = true
+text = "Stacking [b]same colored[/] blocks on top of each other makes them more powerful. 
+The blocks have to be [b]overlapping[/b] completely!"
 
 [node name="Title" type="RichTextLabel" parent="UpgradeBlocks"]
 offset_left = 293.0
@@ -212,6 +218,9 @@ offset_top = -312.0
 offset_right = 673.0
 offset_bottom = -225.0
 bbcode_enabled = true
+text = "[font_size=24]MORE POWER
+
+[/font_size]"
 
 [node name="Button" type="Button" parent="UpgradeBlocks"]
 offset_left = 301.0
@@ -259,6 +268,9 @@ offset_top = -213.0
 offset_right = 690.0
 offset_bottom = 131.0
 bbcode_enabled = true
+text = "All blocks your stacking on top of have to be [b]the same level[/b].
+So you have to be careful how you place your blocks!
+"
 
 [node name="Title" type="RichTextLabel" parent="UpgradeBlocks2"]
 offset_left = 293.0
@@ -266,6 +278,9 @@ offset_top = -312.0
 offset_right = 673.0
 offset_bottom = -225.0
 bbcode_enabled = true
+text = "[font_size=24]MORE POWER???
+
+[/font_size]"
 
 [node name="Button" type="Button" parent="UpgradeBlocks2"]
 offset_left = 301.0
@@ -313,6 +328,7 @@ offset_top = -213.0
 offset_right = 690.0
 offset_bottom = 131.0
 bbcode_enabled = true
+text = "The paths of your enemies are determined by the placement of your blocks. "
 
 [node name="Title" type="RichTextLabel" parent="Pathfinding"]
 offset_left = 293.0
@@ -320,6 +336,8 @@ offset_top = -312.0
 offset_right = 673.0
 offset_bottom = -225.0
 bbcode_enabled = true
+text = "[font_size=24]The paths of the Lord are unfathomable...
+[/font_size]"
 
 [node name="Button" type="Button" parent="Pathfinding"]
 offset_left = 301.0
