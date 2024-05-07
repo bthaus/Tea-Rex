@@ -2,7 +2,7 @@ extends Node2D
 class_name Menu
 @export var gamestate:GameState
 signal statePropagation(gamestate:GameState)
-
+@export var description:Label
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	statePropagation.emit(gamestate)
@@ -25,6 +25,15 @@ func updateUI():
 	
 	
 	pass;
+
+func showDescription(s):
+	description.text=s
+	sd=true;
+	pass;
+	
+func hideDescription():
+	sd=false;
+	pass;
 func show_tutorial(tut:Tutorial):
 	$CanvasLayer/UI/TutorialSpot.add_child(tut)
 	pass;
@@ -35,11 +44,39 @@ func showDeathScreen():
 func createNewGame():
 	gamestate.initNewBoard()
 	pass;
+var m:float=0	
+var s:float=0
+var saving=false;
+var sd=false;
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	checkDescription(delta)
+	checkSaving(delta)
 	pass
-
-
+	
+func checkSaving(delta):
+	if saving:
+		s=s+2*delta;
+	else:
+		s=s-2*delta	
+	s=clamp(s,0,1)		
+	description.modulate=Color(s,s,s,s)
+	pass;
+func checkDescription(delta):
+	if sd:
+		m=m+2*delta;
+	else:
+		m=m-2*delta	
+	m=clamp(m,0,1)		
+	$CanvasLayer/UI/saving.modulate=Color(m,m,m,m)
+	pass;
+func showSaving():
+	saving=true;
+	get_tree().create_timer(1.5).timeout.connect(hideSaving)
+	pass;
+func hideSaving():
+	saving=false;
+	pass;
 func _on_start_battle_phase_pressed():
 	gamestate.startBattlePhase()
 	pass # Replace with function body.

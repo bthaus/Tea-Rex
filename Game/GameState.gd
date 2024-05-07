@@ -178,6 +178,16 @@ func startBuildPhase():
 	Sounds.start(Sounds.startBuildPhase)
 	GameSaver.saveGame(gameState)
 	wave=wave+1;
+	if wave==2:
+		TutorialHolder.showTutorial(TutorialHolder.tutNames.EXP,self)
+	if wave==3:
+		TutorialHolder.showTutorial(TutorialHolder.tutNames.Pathfinding,self)
+	if wave==4:
+		TutorialHolder.showTutorial(TutorialHolder.tutNames.Information,self)
+	if wave==5:
+		TutorialHolder.showTutorial(TutorialHolder.tutNames.UpgradeBlocks,self)
+	if wave==6:
+		TutorialHolder.showTutorial(TutorialHolder.tutNames.UpgradeBlocks2,self)
 	menu.get_node("CanvasLayer/UI/StartBattlePhase").disabled=false;
 	if not startCatastrophy():
 		for u in unlock:
@@ -241,7 +251,8 @@ func _on_spawner_wave_done():
 
 
 func startGame():
-	
+	TutorialHolder.showTutorial(TutorialHolder.tutNames.Controls,self)
+	TutorialHolder.showTutorial(TutorialHolder.tutNames.Starting,self)
 	
 	if not started:
 		target=$Base

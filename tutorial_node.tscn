@@ -38,7 +38,8 @@ offset_right = 690.0
 offset_bottom = 131.0
 bbcode_enabled = true
 text = "Use [b] right click [/b] for [b]rotating[/b] blocks.
-Press [b]ESC [/b]for putting a block back into your hand. "
+Press [b]ESC [/b]for putting a block back into your hand. 
+Some blocks are mirrors of each other, so don't question your sanity if you can't make a block fit. "
 
 [node name="Title" type="RichTextLabel" parent="RotateBlock"]
 offset_left = 293.0
@@ -63,7 +64,7 @@ offset_bottom = 237.0
 
 [node name="Label" type="RichTextLabel" parent="RotateBlock/CheckButton"]
 layout_mode = 0
-offset_left = -32.0
+offset_left = -62.0
 offset_top = -34.0
 offset_right = 116.0
 offset_bottom = -11.0
@@ -151,7 +152,8 @@ offset_top = -213.0
 offset_right = 690.0
 offset_bottom = 131.0
 bbcode_enabled = true
-text = "You can only place [b] same colored [/b] blocks next to each other. "
+text = "You can only place [b] same colored [/b] blocks next to each other. 
+[b]Grey[/b] blocks are an exception to this. "
 
 [node name="Title" type="RichTextLabel" parent="ColorRestriction"]
 offset_left = 293.0
@@ -178,7 +180,7 @@ offset_bottom = 237.0
 
 [node name="Label" type="RichTextLabel" parent="ColorRestriction/CheckButton"]
 layout_mode = 0
-offset_left = -4.0
+offset_left = -42.0
 offset_top = -34.0
 offset_right = 144.0
 offset_bottom = -11.0
@@ -210,7 +212,8 @@ offset_right = 690.0
 offset_bottom = 131.0
 bbcode_enabled = true
 text = "Stacking [b]same colored[/] blocks on top of each other makes them more powerful. 
-The blocks have to be [b]overlapping[/b] completely!"
+The blocks have to be [b]overlapping[/b] completely!
+Also: You can't stack grey pieces. "
 
 [node name="Title" type="RichTextLabel" parent="UpgradeBlocks"]
 offset_left = 293.0
@@ -237,7 +240,7 @@ offset_bottom = 237.0
 
 [node name="Label" type="RichTextLabel" parent="UpgradeBlocks/CheckButton"]
 layout_mode = 0
-offset_left = -4.0
+offset_left = -42.0
 offset_top = -34.0
 offset_right = 144.0
 offset_bottom = -11.0
@@ -297,7 +300,7 @@ offset_bottom = 237.0
 
 [node name="Label" type="RichTextLabel" parent="UpgradeBlocks2/CheckButton"]
 layout_mode = 0
-offset_left = -4.0
+offset_left = -55.0
 offset_top = -34.0
 offset_right = 144.0
 offset_bottom = -11.0
@@ -354,7 +357,313 @@ offset_bottom = 237.0
 
 [node name="Label" type="RichTextLabel" parent="Pathfinding/CheckButton"]
 layout_mode = 0
-offset_left = -4.0
+offset_left = -42.0
+offset_top = -34.0
+offset_right = 144.0
+offset_bottom = -11.0
+bbcode_enabled = true
+text = "Dont show  Tutorials"
+
+[node name="Starting" type="Node2D" parent="."]
+script = ExtResource("2_ogttl")
+
+[node name="Background" type="Sprite2D" parent="Starting"]
+position = Vector2(164.522, -19.1213)
+rotation = 1.5708
+scale = Vector2(0.581371, 0.995918)
+texture = ExtResource("2_pvvf7")
+
+[node name="Vid" type="VideoStreamPlayer" parent="Starting"]
+offset_left = -382.0
+offset_top = -281.0
+offset_right = 258.0
+offset_bottom = 263.0
+stream = ExtResource("8_8rs3a")
+autoplay = true
+metadata/_edit_use_anchors_ = true
+
+[node name="Text" type="RichTextLabel" parent="Starting"]
+offset_left = 299.0
+offset_top = -213.0
+offset_right = 690.0
+offset_bottom = 131.0
+bbcode_enabled = true
+text = "Place [b]blocks[/b] by selecting a [b]card[/b], and then clicking on the [b]gameboard[/b].
+If you dont want to build them, put them back by pressing [b] ESC [/b].
+
+Every placed block contains a [b]turret[/b] that defends you from the evil evil minions.
+The path they have to take is indicated by a [b]white line[/b].
+"
+
+[node name="Title" type="RichTextLabel" parent="Starting"]
+offset_left = 293.0
+offset_top = -312.0
+offset_right = 673.0
+offset_bottom = -225.0
+bbcode_enabled = true
+text = "[font_size=24]Every new Start is difficult!
+[/font_size]"
+
+[node name="Button" type="Button" parent="Starting"]
+offset_left = 301.0
+offset_top = 155.0
+offset_right = 507.0
+offset_bottom = 235.0
+text = "Got it!"
+
+[node name="CheckButton" type="CheckButton" parent="Starting"]
+offset_left = 576.0
+offset_top = 189.0
+offset_right = 701.0
+offset_bottom = 237.0
+
+[node name="Label" type="RichTextLabel" parent="Starting/CheckButton"]
+layout_mode = 0
+offset_left = -53.0
+offset_top = -34.0
+offset_right = 158.0
+offset_bottom = -11.0
+bbcode_enabled = true
+text = "Dont show  Tutorials"
+
+[node name="EXP" type="Node2D" parent="."]
+script = ExtResource("2_ogttl")
+
+[node name="Background" type="Sprite2D" parent="EXP"]
+position = Vector2(164.522, -19.1213)
+rotation = 1.5708
+scale = Vector2(0.581371, 0.995918)
+texture = ExtResource("2_pvvf7")
+
+[node name="Vid" type="VideoStreamPlayer" parent="EXP"]
+offset_left = -382.0
+offset_top = -281.0
+offset_right = 258.0
+offset_bottom = 263.0
+stream = ExtResource("8_8rs3a")
+autoplay = true
+metadata/_edit_use_anchors_ = true
+
+[node name="Text" type="RichTextLabel" parent="EXP"]
+offset_left = 299.0
+offset_top = -213.0
+offset_right = 690.0
+offset_bottom = 131.0
+bbcode_enabled = true
+text = "If minions reach your [b]base[/b] you take damage. 
+If you stop them before, you gain[b] XP[/b].
+
+If you gain enough XP, you earn a new type of card.
+You [b] keep [/b]those unlocked cards if you are defeated and start a new run.
+
+
+"
+
+[node name="Title" type="RichTextLabel" parent="EXP"]
+offset_left = 293.0
+offset_top = -312.0
+offset_right = 673.0
+offset_bottom = -225.0
+bbcode_enabled = true
+text = "[font_size=24]Fight fair
+[/font_size]"
+
+[node name="Button" type="Button" parent="EXP"]
+offset_left = 301.0
+offset_top = 155.0
+offset_right = 507.0
+offset_bottom = 235.0
+text = "Got it!"
+
+[node name="CheckButton" type="CheckButton" parent="EXP"]
+offset_left = 576.0
+offset_top = 189.0
+offset_right = 701.0
+offset_bottom = 237.0
+
+[node name="Label" type="RichTextLabel" parent="EXP/CheckButton"]
+layout_mode = 0
+offset_left = -36.0
+offset_top = -34.0
+offset_right = 144.0
+offset_bottom = -11.0
+bbcode_enabled = true
+text = "Dont show  Tutorials"
+
+[node name="Information" type="Node2D" parent="."]
+script = ExtResource("2_ogttl")
+
+[node name="Background" type="Sprite2D" parent="Information"]
+position = Vector2(164.522, -19.1213)
+rotation = 1.5708
+scale = Vector2(0.581371, 0.995918)
+texture = ExtResource("2_pvvf7")
+
+[node name="Vid" type="VideoStreamPlayer" parent="Information"]
+offset_left = -382.0
+offset_top = -281.0
+offset_right = 258.0
+offset_bottom = 263.0
+stream = ExtResource("8_8rs3a")
+autoplay = true
+metadata/_edit_use_anchors_ = true
+
+[node name="Text" type="RichTextLabel" parent="Information"]
+offset_left = 299.0
+offset_top = -213.0
+offset_right = 690.0
+offset_bottom = 131.0
+bbcode_enabled = true
+text = "If you [b]hover[/b] turrets or enemy spawners, additional information is displayed at the [b] bottom of the screen [/b]. 
+
+Turrets also show their [b]range[/b] and highlight adjacent turrets of the [b]same level[/b] if hovered.
+
+
+"
+
+[node name="Title" type="RichTextLabel" parent="Information"]
+offset_left = 293.0
+offset_top = -312.0
+offset_right = 673.0
+offset_bottom = -225.0
+bbcode_enabled = true
+text = "[font_size=24]Knowledge is power
+[/font_size]"
+
+[node name="Button" type="Button" parent="Information"]
+offset_left = 301.0
+offset_top = 155.0
+offset_right = 507.0
+offset_bottom = 235.0
+text = "Got it!"
+
+[node name="CheckButton" type="CheckButton" parent="Information"]
+offset_left = 576.0
+offset_top = 189.0
+offset_right = 701.0
+offset_bottom = 237.0
+
+[node name="Label" type="RichTextLabel" parent="Information/CheckButton"]
+layout_mode = 0
+offset_left = -34.0
+offset_top = -34.0
+offset_right = 144.0
+offset_bottom = -11.0
+bbcode_enabled = true
+text = "Dont show  Tutorials"
+
+[node name="Outside" type="Node2D" parent="."]
+script = ExtResource("2_ogttl")
+
+[node name="Background" type="Sprite2D" parent="Outside"]
+position = Vector2(164.522, -19.1213)
+rotation = 1.5708
+scale = Vector2(0.581371, 0.995918)
+texture = ExtResource("2_pvvf7")
+
+[node name="Vid" type="VideoStreamPlayer" parent="Outside"]
+offset_left = -382.0
+offset_top = -281.0
+offset_right = 258.0
+offset_bottom = 263.0
+stream = ExtResource("8_8rs3a")
+autoplay = true
+metadata/_edit_use_anchors_ = true
+
+[node name="Text" type="RichTextLabel" parent="Outside"]
+offset_left = 299.0
+offset_top = -213.0
+offset_right = 690.0
+offset_bottom = 131.0
+bbcode_enabled = true
+text = "You can only place blocks [b] within [/b] the [b] grey [/b] border lines!"
+
+[node name="Title" type="RichTextLabel" parent="Outside"]
+offset_left = 293.0
+offset_top = -312.0
+offset_right = 673.0
+offset_bottom = -225.0
+bbcode_enabled = true
+text = "[font_size=24]Don't leave us!
+[/font_size]"
+
+[node name="Button" type="Button" parent="Outside"]
+offset_left = 301.0
+offset_top = 155.0
+offset_right = 507.0
+offset_bottom = 235.0
+text = "Got it!"
+
+[node name="CheckButton" type="CheckButton" parent="Outside"]
+offset_left = 576.0
+offset_top = 189.0
+offset_right = 701.0
+offset_bottom = 237.0
+
+[node name="Label" type="RichTextLabel" parent="Outside/CheckButton"]
+layout_mode = 0
+offset_left = -47.0
+offset_top = -34.0
+offset_right = 144.0
+offset_bottom = -11.0
+bbcode_enabled = true
+text = "Dont show  Tutorials"
+
+[node name="Controls" type="Node2D" parent="."]
+script = ExtResource("2_ogttl")
+
+[node name="Background" type="Sprite2D" parent="Controls"]
+position = Vector2(164.522, -19.1213)
+rotation = 1.5708
+scale = Vector2(0.581371, 0.995918)
+texture = ExtResource("2_pvvf7")
+
+[node name="Vid" type="VideoStreamPlayer" parent="Controls"]
+offset_left = -382.0
+offset_top = -281.0
+offset_right = 258.0
+offset_bottom = 263.0
+stream = ExtResource("8_8rs3a")
+autoplay = true
+metadata/_edit_use_anchors_ = true
+
+[node name="Text" type="RichTextLabel" parent="Controls"]
+offset_left = 299.0
+offset_top = -213.0
+offset_right = 690.0
+offset_bottom = 131.0
+bbcode_enabled = true
+text = "Move the camera by [b]clicking[/b] and [b]dragging[/b].
+
+Scroll [b] up and down[/b] with the [b]mouse wheel[/b].
+
+[b]Zoom[/b] with [b]CTRL + mouse wheel."
+
+[node name="Title" type="RichTextLabel" parent="Controls"]
+offset_left = 293.0
+offset_top = -312.0
+offset_right = 673.0
+offset_bottom = -225.0
+bbcode_enabled = true
+text = "[font_size=24]How to use hands
+[/font_size]"
+
+[node name="Button" type="Button" parent="Controls"]
+offset_left = 301.0
+offset_top = 155.0
+offset_right = 507.0
+offset_bottom = 235.0
+text = "Got it!"
+
+[node name="CheckButton" type="CheckButton" parent="Controls"]
+offset_left = 576.0
+offset_top = 189.0
+offset_right = 701.0
+offset_bottom = 237.0
+
+[node name="Label" type="RichTextLabel" parent="Controls/CheckButton"]
+layout_mode = 0
+offset_left = -47.0
 offset_top = -34.0
 offset_right = 144.0
 offset_bottom = -11.0
@@ -373,3 +682,13 @@ text = "Dont show  Tutorials"
 [connection signal="toggled" from="UpgradeBlocks2/CheckButton" to="." method="_on_check_button_toggled"]
 [connection signal="pressed" from="Pathfinding/Button" to="Pathfinding" method="_on_button_pressed"]
 [connection signal="toggled" from="Pathfinding/CheckButton" to="." method="_on_check_button_toggled"]
+[connection signal="pressed" from="Starting/Button" to="Starting" method="_on_button_pressed"]
+[connection signal="toggled" from="Starting/CheckButton" to="." method="_on_check_button_toggled"]
+[connection signal="pressed" from="EXP/Button" to="EXP" method="_on_button_pressed"]
+[connection signal="toggled" from="EXP/CheckButton" to="." method="_on_check_button_toggled"]
+[connection signal="pressed" from="Information/Button" to="Information" method="_on_button_pressed"]
+[connection signal="toggled" from="Information/CheckButton" to="." method="_on_check_button_toggled"]
+[connection signal="pressed" from="Outside/Button" to="Outside" method="_on_button_pressed"]
+[connection signal="toggled" from="Outside/CheckButton" to="." method="_on_check_button_toggled"]
+[connection signal="pressed" from="Controls/Button" to="Controls" method="_on_button_pressed"]
+[connection signal="toggled" from="Controls/CheckButton" to="." method="_on_check_button_toggled"]

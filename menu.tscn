@@ -86,9 +86,10 @@ _data = {
 "RESET": SubResource("Animation_byqvo")
 }
 
-[node name="Menu" type="Node2D"]
+[node name="Menu" type="Node2D" node_paths=PackedStringArray("description")]
 z_index = 51
 script = ExtResource("1_vjikn")
+description = NodePath("CanvasLayer/UI/Description")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." node_paths=PackedStringArray("main", "unlockedTab", "accountsTab", "menu", "ui", "parent")]
 scale = Vector2(0.565, 0.565)
@@ -102,6 +103,7 @@ ui = NodePath("UI")
 parent = NodePath("..")
 
 [node name="MainMenu" type="Node2D" parent="CanvasLayer"]
+visible = false
 
 [node name="Banner" type="Sprite2D" parent="CanvasLayer/MainMenu"]
 position = Vector2(1007.3, 569.204)
@@ -215,7 +217,6 @@ text = "Back
 "
 
 [node name="UI" type="Node2D" parent="CanvasLayer"]
-visible = false
 
 [node name="Minimap" parent="CanvasLayer/UI" instance=ExtResource("8_i8iej")]
 offset_left = 100.0
@@ -225,6 +226,7 @@ offset_bottom = 210.0
 scale = Vector2(0.15, 0.15)
 
 [node name="Description" type="Label" parent="CanvasLayer/UI"]
+modulate = Color(1, 1, 1, 0)
 offset_left = 172.0
 offset_top = 1081.0
 offset_right = 1819.0
@@ -248,12 +250,6 @@ texture_normal = ExtResource("9_1lrx0")
 texture_pressed = ExtResource("10_8dawl")
 texture_disabled = ExtResource("10_8dawl")
 stretch_mode = 0
-
-[node name="PHASE" type="Label" parent="CanvasLayer/UI"]
-offset_left = 1103.0
-offset_top = 169.0
-offset_right = 1694.0
-offset_bottom = 192.0
 
 [node name="Hand" parent="CanvasLayer/UI" node_paths=PackedStringArray("description") instance=ExtResource("8_4633y")]
 position = Vector2(141.593, 950)
@@ -303,13 +299,6 @@ offset_right = 113.248
 offset_bottom = 36.4602
 text = "Redraws"
 scroll_active = false
-
-[node name="HP" type="Label" parent="CanvasLayer/UI"]
-offset_left = 1008.85
-offset_top = 86.7257
-offset_right = 1048.85
-offset_bottom = 109.726
-text = "100"
 
 [node name="Wave" type="Label" parent="CanvasLayer/UI"]
 offset_left = 53.0973
@@ -417,6 +406,14 @@ scale = Vector2(1.5, 1.5)
 
 [node name="TutorialSpot" type="Node2D" parent="CanvasLayer/UI"]
 position = Vector2(923.894, 557.522)
+
+[node name="saving" type="Label" parent="CanvasLayer/UI"]
+offset_left = 40.708
+offset_top = 17.6991
+offset_right = 167.708
+offset_bottom = 40.6991
+text = "Saving the game
+"
 
 [node name="PlayerName" type="Label" parent="CanvasLayer"]
 offset_left = 61.9469

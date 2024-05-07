@@ -85,10 +85,10 @@ func setUpTower():
 		projectile.visible=true;
 		$AudioStreamPlayer2D.finished.connect(func(): if inRange():$AudioStreamPlayer2D.play)
 	match type:
-		2:$EnemyDetector.modulate=Color(0,1,0)
-		3:$EnemyDetector.modulate=Color(1,0,0)
-		4:$EnemyDetector.modulate=Color(1,1,0)
-		5:$EnemyDetector.modulate=Color(0,1,1)
+		2:$EnemyDetector.get_node("Area2D/Preview").modulate=Color(0,1,0)
+		3:$EnemyDetector.get_node("Area2D/Preview").modulate=Color(1,0,0)
+		4:$EnemyDetector.get_node("Area2D/Preview").modulate=Color(1,1,0)
+		5:$EnemyDetector.get_node("Area2D/Preview").modulate=Color(0,1,1)
 		
 	lightamount=GameState.gameState.lightThresholds.getLight(global_position.y)
 	#$Ambient.energy=lightamount/ambientDropOff
@@ -217,6 +217,7 @@ func checkLight(delta):
 	$PointLight2D.energy=$PointLight2D.energy-9*delta;
 	pass;
 func _process(delta):
+	checkDetectorVisibility(delta)
 	if GameState.gameState==null:return
 	checkLight(delta)
 	$LVL.text=str(stacks)
@@ -359,22 +360,37 @@ func _on_audio_stream_player_2d_finished():
 
 
 func _on_button_mouse_entered():
-	var field=GameState.gameState.menu.get_node("CanvasLayer/UI/Description")
-	if extension!=1:
-		field.text=Stats.getDescription(Stats.TurretExtension.keys()[extension-1])
-	else:
-		field.text=Stats.getDescription(Stats.getStringFromEnum(type))
 	
-	$EnemyDetector.visible=true
+	if extension!=1:
+		GameState.gameState.menu.showDescription(Stats.getDescription(Stats.TurretExtension.keys()[extension-1]))
+	else:
+		GameState.gameState.menu.showDescription(Stats.getDescription(Stats.getStringFromEnum(type)))
+	
+	detectorvisible=true;
 	GameState.gameState.showCount(killcount,damagedealt)
 	pass # Replace with function body.
+var detectorvisible=false;	
+var m=0;
+
+func checkDetectorVisibility(delta):
+	
+	if (detectorvisible and m>=1 )or (not detectorvisible and m<=0):
+		return;
+		
+	if detectorvisible:
+		m=m+1.5*delta;
+	else:
+		m=m-4*delta;
+	m=clamp(m,0,1)
+	$EnemyDetector.modulate=Color(m,m,m,m)
+	pass
 func addDamage(Damage):
 	damagedealt=damagedealt+Damage;
 	
 	pass;
 
 func _on_button_mouse_exited():
-	GameState.gameState.menu.get_node("CanvasLayer/UI/Description").text=" "
-	$EnemyDetector.visible=false
+	GameState.gameState.menu.hideDescription()
+	detectorvisible=false;
 	GameState.gameState.hideCount()
 	pass # Replace with function body.

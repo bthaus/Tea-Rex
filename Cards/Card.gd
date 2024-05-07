@@ -89,13 +89,13 @@ func _on_button_pressed():
 
 func _on_button_mouse_entered():
 	z_index=10
-	state.menu.get_node("CanvasLayer/UI/Description").text=description
+	state.menu.showDescription(description)
 	
 	pass # Replace with function body.
 
 
 func _on_button_mouse_exited():
 	z_index=0
-	state.menu.get_node("CanvasLayer/UI/Description").text=" "
+	state.menu.hideDescription()
 	mouseOut.emit()
 	pass # Replace with function body.
