@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://cf5heufemalnf"]
+[gd_scene load_steps=29 format=3 uid="uid://cf5heufemalnf"]
 
 [ext_resource type="Script" path="res://Menu.gd" id="1_vjikn"]
 [ext_resource type="Script" path="res://UI.gd" id="2_vouda"]
@@ -13,8 +13,11 @@
 [ext_resource type="Texture2D" uid="uid://bmmqmilhp5rrp" path="res://Assets/UI/BUTTON1.png" id="9_1lrx0"]
 [ext_resource type="Texture2D" uid="uid://eikafnrgw2hp" path="res://Assets/UI/BUTTON2.png" id="10_8dawl"]
 [ext_resource type="Texture2D" uid="uid://cy3lpa8r6eu27" path="res://Assets/UI/CARDMAX.png" id="12_8sn7l"]
+[ext_resource type="Texture2D" uid="uid://d0bdq8gnbp4f5" path="res://Assets/UI/label_maxCards.png" id="13_kv3ah"]
 [ext_resource type="Texture2D" uid="uid://b1g35penkxgsp" path="res://Assets/UI/LBAR0.png" id="13_ucxh1"]
+[ext_resource type="Texture2D" uid="uid://cle6jpm068sar" path="res://Assets/UI/label_redrawCards.png" id="14_2tmxv"]
 [ext_resource type="Texture2D" uid="uid://jr77oi8084ln" path="res://Assets/UI/LBAR100.png" id="14_h6yjh"]
+[ext_resource type="Texture2D" uid="uid://cdb0bphmyr1e4" path="res://Assets/UI/label_wave.png" id="15_esn6i"]
 [ext_resource type="Texture2D" uid="uid://cir25cbml7q1h" path="res://Assets/Level/blackBackgroundLabel.png" id="16_oeuhs"]
 [ext_resource type="PackedScene" uid="uid://b1awhns1b5kw3" path="res://hover_hint.tscn" id="16_vvx5a"]
 
@@ -103,6 +106,7 @@ ui = NodePath("UI")
 parent = NodePath("..")
 
 [node name="MainMenu" type="Node2D" parent="CanvasLayer"]
+visible = false
 
 [node name="Banner" type="Sprite2D" parent="CanvasLayer/MainMenu"]
 position = Vector2(1007.3, 569.204)
@@ -216,7 +220,6 @@ text = "Back
 "
 
 [node name="UI" type="Node2D" parent="CanvasLayer"]
-visible = false
 
 [node name="Minimap" parent="CanvasLayer/UI" instance=ExtResource("8_i8iej")]
 offset_left = 100.0
@@ -257,19 +260,20 @@ scale = Vector2(1.2, 1.2)
 description = NodePath("../Description")
 
 [node name="maxcards" type="Label" parent="CanvasLayer/UI"]
-offset_left = 51.3274
-offset_top = 1015.93
-offset_right = 140.327
-offset_bottom = 1073.93
+offset_left = 99.115
+offset_top = 955.752
+offset_right = 188.115
+offset_bottom = 1013.75
 text = "5"
 
 [node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/UI/maxcards"]
-modulate = Color(0, 0.537255, 0.258824, 1)
 z_index = -1
-position = Vector2(5.30973, 10.6195)
-texture = ExtResource("12_8sn7l")
+position = Vector2(-3.53981, 8.84949)
+scale = Vector2(0.343, 0.343)
+texture = ExtResource("13_kv3ah")
 
 [node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/UI/maxcards"]
+visible = false
 layout_mode = 0
 offset_left = 44.0
 offset_top = -4.0
@@ -278,20 +282,34 @@ offset_bottom = 36.0
 text = "MaxCards"
 scroll_active = false
 
+[node name="HoverHint" parent="CanvasLayer/UI/maxcards" node_paths=PackedStringArray("hintText") instance=ExtResource("16_vvx5a")]
+position = Vector2(-5.30973, 5.30984)
+scale = Vector2(2.275, 1.555)
+hintText = NodePath("../maxhint")
+
+[node name="maxhint" type="Label" parent="CanvasLayer/UI/maxcards"]
+layout_mode = 0
+offset_left = 111.504
+offset_top = 1.77002
+offset_right = 151.504
+offset_bottom = 24.77
+text = "Space for cards"
+
 [node name="redraws" type="Label" parent="CanvasLayer/UI"]
-offset_left = 49.5575
-offset_top = 1083.19
-offset_right = 126.558
-offset_bottom = 1132.19
+offset_left = 97.3451
+offset_top = 1072.57
+offset_right = 174.346
+offset_bottom = 1121.57
 text = "2"
 
 [node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/UI/redraws"]
-modulate = Color(0.705882, 0.121569, 0, 1)
 z_index = -1
-position = Vector2(5.29519, 12.6763)
-texture = ExtResource("12_8sn7l")
+position = Vector2(-3.5398, 10.6154)
+scale = Vector2(0.343, 0.343)
+texture = ExtResource("14_2tmxv")
 
 [node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/UI/redraws"]
+visible = false
 layout_mode = 0
 offset_left = 44.2478
 offset_top = -3.53979
@@ -300,20 +318,34 @@ offset_bottom = 36.4602
 text = "Redraws"
 scroll_active = false
 
+[node name="HoverHint" parent="CanvasLayer/UI/redraws" node_paths=PackedStringArray("hintText") instance=ExtResource("16_vvx5a")]
+position = Vector2(-3.53982, 8.84956)
+scale = Vector2(2.28, 1.605)
+hintText = NodePath("../redrawhint")
+
+[node name="redrawhint" type="Label" parent="CanvasLayer/UI/redraws"]
+layout_mode = 0
+offset_left = 104.425
+offset_top = 3.53982
+offset_right = 284.425
+offset_bottom = 26.5398
+text = "Cards drawn per round"
+
 [node name="Wave" type="Label" parent="CanvasLayer/UI"]
-offset_left = 53.0973
-offset_top = 943.363
-offset_right = 87.0974
-offset_bottom = 966.363
+offset_left = 97.3451
+offset_top = 833.628
+offset_right = 131.345
+offset_bottom = 856.628
 text = "0"
 
 [node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/UI/Wave"]
-modulate = Color(0, 0, 0.945098, 1)
 z_index = -1
-position = Vector2(3.53983, 10.6195)
-texture = ExtResource("12_8sn7l")
+position = Vector2(-1.76987, 12.3893)
+scale = Vector2(0.343, 0.343)
+texture = ExtResource("15_esn6i")
 
 [node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/UI/Wave"]
+visible = false
 layout_mode = 0
 offset_left = 44.2478
 offset_top = -3.53979
@@ -321,6 +353,19 @@ offset_right = 113.248
 offset_bottom = 36.4602
 text = "Wave"
 scroll_active = false
+
+[node name="wavehint" type="Label" parent="CanvasLayer/UI/Wave"]
+layout_mode = 0
+offset_left = 111.0
+offset_top = -34.0
+offset_right = 188.0
+offset_bottom = 21.0
+text = "Waves survived"
+
+[node name="HoverHint" parent="CanvasLayer/UI/Wave" node_paths=PackedStringArray("hintText") instance=ExtResource("16_vvx5a")]
+position = Vector2(0, 5.30968)
+scale = Vector2(2.405, 1.65)
+hintText = NodePath("../wavehint")
 
 [node name="Hpbar" type="TextureProgressBar" parent="CanvasLayer/UI"]
 offset_left = 40.708
@@ -362,10 +407,10 @@ offset_bottom = -3.54843
 text = "EXP"
 
 [node name="CatBar" type="TextureProgressBar" parent="CanvasLayer/UI"]
-offset_left = 7.07965
-offset_top = 830.089
-offset_right = 107.08
-offset_bottom = 930.089
+offset_left = 14.1593
+offset_top = 679.646
+offset_right = 114.16
+offset_bottom = 779.646
 max_value = 5.0
 fill_mode = 4
 texture_under = ExtResource("12_8sn7l")
@@ -379,10 +424,17 @@ offset_right = 239.814
 offset_bottom = 58.3982
 text = "next Catastropy"
 
-[node name="HoverHint" parent="CanvasLayer/UI/CatBar" instance=ExtResource("16_vvx5a")]
+[node name="HoverHint" parent="CanvasLayer/UI/CatBar" node_paths=PackedStringArray("hintText") instance=ExtResource("16_vvx5a")]
 position = Vector2(51.3274, 44.2473)
 scale = Vector2(1.165, 1.165)
-hintText = "I am the catastrophy hover hint"
+hintText = NodePath("../cathint")
+
+[node name="cathint" type="Label" parent="CanvasLayer/UI/CatBar"]
+layout_mode = 0
+offset_left = 42.4477
+offset_top = -33.315
+offset_right = 82.4477
+offset_bottom = -10.315
 
 [node name="Killcount" type="RichTextLabel" parent="CanvasLayer/UI"]
 offset_left = 361.0
@@ -431,7 +483,7 @@ libraries = {
 [node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/AnimationPlayer"]
 modulate = Color(1, 1, 1, 0)
 z_index = 4096
-position = Vector2(1021.24, 553.982)
+position = Vector2(148.673, 530.973)
 scale = Vector2(2.30182, 1.13103)
 texture = ExtResource("16_oeuhs")
 

@@ -1,9 +1,9 @@
 extends Node2D
-@export var hintText:String;
+@export var hintText:Label;
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	$Label.text=hintText;
+	print(get_parent())
 	$Button.modulate=Color(0,0,0,0)
 	pass # Replace with function body.
 
@@ -11,6 +11,7 @@ var hovered=false
 var t=0;
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	if hintText==null:queue_free();return
 	if hovered and t<1:
 		t=t+2*delta;
 		
@@ -18,7 +19,7 @@ func _process(delta):
 		t=t-2*delta;
 		
 	t=clamp(t,0,1)
-	$Label.modulate=Color(1,1,1,t);
+	hintText.modulate=Color(1,1,1,t);
 	pass
 
 
