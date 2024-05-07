@@ -25,6 +25,9 @@ func updateUI():
 	
 	
 	pass;
+func show_tutorial(tut:Tutorial):
+	$CanvasLayer/UI/TutorialSpot.add_child(tut)
+	pass;
 func showDeathScreen():
 	
 	$CanvasLayer/AnimationPlayer.play("DeathScreen")

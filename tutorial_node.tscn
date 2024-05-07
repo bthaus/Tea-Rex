@@ -1,11 +1,375 @@
-[gd_scene load_steps=2 format=3 uid="uid://b4r0647fdt4ow"]
+[gd_scene load_steps=9 format=3 uid="uid://b4r0647fdt4ow"]
 
 [ext_resource type="VideoStream" path="res://Assets/TutorialVideos/RotateBlock.ogv" id="1_5j4vo"]
+[ext_resource type="Script" path="res://TutorialHolder.gd" id="1_f82j1"]
+[ext_resource type="Script" path="res://tutorial.gd" id="2_ogttl"]
+[ext_resource type="Texture2D" uid="uid://cir25cbml7q1h" path="res://Assets/Level/blackBackgroundLabel.png" id="2_pvvf7"]
+[ext_resource type="VideoStream" path="res://Assets/TutorialVideos/NoBLocking.ogv" id="5_o5rvo"]
+[ext_resource type="VideoStream" path="res://Assets/TutorialVideos/ColorRestriction.ogv" id="6_uk43q"]
+[ext_resource type="VideoStream" path="res://Assets/TutorialVideos/UpgradeBlocks.ogv" id="7_6arob"]
+[ext_resource type="VideoStream" path="res://Assets/TutorialVideos/Pathfinding.ogv" id="8_8rs3a"]
 
 [node name="TutorialNode" type="Node2D"]
+position = Vector2(416, 332)
+script = ExtResource("1_f82j1")
 
-[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="."]
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="RotateBlock" type="Node2D" parent="."]
+script = ExtResource("2_ogttl")
+
+[node name="Background" type="Sprite2D" parent="RotateBlock"]
+position = Vector2(164.522, -19.1213)
+rotation = 1.5708
+scale = Vector2(0.581371, 0.995918)
+texture = ExtResource("2_pvvf7")
+
+[node name="Vid" type="VideoStreamPlayer" parent="RotateBlock"]
+offset_left = -382.0
+offset_top = -281.0
+offset_right = 258.0
+offset_bottom = 263.0
 stream = ExtResource("1_5j4vo")
 autoplay = true
+metadata/_edit_use_anchors_ = true
+
+[node name="Text" type="RichTextLabel" parent="RotateBlock"]
+offset_left = 299.0
+offset_top = -213.0
+offset_right = 690.0
+offset_bottom = 131.0
+bbcode_enabled = true
+text = "Use [b] right click [/b] for [b]rotating[/b] blocks.
+Press [b]ESC [/b]for putting a block back into your hand. "
+
+[node name="Title" type="RichTextLabel" parent="RotateBlock"]
+offset_left = 293.0
+offset_top = -312.0
+offset_right = 673.0
+offset_bottom = -225.0
+bbcode_enabled = true
+text = "[font_size=24] Rotating[/font_size]"
+
+[node name="Button" type="Button" parent="RotateBlock"]
+offset_left = 301.0
+offset_top = 155.0
+offset_right = 507.0
+offset_bottom = 235.0
+text = "Got it!"
+
+[node name="CheckButton" type="CheckButton" parent="RotateBlock"]
+offset_left = 576.0
+offset_top = 189.0
+offset_right = 701.0
+offset_bottom = 237.0
+
+[node name="Label" type="RichTextLabel" parent="RotateBlock/CheckButton"]
+layout_mode = 0
+offset_left = -32.0
+offset_top = -34.0
+offset_right = 116.0
+offset_bottom = -11.0
+bbcode_enabled = true
+text = "Dont show  Tutorials"
+
+[node name="NoBlocking" type="Node2D" parent="."]
+script = ExtResource("2_ogttl")
+
+[node name="Background" type="Sprite2D" parent="NoBlocking"]
+position = Vector2(164.522, -19.1213)
+rotation = 1.5708
+scale = Vector2(0.581371, 0.995918)
+texture = ExtResource("2_pvvf7")
+
+[node name="Vid" type="VideoStreamPlayer" parent="NoBlocking"]
+offset_left = -382.0
+offset_top = -281.0
+offset_right = 258.0
+offset_bottom = 263.0
+stream = ExtResource("5_o5rvo")
+autoplay = true
+metadata/_edit_use_anchors_ = true
+
+[node name="Text" type="RichTextLabel" parent="NoBlocking"]
+offset_left = 299.0
+offset_top = -213.0
+offset_right = 690.0
+offset_bottom = 131.0
+bbcode_enabled = true
+text = "You cant block the path of your enemies completely. 
+This is indicated by a red outline."
+
+[node name="Title" type="RichTextLabel" parent="NoBlocking"]
+offset_left = 293.0
+offset_top = -312.0
+offset_right = 673.0
+offset_bottom = -225.0
+bbcode_enabled = true
+text = "[font_size=24] Sneaky you![/font_size]"
+
+[node name="Button" type="Button" parent="NoBlocking"]
+offset_left = 301.0
+offset_top = 155.0
+offset_right = 507.0
+offset_bottom = 235.0
+text = "Got it!"
+
+[node name="CheckButton" type="CheckButton" parent="NoBlocking"]
+offset_left = 576.0
+offset_top = 189.0
+offset_right = 701.0
+offset_bottom = 237.0
+
+[node name="Label" type="RichTextLabel" parent="NoBlocking/CheckButton"]
+layout_mode = 0
+offset_left = -33.0
+offset_top = -34.0
+offset_right = 144.0
+offset_bottom = -11.0
+bbcode_enabled = true
+text = "Dont show  Tutorials"
+
+[node name="ColorRestriction" type="Node2D" parent="."]
+script = ExtResource("2_ogttl")
+
+[node name="Background" type="Sprite2D" parent="ColorRestriction"]
+position = Vector2(164.522, -19.1213)
+rotation = 1.5708
+scale = Vector2(0.581371, 0.995918)
+texture = ExtResource("2_pvvf7")
+
+[node name="Vid" type="VideoStreamPlayer" parent="ColorRestriction"]
+offset_left = -382.0
+offset_top = -281.0
+offset_right = 258.0
+offset_bottom = 263.0
+stream = ExtResource("6_uk43q")
+autoplay = true
+metadata/_edit_use_anchors_ = true
+
+[node name="Text" type="RichTextLabel" parent="ColorRestriction"]
+offset_left = 299.0
+offset_top = -213.0
+offset_right = 690.0
+offset_bottom = 131.0
+bbcode_enabled = true
+text = "You can only place [b] same colored [/b] blocks next to each other. "
+
+[node name="Title" type="RichTextLabel" parent="ColorRestriction"]
+offset_left = 293.0
+offset_top = -312.0
+offset_right = 673.0
+offset_bottom = -225.0
+bbcode_enabled = true
+text = "[font_size=24]Too easy
+
+[/font_size]"
+
+[node name="Button" type="Button" parent="ColorRestriction"]
+offset_left = 301.0
+offset_top = 155.0
+offset_right = 507.0
+offset_bottom = 235.0
+text = "Got it!"
+
+[node name="CheckButton" type="CheckButton" parent="ColorRestriction"]
+offset_left = 576.0
+offset_top = 189.0
+offset_right = 701.0
+offset_bottom = 237.0
+
+[node name="Label" type="RichTextLabel" parent="ColorRestriction/CheckButton"]
+layout_mode = 0
+offset_left = -4.0
+offset_top = -34.0
+offset_right = 144.0
+offset_bottom = -11.0
+bbcode_enabled = true
+text = "Dont show  Tutorials"
+
+[node name="UpgradeBlocks" type="Node2D" parent="."]
+script = ExtResource("2_ogttl")
+
+[node name="Background" type="Sprite2D" parent="UpgradeBlocks"]
+position = Vector2(164.522, -19.1213)
+rotation = 1.5708
+scale = Vector2(0.581371, 0.995918)
+texture = ExtResource("2_pvvf7")
+
+[node name="Vid" type="VideoStreamPlayer" parent="UpgradeBlocks"]
+offset_left = -382.0
+offset_top = -281.0
+offset_right = 258.0
+offset_bottom = 263.0
+stream = ExtResource("7_6arob")
+autoplay = true
+metadata/_edit_use_anchors_ = true
+
+[node name="Text" type="RichTextLabel" parent="UpgradeBlocks"]
+offset_left = 299.0
+offset_top = -213.0
+offset_right = 690.0
+offset_bottom = 131.0
+bbcode_enabled = true
+text = "Stacking [b]same colored[/] blocks on top of each other makes them more powerful. 
+The blocks have to be [b]overlapping[/b] completely!"
+
+[node name="Title" type="RichTextLabel" parent="UpgradeBlocks"]
+offset_left = 293.0
+offset_top = -312.0
+offset_right = 673.0
+offset_bottom = -225.0
+bbcode_enabled = true
+text = "[font_size=24]MORE POWER
+
+[/font_size]"
+
+[node name="Button" type="Button" parent="UpgradeBlocks"]
+offset_left = 301.0
+offset_top = 155.0
+offset_right = 507.0
+offset_bottom = 235.0
+text = "Got it!"
+
+[node name="CheckButton" type="CheckButton" parent="UpgradeBlocks"]
+offset_left = 576.0
+offset_top = 189.0
+offset_right = 701.0
+offset_bottom = 237.0
+
+[node name="Label" type="RichTextLabel" parent="UpgradeBlocks/CheckButton"]
+layout_mode = 0
+offset_left = -4.0
+offset_top = -34.0
+offset_right = 144.0
+offset_bottom = -11.0
+bbcode_enabled = true
+text = "Dont show  Tutorials"
+
+[node name="UpgradeBlocks2" type="Node2D" parent="."]
+script = ExtResource("2_ogttl")
+
+[node name="Background" type="Sprite2D" parent="UpgradeBlocks2"]
+position = Vector2(164.522, -19.1213)
+rotation = 1.5708
+scale = Vector2(0.581371, 0.995918)
+texture = ExtResource("2_pvvf7")
+
+[node name="Vid" type="VideoStreamPlayer" parent="UpgradeBlocks2"]
+offset_left = -382.0
+offset_top = -281.0
+offset_right = 258.0
+offset_bottom = 263.0
+stream = ExtResource("7_6arob")
+autoplay = true
+metadata/_edit_use_anchors_ = true
+
+[node name="Text" type="RichTextLabel" parent="UpgradeBlocks2"]
+offset_left = 299.0
+offset_top = -213.0
+offset_right = 690.0
+offset_bottom = 131.0
+bbcode_enabled = true
+text = "All blocks your stacking on top of have to be [b]the same level[/b].
+So you have to be careful how you place your blocks!
+"
+
+[node name="Title" type="RichTextLabel" parent="UpgradeBlocks2"]
+offset_left = 293.0
+offset_top = -312.0
+offset_right = 673.0
+offset_bottom = -225.0
+bbcode_enabled = true
+text = "[font_size=24]MORE POWER???
+
+[/font_size]"
+
+[node name="Button" type="Button" parent="UpgradeBlocks2"]
+offset_left = 301.0
+offset_top = 155.0
+offset_right = 507.0
+offset_bottom = 235.0
+text = "Got it!"
+
+[node name="CheckButton" type="CheckButton" parent="UpgradeBlocks2"]
+offset_left = 576.0
+offset_top = 189.0
+offset_right = 701.0
+offset_bottom = 237.0
+
+[node name="Label" type="RichTextLabel" parent="UpgradeBlocks2/CheckButton"]
+layout_mode = 0
+offset_left = -4.0
+offset_top = -34.0
+offset_right = 144.0
+offset_bottom = -11.0
+bbcode_enabled = true
+text = "Dont show  Tutorials"
+
+[node name="Pathfinding" type="Node2D" parent="."]
+script = ExtResource("2_ogttl")
+
+[node name="Background" type="Sprite2D" parent="Pathfinding"]
+position = Vector2(164.522, -19.1213)
+rotation = 1.5708
+scale = Vector2(0.581371, 0.995918)
+texture = ExtResource("2_pvvf7")
+
+[node name="Vid" type="VideoStreamPlayer" parent="Pathfinding"]
+offset_left = -382.0
+offset_top = -281.0
+offset_right = 258.0
+offset_bottom = 263.0
+stream = ExtResource("8_8rs3a")
+autoplay = true
+metadata/_edit_use_anchors_ = true
+
+[node name="Text" type="RichTextLabel" parent="Pathfinding"]
+offset_left = 299.0
+offset_top = -213.0
+offset_right = 690.0
+offset_bottom = 131.0
+bbcode_enabled = true
+text = "The paths of your enemies are determined by the placement of your blocks. "
+
+[node name="Title" type="RichTextLabel" parent="Pathfinding"]
+offset_left = 293.0
+offset_top = -312.0
+offset_right = 673.0
+offset_bottom = -225.0
+bbcode_enabled = true
+text = "[font_size=24]The paths of the Lord are unfathomable...
+[/font_size]"
+
+[node name="Button" type="Button" parent="Pathfinding"]
+offset_left = 301.0
+offset_top = 155.0
+offset_right = 507.0
+offset_bottom = 235.0
+text = "Got it!"
+
+[node name="CheckButton" type="CheckButton" parent="Pathfinding"]
+offset_left = 576.0
+offset_top = 189.0
+offset_right = 701.0
+offset_bottom = 237.0
+
+[node name="Label" type="RichTextLabel" parent="Pathfinding/CheckButton"]
+layout_mode = 0
+offset_left = -4.0
+offset_top = -34.0
+offset_right = 144.0
+offset_bottom = -11.0
+bbcode_enabled = true
+text = "Dont show  Tutorials"
+
+[connection signal="pressed" from="RotateBlock/Button" to="RotateBlock" method="_on_button_pressed"]
+[connection signal="toggled" from="RotateBlock/CheckButton" to="." method="_on_check_button_toggled"]
+[connection signal="pressed" from="NoBlocking/Button" to="NoBlocking" method="_on_button_pressed"]
+[connection signal="toggled" from="NoBlocking/CheckButton" to="." method="_on_check_button_toggled"]
+[connection signal="pressed" from="ColorRestriction/Button" to="ColorRestriction" method="_on_button_pressed"]
+[connection signal="toggled" from="ColorRestriction/CheckButton" to="." method="_on_check_button_toggled"]
+[connection signal="pressed" from="UpgradeBlocks/Button" to="UpgradeBlocks" method="_on_button_pressed"]
+[connection signal="toggled" from="UpgradeBlocks/CheckButton" to="." method="_on_check_button_toggled"]
+[connection signal="pressed" from="UpgradeBlocks2/Button" to="UpgradeBlocks2" method="_on_button_pressed"]
+[connection signal="toggled" from="UpgradeBlocks2/CheckButton" to="." method="_on_check_button_toggled"]
+[connection signal="pressed" from="Pathfinding/Button" to="Pathfinding" method="_on_button_pressed"]
+[connection signal="toggled" from="Pathfinding/CheckButton" to="." method="_on_check_button_toggled"]
