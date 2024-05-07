@@ -255,9 +255,15 @@ func _on_spawner_wave_done():
 
 
 func startGame():
-	TutorialHolder.showTutorial(TutorialHolder.tutNames.Controls,self)
-	TutorialHolder.showTutorial(TutorialHolder.tutNames.Starting,self)
 	
+	
+	TutorialHolder.showTutorial(TutorialHolder.tutNames.Starting,self,func():
+		TutorialHolder.showTutorial(TutorialHolder.tutNames.RotateBlock,self, func():
+			TutorialHolder.showTutorial(TutorialHolder.tutNames.Controls,self)
+			)	
+		)
+	
+	hand.visible=true;
 	if not started:
 		target=$Base
 		drawCards(maxCards)

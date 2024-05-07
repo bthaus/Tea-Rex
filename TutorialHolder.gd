@@ -10,6 +10,7 @@ func _ready():
 
 static func showTutorial(name:tutNames,gameState:GameState,done:Callable=func():print("nothing happens")):
 	var tut= instance.get_node(tutNames.find_key(name)).duplicate()
+	tut.visible=true;
 	tut.done=done;
 	if tut.isSeen() or not gameState.showTutorials:
 		done.call()

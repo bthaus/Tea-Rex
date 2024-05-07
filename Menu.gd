@@ -88,6 +88,7 @@ func _on_start_battle_phase_pressed():
 
 
 func _on_start_button_pressed():
+	$CanvasLayer/UI/Hand.visible=true
 	pass # Replace with function body.
 
 

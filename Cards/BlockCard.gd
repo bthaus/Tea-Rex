@@ -17,9 +17,7 @@ static func create(gameState:GameState,block=-1):
 		
 	return card;
 func select(done:Callable):
-	if showRotateTut:
-		get_tree().create_timer(2.5).timeout.connect(func():TutorialHolder.showTutorial(TutorialHolder.tutNames.RotateBlock,state))
-		
+	
 	if state.phase==Stats.GamePhase.BATTLE:
 		done.call(false);
 		return

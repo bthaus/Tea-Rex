@@ -23,6 +23,8 @@ func _ready():
 func _process(delta):
 	if Input.is_action_just_pressed("ui_menu") and not Card.isCardSelected:
 		menu.visible=!menu.visible
+		$UI/Hand.visible=!menu.visible
+		
 	if Input.is_action_just_pressed("delete"):
 		if accountsTab.visible:
 			for i in $MainMenu/AccountsTab/AccountList.get_selected_items():

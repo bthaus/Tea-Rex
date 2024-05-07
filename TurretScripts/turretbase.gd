@@ -222,6 +222,7 @@ func _process(delta):
 	#größter pfusch auf erden. wenn ein block in der hand ist soll er seine range anzeigen, wenn nicht dann nicht.
 	#der turm weiß nur nie ob er in der hand ist oder nicht -> card intercepten
 	if !placed:$Button.visible=Card.isCardSelected
+	
 	checkDetectorVisibility(delta)
 	if GameState.gameState==null:return
 	checkLight(delta)
@@ -365,12 +366,14 @@ func _on_audio_stream_player_2d_finished():
 
 
 func _on_button_mouse_entered():
-	
-	if extension!=1:
-		GameState.gameState.menu.showDescription(Stats.getDescription(Stats.TurretExtension.keys()[extension-1]))
-	else:
-		GameState.gameState.menu.showDescription(Stats.getDescription(Stats.getStringFromEnum(type)))
-	
+	if placed:
+		GameState.gameState.menu.showDescription("This turret defeated "+str(str(killcount)+" minions and dealt "+str(damagedealt)+"damage."))
+	else:	
+		if extension!=1:
+			GameState.gameState.menu.showDescription(Stats.getDescription(Stats.TurretExtension.keys()[extension-1]))
+		else:
+			GameState.gameState.menu.showDescription(Stats.getDescription(Stats.getStringFromEnum(type)))
+		
 	detectorvisible=true;
 	GameState.gameState.showCount(killcount,damagedealt)
 	pass # Replace with function body.
