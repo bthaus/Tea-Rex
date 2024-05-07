@@ -102,7 +102,6 @@ ui = NodePath("UI")
 parent = NodePath("..")
 
 [node name="MainMenu" type="Node2D" parent="CanvasLayer"]
-visible = false
 
 [node name="Banner" type="Sprite2D" parent="CanvasLayer/MainMenu"]
 position = Vector2(1007.3, 569.204)
@@ -216,6 +215,7 @@ text = "Back
 "
 
 [node name="UI" type="Node2D" parent="CanvasLayer"]
+visible = false
 
 [node name="Minimap" parent="CanvasLayer/UI" instance=ExtResource("8_i8iej")]
 offset_left = 100.0
