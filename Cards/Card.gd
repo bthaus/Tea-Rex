@@ -65,6 +65,8 @@ func played(interrupted:bool):
 	scale=Vector2(1,1)
 	z_index=0
 	position=Vector2(0,0)
+	
+		
 	isCardSelected=false;
 	if  interrupted:
 		queue_free()

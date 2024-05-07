@@ -216,7 +216,12 @@ func checkLight(delta):
 	
 	$PointLight2D.energy=$PointLight2D.energy-9*delta;
 	pass;
+	
+	
 func _process(delta):
+	#größter pfusch auf erden. wenn ein block in der hand ist soll er seine range anzeigen, wenn nicht dann nicht.
+	#der turm weiß nur nie ob er in der hand ist oder nicht -> card intercepten
+	if !placed:$Button.visible=Card.isCardSelected
 	checkDetectorVisibility(delta)
 	if GameState.gameState==null:return
 	checkLight(delta)
