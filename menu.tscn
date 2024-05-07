@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://cf5heufemalnf"]
+[gd_scene load_steps=26 format=3 uid="uid://cf5heufemalnf"]
 
 [ext_resource type="Script" path="res://Menu.gd" id="1_vjikn"]
 [ext_resource type="Script" path="res://UI.gd" id="2_vouda"]
@@ -16,6 +16,7 @@
 [ext_resource type="Texture2D" uid="uid://b1g35penkxgsp" path="res://Assets/UI/LBAR0.png" id="13_ucxh1"]
 [ext_resource type="Texture2D" uid="uid://jr77oi8084ln" path="res://Assets/UI/LBAR100.png" id="14_h6yjh"]
 [ext_resource type="Texture2D" uid="uid://cir25cbml7q1h" path="res://Assets/Level/blackBackgroundLabel.png" id="16_oeuhs"]
+[ext_resource type="PackedScene" uid="uid://b1awhns1b5kw3" path="res://hover_hint.tscn" id="16_vvx5a"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_t26sl"]
 font_size = 106
@@ -101,6 +102,7 @@ ui = NodePath("UI")
 parent = NodePath("..")
 
 [node name="MainMenu" type="Node2D" parent="CanvasLayer"]
+visible = false
 
 [node name="Banner" type="Sprite2D" parent="CanvasLayer/MainMenu"]
 position = Vector2(1007.3, 569.204)
@@ -214,7 +216,6 @@ text = "Back
 "
 
 [node name="UI" type="Node2D" parent="CanvasLayer"]
-visible = false
 
 [node name="Minimap" parent="CanvasLayer/UI" instance=ExtResource("8_i8iej")]
 offset_left = 100.0
@@ -389,6 +390,11 @@ offset_right = 239.814
 offset_bottom = 58.3982
 text = "next Catastropy"
 
+[node name="HoverHint" parent="CanvasLayer/UI/CatBar" instance=ExtResource("16_vvx5a")]
+position = Vector2(51.3274, 44.2473)
+scale = Vector2(1.165, 1.165)
+hintText = "I am the catastrophy hover hint"
+
 [node name="Killcount" type="RichTextLabel" parent="CanvasLayer/UI"]
 offset_left = 361.0
 offset_top = 12.0
@@ -428,7 +434,7 @@ libraries = {
 [node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/AnimationPlayer"]
 modulate = Color(1, 1, 1, 0)
 z_index = 4096
-position = Vector2(1001.77, 566.372)
+position = Vector2(1021.24, 553.982)
 scale = Vector2(2.30182, 1.13103)
 texture = ExtResource("16_oeuhs")
 
