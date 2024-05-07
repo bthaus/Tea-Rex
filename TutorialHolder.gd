@@ -8,14 +8,17 @@ static var instance=load("res://tutorial_node.tscn").instantiate() as TutorialHo
 func _ready():
 	pass # Replace with function body.
 
-static func showTutorial(name:tutNames,gameState:GameState):
+static func showTutorial(name:tutNames,gameState:GameState,done:Callable=func():print("nothing happens")):
 	var tut= instance.get_node(tutNames.find_key(name)).duplicate()
+	tut.done=done;
 	if tut.isSeen() or not gameState.showTutorials:
-		return
+		done.call()
+		return false
 	gameState.menu.show_tutorial(tut)
 	gameState.gameBoard.ignore_input=true;
 	
-	pass
+	return true;
+	
 static func getTutorial(name:tutNames):
 	return instance.get_node(tutNames.find_key(name)).duplicate()
 		

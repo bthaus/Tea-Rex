@@ -2,6 +2,7 @@ extends Node2D
 class_name Tutorial;
 var seen=false;
 var title="hi man"
+var done:Callable;
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -26,5 +27,7 @@ func _on_button_pressed():
 	hide()
 	GameState.gameState.gameBoard.ignore_input=false;
 	seen=true;
+	done.call()
+	
 	
 	pass # Replace with function body.

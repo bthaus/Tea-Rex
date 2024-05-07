@@ -12,7 +12,6 @@ func updateUI():
 	$CanvasLayer/PlayerName.text=gamestate.account
 	$CanvasLayer/UI/Hpbar.max_value=gamestate.maxHP
 	$CanvasLayer/UI/Hpbar.value=gamestate.HP
-	$CanvasLayer/UI/PHASE.text=Stats.GamePhase.keys()[gamestate.phase-1]
 	$CanvasLayer/UI/Wave.text=str(gamestate.wave)
 	$CanvasLayer/UI/maxcards.text=str(gamestate.maxCards)
 	$CanvasLayer/UI/redraws.text=str(gamestate.cardRedraws)
@@ -55,20 +54,26 @@ func _process(delta):
 	pass
 	
 func checkSaving(delta):
+	
 	if saving:
 		s=s+2*delta;
 	else:
 		s=s-2*delta	
 	s=clamp(s,0,1)		
-	description.modulate=Color(s,s,s,s)
+	$CanvasLayer/UI/saving.modulate=Color(s,s,s,s)
 	pass;
 func checkDescription(delta):
+	
+	if (sd and m >=1) or (not sd and m<=0):
+		return
+	
 	if sd:
 		m=m+2*delta;
 	else:
 		m=m-2*delta	
-	m=clamp(m,0,1)		
-	$CanvasLayer/UI/saving.modulate=Color(m,m,m,m)
+	m=clamp(m,0,1)	
+	description.modulate=Color(m,m,m,m)	
+	
 	pass;
 func showSaving():
 	saving=true;
