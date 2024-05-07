@@ -206,7 +206,7 @@ func de_highlight(delta):
 	pass
 func checkLight(delta):
 	if GameState.gameState.phase==Stats.GamePhase.BATTLE:return
-	if $PointLight2D.energy<=0:return
+	if $PointLight2D.energy<=0:$PointLight2D.energy=0;return
 	if globlight&&!melight:
 		$PointLight2D.energy=$PointLight2D.energy-9*delta;
 		return

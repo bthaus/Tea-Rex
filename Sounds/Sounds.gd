@@ -13,9 +13,19 @@ static var placeBlock=[
 ]
 static var startBuildPhase=load("res://Sounds/Soundeffects/new sounds/End sound.wav")
 static var unlock=load("res://Sounds/Soundeffects/new sounds/Unlock sound.wav")
-
+static var music=[
+	load("res://Sounds/Music/background1.wav"),
+	load("res://Sounds/Music/background2.wav"),
+	load("res://Sounds/Music/background3.wav"),
+	load("res://Sounds/Music/background4.wav"),
+	load("res://Sounds/Music/background5.wav"),
+	load("res://Sounds/Music/background6.wav"),
+		
+]
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	$Music.stream=music[0]
+	#$Music.play()
 	player=self
 	pass # Replace with function body.
 
@@ -37,3 +47,9 @@ static func start(sound):
 	player.stream=sound
 	player.play()
 	pass;
+
+
+func _on_music_finished():
+	$Music.stream=music.pick_random()
+	$Music.play()
+	pass # Replace with function body.

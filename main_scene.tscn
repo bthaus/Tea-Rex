@@ -60,15 +60,14 @@ thresholds = NodePath("../LightThresholds")
 gameState = NodePath("..")
 env = NodePath("../WorldEnvironment")
 
-[node name="Music" type="AudioStreamPlayer2D" parent="Camera2D"]
-position = Vector2(-736, -503)
-
 [node name="AudioListener2D" type="AudioListener2D" parent="Camera2D"]
 
 [node name="SoundPlayer" type="AudioStreamPlayer2D" parent="Camera2D"]
 position = Vector2(-736, -503)
 stream = ExtResource("6_qpv2c")
 script = ExtResource("7_cb883")
+
+[node name="Music" type="AudioStreamPlayer2D" parent="Camera2D/SoundPlayer"]
 
 [node name="Base" type="Node2D" parent="."]
 position = Vector2(534.237, 91.9909)
@@ -157,5 +156,5 @@ offset_right = 40.0
 offset_bottom = 23.0
 text = "maxglowposition"
 
-[connection signal="finished" from="Camera2D/Music" to="." method="_on_music_finished"]
+[connection signal="finished" from="Camera2D/SoundPlayer/Music" to="Camera2D/SoundPlayer" method="_on_music_finished"]
 [connection signal="area_entered" from="Base/Area2D" to="." method="_on_area_2d_area_entered"]
