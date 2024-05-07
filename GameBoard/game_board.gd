@@ -39,6 +39,25 @@ const EMPTY_TILE_ID = 6
 const SPAWNER_TILE_ID = 2
 const CATASTROPHY_PREVIEW_TILE_ID = 2
 
+const SPAWNER_RIGHT_TILE_ID = 7
+const SPAWNER_DOWN_TILE_ID = 8
+const SPAWNER_LEFT_TILE_ID = 9
+
+const WALL_UP_TILE_ID = 10
+const WALL_RIGHT_TILE_ID = 11
+const WALL_DOWN_TILE_ID = 12
+const WALL_LEFT_TILE_ID = 13
+
+const WALL_EDGE_LEFT_UP_TILE_ID = 14
+const WALL_EDGE_RIGHT_UP_TILE_ID = 15
+const WALL_EDGE_RIGHT_DOWN_TILE_ID = 16
+const WALL_EDGE_LEFT_DOWN_TILE_ID = 17
+
+const WALL_TUNNEL_LEFT_UP_TILE_ID = 18
+const WALL_TUNNEL_RIGHT_UP_TILE_ID = 19
+const WALL_TUNNEL_RIGHT_DOWN_TILE_ID = 20
+const WALL_TUNNEL_LEFT_DOWN_TILE_ID = 21
+
 var navigation_polygon = NavigationPolygon.new()
 var points = PackedVector2Array([Vector2(),Vector2(),Vector2(),Vector2()])
 
