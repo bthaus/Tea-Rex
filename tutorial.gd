@@ -24,10 +24,12 @@ func isSeen():
 	pass;
 func _on_button_pressed():
 	GameSaver.save("seen",name,"tutorials")
-	hide()
 	GameState.gameState.gameBoard.ignore_input=false;
 	seen=true;
 	done.call()
+	var tween = get_tree().create_tween()
+	tween.tween_property(self,"modulate",Color(0,0,0,0),1)
+	tween.tween_callback(func():queue_free())
 	
 	
 	pass # Replace with function body.

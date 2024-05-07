@@ -43,6 +43,7 @@ static func create(type:Stats.TurretColor,target:Node2D,wave:int=1)->Monster:
 func getExp():
 	return currentMinionPower*minionExp;
 	pass;
+static var xptext=load("res://Assets/UI/CARDMAX.png");
 func hit(color:Stats.TurretColor,damage,type="default"):
 	var mod=1;
 	if color==self.color:
@@ -51,6 +52,7 @@ func hit(color:Stats.TurretColor,damage,type="default"):
 	hp=int(hp)
 	$HP.text=str(hp)
 	if hp<=0 and not died:
+		#spawnEXP()
 		died=true
 		monster_died.emit(self)
 		$Hitbox.queue_free()
@@ -60,7 +62,16 @@ func hit(color:Stats.TurretColor,damage,type="default"):
 		$DeathAnim.play(Stats.getStringFromEnum(self.color))
 		return true;
 	return false;
-
+func spawnEXP():
+	var sprite=Sprite2D.new();
+	sprite.texture=xptext
+	GameState.gameState.add_child(sprite);
+	sprite.global_position=global_position
+	var tween = get_tree().create_tween()
+	print(GameState.gameState.menu.get_node("CanvasLayer/UI/ExpTarget").global_position)
+	tween.set_loops(10)
+	tween.tween_property(sprite,"global_position",(global_position+(GameState.gameState.get_node("Camera2D/EXPtarget").global_position-global_position))/10,0.3)
+	pass;
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
 	if died: return;

@@ -467,6 +467,9 @@ offset_bottom = 40.6991
 text = "Saving the game
 "
 
+[node name="ExpTarget" type="Node2D" parent="CanvasLayer/UI"]
+position = Vector2(243.363, 116.814)
+
 [node name="PlayerName" type="Label" parent="CanvasLayer"]
 offset_left = 61.9469
 offset_top = -109.735

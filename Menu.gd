@@ -35,6 +35,9 @@ func hideDescription():
 	pass;
 func show_tutorial(tut:Tutorial):
 	$CanvasLayer/UI/TutorialSpot.add_child(tut)
+	tut.modulate=Color(0,0,0,0)
+	var tween = get_tree().create_tween()
+	tween.tween_property(tut,"modulate",Color(1,1,1,1),1)
 	pass;
 func showDeathScreen():
 	
