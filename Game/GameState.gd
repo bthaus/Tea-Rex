@@ -31,6 +31,7 @@ var board_height=16;
 var y=0
 var spawners=[]
 var target;
+var showTutorials=true;
 
 static var blueChance=100;
 static var redChance=0;
@@ -94,6 +95,7 @@ func hideCount():
 # Called when the node enters the scene tree for the first time.
 var mapdrawnOnce=false;
 func _ready():
+
 	toUnlock.append_array(Stats.TurretExtension.keys())
 	toUnlock.append_array(Stats.SpecialCards.keys())
 	toUnlock.erase("DEFAULT")
@@ -234,6 +236,7 @@ func _on_spawner_wave_done():
 
 
 func startGame():
+	TutorialHolder.showTutorial(TutorialHolder.tutNames.RotateBlock,self)
 	if not started:
 		target=$Base
 		drawCards(maxCards)
