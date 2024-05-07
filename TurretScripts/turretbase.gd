@@ -57,8 +57,8 @@ func checkPosition():
 func setUpTower():
 	
 	GameState.gameState.getCamera().scrolled.connect(checkPosition)
-	if not placed:
-		$Button.queue_free()
+	#if not placed:
+		#$Button.queue_free()
 	GameState.gameState.start_combat_phase.connect(func():
 		$PointLight2D.energy=lightamount;
 		return)
