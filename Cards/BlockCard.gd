@@ -6,7 +6,7 @@ var cardName;
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
-
+static var showRotateTut=true
 static func create(gameState:GameState,block=-1):
 	var card=load("res://Cards/block_card.tscn").instantiate() as BlockCard;
 	card.state=gameState;
@@ -17,6 +17,9 @@ static func create(gameState:GameState,block=-1):
 		
 	return card;
 func select(done:Callable):
+	if showRotateTut:
+		get_tree().create_timer(2.5).timeout.connect(func():TutorialHolder.showTutorial(TutorialHolder.tutNames.RotateBlock,state))
+		
 	if state.phase==Stats.GamePhase.BATTLE:
 		done.call(false);
 		return

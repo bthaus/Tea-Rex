@@ -6,6 +6,7 @@ var description:String;
 static var isCardSelected=false;
 signal mouseIn
 signal mouseOut
+
 func select(done:Callable):
 	if isCardSelected:
 		return;

@@ -123,7 +123,12 @@ func drawCards(amount):
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	y=cam.position.y
-		
+	if Input.is_action_just_pressed("save"):
+		for k in TutorialHolder.tutNames.keys():
+			GameSaver.save("0",k,"tutorials")
+			print("restored: "+k)	
+		GameState.gameState.showTutorials=true	
+	
 	pass
 
 func initNewBoard():
@@ -236,7 +241,6 @@ func _on_spawner_wave_done():
 
 
 func startGame():
-	TutorialHolder.showTutorial(TutorialHolder.tutNames.RotateBlock,self)
 	if not started:
 		target=$Base
 		drawCards(maxCards)

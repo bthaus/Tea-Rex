@@ -13,8 +13,12 @@ static func showTutorial(name:tutNames,gameState:GameState):
 	if tut.isSeen() or not gameState.showTutorials:
 		return
 	gameState.menu.show_tutorial(tut)
-	pass
+	gameState.gameBoard.ignore_input=true;
 	
+	pass
+static func getTutorial(name:tutNames):
+	return instance.get_node(tutNames.find_key(name)).duplicate()
+		
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass

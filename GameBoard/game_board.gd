@@ -291,7 +291,8 @@ func _process(_delta):
 				idx += 1
 	
 	$NavigationRegion2D.bake_navigation_polygon()
-
+#this is a inputstopper flag for tutorials and handhovering
+var ignore_input=false;
 func _input(event):
 	var board_pos = $Board.local_to_map(get_global_mouse_position())
 	
@@ -301,6 +302,15 @@ func _input(event):
 	if not event is InputEventMouseMotion and ignore_click: #Ignore the next click
 		ignore_click = false
 		return
+	#interrupt and rightclick moved upwards so thats still detectable
+	if event.is_action_released("right_click"):
+		if selected_block != null:
+			block_handler.rotate_block(selected_block)
+	
+	if event.is_action_released("interrupt"):
+		_action_finished(false)
+	#this uses the inputstopper flag for tutorials and handhovering
+	if ignore_input: return	
 	
 	if event.is_action_released("left_click"):
 		match action:
@@ -332,12 +342,7 @@ func _input(event):
 				$NavigationRegion2D.bake_navigation_polygon()
 				
 	
-	if event.is_action_released("right_click"):
-		if selected_block != null:
-			block_handler.rotate_block(selected_block)
-	
-	if event.is_action_released("interrupt"):
-		_action_finished(false)
+
 
 func _place_block(block: Block, position: Vector2):
 	var data = $Board.get_cell_tile_data(BLOCK_LAYER, position)
