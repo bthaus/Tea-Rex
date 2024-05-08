@@ -4,17 +4,25 @@ var card;
 var state:GameState;
 var description:String;
 static var isCardSelected=false;
+static var selectedCard;
 signal mouseIn
 signal mouseOut
 
 func select(done:Callable):
 	if isCardSelected:
-		return;
+		if (selectedCard.card!=null)&&(selectedCard.card is BlockCard):
+			state.gameBoard._action_finished(false)
+			selectedCard=self;
+		if (selectedCard.card!=null)&&(selectedCard.card is SpecialCard):
+			selectedCard.card.interrupt()
+			selectedCard=self;	
+		
 	if self is BlockCard and state.phase!=Stats.GamePhase.BUILD:
 		return;
 		
 	
 	isCardSelected=true;
+	selectedCard=self;
 	scale=Vector2(1.3,1.3)
 	
 	z_index=10

@@ -29,6 +29,7 @@ var killcount=0;
 var damagedealt=0
 static var camera;
 var instantHit=false;
+var baseinstantHit=false;
 static var baseFactory:BaseFactory=load("res://base_factory.tscn").instantiate() as BaseFactory
 var base:Base;
 var placed=true;
@@ -52,7 +53,11 @@ func _ready():
 	pass # Replace with function body.
 func checkPosition():
 	if extension==Stats.TurretExtension.BLUELASER:return;
-	instantHit=GameState.gameState.getCamera().isOffCamera(global_position)
+	var i=GameState.gameState.getCamera().isOffCamera(global_position)
+	if !i:
+		instantHit=baseinstantHit;
+	else:
+		instantHit=true;
 	pass;
 func setUpTower():
 	
@@ -74,6 +79,8 @@ func setUpTower():
 	base.setLevel(stacks)
 	$AudioStreamPlayer2D.stream=load("res://Sounds/Soundeffects/"+Stats.getStringFromEnum(type)+Stats.getStringFromEnumExtension(extension)+"_shot.wav")
 	instantHit=Stats.getInstantHit(type,extension);
+	baseinstantHit=instantHit;
+	
 	cooldown=Stats.getCooldown(type,extension);
 	damage=Stats.getDamage(type,extension);
 	speed=Stats.getMissileSpeed(type,extension);
