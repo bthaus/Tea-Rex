@@ -195,7 +195,7 @@ func reduceCooldown(delta):
 
 var oldval=1;	
 static var globlight=false;
-var melight=false;
+var melight=true;
 func highlight(delta):
 	if GameState.gameState.phase==Stats.GamePhase.BATTLE:return
 	globlight=true;
@@ -218,7 +218,7 @@ func checkLight(delta):
 	if GameState.gameState.phase==Stats.GamePhase.BATTLE:return
 	#if $PointLight2D.energy<=0:$PointLight2D.energy=0;return
 	if globlight&&!melight:
-		create_tween().tween_property($PointLight2D,"energy",0,1)
+		create_tween().tween_property($PointLight2D,"energy",0,1).set_ease(Tween.EASE_OUT)
 	if !globlight&&$PointLight2D.energy<lightamount:
 		create_tween().tween_property($PointLight2D,"energy",lightamount,1)	
 		#$PointLight2D.energy=$PointLight2D.energy-9*delta;

@@ -124,9 +124,10 @@ func drawCards(amount):
 func _process(delta):
 	y=cam.position.y
 	if Input.is_action_just_pressed("save"):
-		for k in TutorialHolder.tutNames.keys():
-			GameSaver.save("0",k,"tutorials")
-			print("restored: "+k)	
+		#for k in TutorialHolder.tutNames.keys():
+		#	GameSaver.save("0",k,"tutorials")
+		#	print("restored: "+k)
+		drawCards(1)	
 		GameState.gameState.showTutorials=true	
 	
 	pass
@@ -256,7 +257,7 @@ func _on_spawner_wave_done():
 
 func startGame():
 	hand.drawCard(Card.create(self,SpecialCard.create(self,Stats.SpecialCards.HEAL)))
-	
+	cam.move_to(Vector2(500,500),func():print("done"))
 	TutorialHolder.showTutorial(TutorialHolder.tutNames.Starting,self,func():
 		TutorialHolder.showTutorial(TutorialHolder.tutNames.RotateBlock,self, func():
 			TutorialHolder.showTutorial(TutorialHolder.tutNames.Controls,self)

@@ -128,7 +128,7 @@ func _process(delta):
 	if shot:
 		translate(direction*delta*speed);
 		
-	if abs(global_position.x)>3000||abs(global_position.y)>3000:
+	if abs(global_position.x)>3000||abs(global_position.y)>gamestate.board_height*Stats.block_size:
 		remove()
 	pass
 	
