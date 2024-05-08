@@ -414,8 +414,8 @@ texture_region_size = Vector2i(64, 64)
 0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 0:0/0/physics_layer_0/angular_velocity = 0.0
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1d4s3"]
-texture = ExtResource("41_btc82")
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ys46h"]
+texture = ExtResource("43_id6gq")
 texture_region_size = Vector2i(64, 64)
 0:0/0 = 0
 0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
@@ -428,8 +428,8 @@ texture_region_size = Vector2i(64, 64)
 0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 0:0/0/physics_layer_0/angular_velocity = 0.0
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ys46h"]
-texture = ExtResource("43_id6gq")
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1d4s3"]
+texture = ExtResource("41_btc82")
 texture_region_size = Vector2i(64, 64)
 0:0/0 = 0
 0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
@@ -483,8 +483,8 @@ sources/16 = SubResource("TileSetAtlasSource_tx70e")
 sources/17 = SubResource("TileSetAtlasSource_cfic4")
 sources/18 = SubResource("TileSetAtlasSource_2ahau")
 sources/19 = SubResource("TileSetAtlasSource_xtlnu")
-sources/7 = SubResource("TileSetAtlasSource_1d4s3")
 sources/8 = SubResource("TileSetAtlasSource_pocmf")
-sources/9 = SubResource("TileSetAtlasSource_ys46h")
 sources/20 = SubResource("TileSetAtlasSource_bk73b")
 sources/21 = SubResource("TileSetAtlasSource_ono8r")
+sources/7 = SubResource("TileSetAtlasSource_ys46h")
+sources/9 = SubResource("TileSetAtlasSource_1d4s3")
