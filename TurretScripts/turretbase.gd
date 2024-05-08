@@ -29,9 +29,11 @@ var killcount=0;
 var damagedealt=0
 static var camera;
 var instantHit=false;
+var baseinstantHit=false;
 static var baseFactory:BaseFactory=load("res://base_factory.tscn").instantiate() as BaseFactory
 var base:Base;
 var placed=true;
+
 
 static func create(color:Stats.TurretColor, lvl:int, type:Stats.TurretExtension=Stats.TurretExtension.DEFAULT)->Turret:
 	var turret=load("res://TurretScripts/turretbase.tscn").instantiate() as Turret;
@@ -52,13 +54,17 @@ func _ready():
 	pass # Replace with function body.
 func checkPosition():
 	if extension==Stats.TurretExtension.BLUELASER:return;
-	instantHit=GameState.gameState.getCamera().isOffCamera(global_position)
+	var i=GameState.gameState.getCamera().isOffCamera(global_position)
+	if !i:
+		instantHit=baseinstantHit;
+	else:
+		instantHit=true;
 	pass;
 func setUpTower():
 	
 	GameState.gameState.getCamera().scrolled.connect(checkPosition)
-	if not placed:
-		$Button.queue_free()
+	#if not placed:
+		#$Button.queue_free()
 	GameState.gameState.start_combat_phase.connect(func():
 		$PointLight2D.energy=lightamount;
 		return)
@@ -74,6 +80,8 @@ func setUpTower():
 	base.setLevel(stacks)
 	$AudioStreamPlayer2D.stream=load("res://Sounds/Soundeffects/"+Stats.getStringFromEnum(type)+Stats.getStringFromEnumExtension(extension)+"_shot.wav")
 	instantHit=Stats.getInstantHit(type,extension);
+	baseinstantHit=instantHit;
+	
 	cooldown=Stats.getCooldown(type,extension);
 	damage=Stats.getDamage(type,extension);
 	speed=Stats.getMissileSpeed(type,extension);
@@ -85,10 +93,10 @@ func setUpTower():
 		projectile.visible=true;
 		$AudioStreamPlayer2D.finished.connect(func(): if inRange():$AudioStreamPlayer2D.play)
 	match type:
-		2:$EnemyDetector.modulate=Color(0,1,0)
-		3:$EnemyDetector.modulate=Color(1,0,0)
-		4:$EnemyDetector.modulate=Color(1,1,0)
-		5:$EnemyDetector.modulate=Color(0,1,1)
+		2:$EnemyDetector.get_node("Area2D/Preview").modulate=Color(0,1,0)
+		3:$EnemyDetector.get_node("Area2D/Preview").modulate=Color(1,0,0)
+		4:$EnemyDetector.get_node("Area2D/Preview").modulate=Color(1,1,0)
+		5:$EnemyDetector.get_node("Area2D/Preview").modulate=Color(0,1,1)
 		
 	lightamount=GameState.gameState.lightThresholds.getLight(global_position.y)
 	#$Ambient.energy=lightamount/ambientDropOff
@@ -216,7 +224,14 @@ func checkLight(delta):
 	
 	$PointLight2D.energy=$PointLight2D.energy-9*delta;
 	pass;
+	
+	
 func _process(delta):
+	#größter pfusch auf erden. wenn ein block in der hand ist soll er seine range anzeigen, wenn nicht dann nicht.
+	#der turm weiß nur nie ob er in der hand ist oder nicht -> card intercepten
+	if !placed:$Button.visible=Card.isCardSelected
+	
+	checkDetectorVisibility(delta)
 	if GameState.gameState==null:return
 	checkLight(delta)
 	$LVL.text=str(stacks)
@@ -359,22 +374,46 @@ func _on_audio_stream_player_2d_finished():
 
 
 func _on_button_mouse_entered():
-	var field=GameState.gameState.menu.get_node("CanvasLayer/UI/Description")
-	if extension!=1:
-		field.text=Stats.getDescription(Stats.TurretExtension.keys()[extension-1])
-	else:
-		field.text=Stats.getDescription(Stats.getStringFromEnum(type))
-	
-	$EnemyDetector.visible=true
+	if placed:
+		GameState.gameState.menu.showDescription("This turret defeated "+str(str(killcount)+" minions and dealt "+str(damagedealt)+"damage."))
+	else:	
+		if extension!=1:
+			GameState.gameState.menu.showDescription(Stats.getDescription(Stats.TurretExtension.keys()[extension-1]))
+		else:
+			GameState.gameState.menu.showDescription(Stats.getDescription(Stats.getStringFromEnum(type)))
+		
+	detectorvisible=true;
 	GameState.gameState.showCount(killcount,damagedealt)
 	pass # Replace with function body.
+var detectorvisible=false;	
+var m=0;
+
+func checkDetectorVisibility(delta):
+	
+	if (detectorvisible and m>=1 )or (not detectorvisible and m<=0):
+		return;
+		
+	if detectorvisible:
+		m=m+1.5*delta;
+	else:
+		m=m-4*delta;
+	m=clamp(m,0,1)
+	$EnemyDetector.modulate=Color(m,m,m,m)
+	pass
 func addDamage(Damage):
 	damagedealt=damagedealt+Damage;
 	
 	pass;
 
 func _on_button_mouse_exited():
-	GameState.gameState.menu.get_node("CanvasLayer/UI/Description").text=" "
-	$EnemyDetector.visible=false
+	GameState.gameState.menu.hideDescription()
+	detectorvisible=false;
 	GameState.gameState.hideCount()
+	pass # Replace with function body.
+
+
+func _on_button_pressed():
+	#if its a buildaction
+	if Card.isCardSelected:return;
+	
 	pass # Replace with function body.

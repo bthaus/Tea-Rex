@@ -104,10 +104,10 @@ const poison_propagation_range=base_range*0.3
 const green_poison_decay=1;
 
 static var enemy_base_HP:float=125;
-static var GREEN_enemy_HP=enemy_base_HP*2.5;
+static var GREEN_enemy_HP=enemy_base_HP*1.75;
 static var BLUE_enemy_HP=enemy_base_HP*1;
-static var YELLOW_enemy_HP=enemy_base_HP*0.5;
-static var RED_enemy_HP=enemy_base_HP*2;
+static var YELLOW_enemy_HP=enemy_base_HP*0.7;
+static var RED_enemy_HP=enemy_base_HP*1.5;
 
 const enemy_base_damage=5;
 const GREEN_enemy_damage=enemy_base_damage*1;
@@ -123,7 +123,7 @@ const enemy_base_speed=11;
 const enemy_base_acceleration = 7;
 const GREEN_enemy_speed=enemy_base_speed*1;
 const BLUE_enemy_speed=enemy_base_speed*1;
-const YELLOW_enemy_speed=enemy_base_speed*3;
+const YELLOW_enemy_speed=enemy_base_speed*2;
 const RED_enemy_speed=enemy_base_speed*0.5;
 
 static var enemy_base_exp=10;

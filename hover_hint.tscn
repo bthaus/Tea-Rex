@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://b1awhns1b5kw3"]
+
+[ext_resource type="Script" path="res://hover_hint.gd" id="1_4laru"]
+
+[node name="HoverHint" type="Node2D"]
+script = ExtResource("1_4laru")
+
+[node name="Button" type="Button" parent="."]
+offset_left = -37.0
+offset_top = -32.0
+offset_right = 39.0
+offset_bottom = 40.0
+
+[connection signal="mouse_entered" from="Button" to="." method="_on_button_mouse_entered"]
+[connection signal="mouse_exited" from="Button" to="." method="_on_button_mouse_exited"]

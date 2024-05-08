@@ -55,6 +55,8 @@ static func remove(name):
 	
 	pass;	
 static func saveGame(gameState:GameState):
+	if gameState.menu!= null:
+		gameState.menu.showSaving()
 	print("save called")
 	var props=gameState.get_script().get_script_property_list()
 	var values=[]
@@ -82,6 +84,7 @@ static func storeGameMap(gameState:GameState):
 	var cells=map.get_used_cells(0);
 	var mapAsArray=[]
 	for cell in cells:
+		#var turret=gameState.gameBoard.turret_holder.get_turret_at(cell)
 		var data=map.get_cell_tile_data(GameBoard.BLOCK_LAYER,cell)
 		if data==null:util.p("cell tile data empty for some reason","bodo","persistency");
 		var color=data.get_custom_data("color");
@@ -90,7 +93,8 @@ static func storeGameMap(gameState:GameState):
 		var extensionData=map.get_cell_tile_data(GameBoard.EXTENSION_LAYER,cell)
 		if extensionData!=null:
 			extension=extensionData.get_custom_data("extension");
-			
+		if color=="WALL":
+			level=map.get_cell_source_id(GameBoard.BLOCK_LAYER,cell)	
 		var info=Info.new(color,level,extension,cell)
 		
 		mapAsArray.append(info.serialise())
@@ -116,7 +120,7 @@ static func loadGameMap(gameState:GameState):
 	for d in mapAsArray:
 		var p=Info.deserialise(d);
 		if p.color==-3:
-			walls.append(p.position)
+			walls.append(Vector3(p.position.x,p.position.y,p.level))
 		else:
 			pieces.append(p);
 		

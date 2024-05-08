@@ -4,17 +4,26 @@ var card;
 var state:GameState;
 var description:String;
 static var isCardSelected=false;
+static var selectedCard;
 signal mouseIn
 signal mouseOut
 
 func select(done:Callable):
-	if isCardSelected:
-		return;
+	if isCardSelected&&selectedCard!=self:
+		
+		if (selectedCard.card!=null)&&(selectedCard.card is BlockCard):
+			state.gameBoard._action_finished(false)
+			selectedCard=self;
+		elif (selectedCard.card!=null)&&(selectedCard.card is SpecialCard):
+			selectedCard.card.interrupt()
+			selectedCard=self;	
+		
 	if self is BlockCard and state.phase!=Stats.GamePhase.BUILD:
 		return;
 		
 	
 	isCardSelected=true;
+	selectedCard=self;
 	scale=Vector2(1.3,1.3)
 	
 	z_index=10
@@ -31,6 +40,8 @@ func setCard(c):
 static func create(gameState:GameState,card=-1):
 	counter=counter+1;
 	var c=load("res://card.tscn").instantiate() as Card
+	
+	
 	var btn=c.get_child(0) as Button
 	if card is Card:
 		c.setCard(card)
@@ -64,7 +75,7 @@ static func create(gameState:GameState,card=-1):
 func played(interrupted:bool):
 	scale=Vector2(1,1)
 	z_index=0
-	position=Vector2(0,0)
+			
 	isCardSelected=false;
 	if  interrupted:
 		queue_free()
@@ -74,6 +85,9 @@ func played(interrupted:bool):
 	pass;
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	
+	
+	originalPosition=global_position
 	pass # Replace with function body.
 
 
@@ -86,16 +100,21 @@ func _on_button_pressed():
 	select(played)
 	pass # Replace with function body.
 
-
+var originalPosition;
 func _on_button_mouse_entered():
 	z_index=10
-	state.menu.get_node("CanvasLayer/UI/Description").text=description
+	
+	var tween = create_tween()
+	tween.tween_property(self, "global_position", originalPosition+Vector2(0, -25), 0.5)
+	state.menu.showDescription(description)
 	
 	pass # Replace with function body.
 
 
 func _on_button_mouse_exited():
 	z_index=0
-	state.menu.get_node("CanvasLayer/UI/Description").text=" "
+	var tween = create_tween()
+	tween.tween_property(self, "global_position", originalPosition, 0.5)
+	state.menu.hideDescription()
 	mouseOut.emit()
 	pass # Replace with function body.

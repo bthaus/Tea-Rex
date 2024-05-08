@@ -178,11 +178,25 @@ func startBuildPhase():
 	Sounds.start(Sounds.startBuildPhase)
 	GameSaver.saveGame(gameState)
 	wave=wave+1;
+	var delayUnlock=false;
+	if wave==1:
+		delayUnlock=TutorialHolder.showTutorial(TutorialHolder.tutNames.EXP,self,checkUnlock)
+	if wave==2:
+		delayUnlock=TutorialHolder.showTutorial(TutorialHolder.tutNames.Pathfinding,self,checkUnlock)
+	if wave==3:
+		delayUnlock=TutorialHolder.showTutorial(TutorialHolder.tutNames.Information,self,checkUnlock)
+	if wave==4:
+		delayUnlock=TutorialHolder.showTutorial(TutorialHolder.tutNames.UpgradeBlocks,self,checkUnlock)
+	if wave==5:
+		delayUnlock=false;	
+	if wave==6:
+		delayUnlock=TutorialHolder.showTutorial(TutorialHolder.tutNames.UpgradeBlocks2,self,checkUnlock)
+	if wave>6:
+		delayUnlock=false;
 	menu.get_node("CanvasLayer/UI/StartBattlePhase").disabled=false;
-	if not startCatastrophy():
-		for u in unlock:
-			$Menu/CanvasLayer/UI/UnlockSpot.add_child(u)	
-		unlock.clear()		
+	
+	if !startCatastrophy()&&!delayUnlock:
+		checkUnlock()		
 	start_build_phase.emit()
 	phase=Stats.GamePhase.BUILD
 	averageColorChances()
@@ -225,15 +239,15 @@ func startCatastrophy():
 	return true;
 	pass;
 func catastrophy_done(finished):
-	gameBoard.start_extension(func():get_tree().create_timer(3).timeout.connect(func():
-		for u in unlock:
-			$Menu/CanvasLayer/UI/UnlockSpot.add_child(u)	
-		unlock.clear()	
+	gameBoard.start_extension(func():get_tree().create_timer(3).timeout.connect(checkUnlock))
 		
-		))
-	
-	
 	pass;
+func checkUnlock():
+	for u in unlock:
+		$Menu/CanvasLayer/UI/UnlockSpot.add_child(u)	
+	unlock.clear()	
+		
+	pass;	
 func _on_spawner_wave_done():
 	startBuildPhase()
 	
@@ -241,8 +255,15 @@ func _on_spawner_wave_done():
 
 
 func startGame():
+	hand.drawCard(Card.create(self,SpecialCard.create(self,Stats.SpecialCards.HEAL)))
 	
+	TutorialHolder.showTutorial(TutorialHolder.tutNames.Starting,self,func():
+		TutorialHolder.showTutorial(TutorialHolder.tutNames.RotateBlock,self, func():
+			TutorialHolder.showTutorial(TutorialHolder.tutNames.Controls,self)
+			)	
+		)
 	
+	hand.visible=true;
 	if not started:
 		target=$Base
 		drawCards(maxCards)

@@ -194,16 +194,18 @@ func _process(delta):
 			t.call()
 	
 	if Input.is_action_just_pressed("interrupt")&&selected:
-		selected=false;
-		done.call(false)
-		$Preview.visible=false;
+		interrupt()
 		
 	
 	if selected:
 		$Preview.global_position=get_global_mouse_position();
 		$Effect.global_position=get_global_mouse_position();
 	pass
-
+func interrupt():
+	selected=false;
+	done.call(false)
+	$Preview.visible=false;
+	pass;
 func testcall(returned):
 	
 	pass;

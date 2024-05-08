@@ -2,7 +2,7 @@ extends Node2D
 class_name Menu
 @export var gamestate:GameState
 signal statePropagation(gamestate:GameState)
-
+@export var description:Label
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	statePropagation.emit(gamestate)
@@ -12,7 +12,6 @@ func updateUI():
 	$CanvasLayer/PlayerName.text=gamestate.account
 	$CanvasLayer/UI/Hpbar.max_value=gamestate.maxHP
 	$CanvasLayer/UI/Hpbar.value=gamestate.HP
-	$CanvasLayer/UI/PHASE.text=Stats.GamePhase.keys()[gamestate.phase-1]
 	$CanvasLayer/UI/Wave.text=str(gamestate.wave)
 	$CanvasLayer/UI/maxcards.text=str(gamestate.maxCards)
 	$CanvasLayer/UI/redraws.text=str(gamestate.cardRedraws)
@@ -25,8 +24,20 @@ func updateUI():
 	
 	
 	pass;
+
+func showDescription(s):
+	description.text=s
+	sd=true;
+	pass;
+	
+func hideDescription():
+	sd=false;
+	pass;
 func show_tutorial(tut:Tutorial):
 	$CanvasLayer/UI/TutorialSpot.add_child(tut)
+	tut.modulate=Color(0,0,0,0)
+	var tween = get_tree().create_tween()
+	tween.tween_property(tut,"modulate",Color(1,1,1,1),1)
 	pass;
 func showDeathScreen():
 	
@@ -35,17 +46,52 @@ func showDeathScreen():
 func createNewGame():
 	gamestate.initNewBoard()
 	pass;
+var m:float=0	
+var s:float=0
+var saving=false;
+var sd=false;
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	checkDescription(delta)
+	checkSaving(delta)
 	pass
-
-
+	
+func checkSaving(delta):
+	
+	if saving:
+		s=s+2*delta;
+	else:
+		s=s-2*delta	
+	s=clamp(s,0,1)		
+	$CanvasLayer/UI/saving.modulate=Color(s,s,s,s)
+	pass;
+func checkDescription(delta):
+	
+	if (sd and m >=1) or (not sd and m<=0):
+		return
+	
+	if sd:
+		m=m+2*delta;
+	else:
+		m=m-2*delta	
+	m=clamp(m,0,1)	
+	description.modulate=Color(m,m,m,m)	
+	
+	pass;
+func showSaving():
+	saving=true;
+	get_tree().create_timer(1.5).timeout.connect(hideSaving)
+	pass;
+func hideSaving():
+	saving=false;
+	pass;
 func _on_start_battle_phase_pressed():
 	gamestate.startBattlePhase()
 	pass # Replace with function body.
 
 
 func _on_start_button_pressed():
+	$CanvasLayer/UI/Hand.visible=true
 	pass # Replace with function body.
 
 
