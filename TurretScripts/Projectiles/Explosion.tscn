@@ -8,7 +8,6 @@
 [ext_resource type="Texture2D" uid="uid://cbdaculd0te33" path="res://Assets/Effects/Explosion_1/e5.png" id="6_kro3f"]
 [ext_resource type="Texture2D" uid="uid://bnqpjt2cqpsjk" path="res://Assets/Effects/Explosion_1/e6.png" id="7_egcnx"]
 [ext_resource type="Texture2D" uid="uid://bp6e74dyg4r0j" path="res://Assets/Effects/Explosion_1/e7.png" id="8_tkejj"]
-[ext_resource type="Texture2D" uid="uid://b0vjaywamx3yp" path="res://Assets/Lights/spotlight.png" id="13_ytoru"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_4mmyl"]
 animations = [{
@@ -48,30 +47,34 @@ length = 0.7
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("PointLight2D:energy")
+tracks/0/path = NodePath("AnimatedSprite2D:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.2, 0.6),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [0.0, 1.58, 0.0]
+"values": [Color(1, 1, 1, 1), Color(5, 5, 5, 1), Color(1, 1, 1, 1)]
 }
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("PointLight2D2:energy")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.6),
-"transitions": PackedFloat32Array(1, 1, 1),
+
+[sub_resource type="Animation" id="Animation_horg6"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [0.0, 1.0, 0.0]
+"values": [Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ifi2h"]
 _data = {
+"RESET": SubResource("Animation_horg6"),
 "lightup": SubResource("Animation_ikx5c")
 }
 
@@ -90,16 +93,6 @@ collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("CircleShape2D_nikvq")
-
-[node name="PointLight2D" type="PointLight2D" parent="."]
-scale = Vector2(14.695, 14.695)
-energy = 0.0
-texture = ExtResource("13_ytoru")
-
-[node name="PointLight2D2" type="PointLight2D" parent="."]
-scale = Vector2(31.465, 31.465)
-energy = 0.0
-texture = ExtResource("13_ytoru")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
