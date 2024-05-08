@@ -240,13 +240,13 @@ func startCatastrophy():
 	pass;
 func catastrophy_done(finished):
 	gameBoard.start_extension(func():get_tree().create_timer(3).timeout.connect(checkUnlock))
-		
+	GameSaver.saveGame(self)
 	pass;
 func checkUnlock():
 	for u in unlock:
 		$Menu/CanvasLayer/UI/UnlockSpot.add_child(u)	
 	unlock.clear()	
-		
+	GameSaver.saveGame(self)	
 	pass;	
 func _on_spawner_wave_done():
 	startBuildPhase()

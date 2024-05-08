@@ -200,29 +200,34 @@ func highlight(delta):
 	if GameState.gameState.phase==Stats.GamePhase.BATTLE:return
 	globlight=true;
 	melight=true;
-	if $PointLight2D.energy>=3:return
+	create_tween().tween_property($PointLight2D,"energy",3,1)
+	#if $PointLight2D.energy>=3:return
 	
 	
-	$PointLight2D.energy=$PointLight2D.energy+9*delta;
+	#$PointLight2D.energy=$PointLight2D.energy+9*delta;
 	pass
 	
 func de_highlight(delta):
 	if GameState.gameState.phase==Stats.GamePhase.BATTLE:return
 	globlight=false;
 	melight=false;
+	create_tween().tween_property($PointLight2D,"energy",lightamount,1)
 	#$PointLight2D.energy=lightamount
 	pass
 func checkLight(delta):
 	if GameState.gameState.phase==Stats.GamePhase.BATTLE:return
-	if $PointLight2D.energy<=0:$PointLight2D.energy=0;return
+	#if $PointLight2D.energy<=0:$PointLight2D.energy=0;return
 	if globlight&&!melight:
-		$PointLight2D.energy=$PointLight2D.energy-9*delta;
-		return
-	if melight:
-		return	
+		create_tween().tween_property($PointLight2D,"energy",0,1)
+	if !globlight&&$PointLight2D.energy<lightamount:
+		create_tween().tween_property($PointLight2D,"energy",lightamount,1)	
+		#$PointLight2D.energy=$PointLight2D.energy-9*delta;
+	#	return
+	#if melight:
+		#return	
 	
 	
-	$PointLight2D.energy=$PointLight2D.energy-9*delta;
+	#$PointLight2D.energy=$PointLight2D.energy-9*delta;
 	pass;
 	
 	
