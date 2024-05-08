@@ -399,14 +399,23 @@ func _action_finished(finished: bool):
 		done = Callable() #Reset callable
 
 func init_field():
-	#Redraw walls and ground
-	for row in gameState.board_height:
-		$Board.set_cell(BLOCK_LAYER, Vector2(0,row), WALL_TILE_ID, Vector2(0,0))
-		$Board.set_cell(BLOCK_LAYER, Vector2(gameState.board_width-1,row), WALL_TILE_ID, Vector2(0,0))
+	#Draw walls
+	
+	#Edges
+	$Board.set_cell(BLOCK_LAYER, Vector2(0,0), WALL_EDGE_LEFT_UP_TILE_ID, Vector2(0,0))
+	$Board.set_cell(BLOCK_LAYER, Vector2(gameState.board_width-1,0), WALL_EDGE_RIGHT_UP_TILE_ID, Vector2(0,0))
+	$Board.set_cell(BLOCK_LAYER, Vector2(gameState.board_width-1,gameState.board_height-1), WALL_EDGE_RIGHT_DOWN_TILE_ID, Vector2(0,0))
+	$Board.set_cell(BLOCK_LAYER, Vector2(0,gameState.board_height-1), WALL_EDGE_LEFT_DOWN_TILE_ID, Vector2(0,0))
+	
+	#Top wall
+	for row in range(1, gameState.board_height-1):
+		$Board.set_cell(BLOCK_LAYER, Vector2(0,row), WALL_LEFT_TILE_ID, Vector2(0,0))
+		$Board.set_cell(BLOCK_LAYER, Vector2(gameState.board_width-1,row), WALL_RIGHT_TILE_ID, Vector2(0,0))
 		
-	for col in gameState.board_width:
-		$Board.set_cell(BLOCK_LAYER, Vector2(col,0), WALL_TILE_ID, Vector2(0,0))
-		$Board.set_cell(BLOCK_LAYER, Vector2(col,gameState.board_height-1), WALL_TILE_ID, Vector2(0,0))
+	#Bottom wall
+	for col in range(1, gameState.board_width-1):
+		$Board.set_cell(BLOCK_LAYER, Vector2(col,0), WALL_UP_TILE_ID, Vector2(0,0))
+		$Board.set_cell(BLOCK_LAYER, Vector2(col,gameState.board_height-1), WALL_DOWN_TILE_ID, Vector2(0,0))
 	
 	#Add main spawner
 	var spawner_position = Vector2(floor(gameState.board_width/2), gameState.board_height-1)	
@@ -415,6 +424,7 @@ func init_field():
 	main_spawner = Spawner.create(gameState,  $Board.map_to_local(spawner_position))
 	gameState.spawners.append(main_spawner)
 	
+	#Draw ground
 	for row in range(1, gameState.board_height-1):
 		for col in range(1, gameState.board_width-1):
 			$Board.set_cell(GROUND_LAYER, Vector2(col, row), EMPTY_TILE_ID, Vector2(0,0))
@@ -456,9 +466,9 @@ func extend_field(done:Callable):
 	#Extend everything that is not a cave
 	for row in Stats.board_extend_height:
 		if not generate_cave_left:
-			$Board.set_cell(BLOCK_LAYER, Vector2(0, row+gameState.board_height-1), WALL_TILE_ID, Vector2(0,0))
+			$Board.set_cell(BLOCK_LAYER, Vector2(0, row+gameState.board_height-1), WALL_LEFT_TILE_ID, Vector2(0,0))
 		if not generate_cave_right:
-			$Board.set_cell(BLOCK_LAYER, Vector2(gameState.board_width-1, row+gameState.board_height-1), WALL_TILE_ID, Vector2(0,0))
+			$Board.set_cell(BLOCK_LAYER, Vector2(gameState.board_width-1, row+gameState.board_height-1), WALL_RIGHT_TILE_ID, Vector2(0,0))
 	
 	#Draw the ground
 	for row in Stats.board_extend_height:
@@ -473,7 +483,7 @@ func extend_field(done:Callable):
 	
 	#Add bottom row
 	for col in gameState.board_width:
-		$Board.set_cell(BLOCK_LAYER, Vector2(col, gameState.board_height+Stats.board_extend_height-1), WALL_TILE_ID, Vector2(0,0))
+		$Board.set_cell(BLOCK_LAYER, Vector2(col, gameState.board_height+Stats.board_extend_height-1), WALL_DOWN_TILE_ID, Vector2(0,0))
 	
 	#Move spawner
 	$Board.set_cell(GROUND_LAYER, $Board.local_to_map(main_spawner.position), EMPTY_TILE_ID, Vector2(0,0))
@@ -531,8 +541,14 @@ func add_spawner_to_side_wall(row: int, right_side: bool):
 	$Board.set_cell(BLOCK_LAYER, Vector2(col, row), -1, Vector2(0,0))
 	$Board.set_cell(GROUND_LAYER, Vector2(col, row), SPAWNER_TILE_ID, Vector2(0,0))
 	#Add wall to the left/right
-	if right_side: $Board.set_cell(BLOCK_LAYER, Vector2(col+1, row), WALL_TILE_ID, Vector2(0,0))
-	else: $Board.set_cell(BLOCK_LAYER, Vector2(col-1, row), WALL_TILE_ID, Vector2(0,0))
+	if right_side: 
+		$Board.set_cell(BLOCK_LAYER, Vector2(col+1, row-1), WALL_EDGE_RIGHT_UP_TILE_ID, Vector2(0,0))
+		$Board.set_cell(BLOCK_LAYER, Vector2(col+1, row), WALL_RIGHT_TILE_ID, Vector2(0,0))
+		$Board.set_cell(BLOCK_LAYER, Vector2(col+1, row+1), WALL_EDGE_RIGHT_DOWN_TILE_ID, Vector2(0,0))
+	else: 
+		$Board.set_cell(BLOCK_LAYER, Vector2(col-1, row-1), WALL_EDGE_LEFT_UP_TILE_ID, Vector2(0,0))
+		$Board.set_cell(BLOCK_LAYER, Vector2(col-1, row), WALL_LEFT_TILE_ID, Vector2(0,0))
+		$Board.set_cell(BLOCK_LAYER, Vector2(col-1, row-1), WALL_EDGE_LEFT_DOWN_TILE_ID, Vector2(0,0))
 	var spawner = Spawner.create(gameState, $Board.map_to_local(Vector2(col, row)),10)
 	gameState.spawners.append(spawner)
 
