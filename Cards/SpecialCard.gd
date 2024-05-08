@@ -94,6 +94,8 @@ func castUPHEALTH():
 	checkRoundMultiplicator()
 	damage=damage*roundsInHand*range;
 	gameState.changeMaxHealth(damage);
+	gameState.changeHealth(damage)
+	
 	return true;
 func castUPDRAW():
 	gameState.upRedraws()

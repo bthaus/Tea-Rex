@@ -84,7 +84,7 @@ const yellow_mortar_instanthit=true;
 const yellow_mortar_penetrations=1;
 const green_explosion_range=0.5;
 const red_laser_damage_stack=0.3;
-const green_poison_damage_stack=3;
+const green_poison_damage_stack=6;
 
 const green_glowing=false;
 const blue_glowing=false;
