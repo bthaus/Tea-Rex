@@ -23,7 +23,7 @@ var damage;
 var speedfactor=1;
 var damagefactor=1;
 var cooldownfactor=1;
-
+var light;
 var lightamount=1.5;
 var killcount=0;
 var damagedealt=0
@@ -45,6 +45,7 @@ static func create(color:Stats.TurretColor, lvl:int, type:Stats.TurretExtension=
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	light=$PointLight2D
 	setUpTower();	
 	GameState.gameState.start_combat_phase.connect(func():
 		globlight=false;
@@ -216,16 +217,22 @@ func de_highlight(delta):
 	pass
 func checkLight(delta):
 	if GameState.gameState.phase==Stats.GamePhase.BATTLE:return
+	if!placed:
+		lightamount=GameState.gameState.lightThresholds.getLight(global_position.y)
+		
+	
 	#if $PointLight2D.energy<=0:$PointLight2D.energy=0;return
 	if globlight&&!melight:
 		create_tween().tween_property($PointLight2D,"energy",0,1).set_ease(Tween.EASE_OUT)
 	if !globlight&&$PointLight2D.energy<lightamount:
 		create_tween().tween_property($PointLight2D,"energy",lightamount,1)	
 		#$PointLight2D.energy=$PointLight2D.energy-9*delta;
+	
+	if !globlight&&$PointLight2D.energy<lightamount:
+		create_tween().tween_property($PointLight2D,"energy",lightamount,1)	
 	#	return
 	#if melight:
 		#return	
-	
 	
 	#$PointLight2D.energy=$PointLight2D.energy-9*delta;
 	pass;
@@ -419,6 +426,14 @@ func _on_button_mouse_exited():
 
 func _on_button_pressed():
 	#if its a buildaction
+	print("lightamount: "+str(lightamount))
+	print($PointLight2D.energy)
+	$PointLight2D.energy=lightamount
+	
+	remove_child(light)
+	add_child(light)
+	
+	
 	if Card.isCardSelected:return;
 	
 	pass # Replace with function body.
