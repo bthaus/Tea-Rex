@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://ddna4qf2gbx2w"]
+[gd_scene load_steps=24 format=3 uid="uid://ddna4qf2gbx2w"]
 
 [ext_resource type="Script" path="res://Cards/SpecialCard.gd" id="1_502hs"]
 [ext_resource type="Texture2D" uid="uid://c1dryy8cioil" path="res://Assets/Effects/Cryo_Explosion/c1.png" id="2_gbbff"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://dfuvb4jb8scmn" path="res://Assets/Effects/Explosion_1/e1.png" id="12_w6x0m"]
 [ext_resource type="Texture2D" uid="uid://dhluxs5dn1xla" path="res://Assets/Effects/Explosion_1/e2.png" id="13_l62qq"]
 [ext_resource type="Texture2D" uid="uid://de8vau4cdnqwu" path="res://Assets/Effects/Explosion_1/e3.png" id="14_37mdc"]
+[ext_resource type="Texture2D" uid="uid://s1wl70lowvcn" path="res://Assets/Effects/Glue/glue.png" id="14_ln2cq"]
 [ext_resource type="Texture2D" uid="uid://b46oxjbgv6br3" path="res://Assets/Effects/Explosion_1/e4.png" id="15_ceokp"]
 [ext_resource type="Texture2D" uid="uid://cbdaculd0te33" path="res://Assets/Effects/Explosion_1/e5.png" id="16_quyep"]
 [ext_resource type="Texture2D" uid="uid://bnqpjt2cqpsjk" path="res://Assets/Effects/Explosion_1/e6.png" id="17_5pxwg"]
@@ -19,11 +20,8 @@
 [ext_resource type="Texture2D" uid="uid://ukbwa77s0idr" path="res://Assets/Effects/Poison_Explosion/p3.png" id="19_od7k2"]
 [ext_resource type="Texture2D" uid="uid://bcc4m1pht41k3" path="res://Assets/Effects/Poison_Explosion/p4.png" id="20_1on18"]
 [ext_resource type="Texture2D" uid="uid://cafj1q2mcao8l" path="res://Assets/Effects/Poison_Explosion/p5.png" id="21_vduxa"]
-[ext_resource type="Texture2D" uid="uid://c5dix547ivx4b" path="res://Assets/Effects/Glue/2.png" id="22_748fh"]
 [ext_resource type="Texture2D" uid="uid://bbl3e2ior442y" path="res://Assets/Effects/Poison_Explosion/p6.png" id="22_u1a6u"]
-[ext_resource type="Texture2D" uid="uid://cvbjay5he8ma3" path="res://Assets/Effects/Glue/3.png" id="23_ldlay"]
 [ext_resource type="Texture2D" uid="uid://bomeunokid1ah" path="res://Assets/Effects/Poison_Explosion/p7.png" id="23_pc1we"]
-[ext_resource type="Texture2D" uid="uid://dn5fpull00752" path="res://Assets/Effects/Glue/4.png" id="24_nrfb1"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_qa1dp"]
 animations = [{
@@ -75,13 +73,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("22_748fh")
-}, {
-"duration": 1.0,
-"texture": ExtResource("23_ldlay")
-}, {
-"duration": 1.0,
-"texture": ExtResource("24_nrfb1")
+"texture": ExtResource("14_ln2cq")
 }],
 "loop": true,
 "name": &"GLUE",
@@ -123,7 +115,7 @@ visible = false
 [node name="Effect" type="AnimatedSprite2D" parent="."]
 visible = false
 sprite_frames = SubResource("SpriteFrames_qa1dp")
-animation = &"POISON"
+animation = &"GLUE"
 
 [node name="EnemyDetector" parent="Effect" instance=ExtResource("12_giv3f")]
 scale = Vector2(6.31, 6.31)

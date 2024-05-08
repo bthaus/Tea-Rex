@@ -127,7 +127,8 @@ func _process(delta):
 		#for k in TutorialHolder.tutNames.keys():
 		#	GameSaver.save("0",k,"tutorials")
 		#	print("restored: "+k)
-		drawCards(1)	
+		unlock.append(Unlockable.create(Card.create(self,BlockCard.create(self,Stats.getBlockFromShape(Stats.BlockShape.O,Stats.TurretColor.RED,1,Stats.TurretExtension.REDLASER)))))	
+		checkUnlock()
 		GameState.gameState.showTutorials=true	
 	
 	pass
