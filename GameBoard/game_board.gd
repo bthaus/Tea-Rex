@@ -402,7 +402,7 @@ func init_field():
 	
 	$NavigationRegion2D.bake_navigation_polygon()
 
-func draw_field_from_walls(walls_positions: PackedVector2Array):
+func draw_field_from_walls(walls_positions: PackedVector3Array):
 	var height = -1
 	#Add walls
 	for wall_position in walls_positions:

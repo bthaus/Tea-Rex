@@ -34,6 +34,7 @@ static var baseFactory:BaseFactory=load("res://base_factory.tscn").instantiate()
 var base:Base;
 var placed=true;
 
+
 static func create(color:Stats.TurretColor, lvl:int, type:Stats.TurretExtension=Stats.TurretExtension.DEFAULT)->Turret:
 	var turret=load("res://TurretScripts/turretbase.tscn").instantiate() as Turret;
 	turret.type=color;
@@ -408,4 +409,11 @@ func _on_button_mouse_exited():
 	GameState.gameState.menu.hideDescription()
 	detectorvisible=false;
 	GameState.gameState.hideCount()
+	pass # Replace with function body.
+
+
+func _on_button_pressed():
+	#if its a buildaction
+	if Card.isCardSelected:return;
+	
 	pass # Replace with function body.
