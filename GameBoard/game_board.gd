@@ -427,7 +427,6 @@ func init_field():
 		for col in range(1, gameState.board_width-1):
 			$Board.set_cell(GROUND_LAYER, Vector2(col, row), EMPTY_TILE_ID, Vector2(0,0))
 			
-	extend_field(func(): pass)
 	$NavigationRegion2D.bake_navigation_polygon()
 
 func draw_field_from_walls(walls_positions: PackedVector3Array):
@@ -502,16 +501,28 @@ func extend_field(done:Callable):
 	#Add spawners left and right
 	var add_spawner_left = randi_range(1, 100) <= Stats.board_cave_spawner_chance_percent
 	var add_spawner_right = randi_range(1, 100) <= Stats.board_cave_spawner_chance_percent
-	if generate_cave_left and add_spawner_left: add_spawner_to_side_wall(randi_range(gameState.board_height+1, gameState.board_height + Stats.board_extend_height - 3), false)
-	if generate_cave_right and add_spawner_right: add_spawner_to_side_wall(randi_range(gameState.board_height+1, gameState.board_height + Stats.board_extend_height - 3), true)
+	
+	#Get possible spawner positions
+	var rows_left = []
+	var rows_right = []
+	for row in range(gameState.board_height+1, gameState.board_height + Stats.board_extend_height - 4):
+		var distance = block_handler.get_board_distance_at_row(BLOCK_LAYER, row)
+		if $Board.get_cell_source_id(BLOCK_LAYER, Vector2(distance.from-1, row)) == WALL_LEFT_TILE_ID:
+			rows_left.append(row)
+		if $Board.get_cell_source_id(BLOCK_LAYER, Vector2(distance.to+1, row)) == WALL_RIGHT_TILE_ID:
+			rows_right.append(row)
+	
+	if generate_cave_left and add_spawner_left and rows_left.size() > 0: add_spawner_to_side_wall(rows_left.pick_random(), false)
+	if generate_cave_right and add_spawner_right and rows_right.size() > 0: add_spawner_to_side_wall(rows_right.pick_random(), true)
 	
 	gameState.board_height += Stats.board_extend_height
 	_set_navigation_region()
 	
 func generate_cave(pos_y: int, height: int, right_side: bool):
-	var start_width = randi_range(Stats.board_cave_deepness.from, Stats.board_cave_deepness.to)
+	#var start_width = (Stats.board_cave_deepness.from + Stats.board_cave_deepness.to ) / 2
+	var start_width = randi_range(Stats.board_cave_deepness.from, Stats.board_cave_deepness.to - Stats.board_cave_deepness.from) #Dont move too far out, so that the random cave can go deeper
 	#Draw corners
-	if right_side: 
+	if right_side:
 		$Board.set_cell(BLOCK_LAYER, Vector2(gameState.board_width-1, pos_y), WALL_TUNNEL_RIGHT_UP_TILE_ID, Vector2(0,0))
 		$Board.set_cell(BLOCK_LAYER, Vector2(gameState.board_width-1+start_width, pos_y), WALL_EDGE_RIGHT_UP_TILE_ID, Vector2(0,0))
 	else: 
@@ -523,16 +534,27 @@ func generate_cave(pos_y: int, height: int, right_side: bool):
 		else: $Board.set_cell(BLOCK_LAYER, Vector2(-col, pos_y), WALL_UP_TILE_ID, Vector2(0,0))
 
 	#Draw random structure
-	var curr_col = gameState.board_width+start_width-1 if right_side else -start_width+1
+	var curr_col = gameState.board_width+start_width-1 if right_side else -start_width
+	var last_dir = 1 if right_side else -1
 	for row in range(1, height-1):
-		var rand_dir = randi_range(-1, 1) #-1 is left, 0 do nothing, 1 is right
+		var rand_dir #-1 is left, 0 do nothing, 1 is right
+		#Avoid "thick" walls with 2 layers
+		if last_dir == -1: rand_dir = randi_range(-1, 0)
+		elif last_dir == 0: rand_dir = randi_range(-1, 1) 
+		else: rand_dir = randi_range(0, 1)
+			
 		#Make sure the walls dont move to much towards the middle
-		if right_side and curr_col <= gameState.board_width and rand_dir == -1: rand_dir = 1
-		if not right_side and curr_col >= -1 and rand_dir == 1: rand_dir = -1 
+		if right_side and curr_col <= gameState.board_width and rand_dir == -1: rand_dir = 0
+		if not right_side and curr_col >= -1 and rand_dir == 1: rand_dir = 0
 		
 		#Make sure the walls dont extend the max deepness
-		if right_side and curr_col >= gameState.board_width + Stats.board_cave_deepness.to - 1 and rand_dir == 1: rand_dir = -1
-		if not right_side and curr_col <= -Stats.board_cave_deepness.to and rand_dir == -1: rand_dir = 1
+		if right_side and curr_col >= gameState.board_width + Stats.board_cave_deepness.to - 1 and rand_dir == 1: rand_dir = 0
+		if not right_side and curr_col <= -Stats.board_cave_deepness.to and rand_dir == -1: rand_dir = 0
+		
+		#Last row
+		if row == height-2: rand_dir = 0
+		
+		last_dir = rand_dir
 		
 		var first_id
 		var second_id
@@ -573,14 +595,14 @@ func add_spawner_to_side_wall(row: int, right_side: bool):
 	if right_side: $Board.set_cell(GROUND_LAYER, Vector2(col, row), SPAWNER_RIGHT_TILE_ID, Vector2(0,0))
 	else: $Board.set_cell(GROUND_LAYER, Vector2(col, row), SPAWNER_LEFT_TILE_ID, Vector2(0,0))
 	#Add wall to the left/right
-	if right_side: 
-		$Board.set_cell(BLOCK_LAYER, Vector2(col+1, row-1), WALL_EDGE_RIGHT_UP_TILE_ID, Vector2(0,0))
-		$Board.set_cell(BLOCK_LAYER, Vector2(col+1, row), WALL_RIGHT_TILE_ID, Vector2(0,0))
-		$Board.set_cell(BLOCK_LAYER, Vector2(col+1, row+1), WALL_EDGE_RIGHT_DOWN_TILE_ID, Vector2(0,0))
-	else: 
-		$Board.set_cell(BLOCK_LAYER, Vector2(col-1, row-1), WALL_EDGE_LEFT_UP_TILE_ID, Vector2(0,0))
-		$Board.set_cell(BLOCK_LAYER, Vector2(col-1, row), WALL_LEFT_TILE_ID, Vector2(0,0))
-		$Board.set_cell(BLOCK_LAYER, Vector2(col-1, row-1), WALL_EDGE_LEFT_DOWN_TILE_ID, Vector2(0,0))
+	#if right_side: 
+		#$Board.set_cell(BLOCK_LAYER, Vector2(col+1, row-1), WALL_TUNNEL_LEFT_DOWN_TILE_ID, Vector2(0,0))
+		#$Board.set_cell(BLOCK_LAYER, Vector2(col+1, row), WALL_LEFT_TILE_ID, Vector2(0,0))
+		#$Board.set_cell(BLOCK_LAYER, Vector2(col+1, row+1), WALL_TUNNEL_LEFT_UP_TILE_ID, Vector2(0,0))
+	#else: 
+		#$Board.set_cell(BLOCK_LAYER, Vector2(col-1, row-1), WALL_TUNNEL_RIGHT_DOWN_TILE_ID, Vector2(0,0))
+		#$Board.set_cell(BLOCK_LAYER, Vector2(col-1, row), WALL_RIGHT_TILE_ID, Vector2(0,0))
+		#$Board.set_cell(BLOCK_LAYER, Vector2(col-1, row-1), WALL_TUNNEL_RIGHT_UP_TILE_ID, Vector2(0,0))
 	var spawner = Spawner.create(gameState, $Board.map_to_local(Vector2(col, row)),10)
 	gameState.spawners.append(spawner)
 

@@ -4,7 +4,7 @@ const block_size=62;
 
 static var board_extend_height=10;
 static var board_cave_chance_percent=50
-static var board_cave_deepness=util.Distance.new(4,8)
+static var board_cave_deepness=util.Distance.new(4,10)
 static var board_cave_spawner_chance_percent=75
 
 const CAMERA_MOVE_DURATION=2
