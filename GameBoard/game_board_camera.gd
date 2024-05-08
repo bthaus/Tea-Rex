@@ -30,9 +30,14 @@ func shake(duration: float, intensity: float,position,maxval=MAX_SHAKE):
 	self.intensity=self.intensity+intensity
 	
 	pass	
+
+
+
 	
 func isOffCamera(position):
-	return abs(abs(position.y)-abs(position.y))>1000
+
+	var diff= abs(abs(position.y)-abs(global_position.y))
+	return diff>1000
 	
 	pass;	
 func _process(delta):
@@ -48,8 +53,7 @@ func _process(delta):
 	
 	
 		
-	if global_position.y!=lastpos:
-		changeBrightness()
+	
 	lastpos=global_position.y	
 	pass;
 	

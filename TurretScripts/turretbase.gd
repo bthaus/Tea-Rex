@@ -23,7 +23,7 @@ var damage;
 var speedfactor=1;
 var damagefactor=1;
 var cooldownfactor=1;
-var light;
+var light:PointLight2D;
 var lightamount=1.5;
 var killcount=0;
 var damagedealt=0
@@ -50,10 +50,19 @@ func _ready():
 	GameState.gameState.start_combat_phase.connect(func():
 		globlight=false;
 		melight=false;
-		$PointLight2D.energy=lightamount;
+		light.energy=lightamount;
 		)
 	pass # Replace with function body.
 func checkPosition():
+	if GameState.gameState.getCamera().isOffCamera(global_position)and light.get_parent()!=null:
+		remove_child(light)
+	if !GameState.gameState.getCamera().isOffCamera(global_position)and light.get_parent()==null:
+		print("light added"+str(light.energy))	
+		add_child(light)
+		light.global_position=global_position
+		light.visible=true
+		light.enabled=true		
+	
 	if extension==Stats.TurretExtension.BLUELASER:return;
 	var i=GameState.gameState.getCamera().isOffCamera(global_position)
 	if !i:
@@ -66,8 +75,10 @@ func setUpTower():
 	GameState.gameState.getCamera().scrolled.connect(checkPosition)
 	#if not placed:
 		#$Button.queue_free()
+		
+		
 	GameState.gameState.start_combat_phase.connect(func():
-		$PointLight2D.energy=lightamount;
+		light.energy=lightamount;
 		return)
 	if extension==0:
 		extension=Stats.TurretExtension.DEFAULT;
@@ -102,7 +113,7 @@ func setUpTower():
 	lightamount=GameState.gameState.lightThresholds.getLight(global_position.y)
 	#$Ambient.energy=lightamount/ambientDropOff
 	util.p("my light amount is: "+str(lightamount  ))
-	$PointLight2D.energy=lightamount	
+	light.energy=lightamount	
 	
 	pass;
 
@@ -174,7 +185,7 @@ func reduceCooldown(delta):
 	
 
 	#if GameState.gameState.phase==Stats.GamePhase.BUILD:
-	#	$PointLight2D.energy=1;
+	#	light.energy=1;
 	#	return
 	var ml=lightamount*stacks;
 	if not onCooldown:
@@ -182,8 +193,8 @@ func reduceCooldown(delta):
 	var increase=(ml/cooldown)*delta
 	
 	
-	$PointLight2D.energy=$PointLight2D.energy+increase
-	if$PointLight2D.energy>ml: $PointLight2D.energy=ml;
+	light.energy=light.energy+increase
+	if light.energy>ml: light.energy=ml;
 	
 	#$Ambient.energy=$Ambient.energy+increase
 	#if$Ambient.energy>ml/ambientDropOff: $Ambient.energy=ml/ambientDropOff;
@@ -196,45 +207,46 @@ func reduceCooldown(delta):
 
 var oldval=1;	
 static var globlight=false;
-var melight=true;
+var melight=false;
 func highlight(delta):
 	if GameState.gameState.phase==Stats.GamePhase.BATTLE:return
 	globlight=true;
 	melight=true;
-	create_tween().tween_property($PointLight2D,"energy",3,1)
-	#if $PointLight2D.energy>=3:return
+	create_tween().tween_property(light,"energy",3,1)
+	#if light.energy>=3:return
 	
 	
-	#$PointLight2D.energy=$PointLight2D.energy+9*delta;
+	#light.energy=light.energy+9*delta;
 	pass
 	
 func de_highlight(delta):
 	if GameState.gameState.phase==Stats.GamePhase.BATTLE:return
 	globlight=false;
 	melight=false;
-	create_tween().tween_property($PointLight2D,"energy",lightamount,1)
-	#$PointLight2D.energy=lightamount
+	create_tween().tween_property(light,"energy",lightamount,1)
+	#light.energy=lightamount
 	pass
 func checkLight(delta):
 	if GameState.gameState.phase==Stats.GamePhase.BATTLE:return
+	
 	if!placed:
 		lightamount=GameState.gameState.lightThresholds.getLight(global_position.y)
 		
 	
-	#if $PointLight2D.energy<=0:$PointLight2D.energy=0;return
+	#if light.energy<=0:light.energy=0;return
 	if globlight&&!melight:
-		create_tween().tween_property($PointLight2D,"energy",0,1).set_ease(Tween.EASE_OUT)
-	if !globlight&&$PointLight2D.energy<lightamount:
-		create_tween().tween_property($PointLight2D,"energy",lightamount,1)	
-		#$PointLight2D.energy=$PointLight2D.energy-9*delta;
+		create_tween().tween_property(light,"energy",0,1).set_ease(Tween.EASE_OUT)
+	if !globlight&&light.energy<lightamount:
+		create_tween().tween_property(light,"energy",lightamount,1)	
+		#light.energy=light.energy-9*delta;
 	
-	if !globlight&&$PointLight2D.energy<lightamount:
-		create_tween().tween_property($PointLight2D,"energy",lightamount,1)	
+	if !globlight&&light.energy<lightamount:
+		create_tween().tween_property(light,"energy",lightamount,1)	
 	#	return
 	#if melight:
 		#return	
 	
-	#$PointLight2D.energy=$PointLight2D.energy-9*delta;
+	#light.energy=light.energy-9*delta;
 	pass;
 	
 	
@@ -326,7 +338,7 @@ func _process(delta):
 	
 	pass;
 func startCooldown(time):
-	$PointLight2D.energy=0
+	light.energy=0
 	#$Ambient.energy=0
 	cdt=time;
 	onCooldown=true;
@@ -427,11 +439,10 @@ func _on_button_mouse_exited():
 func _on_button_pressed():
 	#if its a buildaction
 	print("lightamount: "+str(lightamount))
-	print($PointLight2D.energy)
-	$PointLight2D.energy=lightamount
+	print(light.energy)
+	light.energy=lightamount
 	
-	remove_child(light)
-	add_child(light)
+	
 	
 	
 	if Card.isCardSelected:return;

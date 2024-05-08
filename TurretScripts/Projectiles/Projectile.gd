@@ -91,7 +91,7 @@ func _ready():
 		gamestate=GameState.gameState;
 	if camera==null:
 		camera=gamestate.getCamera();
-	$PointLight2D.visible=Stats.getGlowing(type,ext)
+	
 	#BulletManager.allBullets.append(self)
 	pass # Replace with function body.
 

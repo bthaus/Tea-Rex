@@ -4,8 +4,7 @@ static var cache=[]
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	$PointLight2D.visible=true;
-	$PointLight2D2.visible=true
+
 	pass # Replace with function body.
 var damage;
 var type

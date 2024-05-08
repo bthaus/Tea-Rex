@@ -158,6 +158,7 @@ func initNewBoard():
 	GameSaver.saveGame(self)
 	deathscalling=false;
 	updateUI()
+	cam.move_to(Vector2(500,500),func():print("done"))
 	pass;
 func startBattlePhase():
 	
