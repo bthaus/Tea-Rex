@@ -8,8 +8,9 @@ var done:Callable;
 func _ready():
 	$Vid.finished.connect(func():$Vid.play())
 	pass # Replace with function body.
-
-
+	$Text.add_theme_font_size_override("normal_font_size",24)
+	$Title.add_theme_font_size_override("normal_font_size",45)
+	$Text.add_theme_font_size_override("bold_font_size",24)
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	

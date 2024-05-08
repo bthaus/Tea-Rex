@@ -453,7 +453,7 @@ offset_bottom = 1089.67
 
 [node name="UnlockSpot" type="Node2D" parent="CanvasLayer/UI"]
 z_index = 20
-position = Vector2(992.92, 545.133)
+position = Vector2(800, 545.133)
 scale = Vector2(1.5, 1.5)
 
 [node name="TutorialSpot" type="Node2D" parent="CanvasLayer/UI"]

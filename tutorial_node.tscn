@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://b4r0647fdt4ow"]
+[gd_scene load_steps=14 format=3 uid="uid://b4r0647fdt4ow"]
 
 [ext_resource type="VideoStream" path="res://Assets/TutorialVideos/RotateBlock.ogv" id="1_5j4vo"]
 [ext_resource type="Script" path="res://TutorialHolder.gd" id="1_f82j1"]
@@ -10,6 +10,7 @@
 [ext_resource type="VideoStream" path="res://Assets/TutorialVideos/Pathfinding.ogv" id="8_8rs3a"]
 [ext_resource type="VideoStream" path="res://Assets/TutorialVideos/UpgradeBlocks2.ogv" id="8_w11wx"]
 [ext_resource type="VideoStream" path="res://Assets/TutorialVideos/Starting.ogv" id="10_iy44i"]
+[ext_resource type="Texture2D" uid="uid://d0mot888gxskd" path="res://Assets/UI/battle_Label/battle_label.png" id="11_6f06p"]
 [ext_resource type="VideoStream" path="res://Assets/TutorialVideos/Outside.ogv" id="12_85ars"]
 [ext_resource type="VideoStream" path="res://Assets/TutorialVideos/Controls.ogv" id="13_7yg7x"]
 
@@ -18,7 +19,6 @@ position = Vector2(416, 332)
 script = ExtResource("1_f82j1")
 
 [node name="RotateBlock" type="Node2D" parent="."]
-visible = false
 script = ExtResource("2_ogttl")
 
 [node name="Background" type="Sprite2D" parent="RotateBlock"]
@@ -52,7 +52,7 @@ offset_top = -312.0
 offset_right = 673.0
 offset_bottom = -225.0
 bbcode_enabled = true
-text = "[font_size=24] Rotating[/font_size]"
+text = "[font_size=36] Rotating[/font_size]"
 
 [node name="Button" type="Button" parent="RotateBlock"]
 offset_left = 301.0
@@ -84,7 +84,6 @@ offset_bottom = -283.0
 text = "2/3"
 
 [node name="NoBlocking" type="Node2D" parent="."]
-visible = false
 script = ExtResource("2_ogttl")
 
 [node name="Background" type="Sprite2D" parent="NoBlocking"]
@@ -117,7 +116,7 @@ offset_top = -312.0
 offset_right = 673.0
 offset_bottom = -225.0
 bbcode_enabled = true
-text = "[font_size=24] Sneaky you![/font_size]"
+text = "[font_size=36] Sneaky you![/font_size]"
 
 [node name="Button" type="Button" parent="NoBlocking"]
 offset_left = 301.0
@@ -142,7 +141,6 @@ bbcode_enabled = true
 text = "Dont show  Tutorials"
 
 [node name="ColorRestriction" type="Node2D" parent="."]
-visible = false
 script = ExtResource("2_ogttl")
 
 [node name="Background" type="Sprite2D" parent="ColorRestriction"]
@@ -175,8 +173,7 @@ offset_top = -312.0
 offset_right = 673.0
 offset_bottom = -225.0
 bbcode_enabled = true
-text = "[font_size=24]Too easy
-
+text = "[font_size=36]Too easy
 [/font_size]"
 
 [node name="Button" type="Button" parent="ColorRestriction"]
@@ -202,7 +199,6 @@ bbcode_enabled = true
 text = "Dont show  Tutorials"
 
 [node name="UpgradeBlocks" type="Node2D" parent="."]
-visible = false
 script = ExtResource("2_ogttl")
 
 [node name="Background" type="Sprite2D" parent="UpgradeBlocks"]
@@ -236,8 +232,7 @@ offset_top = -312.0
 offset_right = 673.0
 offset_bottom = -225.0
 bbcode_enabled = true
-text = "[font_size=24]MORE POWER
-
+text = "[font_size=36]MORE POWER
 [/font_size]"
 
 [node name="Button" type="Button" parent="UpgradeBlocks"]
@@ -263,7 +258,6 @@ bbcode_enabled = true
 text = "Dont show  Tutorials"
 
 [node name="UpgradeBlocks2" type="Node2D" parent="."]
-visible = false
 script = ExtResource("2_ogttl")
 
 [node name="Background" type="Sprite2D" parent="UpgradeBlocks2"]
@@ -297,8 +291,7 @@ offset_top = -312.0
 offset_right = 673.0
 offset_bottom = -225.0
 bbcode_enabled = true
-text = "[font_size=24]MORE POWER???
-
+text = "[font_size=36]MORE POWER???
 [/font_size]"
 
 [node name="Button" type="Button" parent="UpgradeBlocks2"]
@@ -324,7 +317,6 @@ bbcode_enabled = true
 text = "Dont show  Tutorials"
 
 [node name="Pathfinding" type="Node2D" parent="."]
-visible = false
 script = ExtResource("2_ogttl")
 
 [node name="Background" type="Sprite2D" parent="Pathfinding"]
@@ -343,10 +335,10 @@ autoplay = true
 metadata/_edit_use_anchors_ = true
 
 [node name="Text" type="RichTextLabel" parent="Pathfinding"]
-offset_left = 299.0
-offset_top = -213.0
-offset_right = 690.0
-offset_bottom = 131.0
+offset_left = 295.0
+offset_top = -171.0
+offset_right = 686.0
+offset_bottom = 173.0
 bbcode_enabled = true
 text = "The paths of your enemies are determined by the placement of your blocks. "
 
@@ -354,9 +346,9 @@ text = "The paths of your enemies are determined by the placement of your blocks
 offset_left = 293.0
 offset_top = -312.0
 offset_right = 673.0
-offset_bottom = -225.0
+offset_bottom = -201.0
 bbcode_enabled = true
-text = "[font_size=24]The paths of the Lord are unfathomable...
+text = "[font_size=36]The paths of the Lord are unfathomable...
 [/font_size]"
 
 [node name="Button" type="Button" parent="Pathfinding"]
@@ -382,7 +374,6 @@ bbcode_enabled = true
 text = "Dont show  Tutorials"
 
 [node name="Starting" type="Node2D" parent="."]
-visible = false
 script = ExtResource("2_ogttl")
 
 [node name="Background" type="Sprite2D" parent="Starting"]
@@ -401,14 +392,13 @@ autoplay = true
 metadata/_edit_use_anchors_ = true
 
 [node name="Text" type="RichTextLabel" parent="Starting"]
-offset_left = 299.0
-offset_top = -213.0
-offset_right = 690.0
-offset_bottom = 131.0
+offset_left = 298.0
+offset_top = -202.0
+offset_right = 689.0
+offset_bottom = 142.0
 bbcode_enabled = true
 text = "Place [b]blocks[/b] by selecting a [b]card[/b], and then clicking on the [b]gameboard[/b].
 If you dont want to build them, put them back by pressing [b] ESC [/b].
-
 Every placed block contains a [b]turret[/b] that defends you from the evil evil minions.
 The path they have to take is indicated by a [b]white line[/b].
 "
@@ -417,10 +407,9 @@ The path they have to take is indicated by a [b]white line[/b].
 offset_left = 293.0
 offset_top = -312.0
 offset_right = 673.0
-offset_bottom = -225.0
+offset_bottom = -205.0
 bbcode_enabled = true
-text = "[font_size=24]Every new Start is difficult!
-[/font_size]"
+text = "[font_size=36]Every new Start is difficult![/font_size]"
 
 [node name="Button" type="Button" parent="Starting"]
 offset_left = 301.0
@@ -452,7 +441,6 @@ offset_bottom = -283.0
 text = "1/3"
 
 [node name="EXP" type="Node2D" parent="."]
-visible = false
 script = ExtResource("2_ogttl")
 
 [node name="Background" type="Sprite2D" parent="EXP"]
@@ -491,7 +479,7 @@ offset_top = -312.0
 offset_right = 673.0
 offset_bottom = -225.0
 bbcode_enabled = true
-text = "[font_size=24]Fight fair
+text = "[font_size=36]Fight fair
 [/font_size]"
 
 [node name="Button" type="Button" parent="EXP"]
@@ -520,10 +508,10 @@ text = "Dont show  Tutorials"
 script = ExtResource("2_ogttl")
 
 [node name="Background" type="Sprite2D" parent="Information"]
-position = Vector2(164.522, -19.1213)
+position = Vector2(272, -26)
 rotation = 1.5708
-scale = Vector2(0.581371, 0.995918)
-texture = ExtResource("2_pvvf7")
+scale = Vector2(1.49132, 3.81577)
+texture = ExtResource("11_6f06p")
 
 [node name="Text" type="RichTextLabel" parent="Information"]
 offset_left = 299.0
@@ -544,7 +532,7 @@ offset_top = -312.0
 offset_right = 673.0
 offset_bottom = -225.0
 bbcode_enabled = true
-text = "[font_size=24]Knowledge is power
+text = "[font_size=36]Knowledge is power
 [/font_size]"
 
 [node name="Button" type="Button" parent="Information"]
@@ -610,7 +598,7 @@ offset_top = -312.0
 offset_right = 673.0
 offset_bottom = -225.0
 bbcode_enabled = true
-text = "[font_size=24]Don't leave us!
+text = "[font_size=36]Don't leave us!
 [/font_size]"
 
 [node name="Button" type="Button" parent="Outside"]
@@ -672,7 +660,7 @@ offset_top = -312.0
 offset_right = 673.0
 offset_bottom = -225.0
 bbcode_enabled = true
-text = "[font_size=24]How to use hands
+text = "[font_size=36]How to use hands
 [/font_size]"
 
 [node name="Button" type="Button" parent="Controls"]
