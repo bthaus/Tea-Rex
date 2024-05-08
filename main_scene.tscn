@@ -39,7 +39,6 @@ cam = NodePath("Camera2D")
 lightThresholds = NodePath("LightThresholds")
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
-color = Color(0.717647, 0.643137, 0.819608, 1)
 script = ExtResource("2_7eagx")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]

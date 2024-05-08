@@ -218,6 +218,26 @@ static var UPDRAW_description="Increases the number of cards you draw per round.
 static var UPMAXCARDS_description="Increases the number of cards you can hold."
 const CARD_PLACEMENT_DELAY=0.5
 
+static var BLUELASER_name="Blue laser"
+static var REDLASER_name="Red laser"
+static var GREENPOISON_name="Green dart blower"
+static var YELLOWMORTAR_name="Yellow mortar"
+
+static var BLUELASER_big_description="Shoots lasers that pass through multiple enemies. It stops after damaging three.   "
+static var REDLASER_big_description="A laser that deals high damage to a single enemy. The more lasers shoot the same enemy, the more damage he takes."
+static var GREENPOISON_big_description="Applies a toxin to enemies, dealing damage over time. It stacks on each consecutive application!"
+static var YELLOWMORTAR_big_description="Shoots explosives at a high range. First, the target location is set, and after a second it hits."
+
+static var HEAL_big_description="Heals you. The longer you hold it in your hand, the more it heals you. Trust me, you will need it!"
+static var FIREBALL_big_description="Casts a powerful fireball at your target location. Can be used to catch stray enemies. "
+static var UPHEALTH_big_description="Increases your maximum health. Again, if you hold it for longer, the amount will increase."
+static var CRYOBALL_big_description="Casts a freezing nova. This slows your enemies, so make sure youre turrets will benefit from that!"
+static var MOVE_big_description="Move around your set blocks! You can even rotate them. Picks up all connected blocks. "
+static var BULLDOZER_big_description="This card allows you to destroy blocks! But use it wisely: you wont get them back. "
+static var GLUE_big_description="Bring out the big tubes! Slows enemies on top of this slimey puddle."
+static var POISON_big_description="Poisons enemies you hit with it. Don't worry, its not contagious."
+static var UPDRAW_big_description="Increases the number of cards you draw each round. We make our own rules!"
+static var UPMAXCARDS_big_description="Lets you hold more cards. It's magical. "
 enum TurretColor {GREY=1, GREEN=2, RED=3, YELLOW=4,BLUE=5};
 enum TurretExtension {DEFAULT=1,REDLASER=2, BLUELASER=3, YELLOWMORTAR=4, GREENPOISON=5};
 enum GamePhase {BATTLE=1,BUILD=2,BOTH=3};
@@ -493,7 +513,12 @@ static func getExtensionFromColor(color: TurretColor):
 
 
 		
-	
+static func getName(name):
+	return stats.get(name+"_name");
+static func getBigDescription(name):
+	return stats.get(name+"_big_description");
+		
+		
 
 static func getBlockFromShape(shape: BlockShape, color: TurretColor, level: int = 1, extension: TurretExtension = TurretExtension.DEFAULT) -> Block:
 	var pieces = []

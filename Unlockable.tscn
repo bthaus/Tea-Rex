@@ -1,11 +1,17 @@
-[gd_scene load_steps=8 format=3 uid="uid://ckn34r0xe15l0"]
+[gd_scene load_steps=17 format=3 uid="uid://ckn34r0xe15l0"]
 
 [ext_resource type="Script" path="res://Unlock.gd" id="1_i1qcg"]
-[ext_resource type="Texture2D" uid="uid://bgb418sjl85oo" path="res://Assets/Cards/Testcard_grey.png" id="2_d1i2e"]
+[ext_resource type="Texture2D" uid="uid://d0mot888gxskd" path="res://Assets/UI/battle_Label/battle_label.png" id="2_m1f3d"]
+[ext_resource type="Texture2D" uid="uid://bxjt30q8lv7ta" path="res://Assets/Cards/Testcard_blue.png" id="3_0vbag"]
 [ext_resource type="Texture2D" uid="uid://dfayulbfku7wt" path="res://Assets/UI/lock1.png" id="3_yswwd"]
 [ext_resource type="Texture2D" uid="uid://cjihoqi6wxi48" path="res://Assets/UI/lock2.png" id="4_y3upd"]
 [ext_resource type="Texture2D" uid="uid://yg4l3b5mla2h" path="res://Assets/UI/lock3.png" id="5_4pvf8"]
 [ext_resource type="Texture2D" uid="uid://bqtpkqbjl04fs" path="res://Assets/UI/lock4.png" id="6_ewsc1"]
+[ext_resource type="Texture2D" uid="uid://boh8sl7qj08r0" path="res://Assets/UI/trasparent background/BG_An1.png" id="7_0jvj2"]
+[ext_resource type="Texture2D" uid="uid://cm6obl2g353au" path="res://Assets/UI/trasparent background/BG_An2.png" id="8_7j21s"]
+[ext_resource type="Texture2D" uid="uid://cyh5v5sf06hjx" path="res://Assets/UI/trasparent background/BG_An3.png" id="9_iald1"]
+[ext_resource type="Texture2D" uid="uid://bhidbneyh03jk" path="res://Assets/UI/trasparent background/BG_An4.png" id="10_cbwyr"]
+[ext_resource type="Texture2D" uid="uid://c43bogk4bckw7" path="res://Assets/UI/trasparent background/background.png" id="12_uw0vq"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ywgeo"]
 animations = [{
@@ -20,18 +26,61 @@ animations = [{
 "texture": ExtResource("5_4pvf8")
 }, {
 "duration": 1.0,
+"texture": ExtResource("4_y3upd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_4pvf8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_y3upd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_4pvf8")
+}, {
+"duration": 1.0,
 "texture": ExtResource("6_ewsc1")
 }],
 "loop": false,
 "name": &"default",
+"speed": 3.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_axbju"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_0jvj2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_7j21s")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_iald1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_cbwyr")
+}],
+"loop": true,
+"name": &"default",
 "speed": 5.0
 }]
 
+[sub_resource type="LabelSettings" id="LabelSettings_f28v0"]
+font_size = 30
+
+[sub_resource type="LabelSettings" id="LabelSettings_obofy"]
+font_size = 20
+
 [node name="Node2D" type="Node2D"]
+modulate = Color(1, 1, 1, 0)
 script = ExtResource("1_i1qcg")
 
+[node name="Sprite2D3" type="Sprite2D" parent="."]
+z_index = -1
+texture = ExtResource("12_uw0vq")
+
 [node name="Card" type="Sprite2D" parent="."]
-texture = ExtResource("2_d1i2e")
+texture = ExtResource("3_0vbag")
 
 [node name="Lock" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, 11)
@@ -58,11 +107,45 @@ angle_min = -356.0
 
 [node name="Button" type="Button" parent="."]
 self_modulate = Color(1, 1, 1, 0)
-offset_left = -98.0
-offset_top = -140.0
-offset_right = 115.0
-offset_bottom = 143.0
+offset_left = -131.0
+offset_top = -184.0
+offset_right = 447.0
+offset_bottom = 193.0
 mouse_filter = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+self_modulate = Color(2, 2, 2, 1)
+clip_children = 2
+z_index = -1
+position = Vector2(151.097, 6.50002)
+scale = Vector2(1.15746, 1.15746)
+texture = ExtResource("2_m1f3d")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Sprite2D"]
+clip_children = 2
+position = Vector2(3.66028, -18.5752)
+scale = Vector2(0.250864, 0.250864)
+sprite_frames = SubResource("SpriteFrames_axbju")
+frame_progress = 0.683749
+
+[node name="Title" type="Label" parent="."]
+offset_left = 92.0967
+offset_top = -97.5
+offset_right = 483.097
+offset_bottom = -40.5
+text = "Bulldozer unlocked!"
+label_settings = SubResource("LabelSettings_f28v0")
+
+[node name="desc" type="Label" parent="."]
+offset_left = 91.0
+offset_top = -30.0
+offset_right = 403.0
+offset_bottom = 63.0
+text = "This card allows you to destroy blocks! But use it wisely: you wont get them back. "
+label_settings = SubResource("LabelSettings_obofy")
+autowrap_mode = 3
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
 
 [connection signal="animation_finished" from="Lock" to="." method="_on_lock_animation_finished"]
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
