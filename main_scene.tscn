@@ -5,9 +5,9 @@
 [ext_resource type="Script" path="res://Game/Stats.gd" id="3_j6i2j"]
 [ext_resource type="Texture2D" uid="uid://chsgerkqrpoy6" path="res://Assets/Level/Backgrounddummy.png" id="4_ykfqr"]
 [ext_resource type="PackedScene" uid="uid://c8n0am7jadxj7" path="res://GameBoard/game_board.tscn" id="6_ghxp6"]
-[ext_resource type="AudioStream" uid="uid://b2r3sygudg6ws" path="res://Sounds/Soundeffects/new sounds/Start.wav" id="6_qpv2c"]
+[ext_resource type="AudioStream" uid="uid://b13fmg2prbsaj" path="res://Sounds/Soundeffects/new sounds/Start.wav" id="6_qpv2c"]
 [ext_resource type="Script" path="res://Sounds/Sounds.gd" id="7_cb883"]
-[ext_resource type="Texture2D" uid="uid://ciujx66e0cmmp" path="res://Assets/Level/base.png" id="7_mq4xw"]
+[ext_resource type="Texture2D" uid="uid://wrkvl3lpywws" path="res://Assets/Level/Target.png" id="8_3fkrh"]
 [ext_resource type="Script" path="res://GameBoard/game_board_camera.gd" id="9_18cub"]
 [ext_resource type="Script" path="res://LightThresholds.gd" id="11_n87cu"]
 [ext_resource type="PackedScene" uid="uid://cf5heufemalnf" path="res://menu.tscn" id="11_po6a1"]
@@ -73,11 +73,13 @@ script = ExtResource("7_cb883")
 position = Vector2(-619, -460.5)
 
 [node name="Base" type="Node2D" parent="."]
-position = Vector2(534.237, 91.9909)
+position = Vector2(340, 45)
 scale = Vector2(0.58, 0.58)
 
 [node name="Sprite2D" type="Sprite2D" parent="Base"]
-texture = ExtResource("7_mq4xw")
+position = Vector2(0, -128)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("8_3fkrh")
 
 [node name="Area2D" type="Area2D" parent="Base"]
 collision_layer = 0

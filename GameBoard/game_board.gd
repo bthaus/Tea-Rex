@@ -418,8 +418,11 @@ func init_field():
 	for col in range(1, gameState.board_width-1):
 		$Board.set_cell(BLOCK_LAYER, Vector2(col,0), WALL_UP_TILE_ID, Vector2(0,0))
 		$Board.set_cell(BLOCK_LAYER, Vector2(col,gameState.board_height-1), WALL_DOWN_TILE_ID, Vector2(0,0))
-		
+	
+	#Draw exit to base
+	$Board.set_cell(BLOCK_LAYER, Vector2((gameState.board_width/2)-1, 0), WALL_TUNNEL_LEFT_UP_TILE_ID, Vector2(0,0))
 	$Board.set_cell(BLOCK_LAYER, Vector2(gameState.board_width/2, 0), -1, Vector2(0,0))
+	$Board.set_cell(BLOCK_LAYER, Vector2((gameState.board_width/2)+1, 0), WALL_TUNNEL_RIGHT_UP_TILE_ID, Vector2(0,0))
 	
 	#Add main spawner
 	var spawner_position = Vector2(floor(gameState.board_width/2), gameState.board_height-1)	
