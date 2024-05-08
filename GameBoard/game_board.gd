@@ -436,7 +436,7 @@ func draw_field_from_walls(walls_positions: PackedVector3Array):
 		$Board.set_cell(BLOCK_LAYER, Vector2(wall_position.x,wall_position.y), wall_position.z, Vector2(0,0))
 		height = max(height, wall_position.y)
 
-		#Add ground
+	#Add ground
 	for row in range(1, height):
 		var distance = block_handler.get_board_distance_at_row(BLOCK_LAYER, row)
 		for col in range(distance.from, distance.to+1):
@@ -595,14 +595,14 @@ func add_spawner_to_side_wall(row: int, right_side: bool):
 	if right_side: $Board.set_cell(GROUND_LAYER, Vector2(col, row), SPAWNER_RIGHT_TILE_ID, Vector2(0,0))
 	else: $Board.set_cell(GROUND_LAYER, Vector2(col, row), SPAWNER_LEFT_TILE_ID, Vector2(0,0))
 	#Add wall to the left/right
-	#if right_side: 
-		#$Board.set_cell(BLOCK_LAYER, Vector2(col+1, row-1), WALL_TUNNEL_LEFT_DOWN_TILE_ID, Vector2(0,0))
-		#$Board.set_cell(BLOCK_LAYER, Vector2(col+1, row), WALL_LEFT_TILE_ID, Vector2(0,0))
-		#$Board.set_cell(BLOCK_LAYER, Vector2(col+1, row+1), WALL_TUNNEL_LEFT_UP_TILE_ID, Vector2(0,0))
-	#else: 
-		#$Board.set_cell(BLOCK_LAYER, Vector2(col-1, row-1), WALL_TUNNEL_RIGHT_DOWN_TILE_ID, Vector2(0,0))
-		#$Board.set_cell(BLOCK_LAYER, Vector2(col-1, row), WALL_RIGHT_TILE_ID, Vector2(0,0))
-		#$Board.set_cell(BLOCK_LAYER, Vector2(col-1, row-1), WALL_TUNNEL_RIGHT_UP_TILE_ID, Vector2(0,0))
+	if right_side: 
+		$Board.set_cell(BLOCK_LAYER, Vector2(col+1, row-1), WALL_TUNNEL_LEFT_DOWN_TILE_ID, Vector2(0,0))
+		$Board.set_cell(BLOCK_LAYER, Vector2(col+1, row), WALL_LEFT_TILE_ID, Vector2(0,0))
+		$Board.set_cell(BLOCK_LAYER, Vector2(col+1, row+1), WALL_TUNNEL_LEFT_UP_TILE_ID, Vector2(0,0))
+	else: 
+		$Board.set_cell(BLOCK_LAYER, Vector2(col-1, row-1), WALL_TUNNEL_RIGHT_DOWN_TILE_ID, Vector2(0,0))
+		$Board.set_cell(BLOCK_LAYER, Vector2(col-1, row), WALL_RIGHT_TILE_ID, Vector2(0,0))
+		$Board.set_cell(BLOCK_LAYER, Vector2(col-1, row-1), WALL_TUNNEL_RIGHT_UP_TILE_ID, Vector2(0,0))
 	var spawner = Spawner.create(gameState, $Board.map_to_local(Vector2(col, row)),10)
 	gameState.spawners.append(spawner)
 
