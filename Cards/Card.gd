@@ -9,11 +9,12 @@ signal mouseIn
 signal mouseOut
 
 func select(done:Callable):
-	if isCardSelected:
+	if isCardSelected&&selectedCard!=self:
+		
 		if (selectedCard.card!=null)&&(selectedCard.card is BlockCard):
 			state.gameBoard._action_finished(false)
 			selectedCard=self;
-		if (selectedCard.card!=null)&&(selectedCard.card is SpecialCard):
+		elif (selectedCard.card!=null)&&(selectedCard.card is SpecialCard):
 			selectedCard.card.interrupt()
 			selectedCard=self;	
 		
