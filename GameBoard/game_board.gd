@@ -58,6 +58,7 @@ const WALL_TUNNEL_LEFT_DOWN_TILE_ID = 21
 
 var BACKGROUND_RANGE_TILE_IDS = util.Distance.new(0, 2)
 var BACKGROUND_FIELD_TILE_ID = 3
+var BACKGROUND_STREET_TILE_ID = 4
 
 var navigation_polygon = NavigationPolygon.new()
 var points = PackedVector2Array([Vector2(),Vector2(),Vector2(),Vector2()])
@@ -408,15 +409,17 @@ func init_field():
 	$Board.set_cell(BLOCK_LAYER, Vector2(gameState.board_width-1,gameState.board_height-1), WALL_EDGE_RIGHT_DOWN_TILE_ID, Vector2(0,0))
 	$Board.set_cell(BLOCK_LAYER, Vector2(0,gameState.board_height-1), WALL_EDGE_LEFT_DOWN_TILE_ID, Vector2(0,0))
 	
-	#Top wall
+	#Left and right wall
 	for row in range(1, gameState.board_height-1):
 		$Board.set_cell(BLOCK_LAYER, Vector2(0,row), WALL_LEFT_TILE_ID, Vector2(0,0))
 		$Board.set_cell(BLOCK_LAYER, Vector2(gameState.board_width-1,row), WALL_RIGHT_TILE_ID, Vector2(0,0))
 		
-	#Bottom wall
+	#Top and bottom wall
 	for col in range(1, gameState.board_width-1):
 		$Board.set_cell(BLOCK_LAYER, Vector2(col,0), WALL_UP_TILE_ID, Vector2(0,0))
 		$Board.set_cell(BLOCK_LAYER, Vector2(col,gameState.board_height-1), WALL_DOWN_TILE_ID, Vector2(0,0))
+		
+	$Board.set_cell(BLOCK_LAYER, Vector2(gameState.board_width/2, 0), -1, Vector2(0,0))
 	
 	#Add main spawner
 	var spawner_position = Vector2(floor(gameState.board_width/2), gameState.board_height-1)	
@@ -450,10 +453,9 @@ func draw_field_from_walls(walls_positions: PackedVector3Array):
 		for col in range(distance.from, distance.to+1):
 			$Board.set_cell(GROUND_LAYER, Vector2(col, row), EMPTY_TILE_ID, Vector2(0,0))
 			$Background.set_cell(0, Vector2(col, row), BACKGROUND_FIELD_TILE_ID, Vector2(0,0))
-	
+
 	#Add spawners
 	for spawner in gameState.spawners:
-		Spawner.create(gameState, spawner.position)
 		var pos = $Board.local_to_map(spawner.position)
 		$Board.set_cell(BLOCK_LAYER, pos, -1, Vector2(0,0))
 		var id
@@ -623,8 +625,11 @@ func add_spawner_to_side_wall(row: int, right_side: bool):
 
 func _draw_background():
 	randomize()
-	for row in gameState.background_height:
+	for row in range(-1, gameState.background_height):
 		for col in range((gameState.board_width/2)-(gameState.background_width/2), (gameState.board_width/2)+gameState.background_width/2):
+			if row == -1:
+				$Background.set_cell(0, Vector2(col, row), BACKGROUND_STREET_TILE_ID, Vector2(0,0))
+				continue
 			var id = randi_range(BACKGROUND_RANGE_TILE_IDS.from, BACKGROUND_RANGE_TILE_IDS.to)
 			$Background.set_cell(0, Vector2(col, row), id,Vector2(0,0))
 			
