@@ -417,7 +417,7 @@ func draw_field_from_walls(walls_positions: PackedVector3Array):
 	
 	#Add spawners
 	for spawner in gameState.spawners:
-		Spawner.create(gameState, spawner.position)
+		#Spawner.create(gameState, spawner.position)
 		$Board.set_cell(BLOCK_LAYER, $Board.local_to_map(spawner.position), -1, Vector2(0,0))
 		$Board.set_cell(GROUND_LAYER, $Board.local_to_map(spawner.position), SPAWNER_TILE_ID, Vector2(0,0))
 		if main_spawner == null or main_spawner.position.y < spawner.position.y:
