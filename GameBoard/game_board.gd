@@ -56,6 +56,9 @@ const WALL_TUNNEL_RIGHT_UP_TILE_ID = 19
 const WALL_TUNNEL_RIGHT_DOWN_TILE_ID = 20
 const WALL_TUNNEL_LEFT_DOWN_TILE_ID = 21
 
+var BACKGROUND_RANGE_TILE_IDS = util.Distance.new(0, 2)
+var BACKGROUND_FIELD_TILE_ID = 3
+
 var navigation_polygon = NavigationPolygon.new()
 var points = PackedVector2Array([Vector2(),Vector2(),Vector2(),Vector2()])
 
@@ -422,11 +425,14 @@ func init_field():
 	main_spawner = Spawner.create(gameState,  $Board.map_to_local(spawner_position))
 	gameState.spawners.append(main_spawner)
 	
+	_draw_background()
+		
 	#Draw ground
 	for row in range(1, gameState.board_height-1):
 		for col in range(1, gameState.board_width-1):
 			$Board.set_cell(GROUND_LAYER, Vector2(col, row), EMPTY_TILE_ID, Vector2(0,0))
-			
+			$Background.set_cell(0, Vector2(col, row), BACKGROUND_FIELD_TILE_ID, Vector2(0,0))
+	
 	$NavigationRegion2D.bake_navigation_polygon()
 
 func draw_field_from_walls(walls_positions: PackedVector3Array):
@@ -436,11 +442,14 @@ func draw_field_from_walls(walls_positions: PackedVector3Array):
 		$Board.set_cell(BLOCK_LAYER, Vector2(wall_position.x,wall_position.y), wall_position.z, Vector2(0,0))
 		height = max(height, wall_position.y)
 
+	_draw_background()
+	
 	#Add ground
 	for row in range(1, height):
 		var distance = block_handler.get_board_distance_at_row(BLOCK_LAYER, row)
 		for col in range(distance.from, distance.to+1):
 			$Board.set_cell(GROUND_LAYER, Vector2(col, row), EMPTY_TILE_ID, Vector2(0,0))
+			$Background.set_cell(0, Vector2(col, row), BACKGROUND_FIELD_TILE_ID, Vector2(0,0))
 	
 	#Add spawners
 	for spawner in gameState.spawners:
@@ -455,6 +464,7 @@ func draw_field_from_walls(walls_positions: PackedVector3Array):
 		$Board.set_cell(GROUND_LAYER, $Board.local_to_map(spawner.position), id, Vector2(0,0))
 		if main_spawner == null or main_spawner.position.y < spawner.position.y:
 			main_spawner = spawner
+			
 
 func extend_field(done:Callable):
 	#Clear bottom row
@@ -474,15 +484,19 @@ func extend_field(done:Callable):
 		if not generate_cave_right:
 			$Board.set_cell(BLOCK_LAYER, Vector2(gameState.board_width-1, row+gameState.board_height-1), WALL_RIGHT_TILE_ID, Vector2(0,0))
 	
+	_extend_background(gameState.background_height, gameState.background_height + Stats.board_extend_height)
+		
 	#Draw the ground
 	for row in Stats.board_extend_height:
 		var col = 0
 		while $Board.get_cell_source_id(BLOCK_LAYER, Vector2(col, row+gameState.board_height-1)) == -1:
 			$Board.set_cell(GROUND_LAYER, Vector2(col, row+gameState.board_height-1), EMPTY_TILE_ID, Vector2(0,0))
+			$Background.set_cell(0, Vector2(col, row+gameState.board_height-1), BACKGROUND_FIELD_TILE_ID, Vector2(0,0))
 			col -= 1
 		col = 1
 		while $Board.get_cell_source_id(BLOCK_LAYER, Vector2(col, row+gameState.board_height-1)) == -1:
 			$Board.set_cell(GROUND_LAYER, Vector2(col, row+gameState.board_height-1), EMPTY_TILE_ID, Vector2(0,0))
+			$Background.set_cell(0, Vector2(col, row+gameState.board_height-1), BACKGROUND_FIELD_TILE_ID, Vector2(0,0))
 			col += 1
 	
 	#Add bottom row
@@ -516,6 +530,7 @@ func extend_field(done:Callable):
 	if generate_cave_right and add_spawner_right and rows_right.size() > 0: add_spawner_to_side_wall(rows_right.pick_random(), true)
 	
 	gameState.board_height += Stats.board_extend_height
+	gameState.background_height += Stats.board_extend_height
 	_set_navigation_region()
 	
 func generate_cave(pos_y: int, height: int, right_side: bool):
@@ -605,6 +620,20 @@ func add_spawner_to_side_wall(row: int, right_side: bool):
 		$Board.set_cell(BLOCK_LAYER, Vector2(col-1, row-1), WALL_TUNNEL_RIGHT_UP_TILE_ID, Vector2(0,0))
 	var spawner = Spawner.create(gameState, $Board.map_to_local(Vector2(col, row)),10)
 	gameState.spawners.append(spawner)
+
+func _draw_background():
+	randomize()
+	for row in gameState.background_height:
+		for col in range((gameState.board_width/2)-(gameState.background_width/2), (gameState.board_width/2)+gameState.background_width/2):
+			var id = randi_range(BACKGROUND_RANGE_TILE_IDS.from, BACKGROUND_RANGE_TILE_IDS.to)
+			$Background.set_cell(0, Vector2(col, row), id,Vector2(0,0))
+			
+func _extend_background(old_height: int, new_height: int):
+	randomize()
+	for row in range(old_height+1, new_height+1):
+		for col in range((gameState.board_width/2)-(gameState.background_width/2), (gameState.board_width/2)+gameState.background_width/2):
+			var id = randi_range(BACKGROUND_RANGE_TILE_IDS.from, BACKGROUND_RANGE_TILE_IDS.to)
+			$Background.set_cell(0, Vector2(col, row), id,Vector2(0,0))
 
 func _spawn_turrets(block: Block, position: Vector2):
 	for piece in block.pieces:

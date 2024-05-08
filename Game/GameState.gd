@@ -28,6 +28,8 @@ var started=false;
 var wave:int=0;
 var board_width=11;
 var board_height=16;
+var background_width=100
+var background_height=50
 var y=0
 var spawners=[]
 var target;
