@@ -27,7 +27,8 @@ func reorder():
 	var offset=Vector2(125,0)
 	for c in children:
 		offset=offset+Vector2(125,0)
-		c.global_position=global_position+offset;
+		create_tween().tween_property(c,"global_position",global_position+offset,0.5).set_ease(Tween.EASE_IN_OUT)
+		c.originalPosition=global_position+offset
 	pass;
 func _on_button_pressed():
 	

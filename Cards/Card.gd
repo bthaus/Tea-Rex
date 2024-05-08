@@ -75,9 +75,7 @@ static func create(gameState:GameState,card=-1):
 func played(interrupted:bool):
 	scale=Vector2(1,1)
 	z_index=0
-	position=Vector2(0,0)
-	
-		
+			
 	isCardSelected=false;
 	if  interrupted:
 		queue_free()
@@ -88,7 +86,7 @@ func played(interrupted:bool):
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	
-	get_parent().child_order_changed.connect(moveInHand)
+	
 	originalPosition=global_position
 	pass # Replace with function body.
 
@@ -112,9 +110,7 @@ func _on_button_mouse_entered():
 	
 	pass # Replace with function body.
 
-func moveInHand():
-	originalPosition=global_position
-	pass;
+
 func _on_button_mouse_exited():
 	z_index=0
 	var tween = create_tween()

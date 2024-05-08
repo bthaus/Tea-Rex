@@ -84,7 +84,7 @@ static func storeGameMap(gameState:GameState):
 	var cells=map.get_used_cells(0);
 	var mapAsArray=[]
 	for cell in cells:
-		var turret=gameState.gameBoard.turret_holder.get_turret_at(cell)
+		#var turret=gameState.gameBoard.turret_holder.get_turret_at(cell)
 		var data=map.get_cell_tile_data(GameBoard.BLOCK_LAYER,cell)
 		if data==null:util.p("cell tile data empty for some reason","bodo","persistency");
 		var color=data.get_custom_data("color");
