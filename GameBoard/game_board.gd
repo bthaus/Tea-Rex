@@ -435,7 +435,7 @@ func draw_field_from_walls(walls_positions: PackedVector3Array):
 	var height = -1
 	#Add walls
 	for wall_position in walls_positions:
-		$Board.set_cell(BLOCK_LAYER, Vector2(wall_position.x,wall_position.y), WALL_TILE_ID, Vector2(0,0))
+		$Board.set_cell(BLOCK_LAYER, Vector2(wall_position.x,wall_position.y), wall_position.z, Vector2(0,0))
 		height = max(height, wall_position.y)
 
 		#Add ground
@@ -447,8 +447,14 @@ func draw_field_from_walls(walls_positions: PackedVector3Array):
 	#Add spawners
 	for spawner in gameState.spawners:
 		Spawner.create(gameState, spawner.position)
-		$Board.set_cell(BLOCK_LAYER, $Board.local_to_map(spawner.position), -1, Vector2(0,0))
-		$Board.set_cell(GROUND_LAYER, $Board.local_to_map(spawner.position), SPAWNER_TILE_ID, Vector2(0,0))
+		var pos = $Board.local_to_map(spawner.position)
+		$Board.set_cell(BLOCK_LAYER, pos, -1, Vector2(0,0))
+		var id
+		if pos.x <= 0: id = SPAWNER_LEFT_TILE_ID
+		elif pos.x >= gameState.board_width-1: id = SPAWNER_RIGHT_TILE_ID
+		else: id = SPAWNER_DOWN_TILE_ID
+			
+		$Board.set_cell(GROUND_LAYER, $Board.local_to_map(spawner.position), id, Vector2(0,0))
 		if main_spawner == null or main_spawner.position.y < spawner.position.y:
 			main_spawner = spawner
 
