@@ -6,7 +6,7 @@ var done:Callable;
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	$Vid.finished.connect(func():$Vid.play())
+	
 	pass # Replace with function body.
 	$Text.add_theme_font_size_override("normal_font_size",24)
 	$Title.add_theme_font_size_override("normal_font_size",45)

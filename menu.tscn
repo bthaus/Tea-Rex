@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://cf5heufemalnf"]
+[gd_scene load_steps=40 format=3 uid="uid://cf5heufemalnf"]
 
 [ext_resource type="Script" path="res://Menu.gd" id="1_vjikn"]
 [ext_resource type="Script" path="res://UI.gd" id="2_vouda"]
@@ -10,16 +10,26 @@
 [ext_resource type="Texture2D" uid="uid://dbgbbq7obnmij" path="res://Assets/UI/ShowUnlockedBUtton.png" id="7_aujqc"]
 [ext_resource type="PackedScene" uid="uid://dfv1yobm3u5hn" path="res://hand.tscn" id="8_4633y"]
 [ext_resource type="PackedScene" uid="uid://d3553ynahp4sx" path="res://Game/Minimap.tscn" id="8_i8iej"]
-[ext_resource type="Texture2D" uid="uid://bmmqmilhp5rrp" path="res://Assets/UI/BUTTON1.png" id="9_1lrx0"]
-[ext_resource type="Texture2D" uid="uid://eikafnrgw2hp" path="res://Assets/UI/BUTTON2.png" id="10_8dawl"]
-[ext_resource type="Texture2D" uid="uid://cy3lpa8r6eu27" path="res://Assets/UI/CARDMAX.png" id="12_8sn7l"]
+[ext_resource type="Texture2D" uid="uid://tjnqn3v5ccyn" path="res://Assets/UI/description_banner.png" id="9_mywok"]
+[ext_resource type="Texture2D" uid="uid://dmx7t8ele2oeb" path="res://Assets/UI/battle_Label/battle_label_text.png" id="11_a1kin"]
+[ext_resource type="Texture2D" uid="uid://bi831gg5piuel" path="res://Assets/UI/battle_Label/battle_label_an1.png" id="11_vy07x"]
+[ext_resource type="Texture2D" uid="uid://bo44it1faj837" path="res://Assets/UI/battle_Label/battle_label_an2.png" id="12_fy304"]
 [ext_resource type="Texture2D" uid="uid://d0bdq8gnbp4f5" path="res://Assets/UI/label_maxCards.png" id="13_kv3ah"]
-[ext_resource type="Texture2D" uid="uid://b1g35penkxgsp" path="res://Assets/UI/LBAR0.png" id="13_ucxh1"]
+[ext_resource type="Texture2D" uid="uid://3iid6vrfhtgm" path="res://Assets/UI/battle_Label/battle_label_an3.png" id="13_tu5pj"]
 [ext_resource type="Texture2D" uid="uid://cle6jpm068sar" path="res://Assets/UI/label_redrawCards.png" id="14_2tmxv"]
-[ext_resource type="Texture2D" uid="uid://jr77oi8084ln" path="res://Assets/UI/LBAR100.png" id="14_h6yjh"]
+[ext_resource type="Texture2D" uid="uid://q8ob5jhpgu26" path="res://Assets/UI/battle_Label/battle_label_an4.png" id="14_rhiyx"]
+[ext_resource type="Texture2D" uid="uid://cheapt26ehvld" path="res://Assets/UI/battle_Label/battle_label_an5.png" id="15_2pbux"]
 [ext_resource type="Texture2D" uid="uid://cdb0bphmyr1e4" path="res://Assets/UI/label_wave.png" id="15_esn6i"]
+[ext_resource type="Texture2D" uid="uid://x4gc1napxktf" path="res://Assets/UI/battle_Label/battle_label_an6.png" id="16_c8mys"]
 [ext_resource type="Texture2D" uid="uid://cir25cbml7q1h" path="res://Assets/Level/blackBackgroundLabel.png" id="16_oeuhs"]
 [ext_resource type="PackedScene" uid="uid://b1awhns1b5kw3" path="res://hover_hint.tscn" id="16_vvx5a"]
+[ext_resource type="Texture2D" uid="uid://dhw6ikymj4u1p" path="res://Assets/UI/health_xp_bar/health_bar_empty.png" id="17_jkmx4"]
+[ext_resource type="Texture2D" uid="uid://cqbji64vum618" path="res://Assets/UI/battle_Label/battle_label_an7.png" id="17_re58h"]
+[ext_resource type="Texture2D" uid="uid://co6wg5jgloq0c" path="res://Assets/UI/health_xp_bar/health_bar_full.png" id="18_u81gj"]
+[ext_resource type="Texture2D" uid="uid://276qgjm5ksbg" path="res://Assets/UI/health_xp_bar/exp_bar_empty.png" id="19_sn526"]
+[ext_resource type="Texture2D" uid="uid://b8s1bnckjwcap" path="res://Assets/UI/health_xp_bar/exp_bar_full.png" id="20_ftb2j"]
+[ext_resource type="Texture2D" uid="uid://b74x3v78pfff6" path="res://Assets/UI/block_empty.png" id="21_ih3wg"]
+[ext_resource type="Texture2D" uid="uid://cgqev4mribj5l" path="res://Assets/UI/block_full.png" id="22_hxghk"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_t26sl"]
 font_size = 106
@@ -30,9 +40,25 @@ font_size = 106
 [sub_resource type="LabelSettings" id="LabelSettings_licme"]
 font_size = 106
 
-[sub_resource type="LabelSettings" id="LabelSettings_x8uqx"]
+[sub_resource type="LabelSettings" id="LabelSettings_nendl"]
 font_size = 32
-shadow_size = 96
+
+[sub_resource type="AnimatedTexture" id="AnimatedTexture_u67pj"]
+frames = 7
+frame_0/texture = ExtResource("11_vy07x")
+frame_0/duration = 0.1
+frame_1/texture = ExtResource("12_fy304")
+frame_1/duration = 0.1
+frame_2/texture = ExtResource("13_tu5pj")
+frame_2/duration = 0.1
+frame_3/texture = ExtResource("14_rhiyx")
+frame_3/duration = 0.1
+frame_4/texture = ExtResource("15_2pbux")
+frame_4/duration = 0.1
+frame_5/texture = ExtResource("16_c8mys")
+frame_5/duration = 0.1
+frame_6/texture = ExtResource("17_re58h")
+frame_6/duration = 0.1
 
 [sub_resource type="LabelSettings" id="LabelSettings_tx5p1"]
 font_size = 31
@@ -229,14 +255,22 @@ offset_bottom = 210.0
 scale = Vector2(0.15, 0.15)
 
 [node name="Description" type="Label" parent="CanvasLayer/UI"]
-modulate = Color(1, 1, 1, 0)
-offset_left = 172.0
-offset_top = 1081.0
-offset_right = 1819.0
-offset_bottom = 1126.0
-text = "The cards will be described here.  This is subject to change. "
-label_settings = SubResource("LabelSettings_x8uqx")
+z_index = 3
+offset_left = 451.0
+offset_top = 1074.0
+offset_right = 1621.0
+offset_bottom = 1138.0
+text = "Buildphase"
+label_settings = SubResource("LabelSettings_nendl")
 horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Descriptionbanner" type="Sprite2D" parent="CanvasLayer/UI"]
+visible = false
+position = Vector2(1040.71, 60)
+scale = Vector2(1.43494, 1.43701)
+texture = ExtResource("9_mywok")
 
 [node name="Cardspace" parent="CanvasLayer/UI" instance=ExtResource("5_8526f")]
 visible = false
@@ -244,20 +278,18 @@ position = Vector2(79.646, 437.168)
 
 [node name="StartBattlePhase" type="TextureButton" parent="CanvasLayer/UI"]
 clip_contents = true
-offset_left = 1807.08
-offset_top = 939.823
-offset_right = 2105.08
-offset_bottom = 1237.82
+offset_left = 1720.35
+offset_top = 925.664
+offset_right = 2242.35
+offset_bottom = 1287.66
 scale = Vector2(0.5, 0.5)
-texture_normal = ExtResource("9_1lrx0")
-texture_pressed = ExtResource("10_8dawl")
-texture_disabled = ExtResource("10_8dawl")
+texture_normal = ExtResource("11_a1kin")
+texture_disabled = SubResource("AnimatedTexture_u67pj")
 stretch_mode = 0
 
-[node name="Hand" parent="CanvasLayer/UI" node_paths=PackedStringArray("description") instance=ExtResource("8_4633y")]
+[node name="Hand" parent="CanvasLayer/UI" instance=ExtResource("8_4633y")]
 position = Vector2(141.593, 950)
 scale = Vector2(1.2, 1.2)
-description = NodePath("../Description")
 
 [node name="maxcards" type="Label" parent="CanvasLayer/UI"]
 offset_left = 99.115
@@ -368,18 +400,17 @@ scale = Vector2(2.405, 1.65)
 hintText = NodePath("../wavehint")
 
 [node name="Hpbar" type="TextureProgressBar" parent="CanvasLayer/UI"]
-offset_left = 40.708
-offset_top = 102.655
-offset_right = 156.708
-offset_bottom = 294.655
-rotation = -1.57079
-scale = Vector2(0.5, 1)
+offset_left = -5.30973
+offset_top = 31.8584
+offset_right = 253.69
+offset_bottom = 223.858
+scale = Vector2(1.175, 1.175)
 value = 100.0
-fill_mode = 2
-texture_under = ExtResource("13_ucxh1")
-texture_progress = ExtResource("14_h6yjh")
+texture_under = ExtResource("17_jkmx4")
+texture_progress = ExtResource("18_u81gj")
 
 [node name="Label" type="Label" parent="CanvasLayer/UI/Hpbar"]
+visible = false
 layout_mode = 0
 offset_left = 41.0
 offset_top = -23.0
@@ -387,18 +418,15 @@ offset_right = 103.0
 text = "HP"
 
 [node name="EXPbar" type="TextureProgressBar" parent="CanvasLayer/UI"]
-modulate = Color(0.32549, 1, 0, 1)
-offset_left = 40.708
-offset_top = 146.903
-offset_right = 403.708
-offset_bottom = 338.903
-rotation = -1.57079
-scale = Vector2(0.5, 1)
-fill_mode = 2
-texture_under = ExtResource("13_ucxh1")
-texture_progress = ExtResource("14_h6yjh")
+offset_left = 3.53982
+offset_top = 95.5752
+offset_right = 366.54
+offset_bottom = 287.575
+texture_under = ExtResource("19_sn526")
+texture_progress = ExtResource("20_ftb2j")
 
 [node name="Label2" type="Label" parent="CanvasLayer/UI/EXPbar"]
+visible = false
 layout_mode = 0
 offset_left = 37.1681
 offset_top = -26.5484
@@ -408,15 +436,17 @@ text = "EXP"
 
 [node name="CatBar" type="TextureProgressBar" parent="CanvasLayer/UI"]
 offset_left = 14.1593
-offset_top = 679.646
-offset_right = 114.16
-offset_bottom = 779.646
+offset_top = 596.46
+offset_right = 376.159
+offset_bottom = 960.46
+scale = Vector2(0.5, 0.5)
 max_value = 5.0
 fill_mode = 4
-texture_under = ExtResource("12_8sn7l")
-texture_progress = ExtResource("9_1lrx0")
+texture_under = ExtResource("21_ih3wg")
+texture_progress = ExtResource("22_hxghk")
 
 [node name="Label" type="Label" parent="CanvasLayer/UI/CatBar"]
+visible = false
 layout_mode = 0
 offset_left = 116.814
 offset_top = 35.3982
@@ -424,17 +454,20 @@ offset_right = 239.814
 offset_bottom = 58.3982
 text = "next Catastropy"
 
-[node name="HoverHint" parent="CanvasLayer/UI/CatBar" node_paths=PackedStringArray("hintText") instance=ExtResource("16_vvx5a")]
-position = Vector2(51.3274, 44.2473)
-scale = Vector2(1.165, 1.165)
-hintText = NodePath("../cathint")
-
 [node name="cathint" type="Label" parent="CanvasLayer/UI/CatBar"]
 layout_mode = 0
-offset_left = 42.4477
-offset_top = -33.315
-offset_right = 82.4477
-offset_bottom = -10.315
+offset_left = 7.07965
+offset_top = -77.8761
+offset_right = 346.08
+offset_bottom = -2.87606
+text = "Time Left until next Catastrophy"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HoverHint" parent="CanvasLayer/UI" node_paths=PackedStringArray("hintText") instance=ExtResource("16_vvx5a")]
+position = Vector2(102.655, 676.106)
+scale = Vector2(2.62, 2.62)
+hintText = NodePath("../CatBar/cathint")
 
 [node name="Killcount" type="RichTextLabel" parent="CanvasLayer/UI"]
 offset_left = 361.0
@@ -486,7 +519,7 @@ libraries = {
 [node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/AnimationPlayer"]
 modulate = Color(1, 1, 1, 0)
 z_index = 4096
-position = Vector2(148.673, 530.973)
+position = Vector2(187.611, 530.973)
 scale = Vector2(2.30182, 1.13103)
 texture = ExtResource("16_oeuhs")
 

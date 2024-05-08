@@ -17,6 +17,7 @@ func updateUI():
 	$CanvasLayer/UI/redraws.text=str(gamestate.cardRedraws)
 	$CanvasLayer/UI/EXPbar.max_value=gamestate.levelUp;
 	$CanvasLayer/UI/EXPbar.value=gamestate.totalExp
+	$CanvasLayer/UI/EXPbar.min_value=gamestate.levelUp/2
 	$CanvasLayer/UI/CatBar.value=gamestate.wave%5
 	$CanvasLayer/UI/StartBattlePhase.disabled=gamestate.phase==Stats.GamePhase.BATTLE
 	var hpscale=remap(gamestate.maxHP,200,1000,1,20)

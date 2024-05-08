@@ -258,7 +258,7 @@ func _on_spawner_wave_done():
 
 
 func startGame():
-	hand.drawCard(Card.create(self,SpecialCard.create(self,Stats.SpecialCards.HEAL)))
+	
 	cam.move_to(Vector2(500,500),func():print("done"))
 	TutorialHolder.showTutorial(TutorialHolder.tutNames.Starting,self,func():
 		TutorialHolder.showTutorial(TutorialHolder.tutNames.RotateBlock,self, func():
