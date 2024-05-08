@@ -44,6 +44,7 @@ func _on_lock_animation_finished():
 	$Card.queue_free()
 	$sound.play()
 	add_child(card)
+	$Button.disabled=false;
 	
 	card.get_child(0).mouse_filter=2
 	
