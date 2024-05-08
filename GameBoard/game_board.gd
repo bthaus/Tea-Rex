@@ -464,6 +464,7 @@ func draw_field_from_walls(walls_positions: PackedVector3Array):
 		else: id = SPAWNER_DOWN_TILE_ID
 			
 		$Board.set_cell(GROUND_LAYER, $Board.local_to_map(spawner.position), id, Vector2(0,0))
+
 		if main_spawner == null or main_spawner.position.y < spawner.position.y:
 			main_spawner = spawner
 			

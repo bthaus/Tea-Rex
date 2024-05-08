@@ -17,6 +17,9 @@ var numSpawned:float=0;
 @onready var nav: NavigationAgent2D = $NavigationAgent2D
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	state.start_build_phase.connect(func():
+		if state.spawners.find(self)==-1:queue_free()
+		)
 	GameState.gameState.player_died.connect(func():
 		for m in waveMonsters:
 			if m != null:m.queue_free())
@@ -28,6 +31,7 @@ static func create(gameState:GameState,pos:Vector2,level:int=1)-> Spawner:
 	s.target=gameState.target
 	s.level=level;
 	gameState.add_child(s)
+	
 	s.global_position=pos
 	
 	return s
@@ -76,7 +80,7 @@ func doSpawnLogic(waveNumber:int):
 	pass;
 	
 func spawnEnemy(mo:Monster):
-	if state.spawners.find(self)==-1:queue_free()
+
 	mo.monster_died.connect(monsterDied)
 	mo.monster_died.connect(state.addExp)
 	mo.reached_spawn.connect(monsterReachedSpawn)
@@ -100,6 +104,7 @@ func monsterDied(monster:Monster):
 	pass;
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	
 	nav.get_next_path_position()
 	queue_redraw()
 	
