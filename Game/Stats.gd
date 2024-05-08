@@ -10,6 +10,8 @@ static var board_cave_spawner_chance_percent=75
 const CAMERA_MOVE_DURATION=2
 const CATASTROPHY_PREVIEW_DURATION=1
 
+const MAX_TURRET_LEVEL=5
+
 const base_range=5;
 const green_range=2*base_range;
 const blue_range=2*base_range;

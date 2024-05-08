@@ -155,6 +155,10 @@ func can_place_block(block: Block, layer: int, position: Vector2, navigation_reg
 					if spawner_pos.x == pos.x and spawner_pos.y == pos.y:
 						return false
 	
+	#Block could theoretically be placed to upgrade, but the underlying block already has reached the max level
+	if level == Stats.MAX_TURRET_LEVEL:
+		return false
+	
 	#Check if a path would be valid
 	if board.get_cell_tile_data(layer, position) == null: #We want to build something new (no upgrade)
 		draw_block_with_tile_id(block, position, PREVIEW_BLOCK_TILE_ID, layer) #Draw preview block for path
