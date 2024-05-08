@@ -3,7 +3,7 @@ extends Node2D
 @export var description:Label
 # Called when the node enters the scene tree for the first time.
 func _ready():
-
+	child_order_changed.connect(reorder)
 	pass # Replace with function body.
 
 func drawCard(card:Card=null):
@@ -19,14 +19,16 @@ func drawCard(card:Card=null):
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	#add fancification here for reordering of cards on playing cards
+	
+	pass
+
+func reorder():
 	var children=get_children()
 	var offset=Vector2(125,0)
 	for c in children:
 		offset=offset+Vector2(125,0)
 		c.global_position=global_position+offset;
-	pass
-
-
+	pass;
 func _on_button_pressed():
 	
 	drawCard()

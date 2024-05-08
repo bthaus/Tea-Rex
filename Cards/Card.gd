@@ -40,6 +40,8 @@ func setCard(c):
 static func create(gameState:GameState,card=-1):
 	counter=counter+1;
 	var c=load("res://card.tscn").instantiate() as Card
+	
+	
 	var btn=c.get_child(0) as Button
 	if card is Card:
 		c.setCard(card)
@@ -85,6 +87,9 @@ func played(interrupted:bool):
 	pass;
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	
+	get_parent().child_order_changed.connect(moveInHand)
+	originalPosition=global_position
 	pass # Replace with function body.
 
 
@@ -97,16 +102,23 @@ func _on_button_pressed():
 	select(played)
 	pass # Replace with function body.
 
-
+var originalPosition;
 func _on_button_mouse_entered():
 	z_index=10
+	
+	var tween = create_tween()
+	tween.tween_property(self, "global_position", originalPosition+Vector2(0, -25), 0.5)
 	state.menu.showDescription(description)
 	
 	pass # Replace with function body.
 
-
+func moveInHand():
+	originalPosition=global_position
+	pass;
 func _on_button_mouse_exited():
 	z_index=0
+	var tween = create_tween()
+	tween.tween_property(self, "global_position", originalPosition, 0.5)
 	state.menu.hideDescription()
 	mouseOut.emit()
 	pass # Replace with function body.
