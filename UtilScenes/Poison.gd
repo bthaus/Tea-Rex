@@ -45,7 +45,7 @@ func apply(amount):
 	pass;
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	detector.global_position=enemy.global_position
+	#detector.global_position=enemy.global_position
 	stacks=stacks-decay*delta;
 	if stacks<0:
 		queue_free()
