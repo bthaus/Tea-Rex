@@ -68,10 +68,25 @@ func spawnEXP():
 	GameState.gameState.add_child(sprite);
 	sprite.global_position=global_position
 	var tween = get_tree().create_tween()
-	print(GameState.gameState.menu.get_node("CanvasLayer/UI/ExpTarget").global_position)
-	tween.set_loops(10)
-	tween.tween_property(sprite,"global_position",(global_position+(GameState.gameState.get_node("Camera2D/EXPtarget").global_position-global_position))/10,0.3)
+	
+	tween.finished.connect(func(idx):
+		var a = get_tree().create_tween()
+		a.tween_property(sprite,"global_position",global_position+((GameState.gameState.get_node("Camera2D/EXPtarget").global_position-global_position)/(10-idx+1)),0.3)
+		)
+	tween.tween_property(sprite,"global_position",global_position+((GameState.gameState.get_node("Camera2D/EXPtarget").global_position-global_position)/10),0.3)
+	
+	#tweener(10,sprite)
 	pass;
+func tweener(iteration,sprite):
+	print(iteration)
+	if iteration==0:
+		sprite.queue_free()
+		return
+	var tween = get_tree().create_tween()
+	tween.finished.connect(tweener.bind(iteration-1,sprite))
+	tween.tween_property(sprite,"global_position",global_position+((GameState.gameState.get_node("Camera2D/EXPtarget").global_position-global_position)/iteration),0.3)
+	
+	pass;	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
 	if died: return;
