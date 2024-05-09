@@ -250,8 +250,6 @@ func COLORCHANGER_catastrophy(done: Callable):
 				get_tree().create_timer(delay).timeout.connect(func():
 					$Board.clear_layer(CATASTROPHY_LAYER)
 					$Board.set_cell(CATASTROPHY_LAYER, Vector2(piece.position.x + col, piece.position.y + row), CATASTROPHY_PREVIEW_TILE_ID, Vector2(0,0))
-					block_handler.remove_block_from_board(Block.new([piece]), Vector2(0, 0), BLOCK_LAYER, EXTENSION_LAYER, false)
-					_remove_turrets(Block.new([piece]), Vector2(0, 0))
 					)
 					
 				count += 1
