@@ -221,15 +221,7 @@ func applyPoison(enemy:Monster):
 
 func applyMortarExplosion(enemy:Monster):
 	var pos=enemy.global_position
-	var sprite=Sprite2D.new();
-	sprite.texture=load("res://Assets/UI/Target_Cross.png")
-	get_parent().add_child(sprite)
-	sprite.global_position=pos;
-	get_tree().create_timer(1).timeout.connect(func():
-		
-		Explosion.create(Stats.TurretColor.YELLOW,damage,pos,associate,0.5)
-		sprite.queue_free()
-	)
+	gamestate.mortarWorkaround(damage,pos,associate)
 	pass;
 func _on_shot_finished():
 	shotsplayed=shotsplayed-1;

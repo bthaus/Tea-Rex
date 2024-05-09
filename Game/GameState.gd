@@ -11,7 +11,7 @@ static var gameState;
 
 var account:String="";
 #Stats.TurretExtension
-var unlockedExtensions=[Stats.TurretExtension.DEFAULT];
+var unlockedExtensions=[Stats.TurretExtension.DEFAULT,Stats.TurretExtension.YELLOWMORTAR];
 #Stats.TurretColor
 var unlockedColors=[Stats.TurretColor.BLUE];
 #Stats.SpecialCards
@@ -35,10 +35,10 @@ var spawners=[]
 var target;
 var showTutorials=true;
 
-static var blueChance=100;
+static var blueChance=0;
 static var redChance=0;
 static var greenChance=0;
-static var yellowChance=0;
+static var yellowChance=100;
 static var greyChance=0;
 var colorChances = [greyChance, greenChance, redChance, yellowChance, blueChance]
 #subject to change
@@ -344,4 +344,14 @@ func _on_area_2d_area_entered(area):
 		
 	pass # Replace with function body.
 
-
+func mortarWorkaround(damage,pos,associate):
+	var sprite=Sprite2D.new();
+	sprite.texture=load("res://Assets/UI/Target_Cross.png")
+	get_parent().add_child(sprite)
+	sprite.global_position=pos;
+	get_tree().create_timer(1).timeout.connect(func():
+		
+		Explosion.create(Stats.TurretColor.YELLOW,damage,pos,associate,0.5)
+		sprite.queue_free()
+	)
+	pass;
