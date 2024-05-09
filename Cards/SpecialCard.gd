@@ -202,6 +202,7 @@ func _input(event):
 		return;
 	
 	if event.is_action_pressed("left_click"):
+		
 		selected=false;
 		$Preview.visible=false;
 		cast()

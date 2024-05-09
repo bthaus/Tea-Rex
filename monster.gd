@@ -32,6 +32,7 @@ func _ready():
 	$Sprite2D.texture=load("res://Assets/Monsters/Monster_"+Stats.getStringFromEnum(color)+".png")
 	maxGlow=GameState.gameState.lightThresholds.getGlow(global_position.y)*2.5
 	maxGlow=clamp(maxGlow,1,5)
+	modulate=Color(maxGlow,maxGlow,maxGlow,maxGlow)
 	#get_node(Stats.getStringFromEnum(color)).visible=false;
 	
 	$HP.text=str(hp)

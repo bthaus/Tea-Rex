@@ -333,6 +333,7 @@ func _input(event):
 	if ignore_input: return	
 	
 	if event.is_action_released("left_click"):
+		if Card.contemplatingInterrupt:return;
 		match action:
 			BoardAction.PLAYER_BUILD:
 				if block_handler.can_place_block(selected_block, BLOCK_LAYER, board_pos, $NavigationRegion2D, gameState.spawners):
