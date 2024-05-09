@@ -181,7 +181,7 @@ func _on_focus_mouse_entered():
 				#targetrot = 0
 				targetpos = Cardpos
 				targetpos.y = get_viewport().size.y - $'../../'.CardSize.y*ZoomInSize
-				print ("position: ", get_viewport().size)
+				
 				state = FocusInHand
 
 

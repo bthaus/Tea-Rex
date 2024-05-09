@@ -23,7 +23,7 @@ signal scrolled;
 func shake(duration: float, intensity: float,position,maxval=MAX_SHAKE):
 	if intensity>maxval: return;
 	if abs(abs(position.y)-abs(position.y))>1000:return
-	print(zoom)	
+
 	if intensity>MAX_SHAKE: return
 	shake_timer = 0.0
 	self.duration=duration;

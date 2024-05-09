@@ -156,7 +156,7 @@ func _on_button_mouse_exited():
 func _on_disable_button_pressed():
 	scale=Vector2(1,1)
 	z_index=0
-	print("disable!")
+
 	$DisableButton.mouse_filter=2
 	$DisableButton/DisableCard.hide()
 	isCardSelected=false;	
@@ -175,7 +175,7 @@ static var hoveredCard=null
 func _on_disable_button_mouse_entered():
 	hoveredCard=self
 	contemplatingInterrupt=true;
-	print("hovered!")
+	
 	pass # Replace with function body.
 
 
@@ -184,9 +184,9 @@ func _on_disable_button_mouse_exited():
 		hoveredCard==null;
 		contemplatingInterrupt=false;	
 			
-		print("self!")
+		
 	if hoveredCard==null:
 		contemplatingInterrupt=false;	
-	print(hoveredCard)	
+	
 		
 	pass # Replace with function body.

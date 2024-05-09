@@ -35,11 +35,11 @@ var spawners=[]
 var target;
 var showTutorials=true;
 
-static var blueChance=100;
-static var redChance=0;
-static var greenChance=0;
-static var yellowChance=0;
-static var greyChance=0;
+static var blueChance=20;
+static var redChance=20;
+static var greenChance=20;
+static var yellowChance=20;
+static var greyChance=20;
 var colorChances = [greyChance, greenChance, redChance, yellowChance, blueChance]
 #subject to change
 
@@ -128,17 +128,17 @@ func drawCards(amount):
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	y=cam.position.y
-	if Input.is_action_just_pressed("save"):
+	#if Input.is_action_just_pressed("save"):
 		#for k in TutorialHolder.tutNames.keys():
 		#	GameSaver.save("0",k,"tutorials")
 		#	print("restored: "+k)
 		#unlock.append(Unlockable.create(Card.create(self,BlockCard.create(self,Stats.getBlockFromShape(Stats.BlockShape.O,Stats.TurretColor.RED,1,Stats.TurretExtension.REDLASER)))))	
 		#checkUnlock()
 		#GameState.gameState.showTutorials=true	
-		totalExp=50000000;
-		checkLevelUp()
-		checkUnlock()
-		print("DEBUGGGGGING AHOY")
+		#totalExp=50000000;
+		#checkLevelUp()
+		#checkUnlock()
+		#print("DEBUGGGGGING AHOY")
 	pass
 
 func initNewBoard():

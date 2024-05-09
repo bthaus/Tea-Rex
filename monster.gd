@@ -1,4 +1,4 @@
-extends CharacterBody2D
+extends Node2D
 class_name Monster;
 var sizemult=1;
 var hp=Stats.enemy_base_HP;
@@ -34,7 +34,7 @@ func _ready():
 	maxGlow=clamp(maxGlow,1,5)
 	modulate=Color(maxGlow,maxGlow,maxGlow,maxGlow)
 	#get_node(Stats.getStringFromEnum(color)).visible=false;
-	
+	move()
 	$HP.text=str(hp)
 	pass # Replace with function body.
 static func create(type:Stats.TurretColor,target:Node2D,wave:int=1)->Monster:
@@ -72,6 +72,7 @@ func hit(color:Stats.TurretColor,damage,type="default",noise=true):
 	if hp<=0 and not died:
 		#spawnEXP()
 		died=true
+		tw.kill()
 		monster_died.emit(self)
 		$Hitbox.queue_free()
 		$Sprite2D.queue_free()
@@ -96,7 +97,7 @@ func spawnEXP():
 	#tweener(10,sprite)
 	pass;
 func tweener(iteration,sprite):
-	print(iteration)
+	
 	if iteration==0:
 		sprite.queue_free()
 		return
@@ -108,14 +109,29 @@ func tweener(iteration,sprite):
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
 	if died: return;
+
+func _process(delta):
+	
+	#var goal=nav.get_next_path_position() 
+	#move_to(global_position,goal,delta)
+	pass;
+var tw	
+func move():
 	var direction = Vector3()
 	nav.target_position = target.global_position  
-	direction = nav.get_next_path_position() - global_position
-	direction = direction.normalized()
-	velocity = velocity.lerp(direction * (speedfactor * speed),accel * delta)
-	move_and_slide()
+	var goal=nav.get_next_path_position() 
+	tw=create_tween()
+	var length=(global_position-goal).length()
+	length=remap(length,0,600,0,7*10/(speedfactor*2))
+	tw.tween_property(self,"global_position",goal,length)
+	tw.finished.connect(move)
 
-
+	pass;
+func moveAndSlide():
+	#move_and_slide()
+	
+	pass;	
+	
 func _on_death_anim_animation_finished():
 	queue_free()
 	pass # Replace with function body.

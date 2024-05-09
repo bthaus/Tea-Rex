@@ -47,7 +47,7 @@ static func deserialise(json:String,gameState:GameState)->Spawner:
 	return s;
 		
 func start(wavenumber:int):
-	print("my level is: "+str(level))
+	
 	if level>1:level=level-1
 	doBalancingLogic(wavenumber)
 	doSpawnLogic(wavenumber)
@@ -84,13 +84,15 @@ func spawnEnemy(mo:Monster):
 	mo.monster_died.connect(monsterDied)
 	mo.monster_died.connect(state.addExp)
 	mo.reached_spawn.connect(monsterReachedSpawn)
-	add_child(mo)
+	mo.global_position=global_position
+	GameState.gameState.add_child(mo)
+	
 
 	pass;
 func monsterReachedSpawn(monster:Monster):
 	numReachedSpawn=numReachedSpawn+1;
 	numMonstersActive=numMonstersActive-1;
-	print(numMonstersActive)
+
 	if numMonstersActive<=0:
 		state.startBuildPhase()
 		
@@ -98,7 +100,7 @@ func monsterReachedSpawn(monster:Monster):
 func monsterDied(monster:Monster):
 	numDied=numDied+1;
 	numMonstersActive=numMonstersActive-1;
-	print(numMonstersActive)
+	
 	if numMonstersActive<=0:
 		state.startBuildPhase()
 	pass;

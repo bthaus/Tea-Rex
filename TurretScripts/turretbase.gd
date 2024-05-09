@@ -59,7 +59,7 @@ func checkPosition():
 	if GameState.gameState.getCamera().isOffCamera(global_position)and light.get_parent()!=null:
 		remove_child(light)
 	if !GameState.gameState.getCamera().isOffCamera(global_position)and light.get_parent()==null:
-		print("light added"+str(light.energy))	
+		
 		add_child(light)
 		light.global_position=global_position
 		light.visible=true
@@ -295,8 +295,7 @@ func _process(delta):
 		direction=(target.global_position-self.global_position).normalized();
 		base.rotation=direction.angle() + PI / 2.0;
 		
-		if type==Stats.TurretColor.RED&&extension==Stats.TurretExtension.DEFAULT:
-			print(buildup)
+		
 			#projectile.rotate((180*buildup)*2*delta);
 		if !onCooldown:
 			if type==Stats.TurretColor.RED&&extension==Stats.TurretExtension.DEFAULT:
@@ -343,7 +342,7 @@ func _process(delta):
 	elif buildup>0:
 		if type==Stats.TurretColor.RED&&extension==Stats.TurretExtension.DEFAULT&&buildup>0:
 			buildup=buildup-0.01*delta;	
-			print(buildup)
+			
 		else:
 			buildup=buildup-2*delta;
 		
@@ -453,8 +452,7 @@ func _on_button_mouse_exited():
 
 func _on_button_pressed():
 	#if its a buildaction
-	print("lightamount: "+str(lightamount))
-	print(light.energy)
+	
 	light.energy=lightamount
 	
 	

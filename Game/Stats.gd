@@ -121,11 +121,11 @@ const RED_enemy_damage=enemy_base_damage*3;
 const max_enemies_per_spawner=50;
 
 const enemy_base_speed_factor =1;
-const enemy_base_speed=11;
+const enemy_base_speed=8;
 const enemy_base_acceleration = 7;
 const GREEN_enemy_speed=enemy_base_speed*1;
 const BLUE_enemy_speed=enemy_base_speed*1;
-const YELLOW_enemy_speed=enemy_base_speed*2;
+const YELLOW_enemy_speed=enemy_base_speed*1.5;
 const RED_enemy_speed=enemy_base_speed*0.5;
 
 static var enemy_base_exp=10;
@@ -499,9 +499,7 @@ func getEvaluatedShape(counter):
 		bestCurrentAverage=currentAverage
 		bestCurrentShape=shape
 	var difference=currentAverage-TargetPieceAverage
-	print("i am the recursion counter for shapeevaluation" + str(counter))
-	print("current average: "+str(currentAverage))
-	print("difference: "+str(difference))
+	
 	if counter>20:
 		numberOfPiecesDrawn=numberOfPiecesDrawn+block.pieces.size();
 		return bestCurrentShape;
