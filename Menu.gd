@@ -3,8 +3,10 @@ class_name Menu
 @export var gamestate:GameState
 signal statePropagation(gamestate:GameState)
 @export var description:Label
+var music;
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	music=Sounds.playFromCamera(gamestate,Sounds.music[3])
 	statePropagation.emit(gamestate)
 	gamestate.start_combat_phase.connect(func():
 		$CanvasLayer/UI/Battlephase/AnimatedSprite2D.play("default")
@@ -18,6 +20,9 @@ func _ready():
 		tween.tween_property($CanvasLayer/UI/BuildPhase,"position",Vector2(1041.531,-42),1).set_delay(2.5);
 		)	
 	pass # Replace with function body.
+func stopMusic():
+	if music.playing:music.stop()
+	pass;	
 func updateUI():
 	$CanvasLayer/UI/Killcount.text=gamestate.count;
 	$CanvasLayer/PlayerName.text=gamestate.account

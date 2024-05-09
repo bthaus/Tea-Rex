@@ -41,6 +41,7 @@ static func playFromCamera(gamestate,sound):
 	gamestate.getCamera().add_child(a)
 	a.play()
 	a.finished.connect(func():a.queue_free())
+	return a;
 	pass
 static var player:AudioStreamPlayer2D
 static func start(sound):
