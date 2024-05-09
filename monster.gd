@@ -2,6 +2,7 @@ extends CharacterBody2D
 class_name Monster;
 var sizemult=1;
 var hp=Stats.enemy_base_HP;
+var maxHp;
 var damage=Stats.enemy_base_damage;
 var speedfactor=Stats.enemy_base_speed_factor;
 var speed = Stats.enemy_base_speed;
@@ -25,6 +26,7 @@ func _ready():
 	speedfactor=Stats.getEnemyProperty(color,"speed")
 	var mod=1+(currentMinionPower*Stats.enemy_scaling)
 	hp=Stats.getEnemyProperty(color,"HP")*mod
+	maxHp=hp
 	minionExp=Stats.enemy_base_exp;
 	GameState.gameState.player_died.connect(func():free())
 	$Sprite2D.texture=load("res://Assets/Monsters/Monster_"+Stats.getStringFromEnum(color)+".png")
@@ -46,6 +48,7 @@ func getExp():
 	return currentMinionPower*minionExp/3;
 	pass;
 static var xptext=load("res://Assets/UI/CARDMAX.png");
+
 func hit(color:Stats.TurretColor,damage,type="default",noise=true):
 	
 	var mod=1;
@@ -54,7 +57,10 @@ func hit(color:Stats.TurretColor,damage,type="default",noise=true):
 	hp=hp-damage*mod;
 	hp=int(hp)
 	$HP.text=str(hp)
-	
+	if !camera.isOffCamera(global_position):
+		var t=remap(hp,0,maxHp,1,5)
+		t=clamp(t,1,5)
+		modulate=Color(t,t,t)	
 	if camera!=null:
 		var s=camera.zoom.y-3;
 		$hurt.volume_db=s*10
