@@ -8,7 +8,7 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	button_pressed=GameState.gameState.showTutorials;
+	#button_pressed=GameState.gameState.showTutorials;
 	pass
 
 
