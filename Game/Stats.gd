@@ -220,6 +220,11 @@ static var UPDRAW_description="Increases the number of cards you draw per round.
 static var UPMAXCARDS_description="Increases the number of cards you can hold."
 const CARD_PLACEMENT_DELAY=0.5
 
+static var BLUE_name="Pew Pew"
+static var RED_name="Red saw"
+static var GREEN_name="Green Rocket Launcher"
+static var YELLOW_name="Yellow sniper"
+static var GREY_name="Grey block"
 static var BLUELASER_name="Blue laser"
 static var REDLASER_name="Red laser"
 static var GREENPOISON_name="Green Toxicator"

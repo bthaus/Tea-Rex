@@ -11,7 +11,7 @@ static var gameState;
 
 var account:String="";
 #Stats.TurretExtension
-var unlockedExtensions=[Stats.TurretExtension.DEFAULT,Stats.TurretExtension.BLUELASER];
+var unlockedExtensions=[Stats.TurretExtension.DEFAULT];
 #Stats.TurretColor
 var unlockedColors=[Stats.TurretColor.BLUE];
 #Stats.SpecialCards
@@ -269,7 +269,7 @@ func _on_spawner_wave_done():
 
 
 func startGame():
-	hand.add_child(Card.create(self,SpecialCard.create(self,Stats.SpecialCards.BULLDOZER)))
+	#hand.add_child(Card.create(self,SpecialCard.create(self,Stats.SpecialCards.BULLDOZER)))
 	cam.move_to(Vector2(500,500),func():print("done"))
 	TutorialHolder.showTutorial(TutorialHolder.tutNames.Starting,self,func():
 		TutorialHolder.showTutorial(TutorialHolder.tutNames.RotateBlock,self, func():

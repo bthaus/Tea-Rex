@@ -25,7 +25,7 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_c2wsv")
 icon = ExtResource("2_k4a1t")
 
 [node name="Label" type="Label" parent="."]
-visible = false
+z_index = 10
 offset_left = -47.0
 offset_top = -82.0
 offset_right = 41.0

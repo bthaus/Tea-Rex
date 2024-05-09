@@ -90,6 +90,10 @@ static func create(gameState:GameState,card=-1):
 		
 		var extension=c.card.block.extension;
 		var color=c.card.block.color;
+		if extension==1:
+			c.get_node("Label").text=Stats.getName(Stats.TurretColor.find_key(color))
+		else:
+			c.get_node("Label").text=Stats.getName(Stats.TurretExtension.find_key(extension))	
 		c.get_node("Button").icon=load("res://Assets/Cards/Testcard_"+Stats.getStringFromEnum(color).to_lower()+".png")
 		#use this to change color/text of card
 		var preview=load("res://Cards/block_preview.tscn").instantiate()
