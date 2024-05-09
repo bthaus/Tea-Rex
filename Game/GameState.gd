@@ -125,13 +125,13 @@ func drawCards(amount):
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	y=cam.position.y
-	if Input.is_action_just_pressed("save"):
+	#if Input.is_action_just_pressed("save"):
 		#for k in TutorialHolder.tutNames.keys():
 		#	GameSaver.save("0",k,"tutorials")
 		#	print("restored: "+k)
-		unlock.append(Unlockable.create(Card.create(self,BlockCard.create(self,Stats.getBlockFromShape(Stats.BlockShape.O,Stats.TurretColor.RED,1,Stats.TurretExtension.REDLASER)))))	
-		checkUnlock()
-		GameState.gameState.showTutorials=true	
+		#unlock.append(Unlockable.create(Card.create(self,BlockCard.create(self,Stats.getBlockFromShape(Stats.BlockShape.O,Stats.TurretColor.RED,1,Stats.TurretExtension.REDLASER)))))	
+		#checkUnlock()
+		#GameState.gameState.showTutorials=true	
 	
 	pass
 
