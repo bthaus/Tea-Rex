@@ -13,6 +13,8 @@ var done: Callable
 
 var turret_holder = util.TurretHolder.new()
 
+static var current_tutorial = null
+
 var main_spawner
 
 var preview_turrets = null
@@ -330,7 +332,7 @@ func _input(event):
 	if event.is_action_released("interrupt"):
 		_action_finished(false)
 	#this uses the inputstopper flag for tutorials and handhovering
-	if ignore_input: return	
+	if ignore_input: return
 	
 	if event.is_action_released("left_click"):
 		match action:
@@ -338,6 +340,9 @@ func _input(event):
 				if block_handler.can_place_block(selected_block, BLOCK_LAYER, board_pos, $NavigationRegion2D, gameState.spawners):
 					_place_block(selected_block, board_pos)
 					_action_finished(true)
+				elif current_tutorial != null:
+					TutorialHolder.showTutorial(current_tutorial, gameState)
+					current_tutorial = null
 			
 			BoardAction.PLAYER_MOVE:
 				if selected_block == null:
@@ -354,6 +359,9 @@ func _input(event):
 					if block_handler.can_place_block(selected_block, BLOCK_LAYER, board_pos, $NavigationRegion2D, gameState.spawners):
 						_place_block(selected_block, board_pos)
 						_action_finished(true)
+					elif current_tutorial != null:
+						TutorialHolder.showTutorial(current_tutorial, gameState)
+						current_tutorial = null
 					
 			BoardAction.PLAYER_BULLDOZER:
 				block_handler.remove_block_from_board(selected_block, board_pos, BLOCK_LAYER, EXTENSION_LAYER, false)
@@ -361,8 +369,6 @@ func _input(event):
 				_action_finished(true)
 				$NavigationRegion2D.bake_navigation_polygon()
 				
-	
-
 
 func _place_block(block: Block, position: Vector2):
 	var data = $Board.get_cell_tile_data(BLOCK_LAYER, position)

@@ -123,6 +123,7 @@ func can_place_block(block: Block, layer: int, position: Vector2, navigation_reg
 	for piece in block.pieces:
 		var board_pos = Vector2(piece.position.x + position.x, piece.position.y + position.y)
 		if not is_position_in_gameboard_bounds(layer, board_pos): #Check if piece is inside bounds (walls)
+			GameBoard.current_tutorial = TutorialHolder.tutNames.Outside
 			return false
 		var board_data = board.get_cell_tile_data(layer, board_pos)
 		
@@ -130,12 +131,16 @@ func can_place_block(block: Block, layer: int, position: Vector2, navigation_reg
 		if board_data != null: #Tile exists at this position
 			var board_data_color = board_data.get_custom_data("color").to_upper()
 			if board_data_color == Stats.getStringFromEnum(Stats.TurretColor.GREY): #You can NEVER place something on grey
+				GameBoard.current_tutorial = TutorialHolder.tutNames.ColorRestriction
 				return false
 			if board_data_color != Stats.getStringFromEnum(piece.color): #Wrong color
+				GameBoard.current_tutorial = TutorialHolder.tutNames.ColorRestriction
 				return false
 			if level != board_data.get_custom_data("level"): #Level does not match
+				GameBoard.current_tutorial = TutorialHolder.tutNames.UpgradeBlocks2
 				return false
 		elif level != -1: #We expect a non-empty cell
+			GameBoard.current_tutorial = null
 			return false
 			
 		#Check near mismatching colors
@@ -148,15 +153,18 @@ func can_place_block(block: Block, layer: int, position: Vector2, navigation_reg
 						var color = cell_data.get_custom_data("color").to_upper()
 						if color != "WALL" and color != Stats.getStringFromEnum(Stats.TurretColor.GREY): #Walls and grey pieces are an exception, ignore them
 							if color != Stats.getStringFromEnum(piece.color): #Mismatching color
+								GameBoard.current_tutorial = TutorialHolder.tutNames.ColorRestriction
 								return false
 				
 				#Check if there are any surrounding spawners
 				for spawner_pos in spawner_positions:
 					if spawner_pos.x == pos.x and spawner_pos.y == pos.y:
+						GameBoard.current_tutorial = null
 						return false
 	
 	#Block could theoretically be placed to upgrade, but the underlying block already has reached the max level
 	if level == Stats.MAX_TURRET_LEVEL:
+		GameBoard.current_tutorial = null
 		return false
 	
 	#Check if a path would be valid
@@ -170,8 +178,10 @@ func can_place_block(block: Block, layer: int, position: Vector2, navigation_reg
 				break
 		remove_block_from_board(block, position, layer, -1, false) #Delete preview block again
 		if not all_paths_valid:
+			GameBoard.current_tutorial = TutorialHolder.tutNames.Pathfinding
 			return false
-		
+	
+	GameBoard.current_tutorial = null
 	return true
 
 #Calculates how long a row (wall to wall) in a gameboard field is and
