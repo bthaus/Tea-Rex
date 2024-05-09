@@ -47,6 +47,7 @@ func getExp():
 	pass;
 static var xptext=load("res://Assets/UI/CARDMAX.png");
 func hit(color:Stats.TurretColor,damage,type="default",noise=true):
+	
 	var mod=1;
 	if color==self.color:
 		mod=1.5

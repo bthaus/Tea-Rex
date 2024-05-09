@@ -135,7 +135,7 @@ func _process(delta):
 		#unlock.append(Unlockable.create(Card.create(self,BlockCard.create(self,Stats.getBlockFromShape(Stats.BlockShape.O,Stats.TurretColor.RED,1,Stats.TurretExtension.REDLASER)))))	
 		#checkUnlock()
 		#GameState.gameState.showTutorials=true	
-		changeHealth(-5000)
+		#changeHealth(-5000)
 		print("DEBUGGGGGING AHOY")
 	pass
 
