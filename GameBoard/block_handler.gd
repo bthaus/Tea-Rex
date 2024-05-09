@@ -43,7 +43,7 @@ func remove_block_from_board(block: Block, position: Vector2, block_layer: int, 
 			board.set_cell(extension_layer, Vector2(piece.position.x + position.x, piece.position.y + position.y), -1, Vector2(0,0))
 
 #If normalized, the coordinates of each piece will be based on position (=> (0,0))
-func get_block_from_board(position: Vector2, block_layer: int, extension_layer: int, normalize: bool, search_diagonal: bool = true, ignore_level: bool = true) -> Block:
+func get_block_from_board(position: Vector2, block_layer: int, extension_layer: int, normalize: bool, search_diagonal: bool = false, ignore_level: bool = true) -> Block:
 	var data = board.get_cell_tile_data(block_layer, position)
 	if data == null: #No tile available
 		return Block.new([])
