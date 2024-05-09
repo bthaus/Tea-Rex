@@ -98,6 +98,8 @@ func _ready():
 		camera=gamestate.getCamera();
 	if ext==Stats.TurretExtension.BLUELASER:
 		scale=Vector2(1,1)
+	if color==Stats.TurretColor.RED and ext==Stats.TurretExtension.DEFAULT:
+		$Sprite2D.modulate=Color(1,1,1,1)	
 	#BulletManager.allBullets.append(self)
 	pass # Replace with function body.
 

@@ -17,16 +17,17 @@ func select(done:Callable):
 		elif (selectedCard.card!=null)&&(selectedCard.card is SpecialCard):
 			selectedCard.card.interrupt()
 			selectedCard=self;	
-		
+	
 	if self is BlockCard and state.phase!=Stats.GamePhase.BUILD:
 		return;
-		
+	$DisableButton/DisableCard.show()
+	$DisableButton.mouse_filter=0;	
 	
 	isCardSelected=true;
 	selectedCard=self;
 	scale=Vector2(1.3,1.3)
 	
-	z_index=10
+	z_index=20
 	card.select(done)
 	
 	pass;
@@ -89,6 +90,10 @@ static func create(gameState:GameState,card=-1):
 		
 		var extension=c.card.block.extension;
 		var color=c.card.block.color;
+		if extension==1:
+			c.get_node("Label").text=Stats.getName(Stats.TurretColor.find_key(color))
+		else:
+			c.get_node("Label").text=Stats.getName(Stats.TurretExtension.find_key(extension))	
 		c.get_node("Button").icon=load("res://Assets/Cards/Testcard_"+Stats.getStringFromEnum(color).to_lower()+".png")
 		#use this to change color/text of card
 		var preview=load("res://Cards/block_preview.tscn").instantiate()
@@ -102,15 +107,13 @@ static func create(gameState:GameState,card=-1):
 	return c
 	
 func played(interrupted:bool):
-	scale=Vector2(1,1)
-	z_index=0
-			
-	isCardSelected=false;
+	
 	if  interrupted:
 		queue_free()
 		finished.emit(self)
 		get_tree().create_timer(0.5).timeout.connect(GameSaver.saveGame.bind(state))
-		
+	if isCardSelected:
+		_on_disable_button_pressed()	
 	pass;
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -131,7 +134,7 @@ func _on_button_pressed():
 
 var originalPosition;
 func _on_button_mouse_entered():
-	z_index=10
+	z_index=9
 	
 	var tween = create_tween()
 	tween.tween_property(self, "global_position", originalPosition+Vector2(0, -25), 0.5)
@@ -141,9 +144,49 @@ func _on_button_mouse_entered():
 
 
 func _on_button_mouse_exited():
-	z_index=0
+	if selectedCard!=self:
+		z_index=0
 	var tween = create_tween()
 	tween.tween_property(self, "global_position", originalPosition, 0.5)
 	state.menu.hideDescription()
 	mouseOut.emit()
+	pass # Replace with function body.
+
+
+func _on_disable_button_pressed():
+	scale=Vector2(1,1)
+	z_index=0
+	print("disable!")
+	$DisableButton.mouse_filter=2
+	$DisableButton/DisableCard.hide()
+	isCardSelected=false;	
+	GameState.gameState.gameBoard.action=GameBoard.BoardAction.NONE
+	if (selectedCard.card!=null)&&(selectedCard.card is BlockCard):
+			state.gameBoard._action_finished(false)
+			selectedCard=null;
+	elif (selectedCard.card!=null)&&(selectedCard.card is SpecialCard):
+			selectedCard.card.interrupt()
+			selectedCard=null;	
+	
+	pass # Replace with function body.
+
+static var contemplatingInterrupt=false;
+static var hoveredCard=null
+func _on_disable_button_mouse_entered():
+	hoveredCard=self
+	contemplatingInterrupt=true;
+	print("hovered!")
+	pass # Replace with function body.
+
+
+func _on_disable_button_mouse_exited():
+	if hoveredCard==self:
+		hoveredCard==null;
+		contemplatingInterrupt=false;	
+			
+		print("self!")
+	if hoveredCard==null:
+		contemplatingInterrupt=false;	
+	print(hoveredCard)	
+		
 	pass # Replace with function body.

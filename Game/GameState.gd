@@ -11,7 +11,7 @@ static var gameState;
 
 var account:String="";
 #Stats.TurretExtension
-var unlockedExtensions=[Stats.TurretExtension.DEFAULT,Stats.TurretExtension.BLUELASER];
+var unlockedExtensions=[Stats.TurretExtension.DEFAULT];
 #Stats.TurretColor
 var unlockedColors=[Stats.TurretColor.BLUE];
 #Stats.SpecialCards
@@ -135,7 +135,7 @@ func _process(delta):
 		#unlock.append(Unlockable.create(Card.create(self,BlockCard.create(self,Stats.getBlockFromShape(Stats.BlockShape.O,Stats.TurretColor.RED,1,Stats.TurretExtension.REDLASER)))))	
 		#checkUnlock()
 		#GameState.gameState.showTutorials=true	
-		changeHealth(-5000)
+		#changeHealth(-5000)
 		print("DEBUGGGGGING AHOY")
 	pass
 
@@ -269,7 +269,7 @@ func _on_spawner_wave_done():
 
 
 func startGame():
-	
+	#hand.add_child(Card.create(self,SpecialCard.create(self,Stats.SpecialCards.BULLDOZER)))
 	cam.move_to(Vector2(500,500),func():print("done"))
 	TutorialHolder.showTutorial(TutorialHolder.tutNames.Starting,self,func():
 		TutorialHolder.showTutorial(TutorialHolder.tutNames.RotateBlock,self, func():

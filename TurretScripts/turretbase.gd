@@ -45,6 +45,8 @@ static func create(color:Stats.TurretColor, lvl:int, type:Stats.TurretExtension=
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	if not placed:
+		$Button.mouse_filter=2
 	light=$PointLight2D
 	setUpTower();	
 	GameState.gameState.start_combat_phase.connect(func():
