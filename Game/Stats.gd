@@ -16,7 +16,7 @@ const base_range=5;
 const green_range=2*base_range;
 const blue_range=2*base_range;
 const yellow_range=10*base_range;
-const red_range=0.7*base_range;
+const red_range=0.4*base_range;
 const grey_range=2*base_range;
 
 const red_laser_range=1*base_range;
@@ -54,7 +54,7 @@ const green_damage=base_damage*3;
 const blue_damage=base_damage*2;
 const yellow_damage=base_damage*5;
 const grey_damage=base_damage*1;
-const red_damage=base_damage*1;
+const red_damage=base_damage*2;
 
 const red_laser_damage=base_damage*0.5;
 const blue_laser_damage=base_damage*2;

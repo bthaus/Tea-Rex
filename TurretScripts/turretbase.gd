@@ -100,9 +100,9 @@ func setUpTower():
 	if projectile==null:projectile=Projectile.create(type,damage*damagefactor,speed*speedfactor,self,extension);
 	projectile.visible=false;
 	if type==Stats.TurretColor.RED:
-		projectile.visible=false;
-		projectile.z_index=-1;
+		projectile.z_index=0;
 		projectile.visible=true;
+		projectile.modulate=Color(1,1,1,1)
 		$AudioStreamPlayer2D.finished.connect(func(): if inRange():$AudioStreamPlayer2D.play)
 	match type:
 		2:$EnemyDetector.get_node("Area2D/Preview").modulate=Color(0,1,0)
@@ -270,9 +270,10 @@ func _process(delta):
 					$AudioStreamPlayer2D.play()
 		if buildup<0.1:
 			$AudioStreamPlayer2D.stop()
-					
+	if type==Stats.TurretColor.RED&&extension==Stats.TurretExtension.DEFAULT&&buildup>0:
+			projectile.rotate((180*buildup*-1)*2*delta);			
 	if inRange():
-		
+			
 		base.setLevel(stacks)
 		if projectile==null:
 			projectile=Projectile.create(type,damage,speed,self,extension)
@@ -280,13 +281,16 @@ func _process(delta):
 	
 		if buildup<=1 and (type==Stats.TurretColor.RED&&extension==Stats.TurretExtension.REDLASER):
 			buildup=buildup+1*delta*2;
+		if buildup<=1 and (type==Stats.TurretColor.RED&&extension==Stats.TurretExtension.DEFAULT)&&buildup<0.01:
+			buildup=buildup+0.01*delta;	
 		var target=$EnemyDetector.enemiesInRange[0];
 		
 		direction=(target.global_position-self.global_position).normalized();
 		base.rotation=direction.angle() + PI / 2.0;
 		
 		if type==Stats.TurretColor.RED&&extension==Stats.TurretExtension.DEFAULT:
-			projectile.rotate(180*2*delta);
+			print(buildup)
+			#projectile.rotate((180*buildup)*2*delta);
 		if !onCooldown:
 			if type==Stats.TurretColor.RED&&extension==Stats.TurretExtension.DEFAULT:
 				for e in $EnemyDetector.enemiesInRange:
@@ -330,7 +334,11 @@ func _process(delta):
 				return
 			shoot(target);
 	elif buildup>0:
-		buildup=buildup-2*delta;
+		if type==Stats.TurretColor.RED&&extension==Stats.TurretExtension.DEFAULT&&buildup>0:
+			buildup=buildup-0.01*delta;	
+			print(buildup)
+		else:
+			buildup=buildup-2*delta;
 		
 	queue_redraw()		
 	#debugg
