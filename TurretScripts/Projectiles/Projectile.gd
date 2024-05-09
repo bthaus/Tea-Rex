@@ -33,6 +33,7 @@ static var hitsplayed=0;
 static var counter=0;
 static var gamestate:GameState;
 static var camera;
+var timesShot=0;
 
 enum asd {DEFAULT=1,REDLASER=2, BLUELASER=3, YELLOWMORTAR=4, GREENPOISON=5};
 enum asdsa {GREY=1, GREEN=2, RED=3, YELLOW=4,BLUE=5};
@@ -62,17 +63,21 @@ static func create(type:Stats.TurretColor, damage,speed,root,extension:Stats.Tur
 		if temp==null:
 			temp=load("res://TurretScripts/Projectiles/Base_projectile.tscn").instantiate() as Projectile;
 			temp.type=type;
-			temp.ext=extension;	
-			root.add_child(temp);
+			temp.ext=extension;
+			GameState.gameState.add_child(temp)	
+			
 		temp.visible=true;
+		
 		
 	else:
 		temp=load("res://TurretScripts/Projectiles/Base_projectile.tscn").instantiate() as Projectile;
 		temp.type=type;
 		temp.ext=extension;	
-		root.add_child(temp);
+		GameState.gameState.add_child(temp)
+		
 		
 	
+	temp.global_position=root.global_position
 	temp.associate=root
 	temp.damage=damage;
 	temp.speed=speed;
@@ -96,6 +101,7 @@ func _ready():
 	pass # Replace with function body.
 
 func remove():
+	if associate!=null:global_position=associate.global_position
 	
 	if pool==null:
 		return;
@@ -116,7 +122,7 @@ func shoot(target):
 	direction=(target.global_position-self.global_position).normalized();
 	#if type==Stats.TurretColor.BLUE:
 	#	ConeFlash.flash(self.global_position,0.1,get_tree().get_root(),direction.angle() + PI / 2.0,0.2);
-	
+	timesShot=timesShot+1;
 	self.target=target;	
 	global_rotation=direction.angle() + PI / 2.0
 	shot=true;
@@ -128,7 +134,9 @@ func _process(delta):
 	if shot:
 		translate(direction*delta*speed);
 		
-	if abs(global_position.x)>3000||abs(global_position.y)>gamestate.board_height*Stats.block_size:
+	if abs(global_position.x)>3000||abs(global_position.y)>1.5*gamestate.board_height*Stats.block_size:
+		print("me"+str(abs(global_position.y)))
+		print(gamestate.board_height*Stats.block_size)
 		remove()
 	pass
 	
@@ -183,7 +191,7 @@ func applySpecials(enemy:Monster):
 		if type==Stats.TurretColor.RED&&ext==Stats.TurretExtension.REDLASER:
 			applyRedLaser(enemy)
 		if type==Stats.TurretColor.GREEN&&ext==Stats.TurretExtension.DEFAULT:
-			Explosion.create(type,damage,global_position,associate,Stats.green_explosion_range);
+			Explosion.create(type,damage,enemy.global_position,associate,Stats.green_explosion_range);
 		if type==Stats.TurretColor.GREEN&&ext==Stats.TurretExtension.GREENPOISON:
 			applyPoison(enemy)
 		if type==Stats.TurretColor.YELLOW&&ext==Stats.TurretExtension.YELLOWMORTAR:

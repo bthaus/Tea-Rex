@@ -70,6 +70,10 @@ func checkPosition():
 	else:
 		instantHit=true;
 	pass;
+	
+func _notification(what):
+	if (what == NOTIFICATION_PREDELETE)&&projectile!=null:
+		projectile.free()	
 func setUpTower():
 	
 	GameState.gameState.getCamera().scrolled.connect(checkPosition)
@@ -101,7 +105,7 @@ func setUpTower():
 	projectile.visible=false;
 	if type==Stats.TurretColor.RED:
 		projectile.z_index=0;
-		projectile.visible=true;
+		projectile.visible=placed
 		projectile.modulate=Color(1,1,1,1)
 		$AudioStreamPlayer2D.finished.connect(func(): if inRange():$AudioStreamPlayer2D.play)
 	match type:
