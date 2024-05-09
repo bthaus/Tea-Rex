@@ -1,16 +1,15 @@
-[gd_scene load_steps=14 format=3 uid="uid://b4r0647fdt4ow"]
+[gd_scene load_steps=13 format=3 uid="uid://b4r0647fdt4ow"]
 
 [ext_resource type="VideoStream" path="res://Assets/TutorialVideos/RotateBlock.ogv" id="1_5j4vo"]
 [ext_resource type="Script" path="res://TutorialHolder.gd" id="1_f82j1"]
 [ext_resource type="Script" path="res://tutorial.gd" id="2_ogttl"]
-[ext_resource type="Texture2D" uid="uid://cir25cbml7q1h" path="res://Assets/Level/blackBackgroundLabel.png" id="2_pvvf7"]
+[ext_resource type="Texture2D" uid="uid://b7a7irfdhr34m" path="res://Assets/UI/trasparent background/label_groß.png" id="3_ovxn3"]
 [ext_resource type="VideoStream" path="res://Assets/TutorialVideos/NoBLocking.ogv" id="5_o5rvo"]
 [ext_resource type="VideoStream" path="res://Assets/TutorialVideos/ColorRestriction.ogv" id="6_uk43q"]
 [ext_resource type="VideoStream" path="res://Assets/TutorialVideos/UpgradeBlocks.ogv" id="7_6arob"]
 [ext_resource type="VideoStream" path="res://Assets/TutorialVideos/Pathfinding.ogv" id="8_8rs3a"]
 [ext_resource type="VideoStream" path="res://Assets/TutorialVideos/UpgradeBlocks2.ogv" id="8_w11wx"]
 [ext_resource type="VideoStream" path="res://Assets/TutorialVideos/Starting.ogv" id="10_iy44i"]
-[ext_resource type="Texture2D" uid="uid://d0mot888gxskd" path="res://Assets/UI/battle_Label/battle_label.png" id="11_6f06p"]
 [ext_resource type="VideoStream" path="res://Assets/TutorialVideos/Outside.ogv" id="12_85ars"]
 [ext_resource type="VideoStream" path="res://Assets/TutorialVideos/Controls.ogv" id="13_7yg7x"]
 
@@ -23,24 +22,22 @@ script = ExtResource("2_ogttl")
 
 [node name="Background" type="Sprite2D" parent="RotateBlock"]
 position = Vector2(164.522, -19.1213)
-rotation = 1.5708
-scale = Vector2(0.581371, 0.995918)
-texture = ExtResource("2_pvvf7")
+texture = ExtResource("3_ovxn3")
 
 [node name="Vid" type="VideoStreamPlayer" parent="RotateBlock"]
-offset_left = -382.0
-offset_top = -281.0
-offset_right = 258.0
-offset_bottom = 263.0
+offset_left = -401.0
+offset_top = -297.0
+offset_right = 239.0
+offset_bottom = 247.0
 stream = ExtResource("1_5j4vo")
 autoplay = true
 loop = true
 
 [node name="Text" type="RichTextLabel" parent="RotateBlock"]
 offset_left = 299.0
-offset_top = -213.0
+offset_top = -185.83
 offset_right = 690.0
-offset_bottom = 131.0
+offset_bottom = 158.17
 bbcode_enabled = true
 text = "Use [b] right click [/b] for [b]rotating[/b] blocks.
 Press [b]ESC [/b]for putting a block back into your hand. 
@@ -48,9 +45,9 @@ Some blocks are mirrors of each other, so don't question your sanity if you can'
 
 [node name="Title" type="RichTextLabel" parent="RotateBlock"]
 offset_left = 293.0
-offset_top = -312.0
+offset_top = -288.715
 offset_right = 673.0
-offset_bottom = -225.0
+offset_bottom = -201.715
 bbcode_enabled = true
 text = "[font_size=36] Rotating[/font_size]"
 
@@ -77,44 +74,47 @@ bbcode_enabled = true
 text = "Dont show  Tutorials"
 
 [node name="Label" type="Label" parent="RotateBlock"]
-offset_left = 676.0
-offset_top = -306.0
-offset_right = 716.0
-offset_bottom = -283.0
+offset_left = 701.2
+offset_top = -292.25
+offset_right = 741.2
+offset_bottom = -269.25
 text = "2/3"
+
+[node name="Polygon2D" type="Polygon2D" parent="RotateBlock"]
+clip_children = 1
+polygon = PackedVector2Array(-399, -241, -399, 205, -376, 205, -367, 208, -360, 213, -354, 221, -351, 230, -350, 245, 293, 244, 293, -293, -350, -293, -350, -269, -353, -262, -356, -256, -362, -250, -371, -245, -376, -244, -399, -243)
+
+[node name="Vid" type="VideoStreamPlayer" parent="RotateBlock/Polygon2D"]
+offset_left = -438.0
+offset_top = -319.0
+offset_right = 346.0
+offset_bottom = 289.0
+stream = ExtResource("12_85ars")
+autoplay = true
+loop = true
+metadata/_edit_use_anchors_ = true
 
 [node name="NoBlocking" type="Node2D" parent="."]
 script = ExtResource("2_ogttl")
 
 [node name="Background" type="Sprite2D" parent="NoBlocking"]
 position = Vector2(164.522, -19.1213)
-rotation = 1.5708
-scale = Vector2(0.581371, 0.995918)
-texture = ExtResource("2_pvvf7")
-
-[node name="Vid" type="VideoStreamPlayer" parent="NoBlocking"]
-offset_left = -382.0
-offset_top = -281.0
-offset_right = 258.0
-offset_bottom = 263.0
-stream = ExtResource("5_o5rvo")
-autoplay = true
-loop = true
+texture = ExtResource("3_ovxn3")
 
 [node name="Text" type="RichTextLabel" parent="NoBlocking"]
 offset_left = 299.0
-offset_top = -213.0
+offset_top = -185.83
 offset_right = 690.0
-offset_bottom = 131.0
+offset_bottom = 158.17
 bbcode_enabled = true
 text = "You cant block the path of your enemies completely. 
 This is indicated by a red outline."
 
 [node name="Title" type="RichTextLabel" parent="NoBlocking"]
 offset_left = 293.0
-offset_top = -312.0
+offset_top = -288.715
 offset_right = 673.0
-offset_bottom = -225.0
+offset_bottom = -201.715
 bbcode_enabled = true
 text = "[font_size=36] Sneaky you![/font_size]"
 
@@ -140,38 +140,40 @@ offset_bottom = -11.0
 bbcode_enabled = true
 text = "Dont show  Tutorials"
 
+[node name="Polygon2D" type="Polygon2D" parent="NoBlocking"]
+clip_children = 1
+polygon = PackedVector2Array(-399, -241, -399, 205, -376, 205, -367, 208, -360, 213, -354, 221, -351, 230, -350, 245, 293, 244, 293, -293, -350, -293, -350, -269, -353, -262, -356, -256, -362, -250, -371, -245, -376, -244, -399, -243)
+
+[node name="Vid" type="VideoStreamPlayer" parent="NoBlocking/Polygon2D"]
+offset_left = -404.0
+offset_top = -296.0
+offset_right = 236.0
+offset_bottom = 248.0
+stream = ExtResource("5_o5rvo")
+autoplay = true
+loop = true
+
 [node name="ColorRestriction" type="Node2D" parent="."]
 script = ExtResource("2_ogttl")
 
 [node name="Background" type="Sprite2D" parent="ColorRestriction"]
 position = Vector2(164.522, -19.1213)
-rotation = 1.5708
-scale = Vector2(0.581371, 0.995918)
-texture = ExtResource("2_pvvf7")
-
-[node name="Vid" type="VideoStreamPlayer" parent="ColorRestriction"]
-offset_left = -382.0
-offset_top = -281.0
-offset_right = 258.0
-offset_bottom = 263.0
-stream = ExtResource("6_uk43q")
-autoplay = true
-loop = true
+texture = ExtResource("3_ovxn3")
 
 [node name="Text" type="RichTextLabel" parent="ColorRestriction"]
 offset_left = 299.0
-offset_top = -213.0
+offset_top = -185.83
 offset_right = 690.0
-offset_bottom = 131.0
+offset_bottom = 158.17
 bbcode_enabled = true
 text = "You can only place [b] same colored [/b] blocks next to each other. 
 [b]Grey[/b] blocks are an exception to this. "
 
 [node name="Title" type="RichTextLabel" parent="ColorRestriction"]
 offset_left = 293.0
-offset_top = -312.0
+offset_top = -288.715
 offset_right = 673.0
-offset_bottom = -225.0
+offset_bottom = -201.715
 bbcode_enabled = true
 text = "[font_size=36]Too easy
 [/font_size]"
@@ -198,29 +200,31 @@ offset_bottom = -11.0
 bbcode_enabled = true
 text = "Dont show  Tutorials"
 
+[node name="Polygon2D" type="Polygon2D" parent="ColorRestriction"]
+clip_children = 1
+polygon = PackedVector2Array(-399, -241, -399, 205, -376, 205, -367, 208, -360, 213, -354, 221, -351, 230, -350, 245, 293, 244, 293, -293, -350, -293, -350, -269, -353, -262, -356, -256, -362, -250, -371, -245, -376, -244, -399, -243)
+
+[node name="Vid" type="VideoStreamPlayer" parent="ColorRestriction/Polygon2D"]
+offset_left = -397.0
+offset_top = -299.0
+offset_right = 243.0
+offset_bottom = 245.0
+stream = ExtResource("6_uk43q")
+autoplay = true
+loop = true
+
 [node name="UpgradeBlocks" type="Node2D" parent="."]
 script = ExtResource("2_ogttl")
 
 [node name="Background" type="Sprite2D" parent="UpgradeBlocks"]
 position = Vector2(164.522, -19.1213)
-rotation = 1.5708
-scale = Vector2(0.581371, 0.995918)
-texture = ExtResource("2_pvvf7")
-
-[node name="Vid" type="VideoStreamPlayer" parent="UpgradeBlocks"]
-offset_left = -382.0
-offset_top = -281.0
-offset_right = 258.0
-offset_bottom = 263.0
-stream = ExtResource("7_6arob")
-autoplay = true
-loop = true
+texture = ExtResource("3_ovxn3")
 
 [node name="Text" type="RichTextLabel" parent="UpgradeBlocks"]
 offset_left = 299.0
-offset_top = -213.0
+offset_top = -185.83
 offset_right = 690.0
-offset_bottom = 131.0
+offset_bottom = 158.17
 bbcode_enabled = true
 text = "Stacking [b]same colored[/] blocks on top of each other makes them more powerful. 
 The blocks have to be [b]overlapping[/b] completely!
@@ -228,9 +232,9 @@ Also: You can't stack grey pieces. "
 
 [node name="Title" type="RichTextLabel" parent="UpgradeBlocks"]
 offset_left = 293.0
-offset_top = -312.0
+offset_top = -288.715
 offset_right = 673.0
-offset_bottom = -225.0
+offset_bottom = -201.715
 bbcode_enabled = true
 text = "[font_size=36]MORE POWER
 [/font_size]"
@@ -257,29 +261,31 @@ offset_bottom = -11.0
 bbcode_enabled = true
 text = "Dont show  Tutorials"
 
+[node name="Polygon2D" type="Polygon2D" parent="UpgradeBlocks"]
+clip_children = 1
+polygon = PackedVector2Array(-399, -241, -399, 205, -376, 205, -367, 208, -360, 213, -354, 221, -351, 230, -350, 245, 293, 244, 293, -293, -350, -293, -350, -269, -353, -262, -356, -256, -362, -250, -371, -245, -376, -244, -399, -243)
+
+[node name="Vid" type="VideoStreamPlayer" parent="UpgradeBlocks/Polygon2D"]
+offset_left = -399.0
+offset_top = -294.0
+offset_right = 241.0
+offset_bottom = 250.0
+stream = ExtResource("7_6arob")
+autoplay = true
+loop = true
+
 [node name="UpgradeBlocks2" type="Node2D" parent="."]
 script = ExtResource("2_ogttl")
 
 [node name="Background" type="Sprite2D" parent="UpgradeBlocks2"]
 position = Vector2(164.522, -19.1213)
-rotation = 1.5708
-scale = Vector2(0.581371, 0.995918)
-texture = ExtResource("2_pvvf7")
-
-[node name="Vid" type="VideoStreamPlayer" parent="UpgradeBlocks2"]
-offset_left = -382.0
-offset_top = -281.0
-offset_right = 258.0
-offset_bottom = 263.0
-stream = ExtResource("8_w11wx")
-autoplay = true
-loop = true
+texture = ExtResource("3_ovxn3")
 
 [node name="Text" type="RichTextLabel" parent="UpgradeBlocks2"]
 offset_left = 299.0
-offset_top = -213.0
+offset_top = -185.83
 offset_right = 690.0
-offset_bottom = 131.0
+offset_bottom = 158.17
 bbcode_enabled = true
 text = "All blocks your stacking on top of have to be [b]the same level[/b].
 So you have to be careful how you place your blocks!
@@ -287,9 +293,9 @@ So you have to be careful how you place your blocks!
 
 [node name="Title" type="RichTextLabel" parent="UpgradeBlocks2"]
 offset_left = 293.0
-offset_top = -312.0
+offset_top = -288.715
 offset_right = 673.0
-offset_bottom = -225.0
+offset_bottom = -201.715
 bbcode_enabled = true
 text = "[font_size=36]MORE POWER???
 [/font_size]"
@@ -316,37 +322,39 @@ offset_bottom = -11.0
 bbcode_enabled = true
 text = "Dont show  Tutorials"
 
+[node name="Polygon2D" type="Polygon2D" parent="UpgradeBlocks2"]
+clip_children = 1
+polygon = PackedVector2Array(-399, -241, -399, 205, -376, 205, -367, 208, -360, 213, -354, 221, -351, 230, -350, 245, 293, 244, 293, -293, -350, -293, -350, -269, -353, -262, -356, -256, -362, -250, -371, -245, -376, -244, -399, -243)
+
+[node name="Vid" type="VideoStreamPlayer" parent="UpgradeBlocks2/Polygon2D"]
+offset_left = -400.0
+offset_top = -292.0
+offset_right = 240.0
+offset_bottom = 252.0
+stream = ExtResource("8_w11wx")
+autoplay = true
+loop = true
+
 [node name="Pathfinding" type="Node2D" parent="."]
 script = ExtResource("2_ogttl")
 
 [node name="Background" type="Sprite2D" parent="Pathfinding"]
 position = Vector2(164.522, -19.1213)
-rotation = 1.5708
-scale = Vector2(0.581371, 0.995918)
-texture = ExtResource("2_pvvf7")
-
-[node name="Vid" type="VideoStreamPlayer" parent="Pathfinding"]
-offset_left = -382.0
-offset_top = -281.0
-offset_right = 258.0
-offset_bottom = 263.0
-stream = ExtResource("8_8rs3a")
-autoplay = true
-loop = true
+texture = ExtResource("3_ovxn3")
 
 [node name="Text" type="RichTextLabel" parent="Pathfinding"]
 offset_left = 299.0
-offset_top = -129.0
+offset_top = -185.83
 offset_right = 690.0
-offset_bottom = 215.0
+offset_bottom = 158.17
 bbcode_enabled = true
 text = "The paths of your enemies are determined by the placement of your blocks. "
 
 [node name="Title" type="RichTextLabel" parent="Pathfinding"]
 offset_left = 293.0
-offset_top = -312.0
+offset_top = -288.715
 offset_right = 673.0
-offset_bottom = -146.0
+offset_bottom = -122.715
 bbcode_enabled = true
 text = "[font_size=36]The paths of the Lord are unfathomable...
 [/font_size]"
@@ -373,30 +381,32 @@ offset_bottom = -11.0
 bbcode_enabled = true
 text = "Dont show  Tutorials"
 
+[node name="Polygon2D" type="Polygon2D" parent="Pathfinding"]
+clip_children = 1
+polygon = PackedVector2Array(-399, -241, -399, 205, -376, 205, -367, 208, -360, 213, -354, 221, -351, 230, -350, 245, 293, 244, 293, -293, -350, -293, -350, -269, -353, -262, -356, -256, -362, -250, -371, -245, -376, -244, -399, -243)
+
+[node name="Vid" type="VideoStreamPlayer" parent="Pathfinding/Polygon2D"]
+offset_left = -400.0
+offset_top = -300.0
+offset_right = 240.0
+offset_bottom = 244.0
+stream = ExtResource("8_8rs3a")
+autoplay = true
+loop = true
+
 [node name="Starting" type="Node2D" parent="."]
 visible = false
 script = ExtResource("2_ogttl")
 
 [node name="Background" type="Sprite2D" parent="Starting"]
 position = Vector2(164.522, -19.1213)
-rotation = 1.5708
-scale = Vector2(0.581371, 0.995918)
-texture = ExtResource("2_pvvf7")
-
-[node name="Vid" type="VideoStreamPlayer" parent="Starting"]
-offset_left = -382.0
-offset_top = -281.0
-offset_right = 258.0
-offset_bottom = 263.0
-stream = ExtResource("10_iy44i")
-autoplay = true
-loop = true
+texture = ExtResource("3_ovxn3")
 
 [node name="Text" type="RichTextLabel" parent="Starting"]
 offset_left = 298.0
-offset_top = -202.0
+offset_top = -185.83
 offset_right = 689.0
-offset_bottom = 142.0
+offset_bottom = 158.17
 bbcode_enabled = true
 text = "Place [b]blocks[/b] by selecting a [b]card[/b], and then clicking on the [b]gameboard[/b].
 If you dont want to build them, put them back by pressing [b] ESC [/b].
@@ -406,9 +416,9 @@ The path they have to take is indicated by a [b]white line[/b].
 
 [node name="Title" type="RichTextLabel" parent="Starting"]
 offset_left = 293.0
-offset_top = -312.0
+offset_top = -288.715
 offset_right = 673.0
-offset_bottom = -205.0
+offset_bottom = -181.715
 bbcode_enabled = true
 text = "[font_size=36]Every new Start is difficult![/font_size]"
 
@@ -435,11 +445,24 @@ bbcode_enabled = true
 text = "Dont show  Tutorials"
 
 [node name="Label" type="Label" parent="Starting"]
-offset_left = 676.0
-offset_top = -306.0
-offset_right = 716.0
-offset_bottom = -283.0
+offset_left = 701.2
+offset_top = -292.25
+offset_right = 741.2
+offset_bottom = -269.25
 text = "1/3"
+
+[node name="Polygon2D" type="Polygon2D" parent="Starting"]
+clip_children = 1
+polygon = PackedVector2Array(-399, -241, -399, 205, -376, 205, -367, 208, -360, 213, -354, 221, -351, 230, -350, 245, 293, 244, 293, -293, -350, -293, -350, -269, -353, -262, -356, -256, -362, -250, -371, -245, -376, -244, -399, -243)
+
+[node name="Vid" type="VideoStreamPlayer" parent="Starting/Polygon2D"]
+offset_left = -403.0
+offset_top = -294.0
+offset_right = 237.0
+offset_bottom = 250.0
+stream = ExtResource("10_iy44i")
+autoplay = true
+loop = true
 
 [node name="EXP" type="Node2D" parent="."]
 visible = false
@@ -447,24 +470,13 @@ script = ExtResource("2_ogttl")
 
 [node name="Background" type="Sprite2D" parent="EXP"]
 position = Vector2(164.522, -19.1213)
-rotation = 1.5708
-scale = Vector2(0.581371, 0.995918)
-texture = ExtResource("2_pvvf7")
-
-[node name="Vid" type="VideoStreamPlayer" parent="EXP"]
-offset_left = -382.0
-offset_top = -281.0
-offset_right = 258.0
-offset_bottom = 263.0
-stream = ExtResource("8_8rs3a")
-autoplay = true
-loop = true
+texture = ExtResource("3_ovxn3")
 
 [node name="Text" type="RichTextLabel" parent="EXP"]
 offset_left = 299.0
-offset_top = -213.0
+offset_top = -185.83
 offset_right = 690.0
-offset_bottom = 131.0
+offset_bottom = 158.17
 bbcode_enabled = true
 text = "If minions reach your [b]base[/b] you take damage. 
 If you stop them before, you gain[b] XP[/b].
@@ -477,9 +489,9 @@ You [b] keep [/b]those unlocked cards if you are defeated and start a new run.
 
 [node name="Title" type="RichTextLabel" parent="EXP"]
 offset_left = 293.0
-offset_top = -312.0
+offset_top = -288.715
 offset_right = 673.0
-offset_bottom = -225.0
+offset_bottom = -201.715
 bbcode_enabled = true
 text = "[font_size=36]Fight fair
 [/font_size]"
@@ -506,21 +518,32 @@ offset_bottom = -11.0
 bbcode_enabled = true
 text = "Dont show  Tutorials"
 
+[node name="Polygon2D" type="Polygon2D" parent="EXP"]
+clip_children = 1
+polygon = PackedVector2Array(-399, -241, -399, 205, -376, 205, -367, 208, -360, 213, -354, 221, -351, 230, -350, 245, 293, 244, 293, -293, -350, -293, -350, -269, -353, -262, -356, -256, -362, -250, -371, -245, -376, -244, -399, -243)
+
+[node name="Vid" type="VideoStreamPlayer" parent="EXP/Polygon2D"]
+offset_left = -400.0
+offset_top = -293.0
+offset_right = 240.0
+offset_bottom = 251.0
+stream = ExtResource("8_8rs3a")
+autoplay = true
+loop = true
+
 [node name="Information" type="Node2D" parent="."]
-visible = false
+position = Vector2(-108, 4)
 script = ExtResource("2_ogttl")
 
 [node name="Background" type="Sprite2D" parent="Information"]
 position = Vector2(272, -26)
-rotation = 1.5708
-scale = Vector2(1.49132, 3.81577)
-texture = ExtResource("11_6f06p")
+texture = ExtResource("3_ovxn3")
 
 [node name="Text" type="RichTextLabel" parent="Information"]
-offset_left = 299.0
-offset_top = -213.0
-offset_right = 690.0
-offset_bottom = 131.0
+offset_left = 402.0
+offset_top = -183.0
+offset_right = 793.0
+offset_bottom = 161.0
 bbcode_enabled = true
 text = "If you [b]hover[/b] turrets or enemy spawners, additional information is displayed at the [b] bottom of the screen [/b]. 
 
@@ -530,26 +553,26 @@ Turrets also show their [b]range[/b] and highlight adjacent turrets of the [b]sa
 "
 
 [node name="Title" type="RichTextLabel" parent="Information"]
-offset_left = 293.0
-offset_top = -312.0
-offset_right = 673.0
-offset_bottom = -225.0
+offset_left = 405.0
+offset_top = -292.0
+offset_right = 785.0
+offset_bottom = -205.0
 bbcode_enabled = true
 text = "[font_size=36]Knowledge is power
 [/font_size]"
 
 [node name="Button" type="Button" parent="Information"]
-offset_left = 301.0
+offset_left = 386.0
 offset_top = 155.0
-offset_right = 507.0
+offset_right = 592.0
 offset_bottom = 235.0
 text = "Got it!"
 
 [node name="CheckButton" type="CheckButton" parent="Information"]
-offset_left = 576.0
-offset_top = 189.0
-offset_right = 701.0
-offset_bottom = 237.0
+offset_left = 639.0
+offset_top = 185.0
+offset_right = 764.0
+offset_bottom = 233.0
 
 [node name="Label" type="RichTextLabel" parent="Information/CheckButton"]
 layout_mode = 0
@@ -560,12 +583,17 @@ offset_bottom = -11.0
 bbcode_enabled = true
 text = "Dont show  Tutorials"
 
-[node name="Vid" type="VideoStreamPlayer" parent="Information"]
+[node name="Polygon2D" type="Polygon2D" parent="Information"]
+clip_children = 1
+position = Vector2(108, -7)
+polygon = PackedVector2Array(-399, -241, -399, 205, -376, 205, -367, 208, -360, 213, -354, 221, -351, 230, -350, 245, 293, 244, 293, -293, -350, -293, -350, -269, -353, -262, -356, -256, -362, -250, -371, -245, -376, -244, -399, -243)
+
+[node name="Vid2" type="VideoStreamPlayer" parent="Information/Polygon2D"]
 z_index = 4
-offset_left = -378.0
-offset_top = -289.0
-offset_right = 250.0
-offset_bottom = 244.0
+offset_left = -406.0
+offset_top = -291.0
+offset_right = 222.0
+offset_bottom = 242.0
 loop = true
 
 [node name="Outside" type="Node2D" parent="."]
@@ -574,40 +602,21 @@ script = ExtResource("2_ogttl")
 
 [node name="Background" type="Sprite2D" parent="Outside"]
 position = Vector2(164.522, -19.1213)
-rotation = 1.5708
-scale = Vector2(0.581371, 0.995918)
-texture = ExtResource("2_pvvf7")
-
-[node name="VidContainer" type="Sprite2D" parent="Outside"]
-clip_children = 2
-position = Vector2(-51.978, -8.12128)
-rotation = 1.5708
-scale = Vector2(0.560497, 0.575365)
-texture = ExtResource("2_pvvf7")
-
-[node name="Vid" type="VideoStreamPlayer" parent="Outside/VidContainer"]
-offset_left = -426.193
-offset_top = -399.706
-offset_right = 357.807
-offset_bottom = 208.294
-stream = ExtResource("12_85ars")
-autoplay = true
-loop = true
-metadata/_edit_use_anchors_ = true
+texture = ExtResource("3_ovxn3")
 
 [node name="Text" type="RichTextLabel" parent="Outside"]
 offset_left = 299.0
-offset_top = -213.0
+offset_top = -185.83
 offset_right = 690.0
-offset_bottom = 131.0
+offset_bottom = 158.17
 bbcode_enabled = true
 text = "You can only place blocks [b] within [/b] the [b] grey [/b] border lines!"
 
 [node name="Title" type="RichTextLabel" parent="Outside"]
 offset_left = 293.0
-offset_top = -312.0
+offset_top = -288.715
 offset_right = 673.0
-offset_bottom = -225.0
+offset_bottom = -201.715
 bbcode_enabled = true
 text = "[font_size=36]Don't leave us!
 [/font_size]"
@@ -634,31 +643,33 @@ offset_bottom = -11.0
 bbcode_enabled = true
 text = "Dont show  Tutorials"
 
+[node name="Polygon2D" type="Polygon2D" parent="Outside"]
+clip_children = 1
+polygon = PackedVector2Array(-399, -241, -399, 205, -376, 205, -367, 208, -360, 213, -354, 221, -351, 230, -350, 245, 293, 244, 293, -293, -350, -293, -350, -269, -353, -262, -356, -256, -362, -250, -371, -245, -376, -244, -399, -243)
+
+[node name="Vid" type="VideoStreamPlayer" parent="Outside/Polygon2D"]
+offset_left = -399.0
+offset_top = -294.0
+offset_right = 241.0
+offset_bottom = 330.0
+stream = ExtResource("13_7yg7x")
+autoplay = true
+loop = true
+metadata/_edit_use_anchors_ = true
+
 [node name="Controls" type="Node2D" parent="."]
 visible = false
 script = ExtResource("2_ogttl")
 
 [node name="Background" type="Sprite2D" parent="Controls"]
 position = Vector2(164.522, -19.1213)
-rotation = 1.5708
-scale = Vector2(0.581371, 0.995918)
-texture = ExtResource("2_pvvf7")
-
-[node name="Vid" type="VideoStreamPlayer" parent="Controls"]
-offset_left = -392.0
-offset_top = -332.0
-offset_right = 248.0
-offset_bottom = 292.0
-stream = ExtResource("13_7yg7x")
-autoplay = true
-loop = true
-metadata/_edit_use_anchors_ = true
+texture = ExtResource("3_ovxn3")
 
 [node name="Text" type="RichTextLabel" parent="Controls"]
 offset_left = 299.0
-offset_top = -213.0
+offset_top = -185.83
 offset_right = 690.0
-offset_bottom = 131.0
+offset_bottom = 158.17
 bbcode_enabled = true
 text = "Move the camera by [b]clicking[/b] and [b]dragging[/b].
 
@@ -668,9 +679,9 @@ Scroll [b] up and down[/b] with the [b]mouse wheel[/b].
 
 [node name="Title" type="RichTextLabel" parent="Controls"]
 offset_left = 293.0
-offset_top = -312.0
+offset_top = -288.715
 offset_right = 673.0
-offset_bottom = -225.0
+offset_bottom = -201.715
 bbcode_enabled = true
 text = "[font_size=36]How to use hands
 [/font_size]"
@@ -698,11 +709,25 @@ bbcode_enabled = true
 text = "Dont show  Tutorials"
 
 [node name="Label" type="Label" parent="Controls"]
-offset_left = 676.0
-offset_top = -306.0
-offset_right = 716.0
-offset_bottom = -283.0
+offset_left = 701.2
+offset_top = -292.25
+offset_right = 741.2
+offset_bottom = -269.25
 text = "3/3"
+
+[node name="Polygon2D" type="Polygon2D" parent="Controls"]
+clip_children = 1
+polygon = PackedVector2Array(-399, -241, -399, 205, -376, 205, -367, 208, -360, 213, -354, 221, -351, 230, -350, 245, 293, 244, 293, -293, -350, -293, -350, -269, -353, -262, -356, -256, -362, -250, -371, -245, -376, -244, -399, -243)
+
+[node name="Vid" type="VideoStreamPlayer" parent="Controls/Polygon2D"]
+offset_left = -399.0
+offset_top = -294.0
+offset_right = 241.0
+offset_bottom = 330.0
+stream = ExtResource("13_7yg7x")
+autoplay = true
+loop = true
+metadata/_edit_use_anchors_ = true
 
 [connection signal="pressed" from="RotateBlock/Button" to="RotateBlock" method="_on_button_pressed"]
 [connection signal="toggled" from="RotateBlock/CheckButton" to="." method="_on_check_button_toggled"]
