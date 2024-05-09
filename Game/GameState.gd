@@ -11,7 +11,7 @@ static var gameState;
 
 var account:String="";
 #Stats.TurretExtension
-var unlockedExtensions=[Stats.TurretExtension.DEFAULT,Stats.TurretExtension.YELLOWMORTAR];
+var unlockedExtensions=[Stats.TurretExtension.DEFAULT,Stats.TurretExtension.BLUELASER];
 #Stats.TurretColor
 var unlockedColors=[Stats.TurretColor.BLUE];
 #Stats.SpecialCards
@@ -35,10 +35,10 @@ var spawners=[]
 var target;
 var showTutorials=true;
 
-static var blueChance=0;
+static var blueChance=100;
 static var redChance=0;
 static var greenChance=0;
-static var yellowChance=100;
+static var yellowChance=0;
 static var greyChance=0;
 var colorChances = [greyChance, greenChance, redChance, yellowChance, blueChance]
 #subject to change
@@ -295,6 +295,7 @@ func checkLevelUp():
 	
 	if totalExp<levelUp: return
 	levelUp=levelUp*2;
+	totalExp=0
 	
 	
 	var unlocked=unlockRandom()

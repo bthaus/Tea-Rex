@@ -49,7 +49,7 @@ func _process(delta):
 	stacks=stacks-decay*delta;
 	if stacks<0:
 		queue_free()
-	if enemy.hit(Stats.TurretColor.GREY,stacks*delta):
+	if enemy.hit(Stats.TurretColor.GREY,stacks*delta,0,false):
 		if associate!=null:associate.addKill()
 		queue_free()
 	if associate!=null:associate.addDamage(stacks*delta)

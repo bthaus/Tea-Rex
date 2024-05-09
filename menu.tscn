@@ -438,13 +438,15 @@ value = 100.0
 texture_under = ExtResource("17_jkmx4")
 texture_progress = ExtResource("18_u81gj")
 
-[node name="Label" type="Label" parent="CanvasLayer/UI/Hpbar"]
-visible = false
+[node name="maxhp" type="Label" parent="CanvasLayer/UI/Hpbar"]
+z_index = 2
 layout_mode = 0
-offset_left = 41.0
-offset_top = -23.0
-offset_right = 103.0
-text = "HP"
+offset_left = 60.0
+offset_top = 29.0
+offset_right = 236.0
+offset_bottom = 52.0
+text = "100"
+horizontal_alignment = 2
 
 [node name="EXPbar" type="TextureProgressBar" parent="CanvasLayer/UI"]
 offset_left = 3.53982
@@ -579,7 +581,7 @@ libraries = {
 [node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/AnimationPlayer"]
 modulate = Color(1, 1, 1, 0)
 z_index = 4096
-position = Vector2(1106.86, 548.672)
+position = Vector2(1099.11, 541.593)
 scale = Vector2(2.30182, 1.13103)
 texture = ExtResource("16_oeuhs")
 

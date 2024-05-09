@@ -8,9 +8,12 @@ radius = 6.0
 
 [node name="Base_Projectile" type="Node2D"]
 process_mode = 1
+position = Vector2(5, 6)
+scale = Vector2(3, 3)
 script = ExtResource("1_mhlsq")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(3, 3, 3, 1)
 z_index = -1
 texture = ExtResource("2_84on6")
 

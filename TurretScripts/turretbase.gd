@@ -104,6 +104,7 @@ func setUpTower():
 	if projectile==null:projectile=Projectile.create(type,damage*damagefactor,speed*speedfactor,self,extension);
 	projectile.visible=false;
 	if type==Stats.TurretColor.RED:
+		projectile.scale=Vector2(1,1)
 		projectile.z_index=0;
 		projectile.visible=placed
 		projectile.modulate=Color(1,1,1,1)

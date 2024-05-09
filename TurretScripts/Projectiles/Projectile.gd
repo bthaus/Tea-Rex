@@ -96,7 +96,8 @@ func _ready():
 		gamestate=GameState.gameState;
 	if camera==null:
 		camera=gamestate.getCamera();
-	
+	if ext==Stats.TurretExtension.BLUELASER:
+		scale=Vector2(1,1)
 	#BulletManager.allBullets.append(self)
 	pass # Replace with function body.
 

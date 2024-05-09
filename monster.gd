@@ -43,10 +43,10 @@ static func create(type:Stats.TurretColor,target:Node2D,wave:int=1)->Monster:
 	return en
 	pass;
 func getExp():
-	return currentMinionPower*minionExp;
+	return currentMinionPower*minionExp/3;
 	pass;
 static var xptext=load("res://Assets/UI/CARDMAX.png");
-func hit(color:Stats.TurretColor,damage,type="default"):
+func hit(color:Stats.TurretColor,damage,type="default",noise=true):
 	var mod=1;
 	if color==self.color:
 		mod=1.5
@@ -58,7 +58,7 @@ func hit(color:Stats.TurretColor,damage,type="default"):
 		var s=camera.zoom.y-3;
 		$hurt.volume_db=s*10
 		$AudioStreamPlayer.volume_db=s
-	$hurt.play()	
+	if noise: $hurt.play()	
 		
 	if hp<=0 and not died:
 		#spawnEXP()
