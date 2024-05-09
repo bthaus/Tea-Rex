@@ -25,6 +25,7 @@ func _process(delta):
 func reorder():
 	var children=get_children()
 	var offset=Vector2(125,0)
+	children.reverse()
 	for c in children:
 		offset=offset+Vector2(125,0)
 		var tween=create_tween()

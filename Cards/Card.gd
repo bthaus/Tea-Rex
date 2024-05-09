@@ -50,7 +50,36 @@ static func create(gameState:GameState,card=-1):
 	c.state=gameState;
 
 	if c.card is SpecialCard:
-		c.get_child(1).text=Stats.getStringFromSpecialCardEnum(c.card.cardName);
+		#enum SpecialCards {HEAL=1,FIREBALL=2,UPHEALTH=3,CRYOBALL=4,MOVE=5, BULLDOZER=6,GLUE=7,POISON=8, UPDRAW=9, UPMAXCARDS=10}
+		var label=""
+		gameState.start_build_phase.connect(func():
+			if c==null:return
+			match c.card.cardName:
+				1:label="Heals "+str(c.card.getHealAmount())+" HP."
+				2:label="Deals "+str(c.card.damage)+" damage."
+				3:label="Gives "+str(c.card.getHealAmount())+" HP."
+				4:label="Deals "+str(c.card.damage)+" damage."
+				6:label="Removes "+str(c.card.damage)+"x"+str(c.card.range)+" blocks."
+				5:label="Moves 1 block"
+				7:label="Slows enemies"
+				8:label="Poisons for "+str(c.card.damage)+"."
+				9:label="Draw 1 card more."
+				10:label="Handsize +1."
+			c.get_child(1).text=label	
+					)
+		match c.card.cardName:
+			1:label="Heals "+str(c.card.getHealAmount())+" HP."
+			2:label="Deals "+str(c.card.damage)+" damage."
+			3:label="Gives "+str(c.card.getHealAmount())+" HP."
+			4:label="Deals "+str(c.card.damage)+" damage."
+			6:label="Removes "+str(c.card.damage)+"x"+str(c.card.range)+" blocks."
+			5:label="Moves 1 block"
+			7:label="Slows enemies"
+			8:label="Poisons for "+str(c.card.damage)+"."
+			9:label="Draw 1 card more."
+			10:label="Handsize +1."
+			
+		c.get_child(1).text=label
 		c.get_child(1).visible=true;
 		var cardname=c.card.cardName;
 		c.get_node("Button").icon=load("res://Assets/SpecialCards/"+Stats.getStringFromSpecialCardEnum(cardname)+"_preview.png")

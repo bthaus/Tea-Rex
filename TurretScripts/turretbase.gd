@@ -274,7 +274,7 @@ func _process(delta):
 					$AudioStreamPlayer2D.play()
 		if buildup<0.1:
 			$AudioStreamPlayer2D.stop()
-	if type==Stats.TurretColor.RED&&extension==Stats.TurretExtension.DEFAULT&&buildup>0:
+	if type==Stats.TurretColor.RED&&extension==Stats.TurretExtension.DEFAULT&&buildup>0&&projectile!=null:
 			projectile.rotate((180*buildup*-1)*2*delta);			
 	if inRange():
 			

@@ -25,12 +25,7 @@ func _ready():
 
 	var text=load("res://Assets/UI/Target_Cross.png")
 	$Preview.texture=text
-	roundReceived=gameState.wave;
-	range=Stats.getCardRange(cardName);
-	damage=Stats.getCardDamage(cardName);
-	maxroundsHeld=Stats.getMaxRoundsHeld(cardName)
-	instant=Stats.getCardInstant(cardName)
-	phase=Stats.getCardPhase(cardName)
+	
 	
 	if range!=null:
 		$Effect.apply_scale(Vector2(range,range));
@@ -62,6 +57,13 @@ static func create(gameState:GameState,type=-1):
 		
 		
 	else: rand=type
+	
+	retval.roundReceived=gameState.wave;
+	retval.range=Stats.getCardRange(rand);
+	retval.damage=Stats.getCardDamage(rand);
+	retval.maxroundsHeld=Stats.getMaxRoundsHeld(rand)
+	retval.instant=Stats.getCardInstant(rand)
+	retval.phase=Stats.getCardPhase(rand)
 	retval.cardName=rand;
 	retval.gameState=gameState
 
@@ -103,7 +105,10 @@ func castHEAL():
 	damage=damage*roundsInHand*range;
 	gameState.changeHealth(damage);
 	return true;
-
+func getHealAmount():
+	checkRoundMultiplicator()
+	return damage*roundsInHand*range;
+	pass;
 func castUPHEALTH():
 	checkRoundMultiplicator()
 	damage=damage*roundsInHand*range;

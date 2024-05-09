@@ -187,7 +187,7 @@ static func serialiseHand(hand:Array):
 		var c=ci.card
 		
 		if c is SpecialCard:
-			cards.append(JSON.stringify({"special":c.cardName}))	
+			cards.append(JSON.stringify({"special":c.cardName,"round":c.roundReceived}))	
 		if c is BlockCard:
 			var b=c.block as Block
 			cards.append(JSON.stringify({"block":b.shape,"color":b.color,"extension":b.extension}))
@@ -198,8 +198,10 @@ static func deserialiseHand(json,gamestate:GameState):
 	for j in hand:
 		var card=JSON.parse_string(j) as Dictionary
 		var keys=card.keys()
-		if keys.size()==1:
-			gamestate.hand.add_child(Card.create(gamestate,SpecialCard.create(gamestate,card.get(keys[0]))))
+		if keys.size()==2:
+			var c=SpecialCard.create(gamestate,card.get(keys[0]))
+			c.roundReceived=card.get(keys[1])
+			gamestate.hand.add_child(Card.create(gamestate,c))
 		else:
 			var block=Stats.getBlockFromShape(card.get("block"),card.get("color"),1,card.get("extension"))
 			gamestate.hand.add_child(Card.create(gamestate,BlockCard.create(gamestate,block)))

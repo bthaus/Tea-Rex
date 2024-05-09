@@ -11,7 +11,7 @@ static var gameState;
 
 var account:String="";
 #Stats.TurretExtension
-var unlockedExtensions=[Stats.TurretExtension.DEFAULT];
+var unlockedExtensions=[Stats.TurretExtension.DEFAULT,Stats.TurretExtension.YELLOWMORTAR];
 #Stats.TurretColor
 var unlockedColors=[Stats.TurretColor.BLUE];
 #Stats.SpecialCards
@@ -35,10 +35,10 @@ var spawners=[]
 var target;
 var showTutorials=true;
 
-static var blueChance=100;
+static var blueChance=0;
 static var redChance=0;
 static var greenChance=0;
-static var yellowChance=0;
+static var yellowChance=100;
 static var greyChance=0;
 var colorChances = [greyChance, greenChance, redChance, yellowChance, blueChance]
 #subject to change
@@ -128,18 +128,24 @@ func drawCards(amount):
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	y=cam.position.y
-	#if Input.is_action_just_pressed("save"):
+	if Input.is_action_just_pressed("save"):
 		#for k in TutorialHolder.tutNames.keys():
 		#	GameSaver.save("0",k,"tutorials")
 		#	print("restored: "+k)
 		#unlock.append(Unlockable.create(Card.create(self,BlockCard.create(self,Stats.getBlockFromShape(Stats.BlockShape.O,Stats.TurretColor.RED,1,Stats.TurretExtension.REDLASER)))))	
 		#checkUnlock()
 		#GameState.gameState.showTutorials=true	
-	
+		changeHealth(-5000)
+		print("DEBUGGGGGING AHOY")
 	pass
 
 func initNewBoard():
-	
+	greenChance=0;
+	greyChance=0;
+	redChance=0;
+	yellowChance=0;
+	blueChance=100;
+	colorChances=[0,0,0,0,100]
 	gameBoard.free()
 	board_height=16;
 	var newBoard=load("res://GameBoard/game_board.tscn").instantiate()
@@ -229,10 +235,10 @@ func startCatastrophy():
 	
 	#gameBoard.BULLDOZER_catastrophy(catastrophy_done)
 	#gameBoard.call("BULLDOZER_catastrophy").bind(catastrophy_done)
-	if wave%5!=0:	return false
-	if wave%10==0: hand.drawCard(Card.create(self,SpecialCard.create(self,Stats.SpecialCards.UPDRAW)))
+	
+	if wave%10==0: unlock.append(Unlockable.create(Card.create(self,SpecialCard.create(self,Stats.SpecialCards.UPDRAW))))
 	if wave%7==0: hand.drawCard(Card.create(self,SpecialCard.create(self,Stats.SpecialCards.UPMAXCARDS)))
-
+	if wave%5!=0:	return false
 	
 	var cat=Stats.getRandomCatastrophy();
 	
@@ -338,4 +344,14 @@ func _on_area_2d_area_entered(area):
 		
 	pass # Replace with function body.
 
-
+func mortarWorkaround(damage,pos,associate):
+	var sprite=Sprite2D.new();
+	sprite.texture=load("res://Assets/UI/Target_Cross.png")
+	get_parent().add_child(sprite)
+	sprite.global_position=pos;
+	get_tree().create_timer(1).timeout.connect(func():
+		
+		Explosion.create(Stats.TurretColor.YELLOW,damage,pos,associate,0.5)
+		sprite.queue_free()
+	)
+	pass;
