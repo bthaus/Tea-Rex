@@ -481,6 +481,12 @@ func extend_field(done:Callable):
 	var generate_cave_left = randi_range(0, 100) <= Stats.board_cave_chance_percent
 	var generate_cave_right = randi_range(0, 100) <= Stats.board_cave_chance_percent
 	
+	#Only allow a maximum of 1 cave at a time
+	if generate_cave_left and generate_cave_right:
+		var rnd = randi() % 2 == 0
+		generate_cave_left = rnd
+		generate_cave_right = not rnd
+	
 	if generate_cave_left: generate_cave(gameState.board_height-1, Stats.board_extend_height, false)
 	if generate_cave_right: generate_cave(gameState.board_height-1, Stats.board_extend_height, true)
 		
