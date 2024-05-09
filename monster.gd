@@ -10,6 +10,8 @@ var minionExp;
 var currentMinionPower=1;
 @export var color:Stats.TurretColor=Stats.TurretColor.BLUE
 var died=false;
+
+var camera;
 @export var target: Node2D #goal
 @onready var nav: NavigationAgent2D = $NavigationAgent2D
 signal monster_died(monster:Monster)
@@ -19,7 +21,7 @@ signal reached_spawn(monster:Monster)
 func _ready():
 	$Hitbox/Hitboxshape.apply_scale(Vector2(sizemult,sizemult));
 	damage=Stats.getEnemyProperty(color,"damage")
-	
+	camera=GameState.gameState.getCamera()
 	speedfactor=Stats.getEnemyProperty(color,"speed")
 	var mod=1+(currentMinionPower*Stats.enemy_scaling)
 	hp=Stats.getEnemyProperty(color,"HP")*mod
@@ -51,6 +53,13 @@ func hit(color:Stats.TurretColor,damage,type="default"):
 	hp=hp-damage*mod;
 	hp=int(hp)
 	$HP.text=str(hp)
+	
+	if camera!=null:
+		var s=camera.zoom.y-3;
+		$hurt.volume_db=s*10
+		$AudioStreamPlayer.volume_db=s
+	$hurt.play()	
+		
 	if hp<=0 and not died:
 		#spawnEXP()
 		died=true

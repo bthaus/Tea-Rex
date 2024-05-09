@@ -24,7 +24,10 @@ func _ready():
 		var n=Stats.TurretExtension.find_key(card.card.block.extension);
 		name=Stats.getName(n)
 		desc=Stats.getBigDescription(n)
-	$Title.text=name+" unlocked!"
+		
+	$Title.text=name+" unlocked!"	
+	if name=="Updraw":
+		$Title.text=name+" received!"	
 	$desc.text=desc;
 	create_tween().tween_property(self,"modulate",Color(1,1,1,1),1).set_ease(Tween.EASE_IN_OUT)
 	pass # Replace with function body.

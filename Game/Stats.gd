@@ -222,7 +222,7 @@ const CARD_PLACEMENT_DELAY=0.5
 
 static var BLUELASER_name="Blue laser"
 static var REDLASER_name="Red laser"
-static var GREENPOISON_name="Green dart blower"
+static var GREENPOISON_name="Green Toxicator"
 static var YELLOWMORTAR_name="Yellow mortar"
 
 static var BLUELASER_big_description="Shoots lasers that pass through multiple enemies. It stops after damaging three.   "
@@ -238,7 +238,8 @@ static var MOVE_big_description="Move around your set blocks! You can even rotat
 static var BULLDOZER_big_description="This card allows you to destroy blocks! But use it wisely: you wont get them back. "
 static var GLUE_big_description="Bring out the big tubes! Slows enemies on top of this slimey puddle."
 static var POISON_big_description="Poisons enemies you hit with it. Don't worry, its not contagious."
-static var UPDRAW_big_description="Increases the number of cards you draw each round. We make our own rules!"
+static var UPDRAW_big_description="It's dangerous to build alone. Take this! 
+(lets you draw more cards)"
 static var UPMAXCARDS_big_description="Lets you hold more cards. It's magical. "
 enum TurretColor {GREY=1, GREEN=2, RED=3, YELLOW=4,BLUE=5};
 enum TurretExtension {DEFAULT=1,REDLASER=2, BLUELASER=3, YELLOWMORTAR=4, GREENPOISON=5};

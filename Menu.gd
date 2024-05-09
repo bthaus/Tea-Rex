@@ -6,6 +6,17 @@ signal statePropagation(gamestate:GameState)
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	statePropagation.emit(gamestate)
+	gamestate.start_combat_phase.connect(func():
+		$CanvasLayer/UI/Battlephase/AnimatedSprite2D.play("default")
+		var tween=create_tween()
+		tween.tween_property($CanvasLayer/UI/Battlephase,"position",Vector2(1047.788,42.478),1);
+		tween.tween_property($CanvasLayer/UI/Battlephase,"position",Vector2(1041.531,-42),1).set_delay(2.5);
+		)
+	gamestate.start_build_phase.connect(func():
+		var tween=create_tween()
+		tween.tween_property($CanvasLayer/UI/BuildPhase,"position",Vector2(1047.788,42.478),1);
+		tween.tween_property($CanvasLayer/UI/BuildPhase,"position",Vector2(1041.531,-42),1).set_delay(2.5);
+		)	
 	pass # Replace with function body.
 func updateUI():
 	$CanvasLayer/UI/Killcount.text=gamestate.count;
