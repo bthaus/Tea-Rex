@@ -618,13 +618,13 @@ func add_spawner_to_side_wall(row: int, right_side: bool):
 	else: $Board.set_cell(GROUND_LAYER, Vector2(col, row), SPAWNER_LEFT_TILE_ID, Vector2(0,0))
 	#Add wall to the left/right
 	if right_side: 
-		$Board.set_cell(BLOCK_LAYER, Vector2(col+1, row-1), WALL_TUNNEL_LEFT_DOWN_TILE_ID, Vector2(0,0))
-		$Board.set_cell(BLOCK_LAYER, Vector2(col+1, row), WALL_LEFT_TILE_ID, Vector2(0,0))
-		$Board.set_cell(BLOCK_LAYER, Vector2(col+1, row+1), WALL_TUNNEL_LEFT_UP_TILE_ID, Vector2(0,0))
+		#$Board.set_cell(BLOCK_LAYER, Vector2(col+1, row-1), WALL_TUNNEL_LEFT_DOWN_TILE_ID, Vector2(0,0))
+		$Board.set_cell(BLOCK_LAYER, Vector2(col+1, row), WALL_EDGE_LEFT_DOWN_TILE_ID, Vector2(0,0))
+		#$Board.set_cell(BLOCK_LAYER, Vector2(col+1, row+1), WALL_TUNNEL_LEFT_UP_TILE_ID, Vector2(0,0))
 	else: 
-		$Board.set_cell(BLOCK_LAYER, Vector2(col-1, row-1), WALL_TUNNEL_RIGHT_DOWN_TILE_ID, Vector2(0,0))
-		$Board.set_cell(BLOCK_LAYER, Vector2(col-1, row), WALL_RIGHT_TILE_ID, Vector2(0,0))
-		$Board.set_cell(BLOCK_LAYER, Vector2(col-1, row-1), WALL_TUNNEL_RIGHT_UP_TILE_ID, Vector2(0,0))
+		#$Board.set_cell(BLOCK_LAYER, Vector2(col-1, row-1), WALL_TUNNEL_RIGHT_DOWN_TILE_ID, Vector2(0,0))
+		$Board.set_cell(BLOCK_LAYER, Vector2(col-1, row), WALL_EDGE_RIGHT_DOWN_TILE_ID, Vector2(0,0))
+		#$Board.set_cell(BLOCK_LAYER, Vector2(col-1, row+1), WALL_TUNNEL_RIGHT_UP_TILE_ID, Vector2(0,0))
 	var spawner = Spawner.create(gameState, $Board.map_to_local(Vector2(col, row)),10)
 	gameState.spawners.append(spawner)
 
