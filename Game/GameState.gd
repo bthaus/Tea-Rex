@@ -102,6 +102,9 @@ func _ready():
 	toUnlock.append_array(Stats.SpecialCards.keys())
 	toUnlock.erase("DEFAULT")
 	toUnlock.erase("HEAL")
+	toUnlock.erase("UPDRAW")
+	
+	
 	if get_child_count()==0:
 		queue_free()
 	

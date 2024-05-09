@@ -50,7 +50,8 @@ func _process(delta):
 		duration=duration-1*delta
 		if intensity>0:intensity=intensity-1*delta
 		
-	
+	if tween!=null&&tween.is_running:
+		scrolled.emit()
 	
 		
 	
@@ -108,8 +109,8 @@ func _input(event):
 			zoom = Vector2(zoom.x - CAMERA_ZOOM, zoom.y - CAMERA_ZOOM)
 		else:
 			position += Vector2(0, SCROLL_SPEED) / zoom
-			
+var tween			
 func move_to(position: Vector2, done: Callable):
-	var tween = get_tree().create_tween()
+	tween = get_tree().create_tween()
 	tween.tween_property(self, "position", position, Stats.CAMERA_MOVE_DURATION).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 	tween.tween_callback(func(): done.call())

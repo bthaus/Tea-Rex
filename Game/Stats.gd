@@ -85,7 +85,7 @@ const yellow_mortar_instanthit=true;
 
 const yellow_mortar_penetrations=1;
 const green_explosion_range=0.5;
-const red_laser_damage_stack=0.3;
+const red_laser_damage_stack=0.6;
 const green_poison_damage_stack=6;
 
 const green_glowing=false;
@@ -105,7 +105,7 @@ const poison_propagation_rate=3;
 const poison_propagation_range=base_range*0.3
 const green_poison_decay=1;
 
-static var enemy_base_HP:float=125;
+static var enemy_base_HP:float=200;
 static var GREEN_enemy_HP=enemy_base_HP*1.75;
 static var BLUE_enemy_HP=enemy_base_HP*1;
 static var YELLOW_enemy_HP=enemy_base_HP*0.7;
@@ -129,7 +129,7 @@ const YELLOW_enemy_speed=enemy_base_speed*2;
 const RED_enemy_speed=enemy_base_speed*0.5;
 
 static var enemy_base_exp=10;
-static var enemy_scaling=0.4;
+static var enemy_scaling=0.55;
 
 const playerHP=200;
 const playerMaxHP=200;

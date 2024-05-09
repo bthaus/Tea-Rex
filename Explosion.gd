@@ -20,7 +20,7 @@ static func create(type,damage, position, root,scale=1,noise=true):
 		temp.scale=Vector2(scale,scale)
 		#temp.apply_scale(Vector2(scale,scale));
 		temp.damage=damage;
-		root.add_child(temp);
+		GameState.gameState.add_child(temp);
 		temp.visible=true;
 		
 	else:
@@ -64,9 +64,9 @@ func _on_area_2d_area_entered(area):
 	if(area.get_parent() is Monster):
 		
 		num=num+1;
-		if area.get_parent().hit(type,damage) :
+		if area.get_parent().hit(type,damage) &&associate!=null:
 			associate.addKill()
-		if associate.has_method("addDamage"):
+		if associate!=null && associate.has_method("addDamage"):
 			associate.addDamage(damage)
 		
 	
