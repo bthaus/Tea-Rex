@@ -17,7 +17,7 @@ var camera;
 @onready var nav: NavigationAgent2D = $NavigationAgent2D
 signal monster_died(monster:Monster)
 signal reached_spawn(monster:Monster)
-
+var maxGlow=5;
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$Hitbox/Hitboxshape.apply_scale(Vector2(sizemult,sizemult));
@@ -30,7 +30,8 @@ func _ready():
 	minionExp=Stats.enemy_base_exp;
 	GameState.gameState.player_died.connect(func():free())
 	$Sprite2D.texture=load("res://Assets/Monsters/Monster_"+Stats.getStringFromEnum(color)+".png")
-
+	maxGlow=GameState.gameState.lightThresholds.getGlow(global_position.y)*2.5
+	maxGlow=clamp(maxGlow,1,5)
 	#get_node(Stats.getStringFromEnum(color)).visible=false;
 	
 	$HP.text=str(hp)
@@ -58,8 +59,8 @@ func hit(color:Stats.TurretColor,damage,type="default",noise=true):
 	hp=int(hp)
 	$HP.text=str(hp)
 	if !camera.isOffCamera(global_position):
-		var t=remap(hp,0,maxHp,1,5)
-		t=clamp(t,1,5)
+		var t=remap(hp,0,maxHp,1,maxGlow)
+		t=clamp(t,1,maxGlow)
 		modulate=Color(t,t,t)	
 	if camera!=null:
 		var s=camera.zoom.y-3;
