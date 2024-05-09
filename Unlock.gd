@@ -2,10 +2,12 @@ extends Node2D
 class_name Unlockable
 var card;
 var counter=500;
-
+static var z_counter=0;
 var done;
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	z_index=z_index+z_counter
+	z_counter=z_counter+1
 	$Lock.play()
 	$sound.stream=Sounds.unlock
 	$Button.z_index=counter
