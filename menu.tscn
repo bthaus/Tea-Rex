@@ -1,10 +1,12 @@
-[gd_scene load_steps=50 format=3 uid="uid://cf5heufemalnf"]
+[gd_scene load_steps=52 format=3 uid="uid://cf5heufemalnf"]
 
 [ext_resource type="Script" path="res://Menu.gd" id="1_vjikn"]
 [ext_resource type="Script" path="res://UI.gd" id="2_vouda"]
 [ext_resource type="Texture2D" uid="uid://k8t5t02p68sh" path="res://Assets/Level/mainMenu.jpg" id="3_hap75"]
 [ext_resource type="Script" path="res://UnlockedItemList.gd" id="4_4bynl"]
+[ext_resource type="Texture2D" uid="uid://d0mot888gxskd" path="res://Assets/UI/battle_Label/battle_label.png" id="4_h34wy"]
 [ext_resource type="Texture2D" uid="uid://dmqfkeqg0bxbu" path="res://Assets/UI/StartGameButton.png" id="4_mukw3"]
+[ext_resource type="Texture2D" uid="uid://daco3pb8brteh" path="res://Assets/UI/Menu/Screenshot 2024-05-09 220548.png" id="4_ud042"]
 [ext_resource type="PackedScene" uid="uid://crxh6rxjn4mro" path="res://CardSpace.tscn" id="5_8526f"]
 [ext_resource type="Texture2D" uid="uid://vq2m6pqwfk8i" path="res://Assets/UI/ShowAccountsButton.png" id="6_gg0h1"]
 [ext_resource type="Script" path="res://Tutorials.gd" id="7_85g13"]
@@ -192,6 +194,15 @@ offset_bottom = 1278.44
 stream = ExtResource("9_wd25y")
 autoplay = true
 loop = true
+
+[node name="Sprite2D2" type="Sprite2D" parent="CanvasLayer/MainMenu"]
+clip_children = 1
+position = Vector2(444.248, 23.0089)
+texture = ExtResource("4_h34wy")
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/MainMenu/Sprite2D2"]
+position = Vector2(488.496, 612.389)
+texture = ExtResource("4_ud042")
 
 [node name="Banner" type="Sprite2D" parent="CanvasLayer/MainMenu"]
 visible = false
