@@ -150,7 +150,6 @@ script = ExtResource("1_vjikn")
 description = NodePath("CanvasLayer/UI/Description")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." node_paths=PackedStringArray("main", "unlockedTab", "accountsTab", "menu", "ui", "parent")]
-visible = false
 scale = Vector2(0.565, 0.565)
 transform = Transform2D(0.565, 0, 0, 0.565, 0, 0)
 script = ExtResource("2_vouda")

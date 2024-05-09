@@ -98,6 +98,7 @@ animations = [{
 
 [node name="Monster" type="CharacterBody2D"]
 process_mode = 1
+modulate = Color(5, 5, 5, 1)
 script = ExtResource("1_g1k27")
 color = 2
 
