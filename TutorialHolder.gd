@@ -1,6 +1,6 @@
 extends Node2D
 class_name TutorialHolder;
-enum tutNames {ColorRestriction,NoBlocking, Pathfinding, RotateBlock,UpgradeBlocks,UpgradeBlocks2,Starting,EXP,Information,Outside,Controls}
+enum tutNames {MaxLevel,Catastrophy,ColorRestriction,NoBlocking, Pathfinding, RotateBlock,UpgradeBlocks,UpgradeBlocks2,Starting,EXP,Information,Outside,Controls}
 static var instance=load("res://tutorial_node.tscn").instantiate() as TutorialHolder 
 
 

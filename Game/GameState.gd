@@ -135,7 +135,9 @@ func _process(delta):
 		#unlock.append(Unlockable.create(Card.create(self,BlockCard.create(self,Stats.getBlockFromShape(Stats.BlockShape.O,Stats.TurretColor.RED,1,Stats.TurretExtension.REDLASER)))))	
 		#checkUnlock()
 		#GameState.gameState.showTutorials=true	
-		#changeHealth(-5000)
+		totalExp=50000000;
+		checkLevelUp()
+		checkUnlock()
 		print("DEBUGGGGGING AHOY")
 	pass
 
@@ -241,19 +243,27 @@ func startCatastrophy():
 	if wave%5!=0:	return false
 	
 	var cat=Stats.getRandomCatastrophy();
-	
+
 	
 	while true:
 		cat=Stats.getRandomCatastrophy();
 		if gameBoard.has_method(cat+"_catastrophy"):
 			break;
+	if wave==5:
+		cat=Stats.Catastrophies.find_key(Stats.Catastrophies.BULLDOZER)
+			
 	util.p(cat+"_catastrophy called")	
 	gameBoard.call(cat+"_catastrophy",catastrophy_done)
 	
 	return true;
 	pass;
 func catastrophy_done(finished):
-	gameBoard.start_extension(func():get_tree().create_timer(3).timeout.connect(checkUnlock))
+	if wave==5:
+		gameBoard.start_extension(func():get_tree().create_timer(3).timeout.connect(
+			TutorialHolder.showTutorial.bind(TutorialHolder.tutNames.Catastrophy,self,checkUnlock)
+		))
+	else:
+		gameBoard.start_extension(func():get_tree().create_timer(3).timeout.connect(checkUnlock))
 	GameSaver.saveGame(self)
 	pass;
 func checkUnlock():
@@ -299,6 +309,8 @@ func checkLevelUp():
 	
 	
 	var unlocked=unlockRandom()
+	if unlocked==null:
+		return;
 	var color;
 	if unlocked.contains("BLUE"):color=Stats.TurretColor.BLUE
 	if unlocked.contains("GREEN"):color=Stats.TurretColor.GREEN
@@ -317,15 +329,20 @@ func checkLevelUp():
 		var block=Stats.getBlockFromShape(Stats.BlockShape.O,color,1,i);
 		c=BlockCard.create(gameState,block)	
 		level_up.emit(unlocked)
-	
+	print(toUnlock.size())
 	var card=Card.create(gameState,c);
-	var u=Unlockable.create(card)
+	var u;
+	if toUnlock.size()==0:
+		u=Unlockable.create(card,TutorialHolder.showTutorial.bind(TutorialHolder.tutNames.MaxLevel,self))
+	else:
+		u=Unlockable.create(card)
 	unlock.append(u)
 	pass;
 	
 func unlockRandom():
 	var unlocked=toUnlock.pick_random()
 	toUnlock.erase(unlocked)
+	
 	return unlocked;
 	
 func getColorChances():

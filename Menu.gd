@@ -32,7 +32,7 @@ func updateUI():
 	$CanvasLayer/UI/CatBar.value=gamestate.wave%5
 	$CanvasLayer/UI/StartBattlePhase.disabled=gamestate.phase==Stats.GamePhase.BATTLE
 	
-	$CanvasLayer/UI/Hpbar/maxhp.text=str(int(gamestate.maxHP))
+	$CanvasLayer/UI/Hpbar/maxhp.text=str(int(gamestate.HP))
 	#var hpscale=remap(gamestate.maxHP,200,1000,1,20)
 	#$CanvasLayer/UI/Hpbar.scale.y=hpscale
 	

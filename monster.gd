@@ -66,7 +66,7 @@ func hit(color:Stats.TurretColor,damage,type="default",noise=true):
 	if camera!=null:
 		var s=camera.zoom.y-3;
 		$hurt.volume_db=s*10
-		$AudioStreamPlayer.volume_db=s
+		$AudioStreamPlayer.volume_db=10*s
 	if noise: $hurt.play()	
 		
 	if hp<=0 and not died:

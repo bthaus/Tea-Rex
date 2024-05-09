@@ -31,9 +31,10 @@ func _ready():
 	$desc.text=desc;
 	create_tween().tween_property(self,"modulate",Color(1,1,1,1),1).set_ease(Tween.EASE_IN_OUT)
 	pass # Replace with function body.
-static func create(card:Card):
+static func create(card:Card,done:Callable=func():print("nothing")):
 	var t=load("res://Unlockable.tscn").instantiate()
 	t.card=card
+	t.done=done
 	if card.card is BlockCard:
 		t.get_node("Card").texture=load("res://Assets/Cards/Testcard_"+Stats.getStringFromEnumLowercase(card.card.block.color)+".png")
 	return t;

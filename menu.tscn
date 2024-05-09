@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=3 uid="uid://cf5heufemalnf"]
+[gd_scene load_steps=49 format=3 uid="uid://cf5heufemalnf"]
 
 [ext_resource type="Script" path="res://Menu.gd" id="1_vjikn"]
 [ext_resource type="Script" path="res://UI.gd" id="2_vouda"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://dmqfkeqg0bxbu" path="res://Assets/UI/StartGameButton.png" id="4_mukw3"]
 [ext_resource type="PackedScene" uid="uid://crxh6rxjn4mro" path="res://CardSpace.tscn" id="5_8526f"]
 [ext_resource type="Texture2D" uid="uid://vq2m6pqwfk8i" path="res://Assets/UI/ShowAccountsButton.png" id="6_gg0h1"]
+[ext_resource type="Script" path="res://Tutorials.gd" id="7_85g13"]
 [ext_resource type="Texture2D" uid="uid://dbgbbq7obnmij" path="res://Assets/UI/ShowUnlockedBUtton.png" id="7_aujqc"]
 [ext_resource type="PackedScene" uid="uid://dfv1yobm3u5hn" path="res://hand.tscn" id="8_4633y"]
 [ext_resource type="PackedScene" uid="uid://d3553ynahp4sx" path="res://Game/Minimap.tscn" id="8_i8iej"]
@@ -67,6 +68,26 @@ frame_6/duration = 0.1
 
 [sub_resource type="LabelSettings" id="LabelSettings_hp71f"]
 font_size = 26
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_iq0j2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("31_ipejj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("32_rq1nn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("33_djtow")
+}, {
+"duration": 1.0,
+"texture": ExtResource("34_k6t0m")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_83itf"]
 animations = [{
@@ -224,6 +245,13 @@ offset_right = 577.716
 offset_bottom = 165.416
 text = "ACCOUNTS"
 label_settings = SubResource("LabelSettings_licme")
+
+[node name="CheckButton" type="CheckButton" parent="CanvasLayer/MainMenu/Main"]
+offset_left = 1284.96
+offset_top = 323.894
+offset_right = 1328.96
+offset_bottom = 347.894
+script = ExtResource("7_85g13")
 
 [node name="UnlockedTab" type="Node2D" parent="CanvasLayer/MainMenu"]
 visible = false
@@ -534,6 +562,7 @@ text = "Saving the game
 position = Vector2(243.363, 116.814)
 
 [node name="BuildPhase" type="Sprite2D" parent="CanvasLayer/UI"]
+clip_children = 2
 position = Vector2(1042.48, -42.4558)
 texture = ExtResource("30_myyc3")
 
@@ -545,6 +574,13 @@ offset_bottom = 41.6814
 text = "Build Phase started"
 label_settings = SubResource("LabelSettings_hp71f")
 metadata/_edit_use_anchors_ = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CanvasLayer/UI/BuildPhase"]
+position = Vector2(1.76785, -19.4911)
+scale = Vector2(0.229266, 0.229266)
+sprite_frames = SubResource("SpriteFrames_iq0j2")
+autoplay = "default"
+frame_progress = 0.851657
 
 [node name="Battlephase" type="Sprite2D" parent="CanvasLayer/UI"]
 clip_children = 2
@@ -592,6 +628,7 @@ texture = ExtResource("16_oeuhs")
 [connection signal="pressed" from="CanvasLayer/MainMenu/Main/StartButton" to="CanvasLayer" method="_on_start_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/MainMenu/Main/UnlockedButton" to="CanvasLayer" method="_on_unlocked_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/MainMenu/Main/Accounts" to="CanvasLayer" method="_on_accounts_pressed"]
+[connection signal="toggled" from="CanvasLayer/MainMenu/Main/CheckButton" to="CanvasLayer/MainMenu/Main/CheckButton" method="_on_toggled"]
 [connection signal="visibility_changed" from="CanvasLayer/MainMenu/UnlockedTab" to="CanvasLayer" method="_on_unlocked_tab_visibility_changed"]
 [connection signal="pressed" from="CanvasLayer/MainMenu/UnlockedTab/UnlockedItems/Button" to="CanvasLayer" method="hideUnlocks"]
 [connection signal="item_activated" from="CanvasLayer/MainMenu/AccountsTab/AccountList" to="CanvasLayer" method="_on_account_list_item_activated"]
