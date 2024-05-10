@@ -277,6 +277,9 @@ func _on_spawner_wave_done():
 
 
 func startGame():
+	for m in  $MinionHolder.get_children():
+		m.queue_free()
+		
 	menu.stopMusic()
 	#hand.add_child(Card.create(self,SpecialCard.create(self,Stats.SpecialCards.BULLDOZER)))
 	cam.move_to(Vector2(500,500),func():print("done"))

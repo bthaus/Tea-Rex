@@ -26,10 +26,10 @@ func _ready():
 		offset=offset+800
 	pass # Replace with function body.
 func _input(event):
-	print(tuts.global_position)
+	
 	if event.is_action_pressed("scroll_down")and tuts.global_position.y<550:
 		tuts.translate(Vector2(0,100))
-	if event.is_action_pressed("scroll_up") and tuts.global_position.y>-3450:
+	if event.is_action_pressed("scroll_up") and tuts.global_position.y>-8000:
 		
 		tuts.translate(Vector2(0,-100))	
 	pass;

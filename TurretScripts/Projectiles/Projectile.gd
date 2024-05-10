@@ -138,8 +138,6 @@ func _process(delta):
 		translate(direction*delta*speed);
 		
 	if abs(global_position.x)>3000||abs(global_position.y)>1.5*gamestate.board_height*Stats.block_size:
-		print("me"+str(abs(global_position.y)))
-		print(gamestate.board_height*Stats.block_size)
 		remove()
 	pass
 	

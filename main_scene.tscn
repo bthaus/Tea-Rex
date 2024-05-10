@@ -161,6 +161,8 @@ offset_right = 40.0
 offset_bottom = 23.0
 text = "maxglowposition"
 
+[node name="MinionHolder" type="Node2D" parent="."]
+
 [connection signal="scrolled" from="Camera2D" to="Camera2D" method="changeBrightness"]
 [connection signal="finished" from="Camera2D/SoundPlayer/Music" to="Camera2D/SoundPlayer" method="_on_music_finished"]
 [connection signal="area_entered" from="Base/Area2D" to="." method="_on_area_2d_area_entered"]

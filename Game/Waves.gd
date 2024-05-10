@@ -85,7 +85,7 @@ func spawnEnemy(mo:Monster):
 	mo.monster_died.connect(state.addExp)
 	mo.reached_spawn.connect(monsterReachedSpawn)
 	mo.global_position=global_position
-	GameState.gameState.add_child(mo)
+	GameState.gameState.get_node("MinionHolder").add_child(mo)
 	
 
 	pass;

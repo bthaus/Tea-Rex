@@ -1,4 +1,4 @@
-[gd_scene load_steps=54 format=3 uid="uid://cf5heufemalnf"]
+[gd_scene load_steps=57 format=3 uid="uid://cf5heufemalnf"]
 
 [ext_resource type="Script" path="res://Menu.gd" id="1_vjikn"]
 [ext_resource type="Script" path="res://UI.gd" id="2_vouda"]
@@ -19,9 +19,12 @@
 [ext_resource type="Texture2D" uid="uid://bi831gg5piuel" path="res://Assets/UI/battle_Label/battle_label_an1.png" id="11_vy07x"]
 [ext_resource type="Texture2D" uid="uid://bo44it1faj837" path="res://Assets/UI/battle_Label/battle_label_an2.png" id="12_fy304"]
 [ext_resource type="PackedScene" uid="uid://b4r0647fdt4ow" path="res://tutorial_node.tscn" id="12_u11cy"]
+[ext_resource type="Texture2D" uid="uid://61r4c65kvce2" path="res://Assets/UI/deathcount_label.png" id="13_aiji2"]
+[ext_resource type="Script" path="res://Scores.gd" id="13_al5my"]
 [ext_resource type="Texture2D" uid="uid://d0bdq8gnbp4f5" path="res://Assets/UI/label_maxCards.png" id="13_kv3ah"]
 [ext_resource type="Texture2D" uid="uid://3iid6vrfhtgm" path="res://Assets/UI/battle_Label/battle_label_an3.png" id="13_tu5pj"]
 [ext_resource type="Texture2D" uid="uid://cle6jpm068sar" path="res://Assets/UI/label_redrawCards.png" id="14_2tmxv"]
+[ext_resource type="Texture2D" uid="uid://dwq8gynemg7wd" path="res://Assets/UI/highscore_label.png" id="14_qvgeg"]
 [ext_resource type="Texture2D" uid="uid://q8ob5jhpgu26" path="res://Assets/UI/battle_Label/battle_label_an4.png" id="14_rhiyx"]
 [ext_resource type="Texture2D" uid="uid://cheapt26ehvld" path="res://Assets/UI/battle_Label/battle_label_an5.png" id="15_2pbux"]
 [ext_resource type="Texture2D" uid="uid://cdb0bphmyr1e4" path="res://Assets/UI/label_wave.png" id="15_esn6i"]
@@ -344,6 +347,18 @@ offset_top = 21.2393
 offset_right = 153.706
 offset_bottom = 44.2393
 text = "TAKE ME BACK"
+
+[node name="Scores" type="Node2D" parent="CanvasLayer/MainMenu"]
+visible = false
+script = ExtResource("13_al5my")
+
+[node name="Deaths" type="Sprite2D" parent="CanvasLayer/MainMenu/Scores"]
+position = Vector2(288.496, 915.044)
+texture = ExtResource("13_aiji2")
+
+[node name="Highscore" type="Sprite2D" parent="CanvasLayer/MainMenu/Scores"]
+position = Vector2(290.265, 561.062)
+texture = ExtResource("14_qvgeg")
 
 [node name="UI" type="Node2D" parent="CanvasLayer"]
 visible = false
