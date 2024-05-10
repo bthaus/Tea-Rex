@@ -28,9 +28,9 @@ func updateUI():
 	$CanvasLayer/PlayerName.text=gamestate.account
 	$CanvasLayer/UI/Hpbar.max_value=gamestate.maxHP
 	$CanvasLayer/UI/Hpbar.value=gamestate.HP
-	$CanvasLayer/UI/Wave.text=str(gamestate.wave)
-	$CanvasLayer/UI/maxcards.text=str(gamestate.maxCards)
-	$CanvasLayer/UI/redraws.text=str(gamestate.cardRedraws)
+	$CanvasLayer/UI/Wave.text=str("    ", gamestate.wave)
+	$CanvasLayer/UI/maxcards.text=str("    ", gamestate.maxCards)
+	$CanvasLayer/UI/redraws.text=str("    ", gamestate.cardRedraws)
 	$CanvasLayer/UI/EXPbar.max_value=gamestate.levelUp;
 	$CanvasLayer/UI/EXPbar.value=gamestate.totalExp
 	$CanvasLayer/UI/EXPbar.min_value=gamestate.levelUp/2
