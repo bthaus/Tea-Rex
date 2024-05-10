@@ -54,6 +54,7 @@ offset_top = -297.0
 offset_right = 239.0
 offset_bottom = 247.0
 stream = ExtResource("1_5j4vo")
+volume_db = -80.0
 autoplay = true
 loop = true
 
@@ -114,6 +115,7 @@ offset_top = -319.0
 offset_right = 346.0
 offset_bottom = 289.0
 stream = ExtResource("12_85ars")
+volume_db = -80.0
 autoplay = true
 loop = true
 metadata/_edit_use_anchors_ = true
@@ -174,6 +176,7 @@ offset_top = -296.0
 offset_right = 236.0
 offset_bottom = 248.0
 stream = ExtResource("5_o5rvo")
+volume_db = -80.0
 autoplay = true
 loop = true
 
@@ -234,6 +237,7 @@ offset_top = -299.0
 offset_right = 243.0
 offset_bottom = 245.0
 stream = ExtResource("6_uk43q")
+volume_db = -80.0
 autoplay = true
 loop = true
 
@@ -295,6 +299,7 @@ offset_top = -294.0
 offset_right = 241.0
 offset_bottom = 250.0
 stream = ExtResource("7_6arob")
+volume_db = -80.0
 autoplay = true
 loop = true
 
@@ -356,6 +361,7 @@ offset_top = -292.0
 offset_right = 240.0
 offset_bottom = 252.0
 stream = ExtResource("8_w11wx")
+volume_db = -80.0
 autoplay = true
 loop = true
 
@@ -415,6 +421,7 @@ offset_top = -300.0
 offset_right = 240.0
 offset_bottom = 244.0
 stream = ExtResource("8_8rs3a")
+volume_db = -80.0
 autoplay = true
 loop = true
 
@@ -485,6 +492,7 @@ offset_top = -294.0
 offset_right = 237.0
 offset_bottom = 250.0
 stream = ExtResource("10_iy44i")
+volume_db = -80.0
 autoplay = true
 loop = true
 
@@ -552,6 +560,7 @@ offset_top = -293.0
 offset_right = 240.0
 offset_bottom = 251.0
 stream = ExtResource("8_8rs3a")
+volume_db = -80.0
 autoplay = true
 loop = true
 
@@ -619,6 +628,7 @@ offset_left = -406.0
 offset_top = -291.0
 offset_right = 222.0
 offset_bottom = 242.0
+volume_db = -80.0
 loop = true
 
 [node name="Outside" type="Node2D" parent="."]
@@ -678,6 +688,7 @@ offset_top = -294.0
 offset_right = 241.0
 offset_bottom = 330.0
 stream = ExtResource("13_7yg7x")
+volume_db = -80.0
 autoplay = true
 loop = true
 metadata/_edit_use_anchors_ = true
@@ -812,6 +823,7 @@ offset_top = -294.0
 offset_right = 241.0
 offset_bottom = 330.0
 stream = ExtResource("13_7yg7x")
+volume_db = -80.0
 autoplay = true
 loop = true
 metadata/_edit_use_anchors_ = true
@@ -876,6 +888,7 @@ offset_top = -294.0
 offset_right = 241.0
 offset_bottom = 330.0
 stream = ExtResource("13_7yg7x")
+volume_db = -80.0
 autoplay = true
 loop = true
 metadata/_edit_use_anchors_ = true

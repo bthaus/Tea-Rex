@@ -26,7 +26,8 @@ static func create(type,damage, position, root,scale=1,noise=true):
 		temp.scale=Vector2(scale,scale)
 		#temp.apply_scale(Vector2(scale,scale));
 		temp.damage=damage;
-		GameState.gameState.call_deferred("add_child",temp);
+		#GameState.gameState.call_deferred("add_child",temp);
+		root.add_child(temp)
 		temp.visible=true;
 		
 	else:
@@ -55,6 +56,7 @@ static func create(type,damage, position, root,scale=1,noise=true):
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	
 	if  cam!=null and  sound!=null:
 		var mod=cam.zoom.y-3;
 		sound.volume_db=20+mod*15
