@@ -275,10 +275,11 @@ text = "SAVES"
 label_settings = SubResource("LabelSettings_licme")
 
 [node name="CheckButton" type="CheckButton" parent="CanvasLayer/MainMenu/Main"]
-offset_left = 1284.96
-offset_top = 323.894
-offset_right = 1328.96
-offset_bottom = 347.894
+offset_left = 1849.56
+offset_top = 1100.88
+offset_right = 2012.56
+offset_bottom = 1131.88
+text = "Show Tutorials"
 script = ExtResource("7_85g13")
 
 [node name="UnlockedTab" type="Node2D" parent="CanvasLayer/MainMenu"]
