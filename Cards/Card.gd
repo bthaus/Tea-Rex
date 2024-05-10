@@ -107,8 +107,22 @@ static func create(gameState:GameState,card=-1):
 		if extension!=1: c.description=Stats.getDescription(Stats.TurretExtension.keys()[extension-1])
 		else: c.description=Stats.getDescription(Stats.getStringFromEnum(color))
 		preview.set_block(c.card.block, true)
+		#Just hardcoded for centering blocks
+		match(c.card.block.shape):
+			Stats.BlockShape.O: 
+				preview.position=Vector2(60,110)
+			Stats.BlockShape.I:
+				preview.position=Vector2(50,110)
+			Stats.BlockShape.SMALL:
+				preview.position=Vector2(50,110)
+			Stats.BlockShape.S:
+				preview.position=Vector2(50,110)
+			Stats.BlockShape.Z:
+				preview.position=Vector2(50,110)
+			_:
+				preview.position=Vector2(50,100)
+
 		preview.scale=Vector2(0.3,0.3)
-		preview.position=Vector2(50,100)
 		btn.add_child(preview)
 	
 	return c
