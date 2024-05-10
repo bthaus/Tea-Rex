@@ -303,7 +303,8 @@ func addExp(monster:Monster):
 func checkLevelUp():
 	
 	if totalExp<levelUp: return
-	levelUp=levelUp*2;
+	levelUp=levelUp*2
+	levelUp=clamp(levelUp,0,10000);
 	totalExp=0
 	
 	

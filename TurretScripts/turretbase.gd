@@ -42,9 +42,12 @@ static func create(color:Stats.TurretColor, lvl:int, type:Stats.TurretExtension=
 	turret.extension=type;
 	return turret;
 	
-
+var id;
+static var counter=0;
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	counter=counter+1;
+	id=counter;
 	if not placed:
 		$Button.mouse_filter=2
 	light=$PointLight2D
@@ -291,7 +294,7 @@ func _process(delta):
 			buildup=buildup+1*delta*2;
 		if buildup<=1 and (type==Stats.TurretColor.RED&&extension==Stats.TurretExtension.DEFAULT)&&buildup<0.01:
 			buildup=buildup+0.01*delta;	
-		var target=$EnemyDetector.enemiesInRange[0];
+		var target=$EnemyDetector.enemiesInRange[id%$EnemyDetector.enemiesInRange.size()];
 		
 		direction=(target.global_position-self.global_position).normalized();
 		base.rotation=direction.angle() + PI / 2.0;
