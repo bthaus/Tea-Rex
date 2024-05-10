@@ -257,6 +257,7 @@ func COLORCHANGER_catastrophy(done: Callable):
 				get_tree().create_timer(delay).timeout.connect(func():
 					$Board.clear_layer(CATASTROPHY_LAYER)
 					$Board.set_cell(CATASTROPHY_LAYER, Vector2(piece.position.x + col, piece.position.y + row), CATASTROPHY_PREVIEW_TILE_ID, Vector2(0,0))
+					Sounds.playFromCamera(gameState, Sounds.bleep)
 					)
 					
 				count += 1
@@ -271,7 +272,7 @@ func COLORCHANGER_catastrophy(done: Callable):
 					var change_block = block_handler.get_block_from_board(rnd_pos, BLOCK_LAYER, EXTENSION_LAYER, false)
 					var new_pieces = []
 					for piece in change_block.pieces: new_pieces.append(Block.Piece.new(piece.position, Stats.TurretColor.GREY, 1))
-					block_handler.draw_block(Block.new(new_pieces), Vector2(0, 0), BLOCK_LAYER, EXTENSION_LAYER)
+					_place_block(Block.new(new_pieces), Vector2(0, 0))
 					_remove_turrets(Block.new(new_pieces), Vector2(0, 0))
 				
 				get_tree().create_timer(1).timeout.connect(func():
@@ -483,7 +484,7 @@ func draw_field_from_walls(walls_positions: PackedVector3Array):
 
 		if main_spawner == null or main_spawner.position.y < spawner.position.y:
 			main_spawner = spawner
-			
+
 
 func extend_field(done:Callable):
 	#Clear bottom row

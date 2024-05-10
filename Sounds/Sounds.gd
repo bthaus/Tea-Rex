@@ -22,6 +22,7 @@ static var music=[
 	load("res://Sounds/Music/background6.wav"),
 		
 ]
+static var bleep=load("res://Sounds/Soundeffects/new sounds/bleep.wav")
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$Music.stream=music[0]
