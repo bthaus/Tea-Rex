@@ -48,15 +48,15 @@
 
 [sub_resource type="LabelSettings" id="LabelSettings_t26sl"]
 font = ExtResource("8_2jhyh")
-font_size = 60
+font_size = 80
 
 [sub_resource type="LabelSettings" id="LabelSettings_qdrky"]
 font = ExtResource("8_2jhyh")
-font_size = 60
+font_size = 80
 
 [sub_resource type="LabelSettings" id="LabelSettings_licme"]
 font = ExtResource("8_2jhyh")
-font_size = 60
+font_size = 80
 
 [sub_resource type="LabelSettings" id="LabelSettings_nendl"]
 font_size = 32
@@ -255,19 +255,19 @@ stretch_mode = 0
 
 [node name="Label" type="Label" parent="CanvasLayer/MainMenu/Main/UnlockedButton"]
 layout_mode = 0
-offset_left = 26.1505
-offset_top = -11.0
-offset_right = 906.151
-offset_bottom = 135.0
+offset_left = 65.0885
+offset_top = -5.69027
+offset_right = 945.089
+offset_bottom = 140.31
 text = "INFO"
 label_settings = SubResource("LabelSettings_qdrky")
 
 [node name="Accounts" type="TextureButton" parent="CanvasLayer/MainMenu/Main"]
 self_modulate = Color(1, 1, 1, 0)
-offset_left = 952.0
-offset_top = 686.0
-offset_right = 1326.0
-offset_bottom = 842.0
+offset_left = 952.212
+offset_top = 700.885
+offset_right = 1326.21
+offset_bottom = 856.885
 rotation = 0.00497202
 action_mode = 0
 texture_normal = ExtResource("7_aujqc")
@@ -276,10 +276,10 @@ stretch_mode = 0
 
 [node name="Label" type="Label" parent="CanvasLayer/MainMenu/Main/Accounts"]
 layout_mode = 0
-offset_left = 28.8775
-offset_top = 69.6095
-offset_right = 595.878
-offset_bottom = 215.609
+offset_left = 25.0777
+offset_top = 60.053
+offset_right = 592.078
+offset_bottom = 206.052
 text = "SAVES"
 label_settings = SubResource("LabelSettings_licme")
 
