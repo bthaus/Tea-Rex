@@ -199,8 +199,8 @@ static func deserialiseHand(json,gamestate:GameState):
 		var card=JSON.parse_string(j) as Dictionary
 		var keys=card.keys()
 		if keys.size()==2:
-			var c=SpecialCard.create(gamestate,card.get(keys[0]))
-			c.roundReceived=card.get(keys[1])
+			var c=SpecialCard.create(gamestate,card["special"])
+			c.roundReceived=card["round"]
 			gamestate.hand.add_child(Card.create(gamestate,c))
 		else:
 			var block=Stats.getBlockFromShape(card.get("block"),card.get("color"),1,card.get("extension"))

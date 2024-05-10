@@ -56,9 +56,10 @@ func _ready():
 		)
 	pass # Replace with function body.
 func checkPosition():
-	if GameState.gameState.getCamera().isOffCamera(global_position)and light.get_parent()!=null:
+	var off=GameState.gameState.getCamera().isOffCamera(global_position)
+	if off and light.get_parent()!=null:
 		remove_child(light)
-	if !GameState.gameState.getCamera().isOffCamera(global_position)and light.get_parent()==null:
+	if !off and light.get_parent()==null:
 		
 		add_child(light)
 		light.global_position=global_position
@@ -66,7 +67,7 @@ func checkPosition():
 		light.enabled=true		
 	
 	if extension==Stats.TurretExtension.BLUELASER:return;
-	var i=GameState.gameState.getCamera().isOffCamera(global_position)
+	var i=off
 	if !i:
 		instantHit=baseinstantHit;
 	else:

@@ -86,13 +86,14 @@ func _input(event):
 			dragging = false
 			
 	if event is InputEventMouseMotion and clicked:
-		scrolled.emit()
+		
 		var drag_distance = mouse_start_pos.distance_to(event.position)
 		#Player has to drag for a minimum distance to be recognized as dragging motion
 		if not dragging and drag_distance < MIN_RECOGNIZABLE_DRAG_DISTANCE: 
 			return
 		if not dragging:
 			is_dragging_camera.emit(true)
+			scrolled.emit()
 		dragging = true
 		position = (mouse_start_pos - event.position) / zoom + screen_start_position
 	
