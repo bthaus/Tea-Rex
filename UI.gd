@@ -24,12 +24,13 @@ func _ready():
 		t.translate(Vector2(0,offset))
 		t.visible=true;
 		offset=offset+800
+	tuts.get_children()[tuts.get_child_count()-1].visible=false;
 	pass # Replace with function body.
 func _input(event):
 	
 	if event.is_action_pressed("scroll_down")and tuts.global_position.y<550:
 		tuts.translate(Vector2(0,100))
-	if event.is_action_pressed("scroll_up") and tuts.global_position.y>-8000:
+	if event.is_action_pressed("scroll_up") and tuts.global_position.y>-9000:
 		
 		tuts.translate(Vector2(0,-100))	
 	pass;

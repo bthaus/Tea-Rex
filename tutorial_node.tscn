@@ -816,7 +816,72 @@ autoplay = true
 loop = true
 metadata/_edit_use_anchors_ = true
 
+[node name="Catastrophy2" type="Node2D" parent="."]
+script = ExtResource("2_ogttl")
+
+[node name="Background" type="Sprite2D" parent="Catastrophy2"]
+position = Vector2(164.522, -19.1213)
+texture = ExtResource("3_ovxn3")
+
+[node name="Text" type="RichTextLabel" parent="Catastrophy2"]
+offset_left = 298.0
+offset_top = -227.0
+offset_right = 689.0
+offset_bottom = 220.0
+bbcode_enabled = true
+text = "There are 4 different types of catastrophy:
+1: Drill: Destroys 3 horizontal lines
+2: Meteor: Destroys a 5x5 block
+3: Color changer: Turns a randomly selected, connected block grey.
+4: Level down: reduces the level of a randomly selected connected block. "
+
+[node name="Title" type="RichTextLabel" parent="Catastrophy2"]
+offset_left = 293.0
+offset_top = -289.0
+offset_right = 673.0
+offset_bottom = -174.0
+bbcode_enabled = true
+text = "[font_size=36]Catastrophies
+[/font_size]"
+
+[node name="Button" type="Button" parent="Catastrophy2"]
+offset_left = 301.0
+offset_top = 155.0
+offset_right = 507.0
+offset_bottom = 235.0
+text = "Got it!"
+
+[node name="CheckButton" type="CheckButton" parent="Catastrophy2"]
+offset_left = 576.0
+offset_top = 189.0
+offset_right = 701.0
+offset_bottom = 237.0
+
+[node name="Label" type="RichTextLabel" parent="Catastrophy2/CheckButton"]
+layout_mode = 0
+offset_left = -47.0
+offset_top = -34.0
+offset_right = 144.0
+offset_bottom = -11.0
+bbcode_enabled = true
+text = "Dont show  Tutorials"
+
+[node name="Polygon2D" type="Polygon2D" parent="Catastrophy2"]
+clip_children = 1
+polygon = PackedVector2Array(-399, -241, -399, 205, -376, 205, -367, 208, -360, 213, -354, 221, -351, 230, -350, 245, 293, 244, 293, -293, -350, -293, -350, -269, -353, -262, -356, -256, -362, -250, -371, -245, -376, -244, -399, -243)
+
+[node name="Vid" type="VideoStreamPlayer" parent="Catastrophy2/Polygon2D"]
+offset_left = -399.0
+offset_top = -294.0
+offset_right = 241.0
+offset_bottom = 330.0
+stream = ExtResource("13_7yg7x")
+autoplay = true
+loop = true
+metadata/_edit_use_anchors_ = true
+
 [node name="MaxLevel" type="Node2D" parent="."]
+visible = false
 script = ExtResource("2_ogttl")
 
 [node name="Background" type="Sprite2D" parent="MaxLevel"]
@@ -896,5 +961,7 @@ text = "Dont show  Tutorials"
 [connection signal="toggled" from="Controls/CheckButton" to="." method="_on_check_button_toggled"]
 [connection signal="pressed" from="Catastrophy/Button" to="Catastrophy" method="_on_button_pressed"]
 [connection signal="toggled" from="Catastrophy/CheckButton" to="." method="_on_check_button_toggled"]
+[connection signal="pressed" from="Catastrophy2/Button" to="Catastrophy2" method="_on_button_pressed"]
+[connection signal="toggled" from="Catastrophy2/CheckButton" to="." method="_on_check_button_toggled"]
 [connection signal="pressed" from="MaxLevel/Button" to="MaxLevel" method="_on_button_pressed"]
 [connection signal="toggled" from="MaxLevel/CheckButton" to="." method="_on_check_button_toggled"]

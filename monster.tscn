@@ -189,9 +189,9 @@ stream = ExtResource("21_v7uw0")
 
 [node name="Health" type="TextureProgressBar" parent="."]
 z_index = 20
-offset_left = -49.0
+offset_left = -50.0
 offset_top = -97.0
-offset_right = 51.0
+offset_right = 50.0
 offset_bottom = 3.0
 value = 100.0
 texture_progress = ExtResource("22_j7pik")
