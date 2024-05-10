@@ -173,7 +173,7 @@ func initNewBoard():
 	cam.move_to(Vector2(500,500),func():print("done"))
 	pass;
 func startBattlePhase():
-	
+	Spawner.numMonstersActive=0;
 	start_combat_phase.emit()
 	menu.get_node("CanvasLayer/UI/StartBattlePhase").disabled=true;
 	averageColorChances()

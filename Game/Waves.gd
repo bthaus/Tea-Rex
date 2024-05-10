@@ -101,7 +101,7 @@ func monsterDied(monster:Monster):
 	numDied=numDied+1;
 	numMonstersActive=numMonstersActive-1;
 	
-	if numMonstersActive<=0:
+	if numMonstersActive==0:
 		state.startBuildPhase()
 	pass;
 # Called every frame. 'delta' is the elapsed time since the previous frame.
