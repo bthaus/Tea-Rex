@@ -14,6 +14,9 @@ const MAX_SHAKE=5
 const CAMERA_ZOOM = 0.1
 const SCROLL_SPEED = 100
 const MIN_RECOGNIZABLE_DRAG_DISTANCE = 10
+const MAX_ZOOM_OUT = 0.5
+const MAX_ZOOM_IN = 2
+const VIEW_RANGE_TOLERANCE = 100
 var lastpos=0
 var original_position=0;
 var shake_timer=0;
@@ -95,22 +98,29 @@ func _input(event):
 			is_dragging_camera.emit(true)
 			scrolled.emit()
 		dragging = true
-		position = (mouse_start_pos - event.position) / zoom + screen_start_position
+
+		var new_pos = (mouse_start_pos - event.position) / zoom + screen_start_position
+		if new_pos.x > -(Stats.board_cave_deepness.to*Stats.block_size):
+			if new_pos.x < (gameState.board_width+Stats.board_cave_deepness.to)*Stats.block_size:
+				if new_pos.y > VIEW_RANGE_TOLERANCE and new_pos.y < (gameState.board_height * Stats.block_size) + VIEW_RANGE_TOLERANCE:
+					position = new_pos
 	
 	if event.is_action_pressed("scroll_up"):
 		scrolled.emit()
 		if Input.is_action_pressed("control"):
-			zoom = Vector2(zoom.x + CAMERA_ZOOM, zoom.y + CAMERA_ZOOM)
+			if zoom.x < MAX_ZOOM_IN:
+				zoom = Vector2(zoom.x + CAMERA_ZOOM, zoom.y + CAMERA_ZOOM)
 		else:
-			if position.y >= 0:
+			if position.y >= VIEW_RANGE_TOLERANCE:
 				position -= Vector2(0, SCROLL_SPEED) / zoom
 			
 	if event.is_action_pressed("scroll_down"):
 		scrolled.emit()
 		if Input.is_action_pressed("control"):
-			zoom = Vector2(zoom.x - CAMERA_ZOOM, zoom.y - CAMERA_ZOOM)
+			if zoom.x > MAX_ZOOM_OUT:
+				zoom = Vector2(zoom.x - CAMERA_ZOOM, zoom.y - CAMERA_ZOOM)
 		else:
-			if position.y <= gameState.board_height * Stats.block_size:
+			if position.y <= (gameState.board_height * Stats.block_size) + VIEW_RANGE_TOLERANCE:
 				position += Vector2(0, SCROLL_SPEED) / zoom
 var tween			
 func move_to(position: Vector2, done: Callable):
