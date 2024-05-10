@@ -131,14 +131,19 @@ func start_extension(done:Callable):
 
 func BULLDOZER_catastrophy(done: Callable):
 	util.p("Bulldozer catastrophe starting", "Jojo")
-	var row = randi_range(1, gameState.board_height-1-Stats.bulldozer_catastrophy_height)
+	var bulldozer_width = Stats.bulldozer_catastrophy_width
+	var bulldozer_height = Stats.bulldozer_catastrophy_height
+	if gameState.wave == 5: #Nerf first bulldozer
+		bulldozer_width = 3
+		bulldozer_height = 3
+	var row = randi_range(1, gameState.board_height-1-bulldozer_height)
 	gameState.getCamera().move_to($Board.map_to_local(Vector2(gameState.board_width/2, row)), func():
 		self.done = done
 		var distance = block_handler.get_board_distance_at_row(BLOCK_LAYER, row)
-		var col = randi_range(distance.from, distance.to-Stats.bulldozer_catastrophy_width)
+		var col = randi_range(distance.from, distance.to-bulldozer_width)
 		var pieces = []
-		for y in Stats.bulldozer_catastrophy_height:
-			for x in Stats.bulldozer_catastrophy_width:
+		for y in bulldozer_height:
+			for x in bulldozer_width:
 				#No constructor overloading in Godot, gotta init some nonsense
 				pieces.push_back(Block.Piece.new(Vector2(x,y), Stats.TurretColor.BLUE, 1))
 		
@@ -146,8 +151,8 @@ func BULLDOZER_catastrophy(done: Callable):
 		block_handler.draw_block_with_tile_id(block, Vector2(col, row), CATASTROPHY_PREVIEW_TILE_ID, CATASTROPHY_LAYER)
 		get_tree().create_timer(Stats.CATASTROPHY_PREVIEW_DURATION).timeout.connect(func():
 			$Board.clear_layer(CATASTROPHY_LAYER)
-			var explosion_position = $Board.map_to_local(Vector2(col + Stats.bulldozer_catastrophy_width/2, row + Stats.bulldozer_catastrophy_height/2))
-			var explosion_scale = max(Stats.bulldozer_catastrophy_height/2, Stats.bulldozer_catastrophy_width/2)
+			var explosion_position = $Board.map_to_local(Vector2(col + bulldozer_width/2, row + bulldozer_height/2))
+			var explosion_scale = max(bulldozer_height/2, bulldozer_width/2)
 			Explosion.create(0, 0, explosion_position, self, explosion_scale)
 			gameState.getCamera().shake(1.5, 10,explosion_position)
 			block_handler.remove_block_from_board(block, Vector2(col, row), BLOCK_LAYER, EXTENSION_LAYER, false)
