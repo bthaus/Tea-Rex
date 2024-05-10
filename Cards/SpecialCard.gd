@@ -71,10 +71,11 @@ static func create(gameState:GameState,type=-1):
 	return retval
 	
 func select(done:Callable):
-	if !isPhaseValid():
-		done.call(false)
-		return
 	self.done=done;
+	if !isPhaseValid():
+		interrupt()
+		return
+	
 	
 	
 	if instant:
@@ -86,6 +87,9 @@ func select(done:Callable):
 	pass;
 
 func cast():
+	if Card.contemplatingInterrupt:
+		interrupt()
+		return;
 	reparentToState()
 	if call("cast"+Stats.getStringFromSpecialCardEnum(cardName)):
 		done.call(true)

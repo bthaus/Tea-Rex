@@ -35,11 +35,11 @@ var spawners=[]
 var target;
 var showTutorials=true;
 
-static var blueChance=20;
-static var redChance=20;
-static var greenChance=20;
-static var yellowChance=20;
-static var greyChance=20;
+static var blueChance=100;
+static var redChance=0;
+static var greenChance=0;
+static var yellowChance=0;
+static var greyChance=0;
 var colorChances = [greyChance, greenChance, redChance, yellowChance, blueChance]
 #subject to change
 
