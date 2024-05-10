@@ -60,9 +60,9 @@ static func create(gameState:GameState,card=-1):
 		gameState.start_build_phase.connect(func():
 			if c==null:return
 			match c.card.cardName:
-				1:label="Heals "+str(c.card.getHealAmount())+" HP."
+				1:c.description=	"Heals "+str(c.card.getHealAmount())+" HP. The longer you hold it, the more it heals. "
 				2:label="Deals "+str(c.card.damage)+" damage."
-				3:label="Gives "+str(c.card.getHealAmount())+" HP."
+				3:c.description=	"Gives "+str(c.card.getHealAmount())+" HP. The longer you hold it, the more it gives you."
 				4:label="Deals "+str(c.card.damage)+" damage."
 				6:label="Removes "+str(c.card.damage)+"x"+str(c.card.range)+" blocks."
 				5:label="Moves 1 block"
@@ -70,12 +70,13 @@ static func create(gameState:GameState,card=-1):
 				8:label="Poisons for "+str(c.card.damage)+"."
 				9:label="Draw 1 card more."
 				10:label="Handsize +1."
-			c.get_child(1).text=label	
+			
+			c.get_child(1).text=""	
 					)
 		match c.card.cardName:
-			1:label="Heals "+str(c.card.getHealAmount())+" HP."
+			1:c.description=	"Heals "+str(c.card.getHealAmount())+" HP. The longer you hold it, the more it heals. "
 			2:label="Deals "+str(c.card.damage)+" damage."
-			3:label="Gives "+str(c.card.getHealAmount())+" HP."
+			3:c.description=	"Gives "+str(c.card.getHealAmount())+" HP. The longer you hold it, the more it gives you."
 			4:label="Deals "+str(c.card.damage)+" damage."
 			6:label="Removes "+str(c.card.damage)+"x"+str(c.card.range)+" blocks."
 			5:label="Moves 1 block"
@@ -84,20 +85,22 @@ static func create(gameState:GameState,card=-1):
 			9:label="Draw 1 card more."
 			10:label="Handsize +1."
 			
-		c.get_child(1).text=label
+		c.get_child(1).text=""
 		c.get_child(1).visible=true;
 		var cardname=c.card.cardName;
 		c.get_node("Button").icon=load("res://Assets/SpecialCards/"+Stats.getStringFromSpecialCardEnum(cardname)+"_preview.png")
-		c.description=Stats.getDescription(Stats.getStringFromSpecialCardEnum(cardname))
+		if c.description=="":
+			c.description=Stats.getDescription(Stats.getStringFromSpecialCardEnum(cardname))
 	if c.card is BlockCard:
 		
 		
 		var extension=c.card.block.extension;
 		var color=c.card.block.color;
-		if extension==1:
-			c.get_node("Label").text=Stats.getName(Stats.TurretColor.find_key(color))
-		else:
-			c.get_node("Label").text=Stats.getName(Stats.TurretExtension.find_key(extension))	
+		#if extension==1:
+		#	c.get_node("Label").text=Stats.getName(Stats.TurretColor.find_key(color))
+		#else:
+		#	c.get_node("Label").text=Stats.getName(Stats.TurretExtension.find_key(extension))	
+		c.get_node("Label").text=""
 		c.get_node("Button").icon=load("res://Assets/Cards/Testcard_"+Stats.getStringFromEnum(color).to_lower()+".png")
 		#use this to change color/text of card
 		var preview=load("res://Cards/block_preview.tscn").instantiate()
