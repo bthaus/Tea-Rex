@@ -1,57 +1,61 @@
-[gd_scene load_steps=57 format=3 uid="uid://cf5heufemalnf"]
+[gd_scene load_steps=58 format=3 uid="uid://cf5heufemalnf"]
 
 [ext_resource type="Script" path="res://Menu.gd" id="1_vjikn"]
 [ext_resource type="Script" path="res://UI.gd" id="2_vouda"]
-[ext_resource type="Texture2D" uid="uid://dydb7ecqk8bo5" path="res://Assets/Level/mainMenu.jpg" id="3_hap75"]
-[ext_resource type="Texture2D" uid="uid://dwbphs2re057j" path="res://Assets/UI/battle_Label/battle_label.png" id="4_h34wy"]
-[ext_resource type="Texture2D" uid="uid://ythuwwmmj4jd" path="res://Assets/UI/StartGameButton.png" id="4_mukw3"]
-[ext_resource type="Texture2D" uid="uid://n2q5fhwsjxse" path="res://Assets/UI/Menu/Screenshot 2024-05-09 220548.png" id="4_ud042"]
+[ext_resource type="Texture2D" uid="uid://k8t5t02p68sh" path="res://Assets/Level/mainMenu.jpg" id="3_hap75"]
+[ext_resource type="Texture2D" uid="uid://d0mot888gxskd" path="res://Assets/UI/battle_Label/battle_label.png" id="4_h34wy"]
+[ext_resource type="Texture2D" uid="uid://dmqfkeqg0bxbu" path="res://Assets/UI/StartGameButton.png" id="4_mukw3"]
+[ext_resource type="Texture2D" uid="uid://daco3pb8brteh" path="res://Assets/UI/Menu/Screenshot 2024-05-09 220548.png" id="4_ud042"]
 [ext_resource type="PackedScene" uid="uid://crxh6rxjn4mro" path="res://CardSpace.tscn" id="5_8526f"]
-[ext_resource type="Texture2D" uid="uid://1gic0ibvra7k" path="res://Assets/UI/ShowAccountsButton.png" id="6_gg0h1"]
+[ext_resource type="Texture2D" uid="uid://vq2m6pqwfk8i" path="res://Assets/UI/ShowAccountsButton.png" id="6_gg0h1"]
 [ext_resource type="Script" path="res://Tutorials.gd" id="7_85g13"]
-[ext_resource type="Texture2D" uid="uid://boq0mw14acjc4" path="res://Assets/UI/ShowUnlockedBUtton.png" id="7_aujqc"]
+[ext_resource type="Texture2D" uid="uid://dbgbbq7obnmij" path="res://Assets/UI/ShowUnlockedBUtton.png" id="7_aujqc"]
+[ext_resource type="FontFile" uid="uid://cpx4gjglnqs56" path="res://Assets/pixelfont.ttf" id="8_2jhyh"]
 [ext_resource type="PackedScene" uid="uid://dfv1yobm3u5hn" path="res://hand.tscn" id="8_4633y"]
 [ext_resource type="PackedScene" uid="uid://d3553ynahp4sx" path="res://Game/Minimap.tscn" id="8_i8iej"]
-[ext_resource type="Texture2D" uid="uid://d3ikvbsfgfmpj" path="res://Assets/UI/description_banner.png" id="9_mywok"]
+[ext_resource type="Texture2D" uid="uid://tjnqn3v5ccyn" path="res://Assets/UI/description_banner.png" id="9_mywok"]
 [ext_resource type="VideoStream" path="res://Assets/UI/Menu/video.ogv" id="9_wd25y"]
-[ext_resource type="Texture2D" uid="uid://ik8ksf7j17jv" path="res://Assets/UI/label.png" id="10_ekqn5"]
-[ext_resource type="Texture2D" uid="uid://bmyl1ftoqrr7f" path="res://Assets/UI/battle_Label/battle_label_text.png" id="11_a1kin"]
-[ext_resource type="Texture2D" uid="uid://cx6wk7kwk8uko" path="res://Assets/UI/battle_Label/battle_label_an1.png" id="11_vy07x"]
-[ext_resource type="Texture2D" uid="uid://ds5gwder8h5xf" path="res://Assets/UI/battle_Label/battle_label_an2.png" id="12_fy304"]
+[ext_resource type="Texture2D" uid="uid://dcvp7f2h1ekhn" path="res://Assets/UI/label.png" id="10_ekqn5"]
+[ext_resource type="Texture2D" uid="uid://dmx7t8ele2oeb" path="res://Assets/UI/battle_Label/battle_label_text.png" id="11_a1kin"]
+[ext_resource type="Texture2D" uid="uid://bi831gg5piuel" path="res://Assets/UI/battle_Label/battle_label_an1.png" id="11_vy07x"]
+[ext_resource type="Texture2D" uid="uid://bo44it1faj837" path="res://Assets/UI/battle_Label/battle_label_an2.png" id="12_fy304"]
 [ext_resource type="PackedScene" uid="uid://b4r0647fdt4ow" path="res://tutorial_node.tscn" id="12_u11cy"]
-[ext_resource type="Texture2D" uid="uid://cgipcw6b4376w" path="res://Assets/UI/deathcount_label.png" id="13_aiji2"]
+[ext_resource type="Texture2D" uid="uid://61r4c65kvce2" path="res://Assets/UI/deathcount_label.png" id="13_aiji2"]
 [ext_resource type="Script" path="res://Scores.gd" id="13_al5my"]
-[ext_resource type="Texture2D" uid="uid://2l2yflm8lkm4" path="res://Assets/UI/label_maxCards.png" id="13_kv3ah"]
-[ext_resource type="Texture2D" uid="uid://83dlquix2f6h" path="res://Assets/UI/battle_Label/battle_label_an3.png" id="13_tu5pj"]
-[ext_resource type="Texture2D" uid="uid://mknq2pfloumi" path="res://Assets/UI/label_redrawCards.png" id="14_2tmxv"]
-[ext_resource type="Texture2D" uid="uid://cks8g0pvv5rte" path="res://Assets/UI/highscore_label.png" id="14_qvgeg"]
-[ext_resource type="Texture2D" uid="uid://bdcvjbn65ew5y" path="res://Assets/UI/battle_Label/battle_label_an4.png" id="14_rhiyx"]
-[ext_resource type="Texture2D" uid="uid://dyxiuigohhbxb" path="res://Assets/UI/battle_Label/battle_label_an5.png" id="15_2pbux"]
-[ext_resource type="Texture2D" uid="uid://qqv477ijsqpl" path="res://Assets/UI/label_wave.png" id="15_esn6i"]
-[ext_resource type="Texture2D" uid="uid://d1xf6c8kucqte" path="res://Assets/UI/battle_Label/battle_label_an6.png" id="16_c8mys"]
-[ext_resource type="Texture2D" uid="uid://b11ddbe3i7del" path="res://Assets/Level/blackBackgroundLabel.png" id="16_oeuhs"]
+[ext_resource type="Texture2D" uid="uid://d0bdq8gnbp4f5" path="res://Assets/UI/label_maxCards.png" id="13_kv3ah"]
+[ext_resource type="Texture2D" uid="uid://3iid6vrfhtgm" path="res://Assets/UI/battle_Label/battle_label_an3.png" id="13_tu5pj"]
+[ext_resource type="Texture2D" uid="uid://cle6jpm068sar" path="res://Assets/UI/label_redrawCards.png" id="14_2tmxv"]
+[ext_resource type="Texture2D" uid="uid://dwq8gynemg7wd" path="res://Assets/UI/highscore_label.png" id="14_qvgeg"]
+[ext_resource type="Texture2D" uid="uid://q8ob5jhpgu26" path="res://Assets/UI/battle_Label/battle_label_an4.png" id="14_rhiyx"]
+[ext_resource type="Texture2D" uid="uid://cheapt26ehvld" path="res://Assets/UI/battle_Label/battle_label_an5.png" id="15_2pbux"]
+[ext_resource type="Texture2D" uid="uid://cdb0bphmyr1e4" path="res://Assets/UI/label_wave.png" id="15_esn6i"]
+[ext_resource type="Texture2D" uid="uid://x4gc1napxktf" path="res://Assets/UI/battle_Label/battle_label_an6.png" id="16_c8mys"]
+[ext_resource type="Texture2D" uid="uid://cir25cbml7q1h" path="res://Assets/Level/blackBackgroundLabel.png" id="16_oeuhs"]
 [ext_resource type="PackedScene" uid="uid://b1awhns1b5kw3" path="res://hover_hint.tscn" id="16_vvx5a"]
-[ext_resource type="Texture2D" uid="uid://doskwdwavxx31" path="res://Assets/UI/health_xp_bar/health_bar_empty.png" id="17_jkmx4"]
-[ext_resource type="Texture2D" uid="uid://dqjai6d12gip4" path="res://Assets/UI/battle_Label/battle_label_an7.png" id="17_re58h"]
-[ext_resource type="Texture2D" uid="uid://bq6r0hvb6md7n" path="res://Assets/UI/health_xp_bar/health_bar_full.png" id="18_u81gj"]
-[ext_resource type="Texture2D" uid="uid://hini7f0mrtm8" path="res://Assets/UI/health_xp_bar/exp_bar_empty.png" id="19_sn526"]
-[ext_resource type="Texture2D" uid="uid://bqky2cynwalpm" path="res://Assets/UI/health_xp_bar/exp_bar_full.png" id="20_ftb2j"]
-[ext_resource type="Texture2D" uid="uid://eapkox5b2153" path="res://Assets/UI/block_empty.png" id="21_ih3wg"]
-[ext_resource type="Texture2D" uid="uid://2aj7qai8fqn6" path="res://Assets/UI/block_full.png" id="22_hxghk"]
-[ext_resource type="Texture2D" uid="uid://bnh3pgipu186k" path="res://Assets/UI/Phase_banner.png" id="30_myyc3"]
-[ext_resource type="Texture2D" uid="uid://cue26re2jwqjj" path="res://Assets/UI/trasparent background/0B663119-D32F-4FA6-AC1E-3040989151F2.png" id="31_ipejj"]
-[ext_resource type="Texture2D" uid="uid://imp8so3kqxlp" path="res://Assets/UI/trasparent background/51A96E2A-E987-4DD6-9C49-37027C877AC6.png" id="32_rq1nn"]
-[ext_resource type="Texture2D" uid="uid://chpwvtsd4pw7y" path="res://Assets/UI/trasparent background/DB3FCCDF-C9DB-4949-A256-86B28C643560.png" id="33_djtow"]
-[ext_resource type="Texture2D" uid="uid://bqkwqjerijyee" path="res://Assets/UI/trasparent background/F4D3C18B-4BE6-4A76-99CA-B95B70916A82.png" id="34_k6t0m"]
-[ext_resource type="Texture2D" uid="uid://cdvndodg2dgoq" path="res://Assets/UI/options_button.png" id="39_meot5"]
+[ext_resource type="Texture2D" uid="uid://dhw6ikymj4u1p" path="res://Assets/UI/health_xp_bar/health_bar_empty.png" id="17_jkmx4"]
+[ext_resource type="Texture2D" uid="uid://cqbji64vum618" path="res://Assets/UI/battle_Label/battle_label_an7.png" id="17_re58h"]
+[ext_resource type="Texture2D" uid="uid://co6wg5jgloq0c" path="res://Assets/UI/health_xp_bar/health_bar_full.png" id="18_u81gj"]
+[ext_resource type="Texture2D" uid="uid://276qgjm5ksbg" path="res://Assets/UI/health_xp_bar/exp_bar_empty.png" id="19_sn526"]
+[ext_resource type="Texture2D" uid="uid://b8s1bnckjwcap" path="res://Assets/UI/health_xp_bar/exp_bar_full.png" id="20_ftb2j"]
+[ext_resource type="Texture2D" uid="uid://b74x3v78pfff6" path="res://Assets/UI/block_empty.png" id="21_ih3wg"]
+[ext_resource type="Texture2D" uid="uid://cgqev4mribj5l" path="res://Assets/UI/block_full.png" id="22_hxghk"]
+[ext_resource type="Texture2D" uid="uid://c2kxj1w86evpb" path="res://Assets/UI/Phase_banner.png" id="30_myyc3"]
+[ext_resource type="Texture2D" uid="uid://bt5gd6knwldey" path="res://Assets/UI/trasparent background/0B663119-D32F-4FA6-AC1E-3040989151F2.png" id="31_ipejj"]
+[ext_resource type="Texture2D" uid="uid://buctd8colcne1" path="res://Assets/UI/trasparent background/51A96E2A-E987-4DD6-9C49-37027C877AC6.png" id="32_rq1nn"]
+[ext_resource type="Texture2D" uid="uid://d1o7y55cydk0p" path="res://Assets/UI/trasparent background/DB3FCCDF-C9DB-4949-A256-86B28C643560.png" id="33_djtow"]
+[ext_resource type="Texture2D" uid="uid://biwileyr3o0jc" path="res://Assets/UI/trasparent background/F4D3C18B-4BE6-4A76-99CA-B95B70916A82.png" id="34_k6t0m"]
+[ext_resource type="Texture2D" uid="uid://cakqu2shy7wk4" path="res://Assets/UI/options_button.png" id="39_meot5"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_t26sl"]
+font = ExtResource("8_2jhyh")
 font_size = 60
 
 [sub_resource type="LabelSettings" id="LabelSettings_qdrky"]
+font = ExtResource("8_2jhyh")
 font_size = 60
 
 [sub_resource type="LabelSettings" id="LabelSettings_licme"]
+font = ExtResource("8_2jhyh")
 font_size = 60
 
 [sub_resource type="LabelSettings" id="LabelSettings_nendl"]
@@ -408,9 +412,9 @@ position = Vector2(141.593, 950)
 scale = Vector2(1.2, 1.2)
 
 [node name="maxcards" type="Label" parent="CanvasLayer/UI"]
-offset_left = 100.0
+offset_left = 99.115
 offset_top = 955.752
-offset_right = 189.0
+offset_right = 188.115
 offset_bottom = 1013.75
 text = "5"
 
@@ -450,9 +454,9 @@ scale = Vector2(1.173, 0.918)
 texture = ExtResource("10_ekqn5")
 
 [node name="redraws" type="Label" parent="CanvasLayer/UI"]
-offset_left = 100.0
+offset_left = 97.3451
 offset_top = 1072.57
-offset_right = 177.001
+offset_right = 174.346
 offset_bottom = 1121.57
 text = "2"
 
@@ -492,9 +496,9 @@ scale = Vector2(1.173, 0.918)
 texture = ExtResource("10_ekqn5")
 
 [node name="Wave" type="Label" parent="CanvasLayer/UI"]
-offset_left = 100.0
+offset_left = 97.3451
 offset_top = 833.628
-offset_right = 134.0
+offset_right = 131.345
 offset_bottom = 856.628
 text = "0"
 
