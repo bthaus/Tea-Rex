@@ -1,13 +1,18 @@
-[gd_scene load_steps=3 format=3 uid="uid://d3553ynahp4sx"]
+[gd_scene load_steps=4 format=3 uid="uid://d3553ynahp4sx"]
 
 [ext_resource type="Script" path="res://Game/minimap.gd" id="1_8fgd4"]
 [ext_resource type="TileSet" uid="uid://dcf0fhqgihare" path="res://GameBoard/game_board_tileset.tres" id="2_sbym8"]
+[ext_resource type="TileSet" uid="uid://d0xe20r8gppag" path="res://GameBoard/game_board_background_tileset.tres" id="3_6qdfi"]
 
 [node name="Minimap" type="Control"]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_8fgd4")
 
-[node name="TileMap" type="TileMap" parent="."]
+[node name="Background" type="TileMap" parent="."]
+tile_set = ExtResource("3_6qdfi")
+format = 2
+
+[node name="Board" type="TileMap" parent="."]
 tile_set = ExtResource("2_sbym8")
 format = 2
