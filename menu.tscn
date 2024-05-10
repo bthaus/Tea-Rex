@@ -428,6 +428,12 @@ offset_right = 151.504
 offset_bottom = 24.77
 text = "Space for cards"
 
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/UI/maxcards/maxhint"]
+show_behind_parent = true
+position = Vector2(77.8766, 10.6195)
+scale = Vector2(1.173, 0.918)
+texture = ExtResource("10_ekqn5")
+
 [node name="redraws" type="Label" parent="CanvasLayer/UI"]
 offset_left = 97.3451
 offset_top = 1072.57
@@ -464,6 +470,12 @@ offset_right = 284.425
 offset_bottom = 26.5398
 text = "Cards drawn per round"
 
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/UI/redraws/redrawhint"]
+show_behind_parent = true
+position = Vector2(86.7255, 12.3859)
+scale = Vector2(1.173, 0.918)
+texture = ExtResource("10_ekqn5")
+
 [node name="Wave" type="Label" parent="CanvasLayer/UI"]
 offset_left = 97.3451
 offset_top = 833.628
@@ -489,11 +501,17 @@ scroll_active = false
 
 [node name="wavehint" type="Label" parent="CanvasLayer/UI/Wave"]
 layout_mode = 0
-offset_left = 115.044
-offset_top = -1.7696
-offset_right = 235.044
-offset_bottom = 53.2304
+offset_left = 120.354
+offset_top = 3.54019
+offset_right = 240.354
+offset_bottom = 58.5402
 text = "Waves survived"
+
+[node name="Sprite2D2" type="Sprite2D" parent="CanvasLayer/UI/Wave/wavehint"]
+show_behind_parent = true
+position = Vector2(77.8761, 12.3894)
+scale = Vector2(1.173, 0.918)
+texture = ExtResource("10_ekqn5")
 
 [node name="HoverHint" parent="CanvasLayer/UI/Wave" node_paths=PackedStringArray("hintText") instance=ExtResource("16_vvx5a")]
 position = Vector2(0, 5.30968)
@@ -538,13 +556,18 @@ offset_bottom = -3.54843
 text = "EXP"
 
 [node name="cathint" type="Label" parent="CanvasLayer/UI"]
-offset_left = 189.381
-offset_top = 649.558
-offset_right = 528.381
-offset_bottom = 724.558
-text = "Time Left until next Catastrophy"
-horizontal_alignment = 1
+offset_left = 230.089
+offset_top = 649.557
+offset_right = 569.089
+offset_bottom = 724.557
+text = "Catastrophy Timer"
 vertical_alignment = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/UI/cathint"]
+show_behind_parent = true
+position = Vector2(83.1858, 38.938)
+scale = Vector2(1.173, 0.918)
+texture = ExtResource("10_ekqn5")
 
 [node name="CatBar" type="TextureProgressBar" parent="CanvasLayer/UI"]
 offset_left = 14.1593

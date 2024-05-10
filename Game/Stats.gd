@@ -218,7 +218,7 @@ static var BULLDOZER_description="Allows you to destroy blocks."
 static var GLUE_description="Slows enemies while they are on it."
 static var UPDRAW_description="Increases the number of cards you draw per round."
 static var UPMAXCARDS_description="Increases the number of cards you can hold."
-const CARD_PLACEMENT_DELAY=0.5
+const CARD_PLACEMENT_DELAY=0.2
 
 static var BLUE_name="Pew Pew"
 static var RED_name="Red saw"

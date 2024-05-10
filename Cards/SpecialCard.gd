@@ -87,7 +87,7 @@ func select(done:Callable):
 	pass;
 
 func cast():
-	if Card.contemplatingInterrupt:
+	if Card.contemplatingInterrupt and not instant:
 		interrupt()
 		return;
 	reparentToState()
