@@ -125,7 +125,7 @@ const enemy_base_speed=8;
 const enemy_base_acceleration = 7;
 const GREEN_enemy_speed=enemy_base_speed*1;
 const BLUE_enemy_speed=enemy_base_speed*1;
-const YELLOW_enemy_speed=enemy_base_speed*1.5;
+const YELLOW_enemy_speed=enemy_base_speed*2;
 const RED_enemy_speed=enemy_base_speed*0.5;
 
 static var enemy_base_exp=10;
