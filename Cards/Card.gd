@@ -9,6 +9,9 @@ signal mouseIn
 signal mouseOut
 
 func select(done:Callable):
+	get_tree().create_timer(Stats.CARD_PLACEMENT_DELAY).timeout.connect(delayedSelect.bind(done))
+	pass;
+func delayedSelect(done):
 	if isCardSelected&&selectedCard!=self:
 		
 		if (selectedCard.card!=null)&&(selectedCard.card is BlockCard):
@@ -21,7 +24,8 @@ func select(done:Callable):
 	if self is BlockCard and state.phase!=Stats.GamePhase.BUILD:
 		return;
 	$DisableButton/DisableCard.show()
-	$DisableButton.mouse_filter=0;	
+	$DisableButton.mouse_filter=0;
+	$Button.disabled=true;	
 	
 	isCardSelected=true;
 	selectedCard=self;
@@ -30,7 +34,7 @@ func select(done:Callable):
 	z_index=20
 	card.select(done)
 	
-	pass;
+	pass;	
 static var counter=0;
 signal finished(card)
 
@@ -156,7 +160,7 @@ func _on_button_mouse_exited():
 func _on_disable_button_pressed():
 	scale=Vector2(1,1)
 	z_index=0
-
+	get_tree().create_timer(Stats.CARD_PLACEMENT_DELAY+0.1).timeout.connect(func():$Button.disabled=false)
 	$DisableButton.mouse_filter=2
 	$DisableButton/DisableCard.hide()
 	isCardSelected=false;	
