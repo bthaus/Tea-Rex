@@ -438,7 +438,8 @@ func init_field():
 	gameState.spawners.append(main_spawner)
 	
 	_draw_background()
-		
+	$Background.set_cell(0, Vector2(gameState.board_width/2, 0), BACKGROUND_FIELD_TILE_ID, Vector2(0,0))
+	
 	#Draw ground
 	for row in range(1, gameState.board_height-1):
 		for col in range(1, gameState.board_width-1):
@@ -449,14 +450,15 @@ func init_field():
 
 func draw_field_from_walls(walls_positions: PackedVector3Array):
 	var height = -1
-	#Add walls
+	#Draw walls
 	for wall_position in walls_positions:
 		$Board.set_cell(BLOCK_LAYER, Vector2(wall_position.x,wall_position.y), wall_position.z, Vector2(0,0))
 		height = max(height, wall_position.y)
 
 	_draw_background()
+	$Background.set_cell(0, Vector2(gameState.board_width/2, 0), BACKGROUND_FIELD_TILE_ID, Vector2(0,0))
 	
-	#Add ground
+	#Draw ground
 	for row in range(1, height):
 		var distance = block_handler.get_board_distance_at_row(BLOCK_LAYER, row)
 		for col in range(distance.from, distance.to+1):
@@ -647,8 +649,8 @@ func _draw_background():
 				$Background.set_cell(0, Vector2(col, row), BACKGROUND_STREET_TILE_ID, Vector2(0,0))
 				continue
 			var id = randi_range(BACKGROUND_RANGE_TILE_IDS.from, BACKGROUND_RANGE_TILE_IDS.to)
-			$Background.set_cell(0, Vector2(col, row), id,Vector2(0,0))
-			
+			$Background.set_cell(0, Vector2(col, row), id, Vector2(0,0))
+
 func _extend_background(old_height: int, new_height: int):
 	randomize()
 	for row in range(old_height+1, new_height+1):
