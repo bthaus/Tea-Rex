@@ -33,6 +33,8 @@ var ignore_click = false
 var is_delayed = false
 var delay_timer: Timer
 
+const SPAWNER_OFFSET = 30
+
 const LEGAL_PLACEMENT_TILE_ID = 1
 const ILLEGAL_PLACEMENT_TILE_ID = 2
 const PREVIEW_BLOCK_TILE_ID = 4
@@ -440,7 +442,8 @@ func init_field():
 	var spawner_position = Vector2(floor(gameState.board_width/2), gameState.board_height-1)	
 	$Board.set_cell(BLOCK_LAYER, spawner_position, -1, Vector2(0,0))
 	$Board.set_cell(GROUND_LAYER, spawner_position, SPAWNER_DOWN_TILE_ID, Vector2(0,0))
-	main_spawner = Spawner.create(gameState,  $Board.map_to_local(spawner_position))
+	var spawner_position_global = $Board.map_to_local(spawner_position)
+	main_spawner = Spawner.create(gameState, Vector2(spawner_position_global.x, spawner_position_global.y - SPAWNER_OFFSET))
 	gameState.spawners.append(main_spawner)
 	
 	_draw_background()
@@ -536,7 +539,8 @@ func extend_field(done:Callable):
 	var spawner_position = Vector2(floor(gameState.board_width/2), gameState.board_height+Stats.board_extend_height-1)
 	$Board.set_cell(BLOCK_LAYER, spawner_position, -1, Vector2(0,0))
 	$Board.set_cell(GROUND_LAYER, spawner_position, SPAWNER_DOWN_TILE_ID, Vector2(0,0))
-	main_spawner.position = $Board.map_to_local(spawner_position)
+	var spawner_position_global = $Board.map_to_local(spawner_position)
+	main_spawner.position = Vector2(spawner_position_global.x, spawner_position_global.y - SPAWNER_OFFSET)
 	
 	#Add spawners left and right
 	var add_spawner_left = randi_range(1, 100) <= Stats.board_cave_spawner_chance_percent
@@ -635,16 +639,16 @@ func add_spawner_to_side_wall(row: int, right_side: bool):
 	$Board.set_cell(BLOCK_LAYER, Vector2(col, row), -1, Vector2(0,0))
 	if right_side: $Board.set_cell(GROUND_LAYER, Vector2(col, row), SPAWNER_RIGHT_TILE_ID, Vector2(0,0))
 	else: $Board.set_cell(GROUND_LAYER, Vector2(col, row), SPAWNER_LEFT_TILE_ID, Vector2(0,0))
+	var spawner
+	var spawner_position_global = $Board.map_to_local(Vector2(col, row))
 	#Add wall to the left/right
-	if right_side: 
-		#$Board.set_cell(BLOCK_LAYER, Vector2(col+1, row-1), WALL_TUNNEL_LEFT_DOWN_TILE_ID, Vector2(0,0))
+	if right_side:
+		spawner = Spawner.create(gameState, Vector2(spawner_position_global.x-SPAWNER_OFFSET, spawner_position_global.y),10)
 		$Board.set_cell(BLOCK_LAYER, Vector2(col+1, row), WALL_EDGE_LEFT_DOWN_TILE_ID, Vector2(0,0))
-		#$Board.set_cell(BLOCK_LAYER, Vector2(col+1, row+1), WALL_TUNNEL_LEFT_UP_TILE_ID, Vector2(0,0))
-	else: 
-		#$Board.set_cell(BLOCK_LAYER, Vector2(col-1, row-1), WALL_TUNNEL_RIGHT_DOWN_TILE_ID, Vector2(0,0))
+	else:
+		spawner = Spawner.create(gameState, Vector2(spawner_position_global.x+SPAWNER_OFFSET, spawner_position_global.y),10)
 		$Board.set_cell(BLOCK_LAYER, Vector2(col-1, row), WALL_EDGE_RIGHT_DOWN_TILE_ID, Vector2(0,0))
-		#$Board.set_cell(BLOCK_LAYER, Vector2(col-1, row+1), WALL_TUNNEL_RIGHT_UP_TILE_ID, Vector2(0,0))
-	var spawner = Spawner.create(gameState, $Board.map_to_local(Vector2(col, row)),10)
+		
 	gameState.spawners.append(spawner)
 
 func _draw_background():
