@@ -8,13 +8,17 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	#button_pressed=GameState.gameState.showTutorials;
+	button_pressed=GameState.gameState.showTutorials;
 	pass
 
 
 func _on_toggled(toggled_on):
-	
-	GameState.gameState.showTutorials=!toggled_on;
+	if toggled_on:
+		for k in TutorialHolder.tutNames.keys():
+				GameSaver.save("0",k,"tutorials")
+				print("restored: "+k)
+	GameState.gameState.showTutorials=toggled_on;
+	print(GameState.gameState.showTutorials)
 	GameSaver.saveGame(GameState.gameState)
 	
 	pass # Replace with function body.
