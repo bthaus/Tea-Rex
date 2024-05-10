@@ -102,14 +102,16 @@ func _input(event):
 		if Input.is_action_pressed("control"):
 			zoom = Vector2(zoom.x + CAMERA_ZOOM, zoom.y + CAMERA_ZOOM)
 		else:
-			position -= Vector2(0, SCROLL_SPEED) / zoom
+			if position.y >= 0:
+				position -= Vector2(0, SCROLL_SPEED) / zoom
 			
 	if event.is_action_pressed("scroll_down"):
 		scrolled.emit()
 		if Input.is_action_pressed("control"):
 			zoom = Vector2(zoom.x - CAMERA_ZOOM, zoom.y - CAMERA_ZOOM)
 		else:
-			position += Vector2(0, SCROLL_SPEED) / zoom
+			if position.y <= gameState.board_height * Stats.block_size:
+				position += Vector2(0, SCROLL_SPEED) / zoom
 var tween			
 func move_to(position: Vector2, done: Callable):
 	tween = get_tree().create_tween()
