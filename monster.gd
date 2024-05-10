@@ -11,7 +11,15 @@ var minionExp;
 var currentMinionPower=1;
 @export var color:Stats.TurretColor=Stats.TurretColor.BLUE
 var died=false;
+enum TurretColor {GREY=1, GREEN=2, RED=3, YELLOW=4,BLUE=5};
 
+static var healthbar=[load("res://Assets/Monsters/minion_healthbar/minionhealthbar_green.png"),
+	load("res://Assets/Monsters/minion_healthbar/minionhealthbar_white.png"),
+	load("res://Assets/Monsters/minion_healthbar/minionhealthbar_green.png"),
+		load("res://Assets/Monsters/minion_healthbar/minionhealthbar_red.png"),
+			load("res://Assets/Monsters/minion_healthbar/minionhealthbar_yellow.png"),
+				load("res://Assets/Monsters/minion_healthbar/minionhealthbar_blue.png")
+]
 var camera;
 @export var target: Node2D #goal
 @onready var nav: NavigationAgent2D = $NavigationAgent2D
@@ -20,6 +28,7 @@ signal reached_spawn(monster:Monster)
 var maxGlow=5;
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	
 	$Hitbox/Hitboxshape.apply_scale(Vector2(sizemult,sizemult));
 	damage=Stats.getEnemyProperty(color,"damage")
 	camera=GameState.gameState.getCamera()
@@ -27,6 +36,10 @@ func _ready():
 	var mod=1+(currentMinionPower*Stats.enemy_scaling)
 	hp=Stats.getEnemyProperty(color,"HP")*mod
 	maxHp=hp
+	
+	$Health.texture_progress=healthbar[color]
+	$Health.max_value=maxHp
+	$Health.value=hp
 	minionExp=Stats.enemy_base_exp;
 	GameState.gameState.player_died.connect(func():free())
 	$Sprite2D.texture=load("res://Assets/Monsters/Monster_"+Stats.getStringFromEnum(color)+".png")
@@ -57,6 +70,7 @@ func hit(color:Stats.TurretColor,damage,type="default",noise=true):
 	if color==self.color:
 		mod=1.5
 	hp=hp-damage*mod;
+	$Health.value=hp;
 	hp=int(hp)
 	$HP.text=str(hp)
 	if !camera.isOffCamera(global_position):

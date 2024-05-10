@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://cq7fvblvncfxh"]
+[gd_scene load_steps=25 format=3 uid="uid://cq7fvblvncfxh"]
 
 [ext_resource type="Script" path="res://monster.gd" id="1_g1k27"]
 [ext_resource type="Texture2D" uid="uid://b0vjaywamx3yp" path="res://Assets/Lights/spotlight.png" id="2_7naar"]
@@ -21,6 +21,7 @@
 [ext_resource type="Texture2D" uid="uid://cd7au2g2n44hj" path="res://Assets/Monsters/monster_yellow/4.png" id="18_w0p2p"]
 [ext_resource type="AudioStream" uid="uid://dbbobs0v85j8x" path="res://Sounds/Soundeffects/new sounds/Minion die sound.wav" id="20_230yg"]
 [ext_resource type="AudioStream" uid="uid://bxe1kduqy6i72" path="res://Sounds/Soundeffects/BLUE_hit.wav" id="21_v7uw0"]
+[ext_resource type="Texture2D" uid="uid://d3i6kkx3sgjrg" path="res://Assets/Monsters/minion_healthbar/minionhealthbar_yellow.png" id="22_j7pik"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_wsh3g"]
 radius = 32.0
@@ -120,6 +121,7 @@ sprite_frames = SubResource("SpriteFrames_q1oek")
 animation = &"BLUE"
 
 [node name="HP" type="Label" parent="."]
+visible = false
 offset_left = -21.0
 offset_top = -55.0
 offset_right = 19.0
@@ -184,5 +186,14 @@ volume_db = -11.174
 
 [node name="hurt" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("21_v7uw0")
+
+[node name="Health" type="TextureProgressBar" parent="."]
+z_index = 20
+offset_left = -49.0
+offset_top = -97.0
+offset_right = 51.0
+offset_bottom = 3.0
+value = 100.0
+texture_progress = ExtResource("22_j7pik")
 
 [connection signal="animation_finished" from="DeathAnim" to="." method="_on_death_anim_animation_finished"]
