@@ -25,7 +25,7 @@ func delayedSelect(done):
 		return;
 	$DisableButton/DisableCard.show()
 	$DisableButton.mouse_filter=0;
-	$Button.disabled=true;	
+	$Button.mouse_filter=2;	
 	
 	isCardSelected=true;
 	selectedCard=self;
@@ -177,7 +177,7 @@ func _on_button_mouse_exited():
 func _on_disable_button_pressed():
 	scale=Vector2(1,1)
 	z_index=0
-	get_tree().create_timer(Stats.CARD_PLACEMENT_DELAY+0.1).timeout.connect(func():$Button.disabled=false)
+	get_tree().create_timer(Stats.CARD_PLACEMENT_DELAY+0.1).timeout.connect(func():$Button.mouse_filter=0)
 	$DisableButton.mouse_filter=2
 	$DisableButton/DisableCard.hide()
 	isCardSelected=false;	

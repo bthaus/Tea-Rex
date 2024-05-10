@@ -20,7 +20,6 @@ offset_bottom = 98.0
 theme_override_styles/normal = SubResource("StyleBoxEmpty_c2wsv")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_c2wsv")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_c2wsv")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_c2wsv")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_c2wsv")
 icon = ExtResource("2_k4a1t")
 
@@ -30,8 +29,7 @@ offset_left = -47.0
 offset_top = -82.0
 offset_right = 41.0
 offset_bottom = -39.0
-text = "Text
-asD"
+text = " "
 label_settings = SubResource("LabelSettings_dena1")
 autowrap_mode = 3
 

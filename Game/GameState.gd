@@ -128,8 +128,8 @@ func drawCards(amount):
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	y=cam.position.y
-	#if Input.is_action_just_pressed("save"):
-		
+	if Input.is_action_just_pressed("save"):
+		hand.drawCard(Card.create(self,SpecialCard.create(self,Stats.SpecialCards.FIREBALL)))
 		#unlock.append(Unlockable.create(Card.create(self,BlockCard.create(self,Stats.getBlockFromShape(Stats.BlockShape.O,Stats.TurretColor.RED,1,Stats.TurretExtension.REDLASER)))))	
 		#checkUnlock()
 		#GameState.gameState.showTutorials=true	

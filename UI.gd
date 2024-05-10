@@ -60,7 +60,8 @@ func _on_start_button_pressed():
 	ui.visible=true;
 	menu.visible=false;
 	$MainMenu/Main/StartButton/Label.text="continue"
-	gameState.startGame()
+	
+	#gameState.startGame()
 	pass # Replace with function body.
 
 
@@ -107,6 +108,7 @@ func selectAcc(name):
 	GameSaver.restoreGame(gameState)
 	parent.updateUI()
 	_on_start_button_pressed()
+	gameState.startGame()
 	
 	pass;	
 func saveNewAcc(name):
@@ -118,7 +120,7 @@ func saveNewAcc(name):
 	accs.append(name);
 	saveAccs(accs)
 	GameSaver.restoreBaseGame(gameState)
-	
+	gameState.startGame()
 	_on_start_button_pressed()
 	
 		

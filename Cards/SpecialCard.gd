@@ -18,11 +18,14 @@ var active=false;
 var tasks=[]
 static var cardID=0;
 var ID;
+static var ignoreNextClick=false;
 static var rng=RandomNumberGenerator.new()
 # Called when the node enters the scene tree for the first time.
 func _ready():
 		
-
+	gameState.getCamera().is_dragging_camera.connect(func():
+		print("ignoring");
+		ignoreNextClick=true)
 	var text=load("res://Assets/UI/Target_Cross.png")
 	$Preview.texture=text
 	
@@ -204,8 +207,10 @@ func reparentToState():
 func _input(event):
 	if !selected:
 		return;
-	
-	if event.is_action_pressed("left_click"):
+	if ignoreNextClick:
+		ignoreNextClick=false;
+		return;
+	if event.is_action_released("left_click"):
 		
 		selected=false;
 		$Preview.visible=false;
