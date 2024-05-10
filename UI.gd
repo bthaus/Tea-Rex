@@ -6,7 +6,7 @@ extends CanvasLayer
 @export var menu:Node2D
 @export var ui:Node2D
 @export var parent:Menu
-
+var tuts;
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -16,8 +16,23 @@ func _ready():
 	#var map2=BitMap.new()
 	#map2.create_from_image_alpha(load("res://Assets/UI/ShowAccountsButton.png"),0)
 	#$MainMenu/Main/Accounts
+	tuts=$MainMenu/UnlockedTab/TutorialNode
+	var offset=0;
+	for t in tuts.get_children():
+		t.get_node("Button").visible=false;
+		t.get_node("CheckButton").visible=false;
+		t.translate(Vector2(0,offset))
+		t.visible=true;
+		offset=offset+800
 	pass # Replace with function body.
-
+func _input(event):
+	print(tuts.global_position)
+	if event.is_action_pressed("scroll_down")and tuts.global_position.y<550:
+		tuts.translate(Vector2(0,100))
+	if event.is_action_pressed("scroll_up") and tuts.global_position.y>-3450:
+		
+		tuts.translate(Vector2(0,-100))	
+	pass;
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -49,7 +64,6 @@ func _on_start_button_pressed():
 
 
 func _on_unlocked_button_pressed():
-	$MainMenu/UnlockedTab/UnlockedItems.refresh()
 	main.visible=false;
 	unlockedTab.visible=true;
 	pass # Replace with function body.

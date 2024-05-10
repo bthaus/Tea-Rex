@@ -740,7 +740,8 @@ func reset():
 	
 	var delay=0;
 	var increment=5.0/cells.size()
-	
+	if cells.size()==0:
+		gameState.menu.showDeathScreen()
 	
 	for c in cells:
 		var p=Block.Piece.new(Vector2(0,0),0,0,0)

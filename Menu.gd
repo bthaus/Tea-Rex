@@ -117,3 +117,12 @@ func _on_start_button_pressed():
 func _on_button_pressed():
 	gamestate.gameBoard._spawn_all_turrets()
 	pass # Replace with function body.
+
+
+func _on_menu_button_pressed():
+	
+	if not Card.isCardSelected:
+		visible=true
+		$CanvasLayer/MainMenu.visible=true
+		gamestate.hand.visible=false
+	pass # Replace with function body.
