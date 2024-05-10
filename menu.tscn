@@ -311,6 +311,7 @@ text = "TAKE ME BACK"
 position = Vector2(778.761, 442.478)
 
 [node name="AccountsTab" type="Node2D" parent="CanvasLayer/MainMenu"]
+visible = false
 
 [node name="AccountList" type="ItemList" parent="CanvasLayer/MainMenu/AccountsTab"]
 offset_left = 584.0
