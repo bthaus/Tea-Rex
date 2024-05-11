@@ -56,7 +56,7 @@ func _process(delta):
 	if tween!=null&&tween.is_running:
 		scrolled.emit()
 	
-	print(position)
+
 	
 	lastpos=global_position.y	
 	pass;

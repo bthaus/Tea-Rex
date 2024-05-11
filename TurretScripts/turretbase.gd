@@ -125,7 +125,8 @@ func setUpTower():
 	#$Ambient.energy=lightamount/ambientDropOff
 	util.p("my light amount is: "+str(lightamount  ))
 	light.energy=lightamount	
-	
+	$Drawpoint.base=base
+	point.type=type
 	pass;
 
 var target;
@@ -162,9 +163,15 @@ func draw_SniperLine():
 		
 		pass;
 	
-	
+@onready var point=$Drawpoint	
 func draw_redlaser():
 	
+	point.target=target
+	point.buildup=buildup
+	point.targetposition=targetposition
+	point.direction=direction
+	point.queue_redraw();
+	return
 	if target!=null:
 		targetposition=target.global_position;
 	if target==null&&buildup<=0:
@@ -189,7 +196,7 @@ func draw_redlaser():
 			var bp=b.get_child(0).position;
 			draw_line((b.position+bp).rotated(base.rotation),-(global_position-(targetposition)-(b.position-bp).rotated(base.rotation)),color,thickness/2*buildup,true)
 			draw_line((b.position+bp).rotated(base.rotation),-(global_position-(targetposition)-(b.position-bp).rotated(base.rotation)),color,thickness*buildup+(3*buildup*sin(Time.get_ticks_usec())),true)
-		
+			queue_redraw()
 	pass;
 	
 func reduceCooldown(delta):
