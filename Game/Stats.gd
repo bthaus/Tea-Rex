@@ -85,8 +85,8 @@ const yellow_mortar_instanthit=true;
 
 const yellow_mortar_penetrations=1;
 const green_explosion_range=0.5;
-const red_laser_damage_stack=3;
-const green_poison_damage_stack=6;
+const red_laser_damage_stack=1;
+const green_poison_damage_stack=3;
 
 const green_glowing=false;
 const blue_glowing=false;
@@ -129,7 +129,7 @@ const YELLOW_enemy_speed=enemy_base_speed*2;
 const RED_enemy_speed=enemy_base_speed*0.7;
 
 static var enemy_base_exp=10;
-static var enemy_scaling=0.55;
+static var enemy_scaling=0.45;
 
 const playerHP=200;
 const playerMaxHP=200;
