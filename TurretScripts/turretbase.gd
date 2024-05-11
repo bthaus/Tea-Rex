@@ -310,7 +310,8 @@ func _process(delta):
 		if buildup<=1 and (type==Stats.TurretColor.RED&&extension==Stats.TurretExtension.DEFAULT)&&buildup<0.01:
 			buildup=buildup+0.01*delta;	
 		var target=$EnemyDetector.enemiesInRange[id%$EnemyDetector.enemiesInRange.size()];
-		
+		if extension==Stats.TurretExtension.REDLASER:
+			target=$EnemyDetector.enemiesInRange[0]
 		direction=(target.global_position-self.global_position).normalized();
 		base.rotation=direction.angle() + PI / 2.0;
 		
