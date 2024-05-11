@@ -761,6 +761,7 @@ offset_top = -294.0
 offset_right = 241.0
 offset_bottom = 330.0
 stream = ExtResource("13_7yg7x")
+volume_db = -80.0
 autoplay = true
 loop = true
 metadata/_edit_use_anchors_ = true

@@ -201,6 +201,7 @@ offset_top = -49.5575
 offset_right = 2329.84
 offset_bottom = 1278.44
 stream = ExtResource("9_wd25y")
+volume_db = -80.0
 autoplay = true
 loop = true
 
