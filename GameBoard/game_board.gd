@@ -215,7 +215,8 @@ func LEVELDOWN_catastrophy(done: Callable):
 				
 		var block = Block.new(pieces)
 		block_handler.draw_block_with_tile_id(Block.new(preview_pieces), Vector2(col, row), CATASTROPHY_PREVIEW_TILE_ID, CATASTROPHY_LAYER)
-		get_tree().create_timer(Stats.CATASTROPHY_PREVIEW_DURATION).timeout.connect(func():
+		Sounds.playFromCamera(gameState, Sounds.level_down)
+		get_tree().create_timer(Stats.CATASTROPHY_PREVIEW_DURATION+1).timeout.connect(func():
 			$Board.clear_layer(CATASTROPHY_LAYER)
 			_set_block_and_turrets_level(block, Vector2(col, row), 1)
 			block_handler.draw_block(block, Vector2(col, row), BLOCK_LAYER, EXTENSION_LAYER)
