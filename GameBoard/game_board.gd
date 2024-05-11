@@ -183,11 +183,11 @@ func DRILL_catastrophy(done: Callable):
 			gameState.getCamera().shake(block.pieces.size()*0.05+1, 5,block.pieces[0].position)
 			for piece in block.pieces:
 				delay=delay+0.05
-				get_tree().create_timer(delay).timeout.connect(func():
+				create_tween().tween_callback(func():
 					Explosion.create(0, 0, $Board.map_to_local(piece.position), self, 0.5)
 					block_handler.remove_block_from_board(Block.new([piece]), Vector2(0, 0), BLOCK_LAYER, EXTENSION_LAYER, false)
 					_remove_turrets(Block.new([piece]), Vector2(0, 0))
-					)
+					).set_delay(delay)
 					
 			get_tree().create_timer(1).timeout.connect(func():
 				_action_finished(true)
@@ -747,32 +747,44 @@ func restoreBaseMap(gameState):
 	GameSaver.loadGameMap(gameState)
 	gameState.account=oldname
 	GameSaver.saveGame(gameState)
-	pass;	
+	pass;
+
 func reset():
 	var cells=$Board.get_used_cells(2)
 	
-	var delay=0;
+	
 	var increment=5.0/cells.size()
 	if cells.size()==0:
 		gameState.menu.showDeathScreen()
 	
-	for c in cells:
-		var p=Block.Piece.new(Vector2(0,0),0,0,0)
-		delay=delay+increment
+	for cachecounter in range(cells.size()):
+		if cachecounter==cells.size()-1:
+			
+			Explosion.pushCache(func():
+				var delay=0
+				for c in cells:
+					var p=Block.Piece.new(Vector2(0,0),0,0,0)
+					delay=delay+increment
+					print(delay)
+					
+					create_tween().tween_callback(func():
+						
+						block_handler.remove_block_from_board(Block.new([p]), c, BLOCK_LAYER, EXTENSION_LAYER, false)
+						_remove_turrets(Block.new([p]),c)
+						Explosion.create(0,0,$Board.map_to_local(c),self,0.5)
+						#gameState.getCamera().shake(0.1,4,c)
+						
+						if $Board.get_used_cells(2).size()==0:
+							
+							gameState.menu.showDeathScreen()
+							
+						).set_delay(delay))
+					
+		
+		else:Explosion.pushCache(func():)
 		
 		
-		get_tree().create_timer(delay).timeout.connect(func():
-			
-			block_handler.remove_block_from_board(Block.new([p]), c, BLOCK_LAYER, EXTENSION_LAYER, false)
-			_remove_turrets(Block.new([p]),c)
-			Explosion.create(0,0,$Board.map_to_local(c),self,0.5)
-			#gameState.getCamera().shake(0.1,4,c)
-			
-			if $Board.get_used_cells(2).size()==0:
-				
-				gameState.menu.showDeathScreen()
-				
-			)
+	
 	pass;
 func dragging_camera(is_dragging: bool):
 	self.is_dragging_camera = is_dragging

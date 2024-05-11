@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=3 uid="uid://d2eyrlfkqd3r2"]
+
+[ext_resource type="Texture2D" uid="uid://0koqdh76olu4" path="res://Assets/Effects/Poison_Explosion/p2.png" id="1_31es1"]
+[ext_resource type="Texture2D" uid="uid://ukbwa77s0idr" path="res://Assets/Effects/Poison_Explosion/p3.png" id="2_t4t87"]
+[ext_resource type="Texture2D" uid="uid://bcc4m1pht41k3" path="res://Assets/Effects/Poison_Explosion/p4.png" id="3_qqs01"]
+[ext_resource type="Texture2D" uid="uid://cafj1q2mcao8l" path="res://Assets/Effects/Poison_Explosion/p5.png" id="4_ny0o2"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_q3hw7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_31es1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_t4t87")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_qqs01")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_ny0o2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_t4t87")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="poisonEffect" type="AnimatedSprite2D"]
+self_modulate = Color(2, 2, 2, 0.631373)
+z_index = 4
+position = Vector2(2, -2)
+scale = Vector2(0.113, 0.113)
+sprite_frames = SubResource("SpriteFrames_q3hw7")
+autoplay = "default"
+frame_progress = 0.0509101

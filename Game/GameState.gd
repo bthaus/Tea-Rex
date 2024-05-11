@@ -129,8 +129,10 @@ func drawCards(amount):
 func _process(delta):
 	
 	y=cam.position.y
-	if Input.is_action_just_pressed("save"):
-		hand.drawCard(Card.create(self,SpecialCard.create(self,Stats.SpecialCards.CRYOBALL)))
+	#if Input.is_action_just_pressed("save"):
+		#hand.drawCard(Card.create(self,SpecialCard.create(self,Stats.SpecialCards.CRYOBALL)))
+		#changeHealth(-5000)
+		#gameBoard.DRILL_catastrophy(func():)
 		#hand.drawCard(Card.create(self,BlockCard.create(self,Stats.getBlockFromShape(Stats.BlockShape.O,Stats.TurretColor.YELLOW,1,Stats.TurretExtension.DEFAULT))))	
 		#checkUnlock()
 		#GameState.gameState.showTutorials=true	
@@ -289,7 +291,8 @@ func startGame():
 			TutorialHolder.showTutorial(TutorialHolder.tutNames.Controls,self)
 			)	
 		)
-	
+	hand.drawCard(Card.create(self,BlockCard.create(self,Stats.getBlockFromShape(Stats.BlockShape.O,Stats.TurretColor.GREEN,1,Stats.TurretExtension.GREENPOISON))))	
+		
 	hand.visible=true;
 	if not started:
 		target=$Base
@@ -308,7 +311,7 @@ func checkLevelUp():
 	
 	if totalExp<levelUp: return
 	levelUp=levelUp*2
-	levelUp=clamp(levelUp,0,10000);
+	levelUp=clamp(levelUp,0,25000);
 	totalExp=0
 	
 	

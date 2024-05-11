@@ -1,27 +1,20 @@
 extends Node2D
 class_name Explosion
 static var cache=[]
+static var scene=load("res://TurretScripts/Projectiles/Explosion.tscn")
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	if noise:
-		sound=AudioStreamPlayer2D.new()
-		add_child(sound)
-		sound.stream=Sounds.explosionSounds.pick_random().duplicate()
-		#temp.sound.stream=load("res://Sounds/Soundeffects/FIREBALL_sound.wav")
-		sound.play(0.10)
-	pass # Replace with function body.
 var damage;
 var type
 var associate;
 var sound;
 var cam
 var noise;
+
 static func create(type,damage, position, root,scale=1,noise=true):
 	var temp;
 
 	if cache.size()==0:
-		temp=load("res://TurretScripts/Projectiles/Explosion.tscn").instantiate() as Explosion;
+		temp=scene.instantiate() as Explosion;
 		temp.type=type;
 		temp.scale=Vector2(scale,scale)
 		#temp.apply_scale(Vector2(scale,scale));
@@ -43,6 +36,12 @@ static func create(type,damage, position, root,scale=1,noise=true):
 	temp.get_node("AnimationPlayer").play("lightup")
 	temp.associate=root;
 	temp.noise=noise
+	if noise:
+		temp.sound=AudioStreamPlayer2D.new()
+		temp.add_child(temp.sound)
+		temp.sound.stream=Sounds.explosionSounds.pick_random().duplicate()
+		#temp.sound.stream=load("res://Sounds/Soundeffects/FIREBALL_sound.wav")
+		temp.sound.play(0.10)
 	#GameState.gameState.getCamera().shake(0.3,0.1,position,1)
 	
 	temp.cam=GameState.gameState.getCamera()
@@ -53,7 +52,16 @@ static func create(type,damage, position, root,scale=1,noise=true):
 	
 	
 	pass;
-
+static func addToCache(done):
+	var temp=scene.instantiate();
+	print(cache.size())
+	cache.push_back(temp)
+	done.call()
+	pass;	
+static func pushCache(done:Callable):
+	Explosion.new().call_deferred("addToCache",done)
+	print(cache.size())
+	pass;
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	
