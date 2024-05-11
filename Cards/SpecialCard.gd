@@ -178,13 +178,13 @@ func castGLUE():
 	
 	$Effect/EnemyDetector.enemyEntered.connect(addGlue)
 	#$Effect/EnemyDetector.enemyLeft.connect(removeGlue)
-	get_tree().create_timer(Stats.GLUE_Duration-0.5).timeout.connect(func removeAllGLUE():
+	create_tween().tween_callback(func removeAllGLUE():
 		$Effect.visible=false;
 		for m in $Effect/EnemyDetector.enemiesInRange:
 			removeGlue.call(m)
 		active=false;
 		queue_free()
-		pass;)
+		pass;).set_delay((Stats.GLUE_Duration-0.5))
 		
 	return true;
 func castPOISON():
