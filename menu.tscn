@@ -332,7 +332,6 @@ text = "TAKE ME BACK"
 position = Vector2(778.761, 442.478)
 
 [node name="AccountsTab" type="Node2D" parent="CanvasLayer/MainMenu"]
-visible = false
 position = Vector2(-38.9381, 3.53982)
 
 [node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/MainMenu/AccountsTab"]
@@ -349,10 +348,10 @@ texture = ExtResource("14_f6300")
 
 [node name="AccountInput" type="LineEdit" parent="CanvasLayer/MainMenu/AccountsTab"]
 self_modulate = Color(1, 1, 1, 0)
-offset_left = 651.598
-offset_top = 53.3455
-offset_right = 1380.6
-offset_bottom = 210.345
+offset_left = 586.0
+offset_top = 23.0
+offset_right = 1439.0
+offset_bottom = 264.0
 placeholder_text = "create Your account"
 max_length = 15
 
