@@ -767,6 +767,28 @@ offset_right = 2037.48
 offset_bottom = 66.0
 texture_normal = ExtResource("39_meot5")
 
+[node name="Cat" type="Sprite2D" parent="CanvasLayer/UI"]
+clip_children = 2
+position = Vector2(1042.48, -42.4558)
+texture = ExtResource("30_myyc3")
+
+[node name="catlabel" type="Label" parent="CanvasLayer/UI/Cat"]
+offset_left = -224.781
+offset_top = -33.6504
+offset_right = 252.219
+offset_bottom = 36.3496
+text = "Build Phase started"
+label_settings = SubResource("LabelSettings_hp71f")
+horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CanvasLayer/UI/Cat"]
+position = Vector2(1.76785, -19.4911)
+scale = Vector2(0.229266, 0.229266)
+sprite_frames = SubResource("SpriteFrames_iq0j2")
+autoplay = "default"
+frame_progress = 0.851657
+
 [node name="PlayerName" type="Label" parent="CanvasLayer"]
 offset_left = 61.9469
 offset_top = -109.735

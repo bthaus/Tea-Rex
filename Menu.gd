@@ -19,7 +19,13 @@ func _ready():
 		var tween=create_tween()
 		tween.tween_property($CanvasLayer/UI/BuildPhase,"position",Vector2(1047.788,42.478),1);
 		tween.tween_property($CanvasLayer/UI/BuildPhase,"position",Vector2(1041.531,-42),1).set_delay(2.5);
-		)	
+		)
+	gamestate.start_catastrophy.connect(func(cat):
+		var tween=create_tween()
+		$CanvasLayer/UI/Cat/catlabel.text=Stats.getCatName(cat)
+		tween.tween_property($CanvasLayer/UI/Cat,"position",Vector2(1047.788,42.478),1);
+		tween.tween_property($CanvasLayer/UI/Cat,"position",Vector2(1041.531,-42),1).set_delay(2.5);
+		)		
 	pass # Replace with function body.
 func stopMusic():
 	if music!=null and music.playing:music.stop()

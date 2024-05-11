@@ -256,12 +256,13 @@ func startCatastrophy():
 			break;
 	if wave==5:
 		cat=Stats.Catastrophies.find_key(Stats.Catastrophies.BULLDOZER)
-			
+	start_catastrophy.emit(cat)		
 	util.p(cat+"_catastrophy called")	
 	gameBoard.call(cat+"_catastrophy",catastrophy_done)
 	
 	return true;
 	pass;
+signal start_catastrophy(cat)	
 func catastrophy_done(finished):
 	if wave==5:
 		gameBoard.start_extension(func():get_tree().create_timer(3).timeout.connect(
