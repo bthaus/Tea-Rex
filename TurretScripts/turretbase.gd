@@ -270,8 +270,10 @@ func checkLight(delta):
 func _input(event):
 	if placed:return;
 	if event is InputEventMouseMotion:
-		if !placed && Card.contemplatingInterrupt:$Button.mouse_filter=2
+		if !placed && Card.isCardSelected && Card.contemplatingInterrupt:$Button.mouse_filter=2
 		else: $Button.mouse_filter=0;
+		
+		
 	pass;	
 func _process(delta):
 	#größter pfusch auf erden. wenn ein block in der hand ist soll er seine range anzeigen, wenn nicht dann nicht.
@@ -436,9 +438,9 @@ func _on_button_mouse_entered():
 			GameState.gameState.menu.showDescription(Stats.getDescription(Stats.TurretExtension.keys()[extension-1]))
 		else:
 			GameState.gameState.menu.showDescription(Stats.getDescription(Stats.getStringFromEnum(type)))
-	if Card.contemplatingInterrupt:return
 	detectorvisible=true;
 	GameState.gameState.showCount(killcount,damagedealt)
+	print("entered")
 	
 	#create_tween().tween_property(enemydetector,"modulate",)
 	pass # Replace with function body.
@@ -457,6 +459,7 @@ func checkDetectorVisibility(delta):
 	else:
 		m=m-4*delta;
 	m=clamp(m,0,1)
+	
 	$EnemyDetector.modulate=Color(m,m,m,m)
 	pass
 func addDamage(Damage):
