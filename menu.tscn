@@ -332,6 +332,7 @@ text = "TAKE ME BACK"
 position = Vector2(778.761, 442.478)
 
 [node name="AccountsTab" type="Node2D" parent="CanvasLayer/MainMenu"]
+visible = false
 position = Vector2(-38.9381, 3.53982)
 
 [node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/MainMenu/AccountsTab"]
