@@ -6,6 +6,7 @@ signal statePropagation(gamestate:GameState)
 var music;
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	
 	music=Sounds.playFromCamera(gamestate,Sounds.music[3])
 	statePropagation.emit(gamestate)
 	gamestate.start_combat_phase.connect(func():
@@ -125,4 +126,16 @@ func _on_menu_button_pressed():
 		visible=true
 		$CanvasLayer/MainMenu.visible=true
 		$CanvasLayer/UI.visible=false
+	pass # Replace with function body.
+
+
+func _on_sound_button_pressed():
+	Sounds.sound=!Sounds.sound;
+	if Sounds.sound:
+		$CanvasLayer/MainMenu/SoundButton/Sprite2D.texture=load("res://Assets/UI/unmuted.png")
+	else:$CanvasLayer/MainMenu/SoundButton/Sprite2D.texture=load("res://Assets/UI/muted.png")	
+	#gamestate.setSound(Sounds.sound)
+	var bus_idx = AudioServer.get_bus_index("Master")
+	AudioServer.set_bus_mute(bus_idx, !Sounds.sound) # or false	
+	
 	pass # Replace with function body.

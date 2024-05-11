@@ -1,5 +1,6 @@
 extends AudioStreamPlayer2D
 class_name Sounds
+static var sound=true;
 static var StartBattlePhase=load("res://Sounds/Soundeffects/new sounds/Start.wav")
 static var explosionSounds=[
 	load("res://Sounds/Soundeffects/explosion/Explosion 2 1.wav"),

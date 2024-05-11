@@ -38,8 +38,9 @@ menu = NodePath("Menu")
 cam = NodePath("Camera2D")
 lightThresholds = NodePath("LightThresholds")
 
-[node name="CanvasModulate" type="CanvasModulate" parent="."]
+[node name="CanvasModulate" type="CanvasModulate" parent="." node_paths=PackedStringArray("state")]
 script = ExtResource("2_7eagx")
+state = NodePath("..")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_83ue6")

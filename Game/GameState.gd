@@ -97,7 +97,7 @@ func hideCount():
 # Called when the node enters the scene tree for the first time.
 var mapdrawnOnce=false;
 func _ready():
-
+	
 	toUnlock.append_array(Stats.TurretExtension.keys())
 	toUnlock.append_array(Stats.SpecialCards.keys())
 	toUnlock.erase("DEFAULT")
@@ -107,7 +107,10 @@ func _ready():
 	
 	if get_child_count()==0:
 		queue_free()
-	
+		return
+		
+	#get_parent().print_tree_pretty()
+	print(get_children().size())
 	gameState=self;
 	Engine.max_fps=30;
 	GameSaver.createBaseGame(self)
@@ -379,4 +382,11 @@ func mortarWorkaround(damage,pos,associate):
 		Explosion.create(Stats.TurretColor.YELLOW,damage,pos,associate,0.5)
 		sprite.queue_free()
 	)
+	pass;
+
+func setSound(on):
+	if on:
+		cam.add_child(cam.listener)
+	else:
+		cam.remove_child(cam.listener)	
 	pass;

@@ -52,7 +52,7 @@ func _process(delta):
 
 
 func _on_start_button_pressed():
-	if gameState.account=="":
+	if gameState==null || gameState.account=="":
 		showAccounts()
 		return
 	$MainMenu/Banner.visible=false;
