@@ -18,7 +18,6 @@ extension = 1
 
 [node name="EnemyDetector" parent="." instance=ExtResource("2_ekhvd")]
 modulate = Color(1, 1, 1, 0)
-position = Vector2(1, 0)
 
 [node name="Timer" type="Timer" parent="."]
 

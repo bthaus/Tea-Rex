@@ -37,9 +37,9 @@ func _input(event):
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if Input.is_action_just_pressed("ui_menu") and not Card.isCardSelected:
+	if Input.is_action_just_pressed("ui_menu") and not Card.isCardSelected and gameState.account!="":
 		menu.visible=!menu.visible
-		$UI/Hand.visible=!menu.visible
+		$UI.visible=!menu.visible
 		
 	if Input.is_action_just_pressed("delete"):
 		if accountsTab.visible:

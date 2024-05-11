@@ -10,16 +10,16 @@ signal enemyLeft(enemy:Monster);
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	setRange(rangeMult)
-	
+	position=Vector2(2,0)
 	pass # Replace with function body.
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 
 func setRange(mult):
-	$Area2D/detectionshape.scale=Vector2(mult,mult);
-	$Area2D/Preview.scale=$Area2D/Preview.scale*Vector2(mult,mult)
-	
+	#$Area2D/detectionshape.scale=Vector2(mult,mult);
+	#$Area2D/Preview.scale=$Area2D/Preview.scale*Vector2(mult,mult)
+	scale=Vector2(mult,mult);
 	pass;
 func _process(delta):
 	pass

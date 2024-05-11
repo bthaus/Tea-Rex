@@ -124,5 +124,5 @@ func _on_menu_button_pressed():
 	if not Card.isCardSelected:
 		visible=true
 		$CanvasLayer/MainMenu.visible=true
-		gamestate.hand.visible=false
+		$CanvasLayer/UI.visible=false
 	pass # Replace with function body.

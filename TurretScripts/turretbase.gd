@@ -48,8 +48,8 @@ static var counter=0;
 func _ready():
 	counter=counter+1;
 	id=counter;
-	if not placed:
-		$Button.mouse_filter=2
+	#if not placed:
+		#$Button.mouse_filter=2
 	light=$PointLight2D
 	setUpTower();	
 	GameState.gameState.start_combat_phase.connect(func():
@@ -171,7 +171,7 @@ func draw_redlaser():
 	point.targetposition=targetposition
 	point.direction=direction
 	point.queue_redraw();
-	return
+	#return
 	if target!=null:
 		targetposition=target.global_position;
 	if target==null&&buildup<=0:
@@ -267,11 +267,17 @@ func checkLight(delta):
 	#light.energy=light.energy-9*delta;
 	pass;
 	
-	
+func _input(event):
+	if placed:return;
+	if event is InputEventMouseMotion:
+		if !placed && Card.contemplatingInterrupt:$Button.mouse_filter=2
+		else: $Button.mouse_filter=0;
+	pass;	
 func _process(delta):
 	#größter pfusch auf erden. wenn ein block in der hand ist soll er seine range anzeigen, wenn nicht dann nicht.
 	#der turm weiß nur nie ob er in der hand ist oder nicht -> card intercepten
 	if !placed:$Button.visible=Card.isCardSelected
+	
 	
 	checkDetectorVisibility(delta)
 	if GameState.gameState==null:return
@@ -430,11 +436,15 @@ func _on_button_mouse_entered():
 			GameState.gameState.menu.showDescription(Stats.getDescription(Stats.TurretExtension.keys()[extension-1]))
 		else:
 			GameState.gameState.menu.showDescription(Stats.getDescription(Stats.getStringFromEnum(type)))
-		
+	if Card.contemplatingInterrupt:return
 	detectorvisible=true;
 	GameState.gameState.showCount(killcount,damagedealt)
+	
+	#create_tween().tween_property(enemydetector,"modulate",)
 	pass # Replace with function body.
 var detectorvisible=false;	
+
+
 var m=0;
 
 func checkDetectorVisibility(delta):
