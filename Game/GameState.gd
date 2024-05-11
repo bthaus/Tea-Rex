@@ -291,7 +291,7 @@ func startGame():
 			TutorialHolder.showTutorial(TutorialHolder.tutNames.Controls,self)
 			)	
 		)
-	hand.drawCard(Card.create(self,BlockCard.create(self,Stats.getBlockFromShape(Stats.BlockShape.O,Stats.TurretColor.GREEN,1,Stats.TurretExtension.GREENPOISON))))	
+	#hand.drawCard(Card.create(self,BlockCard.create(self,Stats.getBlockFromShape(Stats.BlockShape.O,Stats.TurretColor.GREEN,1,Stats.TurretExtension.GREENPOISON))))	
 		
 	hand.visible=true;
 	if not started:
