@@ -118,6 +118,7 @@ sprite_frames = SubResource("SpriteFrames_qa1dp")
 animation = &"GLUE"
 
 [node name="EnemyDetector" parent="Effect" instance=ExtResource("12_giv3f")]
+visible = false
 scale = Vector2(6.31, 6.31)
 
 [node name="EffectSound" type="AudioStreamPlayer2D" parent="."]

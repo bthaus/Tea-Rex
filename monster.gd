@@ -110,6 +110,7 @@ func spawnEXP():
 	
 	#tweener(10,sprite)
 	pass;
+	
 func tweener(iteration,sprite):
 	
 	if iteration==0:
@@ -141,6 +142,11 @@ func move():
 	tw.finished.connect(move)
 
 	pass;
+func resetTween():
+	if tw.is_running():
+		tw.kill()
+	move()	
+	pass;	
 func moveAndSlide():
 	#move_and_slide()
 	

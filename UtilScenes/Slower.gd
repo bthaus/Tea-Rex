@@ -12,6 +12,7 @@ func _ready():
 	monster=get_parent() as Monster
 	restore=monster.speedfactor
 	monster.speedfactor=monster.speedfactor*factor
+	monster.resetTween()
 	pass # Replace with function body.
 
 static func create(duration,factor)->Slower:
@@ -22,6 +23,7 @@ static func create(duration,factor)->Slower:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func remove():
 	monster.speedfactor=monster.speedfactor/factor;
+	monster.resetTween()
 	queue_free()
 	pass;
 func _process(delta):

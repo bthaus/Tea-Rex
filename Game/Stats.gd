@@ -129,21 +129,21 @@ const YELLOW_enemy_speed=enemy_base_speed*2;
 const RED_enemy_speed=enemy_base_speed*0.7;
 
 static var enemy_base_exp=10;
-static var enemy_scaling=0.45;
+static var enemy_scaling=0.55;
 
 const playerHP=200;
 const playerMaxHP=200;
 
-const FIREBALL_damage=500;
+const FIREBALL_damage=9999999;
 const FIREBALL_range=1;
 const FIREBALL_phase=GamePhase.BATTLE
 const FIREBALL_instant=false;
 
 const CRYOBALL_damage=100;
-const CRYOBALL_range=1;
+const CRYOBALL_range=2;
 const CRYOBALL_phase=GamePhase.BATTLE
 const CRYOBALL_instant=false;
-const CRYOBALL_slowFactor=0.5;
+const CRYOBALL_slowFactor=0.2;
 const CRYOBALL_slowDuration=10;
 
 #damage for simplicity of call, it heals you, doesnt damage you. range==multiplicator for each round held
@@ -174,7 +174,7 @@ const GLUE_Duration=10;
 
 static var rng=RandomNumberGenerator.new()
 const POISON_damage=100;
-const POISON_range=0.5;
+const POISON_range=1;
 const POISON_phase=GamePhase.BATTLE
 const POISON_instant=false;
 const POISON_decay=5;
