@@ -28,11 +28,14 @@ func _ready():
 	pass # Replace with function body.
 func _input(event):
 	
-	if event.is_action_pressed("scroll_down")and tuts.global_position.y<550:
+	if event.is_action_pressed("scroll_down")and tuts.global_position.y <550 and unlockedTab.visible:
 		tuts.translate(Vector2(0,100))
-	if event.is_action_pressed("scroll_up") and tuts.global_position.y>-9000:
-		
+	if event.is_action_pressed("scroll_up") and tuts.global_position.y>-9000 and unlockedTab.visible:
 		tuts.translate(Vector2(0,-100))	
+	if event.is_action_pressed("scroll_down")and accoundentries.global_position.y<500 and accountsTab.visible:
+		accoundentries.translate(Vector2(0,100))
+	if event.is_action_pressed("scroll_up") and accoundentries.global_position.y>-350*accoundentries.get_child_count()+1200 and accountsTab.visible:
+		accoundentries.translate(Vector2(0,-100))		
 	pass;
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -82,7 +85,9 @@ func _on_menu_state_propagation(gamestate):
 func showAccounts():
 	accountsTab.visible=true
 	refreshAccountList()
-		
+	blinkHint(true)	
+	$MainMenu/AccountsTab/Sprite2D2/AccountNameHint.text="Enter your name to start"
+	$MainMenu/AccountsTab/Sprite2D2/AccountNameHint.modulate=Color(1,1,1,1)
 	pass;
 
 func initAccs():
@@ -109,13 +114,15 @@ func selectAcc(name):
 	parent.updateUI()
 	_on_start_button_pressed()
 	gameState.startGame()
+	HideAccounts()
 	
 	pass;	
 func saveNewAcc(name):
 	var accs=loadAccs()
 	gameState.account=name
 	if accs!=null and accs.find(name)!=-1:
-		print("accountname already taken!")
+		$MainMenu/AccountsTab/Sprite2D2/AccountNameHint.text="Name taken!"
+		$MainMenu/AccountsTab/Sprite2D2/AccountNameHint.modulate=Color(1,0,0,1)
 		return
 	accs.append(name);
 	saveAccs(accs)
@@ -132,12 +139,22 @@ func removeAcc(name):
 	saveAccs(accs)
 	
 	pass;
+	
+var accoundentries;	
 func refreshAccountList():
 	var accs=loadAccs();
-	var list=$MainMenu/AccountsTab/AccountList as ItemList
-	list.clear()
+	for entry in $MainMenu/AccountsTab/EntryPosition/pos.get_children():
+		entry.free()
+	AccountEntry.allEntries.clear()
+	#$MainMenu/AccountsTab/EntryPosition/pos.global_position=Vector2(-24,-405)
+	accoundentries=$MainMenu/AccountsTab/EntryPosition/pos
+	var offset=0
 	for a in accs:
-		list.add_item(a)
+		var entry=AccountEntry.create(a)
+		$MainMenu/AccountsTab/EntryPosition/pos.add_child(entry)
+		entry.translate(Vector2(0,offset))
+		offset=offset+350;
+		entry.start.connect(selectAcc)
 	pass;
 func _on_account_input_text_submitted(new_text):
 	var accs=loadAccs()
@@ -149,6 +166,7 @@ func _on_account_input_text_submitted(new_text):
 func HideAccounts():
 	accountsTab.visible=false;
 	main.visible=true
+	
 	pass # Replace with function body.
 
 
@@ -173,4 +191,30 @@ func _on_account_list_item_activated(index):
 	var selected=$MainMenu/AccountsTab/AccountList.get_item_text(index)
 	selectAcc(selected)
 	
+	pass # Replace with function body.
+
+
+
+func _on_account_input_focus_entered():
+	create_tween().tween_property($MainMenu/AccountsTab/Sprite2D/accountlight,"energy",1.4,0.5)
+	pass # Replace with function body.
+
+
+func _on_account_input_focus_exited():
+	create_tween().tween_property($MainMenu/AccountsTab/Sprite2D/accountlight,"energy",0,1.5)
+	pass # Replace with function body.
+static var blinking=true;
+func blinkHint(show):
+	if not blinking:
+		$MainMenu/AccountsTab/typehint.visible=false;
+		return;
+	$MainMenu/AccountsTab/typehint.visible=show
+	create_tween().tween_callback(blinkHint.bind(!show)).set_delay(0.5)
+	pass;
+func _on_account_input_text_changed(new_text):
+	if new_text=="":
+		blinking=true;
+		blinkHint(true);
+	else:blinking=false;	
+	$MainMenu/AccountsTab/accountnametext.text=new_text
 	pass # Replace with function body.

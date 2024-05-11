@@ -22,7 +22,7 @@ func _ready():
 		)	
 	pass # Replace with function body.
 func stopMusic():
-	if music.playing:music.stop()
+	if music!=null and music.playing:music.stop()
 	pass;	
 func updateUI():
 	$CanvasLayer/UI/Killcount.text=gamestate.count;
@@ -138,4 +138,8 @@ func _on_sound_button_pressed():
 	var bus_idx = AudioServer.get_bus_index("Master")
 	AudioServer.set_bus_mute(bus_idx, !Sounds.sound) # or false	
 	
+	pass # Replace with function body.
+
+
+func _on_account_input_focus_exited():
 	pass # Replace with function body.

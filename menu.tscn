@@ -1,4 +1,4 @@
-[gd_scene load_steps=60 format=3 uid="uid://cf5heufemalnf"]
+[gd_scene load_steps=64 format=3 uid="uid://cf5heufemalnf"]
 
 [ext_resource type="Script" path="res://Menu.gd" id="1_vjikn"]
 [ext_resource type="Script" path="res://UI.gd" id="2_vouda"]
@@ -25,6 +25,7 @@
 [ext_resource type="Texture2D" uid="uid://d0bdq8gnbp4f5" path="res://Assets/UI/label_maxCards.png" id="13_kv3ah"]
 [ext_resource type="Texture2D" uid="uid://3iid6vrfhtgm" path="res://Assets/UI/battle_Label/battle_label_an3.png" id="13_tu5pj"]
 [ext_resource type="Texture2D" uid="uid://cle6jpm068sar" path="res://Assets/UI/label_redrawCards.png" id="14_2tmxv"]
+[ext_resource type="Texture2D" uid="uid://b0vjaywamx3yp" path="res://Assets/Lights/spotlight.png" id="14_f6300"]
 [ext_resource type="Texture2D" uid="uid://dwq8gynemg7wd" path="res://Assets/UI/highscore_label.png" id="14_qvgeg"]
 [ext_resource type="Texture2D" uid="uid://q8ob5jhpgu26" path="res://Assets/UI/battle_Label/battle_label_an4.png" id="14_rhiyx"]
 [ext_resource type="Texture2D" uid="uid://cheapt26ehvld" path="res://Assets/UI/battle_Label/battle_label_an5.png" id="15_2pbux"]
@@ -58,6 +59,15 @@ font_size = 80
 [sub_resource type="LabelSettings" id="LabelSettings_licme"]
 font = ExtResource("8_2jhyh")
 font_size = 80
+
+[sub_resource type="LabelSettings" id="LabelSettings_hsadf"]
+font_size = 151
+
+[sub_resource type="LabelSettings" id="LabelSettings_i55r7"]
+font_size = 72
+
+[sub_resource type="LabelSettings" id="LabelSettings_wohyv"]
+font_size = 24
 
 [sub_resource type="Theme" id="Theme_io2m8"]
 
@@ -322,30 +332,50 @@ text = "TAKE ME BACK"
 position = Vector2(778.761, 442.478)
 
 [node name="AccountsTab" type="Node2D" parent="CanvasLayer/MainMenu"]
-visible = false
-
-[node name="AccountList" type="ItemList" parent="CanvasLayer/MainMenu/AccountsTab"]
-offset_left = 584.0
-offset_top = 556.0
-offset_right = 1373.0
-offset_bottom = 1121.0
+position = Vector2(-38.9381, 3.53982)
 
 [node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/MainMenu/AccountsTab"]
-position = Vector2(975.221, 437.168)
-texture = ExtResource("4_mukw3")
+position = Vector2(1005.31, 141.593)
+scale = Vector2(4.715, 4.715)
+texture = ExtResource("10_ekqn5")
+
+[node name="accountlight" type="PointLight2D" parent="CanvasLayer/MainMenu/AccountsTab/Sprite2D"]
+light_mask = 2
+position = Vector2(-0.750774, 1.50151)
+scale = Vector2(3.88282, 1.30209)
+range_layer_max = 7
+texture = ExtResource("14_f6300")
 
 [node name="AccountInput" type="LineEdit" parent="CanvasLayer/MainMenu/AccountsTab"]
-offset_left = 600.0
-offset_top = 356.0
-offset_right = 1329.0
-offset_bottom = 513.0
+self_modulate = Color(1, 1, 1, 0)
+offset_left = 651.598
+offset_top = 53.3455
+offset_right = 1380.6
+offset_bottom = 210.345
 placeholder_text = "create Your account"
+max_length = 15
+
+[node name="typehint" type="Label" parent="CanvasLayer/MainMenu/AccountsTab"]
+offset_left = 649.558
+offset_top = 40.708
+offset_right = 695.558
+offset_bottom = 247.708
+text = "I"
+label_settings = SubResource("LabelSettings_hsadf")
+
+[node name="accountnametext" type="Label" parent="CanvasLayer/MainMenu/AccountsTab"]
+offset_left = 694.0
+offset_top = 94.0
+offset_right = 1358.0
+offset_bottom = 219.0
+text = " "
+label_settings = SubResource("LabelSettings_i55r7")
 
 [node name="Button" type="TextureButton" parent="CanvasLayer/MainMenu/AccountsTab"]
-offset_left = 1246.02
-offset_top = 253.097
-offset_right = 1366.02
-offset_bottom = 329.097
+offset_left = 373.451
+offset_top = 192.92
+offset_right = 568.451
+offset_bottom = 266.92
 texture_normal = ExtResource("10_ekqn5")
 
 [node name="Label" type="Label" parent="CanvasLayer/MainMenu/AccountsTab/Button"]
@@ -355,6 +385,29 @@ offset_top = 21.2393
 offset_right = 153.706
 offset_bottom = 44.2393
 text = "TAKE ME BACK"
+
+[node name="EntryPosition" type="Sprite2D" parent="CanvasLayer/MainMenu/AccountsTab"]
+clip_children = 1
+position = Vector2(1033.63, 952.212)
+texture = ExtResource("16_oeuhs")
+
+[node name="pos" type="Node2D" parent="CanvasLayer/MainMenu/AccountsTab/EntryPosition"]
+position = Vector2(-24.7788, -405.31)
+
+[node name="Sprite2D2" type="Sprite2D" parent="CanvasLayer/MainMenu/AccountsTab"]
+light_mask = 2
+visibility_layer = 2
+position = Vector2(1015.93, 306.195)
+scale = Vector2(1.49948, 1.49948)
+texture = ExtResource("30_myyc3")
+
+[node name="AccountNameHint" type="Label" parent="CanvasLayer/MainMenu/AccountsTab/Sprite2D2"]
+offset_left = -139.281
+offset_top = -28.3284
+offset_right = 288.719
+offset_bottom = 21.6716
+text = "Enter your name to start"
+label_settings = SubResource("LabelSettings_wohyv")
 
 [node name="Scores" type="Node2D" parent="CanvasLayer/MainMenu"]
 visible = false
@@ -725,7 +778,7 @@ libraries = {
 [node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/AnimationPlayer"]
 modulate = Color(1, 1, 1, 0)
 z_index = 4096
-position = Vector2(1107.96, 564.602)
+position = Vector2(1092.04, 566.372)
 scale = Vector2(2.30182, 1.13103)
 texture = ExtResource("16_oeuhs")
 
@@ -738,7 +791,9 @@ texture = ExtResource("16_oeuhs")
 [connection signal="toggled" from="CanvasLayer/MainMenu/Main/Sprite2D/CheckButton" to="CanvasLayer/MainMenu/Main/Sprite2D/CheckButton" method="_on_toggled"]
 [connection signal="visibility_changed" from="CanvasLayer/MainMenu/UnlockedTab" to="CanvasLayer" method="_on_unlocked_tab_visibility_changed"]
 [connection signal="pressed" from="CanvasLayer/MainMenu/UnlockedTab/Button" to="CanvasLayer" method="hideUnlocks"]
-[connection signal="item_activated" from="CanvasLayer/MainMenu/AccountsTab/AccountList" to="CanvasLayer" method="_on_account_list_item_activated"]
+[connection signal="focus_entered" from="CanvasLayer/MainMenu/AccountsTab/AccountInput" to="CanvasLayer" method="_on_account_input_focus_entered"]
+[connection signal="focus_exited" from="CanvasLayer/MainMenu/AccountsTab/AccountInput" to="CanvasLayer" method="_on_account_input_focus_exited"]
+[connection signal="text_changed" from="CanvasLayer/MainMenu/AccountsTab/AccountInput" to="CanvasLayer" method="_on_account_input_text_changed"]
 [connection signal="text_submitted" from="CanvasLayer/MainMenu/AccountsTab/AccountInput" to="CanvasLayer" method="_on_account_input_text_submitted"]
 [connection signal="pressed" from="CanvasLayer/MainMenu/AccountsTab/Button" to="CanvasLayer" method="HideAccounts"]
 [connection signal="pressed" from="CanvasLayer/MainMenu/SoundButton" to="." method="_on_sound_button_pressed"]

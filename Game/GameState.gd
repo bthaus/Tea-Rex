@@ -34,6 +34,7 @@ var y=0
 var spawners=[]
 var target;
 var showTutorials=true;
+var level=0;
 
 static var blueChance=100;
 static var redChance=0;
@@ -316,7 +317,7 @@ func checkLevelUp():
 	levelUp=levelUp*2
 	levelUp=clamp(levelUp,0,25000);
 	totalExp=0
-	
+	level=level+1;
 	
 	var unlocked=unlockRandom()
 	if unlocked==null:
