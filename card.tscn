@@ -17,6 +17,7 @@ offset_left = -62.0
 offset_top = -102.0
 offset_right = 62.0
 offset_bottom = 98.0
+mouse_default_cursor_shape = 2
 theme_override_styles/normal = SubResource("StyleBoxEmpty_c2wsv")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_c2wsv")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_c2wsv")

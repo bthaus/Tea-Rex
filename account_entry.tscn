@@ -113,6 +113,7 @@ offset_left = -252.0
 offset_top = -168.0
 offset_right = 250.0
 offset_bottom = 166.0
+mouse_default_cursor_shape = 2
 
 [node name="hint" type="Label" parent="."]
 modulate = Color(1, 1, 1, 0)
