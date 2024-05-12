@@ -1,19 +1,23 @@
-[gd_scene load_steps=18 format=3 uid="uid://b4r0647fdt4ow"]
+[gd_scene load_steps=22 format=3 uid="uid://b4r0647fdt4ow"]
 
-[ext_resource type="VideoStream" path="res://Assets/TutorialVideos/RotateBlock.ogv" id="1_5j4vo"]
 [ext_resource type="Script" path="res://TutorialHolder.gd" id="1_f82j1"]
 [ext_resource type="Script" path="res://tutorial.gd" id="2_ogttl"]
 [ext_resource type="Texture2D" uid="uid://b7a7irfdhr34m" path="res://Assets/UI/trasparent background/label_groß.png" id="3_ovxn3"]
-[ext_resource type="VideoStream" path="res://Assets/TutorialVideos/NoBlocking.ogv" id="6_ig4fo"]
-[ext_resource type="VideoStream" path="res://Assets/TutorialVideos/ColorRestriction.ogv" id="6_uk43q"]
-[ext_resource type="VideoStream" path="res://Assets/TutorialVideos/UpgradeBlocks.ogv" id="7_6arob"]
-[ext_resource type="VideoStream" path="res://Assets/TutorialVideos/Pathfinding.ogv" id="8_8rs3a"]
-[ext_resource type="VideoStream" path="res://Assets/TutorialVideos/UpgradeBlocks2.ogv" id="8_w11wx"]
-[ext_resource type="VideoStream" path="res://Assets/TutorialVideos/Starting.ogv" id="10_iy44i"]
-[ext_resource type="VideoStream" path="res://Assets/TutorialVideos/Outside.ogv" id="12_85ars"]
+[ext_resource type="VideoStream" path="res://Assets/TutorialVideos/propertutogv/Rotating.ogv" id="5_wjlby"]
+[ext_resource type="VideoStream" path="res://Assets/TutorialVideos/propertutogv/NoBlocking.ogv" id="6_djb4d"]
+[ext_resource type="VideoStream" path="res://Assets/TutorialVideos/propertutogv/ColorRestriction.ogv" id="7_nbnlr"]
+[ext_resource type="VideoStream" path="res://Assets/TutorialVideos/propertutogv/UpgradeBlocks2.ogv" id="9_cc2fb"]
+[ext_resource type="VideoStream" path="res://Assets/TutorialVideos/propertutogv/UpgradeBlocks.ogv" id="9_n3cbk"]
+[ext_resource type="VideoStream" path="res://Assets/TutorialVideos/propertutogv/Pathfinding.ogv" id="10_pdyx6"]
+[ext_resource type="VideoStream" path="res://Assets/TutorialVideos/propertutogv/Starting.ogv" id="11_e7kpe"]
+[ext_resource type="VideoStream" path="res://Assets/TutorialVideos/propertutogv/Information.ogv" id="12_8kl77"]
+[ext_resource type="VideoStream" path="res://Assets/TutorialVideos/propertutogv/unlock.ogv" id="12_g7f00"]
 [ext_resource type="VideoStream" path="res://Assets/TutorialVideos/Controls.ogv" id="13_7yg7x"]
 [ext_resource type="Texture2D" uid="uid://bt5gd6knwldey" path="res://Assets/UI/trasparent background/0B663119-D32F-4FA6-AC1E-3040989151F2.png" id="13_388ff"]
+[ext_resource type="VideoStream" path="res://Assets/TutorialVideos/propertutogv/Outside.ogv" id="13_qendo"]
+[ext_resource type="VideoStream" path="res://Assets/TutorialVideos/propertutogv/Controls.ogv" id="14_4jbi3"]
 [ext_resource type="Texture2D" uid="uid://buctd8colcne1" path="res://Assets/UI/trasparent background/51A96E2A-E987-4DD6-9C49-37027C877AC6.png" id="14_bnll3"]
+[ext_resource type="VideoStream" path="res://Assets/TutorialVideos/propertutogv/cat.ogv" id="15_6nrgp"]
 [ext_resource type="Texture2D" uid="uid://d1o7y55cydk0p" path="res://Assets/UI/trasparent background/DB3FCCDF-C9DB-4949-A256-86B28C643560.png" id="15_qs3ew"]
 [ext_resource type="Texture2D" uid="uid://biwileyr3o0jc" path="res://Assets/UI/trasparent background/F4D3C18B-4BE6-4A76-99CA-B95B70916A82.png" id="16_vc6e8"]
 
@@ -47,16 +51,6 @@ script = ExtResource("2_ogttl")
 [node name="Background" type="Sprite2D" parent="RotateBlock"]
 position = Vector2(164.522, -19.1213)
 texture = ExtResource("3_ovxn3")
-
-[node name="Vid" type="VideoStreamPlayer" parent="RotateBlock"]
-offset_left = -401.0
-offset_top = -297.0
-offset_right = 239.0
-offset_bottom = 247.0
-stream = ExtResource("1_5j4vo")
-volume_db = -80.0
-autoplay = true
-loop = true
 
 [node name="Text" type="RichTextLabel" parent="RotateBlock"]
 offset_left = 299.0
@@ -109,18 +103,20 @@ text = "2/3"
 clip_children = 1
 polygon = PackedVector2Array(-399, -241, -399, 205, -376, 205, -367, 208, -360, 213, -354, 221, -351, 230, -350, 245, 293, 244, 293, -293, -350, -293, -350, -269, -353, -262, -356, -256, -362, -250, -371, -245, -376, -244, -399, -243)
 
-[node name="Vid" type="VideoStreamPlayer" parent="RotateBlock/Polygon2D"]
-offset_left = -438.0
-offset_top = -319.0
-offset_right = 346.0
-offset_bottom = 289.0
-stream = ExtResource("12_85ars")
+[node name="Vid2" type="VideoStreamPlayer" parent="RotateBlock/Polygon2D"]
+offset_left = -411.0
+offset_top = -354.0
+offset_right = 373.0
+offset_bottom = 254.0
+mouse_filter = 2
+stream = ExtResource("5_wjlby")
 volume_db = -80.0
 autoplay = true
 loop = true
 metadata/_edit_use_anchors_ = true
 
 [node name="NoBlocking" type="Node2D" parent="."]
+visible = false
 script = ExtResource("2_ogttl")
 
 [node name="Background" type="Sprite2D" parent="NoBlocking"]
@@ -175,12 +171,14 @@ offset_left = -404.0
 offset_top = -296.0
 offset_right = 236.0
 offset_bottom = 248.0
-stream = ExtResource("6_ig4fo")
+mouse_filter = 2
+stream = ExtResource("6_djb4d")
 volume_db = -80.0
 autoplay = true
 loop = true
 
 [node name="ColorRestriction" type="Node2D" parent="."]
+visible = false
 script = ExtResource("2_ogttl")
 
 [node name="Background" type="Sprite2D" parent="ColorRestriction"]
@@ -236,12 +234,14 @@ offset_left = -397.0
 offset_top = -299.0
 offset_right = 243.0
 offset_bottom = 245.0
-stream = ExtResource("6_uk43q")
+mouse_filter = 2
+stream = ExtResource("7_nbnlr")
 volume_db = -80.0
 autoplay = true
 loop = true
 
 [node name="UpgradeBlocks" type="Node2D" parent="."]
+visible = false
 script = ExtResource("2_ogttl")
 
 [node name="Background" type="Sprite2D" parent="UpgradeBlocks"]
@@ -254,7 +254,7 @@ offset_top = -185.83
 offset_right = 690.0
 offset_bottom = 158.17
 bbcode_enabled = true
-text = "Stacking [b]same colored[/] blocks on top of each other makes them more powerful. 
+text = "Stacking [b]same colored[/b] blocks on top of each other makes them more powerful. 
 The blocks have to be [b]overlapping[/b] completely!
 Also: You can't stack grey pieces. "
 
@@ -298,12 +298,14 @@ offset_left = -399.0
 offset_top = -294.0
 offset_right = 241.0
 offset_bottom = 250.0
-stream = ExtResource("7_6arob")
+mouse_filter = 2
+stream = ExtResource("9_n3cbk")
 volume_db = -80.0
 autoplay = true
 loop = true
 
 [node name="UpgradeBlocks2" type="Node2D" parent="."]
+visible = false
 script = ExtResource("2_ogttl")
 
 [node name="Background" type="Sprite2D" parent="UpgradeBlocks2"]
@@ -318,6 +320,7 @@ offset_bottom = 158.17
 bbcode_enabled = true
 text = "All blocks your stacking on top of have to be [b]the same level[/b].
 So you have to be careful how you place your blocks!
+[b]Adjacent[/b] blocks of [b]the same level[/b] are highlighted!
 "
 
 [node name="Title" type="RichTextLabel" parent="UpgradeBlocks2"]
@@ -360,12 +363,14 @@ offset_left = -400.0
 offset_top = -292.0
 offset_right = 240.0
 offset_bottom = 252.0
-stream = ExtResource("8_w11wx")
+mouse_filter = 2
+stream = ExtResource("9_cc2fb")
 volume_db = -80.0
 autoplay = true
 loop = true
 
 [node name="Pathfinding" type="Node2D" parent="."]
+visible = false
 script = ExtResource("2_ogttl")
 
 [node name="Background" type="Sprite2D" parent="Pathfinding"]
@@ -420,7 +425,8 @@ offset_left = -400.0
 offset_top = -300.0
 offset_right = 240.0
 offset_bottom = 244.0
-stream = ExtResource("8_8rs3a")
+mouse_filter = 2
+stream = ExtResource("10_pdyx6")
 volume_db = -80.0
 autoplay = true
 loop = true
@@ -487,11 +493,12 @@ clip_children = 1
 polygon = PackedVector2Array(-399, -241, -399, 205, -376, 205, -367, 208, -360, 213, -354, 221, -351, 230, -350, 245, 293, 244, 293, -293, -350, -293, -350, -269, -353, -262, -356, -256, -362, -250, -371, -245, -376, -244, -399, -243)
 
 [node name="Vid" type="VideoStreamPlayer" parent="Starting/Polygon2D"]
-offset_left = -403.0
-offset_top = -294.0
-offset_right = 237.0
-offset_bottom = 250.0
-stream = ExtResource("10_iy44i")
+offset_left = -410.0
+offset_top = -351.0
+offset_right = 310.0
+offset_bottom = 257.0
+mouse_filter = 2
+stream = ExtResource("11_e7kpe")
 volume_db = -80.0
 autoplay = true
 loop = true
@@ -505,19 +512,15 @@ position = Vector2(164.522, -19.1213)
 texture = ExtResource("3_ovxn3")
 
 [node name="Text" type="RichTextLabel" parent="EXP"]
-offset_left = 299.0
-offset_top = -185.83
-offset_right = 690.0
-offset_bottom = 158.17
+offset_left = 298.0
+offset_top = -238.0
+offset_right = 689.0
+offset_bottom = 106.0
 bbcode_enabled = true
 text = "If minions reach your [b]base[/b] you take damage. 
 If you stop them before, you gain[b] XP[/b].
-
-If you gain enough XP, you earn a new type of card.
-You [b] keep [/b]those unlocked cards if you are defeated and start a new run.
-
-
-"
+f you gain enough XP, you earn a new type of card.
+You [b] keep [/b]those unlocked cards if you are defeated and start a new run."
 
 [node name="Title" type="RichTextLabel" parent="EXP"]
 offset_left = 293.0
@@ -555,11 +558,12 @@ clip_children = 1
 polygon = PackedVector2Array(-399, -241, -399, 205, -376, 205, -367, 208, -360, 213, -354, 221, -351, 230, -350, 245, 293, 244, 293, -293, -350, -293, -350, -269, -353, -262, -356, -256, -362, -250, -371, -245, -376, -244, -399, -243)
 
 [node name="Vid" type="VideoStreamPlayer" parent="EXP/Polygon2D"]
-offset_left = -400.0
-offset_top = -293.0
-offset_right = 240.0
-offset_bottom = 251.0
-stream = ExtResource("8_8rs3a")
+offset_left = -901.0
+offset_top = -532.0
+offset_right = 1019.0
+offset_bottom = 556.0
+mouse_filter = 2
+stream = ExtResource("12_g7f00")
 volume_db = -80.0
 autoplay = true
 loop = true
@@ -622,13 +626,15 @@ clip_children = 1
 position = Vector2(108, -7)
 polygon = PackedVector2Array(-399, -241, -399, 205, -376, 205, -367, 208, -360, 213, -354, 221, -351, 230, -350, 245, 293, 244, 293, -293, -350, -293, -350, -269, -353, -262, -356, -256, -362, -250, -371, -245, -376, -244, -399, -243)
 
-[node name="Vid2" type="VideoStreamPlayer" parent="Information/Polygon2D"]
-z_index = 4
-offset_left = -406.0
-offset_top = -291.0
-offset_right = 222.0
-offset_bottom = 242.0
+[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="Information/Polygon2D"]
+offset_left = -396.0
+offset_top = -358.0
+offset_right = 372.0
+offset_bottom = 250.0
+mouse_filter = 2
+stream = ExtResource("12_8kl77")
 volume_db = -80.0
+autoplay = true
 loop = true
 
 [node name="Outside" type="Node2D" parent="."]
@@ -683,11 +689,12 @@ clip_children = 1
 polygon = PackedVector2Array(-399, -241, -399, 205, -376, 205, -367, 208, -360, 213, -354, 221, -351, 230, -350, 245, 293, 244, 293, -293, -350, -293, -350, -269, -353, -262, -356, -256, -362, -250, -371, -245, -376, -244, -399, -243)
 
 [node name="Vid" type="VideoStreamPlayer" parent="Outside/Polygon2D"]
-offset_left = -399.0
-offset_top = -294.0
-offset_right = 241.0
-offset_bottom = 330.0
-stream = ExtResource("13_7yg7x")
+offset_left = -416.0
+offset_top = -293.0
+offset_right = 368.0
+offset_bottom = 331.0
+mouse_filter = 2
+stream = ExtResource("13_qendo")
 volume_db = -80.0
 autoplay = true
 loop = true
@@ -760,13 +767,15 @@ offset_left = -399.0
 offset_top = -294.0
 offset_right = 241.0
 offset_bottom = 330.0
-stream = ExtResource("13_7yg7x")
+mouse_filter = 2
+stream = ExtResource("14_4jbi3")
 volume_db = -80.0
 autoplay = true
 loop = true
 metadata/_edit_use_anchors_ = true
 
 [node name="Catastrophy" type="Node2D" parent="."]
+visible = false
 script = ExtResource("2_ogttl")
 
 [node name="Background" type="Sprite2D" parent="Catastrophy"]
@@ -819,17 +828,19 @@ clip_children = 1
 polygon = PackedVector2Array(-399, -241, -399, 205, -376, 205, -367, 208, -360, 213, -354, 221, -351, 230, -350, 245, 293, 244, 293, -293, -350, -293, -350, -269, -353, -262, -356, -256, -362, -250, -371, -245, -376, -244, -399, -243)
 
 [node name="Vid" type="VideoStreamPlayer" parent="Catastrophy/Polygon2D"]
-offset_left = -399.0
-offset_top = -294.0
-offset_right = 241.0
-offset_bottom = 330.0
-stream = ExtResource("13_7yg7x")
+offset_left = -834.0
+offset_top = -511.0
+offset_right = 1086.0
+offset_bottom = 577.0
+mouse_filter = 2
+stream = ExtResource("15_6nrgp")
 volume_db = -80.0
 autoplay = true
 loop = true
 metadata/_edit_use_anchors_ = true
 
 [node name="Catastrophy2" type="Node2D" parent="."]
+visible = false
 script = ExtResource("2_ogttl")
 
 [node name="Background" type="Sprite2D" parent="Catastrophy2"]
@@ -888,6 +899,7 @@ offset_left = -399.0
 offset_top = -294.0
 offset_right = 241.0
 offset_bottom = 330.0
+mouse_filter = 2
 stream = ExtResource("13_7yg7x")
 volume_db = -80.0
 autoplay = true

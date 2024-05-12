@@ -25,6 +25,7 @@ func _ready():
 		t.visible=true;
 		offset=offset+800
 	tuts.get_children()[tuts.get_child_count()-1].visible=false;
+	tuts.get_parent().remove_child(tuts)
 	pass # Replace with function body.
 func _input(event):
 	
@@ -32,9 +33,9 @@ func _input(event):
 		tuts.translate(Vector2(0,100))
 	if event.is_action_pressed("scroll_up") and tuts.global_position.y>-9000 and unlockedTab.visible:
 		tuts.translate(Vector2(0,-100))	
-	if event.is_action_pressed("scroll_down")and accoundentries.global_position.y<500 and accountsTab.visible:
+	if event.is_action_pressed("scroll_down") and accountsTab.visible and accoundentries.global_position.y<500 :
 		accoundentries.translate(Vector2(0,100))
-	if event.is_action_pressed("scroll_up") and accoundentries.global_position.y>-350*accoundentries.get_child_count()+1200 and accountsTab.visible:
+	if event.is_action_pressed("scroll_up") and accountsTab.visible and accoundentries.global_position.y>-350*accoundentries.get_child_count()+1200 :
 		accoundentries.translate(Vector2(0,-100))		
 	pass;
 
@@ -46,9 +47,12 @@ func _process(delta):
 		
 	if Input.is_action_just_pressed("delete"):
 		if accountsTab.visible:
-			for i in $MainMenu/AccountsTab/AccountList.get_selected_items():
-				removeAcc($MainMenu/AccountsTab/AccountList.get_item_text(i))
-				$MainMenu/AccountsTab/AccountList.remove_item(i)
+			for entry in AccountEntry.allEntries:
+				if entry.clicked:
+					removeAcc(entry.accountName)
+					refreshAccountList()
+					
+				
 				
 				
 	pass
@@ -71,6 +75,7 @@ func _on_start_button_pressed():
 func _on_unlocked_button_pressed():
 	main.visible=false;
 	unlockedTab.visible=true;
+	$MainMenu/UnlockedTab.add_child(tuts)
 	pass # Replace with function body.
 func _on_accounts_pressed():
 	main.visible=false;
@@ -182,6 +187,7 @@ func _on_button_pressed():
 func hideUnlocks():
 	unlockedTab.visible=false;
 	main.visible=true;
+	tuts.get_parent().remove_child(tuts)
 	pass # Replace with function body.
 
 

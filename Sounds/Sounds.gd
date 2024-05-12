@@ -25,6 +25,7 @@ static var music=[
 ]
 static var bleep=load("res://Sounds/Soundeffects/new sounds/bleep.wav")
 static var level_down=load("res://Sounds/Soundeffects/level_down_sound.wav")
+static var loop=load("res://Sounds/Music/menu music looppart.wav")
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$Music.stream=music[0]
@@ -37,13 +38,18 @@ func _ready():
 func _process(delta):
 	pass
 
-static func playFromCamera(gamestate,sound):
+static func playFromCamera(gamestate,sound,oneshot=true,callback=func():):
 	var a=AudioStreamPlayer2D.new()
 	a.volume_db=a.volume_db-5
 	a.stream=sound
+	
 	gamestate.getCamera().add_child(a)
 	a.play()
-	a.finished.connect(func():a.queue_free())
+	a.finished.connect(callback)
+	if oneshot:
+		print("freed")
+		a.finished.connect(func():a.queue_free())
+		
 	return a;
 	pass
 static var player:AudioStreamPlayer2D

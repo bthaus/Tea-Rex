@@ -132,7 +132,7 @@ func _on_button_mouse_entered():
 		percentage="0"
 	else:
 		var p=(numReachedSpawn/ numSpawned)
-		percentage=str(float(p*100))
+		percentage=str(int(p*100))
 	state.menu.showDescription(percentage+"% of minions spawned reached your base. ")
 	pass # Replace with function body.
 

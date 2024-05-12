@@ -1,4 +1,4 @@
-[gd_scene load_steps=64 format=3 uid="uid://cf5heufemalnf"]
+[gd_scene load_steps=65 format=3 uid="uid://cf5heufemalnf"]
 
 [ext_resource type="Script" path="res://Menu.gd" id="1_vjikn"]
 [ext_resource type="Script" path="res://UI.gd" id="2_vouda"]
@@ -40,6 +40,7 @@
 [ext_resource type="Texture2D" uid="uid://276qgjm5ksbg" path="res://Assets/UI/health_xp_bar/exp_bar_empty.png" id="19_sn526"]
 [ext_resource type="Texture2D" uid="uid://b8s1bnckjwcap" path="res://Assets/UI/health_xp_bar/exp_bar_full.png" id="20_ftb2j"]
 [ext_resource type="Texture2D" uid="uid://b74x3v78pfff6" path="res://Assets/UI/block_empty.png" id="21_ih3wg"]
+[ext_resource type="Texture2D" uid="uid://c43bogk4bckw7" path="res://Assets/UI/trasparent background/background.png" id="22_a7d6d"]
 [ext_resource type="Texture2D" uid="uid://cgqev4mribj5l" path="res://Assets/UI/block_full.png" id="22_hxghk"]
 [ext_resource type="Texture2D" uid="uid://c2kxj1w86evpb" path="res://Assets/UI/Phase_banner.png" id="30_myyc3"]
 [ext_resource type="Texture2D" uid="uid://bt5gd6knwldey" path="res://Assets/UI/trasparent background/0B663119-D32F-4FA6-AC1E-3040989151F2.png" id="31_ipejj"]
@@ -459,6 +460,12 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
 
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/UI/Description"]
+show_behind_parent = true
+position = Vector2(618.911, 32.3142)
+scale = Vector2(0.626556, 0.0370286)
+texture = ExtResource("22_a7d6d")
+
 [node name="Descriptionbanner" type="Sprite2D" parent="CanvasLayer/UI"]
 visible = false
 position = Vector2(1040.71, 60)
@@ -639,14 +646,14 @@ offset_bottom = 287.575
 texture_under = ExtResource("19_sn526")
 texture_progress = ExtResource("20_ftb2j")
 
-[node name="Label2" type="Label" parent="CanvasLayer/UI/EXPbar"]
-visible = false
+[node name="xpval" type="Label" parent="CanvasLayer/UI/EXPbar"]
 layout_mode = 0
-offset_left = 37.1681
-offset_top = -26.5484
-offset_right = 99.1681
-offset_bottom = -3.54843
-text = "EXP"
+offset_left = 71.0
+offset_top = 25.0
+offset_right = 239.0
+offset_bottom = 48.0
+text = "0"
+horizontal_alignment = 2
 
 [node name="cathint" type="Label" parent="CanvasLayer/UI"]
 offset_left = 230.089

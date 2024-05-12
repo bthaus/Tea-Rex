@@ -7,7 +7,11 @@ var music;
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	
-	music=Sounds.playFromCamera(gamestate,Sounds.music[3])
+	music=Sounds.playFromCamera(gamestate,Sounds.music[3],false,func():
+		music.stream=Sounds.loop
+		music.play()
+		print("loop"))
+	
 	statePropagation.emit(gamestate)
 	gamestate.start_combat_phase.connect(func():
 		$CanvasLayer/UI/Battlephase/AnimatedSprite2D.play("default")
@@ -43,7 +47,7 @@ func updateUI():
 	$CanvasLayer/UI/EXPbar.min_value=gamestate.levelUp/2
 	$CanvasLayer/UI/CatBar.value=gamestate.wave%5
 	$CanvasLayer/UI/StartBattlePhase.disabled=gamestate.phase==Stats.GamePhase.BATTLE
-	
+	$CanvasLayer/UI/EXPbar/xpval.text=str(gamestate.totalExp)
 	$CanvasLayer/UI/Hpbar/maxhp.text=str(int(gamestate.HP))
 	#var hpscale=remap(gamestate.maxHP,200,1000,1,20)
 	#$CanvasLayer/UI/Hpbar.scale.y=hpscale
