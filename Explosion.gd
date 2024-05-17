@@ -88,3 +88,11 @@ func _on_sound_finished():
 	cache.push_back(self)
 
 	pass # Replace with function body.
+
+func _on_visible_on_screen_notifier_2d_screen_entered():
+	#$AnimatedSprite2D.visible = true
+	pass # Replace with function body.
+
+func _on_visible_on_screen_notifier_2d_screen_exited():
+	#$AnimatedSprite2D.visible = false;
+	pass # Replace with function body.

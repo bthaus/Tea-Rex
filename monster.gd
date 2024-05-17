@@ -81,7 +81,7 @@ func hit(color: Stats.TurretColor, damage, type="default", noise=true):
 		var s = camera.zoom.y - 3;
 		$hurt.volume_db = s * 10
 		$AudioStreamPlayer.volume_db = 10 * s
-	#if noise: $hurt.play()	
+	if noise: $hurt.play()
 		
 	if hp <= 0 and not died:
 		#spawnEXP()
@@ -90,8 +90,9 @@ func hit(color: Stats.TurretColor, damage, type="default", noise=true):
 		monster_died.emit(self)
 		$Hitbox.queue_free()
 		$Sprite2D.queue_free()
+		$VisibleOnScreenNotifier2D.queue_free()
 		$DeathAnim.visible = true;
-		#$AudioStreamPlayer.play()
+		$AudioStreamPlayer.play()
 		$DeathAnim.play(Stats.getStringFromEnum(self.color))
 		return true;
 	return false;
@@ -147,4 +148,12 @@ func moveAndSlide():
 	
 func _on_death_anim_animation_finished():
 	queue_free()
+	pass # Replace with function body.
+
+func _on_visible_on_screen_notifier_2d_screen_exited():
+	$Sprite2D.visible = false;
+	pass # Replace with function body.
+
+func _on_visible_on_screen_notifier_2d_screen_entered():
+	$Sprite2D.visible = true;
 	pass # Replace with function body.

@@ -1,27 +1,26 @@
-[gd_scene load_steps=25 format=3 uid="uid://cq7fvblvncfxh"]
+[gd_scene load_steps=24 format=3 uid="uid://cq7fvblvncfxh"]
 
 [ext_resource type="Script" path="res://monster.gd" id="1_g1k27"]
-[ext_resource type="Texture2D" uid="uid://b0vjaywamx3yp" path="res://Assets/Lights/spotlight.png" id="2_7naar"]
-[ext_resource type="Texture2D" uid="uid://cfudr8ysiyfsl" path="res://Assets/Monsters/Monster.png" id="2_yp50u"]
-[ext_resource type="Texture2D" uid="uid://dxs66y5mycjm1" path="res://Assets/Monsters/monster_blue/1.png" id="4_w1255"]
-[ext_resource type="Texture2D" uid="uid://b6bemt5mj21kq" path="res://Assets/Monsters/monster_blue/2.png" id="5_xxixe"]
-[ext_resource type="Texture2D" uid="uid://osbs8skbwjq0" path="res://Assets/Monsters/monster_blue/3.png" id="6_ugqsy"]
-[ext_resource type="Texture2D" uid="uid://dihjhbs8q25uh" path="res://Assets/Monsters/monster_blue/4.png" id="7_ovvhm"]
-[ext_resource type="Texture2D" uid="uid://batwp2oif6spn" path="res://Assets/Monsters/monster_green/1.png" id="7_uciws"]
-[ext_resource type="Texture2D" uid="uid://dd88g6yvex6hu" path="res://Assets/Monsters/monster_green/2.png" id="8_aybv2"]
-[ext_resource type="Texture2D" uid="uid://bxglfem7mssy2" path="res://Assets/Monsters/monster_green/3.png" id="9_vihic"]
-[ext_resource type="Texture2D" uid="uid://xhu3l0iwlbxf" path="res://Assets/Monsters/monster_green/4.png" id="10_bgwjm"]
-[ext_resource type="Texture2D" uid="uid://cu3vmxwa3kxkf" path="res://Assets/Monsters/monster_red/1.png" id="11_omers"]
-[ext_resource type="Texture2D" uid="uid://bj7255r63usl" path="res://Assets/Monsters/monster_red/2.png" id="12_bk1g7"]
-[ext_resource type="Texture2D" uid="uid://bv7ujw1yo803m" path="res://Assets/Monsters/monster_red/3.png" id="13_v202b"]
-[ext_resource type="Texture2D" uid="uid://g8m8b8i5x7xn" path="res://Assets/Monsters/monster_red/4.png" id="14_4pru2"]
-[ext_resource type="Texture2D" uid="uid://cxwdicxcmi306" path="res://Assets/Monsters/monster_yellow/1.png" id="15_v04ep"]
-[ext_resource type="Texture2D" uid="uid://cf3e74envvc6d" path="res://Assets/Monsters/monster_yellow/2.png" id="16_vf3q0"]
-[ext_resource type="Texture2D" uid="uid://bxkvkbaqhuhaf" path="res://Assets/Monsters/monster_yellow/3.png" id="17_2ne5c"]
-[ext_resource type="Texture2D" uid="uid://cd7au2g2n44hj" path="res://Assets/Monsters/monster_yellow/4.png" id="18_w0p2p"]
-[ext_resource type="AudioStream" uid="uid://dbbobs0v85j8x" path="res://Sounds/Soundeffects/new sounds/Minion die sound.wav" id="20_230yg"]
+[ext_resource type="Texture2D" uid="uid://cu8h60d2lpm2c" path="res://Assets/Monsters/Monster.png" id="2_yp50u"]
+[ext_resource type="Texture2D" uid="uid://24e800rshnm" path="res://Assets/Monsters/monster_blue/1.png" id="4_w1255"]
+[ext_resource type="Texture2D" uid="uid://d0nff4613vqiu" path="res://Assets/Monsters/monster_blue/2.png" id="5_xxixe"]
+[ext_resource type="Texture2D" uid="uid://vcylfr4mvhbe" path="res://Assets/Monsters/monster_blue/3.png" id="6_ugqsy"]
+[ext_resource type="Texture2D" uid="uid://3sd05eiwhlia" path="res://Assets/Monsters/monster_blue/4.png" id="7_ovvhm"]
+[ext_resource type="Texture2D" uid="uid://cacvvmcyxnthr" path="res://Assets/Monsters/monster_green/1.png" id="7_uciws"]
+[ext_resource type="Texture2D" uid="uid://koryy6pdq66k" path="res://Assets/Monsters/monster_green/2.png" id="8_aybv2"]
+[ext_resource type="Texture2D" uid="uid://dq2by80bko1gu" path="res://Assets/Monsters/monster_green/3.png" id="9_vihic"]
+[ext_resource type="Texture2D" uid="uid://c77dvqjxpjn0h" path="res://Assets/Monsters/monster_green/4.png" id="10_bgwjm"]
+[ext_resource type="Texture2D" uid="uid://bs1kx8vi8eaac" path="res://Assets/Monsters/monster_red/1.png" id="11_omers"]
+[ext_resource type="Texture2D" uid="uid://cuow0ef607jg6" path="res://Assets/Monsters/monster_red/2.png" id="12_bk1g7"]
+[ext_resource type="Texture2D" uid="uid://gpxx8swx5ku5" path="res://Assets/Monsters/monster_red/3.png" id="13_v202b"]
+[ext_resource type="Texture2D" uid="uid://h3xy571ylg6n" path="res://Assets/Monsters/monster_red/4.png" id="14_4pru2"]
+[ext_resource type="Texture2D" uid="uid://boty7dbeha035" path="res://Assets/Monsters/monster_yellow/1.png" id="15_v04ep"]
+[ext_resource type="Texture2D" uid="uid://bo5vfolo8o6fo" path="res://Assets/Monsters/monster_yellow/2.png" id="16_vf3q0"]
+[ext_resource type="Texture2D" uid="uid://bdhnmlgncllha" path="res://Assets/Monsters/monster_yellow/3.png" id="17_2ne5c"]
+[ext_resource type="Texture2D" uid="uid://qx4l37fj7tgq" path="res://Assets/Monsters/monster_yellow/4.png" id="18_w0p2p"]
+[ext_resource type="AudioStream" uid="uid://u75wwoknlssy" path="res://Sounds/Soundeffects/new sounds/Minion die sound.wav" id="20_230yg"]
 [ext_resource type="AudioStream" uid="uid://bxe1kduqy6i72" path="res://Sounds/Soundeffects/BLUE_hit.wav" id="21_v7uw0"]
-[ext_resource type="Texture2D" uid="uid://d3i6kkx3sgjrg" path="res://Assets/Monsters/minion_healthbar/minionhealthbar_yellow.png" id="22_j7pik"]
+[ext_resource type="Texture2D" uid="uid://cs14cc7mo388e" path="res://Assets/Monsters/minion_healthbar/minionhealthbar_yellow.png" id="22_j7pik"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_wsh3g"]
 radius = 32.0
@@ -129,55 +128,6 @@ offset_right = 19.0
 offset_bottom = -32.0
 text = "hi"
 
-[node name="GREEN" type="PointLight2D" parent="."]
-visible = false
-scale = Vector2(3.45, 3.45)
-color = Color(0, 1, 0, 1)
-texture = ExtResource("2_7naar")
-
-[node name="GREEN2" type="PointLight2D" parent="GREEN"]
-scale = Vector2(2.3, 2.3)
-color = Color(0, 1, 0, 1)
-energy = 0.57
-texture = ExtResource("2_7naar")
-
-[node name="RED" type="PointLight2D" parent="."]
-visible = false
-scale = Vector2(3.45, 3.45)
-color = Color(1, 0, 0, 1)
-energy = 4.03
-texture = ExtResource("2_7naar")
-
-[node name="GREEN2" type="PointLight2D" parent="RED"]
-scale = Vector2(2.3, 2.3)
-color = Color(1, 0, 0, 1)
-energy = 0.57
-texture = ExtResource("2_7naar")
-
-[node name="BLUE" type="PointLight2D" parent="."]
-visible = false
-scale = Vector2(3.45, 3.45)
-color = Color(0, 1, 1, 1)
-texture = ExtResource("2_7naar")
-
-[node name="GREEN2" type="PointLight2D" parent="BLUE"]
-scale = Vector2(2.3, 2.3)
-color = Color(0, 1, 1, 1)
-energy = 0.57
-texture = ExtResource("2_7naar")
-
-[node name="YELLOW" type="PointLight2D" parent="."]
-visible = false
-scale = Vector2(3.45, 3.45)
-color = Color(1, 1, 0, 1)
-texture = ExtResource("2_7naar")
-
-[node name="GREEN2" type="PointLight2D" parent="YELLOW"]
-scale = Vector2(2.3, 2.3)
-color = Color(1, 1, 0, 1)
-energy = 0.57
-texture = ExtResource("2_7naar")
-
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 avoidance_enabled = true
 
@@ -197,4 +147,8 @@ offset_bottom = -26.0
 value = 100.0
 texture_progress = ExtResource("22_j7pik")
 
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
 [connection signal="animation_finished" from="DeathAnim" to="." method="_on_death_anim_animation_finished"]
+[connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

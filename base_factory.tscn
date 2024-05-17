@@ -7,13 +7,13 @@
 [ext_resource type="Script" path="res://base.gd" id="4_xlvce"]
 [ext_resource type="Texture2D" uid="uid://d1en1he7o1uoa" path="res://Assets/Turrets/Bases/GREEN_base.png" id="6_p18ij"]
 [ext_resource type="Texture2D" uid="uid://b5vuhv1wrfeel" path="res://Assets/Turrets/Barrels/GREEN_barrel.png" id="7_6qb6s"]
-[ext_resource type="Texture2D" uid="uid://bn753yvirx834" path="res://Assets/Turrets/Bases/GREENPOISON_base.png" id="8_1viud"]
+[ext_resource type="Texture2D" uid="uid://qcv51m2sqbil" path="res://Assets/Turrets/Bases/GREENPOISON_base.png" id="8_1viud"]
 [ext_resource type="Texture2D" uid="uid://kwl0k87xktgt" path="res://Assets/Turrets/Bases/YELLOW_base.png" id="8_d86ra"]
-[ext_resource type="Texture2D" uid="uid://c5k3mtlr58tc3" path="res://Assets/Turrets/Barrels/GREENPOISON_barrel.png" id="9_2e18h"]
+[ext_resource type="Texture2D" uid="uid://c7gajn34dg6mm" path="res://Assets/Turrets/Barrels/GREENPOISON_barrel.png" id="9_2e18h"]
 [ext_resource type="Texture2D" uid="uid://db0xhy3p73aim" path="res://Assets/Turrets/Barrels/YELLOW_barrel.png" id="9_13ahw"]
 [ext_resource type="Texture2D" uid="uid://bx5e0bmbqsb7x" path="res://Assets/Turrets/Barrels/REDLASER_barrel.png" id="10_28tcq"]
-[ext_resource type="Texture2D" uid="uid://chd65csebnuxu" path="res://Assets/Turrets/Bases/YELLOWMORTAR_base.png" id="12_8rs7u"]
-[ext_resource type="Texture2D" uid="uid://b4iu3hd730gvl" path="res://Assets/Turrets/Barrels/YELLOWMORTAR_barrel.png" id="13_wpy72"]
+[ext_resource type="Texture2D" uid="uid://bvfbbff6ja0lp" path="res://Assets/Turrets/Bases/YELLOWMORTAR_base.png" id="12_8rs7u"]
+[ext_resource type="Texture2D" uid="uid://4u4cgerjgkn7" path="res://Assets/Turrets/Barrels/YELLOWMORTAR_barrel.png" id="13_wpy72"]
 
 [node name="BaseFactory" type="Node2D"]
 script = ExtResource("1_lvc6j")

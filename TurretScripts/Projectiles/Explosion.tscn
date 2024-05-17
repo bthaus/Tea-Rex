@@ -1,13 +1,13 @@
 [gd_scene load_steps=14 format=3 uid="uid://dn4on70p26crl"]
 
 [ext_resource type="Script" path="res://Explosion.gd" id="1_qdan5"]
-[ext_resource type="Texture2D" uid="uid://dfuvb4jb8scmn" path="res://Assets/Effects/Explosion_1/e1.png" id="2_bvduy"]
-[ext_resource type="Texture2D" uid="uid://dhluxs5dn1xla" path="res://Assets/Effects/Explosion_1/e2.png" id="3_y80hq"]
-[ext_resource type="Texture2D" uid="uid://de8vau4cdnqwu" path="res://Assets/Effects/Explosion_1/e3.png" id="4_j03lf"]
-[ext_resource type="Texture2D" uid="uid://b46oxjbgv6br3" path="res://Assets/Effects/Explosion_1/e4.png" id="5_lkruf"]
-[ext_resource type="Texture2D" uid="uid://cbdaculd0te33" path="res://Assets/Effects/Explosion_1/e5.png" id="6_kro3f"]
-[ext_resource type="Texture2D" uid="uid://bnqpjt2cqpsjk" path="res://Assets/Effects/Explosion_1/e6.png" id="7_egcnx"]
-[ext_resource type="Texture2D" uid="uid://bp6e74dyg4r0j" path="res://Assets/Effects/Explosion_1/e7.png" id="8_tkejj"]
+[ext_resource type="Texture2D" uid="uid://jobgij4i5sxe" path="res://Assets/Effects/Explosion_1/e1.png" id="2_bvduy"]
+[ext_resource type="Texture2D" uid="uid://d4ma6iw4cd1mw" path="res://Assets/Effects/Explosion_1/e2.png" id="3_y80hq"]
+[ext_resource type="Texture2D" uid="uid://cn4e158dig1ir" path="res://Assets/Effects/Explosion_1/e3.png" id="4_j03lf"]
+[ext_resource type="Texture2D" uid="uid://mjaeoy3qx0qu" path="res://Assets/Effects/Explosion_1/e4.png" id="5_lkruf"]
+[ext_resource type="Texture2D" uid="uid://coqicc4occ8c8" path="res://Assets/Effects/Explosion_1/e5.png" id="6_kro3f"]
+[ext_resource type="Texture2D" uid="uid://d4b7mcrugy4vy" path="res://Assets/Effects/Explosion_1/e6.png" id="7_egcnx"]
+[ext_resource type="Texture2D" uid="uid://cxkgl0lpk4xdv" path="res://Assets/Effects/Explosion_1/e7.png" id="8_tkejj"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_4mmyl"]
 animations = [{
@@ -99,5 +99,9 @@ libraries = {
 "": SubResource("AnimationLibrary_ifi2h")
 }
 
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

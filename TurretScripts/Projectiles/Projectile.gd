@@ -83,6 +83,7 @@ static func create(type: Stats.TurretColor, damage, speed, root, extension: Stat
 	return temp;
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	
 	GameState.gameState.player_died.connect(func(): free())
 	$Sprite2D.texture = load("res://Assets/Turrets/Projectiles/" + Stats.getStringFromEnum(type) + Stats.getStringFromEnumExtension(ext) + "_projectile.png");
 	$shot.stream = load("res://Sounds/Soundeffects/" + Stats.getStringFromEnum(type) + Stats.getStringFromEnumExtension(ext) + "_shot.wav")
@@ -133,8 +134,8 @@ func playHitSound():
 	if camera != null:
 		var mod = GameState.gameState.getCamera().zoom.y - 3;
 		$hit.volume_db = 10 + mod * 1
-	#if !$hit.playing:
-	#	$hit.play();
+	if !$hit.playing:
+		$hit.play();
 		hitsplayed = hitsplayed + 1
 	pass ;
 func playShootSound():
@@ -144,7 +145,7 @@ func playShootSound():
 		var mod = camera.zoom.y - 3;
 		$shot.volume_db = mod * 15
 	
-	#$shot.play();
+	$shot.play();
 	shotsplayed = shotsplayed + 1;
 	pass ;
 

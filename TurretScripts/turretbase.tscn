@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://TurretScripts/turretbase.gd" id="1_87rlb"]
 [ext_resource type="PackedScene" uid="uid://dvwxp6msal8o6" path="res://enemy_detector.tscn" id="2_ekhvd"]
-[ext_resource type="Texture2D" uid="uid://cir25cbml7q1h" path="res://Assets/Level/blackBackgroundLabel.png" id="4_gxsap"]
+[ext_resource type="Texture2D" uid="uid://dpcl3osga8evf" path="res://Assets/Level/blackBackgroundLabel.png" id="4_gxsap"]
 [ext_resource type="Texture2D" uid="uid://b0vjaywamx3yp" path="res://Assets/Lights/spotlight.png" id="5_cl5yn"]
 [ext_resource type="Script" path="res://TurretScripts/Drawpoint.gd" id="5_y5hmu"]
 
@@ -12,6 +12,7 @@ outline_size = 10
 outline_color = Color(0, 0, 0, 1)
 
 [node name="Turret" type="Node2D"]
+visible = false
 script = ExtResource("1_87rlb")
 type = 3
 extension = 1
@@ -55,8 +56,12 @@ texture = ExtResource("4_gxsap")
 z_index = 2
 script = ExtResource("5_y5hmu")
 
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="finished" from="AudioStreamPlayer2D" to="." method="_on_audio_stream_player_2d_finished"]
 [connection signal="mouse_entered" from="Button" to="." method="_on_button_mouse_entered"]
 [connection signal="mouse_exited" from="Button" to="." method="_on_button_mouse_exited"]
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

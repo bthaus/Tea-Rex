@@ -56,8 +56,8 @@ func _ready():
 		light.energy=lightamount;
 		)
 	pass # Replace with function body.
-func checkPosition():
-	var off = GameState.gameState.getCamera().isOffCamera(global_position)
+func checkPosition(off):
+	
 	if off and light.get_parent() != null:
 		remove_child(light)
 	if !off and light.get_parent() == null:
@@ -66,7 +66,8 @@ func checkPosition():
 		light.global_position = global_position
 		light.visible = true
 		light.enabled = true
-	visible = !off;
+	base.visible = !off;
+	
 	if extension == Stats.TurretExtension.BLUELASER: return ;
 	var i = off
 	if !i:
@@ -80,7 +81,7 @@ func _notification(what):
 		projectile.free()
 func setUpTower():
 	
-	GameState.gameState.getCamera().scrolled.connect(checkPosition)
+	#GameState.gameState.getCamera().scrolled.connect(checkPosition)
 	#if not placed:
 		#$Button.queue_free()
 		
@@ -266,7 +267,7 @@ func _input(event):
 		
 	pass ;
 func _physics_process(delta):
-	return ;
+	
 	#größter pfusch auf erden. wenn ein block in der hand ist soll er seine range anzeigen, wenn nicht dann nicht.
 	#der turm weiß nur nie ob er in der hand ist oder nicht -> card intercepten
 	if !placed: $Button.visible = Card.isCardSelected
@@ -463,4 +464,12 @@ func _on_button_pressed():
 	
 	if Card.isCardSelected: return ;
 	
+	pass # Replace with function body.
+
+func _on_visible_on_screen_notifier_2d_screen_exited():
+	checkPosition(true)
+	pass # Replace with function body.
+
+func _on_visible_on_screen_notifier_2d_screen_entered():
+	checkPosition(false)
 	pass # Replace with function body.
