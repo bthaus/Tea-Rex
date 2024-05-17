@@ -36,3 +36,4 @@ data_*/
 .godot/uid_cache.bin
 *.cfg
 /.godot
+/.vscode

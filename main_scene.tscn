@@ -1,23 +1,23 @@
-[gd_scene load_steps=15 format=3 uid="uid://ct8v030fwp2gh"]
+[gd_scene load_steps=16 format=3 uid="uid://ct8v030fwp2gh"]
 
 [ext_resource type="Script" path="res://Game/GameState.gd" id="1_g64db"]
 [ext_resource type="Script" path="res://Persistency/GameSaver.gd" id="2_7eagx"]
 [ext_resource type="Script" path="res://Game/Stats.gd" id="3_j6i2j"]
 [ext_resource type="Texture2D" uid="uid://chsgerkqrpoy6" path="res://Assets/Level/Backgrounddummy.png" id="4_ykfqr"]
 [ext_resource type="PackedScene" uid="uid://c8n0am7jadxj7" path="res://GameBoard/game_board.tscn" id="6_ghxp6"]
-[ext_resource type="AudioStream" uid="uid://b2r3sygudg6ws" path="res://Sounds/Soundeffects/new sounds/Start.wav" id="6_qpv2c"]
+[ext_resource type="AudioStream" uid="uid://c610v6rbeh60p" path="res://Sounds/Soundeffects/new sounds/Start.wav" id="6_qpv2c"]
 [ext_resource type="Script" path="res://Sounds/Sounds.gd" id="7_cb883"]
-[ext_resource type="Texture2D" uid="uid://cwocmcwu5fp8e" path="res://Assets/Level/Target.png" id="8_3fkrh"]
-[ext_resource type="AudioStream" uid="uid://c03vp885oqa7p" path="res://Sounds/Music/menu music looppart.wav" id="8_b02dq"]
+[ext_resource type="Texture2D" uid="uid://c6ycnlpc8t45f" path="res://Assets/Level/Target.png" id="8_3fkrh"]
+[ext_resource type="AudioStream" uid="uid://da5rpc1vklqcv" path="res://Sounds/Music/menu music looppart.wav" id="8_b02dq"]
 [ext_resource type="Script" path="res://GameBoard/game_board_camera.gd" id="9_18cub"]
 [ext_resource type="Script" path="res://LightThresholds.gd" id="11_n87cu"]
 [ext_resource type="PackedScene" uid="uid://cf5heufemalnf" path="res://menu.tscn" id="11_po6a1"]
+[ext_resource type="Script" path="res://BulletHolder.gd" id="13_7m4ty"]
 
 [sub_resource type="Environment" id="Environment_83ue6"]
 background_mode = 3
 ambient_light_color = Color(0.552642, 0.483134, 0.873833, 1)
 tonemap_white = 1.67
-glow_enabled = true
 glow_normalized = true
 glow_intensity = 1.55
 glow_bloom = 0.3
@@ -168,6 +168,11 @@ offset_bottom = 23.0
 text = "maxglowposition"
 
 [node name="MinionHolder" type="Node2D" parent="."]
+
+[node name="BulletHolder" type="Node2D" parent="."]
+z_index = 2
+position = Vector2(395.634, 295.367)
+script = ExtResource("13_7m4ty")
 
 [connection signal="scrolled" from="Camera2D" to="Camera2D" method="changeBrightness"]
 [connection signal="finished" from="Camera2D/SoundPlayer/Music" to="Camera2D/SoundPlayer" method="_on_music_finished"]
