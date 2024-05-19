@@ -34,6 +34,7 @@ static var counter = 0;
 static var gamestate: GameState;
 static var camera;
 var timesShot = 0;
+static var numProjs = 0
 
 enum asd {DEFAULT = 1, REDLASER = 2, BLUELASER = 3, YELLOWMORTAR = 4, GREENPOISON = 5};
 enum asdsa {GREY = 1, GREEN = 2, RED = 3, YELLOW = 4, BLUE = 5};
@@ -83,11 +84,12 @@ static func create(type: Stats.TurretColor, damage, speed, root, extension: Stat
 	return temp;
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	
+	numProjs = numProjs + 1;
+	print(str(numProjs) + "projectiles generated")
 	GameState.gameState.player_died.connect(func(): free())
 	$Sprite2D.texture = load("res://Assets/Turrets/Projectiles/" + Stats.getStringFromEnum(type) + Stats.getStringFromEnumExtension(ext) + "_projectile.png");
-	$shot.stream = load("res://Sounds/Soundeffects/" + Stats.getStringFromEnum(type) + Stats.getStringFromEnumExtension(ext) + "_shot.wav")
-	$hit.stream = load("res://Sounds/Soundeffects/" + Stats.getStringFromEnum(type) + Stats.getStringFromEnumExtension(ext) + "_hit.wav")
+	#$shot.stream = load("res://Sounds/Soundeffects/" + Stats.getStringFromEnum(type) + Stats.getStringFromEnumExtension(ext) + "_shot.wav")
+	#$hit.stream = load("res://Sounds/Soundeffects/" + Stats.getStringFromEnum(type) + Stats.getStringFromEnumExtension(ext) + "_hit.wav")
 	oneshot = Stats.getOneshotType(type, ext);
 	if gamestate == null:
 		gamestate = GameState.gameState;

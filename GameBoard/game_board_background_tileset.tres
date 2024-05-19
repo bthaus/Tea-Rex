@@ -1,10 +1,10 @@
 [gd_resource type="TileSet" load_steps=11 format=3 uid="uid://d0xe20r8gppag"]
 
-[ext_resource type="Texture2D" uid="uid://b58vkxko4j42r" path="res://Assets/Level/outsidetile1.png" id="1_war73"]
-[ext_resource type="Texture2D" uid="uid://3kjjsnny2f40" path="res://Assets/Level/outsidetile2.png" id="2_ywwvs"]
-[ext_resource type="Texture2D" uid="uid://bfki4vkbp764" path="res://Assets/Level/outsidetile3.png" id="3_i8h4l"]
-[ext_resource type="Texture2D" uid="uid://c8bb2y2tnjjj1" path="res://Assets/Level/gameborard tile opt3.png" id="4_gftju"]
-[ext_resource type="Texture2D" uid="uid://dnx40erdum7s4" path="res://Assets/Level/Street.png" id="5_0le1h"]
+[ext_resource type="Texture2D" uid="uid://cafalnwr7wydj" path="res://Assets/Level/outsidetile1.png" id="1_war73"]
+[ext_resource type="Texture2D" uid="uid://buxadcppybdy4" path="res://Assets/Level/outsidetile2.png" id="2_ywwvs"]
+[ext_resource type="Texture2D" uid="uid://cuamlfuv4fxvq" path="res://Assets/Level/outsidetile3.png" id="3_i8h4l"]
+[ext_resource type="Texture2D" uid="uid://bgsyfssdqcay3" path="res://Assets/Level/gameborard tile opt3.png" id="4_gftju"]
+[ext_resource type="Texture2D" uid="uid://cc5k6inm6q7ba" path="res://Assets/Level/Street.png" id="5_0le1h"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jqdsp"]
 texture = ExtResource("1_war73")

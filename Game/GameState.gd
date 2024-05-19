@@ -109,8 +109,7 @@ func _ready():
 	#get_parent().print_tree_pretty()
 	print(get_children().size())
 	gameState = self;
-	Engine.max_fps = 30;
-	Engine.physics_ticks_per_second = 15
+	
 	GameSaver.createBaseGame(self)
 	target = $Base
 	
@@ -127,6 +126,9 @@ func drawCards(amount):
 	pass ;
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	for turret in Turret.turrets:
+		if is_instance_valid(turret): turret.do(delta);
+		else: Turret.turrets.erase(turret)
 	
 	y = cam.position.y
 	#if Input.is_action_just_pressed("save"):
@@ -388,3 +390,7 @@ func setSound(on):
 	else:
 		cam.remove_child(cam.listener)
 	pass ;
+
+func _on_button_pressed():
+	print_orphan_nodes()
+	pass # Replace with function body.

@@ -32,7 +32,7 @@ var baseinstantHit = false;
 static var baseFactory: BaseFactory = load("res://base_factory.tscn").instantiate() as BaseFactory
 var base: Base;
 var placed = true;
-
+static var turrets = []
 static func create(color: Stats.TurretColor, lvl: int, type: Stats.TurretExtension=Stats.TurretExtension.DEFAULT) -> Turret:
 	var turret = load("res://TurretScripts/turretbase.tscn").instantiate() as Turret;
 	turret.type = color;
@@ -44,7 +44,9 @@ var id;
 static var counter = 0;
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	turrets.append(self)
 	counter = counter + 1;
+	print(str(counter) + "turrets built")
 	id = counter;
 	#if not placed:
 		#$Button.mouse_filter=2
@@ -237,6 +239,7 @@ func de_highlight(delta):
 	create_tween().tween_property(light, "energy", lightamount, 1)
 	#light.energy=lightamount
 	pass
+	
 func checkLight(delta):
 	if GameState.gameState.phase == Stats.GamePhase.BATTLE: return
 	
@@ -245,14 +248,17 @@ func checkLight(delta):
 	
 	#if light.energy<=0:light.energy=0;return
 	if globlight&&!melight:
-		create_tween().tween_property(light, "energy", 0, 1).set_ease(Tween.EASE_OUT)
+		create_tween().tween_property(light, "energy", 0, 1)
 	if !globlight&&light.energy < lightamount:
+		#print(light.energy)
+		#light.energy = lightamount
 		create_tween().tween_property(light, "energy", lightamount, 1)
 		#light.energy=light.energy-9*delta;
 	
 	if !globlight&&light.energy < lightamount:
 		create_tween().tween_property(light, "energy", lightamount, 1)
-	#	return
+		#light.energy = lightamount
+	#	#return
 	#if melight:
 		#return	
 	
@@ -266,15 +272,18 @@ func _input(event):
 		else: $Button.mouse_filter = 0;
 		
 	pass ;
-func _physics_process(delta):
+func do(delta):
 	
 	#größter pfusch auf erden. wenn ein block in der hand ist soll er seine range anzeigen, wenn nicht dann nicht.
 	#der turm weiß nur nie ob er in der hand ist oder nicht -> card intercepten
 	if !placed: $Button.visible = Card.isCardSelected
 	
 	checkDetectorVisibility(delta)
+	
 	if GameState.gameState == null: return
-	checkLight(delta)
+	
+	#checkLight(delta)
+	
 	$LVL.text = str(stacks)
 	if not placed:
 		return ;
@@ -291,7 +300,7 @@ func _physics_process(delta):
 			projectile.rotate((180 * buildup * - 1) * 2 * delta);
 	if inRange():
 			
-		base.setLevel(stacks)
+		#base.setLevel(stacks)
 		if projectile == null:
 			projectile = Projectile.create(type, damage, speed, self, extension)
 	
@@ -299,7 +308,9 @@ func _physics_process(delta):
 			buildup = buildup + 1 * delta * 2;
 		if buildup <= 1 and (type == Stats.TurretColor.RED&&extension == Stats.TurretExtension.DEFAULT)&&buildup < 0.01:
 			buildup = buildup + 0.01 * delta;
-		var target = $EnemyDetector.enemiesInRange[id % $EnemyDetector.enemiesInRange.size()];
+		#var target = $EnemyDetector.enemiesInRange[id % $EnemyDetector.enemiesInRange.size()];
+		var target = $EnemyDetector.enemiesInRange[0];
+		
 		if extension == Stats.TurretExtension.REDLASER:
 			target = $EnemyDetector.enemiesInRange[0]
 		direction = (target.global_position - self.global_position).normalized();
@@ -444,7 +455,7 @@ func checkDetectorVisibility(delta):
 		m = m - 4 * delta;
 	m = clamp(m, 0, 1)
 	
-	$EnemyDetector.modulate = Color(m, m, m, m)
+	$EnemyDetector.modulate.a = m
 	pass
 func addDamage(Damage):
 	damagedealt = damagedealt + Damage;

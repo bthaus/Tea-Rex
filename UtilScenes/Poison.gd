@@ -6,19 +6,20 @@ var enemy;
 var associate;
 var detector: EnemyDetector;
 var effect;
+static var detectorscene = load("res://enemy_detector.tscn")
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	var parent = get_parent();
 	if parent is Monster:
 		enemy = parent;
-	setupPropagation()
+	#setupPropagation()
 	#effect = load("res://poison_effect.tscn").instantiate()
-	add_child(effect)
+	#add_child(effect)
 		
 pass # Replace with function body.
 func setupPropagation():
 	get_tree().create_timer(3).timeout.connect(propagate)
-	detector = load("res://enemy_detector.tscn").instantiate()
+	detector = detectorscene.instantiate()
 	add_child(detector)
 	detector.visible = false
 	detector.apply_scale(Vector2(Stats.poison_propagation_range, Stats.poison_propagation_range));
@@ -50,7 +51,7 @@ func apply(amount):
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	#effect.global_position = enemy.global_position
-	detector.global_position = enemy.global_position
+	#detector.global_position = enemy.global_position
 	stacks = stacks - decay * delta;
 	if stacks < 0:
 		queue_free()

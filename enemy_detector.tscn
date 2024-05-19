@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://dvwxp6msal8o6"]
 
 [ext_resource type="Script" path="res://EnemyDetector.gd" id="1_3hlbv"]
-[ext_resource type="Texture2D" uid="uid://c6nq45sf7xij1" path="res://Assets/Turrets/RangePreview.png" id="2_7f1ma"]
+[ext_resource type="Texture2D" uid="uid://iwxncdmskg2y" path="res://Assets/Turrets/RangePreview.png" id="2_7f1ma"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_w8bgt"]
 radius = 32.0
@@ -17,13 +17,6 @@ collision_mask = 2
 shape = SubResource("CircleShape2D_w8bgt")
 
 [node name="Preview" type="Sprite2D" parent="Area2D"]
-light_mask = 0
-position = Vector2(2, 0)
-scale = Vector2(0.197222, 0.197222)
-texture = ExtResource("2_7f1ma")
-
-[node name="Preview2" type="Sprite2D" parent="Area2D"]
-visible = false
 light_mask = 0
 position = Vector2(2, 0)
 scale = Vector2(0.197222, 0.197222)
