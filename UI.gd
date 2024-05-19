@@ -30,7 +30,8 @@ func _ready():
 	tuts.get_parent().remove_child(tuts)
 	pass # Replace with function body.
 func _input(event):
-	
+	if not menu.visible:
+		return;
 	if event.is_action_pressed("scroll_down")and tuts.global_position.y <550 and unlockedTab.visible:
 		tuts.translate(Vector2(0,100))
 	if event.is_action_pressed("scroll_up") and tuts.global_position.y>-9000 and unlockedTab.visible:
@@ -151,7 +152,7 @@ func removeAcc(name):
 var accoundentries;	
 func refreshAccountList():
 	var accs=loadAccs();
-	for entry in $MainMenu/AccountsTab/EntryPosition/pos.get_children():
+	for entry in menu.get_node("AccountsTab/EntryPosition/pos").get_children():
 		entry.free()
 	AccountEntry.allEntries.clear()
 	#$MainMenu/AccountsTab/EntryPosition/pos.global_position=Vector2(-24,-405)
@@ -159,7 +160,7 @@ func refreshAccountList():
 	var offset=0
 	for a in accs:
 		var entry=AccountEntry.create(a)
-		$MainMenu/AccountsTab/EntryPosition/pos.add_child(entry)
+		menu.get_node("AccountsTab/EntryPosition/pos").add_child(entry)
 		entry.translate(Vector2(0,offset))
 		offset=offset+350;
 		entry.start.connect(selectAcc)

@@ -133,17 +133,20 @@ func _process(delta):
 		else: Turret.turrets.erase(turret)
 	
 	y = cam.position.y
-	#if Input.is_action_just_pressed("save"):
+	if Input.is_action_just_pressed("save"):
 		#hand.drawCard(Card.create(self,SpecialCard.create(self,Stats.SpecialCards.CRYOBALL)))
 		#changeHealth(-5000)
 		#gameBoard.DRILL_catastrophy(func():)
-		#hand.drawCard(Card.create(self,BlockCard.create(self,Stats.getBlockFromShape(Stats.BlockShape.O,Stats.TurretColor.YELLOW,1,Stats.TurretExtension.DEFAULT))))	
+		#for c in hand.get_children():
+			#c.queue_free()
+		hand.drawCard(Card.create(self,BlockCard.create(self,Stats.getBlockFromShape(Stats.BlockShape.O,Stats.TurretColor.RED,1,Stats.TurretExtension.REDLASER))))	
 		#checkUnlock()
 		#GameState.gameState.showTutorials=true	
 		#totalExp=50000000;
 		#checkLevelUp()
 		#checkUnlock()
 		#print("DEBUGGGGGING AHOY")
+		
 	pass
 
 func initNewBoard():
