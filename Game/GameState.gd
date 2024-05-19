@@ -126,6 +126,8 @@ func drawCards(amount):
 	pass ;
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	
+
 	for turret in Turret.turrets:
 		if is_instance_valid(turret): turret.do(delta);
 		else: Turret.turrets.erase(turret)
