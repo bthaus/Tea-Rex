@@ -1,5 +1,4 @@
-extends Node
-
+extends Resource
 
 class_name Block
 var pieces: Array
@@ -15,12 +14,12 @@ func clone() -> Block:
 		cloned_pieces.push_back(Block.Piece.new(piece.position, piece.color, piece.level, piece.extension))
 	return Block.new(cloned_pieces)
 
-class Piece:
+class Piece extends Resource:
 	var position: Vector2
 	var color: Stats.TurretColor
 	var level: int
 	var extension: Stats.TurretExtension
-	func _init(position: Vector2, color: Stats.TurretColor, level: int, extension: Stats.TurretExtension = Stats.TurretExtension.DEFAULT):
+	func _init(position: Vector2, color: Stats.TurretColor, level: int, extension: Stats.TurretExtension=Stats.TurretExtension.DEFAULT):
 		self.position = position
 		self.color = color
 		self.level = level
