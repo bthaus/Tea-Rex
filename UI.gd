@@ -7,7 +7,7 @@ extends CanvasLayer
 @export var ui:Node2D
 @export var parent:Menu
 var tuts;
-
+var video;
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	#var map=BitMap.new()
@@ -17,6 +17,13 @@ func _ready():
 	#map2.create_from_image_alpha(load("res://Assets/UI/ShowAccountsButton.png"),0)
 	#$MainMenu/Main/Accounts
 	tuts=$MainMenu/UnlockedTab/TutorialNode
+	video=$MainMenu/VideoStreamPlayer
+	$MainMenu.visibility_changed.connect(func():
+		if $MainMenu.visible:
+			$MainMenu.add_child(video)
+		else:
+			$MainMenu.remove_child(video)
+		)
 	var offset=0;
 	for t in tuts.get_children():
 		t.get_node("Button").visible=false;
@@ -67,7 +74,7 @@ func _on_start_button_pressed():
 	ui.visible=true;
 	menu.visible=false;
 	$MainMenu/Main/StartButton/Label.text="continue"
-	
+	#menu.get_parent().remove_child(menu)
 	#gameState.startGame()
 	pass # Replace with function body.
 
@@ -214,7 +221,7 @@ func blinkHint(show):
 	if not blinking:
 		$MainMenu/AccountsTab/typehint.visible=false;
 		return;
-	$MainMenu/AccountsTab/typehint.visible=show
+	if $MainMenu.visible:$MainMenu/AccountsTab/typehint.visible=show
 	create_tween().tween_callback(blinkHint.bind(!show)).set_delay(0.5)
 	pass;
 func _on_account_input_text_changed(new_text):

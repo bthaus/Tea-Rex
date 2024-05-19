@@ -210,10 +210,12 @@ parent = NodePath("..")
 [node name="MainMenu" type="Node2D" parent="CanvasLayer"]
 
 [node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="CanvasLayer/MainMenu"]
+z_index = -1
 offset_left = -214.159
 offset_top = -49.5575
 offset_right = 2329.84
 offset_bottom = 1278.44
+mouse_filter = 2
 stream = ExtResource("9_wd25y")
 volume_db = -80.0
 autoplay = true
