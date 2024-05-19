@@ -820,6 +820,7 @@ texture = ExtResource("16_oeuhs")
 
 [connection signal="statePropagation" from="." to="CanvasLayer" method="_on_menu_state_propagation"]
 [connection signal="statePropagation" from="." to="CanvasLayer/UI/Hand" method="_on_menu_state_propagation"]
+[connection signal="visibility_changed" from="CanvasLayer/MainMenu" to="CanvasLayer" method="_on_main_menu_visibility_changed"]
 [connection signal="pressed" from="CanvasLayer/MainMenu/Main/StartButton" to="." method="_on_start_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/MainMenu/Main/StartButton" to="CanvasLayer" method="_on_start_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/MainMenu/Main/UnlockedButton" to="CanvasLayer" method="_on_unlocked_button_pressed"]

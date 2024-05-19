@@ -390,7 +390,16 @@ func setSound(on):
 	else:
 		cam.remove_child(cam.listener)
 	pass ;
-
+	
+func GetAllTreeNodes( node = get_tree().root,  listOfAllNodesInTree = []):
+	listOfAllNodesInTree.append(node)
+	for childNode in node.get_children():
+		GetAllTreeNodes(childNode, listOfAllNodesInTree)
+	return listOfAllNodesInTree
 func _on_button_pressed():
-	print_orphan_nodes()
+	var all=GetAllTreeNodes()
+	var projectiles=0;
+	for a in all:
+		OS.delay_msec(5)
+		print(a.name)
 	pass # Replace with function body.

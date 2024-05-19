@@ -22,7 +22,7 @@ class_name LightThresholds
 func _ready():
 	pass # Replace with function body.
 func getGlow(y):
-
+	
 	var glow=remap(y,minGlowPosition.global_position.y,maxGlowPosition.global_position.y,minGlow,maxGlow)
 	glow=clamp(glow,minGlow,maxGlow)
 	return glow;

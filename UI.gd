@@ -18,12 +18,7 @@ func _ready():
 	#$MainMenu/Main/Accounts
 	tuts=$MainMenu/UnlockedTab/TutorialNode
 	video=$MainMenu/VideoStreamPlayer
-	$MainMenu.visibility_changed.connect(func():
-		if $MainMenu.visible:
-			$MainMenu.add_child(video)
-		else:
-			$MainMenu.remove_child(video)
-		)
+	
 	var offset=0;
 	for t in tuts.get_children():
 		t.get_node("Button").visible=false;
@@ -72,8 +67,9 @@ func _on_start_button_pressed():
 	$MainMenu/Banner.visible=false;
 	
 	ui.visible=true;
-	menu.visible=false;
 	$MainMenu/Main/StartButton/Label.text="continue"
+	menu.visible=false;
+
 	#menu.get_parent().remove_child(menu)
 	#gameState.startGame()
 	pass # Replace with function body.
@@ -221,7 +217,7 @@ func blinkHint(show):
 	if not blinking:
 		$MainMenu/AccountsTab/typehint.visible=false;
 		return;
-	if $MainMenu.visible:$MainMenu/AccountsTab/typehint.visible=show
+	if menu.visible:$MainMenu/AccountsTab/typehint.visible=show
 	create_tween().tween_callback(blinkHint.bind(!show)).set_delay(0.5)
 	pass;
 func _on_account_input_text_changed(new_text):
@@ -230,4 +226,12 @@ func _on_account_input_text_changed(new_text):
 		blinkHint(true);
 	else:blinking=false;	
 	$MainMenu/AccountsTab/accountnametext.text=new_text
+	pass # Replace with function body.
+
+
+func _on_main_menu_visibility_changed():
+	if menu.visible:
+		add_child(menu)
+	else:
+		remove_child(menu)
 	pass # Replace with function body.
