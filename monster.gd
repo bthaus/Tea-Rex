@@ -12,7 +12,7 @@ var currentMinionPower = 1;
 @export var color: Stats.TurretColor = Stats.TurretColor.BLUE
 var died = false;
 enum TurretColor {GREY = 1, GREEN = 2, RED = 3, YELLOW = 4, BLUE = 5};
-
+var oldpos=Vector2(0,0)
 static var healthbar = [load("res://Assets/Monsters/minion_healthbar/minionhealthbar_green.png"),
 	load("res://Assets/Monsters/minion_healthbar/minionhealthbar_white.png"),
 	load("res://Assets/Monsters/minion_healthbar/minionhealthbar_green.png"),
@@ -87,6 +87,7 @@ func hit(color: Stats.TurretColor, damage, type="default", noise=true):
 		#spawnEXP()
 		died = true
 		tw.kill()
+		GameState.gameState.collisionReference.removeMonster(self)
 		monster_died.emit(self)
 		$Hitbox.queue_free()
 		$Sprite2D.queue_free()

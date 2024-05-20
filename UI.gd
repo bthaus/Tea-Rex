@@ -219,7 +219,7 @@ func _on_account_input_focus_exited():
 static var blinking=true;
 func blinkHint(show):
 	if not blinking:
-		$MainMenu/AccountsTab/typehint.visible=false;
+		menu.get_node("AccountsTab/typehint").visible=false;
 		return;
 	if menu.visible:$MainMenu/AccountsTab/typehint.visible=show
 	create_tween().tween_callback(blinkHint.bind(!show)).set_delay(0.5)

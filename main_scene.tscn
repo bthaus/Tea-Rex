@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://ct8v030fwp2gh"]
+[gd_scene load_steps=17 format=3 uid="uid://ct8v030fwp2gh"]
 
 [ext_resource type="Script" path="res://Game/GameState.gd" id="1_g64db"]
 [ext_resource type="Script" path="res://Persistency/GameSaver.gd" id="2_7eagx"]
@@ -13,6 +13,7 @@
 [ext_resource type="Script" path="res://LightThresholds.gd" id="11_n87cu"]
 [ext_resource type="PackedScene" uid="uid://cf5heufemalnf" path="res://menu.tscn" id="11_po6a1"]
 [ext_resource type="Script" path="res://BulletHolder.gd" id="13_7m4ty"]
+[ext_resource type="Script" path="res://MinionHolder.gd" id="13_u8ql2"]
 
 [sub_resource type="Environment" id="Environment_83ue6"]
 background_mode = 3
@@ -168,6 +169,7 @@ offset_bottom = 23.0
 text = "maxglowposition"
 
 [node name="MinionHolder" type="Node2D" parent="."]
+script = ExtResource("13_u8ql2")
 
 [node name="BulletHolder" type="Node2D" parent="."]
 z_index = 2
@@ -175,12 +177,11 @@ position = Vector2(395.634, 295.367)
 script = ExtResource("13_7m4ty")
 
 [node name="Button" type="Button" parent="."]
-visible = false
 z_index = 12
-offset_left = -153.0
-offset_top = 269.0
-offset_right = -64.0
-offset_bottom = 300.0
+offset_left = 175.0
+offset_top = 277.0
+offset_right = 264.0
+offset_bottom = 308.0
 text = "straybides"
 
 [connection signal="scrolled" from="Camera2D" to="Camera2D" method="changeBrightness"]

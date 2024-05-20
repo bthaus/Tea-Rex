@@ -34,7 +34,7 @@ var spawners = []
 var target;
 var showTutorials = true;
 var level = 0;
-
+static var board;
 static var blueChance = 100;
 static var redChance = 0;
 static var greenChance = 0;
@@ -125,6 +125,7 @@ func drawCards(amount):
 		get_tree().create_timer((n as float) / 3).timeout.connect(hand.drawCard)
 	pass ;
 # Called every frame. 'delta' is the elapsed time since the previous frame.
+
 func _process(delta):
 	
 
@@ -133,13 +134,16 @@ func _process(delta):
 		else: Turret.turrets.erase(turret)
 	
 	y = cam.position.y
-	if Input.is_action_just_pressed("save"):
+	#if Input.is_action_just_pressed("save"):
 		#hand.drawCard(Card.create(self,SpecialCard.create(self,Stats.SpecialCards.CRYOBALL)))
 		#changeHealth(-5000)
 		#gameBoard.DRILL_catastrophy(func():)
 		#for c in hand.get_children():
-			#c.queue_free()
-		hand.drawCard(Card.create(self,BlockCard.create(self,Stats.getBlockFromShape(Stats.BlockShape.O,Stats.TurretColor.RED,1,Stats.TurretExtension.REDLASER))))	
+		#	c.queue_free()
+		#hand.drawCard(Card.create(self,BlockCard.create(self,Stats.getBlockFromShape(Stats.BlockShape.TINY,Stats.TurretColor.BLUE,1,Stats.TurretExtension.DEFAULT))))	
+		
+		#spawners[0].spawnEnemy(Monster.create(Stats.TurretColor.BLUE,target))
+		
 		#checkUnlock()
 		#GameState.gameState.showTutorials=true	
 		#totalExp=50000000;
@@ -266,7 +270,9 @@ func startCatastrophy():
 	
 signal start_catastrophy(cat)
 func catastrophy_done(finished):
+	
 	if wave == 5:
+		collisionReference.addRows()
 		gameBoard.start_extension(func(): get_tree().create_timer(3).timeout.connect(
 			TutorialHolder.showTutorial.bind(TutorialHolder.tutNames.Catastrophy, self, checkUnlock)
 		))
@@ -284,8 +290,13 @@ func _on_spawner_wave_done():
 	startBuildPhase()
 	
 	pass # Replace with function body.
-
+static var collisionReference=CollisionReference.new()
 func startGame():
+	collisionReference.initialise(self)
+	board=gameBoard.get_node("Board")
+
+	$MinionHolder.board=board
+	$BulletHolder.board=board;
 	for m in $MinionHolder.get_children():
 		m.queue_free()
 		
@@ -401,10 +412,25 @@ func GetAllTreeNodes( node = get_tree().root,  listOfAllNodesInTree = []):
 	for childNode in node.get_children():
 		GetAllTreeNodes(childNode, listOfAllNodesInTree)
 	return listOfAllNodesInTree
+func bitshift():
+	for i in range(2000):
+		var pos=$BulletHolder.global_position
+		pos.x=int(pos.x)>>6
+		pos.y=int(pos.y)>>6
+	pass;
+func internalcall():
+	var map=gameBoard.get_node("Board")
+	for i in range(2000):
+		var pos=$BulletHolder.global_position
+		map.local_to_map(pos)
+	pass;		
 func _on_button_pressed():
-	var all=GetAllTreeNodes()
-	var projectiles=0;
-	for a in all:
-		OS.delay_msec(5)
-		print(a.name)
+	var pos=$BulletHolder.global_position
+	
+	pos.x=int(pos.x)>>6
+	pos.y=int(pos.y)>>6
+	
+	print(pos)
+	print(gameBoard.get_node("Board").local_to_map($BulletHolder.global_position))
+	
 	pass # Replace with function body.

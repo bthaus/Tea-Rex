@@ -12,17 +12,17 @@ var noise;
 static var counter = 0;
 func _ready():
 	counter = counter + 1;
-	print(str(counter) + "explosions created")
+
 	pass ;
 static func create(type, damage, position, root, scale=1, noise=true):
 	var temp;
-	print(str(cache.size()) + "explosions in cache")
+	
 	if cache.size() == 0:
 		temp = scene.instantiate() as Explosion;
 		
 		GameState.gameState.call_deferred("add_child", temp);
 		#root.add_child(temp);
-		temp.tree_entered.connect(temp.playSound)
+		#temp.tree_entered.connect(temp.playSound)
 		temp.visible = true;
 		
 	else:
@@ -49,22 +49,24 @@ static func create(type, damage, position, root, scale=1, noise=true):
 	
 	pass ;
 func playSound():
+	
 	if noise:
-		sound = AudioStreamPlayer2D.new()
-		add_child(sound)
-		sound.stream = Sounds.explosionSounds.pick_random().duplicate()
-		#sound.stream = load("res://Sounds/Soundeffects/FIREBALL_sound.wav")
+		if sound==null:
+			sound = AudioStreamPlayer2D.new()
+			add_child(sound)
+			sound.stream = Sounds.explosionSounds.pick_random().duplicate()
+			#sound.stream = load("res://Sounds/Soundeffects/FIREBALL_sound.wav")
 		sound.play(0.10)
 	pass ;
 static func addToCache(done):
 	var temp = scene.instantiate();
-	print(cache.size())
+
 	cache.push_back(temp)
 	done.call()
 	pass ;
 static func pushCache(done: Callable):
 	Explosion.new().call_deferred("addToCache", done)
-	print(cache.size())
+
 	pass ;
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -95,8 +97,7 @@ func _on_animated_sprite_2d_animation_finished():
 	pass # Replace with function body.
 
 func _on_sound_finished():
-	print("does this happen ever?")
-
+	
 	pass # Replace with function body.
 
 func _on_visible_on_screen_notifier_2d_screen_entered():

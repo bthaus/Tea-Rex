@@ -35,6 +35,7 @@ static var gamestate: GameState;
 static var camera;
 var timesShot = 0;
 static var numProjs = 0
+var oldpos=Vector2(0,0)
 
 enum asd {DEFAULT = 1, REDLASER = 2, BLUELASER = 3, YELLOWMORTAR = 4, GREENPOISON = 5};
 enum asdsa {GREY = 1, GREEN = 2, RED = 3, YELLOW = 4, BLUE = 5};
@@ -158,7 +159,7 @@ func _on_area_2d_area_entered(area):
 			
 	pass # Replace with function body.
 func hitEnemy(enemy: Monster):
-
+	
 	if (enemy is Monster):
 		
 		oneshot = oneshot - 1;
