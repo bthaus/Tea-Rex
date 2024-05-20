@@ -41,6 +41,8 @@ static func restoreGame(gameState:GameState):
 		var dakey=da.keys()[0]
 		if ignoredData.find(dakey)==-1:
 			gameState.set(dakey,da.get(dakey))
+			
+	gameState.collisionReference.addRows()		
 	deserialiseSpawners(gameState,loadfile("spawners",gameState.account))
 	loadGameMap(gameState);
 	loadHand(gameState)
@@ -113,6 +115,7 @@ static func loadGameMap(gameState:GameState):
 	gameState.gameBoard.queue_free()
 	var newBoard=load("res://GameBoard/game_board.tscn").instantiate() 
 	gameState.gameBoard=newBoard
+	gameState.board=newBoard.get_node("Board")
 	newBoard.gameState=gameState
 	gameState.add_child(newBoard)
 	var mapstring=loadfile("map",gameState.account)

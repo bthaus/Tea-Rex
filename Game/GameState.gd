@@ -95,13 +95,14 @@ func hideCount():
 # Called when the node enters the scene tree for the first time.
 var mapdrawnOnce = false;
 func _ready():
+	collisionReference.initialise(self)
 	bulletHolder = $BulletHolder
 	toUnlock.append_array(Stats.TurretExtension.keys())
 	toUnlock.append_array(Stats.SpecialCards.keys())
 	toUnlock.erase("DEFAULT")
 	toUnlock.erase("HEAL")
 	toUnlock.erase("UPDRAW")
-	
+	Engine.max_fps=60
 	if get_child_count() == 0:
 		queue_free()
 		return
@@ -125,16 +126,31 @@ func drawCards(amount):
 		get_tree().create_timer((n as float) / 3).timeout.connect(hand.drawCard)
 	pass ;
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-
+var arr=[]
+func checkLoops():
+	
+	for a in range (1000):
+		if arr.is_empty():
+			for i in 50:
+			
+				arr.append([123])
+		iloop()
+		
+	pass;
+func iloop():
+	for i in range(arr.size()):
+		arr.erase(arr.pick_random())
+	pass;
+		
 func _process(delta):
 	
-
-	for turret in Turret.turrets:
-		if is_instance_valid(turret): turret.do(delta);
-		else: Turret.turrets.erase(turret)
-	
+	if phase==Stats.GamePhase.BATTLE:
+		for turret in Turret.turrets:
+			if is_instance_valid(turret): turret.do(delta);
+			else: Turret.turrets.erase(turret)
+		
 	y = cam.position.y
-	#if Input.is_action_just_pressed("save"):
+	if Input.is_action_just_pressed("save"):
 		#hand.drawCard(Card.create(self,SpecialCard.create(self,Stats.SpecialCards.CRYOBALL)))
 		#changeHealth(-5000)
 		#gameBoard.DRILL_catastrophy(func():)
@@ -142,7 +158,7 @@ func _process(delta):
 		#	c.queue_free()
 		#hand.drawCard(Card.create(self,BlockCard.create(self,Stats.getBlockFromShape(Stats.BlockShape.TINY,Stats.TurretColor.BLUE,1,Stats.TurretExtension.DEFAULT))))	
 		
-		#spawners[0].spawnEnemy(Monster.create(Stats.TurretColor.BLUE,target))
+		spawners[0].spawnEnemy(Monster.create(Stats.TurretColor.BLUE,target))
 		
 		#checkUnlock()
 		#GameState.gameState.showTutorials=true	
@@ -170,6 +186,8 @@ func initNewBoard():
 	spawners.clear()
 	gameBoard.init_field()
 	add_child(gameBoard)
+	board=gameBoard.get_node("Board")
+	
 	HP = Stats.playerMaxHP
 	maxHP = Stats.playerMaxHP
 	for c in hand.get_children():
@@ -202,8 +220,13 @@ func startBattlePhase():
 	phase = Stats.GamePhase.BATTLE
 	updateUI()
 	pass # Replace with function body.
+func cleanUpAllFreedNodes():
+	for m in $MinionHolder.get_children():
+		if is_instance_valid(m):m.queue_free()
+	collisionReference.clearUp()	
+	pass;	
 func startBuildPhase():
-	
+	cleanUpAllFreedNodes()
 	Sounds.start(Sounds.startBuildPhase)
 	GameSaver.saveGame(gameState)
 	wave = wave + 1;
@@ -272,10 +295,13 @@ signal start_catastrophy(cat)
 func catastrophy_done(finished):
 	
 	if wave == 5:
-		collisionReference.addRows()
+		
 		gameBoard.start_extension(func(): get_tree().create_timer(3).timeout.connect(
 			TutorialHolder.showTutorial.bind(TutorialHolder.tutNames.Catastrophy, self, checkUnlock)
+			
+			
 		))
+		collisionReference.addRows()
 	else:
 		gameBoard.start_extension(func(): get_tree().create_timer(3).timeout.connect(checkUnlock))
 	GameSaver.saveGame(self)
@@ -292,7 +318,7 @@ func _on_spawner_wave_done():
 	pass # Replace with function body.
 static var collisionReference=CollisionReference.new()
 func startGame():
-	collisionReference.initialise(self)
+	collisionReference.addRows()
 	board=gameBoard.get_node("Board")
 
 	$MinionHolder.board=board

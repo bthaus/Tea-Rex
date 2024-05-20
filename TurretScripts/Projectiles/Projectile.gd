@@ -110,7 +110,7 @@ func remove():
 		return ;
 	
 	shot = false;
-	$Area2D/CollisionShape2D.set_deferred("disabled", true)
+	
 	visible = false;
 	pool.push_back(self)
 	pass ;
@@ -119,7 +119,7 @@ func setup():
 	pass ;
 func shoot(target):
 	playShootSound()
-	$Area2D/CollisionShape2D.set_deferred("disabled", false)
+	
 	direction = (target.global_position - self.global_position).normalized();
 	#if type==Stats.TurretColor.BLUE:
 	#	ConeFlash.flash(self.global_position,0.1,get_tree().get_root(),direction.angle() + PI / 2.0,0.2);
@@ -152,12 +152,6 @@ func playShootSound():
 	shotsplayed = shotsplayed + 1;
 	pass ;
 
-func _on_area_2d_area_entered(area):
-	var en = area.get_parent();
-	if en is Monster:
-		hitEnemy(en)
-			
-	pass # Replace with function body.
 func hitEnemy(enemy: Monster):
 	
 	if (enemy is Monster):

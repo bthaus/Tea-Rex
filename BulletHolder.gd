@@ -27,6 +27,5 @@ func _process(delta):
 				b.hitEnemy(moornot)
 			
 		
-		if abs(b.global_position.x) > 3000||abs(b.global_position.y) > 1.5 * GameState.gameState.board_height * Stats.block_size:
-			b.remove()
+		
 	pass

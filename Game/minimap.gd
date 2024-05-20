@@ -12,8 +12,12 @@ const VIEW_RANGE = 50
 func _ready():
 	$Board.tile_set.tile_size = Vector2(Stats.block_size, Stats.block_size)
 	$Background.tile_set.tile_size = Vector2(Stats.block_size, Stats.block_size)
-
+var time=0;
 func _process(delta):
+	time=time+delta
+	if time>5:
+		time=0
+	else:return
 	$Board.clear_layer(BLOCK_LAYER)
 	$Background.clear_layer(0)
 	for child in get_parent().get_parent().get_parent().get_parent().get_children():

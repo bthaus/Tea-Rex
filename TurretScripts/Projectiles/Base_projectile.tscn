@@ -1,12 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://37tlxcpt8qhm"]
+[gd_scene load_steps=5 format=3 uid="uid://37tlxcpt8qhm"]
 
 [ext_resource type="Script" path="res://TurretScripts/Projectiles/Projectile.gd" id="1_mhlsq"]
 [ext_resource type="Texture2D" uid="uid://raoax8o4vipw" path="res://Assets/Turrets/Projectiles/BLUE_projectile.png" id="2_84on6"]
 [ext_resource type="AudioStream" uid="uid://b48r3rrw2qhm1" path="res://Sounds/Soundeffects/BLUE_shot.wav" id="3_rd82r"]
 [ext_resource type="AudioStream" uid="uid://bxe1kduqy6i72" path="res://Sounds/Soundeffects/BLUE_hit.wav" id="4_mu6dh"]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_8idil"]
-radius = 1.69967
 
 [node name="Base_Projectile" type="Node2D"]
 process_mode = 4
@@ -19,17 +16,6 @@ z_index = -1
 position = Vector2(-1.66667, -1.66667)
 texture = ExtResource("2_84on6")
 
-[node name="Area2D" type="Area2D" parent="."]
-disable_mode = 1
-collision_layer = 0
-collision_mask = 0
-monitoring = false
-monitorable = false
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(-1.66667, -2)
-shape = SubResource("CircleShape2D_8idil")
-
 [node name="shot" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("3_rd82r")
 volume_db = 7.429
@@ -37,6 +23,5 @@ volume_db = 7.429
 [node name="hit" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_mu6dh")
 
-[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
 [connection signal="finished" from="shot" to="." method="_on_shot_finished"]
 [connection signal="finished" from="hit" to="." method="_on_hit_finished"]

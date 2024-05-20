@@ -87,6 +87,8 @@ func _ready():
 	gameState.getCamera().is_dragging_camera.connect(dragging_camera)
 	
 	_set_navigation_region()
+	$NavigationRegion2D.bake_navigation_polygon()
+	#$NavigationRegion2D.bake_finished.connect(func():$NavigationRegion2D.bake_navigation_polygon())
 	pass
 func start_bulldozer(done: Callable, size_x: int, size_y: int):
 	util.p("Bulldozering stuff now...", "Jojo")
@@ -323,7 +325,7 @@ func _process(_delta):
 			for piece in selected_block.pieces:
 				preview_turrets[idx].position = $Board.map_to_local(Vector2(piece.position.x + board_pos.x, piece.position.y + board_pos.y))
 				idx += 1
-		$NavigationRegion2D.bake_navigation_polygon()
+		#$NavigationRegion2D.bake_navigation_polygon()
 	
 #this is a inputstopper flag for tutorials and handhovering
 var ignore_input = false;

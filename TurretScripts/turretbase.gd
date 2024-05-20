@@ -1,4 +1,4 @@
-@tool
+
 extends Node2D
 class_name Turret
 
@@ -18,7 +18,8 @@ var speed;
 var cooldown;
 var cdt;
 var damage;
-
+var turretRange;
+var trueRangeSquared;
 var speedfactor = 1;
 var damagefactor = 1;
 var cooldownfactor = 1;
@@ -26,6 +27,10 @@ var light: PointLight2D;
 var lightamount = 1.5;
 var killcount = 0;
 var damagedealt = 0
+
+var rowcounterstart=0;
+var rowcounterend=0
+
 static var camera;
 var instantHit = false;
 var baseinstantHit = false;
@@ -33,8 +38,12 @@ static var baseFactory: BaseFactory = load("res://base_factory.tscn").instantiat
 var base: Base;
 var placed = true;
 static var turrets = []
+var coveredCells=[]
+var recentCells=[]
 static func create(color: Stats.TurretColor, lvl: int, type: Stats.TurretExtension=Stats.TurretExtension.DEFAULT) -> Turret:
 	var turret = load("res://TurretScripts/turretbase.tscn").instantiate() as Turret;
+	if turret.collisionReference==null:
+		turret.collisionReference=GameState.gameState.collisionReference
 	turret.type = color;
 	turret.stacks = lvl;
 	turret.extension = type;
@@ -42,9 +51,12 @@ static func create(color: Stats.TurretColor, lvl: int, type: Stats.TurretExtensi
 	
 var id;
 static var counter = 0;
+static var collisionReference:CollisionReference;
+var waitingDelayed=false;
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	turrets.append(self)
+	if placed:
+		turrets.append(self)
 	counter = counter + 1;
 	print(str(counter) + "turrets built")
 	id = counter;
@@ -56,7 +68,15 @@ func _ready():
 		globlight=false;
 		melight=false;
 		light.energy=lightamount;
+		waitingForMinions=false;
+		waitingDelayed=true;
+		get_tree().create_timer(5).timeout.connect(func():waitingDelayed=false)
+		
 		)
+	GameState.gameState.start_build_phase.connect(func():
+		light.energy=lightamount;
+		waitingForMinions=true;
+		)	
 	pass # Replace with function body.
 func checkPosition(off):
 	
@@ -81,6 +101,19 @@ func checkPosition(off):
 func _notification(what):
 	if (what == NOTIFICATION_PREDELETE)&&projectile != null:
 		projectile.free()
+var mapPosition;		
+func setupCollision():
+	if not placed: return;
+	if type==Stats.TurretColor.YELLOW: return;
+	
+	coveredCells.clear()
+	recentCells.clear()
+	
+	if type==Stats.TurretColor.RED and extension==Stats.TurretExtension.DEFAULT:
+		coveredCells.append_array(collisionReference.getNeighbours(global_position))
+	else:
+		coveredCells.append_array(collisionReference.getCellReferences(global_position,turretRange,self))
+	pass;		
 func setUpTower():
 	
 	#GameState.gameState.getCamera().scrolled.connect(checkPosition)
@@ -94,8 +127,8 @@ func setUpTower():
 		extension = Stats.TurretExtension.DEFAULT;
 	if base != null:
 		base.queue_free()
-	else:
-		$EnemyDetector.setRange(Stats.getRange(type, extension))
+	#else:
+		#$EnemyDetector.setRange(Stats.getRange(type, extension)*2.5)
 	base = baseFactory.getBase(type, extension);
 	add_child(base)
 	base.global_position = global_position
@@ -103,7 +136,9 @@ func setUpTower():
 	$AudioStreamPlayer2D.stream = load("res://Sounds/Soundeffects/" + Stats.getStringFromEnum(type) + Stats.getStringFromEnumExtension(extension) + "_shot.wav")
 	instantHit = Stats.getInstantHit(type, extension);
 	baseinstantHit = instantHit;
-	
+	turretRange=Stats.getRange(type, extension);
+	trueRangeSquared=turretRange*16
+	trueRangeSquared=trueRangeSquared*trueRangeSquared;
 	cooldown = Stats.getCooldown(type, extension);
 	damage = Stats.getDamage(type, extension);
 	speed = Stats.getMissileSpeed(type, extension);
@@ -115,18 +150,19 @@ func setUpTower():
 		projectile.visible = placed
 		projectile.modulate = Color(1, 1, 1, 1)
 		$AudioStreamPlayer2D.finished.connect(func(): if inRange(): $AudioStreamPlayer2D.play)
-	match type:
-		2: $EnemyDetector.get_node("Area2D/Preview").modulate = Color(0, 1, 0)
-		3: $EnemyDetector.get_node("Area2D/Preview").modulate = Color(1, 0, 0)
-		4: $EnemyDetector.get_node("Area2D/Preview").modulate = Color(1, 1, 0)
-		5: $EnemyDetector.get_node("Area2D/Preview").modulate = Color(0, 1, 1)
-		
+	#match type:
+		#2: $EnemyDetector.get_node("Area2D/Preview").modulate = Color(0, 1, 0)
+		#3: $EnemyDetector.get_node("Area2D/Preview").modulate = Color(1, 0, 0)
+		#4: $EnemyDetector.get_node("Area2D/Preview").modulate = Color(1, 1, 0)
+		#5: $EnemyDetector.get_node("Area2D/Preview").modulate = Color(0, 1, 1)
+		#
 	lightamount = GameState.gameState.lightThresholds.getLight(global_position.y)
 	#$Ambient.energy=lightamount/ambientDropOff
 	util.p("my light amount is: " + str(lightamount))
 	light.energy = lightamount
 	$Drawpoint.base = base
 	point.type = type
+	setupCollision()
 	pass ;
 
 var target;
@@ -146,7 +182,7 @@ func addKill():
 	pass ;
 func draw_SniperLine():
 		if target != null:
-			targetposition = target;
+			targetposition = target.global_position;
 		if target == null&&buildup <= 0:
 			return
 		
@@ -272,6 +308,42 @@ func _input(event):
 		else: $Button.mouse_filter = 0;
 		
 	pass ;
+var waitingForMinions=false;	
+func getTarget():
+	if type==Stats.TurretColor.YELLOW:
+		target=GameState.gameState.get_node("MinionHolder").get_children().pick_random()
+		return
+	#check cells where minions have been found recently
+	for cell in recentCells:
+		if not cell.is_empty():
+			target=cell.back()
+			return;
+	#check if any minions are in covered rows		
+	var minionpresent=false;		
+	for i in range (rowcounterend-rowcounterstart):
+		if collisionReference.rowCounter[rowcounterstart+i]	> 0:
+			minionpresent=true;
+			break;	
+	#if not minionpresent:
+	#	waitingForMinions=true;
+		#get_tree().create_timer(0.21).timeout.connect(func(): waitingForMinions=false)
+		#return		
+	#go through all covered cells as fallback. potential opt: traverse pathcells first, traverse rows where rowcounter >0 first		
+	for cell in coveredCells:
+		if not cell.is_empty():
+			target=cell.back()
+			if recentCells.find(cell)==-1:
+				recentCells.push_back(cell)
+			return;		
+	pass;
+func checkTarget():
+	if type==Stats.TurretColor.YELLOW:
+		return
+	var distancesquared=abs(global_position.distance_squared_to(target.global_position))
+	if distancesquared>abs(trueRangeSquared):
+		target=null;
+	
+	pass;		
 func do(delta):
 	
 	#größter pfusch auf erden. wenn ein block in der hand ist soll er seine range anzeigen, wenn nicht dann nicht.
@@ -281,7 +353,7 @@ func do(delta):
 	checkDetectorVisibility(delta)
 	
 	if GameState.gameState == null: return
-	
+	#if waitingForMinions and not waitingDelayed: return;
 	#checkLight(delta)
 	
 	$LVL.text = str(stacks)
@@ -298,7 +370,11 @@ func do(delta):
 			$AudioStreamPlayer2D.stop()
 	if type == Stats.TurretColor.RED&&extension == Stats.TurretExtension.DEFAULT&&buildup > 0&&projectile != null:
 			projectile.rotate((180 * buildup * - 1) * 2 * delta);
-	if inRange():
+	if !onCooldown:
+		if target!=null:checkTarget()	
+		if target==null:getTarget()
+			
+	if target!=null:
 			
 		#base.setLevel(stacks)
 		if projectile == null:
@@ -308,21 +384,19 @@ func do(delta):
 			buildup = buildup + 1 * delta * 2;
 		if buildup <= 1 and (type == Stats.TurretColor.RED&&extension == Stats.TurretExtension.DEFAULT)&&buildup < 0.01:
 			buildup = buildup + 0.01 * delta;
-		#var target = $EnemyDetector.enemiesInRange[id % $EnemyDetector.enemiesInRange.size()];
-		var target = $EnemyDetector.enemiesInRange[0];
-		
-		if extension == Stats.TurretExtension.REDLASER:
-			target = $EnemyDetector.enemiesInRange[0]
+	
 		direction = (target.global_position - self.global_position).normalized();
 		base.rotation = direction.angle() + PI / 2.0;
 		
-			#projectile.rotate((180*buildup)*2*delta);
+			
 		if !onCooldown:
 			if type == Stats.TurretColor.RED&&extension == Stats.TurretExtension.DEFAULT:
-				for e in $EnemyDetector.enemiesInRange:
-					if e.hit(type, self.damage * stacks): addKill()
-					addDamage(self.damage)
-					projectile.playHitSound();
+				for cell in coveredCells:
+					for e in cell:
+						if !is_instance_valid(e):continue
+						if e.hit(type, self.damage * stacks): addKill()
+						addDamage(self.damage*stacks)
+						projectile.playHitSound();
 				startCooldown(cooldown * cooldownfactor)
 				
 				return ;
@@ -336,7 +410,6 @@ func do(delta):
 				
 				sounds = sounds + 1
 					
-				self.target = target;
 				shoot(target)
 				
 				queue_redraw()
@@ -350,8 +423,6 @@ func do(delta):
 				#if !$AudioStreamPlayer2D.playing&&sounds<25:
 				$AudioStreamPlayer2D.play()
 				sounds = sounds + 1
-					
-				self.target = target.global_position;
 				projectile.hitEnemy(target)
 				buildup = 1;
 				queue_redraw()
@@ -394,22 +465,11 @@ func shoot(target):
 	startCooldown(cooldown * cooldownfactor)
 	pass ;
 func inRange():
-	return $EnemyDetector.enemiesInRange.size() > 0;
+	#return $EnemyDetector.enemiesInRange.size() > 0;
+	pass
 	
-func _get_configuration_warnings():
-	var arr = PackedStringArray([])
-	var children = get_children();
 	
-	var detector = false;
-	var sprite = false;
-	var missile = false;
-	
-	for a in children:
-		if a.name == "EnemyDetector":
-			detector = true;
-	if !detector:
-		arr.append("Add a detector to your turret");
-	return arr;
+
 
 func levelup(lvl: int=1):
 	stacks = lvl;
@@ -455,7 +515,7 @@ func checkDetectorVisibility(delta):
 		m = m - 4 * delta;
 	m = clamp(m, 0, 1)
 	
-	$EnemyDetector.modulate.a = m
+	#$EnemyDetector.modulate.a = m
 	pass
 func addDamage(Damage):
 	damagedealt = damagedealt + Damage;

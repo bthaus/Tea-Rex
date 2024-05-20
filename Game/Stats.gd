@@ -12,7 +12,7 @@ const CATASTROPHY_PREVIEW_DURATION=1
 
 const MAX_TURRET_LEVEL=5
 
-const base_range=5;
+const base_range=2;
 const green_range=2*base_range;
 const blue_range=2*base_range;
 const yellow_range=10*base_range;
@@ -38,7 +38,7 @@ const yellow_mortar_missile_speed=base_missile_speed;
 
 
 const base_cooldown=1.2;
-const green_cooldown=base_cooldown*4;
+const green_cooldown=base_cooldown*3;
 const blue_cooldown=base_cooldown*2;
 const yellow_cooldown=base_cooldown*3.04;
 const grey_cooldown=base_cooldown*1;
@@ -50,7 +50,7 @@ const green_poison_cooldown=base_cooldown*1.5
 const yellow_mortar_cooldown=base_cooldown*3;
 
 const base_damage=5;
-const green_damage=base_damage*3;
+const green_damage=base_damage*7;
 const blue_damage=base_damage*8;
 const yellow_damage=base_damage*5;
 const grey_damage=base_damage*1;
@@ -59,7 +59,7 @@ const red_damage=base_damage*2;
 const red_laser_damage=base_damage*0.5;
 const blue_laser_damage=base_damage*2;
 const green_poison_damage=base_damage*1;
-const yellow_mortar_damage=base_damage*2;
+const yellow_mortar_damage=base_damage*4;
 
 const base_penetrations=1;
 const green_penetrations=base_penetrations*1;
@@ -105,7 +105,7 @@ const poison_propagation_rate=3;
 const poison_propagation_range=base_range*0.3
 const green_poison_decay=1;
 
-static var enemy_base_HP:float=200;
+static var enemy_base_HP:float=150;
 static var GREEN_enemy_HP=enemy_base_HP*1.75;
 static var BLUE_enemy_HP=enemy_base_HP*1;
 static var YELLOW_enemy_HP=enemy_base_HP*0.7;
@@ -125,7 +125,7 @@ const enemy_base_speed=8;
 const enemy_base_acceleration = 7;
 const GREEN_enemy_speed=enemy_base_speed*1;
 const BLUE_enemy_speed=enemy_base_speed*1;
-const YELLOW_enemy_speed=enemy_base_speed*2;
+const YELLOW_enemy_speed=enemy_base_speed*1.5;
 const RED_enemy_speed=enemy_base_speed*0.7;
 
 static var enemy_base_exp=10;

@@ -9,6 +9,7 @@ var associate;
 var sound;
 var cam
 var noise;
+
 static var counter = 0;
 func _ready():
 	counter = counter + 1;
@@ -69,6 +70,15 @@ static func pushCache(done: Callable):
 
 	pass ;
 # Called every frame. 'delta' is the elapsed time since the previous frame.
+func hit():
+	for m in GameState.gameState.collisionReference.getMinionsAroundPosition(global_position):
+		print("hit an enemy")
+		if not is_instance_valid(m):continue
+		if m.hit(type, damage)&&associate != null:
+			associate.addKill()
+		if associate != null&&associate.has_method("addDamage"):
+			associate.addDamage(damage)
+	pass;
 func _process(delta):
 	
 	if cam != null and sound != null:
