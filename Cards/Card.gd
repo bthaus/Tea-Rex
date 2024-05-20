@@ -103,33 +103,36 @@ static func create(gameState:GameState,card=-1):
 		c.get_node("Label").text=""
 		c.get_node("Button").icon=load("res://Assets/Cards/Testcard_"+Stats.getStringFromEnum(color).to_lower()+".png")
 		#use this to change color/text of card
-		var preview=load("res://Cards/block_preview.tscn").instantiate()
+		c.preview=load("res://Cards/block_preview.tscn").instantiate()
 		if extension!=1: c.description=Stats.getDescription(Stats.TurretExtension.keys()[extension-1])
 		else: c.description=Stats.getDescription(Stats.getStringFromEnum(color))
-		preview.set_block(c.card.block, true)
+		c.preview.set_block(c.card.block, true)
 		#Just hardcoded for centering blocks
 		match(c.card.block.shape):
 			Stats.BlockShape.O: 
-				preview.position=Vector2(60,110)
+				c.preview.position=Vector2(60,110)
 			Stats.BlockShape.I:
-				preview.position=Vector2(50,110)
+				c.preview.position=Vector2(50,110)
 			Stats.BlockShape.SMALL:
-				preview.position=Vector2(50,110)
+				c.preview.position=Vector2(50,110)
 			Stats.BlockShape.S:
-				preview.position=Vector2(50,110)
+				c.preview.position=Vector2(50,110)
 			Stats.BlockShape.Z:
-				preview.position=Vector2(50,110)
+				c.preview.position=Vector2(50,110)
 			_:
-				preview.position=Vector2(50,100)
+				c.preview.position=Vector2(50,100)
 
-		preview.scale=Vector2(0.3,0.3)
-		btn.add_child(preview)
+		c.preview.scale=Vector2(0.3,0.3)
+		btn.add_child(c.preview)
 	
 	return c
-	
+var preview	
 func played(interrupted:bool):
 	
 	if  interrupted:
+		if card is BlockCard:
+			preview.clear_preview();
+			preview.queue_free()
 		queue_free()
 		finished.emit(self)
 		get_tree().create_timer(0.5).timeout.connect(GameSaver.saveGame.bind(state))

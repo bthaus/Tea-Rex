@@ -19,10 +19,7 @@ static func create(type, damage, position, root, scale=1, noise=true):
 	print(str(cache.size()) + "explosions in cache")
 	if cache.size() == 0:
 		temp = scene.instantiate() as Explosion;
-		temp.type = type;
-		temp.scale = Vector2(scale, scale)
-		#temp.apply_scale(Vector2(scale,scale));
-		temp.damage = damage;
+		
 		GameState.gameState.call_deferred("add_child", temp);
 		#root.add_child(temp);
 		temp.tree_entered.connect(temp.playSound)
@@ -34,7 +31,10 @@ static func create(type, damage, position, root, scale=1, noise=true):
 		GameState.gameState.call_deferred("add_child", temp);
 		temp.scale = Vector2(scale, scale)
 		temp.visible = true;
-		
+	temp.type = type;
+	temp.scale = Vector2(scale, scale)
+	#temp.apply_scale(Vector2(scale,scale));
+	temp.damage = damage;	
 	temp.get_node("Area2D").monitoring = true;
 	temp.get_node("AnimatedSprite2D").visible = true
 	temp.global_position = position;

@@ -4,6 +4,7 @@ const BLOCKLAYER = 0
 var block_handler
 
 func set_block(block: Block, spawn_turrets: bool):
+	
 	clear_preview()
 	if block_handler == null:
 		block_handler = BlockHandler.new($TileMap)

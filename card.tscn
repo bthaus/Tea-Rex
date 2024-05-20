@@ -1,8 +1,8 @@
 [gd_scene load_steps=6 format=3 uid="uid://bm6i67pq5hjlm"]
 
 [ext_resource type="Script" path="res://Cards/Card.gd" id="1_jqbs8"]
-[ext_resource type="Texture2D" uid="uid://bgb418sjl85oo" path="res://Assets/Cards/Testcard_grey.png" id="2_k4a1t"]
-[ext_resource type="Texture2D" uid="uid://ddiuw57uxwkgi" path="res://Assets/Cards/chancel card.png" id="3_iuu1m"]
+[ext_resource type="Texture2D" uid="uid://1yn00b6dh1ng" path="res://Assets/Cards/Testcard_grey.png" id="2_k4a1t"]
+[ext_resource type="Texture2D" uid="uid://bn1alymc8hger" path="res://Assets/Cards/chancel card.png" id="3_iuu1m"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_c2wsv"]
 

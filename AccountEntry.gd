@@ -21,6 +21,8 @@ static func create(name):
 	var temp=scene.instantiate()
 	var json=GameSaver.loadfile("state",name)
 	var data=JSON.parse_string(json)
+	if data==null:
+		return;
 	for d in data:
 		var dic=JSON.parse_string(d)as Dictionary
 		if dic.has("wave"):

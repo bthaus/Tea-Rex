@@ -160,6 +160,9 @@ func refreshAccountList():
 	var offset=0
 	for a in accs:
 		var entry=AccountEntry.create(a)
+		if entry==null:
+			removeAcc(a)
+			continue
 		menu.get_node("AccountsTab/EntryPosition/pos").add_child(entry)
 		entry.translate(Vector2(0,offset))
 		offset=offset+350;

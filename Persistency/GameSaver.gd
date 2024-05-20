@@ -55,6 +55,8 @@ static func remove(name):
 	
 	pass;	
 static func saveGame(gameState:GameState):
+	
+	
 	if gameState.menu!= null:
 		gameState.menu.showSaving()
 	print("save called")
