@@ -150,7 +150,7 @@ func _process(delta):
 			else: Turret.turrets.erase(turret)
 		
 	y = cam.position.y
-	if Input.is_action_just_pressed("save"):
+	#if Input.is_action_just_pressed("save"):
 		#hand.drawCard(Card.create(self,SpecialCard.create(self,Stats.SpecialCards.CRYOBALL)))
 		#changeHealth(-5000)
 		#gameBoard.DRILL_catastrophy(func():)
@@ -158,7 +158,7 @@ func _process(delta):
 		#	c.queue_free()
 		#hand.drawCard(Card.create(self,BlockCard.create(self,Stats.getBlockFromShape(Stats.BlockShape.TINY,Stats.TurretColor.BLUE,1,Stats.TurretExtension.DEFAULT))))	
 		
-		spawners[0].spawnEnemy(Monster.create(Stats.TurretColor.BLUE,target))
+		#spawners[0].spawnEnemy(Monster.create(Stats.TurretColor.BLUE,target))
 		
 		#checkUnlock()
 		#GameState.gameState.showTutorials=true	

@@ -1,5 +1,5 @@
 extends Node2D
-
+class_name MinionSetter
 var board:TileMap
 var reference:CollisionReference
 # Called when the node enters the scene tree for the first time.

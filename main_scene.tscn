@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://ct8v030fwp2gh"]
+[gd_scene load_steps=18 format=3 uid="uid://ct8v030fwp2gh"]
 
 [ext_resource type="Script" path="res://Game/GameState.gd" id="1_g64db"]
 [ext_resource type="Script" path="res://Persistency/GameSaver.gd" id="2_7eagx"]
@@ -33,6 +33,8 @@ adjustment_saturation = 1.34
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_jk75f"]
 radius = 30.0
+
+[sub_resource type="MultiMesh" id="MultiMesh_rlxfl"]
 
 [node name="MainScene" type="Node2D" node_paths=PackedStringArray("gameBoard", "menu", "cam", "lightThresholds")]
 script = ExtResource("1_g64db")
@@ -185,6 +187,9 @@ offset_top = 277.0
 offset_right = 264.0
 offset_bottom = 308.0
 text = "straybides"
+
+[node name="MultiMeshInstance2D" type="MultiMeshInstance2D" parent="."]
+multimesh = SubResource("MultiMesh_rlxfl")
 
 [connection signal="scrolled" from="Camera2D" to="Camera2D" method="changeBrightness"]
 [connection signal="finished" from="Camera2D/SoundPlayer/Music" to="Camera2D/SoundPlayer" method="_on_music_finished"]

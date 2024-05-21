@@ -44,7 +44,7 @@ const yellow_cooldown=base_cooldown*3.04;
 const grey_cooldown=base_cooldown*1;
 const red_cooldown=base_cooldown*0.3;
 
-const red_laser_cooldown=base_cooldown*0.5;
+const red_laser_cooldown=base_cooldown*0.2;
 const blue_laser_cooldown=base_cooldown*0.6;
 const green_poison_cooldown=base_cooldown*1.5
 const yellow_mortar_cooldown=base_cooldown*3;
@@ -56,7 +56,7 @@ const yellow_damage=base_damage*5;
 const grey_damage=base_damage*1;
 const red_damage=base_damage*2;
 
-const red_laser_damage=base_damage*0.5;
+const red_laser_damage=base_damage*4;
 const blue_laser_damage=base_damage*2;
 const green_poison_damage=base_damage*1;
 const yellow_mortar_damage=base_damage*4;
@@ -85,7 +85,7 @@ const yellow_mortar_instanthit=true;
 
 const yellow_mortar_penetrations=1;
 const green_explosion_range=0.5;
-const red_laser_damage_stack=1;
+const red_laser_damage_stack=3;
 const green_poison_damage_stack=3;
 
 const green_glowing=false;

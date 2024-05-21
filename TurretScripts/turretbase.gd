@@ -133,6 +133,7 @@ func setUpTower():
 	add_child(base)
 	base.global_position = global_position
 	base.setLevel(stacks)
+	$LVL.text = str(stacks)
 	$AudioStreamPlayer2D.stream = load("res://Sounds/Soundeffects/" + Stats.getStringFromEnum(type) + Stats.getStringFromEnumExtension(extension) + "_shot.wav")
 	instantHit = Stats.getInstantHit(type, extension);
 	baseinstantHit = instantHit;
@@ -496,7 +497,7 @@ func _on_button_mouse_entered():
 			GameState.gameState.menu.showDescription(Stats.getDescription(Stats.getStringFromEnum(type)))
 	detectorvisible = true;
 	GameState.gameState.showCount(killcount, damagedealt)
-	print("entered")
+	
 	
 	#create_tween().tween_property(enemydetector,"modulate",)
 	pass # Replace with function body.
