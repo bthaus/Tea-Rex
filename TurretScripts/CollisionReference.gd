@@ -54,6 +54,9 @@ func initialise(g):
 	gameState=g
 	instance=self;
 	Turret.collisionReference=self;
+	gameState.get_node("MinionHolder").reference=self;
+	gameState.get_node("BulletHolder").reference=self;
+	gameState.collisionReference=self;
 	
 	for i in range(gameState.board_height):
 		addRow(map)

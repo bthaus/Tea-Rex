@@ -41,7 +41,10 @@ static func restoreGame(gameState:GameState):
 		var dakey=da.keys()[0]
 		if ignoredData.find(dakey)==-1:
 			gameState.set(dakey,da.get(dakey))
-			
+	gameState.cleanUpAllFreedNodes		
+	gameState.collisionReference.queue_free()
+	gameState.collisionReference=CollisionReference.new()
+	gameState.collisionReference.initialise(gameState)		
 	gameState.collisionReference.addRows()		
 	deserialiseSpawners(gameState,loadfile("spawners",gameState.account))
 	loadGameMap(gameState);

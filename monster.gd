@@ -29,7 +29,7 @@ var maxGlow = 5;
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	
-	$Hitbox/Hitboxshape.apply_scale(Vector2(sizemult, sizemult));
+	#$Hitbox/Hitboxshape.apply_scale(Vector2(sizemult, sizemult));
 	damage = Stats.getEnemyProperty(color, "damage")
 	camera = GameState.gameState.getCamera()
 	speedfactor = Stats.getEnemyProperty(color, "speed")
@@ -89,7 +89,7 @@ func hit(color: Stats.TurretColor, damage, type="default", noise=true):
 		tw.kill()
 		GameState.gameState.collisionReference.removeMonster(self)
 		monster_died.emit(self)
-		$Hitbox.queue_free()
+		#$Hitbox.queue_free()
 		$Sprite2D.queue_free()
 		$VisibleOnScreenNotifier2D.queue_free()
 		$DeathAnim.visible = true;

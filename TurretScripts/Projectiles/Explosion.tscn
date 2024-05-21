@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://dn4on70p26crl"]
+[gd_scene load_steps=13 format=3 uid="uid://dn4on70p26crl"]
 
 [ext_resource type="Script" path="res://Explosion.gd" id="1_qdan5"]
 [ext_resource type="Texture2D" uid="uid://jobgij4i5sxe" path="res://Assets/Effects/Explosion_1/e1.png" id="2_bvduy"]
@@ -37,9 +37,6 @@ animations = [{
 "name": &"default",
 "speed": 7.0
 }]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_nikvq"]
-radius = 252.389
 
 [sub_resource type="Animation" id="Animation_horg6"]
 length = 0.001
@@ -102,15 +99,6 @@ sprite_frames = SubResource("SpriteFrames_4mmyl")
 frame = 6
 frame_progress = 1.0
 
-[node name="Area2D" type="Area2D" parent="."]
-collision_layer = 0
-collision_mask = 0
-monitoring = false
-monitorable = false
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-shape = SubResource("CircleShape2D_nikvq")
-
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_ifi2h")
@@ -119,6 +107,5 @@ libraries = {
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
-[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
 [connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

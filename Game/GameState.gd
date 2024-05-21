@@ -95,7 +95,7 @@ func hideCount():
 # Called when the node enters the scene tree for the first time.
 var mapdrawnOnce = false;
 func _ready():
-	collisionReference.initialise(self)
+	#collisionReference.initialise(self)
 	bulletHolder = $BulletHolder
 	toUnlock.append_array(Stats.TurretExtension.keys())
 	toUnlock.append_array(Stats.SpecialCards.keys())
@@ -187,7 +187,12 @@ func initNewBoard():
 	gameBoard.init_field()
 	add_child(gameBoard)
 	board=gameBoard.get_node("Board")
-	
+	collisionReference.queue_free()
+	collisionReference=CollisionReference.new()
+	collisionReference.initialise(self)
+	$MinionHolder.board=board
+	$BulletHolder.board=board;
+	cleanUpAllFreedNodes()
 	HP = Stats.playerMaxHP
 	maxHP = Stats.playerMaxHP
 	for c in hand.get_children():
@@ -318,6 +323,7 @@ func _on_spawner_wave_done():
 	pass # Replace with function body.
 static var collisionReference=CollisionReference.new()
 func startGame():
+	collisionReference.initialise(self)
 	collisionReference.addRows()
 	board=gameBoard.get_node("Board")
 

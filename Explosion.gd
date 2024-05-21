@@ -36,7 +36,7 @@ static func create(type, damage, position, root, scale=1, noise=true):
 	temp.scale = Vector2(scale, scale)
 	#temp.apply_scale(Vector2(scale,scale));
 	temp.damage = damage;	
-	temp.get_node("Area2D").monitoring = true;
+	#temp.get_node("Area2D").monitoring = true;
 	temp.get_node("AnimatedSprite2D").visible = true
 	temp.global_position = position;
 	temp.get_node("AnimatedSprite2D").play("default")
@@ -44,7 +44,7 @@ static func create(type, damage, position, root, scale=1, noise=true):
 	temp.associate = root;
 	temp.noise = noise
 	
-	#GameState.gameState.getCamera().shake(0.3,0.1,position,1)
+	#GameState.gameState.getCamera().shake(0.03,0.1,position,1)
 	
 	temp.cam = GameState.gameState.getCamera()
 	
@@ -53,11 +53,18 @@ func playSound():
 	
 	if noise:
 		if sound==null:
+			
+			print("creating new audioinstance")
 			sound = AudioStreamPlayer2D.new()
 			add_child(sound)
 			sound.stream = Sounds.explosionSounds.pick_random().duplicate()
 			#sound.stream = load("res://Sounds/Soundeffects/FIREBALL_sound.wav")
-		sound.play(0.10)
+		#sound.stop()
+		
+		if sound.get_parent()==null:
+			add_child(sound)
+		
+		#sound.play(0.10)
 	pass ;
 static func addToCache(done):
 	var temp = scene.instantiate();
@@ -72,7 +79,6 @@ static func pushCache(done: Callable):
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func hit():
 	for m in GameState.gameState.collisionReference.getMinionsAroundPosition(global_position):
-		print("hit an enemy")
 		if not is_instance_valid(m):continue
 		if m.hit(type, damage)&&associate != null:
 			associate.addKill()
@@ -101,7 +107,6 @@ func _on_area_2d_area_entered(area):
 
 func _on_animated_sprite_2d_animation_finished():
 	$AnimatedSprite2D.visible = false;
-	$Area2D.monitoring = false;
 	get_parent().remove_child(self)
 	cache.push_back(self)
 	pass # Replace with function body.
