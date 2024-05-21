@@ -27,7 +27,7 @@ var light: PointLight2D;
 var lightamount = 1.5;
 var killcount = 0;
 var damagedealt = 0
-
+var doFunction:Callable
 var rowcounterstart=0;
 var rowcounterend=0
 
@@ -79,7 +79,7 @@ func _ready():
 		)	
 	pass # Replace with function body.
 func checkPosition(off):
-	
+	return
 	if off and light.get_parent() != null:
 		remove_child(light)
 	if !off and light.get_parent() == null:
@@ -113,9 +113,22 @@ func setupCollision():
 		coveredCells.append_array(collisionReference.getNeighbours(global_position))
 	else:
 		coveredCells.append_array(collisionReference.getCellReferences(global_position,turretRange,self))
-	pass;		
-func setUpTower():
+	pass;	
 	
+func setupDoCall():
+	if extension==Stats.TurretExtension.DEFAULT:
+		doFunction=get(Stats.TurretColor.find_key(type)+"_do")
+		print("setting up for: "+Stats.TurretColor.find_key(type)+"_do")
+		
+	else:
+		doFunction=get(Stats.TurretExtension.find_key(extension)+"_do")	
+		print("setting up for: "+Stats.TurretExtension.find_key(extension)+"_do")
+		
+	print("setup wtf==")	
+	pass;		
+var minions;
+func setUpTower():
+	minions=GameState.gameState.get_node("MinionHolder")
 	#GameState.gameState.getCamera().scrolled.connect(checkPosition)
 	#if not placed:
 		#$Button.queue_free()
@@ -151,12 +164,7 @@ func setUpTower():
 		projectile.visible = placed
 		projectile.modulate = Color(1, 1, 1, 1)
 		$AudioStreamPlayer2D.finished.connect(func(): if inRange(): $AudioStreamPlayer2D.play)
-	#match type:
-		#2: $EnemyDetector.get_node("Area2D/Preview").modulate = Color(0, 1, 0)
-		#3: $EnemyDetector.get_node("Area2D/Preview").modulate = Color(1, 0, 0)
-		#4: $EnemyDetector.get_node("Area2D/Preview").modulate = Color(1, 1, 0)
-		#5: $EnemyDetector.get_node("Area2D/Preview").modulate = Color(0, 1, 1)
-		#
+	
 	lightamount = GameState.gameState.lightThresholds.getLight(global_position.y)
 	#$Ambient.energy=lightamount/ambientDropOff
 	util.p("my light amount is: " + str(lightamount))
@@ -164,6 +172,7 @@ func setUpTower():
 	$Drawpoint.base = base
 	point.type = type
 	setupCollision()
+	setupDoCall()
 	pass ;
 
 var target;
@@ -182,56 +191,42 @@ func addKill():
 	killcount = killcount + 1;
 	pass ;
 func draw_SniperLine():
-		if target != null:
-			targetposition = target.global_position;
-		if target == null&&buildup <= 0:
-			return
+	if target != null: targetposition = target.global_position;
+	if buildup==0: return;	
+	if targetposition==null:return;
+	if buildup < 0: buildup=0
 		
-		direction = (targetposition - self.global_position).normalized();
-		#$Barrel.rotation=direction.angle() + PI / 2.0;
-		var color = Color(1, 1, 1, 1 * buildup)
-		var thickness = 1 * buildup;
-		for b in base.getBarrels():
-			var bgp = b.get_child(0).global_position;
-			var bp = b.get_child(0).position;
-			draw_line((b.position + bp).rotated(base.rotation), -(global_position - (targetposition) - (b.position - bp).rotated(base.rotation)), color, thickness, true)
-			draw_line((b.position + bp).rotated(base.rotation), -(global_position - (targetposition) - (b.position - bp).rotated(base.rotation)), color, thickness, true)
-		
-		pass ;
+	
+	direction = (targetposition - self.global_position).normalized();
+	#$Barrel.rotation=direction.angle() + PI / 2.0;
+	var color = Color(1, 1, 1, 1 * buildup)
+	var thickness = 1 * buildup;
+	for b in base.getBarrels():
+		var bgp = b.get_child(0).global_position;
+		var bp = b.get_child(0).position;
+		draw_line((b.position + bp).rotated(base.rotation), -(global_position - (targetposition) - (b.position - bp).rotated(base.rotation)), color, thickness, true)
+		draw_line((b.position + bp).rotated(base.rotation), -(global_position - (targetposition) - (b.position - bp).rotated(base.rotation)), color, thickness, true)
+	
+	pass ;
 	
 @onready var point = $Drawpoint
 func draw_redlaser():
 	
+	
+	if target != null:
+		targetposition = target.global_position;
+	if target == null&&buildup < 0:
+		buildup=0;
+		point.buildup = buildup
+		point.queue_redraw();
+		return
 	point.target = target
 	point.buildup = buildup
 	point.targetposition = targetposition
 	point.direction = direction
 	point.queue_redraw();
-	#return
-	if target != null:
-		targetposition = target.global_position;
-	if target == null&&buildup <= 0:
-		return
-	
-	var thickness = 3;
-	if buildup > 0&&Stats.TurretColor.RED == type:
-		direction = (targetposition - self.global_position).normalized();
-	#	$Barrel.rotation=direction.angle() + PI / 2.0;
-		var color = Color(500, 0.2 + (0.2 * buildup * sin(Time.get_ticks_usec())), 0.2 + (0.2 * buildup * sin(Time.get_ticks_usec())), buildup)
-		color = color.lightened(0.5 * sin(Time.get_ticks_usec()))
-		var it = 0;
-		for b in base.getBarrels():
-			
-			it = it + 1;
-			if it == 1:
-				thickness = 5;
-			else:
-				thickness = 1
-			var bgp = b.get_child(0).global_position;
-			var bp = b.get_child(0).position;
-			draw_line((b.position + bp).rotated(base.rotation), -(global_position - (targetposition) - (b.position - bp).rotated(base.rotation)), color, thickness / 2 * buildup, true)
-			draw_line((b.position + bp).rotated(base.rotation), -(global_position - (targetposition) - (b.position - bp).rotated(base.rotation)), color, thickness * buildup + (3 * buildup * sin(Time.get_ticks_usec())), true)
-			queue_redraw()
+	return
+
 	pass ;
 	
 func reduceCooldown(delta):
@@ -311,8 +306,8 @@ func _input(event):
 	pass ;
 var waitingForMinions=false;	
 func getTarget():
-	if type==Stats.TurretColor.YELLOW:
-		target=GameState.gameState.get_node("MinionHolder").get_children().pick_random()
+	if type==Stats.TurretColor.YELLOW and minions.get_child_count()>0:
+		target=minions.get_children().pick_random()
 		return
 	#check cells where minions have been found recently
 	for cell in recentCells:
@@ -344,79 +339,48 @@ func checkTarget():
 	if distancesquared>abs(trueRangeSquared):
 		target=null;
 	
-	pass;		
-func do(delta):
+	pass;	
+func RED_do(delta):
+	#check if blade should be rotating
+	if buildup > 0&&projectile != null:
+			projectile.rotate((180 * buildup * - 1) * 2 * delta);
+	#if no target, slowly stop rotating the blade 	
+	if target==null && buildup > 0:
+		buildup = buildup - 0.01 * delta;
+	#if no target is present, stop the rest	
+	if target==null: return	
+	#if target present and buildup is lower than maxrotation, start rotating		
+	if buildup < 0.01:
+		buildup = buildup + 0.01 * delta;
+	#if not on cooldown, deal damage	
+	if !onCooldown:
+			for cell in coveredCells:
+				for e in cell:
+					if !is_instance_valid(e):continue
+					if e.hit(type, self.damage * stacks): addKill()
+					addDamage(self.damage*stacks)
+					projectile.playHitSound();
+			startCooldown(cooldown * cooldownfactor)		
 	
-	#größter pfusch auf erden. wenn ein block in der hand ist soll er seine range anzeigen, wenn nicht dann nicht.
-	#der turm weiß nur nie ob er in der hand ist oder nicht -> card intercepten
-	if !placed: $Button.visible = Card.isCardSelected
-	
-	checkDetectorVisibility(delta)
-	
-	if GameState.gameState == null: return
-	#if waitingForMinions and not waitingDelayed: return;
-	#checkLight(delta)
-	
-	$LVL.text = str(stacks)
-	if not placed:
-		return ;
-	reduceCooldown(delta)
+						
+	pass;
+func base_do():
+	if target!=null:
+		if !onCooldown:
+			shoot(target);	
+		
+	pass;			
+func BLUE_do(delta):
+	base_do()
+	pass;	
+func GREEN_do(delta):
+	base_do()
+	pass;	
+func YELLOW_do(delta):
 	if type == Stats.TurretColor.YELLOW&&extension == Stats.TurretExtension.DEFAULT:
 		buildup = buildup - 4 * delta;
-	if extension == Stats.TurretExtension.REDLASER:
-		
-		if !$AudioStreamPlayer2D.playing and buildup > 0:
-					$AudioStreamPlayer2D.play()
-		if buildup < 0.1:
-			$AudioStreamPlayer2D.stop()
-	if type == Stats.TurretColor.RED&&extension == Stats.TurretExtension.DEFAULT&&buildup > 0&&projectile != null:
-			projectile.rotate((180 * buildup * - 1) * 2 * delta);
-	if !onCooldown:
-		if target!=null:checkTarget()	
-		if target==null:getTarget()
-			
 	if target!=null:
-			
-		#base.setLevel(stacks)
-		if projectile == null:
-			projectile = Projectile.create(type, damage, speed, self, extension)
-	
-		if buildup <= 1 and (type == Stats.TurretColor.RED&&extension == Stats.TurretExtension.REDLASER):
-			buildup = buildup + 1 * delta * 2;
-		if buildup <= 1 and (type == Stats.TurretColor.RED&&extension == Stats.TurretExtension.DEFAULT)&&buildup < 0.01:
-			buildup = buildup + 0.01 * delta;
-	
-		direction = (target.global_position - self.global_position).normalized();
-		base.rotation = direction.angle() + PI / 2.0;
-		
-			
-		if !onCooldown:
-			if type == Stats.TurretColor.RED&&extension == Stats.TurretExtension.DEFAULT:
-				for cell in coveredCells:
-					for e in cell:
-						if !is_instance_valid(e):continue
-						if e.hit(type, self.damage * stacks): addKill()
-						addDamage(self.damage*stacks)
-						projectile.playHitSound();
-				startCooldown(cooldown * cooldownfactor)
-				
-				return ;
-			if (type == Stats.TurretColor.RED&&extension == Stats.TurretExtension.REDLASER):
-				
-				if camera != null:
-					var mod = camera.zoom.y - 3;
-					$AudioStreamPlayer2D.volume_db = 7 + mod * 10
-					
-				#if !$AudioStreamPlayer2D.playing&&sounds<25:
-				
-				sounds = sounds + 1
-					
-				shoot(target)
-				
-				queue_redraw()
-				startCooldown(cooldown * cooldownfactor)
-				return
-			if (type == Stats.TurretColor.YELLOW&&extension == Stats.TurretExtension.DEFAULT):
+		if!onCooldown:
 				if camera != null:
 					var mod = camera.zoom.y - 3;
 					$AudioStreamPlayer2D.volume_db = 10 + mod * 10
@@ -429,22 +393,64 @@ func do(delta):
 				queue_redraw()
 				startCooldown(cooldown * cooldownfactor)
 				onCooldown = true;
-				return
-			shoot(target);
-	elif buildup > 0:
-		if type == Stats.TurretColor.RED&&extension == Stats.TurretExtension.DEFAULT&&buildup > 0:
-			buildup = buildup - 0.01 * delta;
-			
-		else:
+	if buildup > 0 and target==null:
 			buildup = buildup - 2 * delta;
 		
-	queue_redraw()
-	#debugg
+	queue_redraw()				
+		
+	pass;	
+func REDLASER_do(delta):
+	
+	if !$AudioStreamPlayer2D.playing and buildup > 0:
+		$AudioStreamPlayer2D.play()
+	if buildup < 0.1:
+		$AudioStreamPlayer2D.stop()
+		
+	if target!=null and buildup <= 1:
+		buildup = buildup + 1 * delta * 2;	
+	if target==null and buildup > 0 :
+		buildup = buildup - 2 * delta;		
+	
+	
+	queue_redraw()		
+	base_do()	
+	
+	
+		
+				
+	pass;	
+func BLUELASER_do(delta):
+	base_do()
+	pass;	
+func GREENPOISON_do(delta):
+	base_do()
+	pass;	
+func YELLOWMORTAR_do(delta):
+	base_do()
+	pass;
+func do(delta):
+	
+	#größter pfusch auf erden. wenn ein block in der hand ist soll er seine range anzeigen, wenn nicht dann nicht.
+	#der turm weiß nur nie ob er in der hand ist oder nicht -> card intercepten
+	if !placed: $Button.visible = Card.isCardSelected
+	#checkDetectorVisibility(delta)
+	if GameState.gameState == null: return
+	if not placed: return 
+	reduceCooldown(delta)
+	
+	if !onCooldown:
+		if target!=null:checkTarget()	
+		if target==null:getTarget()
+		if projectile == null: projectile = Projectile.create(type, damage, speed, self, extension)
+			
+	if target!=null:
+		direction = (target.global_position - self.global_position).normalized();
+		base.rotation = direction.angle() + PI / 2.0;
+	doFunction.call(delta)	
 	
 	pass ;
 func startCooldown(time):
 	light.energy = 0
-	#$Ambient.energy=0
 	cdt = time;
 	onCooldown = true;
 	pass ;
@@ -453,7 +459,6 @@ func shoot(target):
 	for b in barrels:
 		var bp = b.get_child(0).global_position;
 		var shot = Projectile.create(type, damage * damagefactor, speed * speedfactor, self, extension);
-	#add_child(shot);
 		shot.global_position = bp;
 		if type == Stats.TurretColor.YELLOW&&Stats.TurretExtension.YELLOWMORTAR == extension:
 				Explosion.create(Stats.TurretColor.YELLOW, 0, bp, self, 0.1)

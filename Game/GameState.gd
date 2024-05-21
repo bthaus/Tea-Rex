@@ -144,11 +144,11 @@ func iloop():
 		
 func _process(delta):
 	
-	if phase==Stats.GamePhase.BATTLE:
-		for turret in Turret.turrets:
-			if is_instance_valid(turret): turret.do(delta);
-			else: Turret.turrets.erase(turret)
-		
+	#if phase==Stats.GamePhase.BATTLE:
+	for turret in Turret.turrets:
+		if is_instance_valid(turret): turret.do(delta);
+		else: Turret.turrets.erase(turret)
+	
 	y = cam.position.y
 	#if Input.is_action_just_pressed("save"):
 		#hand.drawCard(Card.create(self,SpecialCard.create(self,Stats.SpecialCards.CRYOBALL)))
