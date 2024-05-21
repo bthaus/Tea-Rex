@@ -24,6 +24,10 @@ const blue_laser_range=3*base_range;
 const green_poison_range=2*base_range;
 const yellow_mortar_range=10*base_range;
 
+const blue_freezer_range=base_range*2
+
+
+
 const base_missile_speed=750;
 const green_missile_speed=1*base_missile_speed;
 const blue_missile_speed=1*base_missile_speed;
@@ -35,6 +39,7 @@ const blue_laser_missile_speed=base_missile_speed*3;
 const red_laser_missile_speed=base_missile_speed*1;
 const green_poison_missile_speed=base_missile_speed*1;
 const yellow_mortar_missile_speed=base_missile_speed;
+const blue_freezer_missile_speed=base_missile_speed
 
 
 const base_cooldown=1.2;
@@ -49,6 +54,8 @@ const blue_laser_cooldown=base_cooldown*0.6;
 const green_poison_cooldown=base_cooldown*1.5
 const yellow_mortar_cooldown=base_cooldown*3;
 
+const blue_freezer_cooldown=base_cooldown*0.2
+
 const base_damage=5;
 const green_damage=base_damage*7;
 const blue_damage=base_damage*8;
@@ -61,6 +68,8 @@ const blue_laser_damage=base_damage*2;
 const green_poison_damage=base_damage*1;
 const yellow_mortar_damage=base_damage*4;
 
+const blue_freezer_damage=base_damage*0.2
+
 const base_penetrations=1;
 const green_penetrations=base_penetrations*1;
 const blue_penetrations=base_penetrations*1;
@@ -71,6 +80,7 @@ const red_penetrations=base_penetrations*-1000000;
 const red_laser_penetrations=base_penetrations*1;
 const blue_laser_penetrations=base_penetrations*3;
 const green_poison_penetrations=base_penetrations*1;
+const blue_freezer_penetrations=1
 
 const green_instanthit=false;
 const blue_instanthit=false;
@@ -82,11 +92,16 @@ const blue_laser_instanthit=false;
 const green_poison_instanthit=false;
 const yellow_mortar_instanthit=true;
 
+const blue_freezer_instanthit=true;
+
+
 
 const yellow_mortar_penetrations=1;
 const green_explosion_range=0.5;
 const red_laser_damage_stack=3;
 const green_poison_damage_stack=3;
+const blue_freezer_slow_amount=0.9
+const blue_freezer_slow_duration=1
 
 const green_glowing=false;
 const blue_glowing=false;
@@ -98,6 +113,7 @@ const red_laser_glowing=false;
 const blue_laser_glowing=true;
 const green_poison_glowing=false;
 const yellow_mortar_glowing=false;
+const blue_freezer_glowing=false;
 
 
 const poison_dropoff_rate=3;
@@ -218,6 +234,8 @@ static var BULLDOZER_description="Allows you to destroy blocks."
 static var GLUE_description="Slows enemies while they are on it."
 static var UPDRAW_description="Increases the number of cards you draw per round."
 static var UPMAXCARDS_description="Increases the number of cards you can hold."
+static var BLUEFREEZER_description="Freezes enemies with a laser"
+
 const CARD_PLACEMENT_DELAY=0.2
 
 static var BLUE_name="Pew Pew"
@@ -229,12 +247,15 @@ static var BLUELASER_name="Laser"
 static var REDLASER_name="Red laser"
 static var GREENPOISON_name="Toxicator"
 static var YELLOWMORTAR_name="Mortar"
+static var BLUEFREEZER_name="Freezy"
+
 
 static var BLUELASER_big_description="A blue laser turret shoots lasers that pass through multiple enemies. It stops after damaging three.   "
 static var REDLASER_big_description="A red laser turret that deals high damage to a single enemy. The more lasers shoot the same enemy, the more damage he takes."
 static var GREENPOISON_big_description="A green turret applies a toxin to enemies, dealing damage over time. It stacks on each consecutive application!"
 static var YELLOWMORTAR_big_description="A yellow turret shoots explosives at a high range. First, the target location is set, and after a second it hits."
 
+static var BLUEFREEZER_big_description="A blue turrets, that freezes enemies with a frosty laser!"
 static var HEAL_big_description="Heals you. The longer you hold it in your hand, the more it heals you. Trust me, you will need it!"
 static var FIREBALL_big_description="Casts a powerful fireball at your target location. Can be used to catch stray enemies. "
 static var UPHEALTH_big_description="Increases your maximum health. Again, if you hold it for longer, the amount will increase."
@@ -244,10 +265,12 @@ static var BULLDOZER_big_description="This card allows you to destroy blocks! Bu
 static var GLUE_big_description="Bring out the big tubes! Slows enemies on top of this slimey puddle."
 static var POISON_big_description="Poisons enemies you hit with it. Don't worry, its not contagious."
 static var UPDRAW_big_description="It's dangerous to build alone. Take this! 
+
+
 (lets you draw more cards)"
 static var UPMAXCARDS_big_description="Lets you hold more cards. It's magical. "
 enum TurretColor {GREY=1, GREEN=2, RED=3, YELLOW=4,BLUE=5};
-enum TurretExtension {DEFAULT=1,REDLASER=2, BLUELASER=3, YELLOWMORTAR=4, GREENPOISON=5};
+enum TurretExtension {DEFAULT=1,REDLASER=2, BLUELASER=3, YELLOWMORTAR=4, GREENPOISON=5,BLUEFREEZER=6};
 enum GamePhase {BATTLE=1,BUILD=2,BOTH=3};
 enum SpecialCards {HEAL=1,FIREBALL=2,UPHEALTH=3,CRYOBALL=4,MOVE=5, BULLDOZER=6,GLUE=7,POISON=8, UPDRAW=9, UPMAXCARDS=10}
 enum BlockShape {O=1, I=2, S=3, Z=4, L=5, J=6, T=7, TINY=8, SMALL=9, ARROW=10, CROSS=11}
@@ -306,6 +329,7 @@ static func getStringFromEnumExtension(type:TurretExtension):
 		3: return "LASER"
 		4: return "MORTAR"
 		5: return "POISON"
+		6: return "FREEZER"
 	
 	return "";
 static func getStringFromEnumExtensionLowercase(type:TurretExtension):
@@ -315,6 +339,7 @@ static func getStringFromEnumExtensionLowercase(type:TurretExtension):
 		2: return "laser"
 		3: return "laser"
 		5: return "poison"
+		6: return "freezer"
 		
 	
 	return "";
@@ -344,6 +369,7 @@ static func getEnumFromString(str:String):
 		"BLUELASER":return TurretExtension.BLUELASER
 		"YELLOWMORTAR":return TurretExtension.YELLOWMORTAR
 		"GREENPOISON":return TurretExtension.GREENPOISON
+		"BLUEFREEZER":return TurretExtension.BLUEFREEZER
 	pass;
 static func getShapeFromString(str:String):
 	match str:
@@ -520,8 +546,8 @@ static func getExtensionFromColor(color: TurretColor):
 		1: return TurretExtension.DEFAULT;
 		2: return TurretExtension.GREENPOISON;
 		3: return TurretExtension.REDLASER;
-		4: return TurretExtension.YELLOWMORTAR;	#TODO: it's actually TurretExtension.YELLOWCATAPULT but it's not implemented yet
-		5: return TurretExtension.BLUELASER
+		4: return TurretExtension.YELLOWMORTAR;	
+		5: return  TurretExtension.BLUEFREEZER#[TurretExtension.BLUELASER,TurretExtension.BLUEFREEZER].pick_random()
 	pass	
 
 

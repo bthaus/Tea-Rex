@@ -7,6 +7,7 @@ var targetposition
 var type
 var direction
 
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
@@ -19,10 +20,16 @@ func _draw():
 	if targetposition == null:
 		return
 	var thickness = 3;
-	if buildup > 0&&Stats.TurretColor.RED == type:
+	if buildup > 0:
 		direction = (targetposition - self.global_position).normalized();
 	#	$Barrel.rotation=direction.angle() + PI / 2.0;
-		var color = Color(500, 0.2 + (0.2 * buildup * sin(Time.get_ticks_usec())), 0.2 + (0.2 * buildup * sin(Time.get_ticks_usec())), buildup)
+	
+		var color
+		if Stats.TurretExtension.REDLASER == type:
+			color= Color(500, 0.2 + (0.2 * buildup * sin(Time.get_ticks_usec())), 0.2 + (0.2 * buildup * sin(Time.get_ticks_usec())), buildup)
+		if Stats.TurretExtension.BLUEFREEZER ==type:
+				color= Color(0, 0.2 + (0.2 * buildup * sin(Time.get_ticks_usec())), 500 + (0.2 * buildup * sin(Time.get_ticks_usec())), buildup)
+				color = color.lightened(0.5)
 		color = color.lightened(0.5 * sin(Time.get_ticks_usec()))
 		var it = 0;
 		

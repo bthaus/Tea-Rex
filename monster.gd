@@ -47,6 +47,7 @@ func _ready():
 	maxGlow = clamp(maxGlow, 1, 5)
 	modulate = Color(maxGlow, maxGlow, maxGlow, maxGlow)
 	#get_node(Stats.getStringFromEnum(color)).visible=false;
+	#create_tween().tween_property(self,"global_position",target.global_position,20)
 	move()
 	$HP.text = str(hp)
 	pass # Replace with function body.

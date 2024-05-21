@@ -14,6 +14,7 @@ static var gpi = 0;
 static var yellow_default_bullet_pool = []
 static var ydi = 0;
 static var yello_mortar_bullet_pool = []
+static var blue_freezer_bullet_pool=[]
 var index;
 var shot = false;
 var damage;
@@ -53,6 +54,7 @@ static func getPool(color: Stats.TurretColor, type: Stats.TurretExtension):
 		5: match type:
 			1: return blue_default_bullet_pool
 			3: return blue_laser_bullet_pool
+			6: return blue_freezer_bullet_pool
 	return 1
 	
 static func create(type: Stats.TurretColor, damage, speed, root, extension: Stats.TurretExtension=Stats.TurretExtension.DEFAULT) -> Projectile:
@@ -176,9 +178,18 @@ func applySpecials(enemy: Monster):
 			applyPoison(enemy)
 		if type == Stats.TurretColor.YELLOW&&ext == Stats.TurretExtension.YELLOWMORTAR:
 			applyMortarExplosion(enemy)
-		
+		if ext==Stats.TurretExtension.BLUEFREEZER:
+			applyBlueFreezer(enemy)
 		pass ;
-		
+func applyBlueFreezer(enemy:Monster):
+	var temp = false;
+	for a in enemy.get_children():
+		if a is Slower and a.factor==Stats.blue_freezer_slow_amount:
+			temp = true;
+			a.reapply()
+	if !temp:
+		enemy.add_child(Slower.create(Stats.blue_freezer_slow_duration,Stats.blue_freezer_slow_amount));
+	pass;		
 func applyRedLaser(enemy: Monster):
 	
 	var temp = false;

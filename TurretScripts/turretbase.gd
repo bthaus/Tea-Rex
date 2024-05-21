@@ -79,7 +79,7 @@ func _ready():
 		)	
 	pass # Replace with function body.
 func checkPosition(off):
-	return
+	if !placed:return
 	if off and light.get_parent() != null:
 		remove_child(light)
 	if !off and light.get_parent() == null:
@@ -89,13 +89,6 @@ func checkPosition(off):
 		light.visible = true
 		light.enabled = true
 	base.visible = !off;
-	
-	if extension == Stats.TurretExtension.BLUELASER: return ;
-	var i = off
-	if !i:
-		instantHit = baseinstantHit;
-	else:
-		instantHit = true;
 	pass ;
 	
 func _notification(what):
@@ -124,7 +117,7 @@ func setupDoCall():
 		doFunction=get(Stats.TurretExtension.find_key(extension)+"_do")	
 		print("setting up for: "+Stats.TurretExtension.find_key(extension)+"_do")
 		
-	print("setup wtf==")	
+	
 	pass;		
 var minions;
 func setUpTower():
@@ -183,7 +176,9 @@ var ambientDropOff = 3;
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _draw():
 	if type == Stats.TurretColor.RED&&extension == Stats.TurretExtension.REDLASER:
-		draw_redlaser()
+		draw_laser()
+	if	type == Stats.TurretColor.BLUE&&extension == Stats.TurretExtension.BLUEFREEZER:
+		draw_laser()
 	if Stats.TurretColor.YELLOW == type:
 		draw_SniperLine()
 	pass ;
@@ -210,7 +205,7 @@ func draw_SniperLine():
 	pass ;
 	
 @onready var point = $Drawpoint
-func draw_redlaser():
+func draw_laser():
 	
 	
 	if target != null:
@@ -220,6 +215,7 @@ func draw_redlaser():
 		point.buildup = buildup
 		point.queue_redraw();
 		return
+	point.type=extension	
 	point.target = target
 	point.buildup = buildup
 	point.targetposition = targetposition
@@ -414,7 +410,14 @@ func REDLASER_do(delta):
 	
 	queue_redraw()		
 	base_do()	
-	
+func BLUEFREEZER_do(delta):
+	if target!=null and buildup <= 1:
+		buildup = buildup + 1 * delta * 2;	
+	if target==null and buildup > 0 :
+		buildup = buildup - 2 * delta;		
+	queue_redraw()		
+	base_do()	
+	pass;	
 	
 		
 				
