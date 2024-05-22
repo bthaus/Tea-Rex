@@ -27,6 +27,7 @@ texture = ExtResource("1_3kswu")
 script = ExtResource("4_xlvce")
 
 [node name="REDLASER_base" type="Sprite2D" parent="."]
+visible = false
 modulate = Color(1.2, 1.77647, 0.968627, 1)
 z_index = 3
 script = ExtResource("4_xlvce")

@@ -94,6 +94,8 @@ func clearUp():
 func getNeighbours(pos, reference=null):
 	var p = getMapPositionNormalised(pos)
 	var coveredCells = []
+	if isOutOfBounds(p.x,p.y):
+		return;
 	coveredCells.append(map[p.y + 1][p.x + 1].ms)
 	coveredCells.append(map[p.y - 1][p.x + 1].ms)
 	coveredCells.append(map[p.y + 1][p.x - 1].ms)
@@ -156,7 +158,7 @@ func isOutOfBounds(x, y):
 			
 	pass
 func addholders(row: Array):
-	for i in range(gameState.board_width + 2 * 10):
+	for i in range(gameState.board_width + 2 * 12):
 		row.append(Holder.new())
 	pass ;
 static var cacheSize = 100;

@@ -521,7 +521,7 @@ func showRangeOutline():
 				GameState.gameState.gameBoard.show_outline(pos)
 				
 	else:	
-		print("showing")
+		
 		var showCells=[]
 		if type==Stats.TurretColor.RED&&Stats.TurretExtension.DEFAULT==extension:
 			collisionReference.getNeighbours(global_position,showCells)
@@ -536,7 +536,7 @@ func _on_button_mouse_entered():
 	for t in cardBuddys:
 		t.showRangeOutline()
 	if placed:
-		GameState.gameState.menu.showDescription("This turret defeated " + str(str(killcount) + " minions and dealt " + str(damagedealt) + "damage."))
+		GameState.gameState.menu.showDescription("This turret defeated " + str(str(killcount) + " minions and dealt " + str(int(damagedealt)) + "damage."))
 		
 	elif extension != 1:
 		GameState.gameState.menu.showDescription(Stats.getDescription(Stats.TurretExtension.keys()[extension - 1]))
