@@ -9,6 +9,7 @@ func set_block(block: Block, spawn_turrets: bool):
 	if block_handler == null:
 		block_handler = BlockHandler.new($TileMap)
 	block_handler.draw_block(block, Vector2(0,0), BLOCKLAYER, -1)
+	var turrets=[]
 	if spawn_turrets:
 		for piece in block.pieces:
 			if piece.color == Stats.TurretColor.GREY:
@@ -18,6 +19,8 @@ func set_block(block: Block, spawn_turrets: bool):
 			turret.placed=false;
 			add_child(turret)
 			
+	
+				
 
 
 func clear_preview():

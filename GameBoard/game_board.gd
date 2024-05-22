@@ -25,6 +25,7 @@ const GROUND_LAYER = 1
 const EXTENSION_LAYER = 2
 const SELECTION_LAYER = 3
 const CATASTROPHY_LAYER = 4
+const RANGE_PREVIEW_LAYER=5
 
 var is_dragging_camera = false
 var is_moving_camera = false
@@ -323,12 +324,18 @@ func _process(_delta):
 		if preview_turrets.size() == selected_block.pieces.size():
 			var idx = 0
 			for piece in selected_block.pieces:
-				preview_turrets[idx].position = $Board.map_to_local(Vector2(piece.position.x + board_pos.x, piece.position.y + board_pos.y))
+				var pos=$Board.map_to_local(Vector2(piece.position.x + board_pos.x, piece.position.y + board_pos.y))
+				preview_turrets[idx].position = pos
+				if previous_preview_pos!=pos:
+					preview_turrets[idx].showRangeOutline()
+				previous_preview_pos=pos;	
 				idx += 1
 		#$NavigationRegion2D.bake_navigation_polygon()
 	
 #this is a inputstopper flag for tutorials and handhovering
 var ignore_input = false;
+var previous_preview_pos=Vector2(0,0)
+
 func _input(event):
 	var board_pos = $Board.local_to_map(get_global_mouse_position())
 	
@@ -349,7 +356,7 @@ func _input(event):
 	if ignore_input: return
 	
 	if event.is_action_released("left_click"):
-		print(board_pos)
+		
 		if Card.contemplatingInterrupt: return ;
 		match action:
 			BoardAction.PLAYER_BUILD:
@@ -384,7 +391,12 @@ func _input(event):
 				_remove_turrets(selected_block, board_pos)
 				_action_finished(true)
 				$NavigationRegion2D.bake_navigation_polygon()
-
+func show_outline(pos):
+	$Board.set_cell(RANGE_PREVIEW_LAYER, $Board.local_to_map(pos), ILLEGAL_PLACEMENT_TILE_ID, Vector2(0,0))
+	pass;
+func clear_range_outline():
+	$Board.clear_layer(RANGE_PREVIEW_LAYER)
+	pass;	
 func _place_block(block: Block, position: Vector2):
 	var data = $Board.get_cell_tile_data(BLOCK_LAYER, position)
 	if data != null: # There is already a piece -> upgrade

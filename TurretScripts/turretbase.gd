@@ -40,6 +40,7 @@ var placed = true;
 static var turrets = []
 var coveredCells=[]
 var recentCells=[]
+var cardBuddys=[]
 static func create(color: Stats.TurretColor, lvl: int, type: Stats.TurretExtension=Stats.TurretExtension.DEFAULT) -> Turret:
 	var turret = load("res://TurretScripts/turretbase.tscn").instantiate() as Turret;
 	if turret.collisionReference==null:
@@ -53,10 +54,13 @@ var id;
 static var counter = 0;
 static var collisionReference:CollisionReference;
 var waitingDelayed=false;
+static var inhandTurrets=[]
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	if placed:
 		turrets.append(self)
+	else:
+		inhandTurrets.append(self)	
 	counter = counter + 1;
 	print(str(counter) + "turrets built")
 	id = counter;
@@ -94,18 +98,20 @@ func checkPosition(off):
 func _notification(what):
 	if (what == NOTIFICATION_PREDELETE)&&projectile != null:
 		projectile.free()
-var mapPosition;		
-func setupCollision():
+var mapPosition;
+var referenceCells=[]		
+func setupCollision(clearing):
 	if not placed: return;
 	if type==Stats.TurretColor.YELLOW: return;
 	
-	coveredCells.clear()
+	if clearing:coveredCells.clear()
 	recentCells.clear()
 	
 	if type==Stats.TurretColor.RED and extension==Stats.TurretExtension.DEFAULT:
-		coveredCells.append_array(collisionReference.getNeighbours(global_position))
+		coveredCells.append_array(collisionReference.getNeighbours(global_position,referenceCells))
+		
 	else:
-		coveredCells.append_array(collisionReference.getCellReferences(global_position,turretRange,self))
+		coveredCells.append_array(collisionReference.getCellReferences(global_position,turretRange,self,referenceCells))
 	pass;	
 	
 func setupDoCall():
@@ -124,11 +130,16 @@ func setUpTower():
 	minions=GameState.gameState.get_node("MinionHolder")
 	#GameState.gameState.getCamera().scrolled.connect(checkPosition)
 	#if not placed:
-		#$Button.queue_free()
+	#	$Button.queue_free()
+		#$Button.mouse_filter=2
 		
 	GameState.gameState.start_combat_phase.connect(func():
 		light.energy=lightamount;
 		return )
+	GameState.gameState.start_build_phase.connect(func():
+		if GameState.gameState.wave%5==0:
+			setupCollision(false)
+		return )	
 	if extension == 0:
 		extension = Stats.TurretExtension.DEFAULT;
 	if base != null:
@@ -164,7 +175,7 @@ func setUpTower():
 	light.energy = lightamount
 	$Drawpoint.base = base
 	point.type = type
-	setupCollision()
+	setupCollision(true)
 	setupDoCall()
 	pass ;
 
@@ -296,8 +307,9 @@ func checkLight(delta):
 func _input(event):
 	if placed: return ;
 	if event is InputEventMouseMotion:
-		if !placed&&Card.isCardSelected&&Card.contemplatingInterrupt: $Button.mouse_filter = 2
-		else: $Button.mouse_filter = 0;
+		
+		print("processing?")
+		
 		
 	pass ;
 var waitingForMinions=false;	
@@ -305,24 +317,26 @@ func getTarget():
 	if type==Stats.TurretColor.YELLOW and minions.get_child_count()>0:
 		target=minions.get_children().pick_random()
 		return
+	if minions.get_child_count()==0:
+		return;
 	#check cells where minions have been found recently
 	for cell in recentCells:
 		if not cell.is_empty():
 			target=cell.back()
 			return;
 	#check if any minions are in covered rows		
-	var minionpresent=false;		
-	for i in range (rowcounterend-rowcounterstart):
-		if collisionReference.rowCounter[rowcounterstart+i]	> 0:
-			minionpresent=true;
-			break;	
+	#var minionpresent=false;		
+	#for i in range (rowcounterend-rowcounterstart):
+	#	if collisionReference.rowCounter[rowcounterstart+i]	> 0:
+	#		minionpresent=true;
+	#		break;	
 	#if not minionpresent:
 	#	waitingForMinions=true;
 		#get_tree().create_timer(0.21).timeout.connect(func(): waitingForMinions=false)
 		#return		
 	#go through all covered cells as fallback. potential opt: traverse pathcells first, traverse rows where rowcounter >0 first		
 	for cell in coveredCells:
-		if not cell.is_empty():
+		if !cell.is_empty():
 			target=cell.back()
 			if recentCells.find(cell)==-1:
 				recentCells.push_back(cell)
@@ -432,13 +446,16 @@ func YELLOWMORTAR_do(delta):
 	base_do()
 	pass;
 func do(delta):
-	
+
 	#größter pfusch auf erden. wenn ein block in der hand ist soll er seine range anzeigen, wenn nicht dann nicht.
 	#der turm weiß nur nie ob er in der hand ist oder nicht -> card intercepten
-	if !placed: $Button.visible = Card.isCardSelected
+	if !placed:
+		if Card.contemplatingInterrupt: $Button.mouse_filter = 2
+		else:
+			$Button.mouse_filter = 0;
 	#checkDetectorVisibility(delta)
 	if GameState.gameState == null: return
-	if not placed: return 
+	if not placed:return
 	reduceCooldown(delta)
 	
 	if !onCooldown:
@@ -494,16 +511,35 @@ func _on_timer_timeout():
 func _on_audio_stream_player_2d_finished():
 	sounds = sounds - 1
 	pass # Replace with function body.
-
+func showRangeOutline():
+	if placed:
+		if type!=Stats.TurretColor.YELLOW:
+			for c in referenceCells:
+				var pos=collisionReference.getGlobalFromReference(c)
+				GameState.gameState.gameBoard.show_outline(pos)
+	else:	
+		print("showing")
+		var showCells=[]
+		if type==Stats.TurretColor.RED&&Stats.TurretExtension.DEFAULT==extension:
+			collisionReference.getNeighbours(global_position,showCells)
+		else:
+			collisionReference.getCellReferences(global_position,turretRange,self,showCells,true)
+		for c in showCells:
+			var pos=collisionReference.getGlobalFromReference(c)
+			GameState.gameState.gameBoard.show_outline(pos)
+	pass;
 func _on_button_mouse_entered():
+	showRangeOutline()
+	for t in cardBuddys:
+		t.showRangeOutline()
 	if placed:
 		GameState.gameState.menu.showDescription("This turret defeated " + str(str(killcount) + " minions and dealt " + str(damagedealt) + "damage."))
+		
+	elif extension != 1:
+		GameState.gameState.menu.showDescription(Stats.getDescription(Stats.TurretExtension.keys()[extension - 1]))
 	else:
-		if extension != 1:
-			GameState.gameState.menu.showDescription(Stats.getDescription(Stats.TurretExtension.keys()[extension - 1]))
-		else:
-			GameState.gameState.menu.showDescription(Stats.getDescription(Stats.getStringFromEnum(type)))
-	detectorvisible = true;
+		GameState.gameState.menu.showDescription(Stats.getDescription(Stats.getStringFromEnum(type)))
+	
 	GameState.gameState.showCount(killcount, damagedealt)
 	
 	
@@ -535,6 +571,7 @@ func _on_button_mouse_exited():
 	GameState.gameState.menu.hideDescription()
 	detectorvisible = false;
 	GameState.gameState.hideCount()
+	GameState.gameState.gameBoard.clear_range_outline()
 	pass # Replace with function body.
 
 func _on_button_pressed():

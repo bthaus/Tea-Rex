@@ -127,6 +127,7 @@ texture = ExtResource("7_niotb")
 script = ExtResource("4_xlvce")
 
 [node name="Barrel1" type="Sprite2D" parent="BLUEFREEZER_base"]
+visible = false
 position = Vector2(1, -16)
 texture = ExtResource("8_4ydpy")
 
@@ -139,7 +140,7 @@ position = Vector2(-16, -9)
 texture = ExtResource("8_4ydpy")
 
 [node name="bp2" type="Node2D" parent="BLUEFREEZER_base/Barrel2"]
-position = Vector2(1, -23)
+position = Vector2(0, -7)
 
 [node name="Barrel3" type="Sprite2D" parent="BLUEFREEZER_base"]
 visible = false
@@ -147,7 +148,7 @@ position = Vector2(19, -8)
 texture = ExtResource("8_4ydpy")
 
 [node name="bp3" type="Node2D" parent="BLUEFREEZER_base/Barrel3"]
-position = Vector2(0, -24)
+position = Vector2(1, -7)
 
 [node name="Barrel4" type="Sprite2D" parent="BLUEFREEZER_base"]
 visible = false
@@ -155,14 +156,15 @@ position = Vector2(-11, 7)
 texture = ExtResource("8_4ydpy")
 
 [node name="bp4" type="Node2D" parent="BLUEFREEZER_base/Barrel4"]
-position = Vector2(0, -24)
+position = Vector2(1, -7)
 
 [node name="Barrel5" type="Sprite2D" parent="BLUEFREEZER_base"]
+visible = false
 position = Vector2(13, 6)
 texture = ExtResource("8_4ydpy")
 
 [node name="bp5" type="Node2D" parent="BLUEFREEZER_base/Barrel5"]
-position = Vector2(0, -7)
+position = Vector2(1, -5)
 
 [node name="YELLOWMORTAR_base" type="Sprite2D" parent="."]
 visible = false

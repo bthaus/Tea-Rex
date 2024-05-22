@@ -54,7 +54,7 @@ const blue_laser_cooldown=base_cooldown*0.6;
 const green_poison_cooldown=base_cooldown*1.5
 const yellow_mortar_cooldown=base_cooldown*3;
 
-const blue_freezer_cooldown=base_cooldown*0.2
+const blue_freezer_cooldown=base_cooldown*0.5
 
 const base_damage=5;
 const green_damage=base_damage*7;
@@ -100,7 +100,7 @@ const yellow_mortar_penetrations=1;
 const green_explosion_range=0.5;
 const red_laser_damage_stack=3;
 const green_poison_damage_stack=3;
-const blue_freezer_slow_amount=0.9
+const blue_freezer_slow_amount=0.7
 const blue_freezer_slow_duration=1
 
 const green_glowing=false;
