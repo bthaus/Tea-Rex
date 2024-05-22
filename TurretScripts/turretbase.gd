@@ -512,11 +512,14 @@ func _on_audio_stream_player_2d_finished():
 	sounds = sounds - 1
 	pass # Replace with function body.
 func showRangeOutline():
+	if type==Stats.TurretColor.YELLOW:
+		return
 	if placed:
 		if type!=Stats.TurretColor.YELLOW:
 			for c in referenceCells:
 				var pos=collisionReference.getGlobalFromReference(c)
 				GameState.gameState.gameBoard.show_outline(pos)
+				
 	else:	
 		print("showing")
 		var showCells=[]

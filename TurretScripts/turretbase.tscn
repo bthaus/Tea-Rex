@@ -13,10 +13,7 @@ outline_color = Color(0, 0, 0, 1)
 [node name="Turret" type="Node2D"]
 process_mode = 4
 script = ExtResource("1_87rlb")
-range = null
-isBasic = null
 type = 3
-stacks = null
 extension = 1
 
 [node name="Timer" type="Timer" parent="."]

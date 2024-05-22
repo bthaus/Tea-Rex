@@ -129,6 +129,7 @@ func getCellReferences(pos, turretRange, turret, cellPositions,sloppy=false):
 	for y in range(turretRange * 2 + 1):
 		for x in range(turretRange * 2 + 1):
 			if sloppy||isProperCell(mapPosition.x + x, mapPosition.y + y):
+				if isOutOfBounds(mapPosition.x + x, mapPosition.y + y):continue
 				coveredCells.append(map[mapPosition.y + y][mapPosition.x + x].ms)
 				cellPositions.append(Vector2(mapPosition.x + x, mapPosition.y + y))
 			
