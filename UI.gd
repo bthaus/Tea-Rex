@@ -32,14 +32,14 @@ func _ready():
 func _input(event):
 	if not menu.visible:
 		return;
-	if event.is_action_pressed("scroll_down")and tuts.global_position.y <550 and unlockedTab.visible:
-		tuts.translate(Vector2(0,100))
-	if event.is_action_pressed("scroll_up") and tuts.global_position.y>-9000 and unlockedTab.visible:
-		tuts.translate(Vector2(0,-100))	
-	if event.is_action_pressed("scroll_down") and accountsTab.visible and accoundentries.global_position.y<500 :
-		accoundentries.translate(Vector2(0,100))
-	if event.is_action_pressed("scroll_up") and accountsTab.visible and accoundentries.global_position.y>-350*accoundentries.get_child_count()+1200 :
-		accoundentries.translate(Vector2(0,-100))		
+	if event.is_action_pressed("scroll_down")and tuts.global_position.y>-9000  and unlockedTab.visible:
+		tuts.translate(Vector2(0,-100))
+	if event.is_action_pressed("scroll_up") and  tuts.global_position.y <550 and unlockedTab.visible:
+		tuts.translate(Vector2(0,+100))	
+	if event.is_action_pressed("scroll_down") and accountsTab.visible and accoundentries.global_position.y>-350*accoundentries.get_child_count()+1200:
+		accoundentries.translate(Vector2(0,-100))
+	if event.is_action_pressed("scroll_up") and accountsTab.visible and accoundentries.global_position.y<500  :
+		accoundentries.translate(Vector2(0,100))		
 	pass;
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

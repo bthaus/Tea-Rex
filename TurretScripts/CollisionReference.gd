@@ -139,7 +139,7 @@ func getCellReferences(pos, turretRange, turret, cellPositions,sloppy=false):
 	pass
 func isProperCell(x, y):
 	
-	return (not isOutOfBounds(x, y)) and (not isOccupiedCell(x, y))
+	return not isOutOfBounds(x, y)# and (not isOccupiedCell(x, y))
 	
 func isOccupiedCell(x, y):
 	for turret in Turret.turrets:
