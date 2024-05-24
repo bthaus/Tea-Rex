@@ -23,7 +23,7 @@ var trueRangeSquared;
 var speedfactor = 1;
 var damagefactor = 1;
 var cooldownfactor = 1;
-var light: PointLight2D;
+
 var lightamount = 1.5;
 var killcount = 0;
 var damagedealt = 0
@@ -66,33 +66,31 @@ func _ready():
 	id = counter;
 	#if not placed:
 		#$Button.mouse_filter=2
-	light = $PointLight2D
+	
 	setUpTower();
 	GameState.gameState.start_combat_phase.connect(func():
 		globlight=false;
 		melight=false;
-		light.energy=lightamount;
+		resetLight()
 		waitingForMinions=false;
 		waitingDelayed=true;
 		get_tree().create_timer(5).timeout.connect(func():waitingDelayed=false)
 		
 		)
 	GameState.gameState.start_build_phase.connect(func():
-		light.energy=lightamount;
+		resetLight()
 		waitingForMinions=true;
 		)	
 	pass # Replace with function body.
+func resetLight():
+	$Tile.modulate=Color(1+lightamount,1+lightamount,1+lightamount)
+	pass;	
 func checkPosition(off):
 	if !placed:return
-	if off and light.get_parent() != null:
-		remove_child(light)
-	if !off and light.get_parent() == null:
-		
-		add_child(light)
-		light.global_position = global_position
-		light.visible = true
-		light.enabled = true
-	base.visible = !off;
+	$Tile.visible=!off;
+	base.visible=!off;
+	$Button.visible=!off;
+	$VisibleOnScreenNotifier2D.visible=true;
 	pass ;
 	
 func _notification(what):
@@ -134,7 +132,7 @@ func setUpTower():
 		#$Button.mouse_filter=2
 		
 	GameState.gameState.start_combat_phase.connect(func():
-		light.energy=lightamount;
+		resetLight()
 		return )
 	GameState.gameState.start_build_phase.connect(func():
 		if GameState.gameState.wave%5==0:
@@ -169,11 +167,13 @@ func setUpTower():
 		projectile.modulate = Color(1, 1, 1, 1)
 		$AudioStreamPlayer2D.finished.connect(func(): if inRange(): $AudioStreamPlayer2D.play)
 	$Tile.texture=load("res://Assets/Tiles/tile_"+Stats.getStringFromEnumLowercase(type)+".png")
-	lightamount = GameState.gameState.lightThresholds.getLight(global_position.y)
+	lightamount = GameState.gameState.lightThresholds.getLight(global_position.y)*stacks
+	
 	$Tile.modulate=Color(1+lightamount,1+lightamount,1+lightamount)
+	
 	#$Ambient.energy=lightamount/ambientDropOff
 	util.p("my light amount is: " + str(lightamount))
-	light.energy = lightamount
+	resetLight()
 	$Drawpoint.base = base
 	point.type = type
 	setupCollision(true)
@@ -242,7 +242,7 @@ func reduceCooldown(delta):
 	#if GameState.gameState.phase==Stats.GamePhase.BUILD:
 	#	light.energy=1;
 	#	return
-	var ml = lightamount * stacks;
+	var ml = lightamount ;
 	if not onCooldown:
 		return ;
 	var increase = (ml / cooldown) * delta
@@ -266,7 +266,7 @@ func highlight(delta):
 	if GameState.gameState.phase == Stats.GamePhase.BATTLE: return
 	globlight = true;
 	melight = true;
-	create_tween().tween_property(light, "energy", 3, 1)
+	#create_tween().tween_property(light, "energy", 3, 1)
 	#if light.energy>=3:return
 	
 	#light.energy=light.energy+9*delta;
@@ -276,7 +276,7 @@ func de_highlight(delta):
 	if GameState.gameState.phase == Stats.GamePhase.BATTLE: return
 	globlight = false;
 	melight = false;
-	create_tween().tween_property(light, "energy", lightamount, 1)
+	#create_tween().tween_property(light, "energy", lightamount, 1)
 	#light.energy=lightamount
 	pass
 	
@@ -287,17 +287,17 @@ func checkLight(delta):
 		lightamount = GameState.gameState.lightThresholds.getLight(global_position.y)
 	
 	#if light.energy<=0:light.energy=0;return
-	if globlight&&!melight:
-		create_tween().tween_property(light, "energy", 0, 1)
-	if !globlight&&light.energy < lightamount:
+	#if globlight&&!melight:
+		#create_tween().tween_property(light, "energy", 0, 1)
+	#if !globlight&&light.energy < lightamount:
 		#print(light.energy)
 		#light.energy = lightamount
-		create_tween().tween_property(light, "energy", lightamount, 1)
+		#create_tween().tween_property(light, "energy", lightamount, 1)
 		#light.energy=light.energy-9*delta;
 	
-	if !globlight&&light.energy < lightamount:
-		create_tween().tween_property(light, "energy", lightamount, 1)
-		#light.energy = lightamount
+	#if !globlight&&light.energy < lightamount:
+	#	create_tween().tween_property(light, "energy", lightamount, 1)
+		##light.energy = lightamount
 	#	#return
 	#if melight:
 		#return	
@@ -471,7 +471,7 @@ func do(delta):
 	
 	pass ;
 func startCooldown(time):
-	light.energy = 0
+	#light.energy = 0
 	$Tile.modulate=Color(1,1,1)
 	cdt = time;
 	onCooldown = true;
@@ -500,7 +500,10 @@ func inRange():
 
 
 func levelup(lvl: int=1):
+	lightamount=lightamount/stacks
 	stacks = lvl;
+	lightamount=lightamount*stacks
+	
 	setUpTower()
 	$LVL.text = str(stacks)
 	base.setLevel(stacks)
@@ -582,7 +585,7 @@ func _on_button_mouse_exited():
 func _on_button_pressed():
 	#if its a buildaction
 	
-	light.energy = lightamount
+	resetLight()
 	
 	if Card.isCardSelected: return ;
 	

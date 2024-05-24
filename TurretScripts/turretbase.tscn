@@ -1,8 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://cdrytflh1sqcx"]
+[gd_scene load_steps=6 format=3 uid="uid://cdrytflh1sqcx"]
 
 [ext_resource type="Script" path="res://TurretScripts/turretbase.gd" id="1_87rlb"]
 [ext_resource type="Texture2D" uid="uid://dpcl3osga8evf" path="res://Assets/Level/blackBackgroundLabel.png" id="4_gxsap"]
-[ext_resource type="Texture2D" uid="uid://b0vjaywamx3yp" path="res://Assets/Lights/spotlight.png" id="5_cl5yn"]
 [ext_resource type="Texture2D" uid="uid://du8bwxjcem7l2" path="res://Assets/Tiles/tile_blue.png" id="5_sey8j"]
 [ext_resource type="Script" path="res://TurretScripts/Drawpoint.gd" id="5_y5hmu"]
 
@@ -20,15 +19,6 @@ extension = 1
 [node name="Timer" type="Timer" parent="."]
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
-
-[node name="PointLight2D" type="PointLight2D" parent="."]
-process_mode = 4
-visible = false
-scale = Vector2(0.777, 0.777)
-editor_only = true
-energy = 1.5
-texture = ExtResource("5_cl5yn")
-texture_scale = 2.0
 
 [node name="Button" type="Button" parent="."]
 modulate = Color(1, 1, 1, 0)
@@ -58,9 +48,11 @@ script = ExtResource("5_y5hmu")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 process_mode = 3
+position = Vector2(0.999999, -0.499998)
+scale = Vector2(3, 3.05)
 
 [node name="Tile" type="Sprite2D" parent="."]
-process_mode = 3
+z_index = 1
 texture = ExtResource("5_sey8j")
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

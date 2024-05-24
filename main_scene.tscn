@@ -106,7 +106,7 @@ gameState = NodePath("..")
 gamestate = NodePath("..")
 
 [node name="LightThresholds" type="Node2D" parent="." node_paths=PackedStringArray("gameState", "minDarkPosition", "maxDarkPosition", "minLightPosition", "maxLightPosition", "minGlowPosition", "maxGlowPosition")]
-position = Vector2(-726, -2477)
+position = Vector2(-938, -3754)
 script = ExtResource("11_n87cu")
 gameState = NodePath("..")
 minDarkPosition = NodePath("minDark")
@@ -118,7 +118,7 @@ maxGlowPosition = NodePath("maxGlow")
 minDark = 1.0
 maxDark = 0.3
 maxLight = 2.0
-maxGlow = 4.405
+maxGlow = 4.4
 
 [node name="minDark" type="Node2D" parent="LightThresholds"]
 position = Vector2(528.714, 903.148)
