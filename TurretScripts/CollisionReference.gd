@@ -73,6 +73,9 @@ func addRow(y: Array):
 	var row = []
 	addholders(row)
 	y.append(row)
+	var row2 = []
+	addholders(row2)
+	y.append(row2)
 	rowCounter.append(0)
 	rowCounter.append(0)
 	pass ;

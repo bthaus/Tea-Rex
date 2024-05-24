@@ -167,9 +167,10 @@ func setUpTower():
 		projectile.modulate = Color(1, 1, 1, 1)
 		$AudioStreamPlayer2D.finished.connect(func(): if inRange(): $AudioStreamPlayer2D.play)
 	$Tile.texture=load("res://Assets/Tiles/tile_"+Stats.getStringFromEnumLowercase(type)+".png")
-	lightamount = GameState.gameState.lightThresholds.getLight(global_position.y)*stacks
-	
-	$Tile.modulate=Color(1+lightamount,1+lightamount,1+lightamount)
+	if placed:
+		lightamount = GameState.gameState.lightThresholds.getLight(global_position.y)*stacks
+		
+		$Tile.modulate=Color(1+lightamount,1+lightamount,1+lightamount)
 	
 	#$Ambient.energy=lightamount/ambientDropOff
 	util.p("my light amount is: " + str(lightamount))
@@ -316,6 +317,8 @@ func _input(event):
 var waitingForMinions=false;	
 func getTarget():
 	if type==Stats.TurretColor.YELLOW and minions.get_child_count()>0:
+		#there might be nullvalues inside there, because the minions are freed and might not be properly removed from the array. so this should be fixed, becuase the pick random would
+		#return a nullvalue, which is a sign of "im not responsible for a target"
 		target=minions.get_children().pick_random()
 		return
 	if minions.get_child_count()==0:

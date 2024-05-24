@@ -12,7 +12,6 @@ script = ExtResource("1_yp6tt")
 
 [node name="Board" type="TileMap" parent="." groups=["navigation"]]
 tile_set = ExtResource("2_dhwah")
-rendering_quadrant_size = 1
 format = 2
 layer_0/name = "block_layer"
 layer_1/name = "ground_layer"
