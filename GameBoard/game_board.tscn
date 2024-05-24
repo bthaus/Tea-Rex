@@ -15,6 +15,7 @@ tile_set = ExtResource("2_dhwah")
 rendering_quadrant_size = 1
 format = 2
 layer_0/name = "block_layer"
+layer_0/enabled = false
 layer_0/z_index = 1
 layer_1/name = "ground_layer"
 layer_1/tile_data = PackedInt32Array()

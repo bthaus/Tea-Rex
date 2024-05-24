@@ -34,6 +34,7 @@ var spawners = []
 var target;
 var showTutorials = true;
 var level = 0;
+
 static var board;
 static var blueChance = 100;
 static var redChance = 0;

@@ -168,8 +168,9 @@ func setUpTower():
 		projectile.visible = placed
 		projectile.modulate = Color(1, 1, 1, 1)
 		$AudioStreamPlayer2D.finished.connect(func(): if inRange(): $AudioStreamPlayer2D.play)
-	
+	$Tile.texture=load("res://Assets/Tiles/tile_"+Stats.getStringFromEnumLowercase(type)+".png")
 	lightamount = GameState.gameState.lightThresholds.getLight(global_position.y)
+	$Tile.modulate=Color(1+lightamount,1+lightamount,1+lightamount)
 	#$Ambient.energy=lightamount/ambientDropOff
 	util.p("my light amount is: " + str(lightamount))
 	light.energy = lightamount
@@ -245,9 +246,9 @@ func reduceCooldown(delta):
 	if not onCooldown:
 		return ;
 	var increase = (ml / cooldown) * delta
-	
-	light.energy = light.energy + increase
-	if light.energy > ml: light.energy = ml;
+	$Tile.modulate=Color($Tile.modulate.r+increase,$Tile.modulate.r+increase,$Tile.modulate.r+increase)
+	#light.energy = light.energy + increase
+	#if light.energy > ml: light.energy = ml;
 	
 	#$Ambient.energy=$Ambient.energy+increase
 	#if$Ambient.energy>ml/ambientDropOff: $Ambient.energy=ml/ambientDropOff;
@@ -471,6 +472,7 @@ func do(delta):
 	pass ;
 func startCooldown(time):
 	light.energy = 0
+	$Tile.modulate=Color(1,1,1)
 	cdt = time;
 	onCooldown = true;
 	pass ;
