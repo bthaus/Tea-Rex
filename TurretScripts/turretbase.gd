@@ -314,20 +314,35 @@ func _input(event):
 		
 		
 	pass ;
-var waitingForMinions=false;	
+var waitingForMinions=false;
+
+func searchForMinionsInRecent()-> bool:
+	for cell in recentCells:
+		if not cell.is_empty():
+			target=cell.back()
+			if target!=null:
+				return true;
+			else:
+				for m in cell:
+					if not is_instance_valid(m):
+						print("nullreference removed")
+						cell.erase(m)
+					else:
+						target=m	
+	return false;					
+	pass;	
 func getTarget():
 	if type==Stats.TurretColor.YELLOW and minions.get_child_count()>0:
 		#there might be nullvalues inside there, because the minions are freed and might not be properly removed from the array. so this should be fixed, becuase the pick random would
 		#return a nullvalue, which is a sign of "im not responsible for a target"
 		target=minions.get_children().pick_random()
+		
 		return
 	if minions.get_child_count()==0:
 		return;
 	#check cells where minions have been found recently
-	for cell in recentCells:
-		if not cell.is_empty():
-			target=cell.back()
-			return;
+	if searchForMinionsInRecent():return
+				
 	#check if any minions are in covered rows		
 	#var minionpresent=false;		
 	#for i in range (rowcounterend-rowcounterstart):
@@ -342,9 +357,17 @@ func getTarget():
 	for cell in coveredCells:
 		if !cell.is_empty():
 			target=cell.back()
-			if recentCells.find(cell)==-1:
-				recentCells.push_back(cell)
-			return;		
+			if target!=null:
+				if recentCells.find(cell)==-1:
+					recentCells.push_back(cell)
+				return;
+			else:
+				for m in cell:
+					if not is_instance_valid(m):
+						print("nullreference removed")
+						cell.erase(m)
+					else:
+						target=m
 	pass;
 func checkTarget():
 	if type==Stats.TurretColor.YELLOW:

@@ -24,7 +24,7 @@ static var rng = RandomNumberGenerator.new()
 func _ready():
 		
 	gameState.getCamera().is_dragging_camera.connect(func(b):
-		print("ignoring");
+
 		ignoreNextClick=true)
 	var text = load("res://Assets/UI/Target_Cross.png")
 	$Preview.texture = text

@@ -13,9 +13,30 @@ static func normaliseY(y):
 static func normaliseVector(pos):
 	return Vector2(normaliseX(pos.x), normaliseY(pos.y))
 	pass ;
+func removeNnullReferences(n):
+	var removals=[]
+	for y in range(map.size()):
+		for x in range(map[y].size()):
+			for z in range(map[y][x].ms.size()):
+				if map[y][x].ms[z]==null:
+					removals=Vector3(x,y,z);
+					n=n-1
+					if n==0:
+						for r in removals:
+							map[r.y][r.x].ms.remove_at(r.z)
+	
+	pass;
+		
 func removeMonster(mo):
 	var pos = normaliseVector(instance.gameState.board.local_to_map(mo.global_position));
+	var beforesize=map[pos.y][pos.x].ms.size()
 	map[pos.y][pos.x].ms.erase(mo)
+	var aftersize=map[pos.y][pos.x].ms.size()
+	if beforesize==aftersize:
+		print("minion not found on position.searching for it..")
+		#removeNnullReferences(1)
+		
+		
 	pass ;
 func setMinion(oldx, oldy, x, y, m: Monster):
 	oldx = normaliseX(oldx)
