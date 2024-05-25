@@ -1,8 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://cdrytflh1sqcx"]
+[gd_scene load_steps=6 format=3 uid="uid://cdrytflh1sqcx"]
 
 [ext_resource type="Script" path="res://TurretScripts/turretbase.gd" id="1_87rlb"]
 [ext_resource type="Texture2D" uid="uid://dpcl3osga8evf" path="res://Assets/Level/blackBackgroundLabel.png" id="4_gxsap"]
-[ext_resource type="Texture2D" uid="uid://qvth536mpcgp" path="res://Assets/Turrets/fakebase.png" id="5_0o20y"]
 [ext_resource type="Texture2D" uid="uid://du8bwxjcem7l2" path="res://Assets/Tiles/tile_blue.png" id="5_sey8j"]
 [ext_resource type="Script" path="res://TurretScripts/Drawpoint.gd" id="5_y5hmu"]
 
@@ -55,13 +54,6 @@ scale = Vector2(3, 3.05)
 [node name="Tile" type="Sprite2D" parent="."]
 z_index = 1
 texture = ExtResource("5_sey8j")
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-visible = false
-z_index = 1
-position = Vector2(0, 2)
-scale = Vector2(1.5625, 1.39803)
-texture = ExtResource("5_0o20y")
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="finished" from="AudioStreamPlayer2D" to="." method="_on_audio_stream_player_2d_finished"]
