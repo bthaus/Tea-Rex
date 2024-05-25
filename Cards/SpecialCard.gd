@@ -125,12 +125,12 @@ func castUPMAXCARDS():
 	return true;
 	
 func castFIREBALL():
-	$Effect.visible = true;
-	$Effect.global_position = get_global_mouse_position();
+	#$Effect.visible = true;
+	#$Effect.global_position = get_global_mouse_position();
+	Explosion.create(Stats.TurretColor.GREY,damage,get_global_mouse_position(),null,2)
 	$Effect.play(Stats.getStringFromSpecialCardEnum(cardName));
-	$Effect/EnemyDetector.enemyEntered.connect(func(e):
-		
-		e.hit(Stats.TurretColor.GREY, damage))
+	#$Effect/EnemyDetector.enemyEntered.connect(func(e):
+	#	e.hit(Stats.TurretColor.GREY, damage))
 	return true;
 
 func castCRYOBALL():

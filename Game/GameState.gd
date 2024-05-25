@@ -154,8 +154,8 @@ func _process(delta):
 		else: Turret.turrets.erase(turret)
 			
 	y = cam.position.y
-	#if Input.is_action_just_pressed("save"):
-		#hand.drawCard(Card.create(self,SpecialCard.create(self,Stats.SpecialCards.CRYOBALL)))
+	if Input.is_action_just_pressed("save"):
+		hand.drawCard(Card.create(self,SpecialCard.create(self,Stats.SpecialCards.FIREBALL)))
 		#changeHealth(-5000)
 		#gameBoard.DRILL_catastrophy(func():)
 		#for c in hand.get_children():
@@ -169,7 +169,7 @@ func _process(delta):
 		#totalExp=50000000;
 		#checkLevelUp()
 		#checkUnlock()
-		#print("DEBUGGGGGING AHOY")
+		
 		
 	pass
 

@@ -9,6 +9,7 @@ var associate;
 var sound;
 var cam
 var noise;
+var range
 
 static var counter = 0;
 func _ready():
@@ -36,6 +37,7 @@ static func create(type, damage, position, root, scale=1, noise=true):
 	temp.scale = Vector2(scale, scale)
 	#temp.apply_scale(Vector2(scale,scale));
 	temp.damage = damage;	
+	temp.range=scale;
 	#temp.get_node("Area2D").monitoring = true;
 	temp.get_node("AnimatedSprite2D").visible = true
 	temp.global_position = position;
@@ -78,7 +80,16 @@ static func pushCache(done: Callable):
 	pass ;
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func hit():
-	for m in GameState.gameState.collisionReference.getMinionsAroundPosition(global_position):
+	
+	var ms=[]
+	if range<=1:
+		ms=GameState.gameState.collisionReference.getMinionsAroundPosition(global_position)
+	else:
+		range=int(range)
+		var cells=GameState.gameState.collisionReference.getCellReferences(global_position,range+1)
+		for c in cells:
+			ms.append_array(c)	
+	for m in ms:
 		if not is_instance_valid(m):continue
 		if m.hit(type, damage)&&associate != null:
 			associate.addKill()

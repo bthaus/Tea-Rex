@@ -87,7 +87,7 @@ func initialise(g):
 		addRow(map)
 	pass ;
 func addRows():
-	for i in range(gameState.board_height + 10 - map.size()):
+	for i in range(gameState.board_height + 20 - map.size()):
 		addRow(map)
 	pass ;
 func addRow(y: Array):
@@ -141,15 +141,16 @@ func getNeighbours(pos, reference=null):
 		
 	return coveredCells;
 	pass ;
-func getCellReferences(pos, turretRange, turret, cellPositions,sloppy=false):
+func getCellReferences(pos, turretRange, turret=null, cellPositions=[],sloppy=false):
 	var mapPosition = getMapPositionNormalised(pos)
 	#traversing from the top left corner to the bottom right corner
-	print(mapPosition)
+
 	mapPosition.x = mapPosition.x - turretRange;
 	mapPosition.y = mapPosition.y - turretRange;
 	var coveredCells = []
-	turret.rowcounterstart = mapPosition.y
-	turret.rowcounterend = mapPosition.y * 2 + 1
+	if turret!=null:
+		turret.rowcounterstart = mapPosition.y
+		turret.rowcounterend = mapPosition.y * 2 + 1
 	#+1 because it needs to be an uneven number
 	
 	for y in range(turretRange * 2 + 1):

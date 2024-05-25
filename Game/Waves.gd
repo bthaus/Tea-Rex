@@ -117,7 +117,9 @@ func _draw():
 	var path = nav.get_current_navigation_path()
 	if path.size() == 0:
 		return
-	var color = Color.WHITE if can_reach_target() else Color.RED
+	#lightened makes the line glow. for some reason this makes aqua and red the exact other color. i have no clue	
+	var color = Color.RED if can_reach_target() else Color.AQUA
+	color=color.lightened(5)
 	for i in range(1, path.size()):
 		draw_line(Vector2(path[i-1].x - global_position.x, path[i-1].y - global_position.y),
 		Vector2(path[i].x - global_position.x, path[i].y - global_position.y), color, 3, true)
