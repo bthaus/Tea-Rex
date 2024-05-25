@@ -36,6 +36,7 @@ var delay_timer: Timer
 
 const SPAWNER_OFFSET = 30
 
+const RANGE_PREVIEW_TILE_ID = 0
 const LEGAL_PLACEMENT_TILE_ID = 1
 const ILLEGAL_PLACEMENT_TILE_ID = 2
 const PREVIEW_BLOCK_TILE_ID = 4
@@ -393,7 +394,7 @@ func _input(event):
 				_action_finished(true)
 				$NavigationRegion2D.bake_navigation_polygon()
 func show_outline(pos):
-	$Board.set_cell(RANGE_PREVIEW_LAYER, $Board.local_to_map(pos), ILLEGAL_PLACEMENT_TILE_ID, Vector2(0,0))
+	$Board.set_cell(RANGE_PREVIEW_LAYER, $Board.local_to_map(pos), RANGE_PREVIEW_TILE_ID, Vector2(0,0))
 	pass;
 func clear_range_outline():
 	$Board.clear_layer(RANGE_PREVIEW_LAYER)
