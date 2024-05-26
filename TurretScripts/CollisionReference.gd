@@ -44,8 +44,7 @@ func setMinion(oldx, oldy, x, y, m: Monster):
 	x = normaliseX(x)
 	y = normaliseY(y)
 	oldy = normaliseY(oldy)
-	print("x: "+str(x)+" y: "+str(y))
-	print(basepos)
+	
 	map[oldy][oldx].ms.erase(m)
 	if x==basepos.x and y==basepos.y:
 		gameState.hit_base(m)

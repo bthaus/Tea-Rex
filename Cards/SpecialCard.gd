@@ -137,9 +137,17 @@ func castCRYOBALL():
 	$Effect.visible = true;
 	$Effect.global_position = get_global_mouse_position();
 	$Effect.play(Stats.getStringFromSpecialCardEnum(cardName));
-	$Effect/EnemyDetector.enemyEntered.connect(func(e):
-		e.hit(Stats.TurretColor.GREY, damage)
-		e.add_child(Slower.create(Stats.CRYOBALL_slowDuration, Stats.CRYOBALL_slowFactor)))
+	
+	var ms=[]
+	var cells=GameState.gameState.collisionReference.getCellReferences(get_global_mouse_position(),range+1)
+	for c in cells:
+		ms.append_array(c)	
+	for m in ms:
+		if not is_instance_valid(m):continue
+		m.hit(Stats.TurretColor.BLUE, damage)
+		m.add_child(Slower.create(Stats.CRYOBALL_slowDuration, Stats.CRYOBALL_slowFactor))
+	
+		
 
 	return true;
 
