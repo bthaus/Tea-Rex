@@ -29,7 +29,7 @@ const blue_freezer_range=base_range*2
 
 
 const base_missile_speed=750;
-const green_missile_speed=1*base_missile_speed;
+const green_missile_speed=0.8*base_missile_speed;
 const blue_missile_speed=1*base_missile_speed;
 const yellow_missile_speed=3*base_missile_speed;
 const red_missile_speed=1*base_missile_speed;
@@ -49,7 +49,7 @@ const yellow_cooldown=base_cooldown*3.04;
 const grey_cooldown=base_cooldown*1;
 const red_cooldown=base_cooldown*0.3;
 
-const red_laser_cooldown=base_cooldown*0.2;
+const red_laser_cooldown=base_cooldown*0.4;
 const blue_laser_cooldown=base_cooldown*0.6;
 const green_poison_cooldown=base_cooldown*1.5
 const yellow_mortar_cooldown=base_cooldown*3;
@@ -137,7 +137,7 @@ const RED_enemy_damage=enemy_base_damage*3;
 const max_enemies_per_spawner=50;
 
 const enemy_base_speed_factor =1;
-const enemy_base_speed=8;
+const enemy_base_speed=10;
 const enemy_base_acceleration = 7;
 const GREEN_enemy_speed=enemy_base_speed*1;
 const BLUE_enemy_speed=enemy_base_speed*1;

@@ -10,7 +10,7 @@ static var gameState;
 
 var account: String = "";
 #Stats.TurretExtension
-var unlockedExtensions = [Stats.TurretExtension.DEFAULT];
+var unlockedExtensions = [Stats.TurretExtension.BLUEFREEZER];
 #Stats.TurretColor
 var unlockedColors = [Stats.TurretColor.BLUE];
 #Stats.SpecialCards
@@ -155,7 +155,12 @@ func _process(delta):
 			
 	y = cam.position.y
 	if Input.is_action_just_pressed("save"):
-		hand.drawCard(Card.create(self,SpecialCard.create(self,Stats.SpecialCards.POISON)))
+		#gameBoard.queue_free()
+		#menu.queue_free()
+		var delay=0;
+			
+		
+		#hand.drawCard(Card.create(self,SpecialCard.create(self,Stats.SpecialCards.POISON)))
 		#changeHealth(-5000)
 		#gameBoard.DRILL_catastrophy(func():)
 		#for c in hand.get_children():

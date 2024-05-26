@@ -76,7 +76,11 @@ static func create(type: Stats.TurretColor, damage, speed, root, extension: Stat
 		temp.type = type;
 		temp.ext = extension;
 		GameState.gameState.bulletHolder.add_child(temp)
-	
+	if type==Stats.TurretColor.GREEN and extension==Stats.TurretExtension.DEFAULT:
+		temp.get_node("PArticles").visible=true;
+		temp.get_node("PArticles/shiny").emitting=true;
+		temp.get_node("PArticles/smoke").emitting=true;
+		
 	temp.global_position = root.global_position
 	temp.associate = root
 	temp.damage = damage;
@@ -102,6 +106,8 @@ func _ready():
 		scale = Vector2(1, 1)
 	if color == Stats.TurretColor.RED and ext == Stats.TurretExtension.DEFAULT:
 		$Sprite2D.modulate = Color(1, 1, 1, 1)
+	if color == Stats.TurretColor.BLUE and ext == Stats.TurretExtension.DEFAULT:
+		$Sprite2D.modulate = Color(1, 1, 1, 1).lightened(5)	
 	#BulletManager.allBullets.append(self)
 	pass # Replace with function body.
 
@@ -112,15 +118,15 @@ func remove():
 		return ;
 	
 	shot = false;
-	
-	visible = false;
+	global_position=Vector2(-5000,-5000)
+	if not (type==Stats.TurretColor.GREEN and ext==Stats.TurretExtension.DEFAULT): visible = false;
 	pool.push_back(self)
 	pass ;
 func setup():
 	
 	pass ;
 func shoot(target):
-	playShootSound()
+	#playShootSound()
 	
 	direction = (target.global_position - self.global_position).normalized();
 	#if type==Stats.TurretColor.BLUE:
@@ -138,19 +144,19 @@ func playHitSound():
 		#return
 	if camera != null:
 		var mod = GameState.gameState.getCamera().zoom.y - 3;
-		$hit.volume_db = 10 + mod * 1
-	if !$hit.playing:
-		$hit.play();
-		hitsplayed = hitsplayed + 1
+	#	$hit.volume_db = 10 + mod * 1
+	#if !$hit.playing:
+	#	$hit.play();
+	#	hitsplayed = hitsplayed + 1
 	pass ;
 func playShootSound():
 	#if(shotsplayed>25):
 		#return
 	if camera != null:
 		var mod = camera.zoom.y - 3;
-		$shot.volume_db = mod * 15
+		#$shot.volume_db = mod * 15
 	
-	$shot.play();
+	#$shot.play();
 	shotsplayed = shotsplayed + 1;
 	pass ;
 

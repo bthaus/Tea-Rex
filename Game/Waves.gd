@@ -86,6 +86,7 @@ func spawnEnemy(mo:Monster):
 	mo.monster_died.connect(state.addExp)
 	mo.reached_spawn.connect(monsterReachedSpawn)
 	mo.global_position=global_position
+	mo.path=nav.get_current_navigation_path()
 	GameState.gameState.get_node("MinionHolder").add_child(mo)
 	
 

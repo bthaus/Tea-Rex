@@ -44,7 +44,8 @@ func setMinion(oldx, oldy, x, y, m: Monster):
 	x = normaliseX(x)
 	y = normaliseY(y)
 	oldy = normaliseY(oldy)
-	
+	if y>map.size():
+		addRows()
 	map[oldy][oldx].ms.erase(m)
 	if x==basepos.x and y==basepos.y:
 		gameState.hit_base(m)
@@ -195,7 +196,7 @@ func addholders(row: Array):
 	for i in range(gameState.board_width + 2 * 12):
 		row.append(Holder.new())
 	pass ;
-static var cacheSize = 100;
+
 class Holder:
 	var ts = []
 	var ms = []

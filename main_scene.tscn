@@ -1,8 +1,6 @@
-[gd_scene load_steps=17 format=3 uid="uid://ct8v030fwp2gh"]
+[gd_scene load_steps=14 format=3 uid="uid://ct8v030fwp2gh"]
 
 [ext_resource type="Script" path="res://Game/GameState.gd" id="1_g64db"]
-[ext_resource type="Script" path="res://Persistency/GameSaver.gd" id="2_7eagx"]
-[ext_resource type="Script" path="res://Game/Stats.gd" id="3_j6i2j"]
 [ext_resource type="Texture2D" uid="uid://chsgerkqrpoy6" path="res://Assets/Level/Backgrounddummy.png" id="4_ykfqr"]
 [ext_resource type="PackedScene" uid="uid://c8n0am7jadxj7" path="res://GameBoard/game_board.tscn" id="6_ghxp6"]
 [ext_resource type="AudioStream" uid="uid://c610v6rbeh60p" path="res://Sounds/Soundeffects/new sounds/Start.wav" id="6_qpv2c"]
@@ -31,8 +29,6 @@ adjustment_brightness = 1.08
 adjustment_contrast = 1.1
 adjustment_saturation = 1.34
 
-[sub_resource type="MultiMesh" id="MultiMesh_rlxfl"]
-
 [node name="MainScene" type="Node2D" node_paths=PackedStringArray("gameBoard", "menu", "cam", "lightThresholds")]
 script = ExtResource("1_g64db")
 gameBoard = NodePath("GameBoard")
@@ -40,13 +36,10 @@ menu = NodePath("Menu")
 cam = NodePath("Camera2D")
 lightThresholds = NodePath("LightThresholds")
 
-[node name="CanvasModulate" type="CanvasModulate" parent="." node_paths=PackedStringArray("state")]
-script = ExtResource("2_7eagx")
-state = NodePath("..")
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_83ue6")
-script = ExtResource("3_j6i2j")
 
 [node name="Sprite2D2" type="Sprite2D" parent="."]
 z_index = -10
@@ -96,6 +89,7 @@ gameState = NodePath("..")
 gamestate = NodePath("..")
 
 [node name="LightThresholds" type="Node2D" parent="." node_paths=PackedStringArray("gameState", "minDarkPosition", "maxDarkPosition", "minLightPosition", "maxLightPosition", "minGlowPosition", "maxGlowPosition")]
+visible = false
 position = Vector2(-1114, 38)
 script = ExtResource("11_n87cu")
 gameState = NodePath("..")
@@ -177,9 +171,6 @@ offset_top = 277.0
 offset_right = 264.0
 offset_bottom = 308.0
 text = "straybides"
-
-[node name="MultiMeshInstance2D" type="MultiMeshInstance2D" parent="."]
-multimesh = SubResource("MultiMesh_rlxfl")
 
 [connection signal="scrolled" from="Camera2D" to="Camera2D" method="changeBrightness"]
 [connection signal="finished" from="Camera2D/SoundPlayer/Music" to="Camera2D/SoundPlayer" method="_on_music_finished"]

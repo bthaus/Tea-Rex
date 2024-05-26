@@ -46,7 +46,7 @@ position = Vector2(1, -1)
 scale = Vector2(0.0983182, 0.0983182)
 sprite_frames = SubResource("SpriteFrames_eqoud")
 autoplay = "default"
-frame_progress = 0.994047
+frame_progress = 0.712405
 
 [node name="GPUParticles2D" type="CPUParticles2D" parent="."]
 show_behind_parent = true

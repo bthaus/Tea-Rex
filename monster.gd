@@ -9,6 +9,7 @@ var speed = Stats.enemy_base_speed;
 var accel = Stats.enemy_base_acceleration;
 var minionExp;
 var currentMinionPower = 1;
+var path=[]
 @export var color: Stats.TurretColor = Stats.TurretColor.BLUE
 var died = false;
 enum TurretColor {GREY = 1, GREEN = 2, RED = 3, YELLOW = 4, BLUE = 5};
