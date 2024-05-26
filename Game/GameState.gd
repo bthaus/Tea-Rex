@@ -330,7 +330,7 @@ func startGame():
 	collisionReference.initialise(self)
 	collisionReference.addRows()
 	board=gameBoard.get_node("Board")
-
+	collisionReference.registerBase(target)
 	$MinionHolder.board=board
 	$BulletHolder.board=board;
 	for m in $MinionHolder.get_children():
@@ -408,10 +408,9 @@ func unlockRandom():
 func getColorChances():
 
 	return colorChances
-func _on_area_2d_area_entered(area):
+func hit_base(m):
 	if HP < 0: return
-	if area == null: return
-	var m = area.get_parent()
+	
 	if m is Monster:
 		
 		changeHealth( - m.damage)
