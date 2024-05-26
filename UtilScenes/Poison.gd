@@ -12,17 +12,17 @@ func _ready():
 	var parent = get_parent();
 	if parent is Monster:
 		enemy = parent;
-	#setupPropagation()
-	#effect = load("res://poison_effect.tscn").instantiate()
-	#add_child(effect)
+	setupPropagation()
+	effect = load("res://poison_effect.tscn").instantiate()
+	add_child(effect)
 		
 pass # Replace with function body.
 func setupPropagation():
 	get_tree().create_timer(3).timeout.connect(propagate)
-	detector = detectorscene.instantiate()
-	add_child(detector)
-	detector.visible = false
-	detector.apply_scale(Vector2(Stats.poison_propagation_range, Stats.poison_propagation_range));
+	#detector = detectorscene.instantiate()
+	#add_child(detector)
+	#detector.visible = false
+	#detector.apply_scale(Vector2(Stats.poison_propagation_range, Stats.poison_propagation_range));
 	
 	pass ;
 static func create(stacks, associate, decay: int=Stats.poison_dropoff_rate):
@@ -33,7 +33,8 @@ static func create(stacks, associate, decay: int=Stats.poison_dropoff_rate):
 	return poison;
 	
 func propagate():
-	for m in detector.enemiesInRange:
+	
+	for m in GameState.gameState.collisionReference.getMinionsAroundPosition(enemy.global_position):
 		var temp = false;
 		for a in m.get_children():
 			if a is Poison&&a.decay == decay:
@@ -50,7 +51,8 @@ func apply(amount):
 	pass ;
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	#effect.global_position = enemy.global_position
+	
+	effect.global_position = enemy.global_position
 	#detector.global_position = enemy.global_position
 	stacks = stacks - decay * delta;
 	if stacks < 0:

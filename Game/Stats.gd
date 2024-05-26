@@ -99,7 +99,7 @@ const blue_freezer_instanthit=true;
 const yellow_mortar_penetrations=1;
 const green_explosion_range=0.5;
 const red_laser_damage_stack=3;
-const green_poison_damage_stack=3;
+const green_poison_damage_stack=6;
 const blue_freezer_slow_amount=0.7
 const blue_freezer_slow_duration=1
 
@@ -121,7 +121,7 @@ const poison_propagation_rate=3;
 const poison_propagation_range=base_range*0.3
 const green_poison_decay=1;
 
-static var enemy_base_HP:float=150;
+static var enemy_base_HP:float=200;
 static var GREEN_enemy_HP=enemy_base_HP*1.75;
 static var BLUE_enemy_HP=enemy_base_HP*1;
 static var YELLOW_enemy_HP=enemy_base_HP*0.7;
@@ -189,7 +189,7 @@ const GLUE_slowFactor=0.5;
 const GLUE_Duration=10;
 
 static var rng=RandomNumberGenerator.new()
-const POISON_damage=100;
+const POISON_damage=200;
 const POISON_range=1;
 const POISON_phase=GamePhase.BATTLE
 const POISON_instant=false;

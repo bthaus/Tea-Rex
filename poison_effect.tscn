@@ -29,7 +29,6 @@ animations = [{
 }]
 
 [node name="poisonEffect" type="AnimatedSprite2D"]
-visible = false
 self_modulate = Color(2, 2, 2, 0.631373)
 z_index = 4
 position = Vector2(2, -2)

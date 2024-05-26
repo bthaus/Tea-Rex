@@ -65,5 +65,5 @@ func _on_button_pressed():
 	
 	create_tween().tween_property(self,"modulate",Color(0,0,0,0),2)
 	create_tween().tween_callback(queue_free).set_delay(2)
-	if done!=null:done.call()
+	if done.is_valid() and not done.is_null() :done.call()
 	pass # Replace with function body.
