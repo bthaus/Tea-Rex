@@ -332,7 +332,7 @@ func _process(_delta):
 				preview_turrets[idx].showRangeOutline()
 				previous_preview_pos=pos;	
 				idx += 1
-		#$NavigationRegion2D.bake_navigation_polygon()
+	#$NavigationRegion2D.bake_navigation_polygon()
 	
 #this is a inputstopper flag for tutorials and handhovering
 var ignore_input = false;

@@ -107,8 +107,9 @@ minGlowPosition = NodePath("minGlow")
 maxGlowPosition = NodePath("maxGlow")
 minDark = 1.0
 maxDark = 0.3
-maxLight = 1.5
-maxGlow = 4.4
+minLight = 0.5
+maxLight = 1.25
+maxGlow = 4.0
 
 [node name="minDark" type="Node2D" parent="LightThresholds"]
 position = Vector2(528.714, 903.148)

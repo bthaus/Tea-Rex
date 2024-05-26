@@ -17,6 +17,7 @@ var numSpawned:float=0;
 @onready var nav: NavigationAgent2D = $NavigationAgent2D
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	nav.path_changed.connect(queue_redraw)
 	state.start_build_phase.connect(func():
 		if state.spawners.find(self)==-1:queue_free()
 		)
@@ -108,7 +109,8 @@ func monsterDied(monster:Monster):
 func _process(delta):
 	
 	nav.get_next_path_position()
-	queue_redraw()
+	
+	##queue_redraw()
 	
 func can_reach_target():
 	return nav.is_target_reachable()
@@ -119,7 +121,7 @@ func _draw():
 		return
 	#lightened makes the line glow. for some reason this makes aqua and red the exact other color. i have no clue	
 	var color = Color.RED if can_reach_target() else Color.AQUA
-	color=color.lightened(5)
+	color=color.lightened(8)
 	for i in range(1, path.size()):
 		draw_line(Vector2(path[i-1].x - global_position.x, path[i-1].y - global_position.y),
 		Vector2(path[i].x - global_position.x, path[i].y - global_position.y), color, 3, true)

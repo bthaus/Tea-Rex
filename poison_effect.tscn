@@ -19,6 +19,7 @@ lifetime = 0.2
 speed_scale = 0.2
 randomness = 0.28
 lifetime_randomness = 1.0
+fixed_fps = 10
 texture = ExtResource("1_31es1")
 spread = 180.0
 gravity = Vector2(0, 0)
