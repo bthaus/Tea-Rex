@@ -93,7 +93,7 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Monster" type="CharacterBody2D"]
+[node name="Monster" type="Node2D"]
 modulate = Color(5, 5, 5, 1)
 z_index = 3
 script = ExtResource("1_g1k27")

@@ -6,7 +6,7 @@ var enemy;
 var associate;
 var detector: EnemyDetector;
 var effect;
-static var detectorscene = load("res://enemy_detector.tscn")
+#static var detectorscene = load("res://enemy_detector.tscn")
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	var parent = get_parent();
@@ -33,8 +33,9 @@ static func create(stacks, associate, decay: int=Stats.poison_dropoff_rate):
 	return poison;
 	
 func propagate():
-	
+	if enemy==null || !is_instance_valid(enemy):return;
 	for m in GameState.gameState.collisionReference.getMinionsAroundPosition(enemy.global_position):
+		if !is_instance_valid(m):continue
 		var temp = false;
 		for a in m.get_children():
 			if a is Poison&&a.decay == decay:

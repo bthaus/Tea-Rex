@@ -9,6 +9,7 @@ signal enemyLeft(enemy: Monster);
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	print("remove me pls")
 	setRange(rangeMult)
 	position = Vector2(2, 0)
 	pass # Replace with function body.

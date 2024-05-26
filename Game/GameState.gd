@@ -155,7 +155,7 @@ func _process(delta):
 			
 	y = cam.position.y
 	if Input.is_action_just_pressed("save"):
-		hand.drawCard(Card.create(self,SpecialCard.create(self,Stats.SpecialCards.CRYOBALL)))
+		hand.drawCard(Card.create(self,SpecialCard.create(self,Stats.SpecialCards.POISON)))
 		#changeHealth(-5000)
 		#gameBoard.DRILL_catastrophy(func():)
 		#for c in hand.get_children():
