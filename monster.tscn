@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://cq7fvblvncfxh"]
+[gd_scene load_steps=23 format=3 uid="uid://cq7fvblvncfxh"]
 
 [ext_resource type="Script" path="res://monster.gd" id="1_g1k27"]
 [ext_resource type="Texture2D" uid="uid://cu8h60d2lpm2c" path="res://Assets/Monsters/Monster.png" id="2_yp50u"]
@@ -21,9 +21,6 @@
 [ext_resource type="AudioStream" uid="uid://u75wwoknlssy" path="res://Sounds/Soundeffects/new sounds/Minion die sound.wav" id="20_230yg"]
 [ext_resource type="AudioStream" uid="uid://bxe1kduqy6i72" path="res://Sounds/Soundeffects/BLUE_hit.wav" id="21_v7uw0"]
 [ext_resource type="Texture2D" uid="uid://cs14cc7mo388e" path="res://Assets/Monsters/minion_healthbar/minionhealthbar_yellow.png" id="22_j7pik"]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_wsh3g"]
-radius = 32.0
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_q1oek"]
 animations = [{
@@ -101,15 +98,6 @@ modulate = Color(5, 5, 5, 1)
 z_index = 3
 script = ExtResource("1_g1k27")
 color = 2
-
-[node name="Hitbox" type="Area2D" parent="."]
-collision_layer = 2
-collision_mask = 0
-monitoring = false
-monitorable = false
-
-[node name="Hitboxshape" type="CollisionShape2D" parent="Hitbox"]
-shape = SubResource("CircleShape2D_wsh3g")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 z_index = 1

@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://ct8v030fwp2gh"]
+[gd_scene load_steps=17 format=3 uid="uid://ct8v030fwp2gh"]
 
 [ext_resource type="Script" path="res://Game/GameState.gd" id="1_g64db"]
 [ext_resource type="Script" path="res://Persistency/GameSaver.gd" id="2_7eagx"]
@@ -30,9 +30,6 @@ adjustment_enabled = true
 adjustment_brightness = 1.08
 adjustment_contrast = 1.1
 adjustment_saturation = 1.34
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_jk75f"]
-radius = 30.0
 
 [sub_resource type="MultiMesh" id="MultiMesh_rlxfl"]
 
@@ -90,13 +87,6 @@ scale = Vector2(0.58, 0.58)
 position = Vector2(0, -106)
 scale = Vector2(1.5, 1.5)
 texture = ExtResource("8_3fkrh")
-
-[node name="Area2D" type="Area2D" parent="Base"]
-collision_layer = 0
-collision_mask = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Base/Area2D"]
-shape = SubResource("CircleShape2D_jk75f")
 
 [node name="GameBoard" parent="." node_paths=PackedStringArray("gameState") instance=ExtResource("6_ghxp6")]
 visible = false
@@ -192,5 +182,4 @@ multimesh = SubResource("MultiMesh_rlxfl")
 
 [connection signal="scrolled" from="Camera2D" to="Camera2D" method="changeBrightness"]
 [connection signal="finished" from="Camera2D/SoundPlayer/Music" to="Camera2D/SoundPlayer" method="_on_music_finished"]
-[connection signal="area_entered" from="Base/Area2D" to="." method="_on_area_2d_area_entered"]
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

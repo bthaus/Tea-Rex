@@ -56,7 +56,9 @@ static func create(gameState: GameState, type=- 1):
 			rand = gameState.unlockedSpecialCards.pick_random()
 		
 	else: rand = type
-	
+	#temporarily removing glue from game TODO: fix that if glue is implemented properly
+	while rand==Stats.SpecialCards.GLUE:
+		rand=gameState.unlockedSpecialCards.pick_random()
 	retval.roundReceived = gameState.wave;
 	retval.range = Stats.getCardRange(rand);
 	retval.damage = Stats.getCardDamage(rand);
