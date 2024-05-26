@@ -1,50 +1,16 @@
-[gd_scene load_steps=7 format=3 uid="uid://d2eyrlfkqd3r2"]
+[gd_scene load_steps=3 format=3 uid="uid://d2eyrlfkqd3r2"]
 
 [ext_resource type="Texture2D" uid="uid://c2mqefcay6icj" path="res://Assets/Effects/Poison_Explosion/p2.png" id="1_31es1"]
-[ext_resource type="Texture2D" uid="uid://jf80yjfj7r3l" path="res://Assets/Effects/Poison_Explosion/p3.png" id="2_t4t87"]
-[ext_resource type="Texture2D" uid="uid://d1xkmn6b3c8ai" path="res://Assets/Effects/Poison_Explosion/p4.png" id="3_qqs01"]
-[ext_resource type="Texture2D" uid="uid://dqeupmo6fn84v" path="res://Assets/Effects/Poison_Explosion/p5.png" id="4_ny0o2"]
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_q3hw7"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("1_31es1")
-}, {
-"duration": 1.0,
-"texture": ExtResource("2_t4t87")
-}, {
-"duration": 1.0,
-"texture": ExtResource("3_qqs01")
-}, {
-"duration": 1.0,
-"texture": ExtResource("4_ny0o2")
-}, {
-"duration": 1.0,
-"texture": ExtResource("2_t4t87")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}, {
-"frames": [],
-"loop": true,
-"name": &"new_animation",
-"speed": 5.0
-}]
 
 [sub_resource type="Gradient" id="Gradient_1yjn4"]
 offsets = PackedFloat32Array(0, 0.522388, 1)
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.768627, 1, 1, 1, 0)
 
-[node name="poisonEffect" type="AnimatedSprite2D"]
+[node name="poisonEffect" type="Node2D"]
 self_modulate = Color(2, 2, 2, 0)
 z_index = 4
 position = Vector2(-1, -2)
 scale = Vector2(0.113, 0.113)
-sprite_frames = SubResource("SpriteFrames_q3hw7")
-autoplay = "default"
-frame_progress = 0.479601
 
 [node name="GPUParticles2D" type="CPUParticles2D" parent="."]
 show_behind_parent = true
