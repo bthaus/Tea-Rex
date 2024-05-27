@@ -45,9 +45,12 @@ func _input(event):
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if Input.is_action_just_pressed("ui_menu") and not Card.isCardSelected and gameState.account!="":
+		if accountsTab.visible:
+			HideAccounts()
+		if unlockedTab.visible:
+			hideUnlocks()
 		menu.visible=!menu.visible
 		$UI.visible=!menu.visible
-		
 	if Input.is_action_just_pressed("delete"):
 		if accountsTab.visible:
 			for entry in AccountEntry.allEntries:
@@ -137,6 +140,7 @@ func saveNewAcc(name):
 	saveAccs(accs)
 	GameSaver.restoreBaseGame(gameState)
 	gameState.startGame()
+	HideAccounts()
 	_on_start_button_pressed()
 	
 		

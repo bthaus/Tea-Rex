@@ -441,6 +441,7 @@ position = Vector2(61.9203, 32.3628)
 texture = ExtResource("17_7qf5f")
 
 [node name="UI" type="Node2D" parent="CanvasLayer"]
+visible = false
 
 [node name="SpeedButton" type="Button" parent="CanvasLayer/UI"]
 offset_left = 1746.9

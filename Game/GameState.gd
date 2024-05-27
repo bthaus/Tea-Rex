@@ -34,7 +34,7 @@ var spawners = []
 var target;
 var showTutorials = true;
 var level = 0;
-var game_speed=1;
+static var game_speed=1;
 static var board;
 static var blueChance = 100;
 static var redChance = 0;
@@ -96,13 +96,14 @@ func hideCount():
 # Called when the node enters the scene tree for the first time.
 var mapdrawnOnce = false;
 func toggleSpeed(val):
-	if game_speed+val>3: return
+	if game_speed+val>5: return
 	if game_speed+val<1:return;
 	game_speed=game_speed+val;
 	Engine.time_scale=Engine.time_scale+val
 	
 	pass;
 func _ready():
+	game_speed=1;
 	toggleSpeed(0)
 	#collisionReference.initialise(self)
 	bulletHolder = $BulletHolder
@@ -152,7 +153,7 @@ func iloop():
 	pass;
 		
 func _process(delta):
-	
+	print(game_speed)
 	for i in range(game_speed):
 		for turret in Turret.turrets:
 			if is_instance_valid(turret): turret.do(delta/game_speed);

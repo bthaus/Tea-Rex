@@ -135,6 +135,7 @@ func translateTowardEdge(delta):
 	if distance_to_next_edge<=distance_travelled:
 		travel_index=travel_index+1;
 		distance_travelled=0;
+		if travel_index>path.size():return;
 		distance_to_next_edge=global_position.distance_to(path[travel_index])
 	if travel_index>path.size():return;
 	var direction=(path[travel_index]-global_position).normalized()
