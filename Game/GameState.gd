@@ -158,8 +158,7 @@ func _process(delta):
 		#gameBoard.queue_free()
 		#menu.queue_free()
 		var delay=0;
-			
-		
+		maxCards=100
 		#hand.drawCard(Card.create(self,SpecialCard.create(self,Stats.SpecialCards.POISON)))
 		#changeHealth(-5000)
 		#gameBoard.DRILL_catastrophy(func():)
@@ -171,9 +170,9 @@ func _process(delta):
 		#unlock.append(Unlockable.create(Card.create(self,BlockCard.create(self,Stats.getBlockFromShape(Stats.BlockShape.O,Stats.TurretColor.BLUE,1,Stats.TurretExtension.BLUEFREEZER)))))
 		#checkUnlock()
 		#GameState.gameState.showTutorials=true	
-		#totalExp=50000000;
-		#checkLevelUp()
-		#checkUnlock()
+		totalExp=50000000;
+		checkLevelUp()
+		checkUnlock()
 		
 		
 	pass

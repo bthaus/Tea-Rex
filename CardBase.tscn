@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=3 uid="uid://cry7oh6vlte32"]
 
 [ext_resource type="Script" path="res://Cards/CardBase.gd" id="1_6npnr"]
-[ext_resource type="Texture2D" uid="uid://bgb418sjl85oo" path="res://Assets/Cards/Testcard_grey.png" id="2_50luk"]
-[ext_resource type="Texture2D" uid="uid://chia40w22jyhn" path="res://Assets/Cards/cardBack.png" id="3_xkasb"]
-[ext_resource type="Texture2D" uid="uid://decbcbg74ds1w" path="res://Assets/Cards/hover.png" id="4_bsg6t"]
+[ext_resource type="Texture2D" uid="uid://1yn00b6dh1ng" path="res://Assets/Cards/Testcard_grey.png" id="2_50luk"]
+[ext_resource type="Texture2D" uid="uid://c10lsq3xjktp1" path="res://Assets/Cards/cardBack.png" id="3_xkasb"]
+[ext_resource type="Texture2D" uid="uid://cp1ulvwkui1ip" path="res://Assets/Cards/hover.png" id="4_bsg6t"]
 
 [node name="CardBase" type="MarginContainer"]
 offset_right = 116.0

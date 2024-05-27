@@ -60,7 +60,8 @@ func _ready():
 	if placed:
 		turrets.append(self)
 	else:
-		inhandTurrets.append(self)	
+		inhandTurrets.append(self)
+		
 	counter = counter + 1;
 	print(str(counter) + "turrets built")
 	id = counter;
@@ -68,6 +69,10 @@ func _ready():
 		#$Button.mouse_filter=2
 	
 	setUpTower();
+	if not placed:
+		z_index=1;	
+		base.z_index=1;
+		$LVL.visible=false;
 	GameState.gameState.start_combat_phase.connect(func():
 		globlight=false;
 		melight=false;

@@ -31,7 +31,7 @@ func delayedSelect(done):
 	selectedCard=self;
 	scale=Vector2(1.3,1.3)
 	
-	z_index=20
+	z_index=2000
 	card.select(done)
 	
 	pass;	
@@ -157,8 +157,11 @@ func _on_button_pressed():
 	pass # Replace with function body.
 
 var originalPosition;
+var originalZ=0;
 func _on_button_mouse_entered():
-	z_index=9
+	originalZ=z_index;
+	print(z_index)
+	z_index=2000
 	
 	var tween = create_tween()
 	tween.tween_property(self, "global_position", originalPosition+Vector2(0, -25), 0.5)
@@ -169,7 +172,7 @@ func _on_button_mouse_entered():
 
 func _on_button_mouse_exited():
 	if selectedCard!=self:
-		z_index=0
+		z_index=originalZ
 	var tween = create_tween()
 	tween.tween_property(self, "global_position", originalPosition, 0.5)
 	state.menu.hideDescription()
@@ -179,7 +182,7 @@ func _on_button_mouse_exited():
 
 func _on_disable_button_pressed():
 	scale=Vector2(1,1)
-	z_index=0
+	z_index=originalZ
 	get_tree().create_timer(Stats.CARD_PLACEMENT_DELAY+0.1).timeout.connect(func():$Button.mouse_filter=0)
 	$DisableButton.mouse_filter=2
 	$DisableButton/DisableCard.hide()

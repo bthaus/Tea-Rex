@@ -24,10 +24,16 @@ func _process(delta):
 
 func reorder():
 	var children=get_children()
+	if children.is_empty():return;
+	var off=clamp(1350/get_child_count(),15,125)
 	var offset=Vector2(125,0)
 	children.reverse()
+	var z_counter=get_child_count()*3;
 	for c in children:
-		offset=offset+Vector2(125,0)
+		c.z_index=z_counter
+		c.originalZ=z_counter;
+		z_counter=z_counter-3
+		offset=offset+Vector2(off,0)
 		var tween=create_tween()
 		if tween!=null:tween.tween_property(c,"global_position",global_position+offset,0.5).set_ease(Tween.EASE_IN_OUT)
 		c.originalPosition=global_position+offset

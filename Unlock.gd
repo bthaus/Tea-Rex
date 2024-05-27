@@ -7,7 +7,7 @@ var done;
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	z_index=z_index+z_counter
-	z_counter=z_counter+1
+	z_counter=z_counter+3
 	$Lock.play()
 	$sound.stream=Sounds.unlock
 	$Button.z_index=counter
