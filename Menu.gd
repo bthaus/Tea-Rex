@@ -130,10 +130,8 @@ func _on_button_pressed():
 
 
 func _on_menu_button_pressed():
-	
 	if not Card.isCardSelected:
 		visible=true
-		
 		$CanvasLayer.menu.visible=true
 		$CanvasLayer/UI.visible=false
 	pass # Replace with function body.
@@ -152,4 +150,9 @@ func _on_sound_button_pressed():
 
 
 func _on_account_input_focus_exited():
+	pass # Replace with function body.
+
+
+func _on_speed_button_pressed(val):
+	gamestate.toggleSpeed(val)
 	pass # Replace with function body.

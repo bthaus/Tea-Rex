@@ -34,7 +34,7 @@ var spawners = []
 var target;
 var showTutorials = true;
 var level = 0;
-
+var game_speed=1;
 static var board;
 static var blueChance = 100;
 static var redChance = 0;
@@ -95,7 +95,15 @@ func hideCount():
 	pass ;
 # Called when the node enters the scene tree for the first time.
 var mapdrawnOnce = false;
+func toggleSpeed(val):
+	if game_speed+val>3: return
+	if game_speed+val<1:return;
+	game_speed=game_speed+val;
+	Engine.time_scale=Engine.time_scale+val
+	
+	pass;
 func _ready():
+	toggleSpeed(0)
 	#collisionReference.initialise(self)
 	bulletHolder = $BulletHolder
 	toUnlock.append_array(Stats.TurretExtension.keys())
@@ -145,14 +153,15 @@ func iloop():
 		
 func _process(delta):
 	
-	
-	for turret in Turret.turrets:
-		if is_instance_valid(turret): turret.do(delta);
-		else: Turret.turrets.erase(turret)
-	for turret in Turret.inhandTurrets:
-		if is_instance_valid(turret): turret.do(delta);
-		else: Turret.turrets.erase(turret)
-			
+	for i in range(game_speed):
+		for turret in Turret.turrets:
+			if is_instance_valid(turret): turret.do(delta/game_speed);
+			else: Turret.turrets.erase(turret)
+		for turret in Turret.inhandTurrets:
+			if is_instance_valid(turret): turret.do(delta/game_speed);
+			else: Turret.turrets.erase(turret)
+		$MinionHolder.do(delta/game_speed)
+		$BulletHolder.do(delta/game_speed)		
 	y = cam.position.y
 	if Input.is_action_just_pressed("save"):
 		#gameBoard.queue_free()

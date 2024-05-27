@@ -9,7 +9,7 @@ func _ready():
 	pass # Replace with function body.
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func do(delta):
 	for b in get_children():
 		if b.shot:
 			b.translate(b.direction * delta * b.speed);

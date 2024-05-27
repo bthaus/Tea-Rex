@@ -318,7 +318,8 @@ func _process(_delta):
 		if action == BoardAction.PLAYER_BULLDOZER:
 			block_handler.draw_block_with_tile_id(selected_block, board_pos, LEGAL_PLACEMENT_TILE_ID, SELECTION_LAYER)
 		elif action != BoardAction.NONE:
-			var id = LEGAL_PLACEMENT_TILE_ID if block_handler.can_place_block(selected_block, BLOCK_LAYER, board_pos, $NavigationRegion2D, gameState.spawners) else ILLEGAL_PLACEMENT_TILE_ID
+			var id = LEGAL_PLACEMENT_TILE_ID if block_handler.can_place_block(selected_block, BLOCK_LAYER, board_pos, $NavigationRegion2D, gameState.spawners) else ILLEGAL_PLACEMENT_TILE_ID		
+			showTurrets=id==LEGAL_PLACEMENT_TILE_ID
 			block_handler.draw_block_with_tile_id(selected_block, board_pos, id, SELECTION_LAYER)
 		
 		if preview_turrets == null: _load_preview_turrets_from_selected_block()
@@ -328,6 +329,7 @@ func _process(_delta):
 			for piece in selected_block.pieces:
 				var pos=$Board.map_to_local(Vector2(piece.position.x + board_pos.x, piece.position.y + board_pos.y))
 				preview_turrets[idx].position = pos
+				preview_turrets[idx].base.visible=showTurrets
 				#if previous_preview_pos!=pos:
 				preview_turrets[idx].showRangeOutline()
 				previous_preview_pos=pos;	
@@ -337,7 +339,7 @@ func _process(_delta):
 #this is a inputstopper flag for tutorials and handhovering
 var ignore_input = false;
 var previous_preview_pos=Vector2(0,0)
-
+var showTurrets=false;
 func _input(event):
 	var board_pos = $Board.local_to_map(get_global_mouse_position())
 	

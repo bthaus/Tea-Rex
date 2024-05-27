@@ -441,7 +441,22 @@ position = Vector2(61.9203, 32.3628)
 texture = ExtResource("17_7qf5f")
 
 [node name="UI" type="Node2D" parent="CanvasLayer"]
-visible = false
+
+[node name="SpeedButton" type="Button" parent="CanvasLayer/UI"]
+offset_left = 1746.9
+offset_top = 803.584
+offset_right = 1831.9
+offset_bottom = 894.584
+text = "sped
+"
+
+[node name="SpeedButton2" type="Button" parent="CanvasLayer/UI"]
+offset_left = 1865.27
+offset_top = 803.54
+offset_right = 1950.27
+offset_bottom = 894.54
+text = "snel
+"
 
 [node name="Minimap" parent="CanvasLayer/UI" instance=ExtResource("8_i8iej")]
 offset_left = 120.0
@@ -805,7 +820,7 @@ libraries = {
 [node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/AnimationPlayer"]
 modulate = Color(1, 1, 1, 0)
 z_index = 4096
-position = Vector2(1092.04, 566.372)
+position = Vector2(1104.42, 568.142)
 scale = Vector2(2.30182, 1.13103)
 texture = ExtResource("16_oeuhs")
 
@@ -825,5 +840,7 @@ texture = ExtResource("16_oeuhs")
 [connection signal="text_submitted" from="CanvasLayer/MainMenu/AccountsTab/AccountInput" to="CanvasLayer" method="_on_account_input_text_submitted"]
 [connection signal="pressed" from="CanvasLayer/MainMenu/AccountsTab/Button" to="CanvasLayer" method="HideAccounts"]
 [connection signal="pressed" from="CanvasLayer/MainMenu/SoundButton" to="." method="_on_sound_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/UI/SpeedButton" to="." method="_on_speed_button_pressed" binds= [1]]
+[connection signal="pressed" from="CanvasLayer/UI/SpeedButton2" to="." method="_on_speed_button_pressed" binds= [-1]]
 [connection signal="pressed" from="CanvasLayer/UI/StartBattlePhase" to="." method="_on_start_battle_phase_pressed"]
 [connection signal="pressed" from="CanvasLayer/UI/Menu Button" to="." method="_on_menu_button_pressed"]

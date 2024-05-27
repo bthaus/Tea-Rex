@@ -10,7 +10,7 @@ func _ready():
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func do(delta):
 	for m:Monster in get_children():
 		if m.hp>0:
 			m.translateTowardEdge(delta)
