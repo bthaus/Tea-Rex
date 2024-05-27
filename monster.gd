@@ -23,7 +23,7 @@ static var healthbar = [load("res://Assets/Monsters/minion_healthbar/minionhealt
 ]
 var camera;
 @export var target: Node2D # goal
-@onready var nav: NavigationAgent2D = $NavigationAgent2D
+#@onready var nav: NavigationAgent2D = $NavigationAgent2D
 signal monster_died(monster: Monster)
 signal reached_spawn(monster: Monster)
 var maxGlow = 5;
@@ -88,7 +88,7 @@ func hit(color: Stats.TurretColor, damage, type="default", noise=true):
 	if hp <= 0 and not died:
 		#spawnEXP()
 		died = true
-		tw.kill()
+		#tw.kill()
 		GameState.gameState.collisionReference.removeMonster(self)
 		monster_died.emit(self)
 		#$Hitbox.queue_free()
@@ -128,15 +128,29 @@ func tweener(iteration, sprite):
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 
 var tw
+var distance_travelled=0;
+var distance_to_next_edge=-1;
+var travel_index=0;
+func translateTowardEdge(delta):
+	if distance_to_next_edge<=distance_travelled:
+		travel_index=travel_index+1;
+		distance_travelled=0;
+		distance_to_next_edge=global_position.distance_to(path[travel_index])
+	if travel_index>path.size():return;
+	var direction=(path[travel_index]-global_position).normalized()
+	var distance=Stats.enemy_base_speed*delta*speedfactor
+	distance_travelled=distance_travelled+distance
+	translate(direction*distance)
+	pass;
 func move():
-	var direction = Vector3()
-	nav.target_position = target.global_position
-	var goal = nav.get_next_path_position()
-	tw = create_tween()
-	var length = (global_position - goal).length()
-	length = remap(length, 0, 600, 0, 7 * 10 / (speedfactor * 2))
-	tw.tween_property(self, "global_position", goal, length)
-	tw.finished.connect(move)
+	#var direction = Vector3()
+	#nav.target_position = target.global_position
+	#var goal = nav.get_next_path_position()
+	#tw = create_tween()
+	#var length = (global_position - goal).length()
+	#length = remap(length, 0, 600, 0, 7 * 10 / (speedfactor * 2))
+	#tw.tween_property(self, "global_position", goal, length)
+	#tw.finished.connect(move)
 
 	pass ;
 func resetTween():

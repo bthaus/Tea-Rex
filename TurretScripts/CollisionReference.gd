@@ -111,6 +111,7 @@ func registerBase(base):
 	basepos=pos;
 	pass;	
 func getMinionsAroundPosition(pos):
+	if isOutOfBounds(pos.x,pos.y):return [];
 	var cells = getNeighbours(pos);
 	pos = getMapPositionNormalised(pos)
 	cells.append(map[pos.y][pos.x].ms)

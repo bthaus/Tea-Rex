@@ -13,8 +13,8 @@ func _ready():
 func _process(delta):
 	for m:Monster in get_children():
 		if m.hp>0:
-			var direction=(m.nav.get_next_path_position()-m.global_position).normalized()
-			m.translate(Stats.enemy_base_speed*direction*delta*m.speedfactor)
+			m.translateTowardEdge(delta)
+			
 		
 		var pos=board.local_to_map(m.global_position)
 		if pos.x!=m.oldpos.x||pos.y!=m.oldpos.y:
