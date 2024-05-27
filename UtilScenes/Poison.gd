@@ -13,6 +13,7 @@ func _ready():
 	if parent is Monster:
 		enemy = parent;
 	setupPropagation()
+	process_mode=Node.PROCESS_MODE_ALWAYS
 	effect = load("res://poison_effect.tscn").instantiate()
 	add_child(effect)
 		
