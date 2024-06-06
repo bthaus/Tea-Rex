@@ -168,6 +168,12 @@ func getCellReferences(pos, turretRange, turret=null, cellPositions=[],sloppy=fa
 		for x in range(turretRange * 2 + 1):
 			if sloppy||isProperCell(mapPosition.x + x, mapPosition.y + y):
 				if isOutOfBounds(mapPosition.x + x, mapPosition.y + y):continue
+				if turret!=null:
+					var glob_ref_pos=getGlobalFromReference(Vector2(int(mapPosition.x+x),int(mapPosition.y+y)))
+					if glob_ref_pos.distance_squared_to(pos)>turret.trueRangeSquared:
+						continue
+				#	if glob_ref_pos.distance_to(pos)>turretRange*Stats.block_size:
+					#	continue
 				coveredCells.append(map[mapPosition.y + y][mapPosition.x + x].ms)
 				cellPositions.append(Vector2(mapPosition.x + x, mapPosition.y + y))
 			

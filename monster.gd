@@ -65,9 +65,12 @@ func getExp():
 	return currentMinionPower * minionExp / 3;
 	pass ;
 static var xptext = load("res://Assets/UI/CARDMAX.png");
-
+var turnOffHit=false;
 func hit(color: Stats.TurretColor, damage, type="default", noise=true):
+	if hp<=0: return;
+	$Sprite2D/hit.visible=true;
 	
+	turnOffHit=true;
 	var mod = 1;
 	if color == self.color:
 		mod = 1.5
@@ -86,6 +89,7 @@ func hit(color: Stats.TurretColor, damage, type="default", noise=true):
 	if noise: $hurt.play()
 		
 	if hp <= 0 and not died:
+	
 		#spawnEXP()
 		died = true
 		#tw.kill()
@@ -132,10 +136,15 @@ var distance_travelled=0;
 var distance_to_next_edge=-1;
 var travel_index=0;
 func translateTowardEdge(delta):
+	
+	if hp<=0:return;
+	if turnOffHit:
+		$Sprite2D/hit.visible=false;
+	
 	if distance_to_next_edge<=distance_travelled:
 		travel_index=travel_index+1;
 		distance_travelled=0;
-		if travel_index>path.size():return;
+		if travel_index>path.size()-1:return;
 		distance_to_next_edge=global_position.distance_to(path[travel_index])
 	if travel_index>path.size():return;
 	var direction=(path[travel_index]-global_position).normalized()

@@ -52,15 +52,21 @@ func apply(amount):
 	stacks = stacks + amount;
 	pass ;
 # Called every frame. 'delta' is the elapsed time since the previous frame.
+var timer=0;
 func _process(delta):
-	
+	timer=timer+delta;
+	if timer>=1:
+		timer=0
+	else:
+		return;
 	effect.global_position = enemy.global_position
 	#detector.global_position = enemy.global_position
-	stacks = stacks - decay * delta;
-	if stacks < 0:
+	stacks = stacks - decay ;
+	if stacks < 0 || enemy.hp<=0:
 		queue_free()
-	if enemy.hit(Stats.TurretColor.GREY, stacks * delta, 0, false):
+		return;
+	if enemy.hit(Stats.TurretColor.GREY, stacks , 0, false):
 		if associate != null: associate.addKill()
 		queue_free()
-	if associate != null: associate.addDamage(stacks * delta)
+	if associate != null: associate.addDamage(stacks )
 	pass

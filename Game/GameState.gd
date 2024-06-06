@@ -10,7 +10,7 @@ static var gameState;
 
 var account: String = "";
 #Stats.TurretExtension
-var unlockedExtensions = [Stats.TurretExtension.DEFAULT];
+var unlockedExtensions = [Stats.TurretExtension.BLUEFREEZER];
 #Stats.TurretColor
 var unlockedColors = [Stats.TurretColor.BLUE];
 #Stats.SpecialCards
@@ -96,10 +96,10 @@ func hideCount():
 # Called when the node enters the scene tree for the first time.
 var mapdrawnOnce = false;
 func toggleSpeed(val):
-	if game_speed+val>5: return
-	if game_speed+val<1:return;
-	game_speed=game_speed+val;
-	Engine.time_scale=Engine.time_scale+val
+	if GameState.game_speed+val>5: return
+	if GameState.game_speed+val<1:return;
+	GameState.game_speed=GameState.game_speed+val;
+	Engine.time_scale=GameState.game_speed
 	
 	pass;
 func _ready():
@@ -153,7 +153,7 @@ func iloop():
 	pass;
 		
 func _process(delta):
-	print(game_speed)
+
 	for i in range(game_speed):
 		for turret in Turret.turrets:
 			if is_instance_valid(turret): turret.do(delta/game_speed);
@@ -228,7 +228,9 @@ func initNewBoard():
 	cam.move_to(Vector2(500, 500), func(): print("done"))
 	pass ;
 func startBattlePhase():
-	
+	GameState.game_speed=GameState.restore_speed
+	print(GameState.game_speed)
+	toggleSpeed(0)
 	Spawner.numMonstersActive = 0;
 	start_combat_phase.emit()
 	menu.get_node("CanvasLayer/UI/StartBattlePhase").disabled = true;
@@ -248,7 +250,15 @@ func cleanUpAllFreedNodes():
 		if is_instance_valid(m):m.queue_free()
 	collisionReference.clearUp()	
 	pass;	
+static var restore_speed=1;	
 func startBuildPhase():
+	if GameState.game_speed!=null:
+		GameState.restore_speed=GameState.game_speed
+		GameState.game_speed=1
+	else:
+		GameState.restore_speed=1;
+		GameState.game_speed=1;	
+	toggleSpeed(0)
 	cleanUpAllFreedNodes()
 	Sounds.start(Sounds.startBuildPhase)
 	GameSaver.saveGame(gameState)
@@ -341,6 +351,8 @@ func _on_spawner_wave_done():
 	pass # Replace with function body.
 static var collisionReference=CollisionReference.new()
 func startGame():
+	GameState.restore_speed=1;
+	GameState.game_speed=1;	
 	collisionReference.initialise(self)
 	collisionReference.addRows()
 	board=gameBoard.get_node("Board")

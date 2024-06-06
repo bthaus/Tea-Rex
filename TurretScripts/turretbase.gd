@@ -158,7 +158,7 @@ func setUpTower():
 	instantHit = Stats.getInstantHit(type, extension);
 	baseinstantHit = instantHit;
 	turretRange=Stats.getRange(type, extension);
-	trueRangeSquared=turretRange*16
+	trueRangeSquared=turretRange*Stats.block_size
 	trueRangeSquared=trueRangeSquared*trueRangeSquared;
 	cooldown = Stats.getCooldown(type, extension);
 	damage = Stats.getDamage(type, extension);

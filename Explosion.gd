@@ -6,7 +6,7 @@ static var scene = load("res://TurretScripts/Projectiles/Explosion.tscn")
 var damage;
 var type
 var associate;
-var sound;
+var sound:AudioStreamPlayer2D;
 var cam
 var noise;
 var range
@@ -65,8 +65,10 @@ func playSound():
 		
 		if sound.get_parent()==null:
 			add_child(sound)
+		sound.volume_db=20
+		print("playing explosion sound")
 		
-		#sound.play(0.10)
+		sound.play(0.10)
 	pass ;
 static func addToCache(done):
 	var temp = scene.instantiate();

@@ -12,8 +12,7 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func do(delta):
 	for m:Monster in get_children():
-		if m.hp>0:
-			m.translateTowardEdge(delta)
+		m.translateTowardEdge(delta)
 			
 		
 		var pos=board.local_to_map(m.global_position)
