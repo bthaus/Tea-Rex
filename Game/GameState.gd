@@ -10,7 +10,7 @@ static var gameState;
 
 var account: String = "";
 #Stats.TurretExtension
-var unlockedExtensions = [Stats.TurretExtension.BLUEFREEZER];
+var unlockedExtensions = [Stats.TurretExtension.DEFAULT];
 #Stats.TurretColor
 var unlockedColors = [Stats.TurretColor.BLUE];
 #Stats.SpecialCards

@@ -338,7 +338,6 @@ text = "TAKE ME BACK"
 position = Vector2(778.761, 442.478)
 
 [node name="AccountsTab" type="Node2D" parent="CanvasLayer/MainMenu"]
-visible = false
 position = Vector2(-38.9381, 3.53982)
 
 [node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/MainMenu/AccountsTab"]
@@ -415,6 +414,13 @@ offset_right = 288.719
 offset_bottom = 21.6716
 text = "Enter your name to start"
 label_settings = SubResource("LabelSettings_wohyv")
+
+[node name="Button2" type="Button" parent="CanvasLayer/MainMenu/AccountsTab"]
+offset_left = 1489.0
+offset_top = 112.0
+offset_right = 1630.0
+offset_bottom = 197.0
+text = "just start"
 
 [node name="Scores" type="Node2D" parent="CanvasLayer/MainMenu"]
 visible = false
@@ -840,6 +846,7 @@ texture = ExtResource("16_oeuhs")
 [connection signal="text_changed" from="CanvasLayer/MainMenu/AccountsTab/AccountInput" to="CanvasLayer" method="_on_account_input_text_changed"]
 [connection signal="text_submitted" from="CanvasLayer/MainMenu/AccountsTab/AccountInput" to="CanvasLayer" method="_on_account_input_text_submitted"]
 [connection signal="pressed" from="CanvasLayer/MainMenu/AccountsTab/Button" to="CanvasLayer" method="HideAccounts"]
+[connection signal="pressed" from="CanvasLayer/MainMenu/AccountsTab/Button2" to="CanvasLayer" method="_on_button_2_pressed"]
 [connection signal="pressed" from="CanvasLayer/MainMenu/SoundButton" to="." method="_on_sound_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/UI/SpeedButton" to="." method="_on_speed_button_pressed" binds= [1]]
 [connection signal="pressed" from="CanvasLayer/UI/SpeedButton2" to="." method="_on_speed_button_pressed" binds= [-1]]

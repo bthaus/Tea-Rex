@@ -243,3 +243,10 @@ func _on_main_menu_visibility_changed():
 	else:
 		remove_child(menu)
 	pass # Replace with function body.
+
+
+func _on_button_2_pressed():
+	var accs=loadAccs()
+	saveNewAcc("unknown"+str(randi_range(0,1000000)))
+	refreshAccountList()
+	pass # Replace with function body.

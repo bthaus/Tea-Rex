@@ -146,7 +146,7 @@ func translateTowardEdge(delta):
 		distance_travelled=0;
 		if travel_index>path.size()-1:return;
 		distance_to_next_edge=global_position.distance_to(path[travel_index])
-	if travel_index>path.size():return;
+	if travel_index>path.size()-1:return;
 	var direction=(path[travel_index]-global_position).normalized()
 	var distance=Stats.enemy_base_speed*delta*speedfactor
 	distance_travelled=distance_travelled+distance
