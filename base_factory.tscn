@@ -1,11 +1,13 @@
-[gd_scene load_steps=21 format=3 uid="uid://dmhesplq1yqqt"]
+[gd_scene load_steps=24 format=3 uid="uid://dmhesplq1yqqt"]
 
 [ext_resource type="Texture2D" uid="uid://d2gvjcqige384" path="res://Assets/Turrets/Bases/RED_base.png" id="1_3kswu"]
 [ext_resource type="Script" path="res://base_factory.gd" id="1_lvc6j"]
 [ext_resource type="Texture2D" uid="uid://b5k8umt4kec2f" path="res://Assets/Turrets/Bases/BLUE_base.png" id="2_pu8vu"]
 [ext_resource type="Texture2D" uid="uid://ddg8t2ge16mte" path="res://Assets/Turrets/Barrels/BLUE_barrel.png" id="3_3ct7k"]
+[ext_resource type="Script" path="res://RED_base.gd" id="4_ek6wg"]
 [ext_resource type="Script" path="res://base.gd" id="4_xlvce"]
 [ext_resource type="Shader" path="res://outline.gdshader" id="5_1g2jt"]
+[ext_resource type="Script" path="res://REDLASER_base.gd" id="5_82whf"]
 [ext_resource type="Texture2D" uid="uid://d1en1he7o1uoa" path="res://Assets/Turrets/Bases/GREEN_base.png" id="6_p18ij"]
 [ext_resource type="Texture2D" uid="uid://b5vuhv1wrfeel" path="res://Assets/Turrets/Barrels/GREEN_barrel.png" id="7_6qb6s"]
 [ext_resource type="Texture2D" uid="uid://b30vxksvqqwua" path="res://Assets/Turrets/Bases/BLUEFREEZER_base.png" id="7_niotb"]
@@ -17,6 +19,7 @@
 [ext_resource type="Texture2D" uid="uid://bx5e0bmbqsb7x" path="res://Assets/Turrets/Barrels/REDLASER_barrel.png" id="10_28tcq"]
 [ext_resource type="Texture2D" uid="uid://bvfbbff6ja0lp" path="res://Assets/Turrets/Bases/YELLOWMORTAR_base.png" id="12_8rs7u"]
 [ext_resource type="Texture2D" uid="uid://4u4cgerjgkn7" path="res://Assets/Turrets/Barrels/YELLOWMORTAR_barrel.png" id="13_wpy72"]
+[ext_resource type="Script" path="res://YELLOW_base.gd" id="18_5nhjn"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qu5vl"]
 shader = ExtResource("5_1g2jt")
@@ -42,14 +45,14 @@ visible = false
 z_index = 3
 material = SubResource("ShaderMaterial_n5si3")
 texture = ExtResource("1_3kswu")
-script = ExtResource("4_xlvce")
+script = ExtResource("4_ek6wg")
 
 [node name="REDLASER_base" type="Sprite2D" parent="."]
 visible = false
 modulate = Color(1.2, 1.77647, 0.968627, 1)
 z_index = 3
 material = SubResource("ShaderMaterial_n5si3")
-script = ExtResource("4_xlvce")
+script = ExtResource("5_82whf")
 
 [node name="Barrel1" type="Sprite2D" parent="REDLASER_base"]
 material = SubResource("ShaderMaterial_l3v4h")
@@ -376,7 +379,7 @@ visible = false
 z_index = 3
 material = SubResource("ShaderMaterial_l3v4h")
 texture = ExtResource("8_d86ra")
-script = ExtResource("4_xlvce")
+script = ExtResource("18_5nhjn")
 
 [node name="Barrel1" type="Sprite2D" parent="YELLOW_base"]
 material = SubResource("ShaderMaterial_l3v4h")

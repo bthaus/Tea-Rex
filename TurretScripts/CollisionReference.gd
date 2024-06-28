@@ -130,7 +130,7 @@ func getNeighbours(pos, reference=null):
 	var p = getMapPositionNormalised(pos)
 	var coveredCells = []
 	if isOutOfBounds(p.x,p.y):
-		return;
+		return coveredCells;
 	coveredCells.append(map[p.y + 1][p.x + 1].ms)
 	coveredCells.append(map[p.y - 1][p.x + 1].ms)
 	coveredCells.append(map[p.y + 1][p.x - 1].ms)
@@ -159,9 +159,7 @@ func getCellReferences(pos, turretRange, turret=null, cellPositions=[],sloppy=fa
 	mapPosition.x = mapPosition.x - turretRange;
 	mapPosition.y = mapPosition.y - turretRange;
 	var coveredCells = []
-	if turret!=null:
-		turret.rowcounterstart = mapPosition.y
-		turret.rowcounterend = mapPosition.y * 2 + 1
+
 	#+1 because it needs to be an uneven number
 	
 	for y in range(turretRange * 2 + 1):

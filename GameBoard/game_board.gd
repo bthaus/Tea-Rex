@@ -329,9 +329,10 @@ func _process(_delta):
 			for piece in selected_block.pieces:
 				var pos=$Board.map_to_local(Vector2(piece.position.x + board_pos.x, piece.position.y + board_pos.y))
 				preview_turrets[idx].position = pos
+				
 				preview_turrets[idx].base.visible=showTurrets
 				#if previous_preview_pos!=pos:
-				preview_turrets[idx].showRangeOutline()
+				preview_turrets[idx].base.showRangeOutline()
 				previous_preview_pos=pos;	
 				idx += 1
 	#$NavigationRegion2D.bake_navigation_polygon()
