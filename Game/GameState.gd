@@ -103,6 +103,7 @@ func toggleSpeed(val):
 	
 	pass;
 func _ready():
+	
 	game_speed=1;
 	toggleSpeed(0)
 	#collisionReference.initialise(self)

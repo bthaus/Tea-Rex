@@ -59,6 +59,22 @@ static func remove(name):
 	DirAccess.remove_absolute("user://save_gamehand_"+name+".dat")
 	
 	pass;	
+static func getPropertyJson(data):
+	var props=data.get_script().get_script_property_list() as Array
+	
+	props.pop_front()
+	var values=[]
+	
+	for p in props:
+			var val=data.get(p["name"])
+				
+			var d={p["name"]:val}
+			values.append(JSON.stringify(d))
+	return JSON.stringify(values)	
+	pass;	
+
+	
+	
 static func saveGame(gameState:GameState):
 	
 	
@@ -141,13 +157,13 @@ static func loadGameMap(gameState:GameState):
 	#gameState.gameBoard._spawn_all_turrets()
 	pass;
 
-static func save(content:String, destination:String, save:String):
+static func save(content:String, destination:String, save:String=""):
 	var file = FileAccess.open("user://save_game"+destination+"_"+save+".dat", FileAccess.WRITE)
 	file.store_string(content)
 	
 	pass;
 
-static func loadfile(destination:String, save:String):
+static func loadfile(destination:String, save:String=""):
 	var file = FileAccess.open("user://save_game"+destination+"_"+save+".dat", FileAccess.READ)
 	var err=FileAccess.get_open_error()
 	if err>0:
