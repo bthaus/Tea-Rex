@@ -1,4 +1,4 @@
-extends DataClass
+extends BaseDTO
 class_name TestDTO 
 
 var test:String="Blabla"
