@@ -73,8 +73,8 @@ func get_piece_from_board(map_position: Vector2) -> Block.Piece:
 	if turret != null: #Turret on top, return data that is stored in it
 		return Block.Piece.new(map_position, turret.color, turret.level, turret.extension)
 		
-	var data = board.get_custom_data("type")
-	if data != null and data.to_upper() == "BASE_GREY": #It is a grey piece (no turret on top)
+	var data = board.get_cell_tile_data(GameboardConstants.BLOCK_LAYER, map_position)
+	if data != null and data.get_custom_data("type").to_upper() == "BASE_GREY": #It is a grey piece (no turret on top)
 		return Block.Piece.new(map_position, Stats.TurretColor.GREY, 1, Stats.TurretExtension.DEFAULT)
 	
 	return null
@@ -107,7 +107,10 @@ func can_place_block(block: Block, map_position: Vector2, navigation_region: Nav
 
 	for piece in block.pieces:
 		var board_pos = Vector2(piece.position.x + map_position.x, piece.position.y + map_position.y)
-		if not is_position_in_gameboard_bounds(GameboardConstants.BLOCK_LAYER, board_pos): #Check if piece is inside bounds (walls)
+		
+		#Check if ground if ground if there is a ground a block can be placed on
+		var ground = board.get_cell_source_id(GameboardConstants.GROUND_LAYER, board_pos)
+		if ground != GameboardConstants.GROUND_TILE_ID:
 			GameBoard.current_tutorial = TutorialHolder.tutNames.Outside
 			return false
 		
@@ -151,41 +154,17 @@ func can_place_block(block: Block, map_position: Vector2, navigation_region: Nav
 	
 	#Check if a path would be valid
 	if first_piece == null: #We want to build something new (no upgrade)
-		draw_block_with_tile_id(block, map_position, GameboardConstants.BASE_PREVIEW_TILE_ID, GameboardConstants.BLOCK_LAYER) #Draw preview block for path
+		#draw_block_with_tile_id(block, map_position, GameboardConstants.BASE_PREVIEW_TILE_ID, GameboardConstants.BLOCK_LAYER) #Draw preview block for path
 		navigation_region.bake_navigation_polygon()
 		var all_paths_valid = true
 		for spawn in spawners:
 			if not spawn.can_reach_target():
 				all_paths_valid = false
 				break
-		remove_block_from_board(block, map_position) #Delete preview block again
+		#remove_block_from_board(block, map_position) #Delete preview block again
 		if not all_paths_valid:
 			GameBoard.current_tutorial = TutorialHolder.tutNames.Pathfinding
 			return false
 	
 	GameBoard.current_tutorial = null
-	return true
-
-#Checks if a given position is in bounds the gameboard or not. This is needed since the caves allow a variable width.
-#The walls themselves are excluded, meaning positions on these walls will result in being out of bounds.
-func is_position_in_gameboard_bounds(layer: int, position: Vector2) -> bool:
-	if position.y <= 0 or position.y >= gameState.board_height-1:
-		return false
-	
-	#Check right side
-	var x = position.x
-	while x >= gameState.board_width-1:
-		var data = board.get_cell_tile_data(layer, Vector2(x, position.y))
-		if data != null and data.get_custom_data("color").to_upper() == "WALL":
-			return false
-		x -= 1
-	
-	#Check left side
-	x = position.x
-	while x <= 0:
-		var data = board.get_cell_tile_data(layer, Vector2(x, position.y))
-		if data != null and data.get_custom_data("color").to_upper() == "WALL":
-			return false
-		x += 1
-		
 	return true

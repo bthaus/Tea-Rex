@@ -32,7 +32,6 @@ var points = PackedVector2Array([Vector2(), Vector2(), Vector2(), Vector2()])
 #this is a inputstopper flag for tutorials and handhovering
 var ignore_input = false;
 var previous_preview_pos=Vector2(0,0)
-var showTurrets=false;
 
 func _ready():
 	randomize()
@@ -117,11 +116,12 @@ func _process(_delta):
 	
 	#Draw preview
 	if selected_block != null:
+		var can_place_block = false
 		if action == BoardAction.BULLDOZER:
 			block_handler.draw_block_with_tile_id(selected_block, board_pos, GameboardConstants.LEGAL_PLACEMENT_TILE_ID, GameboardConstants.SELECTION_LAYER)
 		elif action != BoardAction.NONE:
-			var id = GameboardConstants.LEGAL_PLACEMENT_TILE_ID if block_handler.can_place_block(selected_block, board_pos, $NavigationRegion2D, gameState.spawners) else GameboardConstants.ILLEGAL_PLACEMENT_TILE_ID
-			showTurrets=id==GameboardConstants.LEGAL_PLACEMENT_TILE_ID
+			can_place_block = block_handler.can_place_block(selected_block, board_pos, $NavigationRegion2D, gameState.spawners)
+			var id = GameboardConstants.LEGAL_PLACEMENT_TILE_ID if can_place_block else GameboardConstants.ILLEGAL_PLACEMENT_TILE_ID
 			block_handler.draw_block_with_tile_id(selected_block, board_pos, id, GameboardConstants.SELECTION_LAYER)
 		
 		if preview_turrets == null: _load_preview_turrets_from_selected_block()
@@ -131,7 +131,7 @@ func _process(_delta):
 			for piece in selected_block.pieces:
 				var pos=$Board.map_to_local(Vector2(piece.position.x + board_pos.x, piece.position.y + board_pos.y))
 				preview_turrets[idx].position = pos
-				preview_turrets[idx].base.visible=showTurrets
+				preview_turrets[idx].base.visible=true
 				#if previous_preview_pos!=pos:
 				preview_turrets[idx].showRangeOutline()
 				previous_preview_pos=pos;
@@ -193,18 +193,12 @@ func _input(event):
 				_action_finished(true)
 				$NavigationRegion2D.bake_navigation_polygon()
 
-func show_outline(pos):
-	$Board.set_cell(GameboardConstants.TURRET_RANGE_PREVIEW_LAYER, $Board.local_to_map(pos), GameboardConstants.TURRET_RANGE_PREVIEW_TILE_ID, Vector2(0,0))
-
-func clear_range_outline():
-	$Board.clear_layer(GameboardConstants.TURRET_RANGE_PREVIEW_LAYER)
-
 func _place_block(block: Block, map_position: Vector2):
 	var piece = block_handler.get_piece_from_board(map_position)
 	if piece != null: # There is already a piece -> upgrade
-		_set_block_and_turrets_level(block, position, piece.level + 1)
+		_set_block_and_turrets_level(block, map_position, piece.level + 1)
 	else:
-		_spawn_turrets(block, position)
+		_spawn_turrets(block, map_position)
 	#soundMechanic:
 	var delay = 0;
 	var inc = 0.25 / block.pieces.size()
@@ -212,7 +206,7 @@ func _place_block(block: Block, map_position: Vector2):
 		get_tree().create_timer(delay).timeout.connect(func(): Sounds.playFromCamera(gameState, Sounds.placeBlock.pick_random()))
 		delay = delay + inc;
 		
-	block_handler.draw_block(block, position)
+	block_handler.draw_block(block, map_position)
 	$NavigationRegion2D.bake_navigation_polygon()
 	
 func _action_finished(finished: bool):
@@ -237,40 +231,40 @@ func init_field():
 	#Draw walls
 	
 	#Left and right wall
-	for row in range(1, gameState.board_height - 1):
+	for row in range(0, gameState.board_height):
 		$Board.set_cell(GameboardConstants.BLOCK_LAYER, Vector2(0, row), GameboardConstants.WALL_TILE_ID, Vector2(0, 0))
 		$Board.set_cell(GameboardConstants.BLOCK_LAYER, Vector2(gameState.board_width - 1, row), GameboardConstants.WALL_TILE_ID, Vector2(0, 0))
 		
-	for col in range(1, gameState.board_width - 1):
+	for col in range(0, gameState.board_width):
 		$Board.set_cell(GameboardConstants.BLOCK_LAYER, Vector2(col, 0), GameboardConstants.WALL_TILE_ID, Vector2(0, 0))
 		$Board.set_cell(GameboardConstants.BLOCK_LAYER, Vector2(col, gameState.board_height - 1), GameboardConstants.WALL_TILE_ID, Vector2(0, 0))
 
 	#Draw ground
-	for row in range(1, gameState.board_height - 1):
+	for row in range(1, gameState.board_height):
 		for col in range(1, gameState.board_width - 1):
 			$Board.set_cell(GameboardConstants.GROUND_LAYER, Vector2(col, row), GameboardConstants.GROUND_TILE_ID, Vector2(0, 0))
 	
 	$NavigationRegion2D.bake_navigation_polygon()
 
-func _spawn_turrets(block: Block, position: Vector2):
+func _spawn_turrets(block: Block, map_position: Vector2):
 	for piece in block.pieces:
 		if piece.color != Stats.TurretColor.GREY:
 			var turret = Turret.create(piece.color, piece.level, piece.extension)
-			turret.position = $Board.map_to_local(Vector2(position.x + piece.position.x, position.y + piece.position.y))
+			turret.position = $Board.map_to_local(Vector2(map_position.x + piece.position.x, map_position.y + piece.position.y))
 			add_child(turret)
 			turret_holder.insert_turret(turret)
 
-func _remove_turrets(block: Block, position: Vector2):
+func _remove_turrets(block: Block, map_position: Vector2):
 	for piece in block.pieces:
-		var pos = $Board.map_to_local(Vector2(position.x + piece.position.x, position.y + piece.position.y))
+		var pos = $Board.map_to_local(Vector2(map_position.x + piece.position.x, map_position.y + piece.position.y))
 		var turret = turret_holder.pop_turret_at(pos)
 		if turret != null:
 			turret.queue_free()
 
-func _set_block_and_turrets_level(block: Block, position: Vector2, level: int):
+func _set_block_and_turrets_level(block: Block, map_position: Vector2, level: int):
 	block_handler.set_block_level(block, level)
 	for piece in block.pieces:
-		var pos = $Board.map_to_local(Vector2(position.x + piece.position.x, position.y + piece.position.y))
+		var pos = $Board.map_to_local(Vector2(map_position.x + piece.position.x, map_position.y + piece.position.y))
 		var turret = turret_holder.get_turret_at(pos)
 		if turret != null:
 			if block.extension != null: turret.extension = block.extension
@@ -331,6 +325,11 @@ func reset():
 		
 		else: Explosion.pushCache(func(): )
 
+func show_outline(pos):
+	$Board.set_cell(GameboardConstants.TURRET_RANGE_PREVIEW_LAYER, $Board.local_to_map(pos), GameboardConstants.TURRET_RANGE_PREVIEW_TILE_ID, Vector2(0,0))
+
+func clear_range_outline():
+	$Board.clear_layer(GameboardConstants.TURRET_RANGE_PREVIEW_LAYER)
 
 func dragging_camera(is_dragging: bool):
 	self.is_dragging_camera = is_dragging
