@@ -6,24 +6,17 @@ var moved_from_position = Vector2.ZERO # As (0,0) will be part of the wall, it i
 var moved_from_block = null
 
 @export var gameState: GameState
-@onready var block_handler: BlockHandler = BlockHandler.new($Board)
 enum BoardAction {NONE = 0, BUILD = 1, MOVE = 2, BULLDOZER = 3}
 var action: BoardAction = BoardAction.NONE
 var done: Callable
 
 var turret_holder = util.TurretHolder.new()
+var block_handler: BlockHandler
 
 static var current_tutorial = null
 
 var preview_turrets = null
 var highlighted_turrets = []
-
-const BLOCK_LAYER = 0
-const GROUND_LAYER = 1
-const EXTENSION_LAYER = 2
-const SELECTION_LAYER = 3
-const CATASTROPHY_LAYER = 4
-const RANGE_PREVIEW_LAYER=5
 
 var is_dragging_camera = false
 var is_moving_camera = false
@@ -31,17 +24,6 @@ var ignore_click = false
 
 var is_delayed = false
 var delay_timer: Timer
-
-const RANGE_PREVIEW_TILE_ID = 0
-const LEGAL_PLACEMENT_TILE_ID = 1
-const ILLEGAL_PLACEMENT_TILE_ID = 2
-const PREVIEW_BLOCK_TILE_ID = 3
-const EMPTY_TILE_ID = 4
-
-const PLAYER_BASE_ID = 5
-const SPAWNER_ID = 6
-
-const WALL_ID = 7
 
 var navigation_polygon = NavigationPolygon.new()
 var points = PackedVector2Array([Vector2(), Vector2(), Vector2(), Vector2()])
@@ -59,6 +41,8 @@ func _ready():
 	$Board.add_to_group("navigation")
 	navigation_polygon.source_geometry_mode = NavigationPolygon.SOURCE_GEOMETRY_GROUPS_WITH_CHILDREN
 	navigation_polygon.agent_radius = 26
+	
+	block_handler = BlockHandler.new($Board, turret_holder)
 	
 	delay_timer = Timer.new()
 	delay_timer.autostart = false
@@ -109,7 +93,7 @@ func select_block(block, done: Callable):
 
 
 func _process(_delta):
-	$Board.clear_layer(SELECTION_LAYER)
+	$Board.clear_layer(GameboardConstants.SELECTION_LAYER)
 	
 	var board_pos = $Board.local_to_map(get_global_mouse_position())
 	
@@ -134,11 +118,11 @@ func _process(_delta):
 	#Draw preview
 	if selected_block != null:
 		if action == BoardAction.BULLDOZER:
-			block_handler.draw_block_with_tile_id(selected_block, board_pos, LEGAL_PLACEMENT_TILE_ID, SELECTION_LAYER)
+			block_handler.draw_block_with_tile_id(selected_block, board_pos, GameboardConstants.LEGAL_PLACEMENT_TILE_ID, GameboardConstants.SELECTION_LAYER)
 		elif action != BoardAction.NONE:
-			var id = LEGAL_PLACEMENT_TILE_ID if block_handler.can_place_block(selected_block, BLOCK_LAYER, board_pos, $NavigationRegion2D, gameState.spawners) else ILLEGAL_PLACEMENT_TILE_ID		
-			showTurrets=id==LEGAL_PLACEMENT_TILE_ID
-			block_handler.draw_block_with_tile_id(selected_block, board_pos, id, SELECTION_LAYER)
+			var id = GameboardConstants.LEGAL_PLACEMENT_TILE_ID if block_handler.can_place_block(selected_block, board_pos, $NavigationRegion2D, gameState.spawners) else GameboardConstants.ILLEGAL_PLACEMENT_TILE_ID
+			showTurrets=id==GameboardConstants.LEGAL_PLACEMENT_TILE_ID
+			block_handler.draw_block_with_tile_id(selected_block, board_pos, id, GameboardConstants.SELECTION_LAYER)
 		
 		if preview_turrets == null: _load_preview_turrets_from_selected_block()
 		if preview_turrets.size() == selected_block.pieces.size():
@@ -150,7 +134,7 @@ func _process(_delta):
 				preview_turrets[idx].base.visible=showTurrets
 				#if previous_preview_pos!=pos:
 				preview_turrets[idx].showRangeOutline()
-				previous_preview_pos=pos;	
+				previous_preview_pos=pos;
 				idx += 1
 
 func _input(event):
@@ -177,7 +161,7 @@ func _input(event):
 		if Card.contemplatingInterrupt: return ;
 		match action:
 			BoardAction.BUILD:
-				if block_handler.can_place_block(selected_block, BLOCK_LAYER, board_pos, $NavigationRegion2D, gameState.spawners):
+				if block_handler.can_place_block(selected_block, board_pos, $NavigationRegion2D, gameState.spawners):
 					_place_block(selected_block, board_pos)
 					_action_finished(true)
 				elif current_tutorial != null:
@@ -186,17 +170,17 @@ func _input(event):
 			
 			BoardAction.MOVE:
 				if selected_block == null:
-					var block = block_handler.get_block_from_board(board_pos, BLOCK_LAYER, EXTENSION_LAYER, true)
+					var block = block_handler.get_block_from_board(board_pos, true)
 					if block.pieces.size() == 0: # If no block got selected (nothing found at the clicked pos), ignore
 						return
-					block_handler.remove_block_from_board(block, board_pos, BLOCK_LAYER, EXTENSION_LAYER, false)
+					block_handler.remove_block_from_board(block, board_pos)
 					selected_block = block
 					moved_from_position = board_pos # Save block information in case the user interrupts the process
 					moved_from_block = selected_block.clone()
 					_remove_turrets(selected_block, board_pos)
 
 				else:
-					if block_handler.can_place_block(selected_block, BLOCK_LAYER, board_pos, $NavigationRegion2D, gameState.spawners):
+					if block_handler.can_place_block(selected_block, board_pos, $NavigationRegion2D, gameState.spawners):
 						_place_block(selected_block, board_pos)
 						_action_finished(true)
 					elif current_tutorial != null:
@@ -204,22 +188,21 @@ func _input(event):
 						current_tutorial = null
 					
 			BoardAction.BULLDOZER:
-				block_handler.remove_block_from_board(selected_block, board_pos, BLOCK_LAYER, EXTENSION_LAYER, false)
+				block_handler.remove_block_from_board(selected_block, board_pos)
 				_remove_turrets(selected_block, board_pos)
 				_action_finished(true)
 				$NavigationRegion2D.bake_navigation_polygon()
 
 func show_outline(pos):
-	$Board.set_cell(RANGE_PREVIEW_LAYER, $Board.local_to_map(pos), RANGE_PREVIEW_TILE_ID, Vector2(0,0))
+	$Board.set_cell(GameboardConstants.TURRET_RANGE_PREVIEW_LAYER, $Board.local_to_map(pos), GameboardConstants.TURRET_RANGE_PREVIEW_TILE_ID, Vector2(0,0))
 
 func clear_range_outline():
-	$Board.clear_layer(RANGE_PREVIEW_LAYER)
+	$Board.clear_layer(GameboardConstants.TURRET_RANGE_PREVIEW_LAYER)
 
-func _place_block(block: Block, position: Vector2):
-	var data = $Board.get_cell_tile_data(BLOCK_LAYER, position)
-	if data != null: # There is already a piece -> upgrade
-		var level = data.get_custom_data("level")
-		_set_block_and_turrets_level(block, position, level + 1)
+func _place_block(block: Block, map_position: Vector2):
+	var piece = block_handler.get_piece_from_board(map_position)
+	if piece != null: # There is already a piece -> upgrade
+		_set_block_and_turrets_level(block, position, piece.level + 1)
 	else:
 		_spawn_turrets(block, position)
 	#soundMechanic:
@@ -229,12 +212,12 @@ func _place_block(block: Block, position: Vector2):
 		get_tree().create_timer(delay).timeout.connect(func(): Sounds.playFromCamera(gameState, Sounds.placeBlock.pick_random()))
 		delay = delay + inc;
 		
-	block_handler.draw_block(block, position, BLOCK_LAYER, EXTENSION_LAYER)
+	block_handler.draw_block(block, position)
 	$NavigationRegion2D.bake_navigation_polygon()
 	
 func _action_finished(finished: bool):
 	if not finished and moved_from_block != null: # Restore block if there is something to restore
-		block_handler.draw_block(moved_from_block, moved_from_position, BLOCK_LAYER, EXTENSION_LAYER)
+		block_handler.draw_block(moved_from_block, moved_from_position)
 		_spawn_turrets(moved_from_block, moved_from_position)
 
 	selected_block = null
@@ -255,17 +238,17 @@ func init_field():
 	
 	#Left and right wall
 	for row in range(1, gameState.board_height - 1):
-		$Board.set_cell(BLOCK_LAYER, Vector2(0, row), WALL_ID, Vector2(0, 0))
-		$Board.set_cell(BLOCK_LAYER, Vector2(gameState.board_width - 1, row), WALL_ID, Vector2(0, 0))
+		$Board.set_cell(GameboardConstants.BLOCK_LAYER, Vector2(0, row), GameboardConstants.WALL_TILE_ID, Vector2(0, 0))
+		$Board.set_cell(GameboardConstants.BLOCK_LAYER, Vector2(gameState.board_width - 1, row), GameboardConstants.WALL_TILE_ID, Vector2(0, 0))
 		
 	for col in range(1, gameState.board_width - 1):
-		$Board.set_cell(BLOCK_LAYER, Vector2(col, 0), WALL_ID, Vector2(0, 0))
-		$Board.set_cell(BLOCK_LAYER, Vector2(col, gameState.board_height - 1), WALL_ID, Vector2(0, 0))
+		$Board.set_cell(GameboardConstants.BLOCK_LAYER, Vector2(col, 0), GameboardConstants.WALL_TILE_ID, Vector2(0, 0))
+		$Board.set_cell(GameboardConstants.BLOCK_LAYER, Vector2(col, gameState.board_height - 1), GameboardConstants.WALL_TILE_ID, Vector2(0, 0))
 
 	#Draw ground
 	for row in range(1, gameState.board_height - 1):
 		for col in range(1, gameState.board_width - 1):
-			$Board.set_cell(GROUND_LAYER, Vector2(col, row), EMPTY_TILE_ID, Vector2(0, 0))
+			$Board.set_cell(GameboardConstants.GROUND_LAYER, Vector2(col, row), GameboardConstants.GROUND_TILE_ID, Vector2(0, 0))
 	
 	$NavigationRegion2D.bake_navigation_polygon()
 
@@ -335,7 +318,7 @@ func reset():
 					
 					create_tween().tween_callback(func():
 						
-						block_handler.remove_block_from_board(Block.new([p]), c, BLOCK_LAYER, EXTENSION_LAYER, false)
+						block_handler.remove_block_from_board(Block.new([p]), c)
 						_remove_turrets(Block.new([p]), c)
 						Explosion.create(0, 0, $Board.map_to_local(c), self, 0.5)
 						#gameState.getCamera().shake(0.1,4,c)
@@ -347,7 +330,7 @@ func reset():
 						).set_delay(delay))
 		
 		else: Explosion.pushCache(func(): )
-	
-	pass ;
+
+
 func dragging_camera(is_dragging: bool):
 	self.is_dragging_camera = is_dragging
