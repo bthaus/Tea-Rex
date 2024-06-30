@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://ceo4ed4nntj6h"]
 
-[ext_resource type="Script" path="res://Assets/LevelEditor/level_editor.gd" id="1_nibhe"]
+[ext_resource type="Script" path="res://LevelEditor/level_editor.gd" id="1_nibhe"]
 [ext_resource type="TileSet" uid="uid://dcf0fhqgihare" path="res://GameBoard/game_board_tileset.tres" id="2_itsd3"]
 
 [node name="LevelEditor" type="Node2D"]
@@ -16,11 +16,12 @@ layer_1/tile_data = PackedInt32Array()
 [node name="HUD" type="CanvasLayer" parent="."]
 
 [node name="ScrollContainer" type="ScrollContainer" parent="HUD"]
-offset_right = 171.0
-offset_bottom = 350.0
+offset_left = 21.0
+offset_top = 84.0
+offset_right = 192.0
+offset_bottom = 434.0
+horizontal_scroll_mode = 0
 
-[node name="MarginContainer" type="MarginContainer" parent="HUD/ScrollContainer"]
+[node name="GridContainer" type="GridContainer" parent="HUD/ScrollContainer"]
 layout_mode = 2
-
-[node name="GridContainer" type="GridContainer" parent="HUD/ScrollContainer/MarginContainer"]
-layout_mode = 2
+columns = 2
