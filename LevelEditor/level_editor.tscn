@@ -15,13 +15,13 @@ layer_1/tile_data = PackedInt32Array()
 
 [node name="HUD" type="CanvasLayer" parent="."]
 
-[node name="ScrollContainer" type="ScrollContainer" parent="HUD"]
+[node name="TileScrollContainer" type="ScrollContainer" parent="HUD"]
 offset_left = 21.0
 offset_top = 84.0
 offset_right = 192.0
 offset_bottom = 434.0
 horizontal_scroll_mode = 0
 
-[node name="GridContainer" type="GridContainer" parent="HUD/ScrollContainer"]
+[node name="TileGridContainer" type="GridContainer" parent="HUD/TileScrollContainer"]
 layout_mode = 2
 columns = 2
