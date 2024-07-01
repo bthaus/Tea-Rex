@@ -113,12 +113,6 @@ func setUpTower():
 	if placed:
 		lightamount = GameState.gameState.lightThresholds.getLight(global_position.y)*level
 	
-	#if type == Stats.TurretColor.RED:
-	#	projectile.scale = Vector2(1, 1)
-	#	projectile.z_index = 0;
-	#	projectile.visible = placed
-	#	projectile.modulate = Color(1, 1, 1, 1)
-	#	$AudioStreamPlayer2D.finished.connect(func(): if inRange(): $AudioStreamPlayer2D.play)
 	$Tile.texture = load("res://Assets/Tiles/tile_" + Stats.getStringFromEnumLowercase(color) + ".png")
 	if placed:
 		lightamount = GameState.gameState.lightThresholds.getLight(global_position.y) * level
@@ -134,43 +128,8 @@ func setUpTower():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 
-
-#func draw_SniperLine():
-	#if target != null: targetposition = target.global_position;
-	#if buildup == 0: return ;
-	#if targetposition == null: return ;
-	#if buildup < 0: buildup = 0
-	#
-	#direction = (targetposition - self.global_position).normalized();
-	##$Barrel.rotation=direction.angle() + PI / 2.0;
-	#var color = Color(1, 1, 1, 1 * buildup)
-	#var thickness = 1 * buildup;
-	#for b in base.getBarrels():
-		#var bgp = b.get_child(0).global_position;
-		#var bp = b.get_child(0).position;
-		#draw_line((b.position + bp).rotated(base.rotation), -(global_position - (targetposition) - (b.position - bp).rotated(base.rotation)), color, thickness, true)
-		#draw_line((b.position + bp).rotated(base.rotation), -(global_position - (targetposition) - (b.position - bp).rotated(base.rotation)), color, thickness, true)
-	#
-	#pass ;
-	#
 @onready var point = $Drawpoint
-#func draw_laser():
-	#
-	#if target != null:
-		#targetposition = target.global_position;
-	#if target == null&&buildup < 0:
-		#buildup = 0;
-		#point.buildup = buildup
-		#point.queue_redraw();
-		#return
-	#point.type = extension
-	#point.target = target
-	#point.buildup = buildup
-	#point.targetposition = targetposition
-	#point.direction = direction
-	#point.queue_redraw();
-	#return
-	#
+
 func reduceCooldown(delta):
 
 	var ml = lightamount;
@@ -200,8 +159,6 @@ func de_highlight(delta):
 	if GameState.gameState.phase == Stats.GamePhase.BATTLE: return
 	globlight = false;
 	melight = false;
-	#create_tween().tween_property(light, "energy", lightamount, 1)
-	#light.energy=lightamount
 	pass
 	
 func checkLight(delta):
@@ -215,93 +172,7 @@ func checkLight(delta):
 var waitingForMinions = false;
 
 
-#
-#func RED_do(delta):
-	##check if blade should be rotating
-	#if buildup > 0&&projectile != null:
-			#projectile.rotate((180 * buildup * - 1) * 2 * delta);
-	##if no target, slowly stop rotating the blade 	
-	#if target == null&&buildup > 0:
-		#buildup = buildup - 0.01 * delta;
-	##if no target is present, stop the rest	
-	#if target == null: return
-	##if target present and buildup is lower than maxrotation, start rotating		
-	#if buildup < 0.01:
-		#buildup = buildup + 0.01 * delta;
-	##if not on cooldown, deal damage	
-	#if !onCooldown:
-			#for cell in coveredCells:
-				#for e in cell:
-					#if !is_instance_valid(e): continue
-					#if e.hit(type, self.damage * level): addKill()
-					#addDamage(self.damage * level)
-					#projectile.playHitSound();
-			#startCooldown(cooldown * cooldownfactor)
-						#
-	#pass ;
-#
-#func BLUE_do(delta):
-	#base_do()
-	#pass ;
-#func GREEN_do(delta):
-	#base_do()
-	#pass ;
-#func YELLOW_do(delta):
-	#if type == Stats.TurretColor.YELLOW&&extension == Stats.TurretExtension.DEFAULT:
-		#buildup = buildup - 4 * delta;
-	#if target != null:
-		#if !onCooldown:
-				#if camera != null:
-					#var mod = camera.zoom.y - 3;
-					#$AudioStreamPlayer2D.volume_db = 10 + mod * 10
-					#
-				##if !$AudioStreamPlayer2D.playing&&sounds<25:
-				#$AudioStreamPlayer2D.play()
-				#sounds = sounds + 1
-				#projectile.hitEnemy(target)
-				#buildup = 1;
-				#queue_redraw()
-				#startCooldown(cooldown * cooldownfactor)
-				#onCooldown = true;
-	#if buildup > 0 and target == null:
-			#buildup = buildup - 2 * delta;
-		#
-	#queue_redraw()
-		#
-	#pass ;
-#func REDLASER_do(delta):
-	#
-	#if !$AudioStreamPlayer2D.playing and buildup > 0:
-		#$AudioStreamPlayer2D.play()
-	#if buildup < 0.1:
-		#$AudioStreamPlayer2D.stop()
-		#
-	#if target != null and buildup <= 1:
-		#buildup = buildup + 1 * delta * 2;
-	#if target == null and buildup > 0:
-		#buildup = buildup - 2 * delta;
-	#
-	#queue_redraw()
-	#base_do()
-#func BLUEFREEZER_do(delta):
-	#if target != null and buildup <= 1:
-		#buildup = buildup + 1 * delta * 2;
-	#if target == null and buildup > 0:
-		#buildup = buildup - 2 * delta;
-	#queue_redraw()
-	#base_do()
-	#pass ;
-				#
-	#pass ;
-#func BLUELASER_do(delta):
-	#base_do()
-	#pass ;
-#func GREENPOISON_do(delta):
-	#base_do()
-	#pass ;
-#func YELLOWMORTAR_do(delta):
-	#base_do()
-	#pass ;
+
 func do(delta):
 
 	#größter pfusch auf erden. wenn ein block in der hand ist soll er seine range anzeigen, wenn nicht dann nicht.

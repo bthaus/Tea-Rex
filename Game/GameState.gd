@@ -8,6 +8,8 @@ class_name GameState;
 @export var lightThresholds: LightThresholds;
 static var gameState;
 
+
+
 var account: String = "";
 
 var unlockedExtensions = [Stats.TurretExtension.DEFAULT];

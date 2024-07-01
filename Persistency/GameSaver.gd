@@ -168,7 +168,6 @@ static func loadfile(destination:String, save:String=""):
 	var err=FileAccess.get_open_error()
 	if err>0:
 		print("error loading file with "+save)
-		
 		return "";
 	var content = file.get_as_text()
 	return content
