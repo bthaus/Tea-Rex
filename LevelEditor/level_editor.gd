@@ -27,7 +27,6 @@ func _unhandled_input(event):
 		else:
 			$Board.set_cell(GameboardConstants.BLOCK_LAYER, board_pos, selected_tile_id, Vector2(0,0))
 			$Board.set_cell(GameboardConstants.GROUND_LAYER, board_pos, -1, Vector2(0,0))
-			
 	elif event.is_action_released("right_click"):
 		$Board.set_cell(GameboardConstants.BLOCK_LAYER, board_pos, -1, Vector2(0,0))
 		$Board.set_cell(GameboardConstants.GROUND_LAYER, board_pos, -1, Vector2(0,0))
@@ -43,6 +42,7 @@ func _init_selection_tiles():
 		_selection_tile_container.add_child(item)
 
 func _get_tile_type(id: int):
+	if id == -1: return null
 	var atlas: TileSetAtlasSource = $Board.tile_set.get_source(id)
 	var data = atlas.get_tile_data(Vector2(0,0), 0)
 	if data == null: return null
@@ -51,9 +51,30 @@ func _get_tile_type(id: int):
 func _item_selected(id: int):
 	selected_tile_id = id
 
+func save_board():
+	var entities:Array[BaseDTO] = []
+	
+	for pos in $Board.get_used_cells(GameboardConstants.BLOCK_LAYER):
+		var id = $Board.get_cell_source_id(GameboardConstants.BLOCK_LAYER, pos)
+		var type = _get_tile_type(id)
+		match(type):
+			GameboardConstants.WALL_TYPE: entities.append(TileDTO.new(id, GameboardConstants.BLOCK_LAYER, pos.x, pos.y))
+			GameboardConstants.SPAWNER_TYPE: entities.append(SpawnerDTO.new(pos.x, pos.y))
+			GameboardConstants.PLAYER_BASE_TYPE: entities.append(PlayerBaseDTO.new(pos.x, pos.y))
+		
+	for pos in $Board.get_used_cells(GameboardConstants.GROUND_LAYER):
+		var id = $Board.get_cell_source_id(GameboardConstants.GROUND_LAYER, pos)
+		entities.append(TileDTO.new(id, GameboardConstants.GROUND_LAYER, pos.x, pos.y))
+	
+	var map_dto = MapDTO.new(entities)
+	#...do something with map_dto
+
 class TileItem:
 	var id: int
 	var name: String
 	func _init(id: int, name: String):
 		self.id = id
 		self.name = name
+
+func _on_button_pressed():
+	save_board()

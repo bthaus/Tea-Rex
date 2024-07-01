@@ -8,6 +8,4 @@ var x: int
 var y: int
 
 func get_object():
-	var turret = Turret.create(self.color, self.level, self.extension)
-	turret.position = Vector2(self.x, self.y)
-	return turret
+	return Turret.create(self.color, self.level, self.extension)

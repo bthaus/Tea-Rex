@@ -40,3 +40,12 @@ horizontal_scroll_mode = 0
 [node name="TileGridContainer" type="GridContainer" parent="HUD/TileScrollContainer"]
 layout_mode = 2
 columns = 2
+
+[node name="Button" type="Button" parent="HUD"]
+offset_left = 1030.0
+offset_top = 546.0
+offset_right = 1116.0
+offset_bottom = 599.0
+text = "save"
+
+[connection signal="pressed" from="HUD/Button" to="." method="_on_button_pressed"]
