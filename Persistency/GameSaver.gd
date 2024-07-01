@@ -89,7 +89,7 @@ static func saveGame(gameState:GameState):
 		var d={p["name"]:gameState.get(p["name"])}
 		values.append(JSON.stringify(d))
 	save(JSON.stringify(values),"state",gameState.account);		
-	storeGameMap(gameState)
+	#storeGameMap(gameState)
 	storeHand(gameState)
 	save(serialseSpawners(gameState),"spawners",gameState.account)
 	pass;
@@ -106,22 +106,22 @@ static func storeGameMap(gameState:GameState):
 	
 	var cells=map.get_used_cells(0);
 	var mapAsArray=[]
-	for cell in cells:
-		#var turret=gameState.gameBoard.turret_holder.get_turret_at(cell)
-		var data=map.get_cell_tile_data(GameBoard.BLOCK_LAYER,cell)
-		if data==null:util.p("cell tile data empty for some reason","bodo","persistency");
-		var color=data.get_custom_data("color");
-		var level=data.get_custom_data("level");
-		var extension=1
-		var extensionData=map.get_cell_tile_data(GameBoard.EXTENSION_LAYER,cell)
-		if extensionData!=null:
-			extension=extensionData.get_custom_data("extension");
-		if color=="WALL":
-			level=map.get_cell_source_id(GameBoard.BLOCK_LAYER,cell)	
-		var info=Info.new(color,level,extension,cell)
-		
-		mapAsArray.append(info.serialise())
-	save(JSON.stringify(mapAsArray),"map",gameState.account)
+	#for cell in cells:
+		##var turret=gameState.gameBoard.turret_holder.get_turret_at(cell)
+		#var data=map.get_cell_tile_data(GameBoard.BLOCK_LAYER,cell)
+		#if data==null:util.p("cell tile data empty for some reason","bodo","persistency");
+		#var color=data.get_custom_data("color");
+		#var level=data.get_custom_data("level");
+		#var extension=1
+		#var extensionData=map.get_cell_tile_data(GameBoard.EXTENSION_LAYER,cell)
+		#if extensionData!=null:
+			#extension=extensionData.get_custom_data("extension");
+		#if color=="WALL":
+			#level=map.get_cell_source_id(GameBoard.BLOCK_LAYER,cell)	
+		#var info=Info.new(color,level,extension,cell)
+		#
+		#mapAsArray.append(info.serialise())
+	#save(JSON.stringify(mapAsArray),"map",gameState.account)
 	
 	pass;	
 static func loadHand(gameState:GameState):
@@ -152,7 +152,7 @@ static func loadGameMap(gameState:GameState):
 	
 	gameState.gameBoard._place_block(block,Vector2(0,0));
 	#gameState.gameBoard.init_field()
-	gameState.gameBoard.draw_field_from_walls(walls)
+	#gameState.gameBoard.draw_field_from_walls(walls)
 	gameState.gameBoard.get_node("NavigationRegion2D").bake_navigation_polygon()
 	#gameState.gameBoard._spawn_all_turrets()
 	pass;

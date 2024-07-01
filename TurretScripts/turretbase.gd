@@ -3,7 +3,7 @@ class_name Turret
 
 @export var range = 1;
 @export var isBasic = true;
-@export var type: Stats.TurretColor;
+@export var color: Stats.TurretColor;
 @export var stacks: int = 1;
 @export var extension: Stats.TurretExtension;
 
@@ -29,7 +29,7 @@ static func create(color: Stats.TurretColor, lvl: int, type: Stats.TurretExtensi
 	var turret = load("res://TurretScripts/turretbase.tscn").instantiate() as Turret;
 	if turret.collisionReference == null:
 		turret.collisionReference = GameState.gameState.collisionReference
-	turret.type = color;
+	turret.color = color;
 	turret.stacks = lvl;
 	turret.extension = type;
 	return turret;
@@ -101,7 +101,7 @@ func setUpTower():
 	on_battle_phase_started.append(resetLight)
 
 
-	base = coreFactory.getBase(type, extension);
+	base = coreFactory.getBase(color, extension);
 	add_child(base)
 	base.global_position = global_position
 	base.setLevel(stacks)
@@ -109,7 +109,7 @@ func setUpTower():
 	base.placed=placed
 	
 	$LVL.text = str(stacks)
-	$AudioStreamPlayer2D.stream = load("res://Sounds/Soundeffects/" + Stats.getStringFromEnum(type) + Stats.getStringFromEnumExtension(extension) + "_shot.wav")
+	$AudioStreamPlayer2D.stream = load("res://Sounds/Soundeffects/" + Stats.getStringFromEnum(color) + Stats.getStringFromEnumExtension(extension) + "_shot.wav")
 	if placed:
 		lightamount = GameState.gameState.lightThresholds.getLight(global_position.y)*stacks
 	
@@ -119,14 +119,14 @@ func setUpTower():
 	#	projectile.visible = placed
 	#	projectile.modulate = Color(1, 1, 1, 1)
 	#	$AudioStreamPlayer2D.finished.connect(func(): if inRange(): $AudioStreamPlayer2D.play)
-	$Tile.texture = load("res://Assets/Tiles/tile_" + Stats.getStringFromEnumLowercase(type) + ".png")
+	$Tile.texture = load("res://Assets/Tiles/tile_" + Stats.getStringFromEnumLowercase(color) + ".png")
 	if placed:
 		lightamount = GameState.gameState.lightThresholds.getLight(global_position.y) * stacks
 		$Tile.modulate = Color(1 + lightamount, 1 + lightamount, 1 + lightamount)
 	
 	if placed: resetLight()
 	$Drawpoint.base = base
-	point.type = type
+	point.type = color
 
 	pass ;
 
@@ -341,7 +341,7 @@ func _on_button_mouse_entered():
 	elif extension != 1:
 		GameState.gameState.menu.showDescription(Stats.getDescription(Stats.TurretExtension.keys()[extension - 1]))
 	else:
-		GameState.gameState.menu.showDescription(Stats.getDescription(Stats.getStringFromEnum(type)))
+		GameState.gameState.menu.showDescription(Stats.getDescription(Stats.getStringFromEnum(color)))
 	
 	GameState.gameState.showCount(base.killcount, base.damagedealt)
 	

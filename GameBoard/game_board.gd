@@ -133,7 +133,7 @@ func _process(_delta):
 				preview_turrets[idx].position = pos
 				preview_turrets[idx].base.visible = can_place_block
 				#if previous_preview_pos!=pos:
-				preview_turrets[idx].showRangeOutline()
+				preview_turrets[idx].base.showRangeOutline()
 				previous_preview_pos = pos;
 				idx += 1
 
