@@ -186,9 +186,8 @@ func checkTarget():
 	pass ;
 	
 func attack(delta):
-	if target != null:
-		if !onCooldown:
-			shoot(target);
+	if target!=null and not onCooldown:shoot(target); 
+	
 		
 	pass ;
 func shoot(target):

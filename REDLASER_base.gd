@@ -18,7 +18,7 @@ func attack(delta):
 		buildup = buildup - 2 * delta;
 	
 	queue_redraw()
-	super.attack(delta)
+	if target!=null and not onCooldown: super.attack(delta)
 	pass;
 func _draw():
 	

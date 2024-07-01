@@ -13,7 +13,7 @@ var rowcounterend = 0
 var lightamount=1
 static var camera;
 
-static var coreFactory: TurretCore = load("res://base_factory.tscn").instantiate() as TurretCore
+static var coreFactory: TurretCoreFactory
 var base: TurretCore;
 var placed = true;
 static var turrets = []
@@ -45,6 +45,7 @@ func do_all(tasks: Array[Callable]):
 		t.call()
 	pass ;
 func _ready():
+	coreFactory=TurretCoreFactory.get_instance()
 	do_all(on_built)
 	
 	if placed:

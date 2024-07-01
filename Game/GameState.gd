@@ -10,9 +10,9 @@ static var gameState;
 
 var account: String = "";
 #Stats.TurretExtension
-var unlockedExtensions = [Stats.TurretExtension.REDLASER];
+var unlockedExtensions = [Stats.TurretExtension.DEFAULT];
 #Stats.TurretColor
-var unlockedColors = [Stats.TurretColor.BLUE];
+var unlockedColors = [Stats.TurretColor.GREEN];
 #Stats.SpecialCards
 var unlockedSpecialCards = [Stats.SpecialCards.HEAL];
 var toUnlock = []
@@ -37,8 +37,8 @@ var level = 0;
 static var game_speed=1;
 static var board;
 static var blueChance = 0;
-static var redChance = 100;
-static var greenChance = 0;
+static var redChance = 0;
+static var greenChance = 100;
 static var yellowChance = 0;
 static var greyChance = 0;
 var colorChances = [greyChance, greenChance, redChance, yellowChance, blueChance]
