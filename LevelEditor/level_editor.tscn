@@ -1,10 +1,25 @@
-[gd_scene load_steps=3 format=3 uid="uid://ceo4ed4nntj6h"]
+[gd_scene load_steps=6 format=3 uid="uid://ceo4ed4nntj6h"]
 
 [ext_resource type="Script" path="res://LevelEditor/level_editor.gd" id="1_nibhe"]
+[ext_resource type="Texture2D" uid="uid://btp3q1rq0vmmt" path="res://Assets/Tiles/ground.png" id="2_eqpsc"]
 [ext_resource type="TileSet" uid="uid://dcf0fhqgihare" path="res://GameBoard/game_board_tileset.tres" id="2_itsd3"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ghpgt"]
+texture = ExtResource("2_eqpsc")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_obf8t"]
+tile_size = Vector2i(64, 64)
+sources/0 = SubResource("TileSetAtlasSource_ghpgt")
 
 [node name="LevelEditor" type="Node2D"]
 script = ExtResource("1_nibhe")
+
+[node name="Background" type="TileMap" parent="."]
+modulate = Color(0, 0, 0, 1)
+tile_set = SubResource("TileSet_obf8t")
+format = 2
 
 [node name="Board" type="TileMap" parent="."]
 tile_set = ExtResource("2_itsd3")

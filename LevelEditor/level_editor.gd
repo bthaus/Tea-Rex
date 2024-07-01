@@ -12,6 +12,10 @@ var selected_tile_id = -1
 
 func _ready():
 	$Board.tile_set.tile_size = Vector2(Stats.block_size, Stats.block_size)
+	$Background.tile_set.tile_size = Vector2(Stats.block_size, Stats.block_size)
+	for y in range(-200, 200):
+		for x in range(-200, 200):
+			$Background.set_cell(0, Vector2(x,y), 0, Vector2(0,0))
 	_init_selection_tiles()
 
 #We can use unhandled input here, so that when clicking on a (hud) button the drawing wont trigger
