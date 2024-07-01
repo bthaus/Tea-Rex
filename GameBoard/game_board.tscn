@@ -1,11 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://c8n0am7jadxj7"]
+[gd_scene load_steps=4 format=3 uid="uid://c8n0am7jadxj7"]
 
 [ext_resource type="Script" path="res://GameBoard/game_board.gd" id="1_yp6tt"]
 [ext_resource type="TileSet" uid="uid://dcf0fhqgihare" path="res://GameBoard/game_board_tileset.tres" id="2_dhwah"]
 [ext_resource type="TileSet" uid="uid://d0xe20r8gppag" path="res://GameBoard/game_board_background_tileset.tres" id="3_onyea"]
-[ext_resource type="Texture2D" uid="uid://g0mltpwhngd2" path="res://Assets/Level/CITY.png" id="4_q7wsm"]
-[ext_resource type="Texture2D" uid="uid://bu60t8visu6q6" path="res://Assets/Level/Sky.png" id="4_v5m4h"]
-[ext_resource type="Texture2D" uid="uid://dslb0ch8phmbh" path="res://Assets/Level/CITY_moon.png" id="5_khpt1"]
 
 [node name="GameBoard" type="Node2D"]
 script = ExtResource("1_yp6tt")
@@ -45,18 +42,14 @@ position = Vector2(1000, -450)
 [node name="Sky" type="Sprite2D" parent="City"]
 position = Vector2(-11, -608)
 scale = Vector2(151, 31.4)
-texture = ExtResource("4_v5m4h")
 
 [node name="CityPiece1" type="Sprite2D" parent="City"]
 position = Vector2(-2560, 0)
 scale = Vector2(2.5, 2.5)
-texture = ExtResource("4_q7wsm")
 
 [node name="CityPiece2" type="Sprite2D" parent="City"]
 scale = Vector2(2.5, 2.5)
-texture = ExtResource("5_khpt1")
 
 [node name="CityPiece3" type="Sprite2D" parent="City"]
 position = Vector2(2560, 0)
 scale = Vector2(2.5, 2.5)
-texture = ExtResource("4_q7wsm")

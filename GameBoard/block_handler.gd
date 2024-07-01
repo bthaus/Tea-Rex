@@ -14,6 +14,11 @@ func _init(board: TileMap, turret_holder: util.TurretHolder):
 func get_tile_id_from_block_piece(piece: Block.Piece) -> int:
 	return piece.color * 100 + piece.level
 
+func get_tile_type(layer: int, map_position: Vector2):
+	var data = board.get_cell_tile_data(layer, map_position)
+	if data == null: return null
+	return data.get_custom_data("type").to_upper()
+
 #Draws a normalized block at a given map_position. Gets tile from color + level
 func draw_block(block: Block, map_position: Vector2):
 	for piece in block.pieces:
@@ -27,8 +32,8 @@ func draw_block_with_tile_id(block: Block, map_position: Vector2, id: int, layer
 
 func remove_block_from_board(block: Block, map_position: Vector2):
 	for piece in block.pieces:
-		var data = board.get_cell_tile_data(GameboardConstants.BLOCK_LAYER, Vector2(piece.position.x + map_position.x, piece.position.y + map_position.y))
-		if data != null and data.get_custom_data("type").to_upper() == "WALL": #Skip walls as they should not be removable by this function
+		var type = get_tile_type(GameboardConstants.BLOCK_LAYER, Vector2(piece.position.x + map_position.x, piece.position.y + map_position.y))
+		if type != null and type == GameboardConstants.WALL_TYPE:
 			continue
 		board.set_cell(GameboardConstants.BLOCK_LAYER, Vector2(piece.position.x + map_position.x, piece.position.y + map_position.y), -1, Vector2(0,0))
 
@@ -72,9 +77,9 @@ func get_piece_from_board(map_position: Vector2) -> Block.Piece:
 	var turret = turret_holder.get_turret_at(Vector2(board.map_to_local(map_position)))
 	if turret != null: #Turret on top, return data that is stored in it
 		return Block.Piece.new(map_position, turret.color, turret.level, turret.extension)
-		
-	var data = board.get_cell_tile_data(GameboardConstants.BLOCK_LAYER, map_position)
-	if data != null and data.get_custom_data("type").to_upper() == "BASE_GREY": #It is a grey piece (no turret on top)
+	
+	var type = get_tile_type(GameboardConstants.BLOCK_LAYER, map_position)
+	if type != null and type == GameboardConstants.BASE_GREY_TYPE: #It is a grey piece (no turret on top)
 		return Block.Piece.new(map_position, Stats.TurretColor.GREY, 1, Stats.TurretExtension.DEFAULT)
 	
 	return null
@@ -108,20 +113,23 @@ func can_place_block(block: Block, map_position: Vector2, navigation_region: Nav
 	for piece in block.pieces:
 		var board_pos = Vector2(piece.position.x + map_position.x, piece.position.y + map_position.y)
 		
-		#Check if ground if ground if there is a ground a block can be placed on
-		var ground = board.get_cell_source_id(GameboardConstants.GROUND_LAYER, board_pos)
-		if ground != GameboardConstants.GROUND_TILE_ID:
+		#Check if there is a ground type a block can be placed on
+		var ground_type = get_tile_type(GameboardConstants.GROUND_LAYER, board_pos)
+		if ground_type != null and ground_type != GameboardConstants.GROUND_TYPE:
 			GameBoard.current_tutorial = TutorialHolder.tutNames.Outside
+			return false
+		
+		#Check if there is a tile of type wall
+		var board_type = get_tile_type(GameboardConstants.BLOCK_LAYER, board_pos)
+		if board_type != null and board_type == GameboardConstants.WALL_TYPE:
 			return false
 		
 		#Check underlying piece
 		var board_piece = get_piece_from_board(board_pos)
 		if board_piece != null: #Tile exists at this position
-			#if board_piece.color == Stats.getStringFromEnum(Stats.TurretColor.GREY): #You can NEVER place something on grey
 			if board_piece.color ==Stats.TurretColor.GREY: #You can NEVER place something on grey
 				GameBoard.current_tutorial = TutorialHolder.tutNames.ColorRestriction
 				return false
-			#if board_piece.color != Stats.getStringFromEnum(piece.color): #Wrong color
 			if board_piece.color != piece.color: #Wrong color	
 				GameBoard.current_tutorial = TutorialHolder.tutNames.ColorRestriction
 				return false
