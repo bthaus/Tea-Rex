@@ -1,0 +1,993 @@
+[gd_scene load_steps=22 format=3 uid="uid://b4r0647fdt4ow"]
+
+[ext_resource type="Script" path="res://Tutorials/TutorialHolder.gd" id="1_f82j1"]
+[ext_resource type="Script" path="res://Tutorials/tutorial.gd" id="2_ogttl"]
+[ext_resource type="Texture2D" uid="uid://pgwtb0eqtfhj" path="res://Assets/UI/trasparent background/label_groß.png" id="3_ovxn3"]
+[ext_resource type="VideoStream" path="res://Assets/TutorialVideos/propertutogv/Rotating.ogv" id="5_wjlby"]
+[ext_resource type="VideoStream" path="res://Assets/TutorialVideos/propertutogv/NoBlocking.ogv" id="6_djb4d"]
+[ext_resource type="VideoStream" path="res://Assets/TutorialVideos/propertutogv/ColorRestriction.ogv" id="7_nbnlr"]
+[ext_resource type="VideoStream" path="res://Assets/TutorialVideos/propertutogv/UpgradeBlocks2.ogv" id="9_cc2fb"]
+[ext_resource type="VideoStream" path="res://Assets/TutorialVideos/propertutogv/UpgradeBlocks.ogv" id="9_n3cbk"]
+[ext_resource type="VideoStream" path="res://Assets/TutorialVideos/propertutogv/Pathfinding.ogv" id="10_pdyx6"]
+[ext_resource type="VideoStream" path="res://Assets/TutorialVideos/propertutogv/Starting.ogv" id="11_e7kpe"]
+[ext_resource type="VideoStream" path="res://Assets/TutorialVideos/propertutogv/Information.ogv" id="12_8kl77"]
+[ext_resource type="VideoStream" path="res://Assets/TutorialVideos/propertutogv/unlock.ogv" id="12_g7f00"]
+[ext_resource type="VideoStream" path="res://Assets/TutorialVideos/Controls.ogv" id="13_7yg7x"]
+[ext_resource type="Texture2D" uid="uid://b4fkxofc8vxqu" path="res://Assets/UI/trasparent background/0B663119-D32F-4FA6-AC1E-3040989151F2.png" id="13_388ff"]
+[ext_resource type="VideoStream" path="res://Assets/TutorialVideos/propertutogv/Outside.ogv" id="13_qendo"]
+[ext_resource type="VideoStream" path="res://Assets/TutorialVideos/propertutogv/Controls.ogv" id="14_4jbi3"]
+[ext_resource type="Texture2D" uid="uid://bktv1hmp420aq" path="res://Assets/UI/trasparent background/51A96E2A-E987-4DD6-9C49-37027C877AC6.png" id="14_bnll3"]
+[ext_resource type="VideoStream" path="res://Assets/TutorialVideos/propertutogv/cat.ogv" id="15_6nrgp"]
+[ext_resource type="Texture2D" uid="uid://ci6ymrn5fohga" path="res://Assets/UI/trasparent background/DB3FCCDF-C9DB-4949-A256-86B28C643560.png" id="15_qs3ew"]
+[ext_resource type="Texture2D" uid="uid://kxn06xuwbjg8" path="res://Assets/UI/trasparent background/F4D3C18B-4BE6-4A76-99CA-B95B70916A82.png" id="16_vc6e8"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_27spp"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("13_388ff")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_bnll3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_qs3ew")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_vc6e8")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="TutorialNode" type="Node2D"]
+position = Vector2(416, 332)
+script = ExtResource("1_f82j1")
+
+[node name="RotateBlock" type="Node2D" parent="."]
+script = ExtResource("2_ogttl")
+
+[node name="Background" type="Sprite2D" parent="RotateBlock"]
+position = Vector2(164.522, -19.1213)
+texture = ExtResource("3_ovxn3")
+
+[node name="Text" type="RichTextLabel" parent="RotateBlock"]
+offset_left = 299.0
+offset_top = -185.83
+offset_right = 690.0
+offset_bottom = 158.17
+bbcode_enabled = true
+text = "Use [b] right click [/b] for [b]rotating[/b] blocks.
+Press [b]ESC [/b]for putting a block back into your hand. 
+Some blocks are mirrors of each other, so don't question your sanity if you can't make a block fit. "
+
+[node name="Title" type="RichTextLabel" parent="RotateBlock"]
+offset_left = 293.0
+offset_top = -288.715
+offset_right = 673.0
+offset_bottom = -201.715
+bbcode_enabled = true
+text = "[font_size=36] Rotating[/font_size]"
+
+[node name="Button" type="Button" parent="RotateBlock"]
+offset_left = 301.0
+offset_top = 155.0
+offset_right = 507.0
+offset_bottom = 235.0
+text = "Got it!"
+
+[node name="CheckButton" type="CheckButton" parent="RotateBlock"]
+offset_left = 576.0
+offset_top = 189.0
+offset_right = 701.0
+offset_bottom = 237.0
+
+[node name="Label" type="RichTextLabel" parent="RotateBlock/CheckButton"]
+layout_mode = 0
+offset_left = -62.0
+offset_top = -34.0
+offset_right = 116.0
+offset_bottom = -11.0
+bbcode_enabled = true
+text = "Dont show  Tutorials"
+
+[node name="Label" type="Label" parent="RotateBlock"]
+offset_left = 701.2
+offset_top = -292.25
+offset_right = 741.2
+offset_bottom = -269.25
+text = "2/3"
+
+[node name="Polygon2D" type="Polygon2D" parent="RotateBlock"]
+clip_children = 1
+polygon = PackedVector2Array(-399, -241, -399, 205, -376, 205, -367, 208, -360, 213, -354, 221, -351, 230, -350, 245, 293, 244, 293, -293, -350, -293, -350, -269, -353, -262, -356, -256, -362, -250, -371, -245, -376, -244, -399, -243)
+
+[node name="Vid2" type="VideoStreamPlayer" parent="RotateBlock/Polygon2D"]
+offset_left = -411.0
+offset_top = -354.0
+offset_right = 373.0
+offset_bottom = 254.0
+mouse_filter = 2
+stream = ExtResource("5_wjlby")
+volume_db = -80.0
+autoplay = true
+loop = true
+metadata/_edit_use_anchors_ = true
+
+[node name="NoBlocking" type="Node2D" parent="."]
+visible = false
+script = ExtResource("2_ogttl")
+
+[node name="Background" type="Sprite2D" parent="NoBlocking"]
+position = Vector2(164.522, -19.1213)
+texture = ExtResource("3_ovxn3")
+
+[node name="Text" type="RichTextLabel" parent="NoBlocking"]
+offset_left = 299.0
+offset_top = -185.83
+offset_right = 690.0
+offset_bottom = 158.17
+bbcode_enabled = true
+text = "You cant block the path of your enemies completely. 
+This is indicated by a red outline."
+
+[node name="Title" type="RichTextLabel" parent="NoBlocking"]
+offset_left = 293.0
+offset_top = -288.715
+offset_right = 673.0
+offset_bottom = -201.715
+bbcode_enabled = true
+text = "[font_size=36] Sneaky you![/font_size]"
+
+[node name="Button" type="Button" parent="NoBlocking"]
+offset_left = 301.0
+offset_top = 155.0
+offset_right = 507.0
+offset_bottom = 235.0
+text = "Got it!"
+
+[node name="CheckButton" type="CheckButton" parent="NoBlocking"]
+offset_left = 576.0
+offset_top = 189.0
+offset_right = 701.0
+offset_bottom = 237.0
+
+[node name="Label" type="RichTextLabel" parent="NoBlocking/CheckButton"]
+layout_mode = 0
+offset_left = -33.0
+offset_top = -34.0
+offset_right = 144.0
+offset_bottom = -11.0
+bbcode_enabled = true
+text = "Dont show  Tutorials"
+
+[node name="Polygon2D" type="Polygon2D" parent="NoBlocking"]
+clip_children = 1
+polygon = PackedVector2Array(-399, -241, -399, 205, -376, 205, -367, 208, -360, 213, -354, 221, -351, 230, -350, 245, 293, 244, 293, -293, -350, -293, -350, -269, -353, -262, -356, -256, -362, -250, -371, -245, -376, -244, -399, -243)
+
+[node name="Vid" type="VideoStreamPlayer" parent="NoBlocking/Polygon2D"]
+offset_left = -404.0
+offset_top = -296.0
+offset_right = 236.0
+offset_bottom = 248.0
+mouse_filter = 2
+stream = ExtResource("6_djb4d")
+volume_db = -80.0
+autoplay = true
+loop = true
+
+[node name="ColorRestriction" type="Node2D" parent="."]
+visible = false
+script = ExtResource("2_ogttl")
+
+[node name="Background" type="Sprite2D" parent="ColorRestriction"]
+position = Vector2(164.522, -19.1213)
+texture = ExtResource("3_ovxn3")
+
+[node name="Text" type="RichTextLabel" parent="ColorRestriction"]
+offset_left = 299.0
+offset_top = -185.83
+offset_right = 690.0
+offset_bottom = 158.17
+bbcode_enabled = true
+text = "You can only place [b] same colored [/b] blocks next to each other. 
+[b]Grey[/b] blocks are an exception to this. "
+
+[node name="Title" type="RichTextLabel" parent="ColorRestriction"]
+offset_left = 293.0
+offset_top = -288.715
+offset_right = 673.0
+offset_bottom = -201.715
+bbcode_enabled = true
+text = "[font_size=36]Too easy
+[/font_size]"
+
+[node name="Button" type="Button" parent="ColorRestriction"]
+offset_left = 301.0
+offset_top = 155.0
+offset_right = 507.0
+offset_bottom = 235.0
+text = "Got it!"
+
+[node name="CheckButton" type="CheckButton" parent="ColorRestriction"]
+offset_left = 576.0
+offset_top = 189.0
+offset_right = 701.0
+offset_bottom = 237.0
+
+[node name="Label" type="RichTextLabel" parent="ColorRestriction/CheckButton"]
+layout_mode = 0
+offset_left = -42.0
+offset_top = -34.0
+offset_right = 144.0
+offset_bottom = -11.0
+bbcode_enabled = true
+text = "Dont show  Tutorials"
+
+[node name="Polygon2D" type="Polygon2D" parent="ColorRestriction"]
+clip_children = 1
+polygon = PackedVector2Array(-399, -241, -399, 205, -376, 205, -367, 208, -360, 213, -354, 221, -351, 230, -350, 245, 293, 244, 293, -293, -350, -293, -350, -269, -353, -262, -356, -256, -362, -250, -371, -245, -376, -244, -399, -243)
+
+[node name="Vid" type="VideoStreamPlayer" parent="ColorRestriction/Polygon2D"]
+offset_left = -397.0
+offset_top = -299.0
+offset_right = 243.0
+offset_bottom = 245.0
+mouse_filter = 2
+stream = ExtResource("7_nbnlr")
+volume_db = -80.0
+autoplay = true
+loop = true
+
+[node name="UpgradeBlocks" type="Node2D" parent="."]
+visible = false
+script = ExtResource("2_ogttl")
+
+[node name="Background" type="Sprite2D" parent="UpgradeBlocks"]
+position = Vector2(164.522, -19.1213)
+texture = ExtResource("3_ovxn3")
+
+[node name="Text" type="RichTextLabel" parent="UpgradeBlocks"]
+offset_left = 299.0
+offset_top = -185.83
+offset_right = 690.0
+offset_bottom = 158.17
+bbcode_enabled = true
+text = "Stacking [b]same colored[/b] blocks on top of each other makes them more powerful. 
+The blocks have to be [b]overlapping[/b] completely!
+Also: You can't stack grey pieces. "
+
+[node name="Title" type="RichTextLabel" parent="UpgradeBlocks"]
+offset_left = 293.0
+offset_top = -288.715
+offset_right = 673.0
+offset_bottom = -201.715
+bbcode_enabled = true
+text = "[font_size=36]MORE POWER
+[/font_size]"
+
+[node name="Button" type="Button" parent="UpgradeBlocks"]
+offset_left = 301.0
+offset_top = 155.0
+offset_right = 507.0
+offset_bottom = 235.0
+text = "Got it!"
+
+[node name="CheckButton" type="CheckButton" parent="UpgradeBlocks"]
+offset_left = 576.0
+offset_top = 189.0
+offset_right = 701.0
+offset_bottom = 237.0
+
+[node name="Label" type="RichTextLabel" parent="UpgradeBlocks/CheckButton"]
+layout_mode = 0
+offset_left = -42.0
+offset_top = -34.0
+offset_right = 144.0
+offset_bottom = -11.0
+bbcode_enabled = true
+text = "Dont show  Tutorials"
+
+[node name="Polygon2D" type="Polygon2D" parent="UpgradeBlocks"]
+clip_children = 1
+polygon = PackedVector2Array(-399, -241, -399, 205, -376, 205, -367, 208, -360, 213, -354, 221, -351, 230, -350, 245, 293, 244, 293, -293, -350, -293, -350, -269, -353, -262, -356, -256, -362, -250, -371, -245, -376, -244, -399, -243)
+
+[node name="Vid" type="VideoStreamPlayer" parent="UpgradeBlocks/Polygon2D"]
+offset_left = -399.0
+offset_top = -294.0
+offset_right = 241.0
+offset_bottom = 250.0
+mouse_filter = 2
+stream = ExtResource("9_n3cbk")
+volume_db = -80.0
+autoplay = true
+loop = true
+
+[node name="UpgradeBlocks2" type="Node2D" parent="."]
+visible = false
+script = ExtResource("2_ogttl")
+
+[node name="Background" type="Sprite2D" parent="UpgradeBlocks2"]
+position = Vector2(164.522, -19.1213)
+texture = ExtResource("3_ovxn3")
+
+[node name="Text" type="RichTextLabel" parent="UpgradeBlocks2"]
+offset_left = 299.0
+offset_top = -185.83
+offset_right = 690.0
+offset_bottom = 158.17
+bbcode_enabled = true
+text = "All blocks your stacking on top of have to be [b]the same level[/b].
+So you have to be careful how you place your blocks!
+[b]Adjacent[/b] blocks of [b]the same level[/b] are highlighted!
+"
+
+[node name="Title" type="RichTextLabel" parent="UpgradeBlocks2"]
+offset_left = 293.0
+offset_top = -288.715
+offset_right = 673.0
+offset_bottom = -201.715
+bbcode_enabled = true
+text = "[font_size=36]MORE POWER???
+[/font_size]"
+
+[node name="Button" type="Button" parent="UpgradeBlocks2"]
+offset_left = 301.0
+offset_top = 155.0
+offset_right = 507.0
+offset_bottom = 235.0
+text = "Got it!"
+
+[node name="CheckButton" type="CheckButton" parent="UpgradeBlocks2"]
+offset_left = 576.0
+offset_top = 189.0
+offset_right = 701.0
+offset_bottom = 237.0
+
+[node name="Label" type="RichTextLabel" parent="UpgradeBlocks2/CheckButton"]
+layout_mode = 0
+offset_left = -55.0
+offset_top = -34.0
+offset_right = 144.0
+offset_bottom = -11.0
+bbcode_enabled = true
+text = "Dont show  Tutorials"
+
+[node name="Polygon2D" type="Polygon2D" parent="UpgradeBlocks2"]
+clip_children = 1
+polygon = PackedVector2Array(-399, -241, -399, 205, -376, 205, -367, 208, -360, 213, -354, 221, -351, 230, -350, 245, 293, 244, 293, -293, -350, -293, -350, -269, -353, -262, -356, -256, -362, -250, -371, -245, -376, -244, -399, -243)
+
+[node name="Vid" type="VideoStreamPlayer" parent="UpgradeBlocks2/Polygon2D"]
+offset_left = -400.0
+offset_top = -292.0
+offset_right = 240.0
+offset_bottom = 252.0
+mouse_filter = 2
+stream = ExtResource("9_cc2fb")
+volume_db = -80.0
+autoplay = true
+loop = true
+
+[node name="Pathfinding" type="Node2D" parent="."]
+visible = false
+script = ExtResource("2_ogttl")
+
+[node name="Background" type="Sprite2D" parent="Pathfinding"]
+position = Vector2(164.522, -19.1213)
+texture = ExtResource("3_ovxn3")
+
+[node name="Text" type="RichTextLabel" parent="Pathfinding"]
+offset_left = 297.0
+offset_top = -119.0
+offset_right = 688.0
+offset_bottom = 225.0
+bbcode_enabled = true
+text = "The paths of your enemies are determined by the placement of your blocks. "
+
+[node name="Title" type="RichTextLabel" parent="Pathfinding"]
+offset_left = 293.0
+offset_top = -288.715
+offset_right = 673.0
+offset_bottom = -122.715
+bbcode_enabled = true
+text = "[font_size=36]The paths of the Lord are unfathomable...
+[/font_size]"
+
+[node name="Button" type="Button" parent="Pathfinding"]
+offset_left = 301.0
+offset_top = 155.0
+offset_right = 507.0
+offset_bottom = 235.0
+text = "Got it!"
+
+[node name="CheckButton" type="CheckButton" parent="Pathfinding"]
+offset_left = 576.0
+offset_top = 189.0
+offset_right = 701.0
+offset_bottom = 237.0
+
+[node name="Label" type="RichTextLabel" parent="Pathfinding/CheckButton"]
+layout_mode = 0
+offset_left = -42.0
+offset_top = -34.0
+offset_right = 144.0
+offset_bottom = -11.0
+bbcode_enabled = true
+text = "Dont show  Tutorials"
+
+[node name="Polygon2D" type="Polygon2D" parent="Pathfinding"]
+clip_children = 1
+polygon = PackedVector2Array(-399, -241, -399, 205, -376, 205, -367, 208, -360, 213, -354, 221, -351, 230, -350, 245, 293, 244, 293, -293, -350, -293, -350, -269, -353, -262, -356, -256, -362, -250, -371, -245, -376, -244, -399, -243)
+
+[node name="Vid" type="VideoStreamPlayer" parent="Pathfinding/Polygon2D"]
+offset_left = -400.0
+offset_top = -300.0
+offset_right = 240.0
+offset_bottom = 244.0
+mouse_filter = 2
+stream = ExtResource("10_pdyx6")
+volume_db = -80.0
+autoplay = true
+loop = true
+
+[node name="Starting" type="Node2D" parent="."]
+visible = false
+script = ExtResource("2_ogttl")
+
+[node name="Background" type="Sprite2D" parent="Starting"]
+position = Vector2(164.522, -19.1213)
+texture = ExtResource("3_ovxn3")
+
+[node name="Text" type="RichTextLabel" parent="Starting"]
+offset_left = 298.0
+offset_top = -185.83
+offset_right = 689.0
+offset_bottom = 158.17
+bbcode_enabled = true
+text = "Place [b]blocks[/b] by selecting a [b]card[/b], and then clicking on the [b]gameboard[/b].
+If you dont want to build them, put them back by pressing [b] ESC [/b].
+Every placed block contains a [b]turret[/b] that defends you from the evil evil minions.
+The path they have to take is indicated by a [b]white line[/b].
+"
+
+[node name="Title" type="RichTextLabel" parent="Starting"]
+offset_left = 293.0
+offset_top = -288.715
+offset_right = 673.0
+offset_bottom = -181.715
+bbcode_enabled = true
+text = "[font_size=36]Every new Start is difficult![/font_size]"
+
+[node name="Button" type="Button" parent="Starting"]
+offset_left = 301.0
+offset_top = 155.0
+offset_right = 507.0
+offset_bottom = 235.0
+text = "Got it!"
+
+[node name="CheckButton" type="CheckButton" parent="Starting"]
+offset_left = 576.0
+offset_top = 189.0
+offset_right = 701.0
+offset_bottom = 237.0
+
+[node name="Label" type="RichTextLabel" parent="Starting/CheckButton"]
+layout_mode = 0
+offset_left = -53.0
+offset_top = -34.0
+offset_right = 158.0
+offset_bottom = -11.0
+bbcode_enabled = true
+text = "Dont show  Tutorials"
+
+[node name="Label" type="Label" parent="Starting"]
+offset_left = 701.2
+offset_top = -292.25
+offset_right = 741.2
+offset_bottom = -269.25
+text = "1/3"
+
+[node name="Polygon2D" type="Polygon2D" parent="Starting"]
+clip_children = 1
+polygon = PackedVector2Array(-399, -241, -399, 205, -376, 205, -367, 208, -360, 213, -354, 221, -351, 230, -350, 245, 293, 244, 293, -293, -350, -293, -350, -269, -353, -262, -356, -256, -362, -250, -371, -245, -376, -244, -399, -243)
+
+[node name="Vid" type="VideoStreamPlayer" parent="Starting/Polygon2D"]
+offset_left = -410.0
+offset_top = -351.0
+offset_right = 310.0
+offset_bottom = 257.0
+mouse_filter = 2
+stream = ExtResource("11_e7kpe")
+volume_db = -80.0
+autoplay = true
+loop = true
+
+[node name="EXP" type="Node2D" parent="."]
+visible = false
+script = ExtResource("2_ogttl")
+
+[node name="Background" type="Sprite2D" parent="EXP"]
+position = Vector2(164.522, -19.1213)
+texture = ExtResource("3_ovxn3")
+
+[node name="Text" type="RichTextLabel" parent="EXP"]
+offset_left = 298.0
+offset_top = -238.0
+offset_right = 689.0
+offset_bottom = 106.0
+bbcode_enabled = true
+text = "If minions reach your [b]base[/b] you take damage. 
+If you stop them before, you gain[b] XP[/b].
+f you gain enough XP, you earn a new type of card.
+You [b] keep [/b]those unlocked cards if you are defeated and start a new run."
+
+[node name="Title" type="RichTextLabel" parent="EXP"]
+offset_left = 293.0
+offset_top = -288.715
+offset_right = 673.0
+offset_bottom = -201.715
+bbcode_enabled = true
+text = "[font_size=36]Fight fair
+[/font_size]"
+
+[node name="Button" type="Button" parent="EXP"]
+offset_left = 301.0
+offset_top = 155.0
+offset_right = 507.0
+offset_bottom = 235.0
+text = "Got it!"
+
+[node name="CheckButton" type="CheckButton" parent="EXP"]
+offset_left = 576.0
+offset_top = 189.0
+offset_right = 701.0
+offset_bottom = 237.0
+
+[node name="Label" type="RichTextLabel" parent="EXP/CheckButton"]
+layout_mode = 0
+offset_left = -36.0
+offset_top = -34.0
+offset_right = 144.0
+offset_bottom = -11.0
+bbcode_enabled = true
+text = "Dont show  Tutorials"
+
+[node name="Polygon2D" type="Polygon2D" parent="EXP"]
+clip_children = 1
+polygon = PackedVector2Array(-399, -241, -399, 205, -376, 205, -367, 208, -360, 213, -354, 221, -351, 230, -350, 245, 293, 244, 293, -293, -350, -293, -350, -269, -353, -262, -356, -256, -362, -250, -371, -245, -376, -244, -399, -243)
+
+[node name="Vid" type="VideoStreamPlayer" parent="EXP/Polygon2D"]
+offset_left = -901.0
+offset_top = -532.0
+offset_right = 1019.0
+offset_bottom = 556.0
+mouse_filter = 2
+stream = ExtResource("12_g7f00")
+volume_db = -80.0
+autoplay = true
+loop = true
+
+[node name="Information" type="Node2D" parent="."]
+visible = false
+position = Vector2(-108, 4)
+script = ExtResource("2_ogttl")
+
+[node name="Background" type="Sprite2D" parent="Information"]
+position = Vector2(272, -26)
+texture = ExtResource("3_ovxn3")
+
+[node name="Text" type="RichTextLabel" parent="Information"]
+offset_left = 402.0
+offset_top = -183.0
+offset_right = 793.0
+offset_bottom = 161.0
+bbcode_enabled = true
+text = "If you [b]hover[/b] turrets or enemy spawners, additional information is displayed at the [b] bottom of the screen [/b]. 
+
+Turrets also show their [b]range[/b] and highlight adjacent turrets of the [b]same level[/b] if hovered.
+
+
+"
+
+[node name="Title" type="RichTextLabel" parent="Information"]
+offset_left = 405.0
+offset_top = -292.0
+offset_right = 785.0
+offset_bottom = -205.0
+bbcode_enabled = true
+text = "[font_size=36]Knowledge is power
+[/font_size]"
+
+[node name="Button" type="Button" parent="Information"]
+offset_left = 386.0
+offset_top = 155.0
+offset_right = 592.0
+offset_bottom = 235.0
+text = "Got it!"
+
+[node name="CheckButton" type="CheckButton" parent="Information"]
+offset_left = 639.0
+offset_top = 185.0
+offset_right = 764.0
+offset_bottom = 233.0
+
+[node name="Label" type="RichTextLabel" parent="Information/CheckButton"]
+layout_mode = 0
+offset_left = -34.0
+offset_top = -34.0
+offset_right = 144.0
+offset_bottom = -11.0
+bbcode_enabled = true
+text = "Dont show  Tutorials"
+
+[node name="Polygon2D" type="Polygon2D" parent="Information"]
+clip_children = 1
+position = Vector2(108, -7)
+polygon = PackedVector2Array(-399, -241, -399, 205, -376, 205, -367, 208, -360, 213, -354, 221, -351, 230, -350, 245, 293, 244, 293, -293, -350, -293, -350, -269, -353, -262, -356, -256, -362, -250, -371, -245, -376, -244, -399, -243)
+
+[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="Information/Polygon2D"]
+offset_left = -396.0
+offset_top = -358.0
+offset_right = 372.0
+offset_bottom = 250.0
+mouse_filter = 2
+stream = ExtResource("12_8kl77")
+volume_db = -80.0
+autoplay = true
+loop = true
+
+[node name="Outside" type="Node2D" parent="."]
+visible = false
+script = ExtResource("2_ogttl")
+
+[node name="Background" type="Sprite2D" parent="Outside"]
+position = Vector2(164.522, -19.1213)
+texture = ExtResource("3_ovxn3")
+
+[node name="Text" type="RichTextLabel" parent="Outside"]
+offset_left = 299.0
+offset_top = -185.83
+offset_right = 690.0
+offset_bottom = 158.17
+bbcode_enabled = true
+text = "You can only place blocks [b] within [/b] the [b] grey [/b] border lines!"
+
+[node name="Title" type="RichTextLabel" parent="Outside"]
+offset_left = 293.0
+offset_top = -288.715
+offset_right = 673.0
+offset_bottom = -201.715
+bbcode_enabled = true
+text = "[font_size=36]Don't leave us!
+[/font_size]"
+
+[node name="Button" type="Button" parent="Outside"]
+offset_left = 301.0
+offset_top = 155.0
+offset_right = 507.0
+offset_bottom = 235.0
+text = "Got it!"
+
+[node name="CheckButton" type="CheckButton" parent="Outside"]
+offset_left = 576.0
+offset_top = 189.0
+offset_right = 701.0
+offset_bottom = 237.0
+
+[node name="Label" type="RichTextLabel" parent="Outside/CheckButton"]
+layout_mode = 0
+offset_left = -47.0
+offset_top = -34.0
+offset_right = 144.0
+offset_bottom = -11.0
+bbcode_enabled = true
+text = "Dont show  Tutorials"
+
+[node name="Polygon2D" type="Polygon2D" parent="Outside"]
+clip_children = 1
+polygon = PackedVector2Array(-399, -241, -399, 205, -376, 205, -367, 208, -360, 213, -354, 221, -351, 230, -350, 245, 293, 244, 293, -293, -350, -293, -350, -269, -353, -262, -356, -256, -362, -250, -371, -245, -376, -244, -399, -243)
+
+[node name="Vid" type="VideoStreamPlayer" parent="Outside/Polygon2D"]
+offset_left = -416.0
+offset_top = -293.0
+offset_right = 368.0
+offset_bottom = 331.0
+mouse_filter = 2
+stream = ExtResource("13_qendo")
+volume_db = -80.0
+autoplay = true
+loop = true
+metadata/_edit_use_anchors_ = true
+
+[node name="Controls" type="Node2D" parent="."]
+visible = false
+script = ExtResource("2_ogttl")
+
+[node name="Background" type="Sprite2D" parent="Controls"]
+position = Vector2(164.522, -19.1213)
+texture = ExtResource("3_ovxn3")
+
+[node name="Text" type="RichTextLabel" parent="Controls"]
+offset_left = 299.0
+offset_top = -185.83
+offset_right = 690.0
+offset_bottom = 158.17
+bbcode_enabled = true
+text = "Move the camera by [b]clicking[/b] and [b]dragging[/b].
+
+Scroll [b] up and down[/b] with the [b]mouse wheel[/b].
+
+[b]Zoom[/b] with [b]CTRL + mouse wheel."
+
+[node name="Title" type="RichTextLabel" parent="Controls"]
+offset_left = 293.0
+offset_top = -288.715
+offset_right = 673.0
+offset_bottom = -201.715
+bbcode_enabled = true
+text = "[font_size=36]How to use hands
+[/font_size]"
+
+[node name="Button" type="Button" parent="Controls"]
+offset_left = 301.0
+offset_top = 155.0
+offset_right = 507.0
+offset_bottom = 235.0
+text = "Got it!"
+
+[node name="CheckButton" type="CheckButton" parent="Controls"]
+offset_left = 576.0
+offset_top = 189.0
+offset_right = 701.0
+offset_bottom = 237.0
+
+[node name="Label" type="RichTextLabel" parent="Controls/CheckButton"]
+layout_mode = 0
+offset_left = -47.0
+offset_top = -34.0
+offset_right = 144.0
+offset_bottom = -11.0
+bbcode_enabled = true
+text = "Dont show  Tutorials"
+
+[node name="Label" type="Label" parent="Controls"]
+offset_left = 701.2
+offset_top = -292.25
+offset_right = 741.2
+offset_bottom = -269.25
+text = "3/3"
+
+[node name="Polygon2D" type="Polygon2D" parent="Controls"]
+clip_children = 1
+polygon = PackedVector2Array(-399, -241, -399, 205, -376, 205, -367, 208, -360, 213, -354, 221, -351, 230, -350, 245, 293, 244, 293, -293, -350, -293, -350, -269, -353, -262, -356, -256, -362, -250, -371, -245, -376, -244, -399, -243)
+
+[node name="Vid" type="VideoStreamPlayer" parent="Controls/Polygon2D"]
+offset_left = -399.0
+offset_top = -294.0
+offset_right = 241.0
+offset_bottom = 330.0
+mouse_filter = 2
+stream = ExtResource("14_4jbi3")
+volume_db = -80.0
+autoplay = true
+loop = true
+metadata/_edit_use_anchors_ = true
+
+[node name="Catastrophy" type="Node2D" parent="."]
+visible = false
+script = ExtResource("2_ogttl")
+
+[node name="Background" type="Sprite2D" parent="Catastrophy"]
+position = Vector2(164.522, -19.1213)
+texture = ExtResource("3_ovxn3")
+
+[node name="Text" type="RichTextLabel" parent="Catastrophy"]
+offset_left = 298.0
+offset_top = -157.0
+offset_right = 689.0
+offset_bottom = 187.0
+bbcode_enabled = true
+text = "[b]Catastrophies [/b] happen every [b]5 turns [/b].
+You can see a [b]Timer[/b] on the left side. 
+Stay cautious!"
+
+[node name="Title" type="RichTextLabel" parent="Catastrophy"]
+offset_left = 293.0
+offset_top = -289.0
+offset_right = 673.0
+offset_bottom = -174.0
+bbcode_enabled = true
+text = "[font_size=36]What the hell was that???
+[/font_size]"
+
+[node name="Button" type="Button" parent="Catastrophy"]
+offset_left = 301.0
+offset_top = 155.0
+offset_right = 507.0
+offset_bottom = 235.0
+text = "Got it!"
+
+[node name="CheckButton" type="CheckButton" parent="Catastrophy"]
+offset_left = 576.0
+offset_top = 189.0
+offset_right = 701.0
+offset_bottom = 237.0
+
+[node name="Label" type="RichTextLabel" parent="Catastrophy/CheckButton"]
+layout_mode = 0
+offset_left = -47.0
+offset_top = -34.0
+offset_right = 144.0
+offset_bottom = -11.0
+bbcode_enabled = true
+text = "Dont show  Tutorials"
+
+[node name="Polygon2D" type="Polygon2D" parent="Catastrophy"]
+clip_children = 1
+polygon = PackedVector2Array(-399, -241, -399, 205, -376, 205, -367, 208, -360, 213, -354, 221, -351, 230, -350, 245, 293, 244, 293, -293, -350, -293, -350, -269, -353, -262, -356, -256, -362, -250, -371, -245, -376, -244, -399, -243)
+
+[node name="Vid" type="VideoStreamPlayer" parent="Catastrophy/Polygon2D"]
+offset_left = -834.0
+offset_top = -511.0
+offset_right = 1086.0
+offset_bottom = 577.0
+mouse_filter = 2
+stream = ExtResource("15_6nrgp")
+volume_db = -80.0
+autoplay = true
+loop = true
+metadata/_edit_use_anchors_ = true
+
+[node name="Catastrophy2" type="Node2D" parent="."]
+visible = false
+script = ExtResource("2_ogttl")
+
+[node name="Background" type="Sprite2D" parent="Catastrophy2"]
+position = Vector2(164.522, -19.1213)
+texture = ExtResource("3_ovxn3")
+
+[node name="Text" type="RichTextLabel" parent="Catastrophy2"]
+offset_left = 298.0
+offset_top = -227.0
+offset_right = 689.0
+offset_bottom = 220.0
+bbcode_enabled = true
+text = "There are 4 different types of catastrophy:
+1: Drill: Destroys 3 horizontal lines
+2: Meteor: Destroys a 5x5 block
+3: Color changer: Turns a randomly selected, connected block grey.
+4: Level down: reduces the level of a randomly selected connected block. "
+
+[node name="Title" type="RichTextLabel" parent="Catastrophy2"]
+offset_left = 293.0
+offset_top = -289.0
+offset_right = 673.0
+offset_bottom = -174.0
+bbcode_enabled = true
+text = "[font_size=36]Catastrophies
+[/font_size]"
+
+[node name="Button" type="Button" parent="Catastrophy2"]
+offset_left = 301.0
+offset_top = 155.0
+offset_right = 507.0
+offset_bottom = 235.0
+text = "Got it!"
+
+[node name="CheckButton" type="CheckButton" parent="Catastrophy2"]
+offset_left = 576.0
+offset_top = 189.0
+offset_right = 701.0
+offset_bottom = 237.0
+
+[node name="Label" type="RichTextLabel" parent="Catastrophy2/CheckButton"]
+layout_mode = 0
+offset_left = -47.0
+offset_top = -34.0
+offset_right = 144.0
+offset_bottom = -11.0
+bbcode_enabled = true
+text = "Dont show  Tutorials"
+
+[node name="Polygon2D" type="Polygon2D" parent="Catastrophy2"]
+clip_children = 1
+polygon = PackedVector2Array(-399, -241, -399, 205, -376, 205, -367, 208, -360, 213, -354, 221, -351, 230, -350, 245, 293, 244, 293, -293, -350, -293, -350, -269, -353, -262, -356, -256, -362, -250, -371, -245, -376, -244, -399, -243)
+
+[node name="Vid" type="VideoStreamPlayer" parent="Catastrophy2/Polygon2D"]
+offset_left = -399.0
+offset_top = -294.0
+offset_right = 241.0
+offset_bottom = 330.0
+mouse_filter = 2
+stream = ExtResource("13_7yg7x")
+volume_db = -80.0
+autoplay = true
+loop = true
+metadata/_edit_use_anchors_ = true
+
+[node name="MaxLevel" type="Node2D" parent="."]
+visible = false
+script = ExtResource("2_ogttl")
+
+[node name="Background" type="Sprite2D" parent="MaxLevel"]
+clip_children = 2
+position = Vector2(164.522, -19.1213)
+texture = ExtResource("3_ovxn3")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="MaxLevel/Background"]
+position = Vector2(5.47803, -25.8787)
+scale = Vector2(0.654948, 0.654948)
+sprite_frames = SubResource("SpriteFrames_27spp")
+autoplay = "default"
+frame_progress = 0.0264162
+
+[node name="Text" type="RichTextLabel" parent="MaxLevel"]
+offset_left = -244.0
+offset_top = -120.0
+offset_right = 521.0
+offset_bottom = 224.0
+bbcode_enabled = true
+text = "[center]You Unlocked [b]everything[/b].
+I guess you can't get enough. 
+If thats the case: transfer money to my paypal account for more cards."
+
+[node name="Title" type="RichTextLabel" parent="MaxLevel"]
+offset_left = -5.0
+offset_top = -219.0
+offset_right = 375.0
+offset_bottom = -104.0
+bbcode_enabled = true
+text = "[font_size=36]Enough is enough
+[/font_size]"
+
+[node name="Button" type="Button" parent="MaxLevel"]
+offset_left = -193.0
+offset_top = 121.0
+offset_right = 13.0
+offset_bottom = 201.0
+text = "Got it!"
+
+[node name="CheckButton" type="CheckButton" parent="MaxLevel"]
+offset_left = 340.0
+offset_top = 155.0
+offset_right = 465.0
+offset_bottom = 203.0
+
+[node name="Label" type="RichTextLabel" parent="MaxLevel/CheckButton"]
+layout_mode = 0
+offset_left = -47.0
+offset_top = -34.0
+offset_right = 144.0
+offset_bottom = -11.0
+bbcode_enabled = true
+text = "Dont show  Tutorials"
+
+[connection signal="pressed" from="RotateBlock/Button" to="RotateBlock" method="_on_button_pressed"]
+[connection signal="toggled" from="RotateBlock/CheckButton" to="." method="_on_check_button_toggled"]
+[connection signal="pressed" from="NoBlocking/Button" to="NoBlocking" method="_on_button_pressed"]
+[connection signal="toggled" from="NoBlocking/CheckButton" to="." method="_on_check_button_toggled"]
+[connection signal="pressed" from="ColorRestriction/Button" to="ColorRestriction" method="_on_button_pressed"]
+[connection signal="toggled" from="ColorRestriction/CheckButton" to="." method="_on_check_button_toggled"]
+[connection signal="pressed" from="UpgradeBlocks/Button" to="UpgradeBlocks" method="_on_button_pressed"]
+[connection signal="toggled" from="UpgradeBlocks/CheckButton" to="." method="_on_check_button_toggled"]
+[connection signal="pressed" from="UpgradeBlocks2/Button" to="UpgradeBlocks2" method="_on_button_pressed"]
+[connection signal="toggled" from="UpgradeBlocks2/CheckButton" to="." method="_on_check_button_toggled"]
+[connection signal="pressed" from="Pathfinding/Button" to="Pathfinding" method="_on_button_pressed"]
+[connection signal="toggled" from="Pathfinding/CheckButton" to="." method="_on_check_button_toggled"]
+[connection signal="pressed" from="Starting/Button" to="Starting" method="_on_button_pressed"]
+[connection signal="toggled" from="Starting/CheckButton" to="." method="_on_check_button_toggled"]
+[connection signal="pressed" from="EXP/Button" to="EXP" method="_on_button_pressed"]
+[connection signal="toggled" from="EXP/CheckButton" to="." method="_on_check_button_toggled"]
+[connection signal="pressed" from="Information/Button" to="Information" method="_on_button_pressed"]
+[connection signal="toggled" from="Information/CheckButton" to="." method="_on_check_button_toggled"]
+[connection signal="pressed" from="Outside/Button" to="Outside" method="_on_button_pressed"]
+[connection signal="toggled" from="Outside/CheckButton" to="." method="_on_check_button_toggled"]
+[connection signal="pressed" from="Controls/Button" to="Controls" method="_on_button_pressed"]
+[connection signal="toggled" from="Controls/CheckButton" to="." method="_on_check_button_toggled"]
+[connection signal="pressed" from="Catastrophy/Button" to="Catastrophy" method="_on_button_pressed"]
+[connection signal="toggled" from="Catastrophy/CheckButton" to="." method="_on_check_button_toggled"]
+[connection signal="pressed" from="Catastrophy2/Button" to="Catastrophy2" method="_on_button_pressed"]
+[connection signal="toggled" from="Catastrophy2/CheckButton" to="." method="_on_check_button_toggled"]
+[connection signal="pressed" from="MaxLevel/Button" to="MaxLevel" method="_on_button_pressed"]
+[connection signal="toggled" from="MaxLevel/CheckButton" to="." method="_on_check_button_toggled"]

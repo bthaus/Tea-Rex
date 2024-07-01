@@ -26,10 +26,10 @@ func _draw():
 		var edge=0
 		var color
 		
-		if Stats.TurretExtension.REDLASER == type:
-			color= Color(500, 0.2 + (0.2 * buildup * sin(Time.get_ticks_usec())), 0.2 + (0.2 * buildup * sin(Time.get_ticks_usec())), buildup)
-			color = color.lightened(0.5 * sin(Time.get_ticks_usec()))
-			edge=3 * buildup * sin(Time.get_ticks_usec())
+	
+		color= Color(500, 0.2 + (0.2 * buildup * sin(Time.get_ticks_usec())), 0.2 + (0.2 * buildup * sin(Time.get_ticks_usec())), buildup)
+		color = color.lightened(0.5 * sin(Time.get_ticks_usec()))
+		edge=3 * buildup * sin(Time.get_ticks_usec())
 		
 		if Stats.TurretExtension.BLUEFREEZER ==type:
 				color= Color(0, 0.2 + (0.2 * buildup ), 500 + (0.2 * buildup * sin(Time.get_ticks_usec())), buildup)

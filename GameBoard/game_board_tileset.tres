@@ -76,6 +76,7 @@ texture_region_size = Vector2i(64, 64)
 0:0/0 = 0
 0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 0:0/0/physics_layer_0/angular_velocity = 0.0
+0:0/0/custom_data_0 = "GROUND"
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7ekb4"]
 texture = ExtResource("8_hvvty")

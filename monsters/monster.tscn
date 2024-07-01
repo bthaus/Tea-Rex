@@ -1,0 +1,148 @@
+[gd_scene load_steps=24 format=3 uid="uid://cq7fvblvncfxh"]
+
+[ext_resource type="Script" path="res://monsters/monster.gd" id="1_g1k27"]
+[ext_resource type="Texture2D" uid="uid://cu8h60d2lpm2c" path="res://Assets/Monsters/Monster.png" id="2_yp50u"]
+[ext_resource type="Texture2D" uid="uid://bgux0xarmkq0p" path="res://Assets/Monsters/Monster_hit.png" id="3_xoonm"]
+[ext_resource type="Texture2D" uid="uid://24e800rshnm" path="res://Assets/Monsters/monster_blue/1.png" id="4_w1255"]
+[ext_resource type="Texture2D" uid="uid://d0nff4613vqiu" path="res://Assets/Monsters/monster_blue/2.png" id="5_xxixe"]
+[ext_resource type="Texture2D" uid="uid://vcylfr4mvhbe" path="res://Assets/Monsters/monster_blue/3.png" id="6_ugqsy"]
+[ext_resource type="Texture2D" uid="uid://3sd05eiwhlia" path="res://Assets/Monsters/monster_blue/4.png" id="7_ovvhm"]
+[ext_resource type="Texture2D" uid="uid://cacvvmcyxnthr" path="res://Assets/Monsters/monster_green/1.png" id="7_uciws"]
+[ext_resource type="Texture2D" uid="uid://koryy6pdq66k" path="res://Assets/Monsters/monster_green/2.png" id="8_aybv2"]
+[ext_resource type="Texture2D" uid="uid://dq2by80bko1gu" path="res://Assets/Monsters/monster_green/3.png" id="9_vihic"]
+[ext_resource type="Texture2D" uid="uid://c77dvqjxpjn0h" path="res://Assets/Monsters/monster_green/4.png" id="10_bgwjm"]
+[ext_resource type="Texture2D" uid="uid://bs1kx8vi8eaac" path="res://Assets/Monsters/monster_red/1.png" id="11_omers"]
+[ext_resource type="Texture2D" uid="uid://cuow0ef607jg6" path="res://Assets/Monsters/monster_red/2.png" id="12_bk1g7"]
+[ext_resource type="Texture2D" uid="uid://gpxx8swx5ku5" path="res://Assets/Monsters/monster_red/3.png" id="13_v202b"]
+[ext_resource type="Texture2D" uid="uid://h3xy571ylg6n" path="res://Assets/Monsters/monster_red/4.png" id="14_4pru2"]
+[ext_resource type="Texture2D" uid="uid://boty7dbeha035" path="res://Assets/Monsters/monster_yellow/1.png" id="15_v04ep"]
+[ext_resource type="Texture2D" uid="uid://bo5vfolo8o6fo" path="res://Assets/Monsters/monster_yellow/2.png" id="16_vf3q0"]
+[ext_resource type="Texture2D" uid="uid://bdhnmlgncllha" path="res://Assets/Monsters/monster_yellow/3.png" id="17_2ne5c"]
+[ext_resource type="Texture2D" uid="uid://qx4l37fj7tgq" path="res://Assets/Monsters/monster_yellow/4.png" id="18_w0p2p"]
+[ext_resource type="AudioStream" uid="uid://u75wwoknlssy" path="res://Sounds/Soundeffects/new sounds/Minion die sound.wav" id="20_230yg"]
+[ext_resource type="AudioStream" uid="uid://bxe1kduqy6i72" path="res://Sounds/Soundeffects/BLUE_hit.wav" id="21_v7uw0"]
+[ext_resource type="Texture2D" uid="uid://cs14cc7mo388e" path="res://Assets/Monsters/minion_healthbar/minionhealthbar_yellow.png" id="22_j7pik"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_q1oek"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_w1255")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_xxixe")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_ugqsy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_ovvhm")
+}],
+"loop": false,
+"name": &"BLUE",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_uciws")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_aybv2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_vihic")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_bgwjm")
+}],
+"loop": false,
+"name": &"GREEN",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("11_omers")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_bk1g7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_v202b")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_4pru2")
+}],
+"loop": false,
+"name": &"RED",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("15_v04ep")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_vf3q0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_2ne5c")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_w0p2p")
+}],
+"loop": false,
+"name": &"YELLOW",
+"speed": 5.0
+}]
+
+[node name="Monster" type="Node2D"]
+process_mode = 4
+z_index = 3
+script = ExtResource("1_g1k27")
+color = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 1
+position = Vector2(0, -1)
+texture = ExtResource("2_yp50u")
+
+[node name="hit" type="Sprite2D" parent="Sprite2D"]
+visible = false
+z_index = 1
+texture = ExtResource("3_xoonm")
+
+[node name="DeathAnim" type="AnimatedSprite2D" parent="."]
+process_mode = 3
+visible = false
+sprite_frames = SubResource("SpriteFrames_q1oek")
+animation = &"BLUE"
+
+[node name="HP" type="Label" parent="."]
+visible = false
+offset_left = -21.0
+offset_top = -55.0
+offset_right = 19.0
+offset_bottom = -32.0
+text = "hi"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("20_230yg")
+volume_db = -11.174
+
+[node name="hurt" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("21_v7uw0")
+
+[node name="Health" type="TextureProgressBar" parent="."]
+z_index = 20
+offset_left = -20.0
+offset_top = -29.0
+offset_right = 20.0
+offset_bottom = -26.0
+value = 100.0
+texture_progress = ExtResource("22_j7pik")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+process_mode = 3
+
+[connection signal="animation_finished" from="DeathAnim" to="." method="_on_death_anim_animation_finished"]
+[connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

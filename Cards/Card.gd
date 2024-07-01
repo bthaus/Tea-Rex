@@ -44,7 +44,7 @@ func setCard(c):
 	pass;
 static func create(gameState:GameState,card=-1):
 	counter=counter+1;
-	var c=load("res://card.tscn").instantiate() as Card
+	var c=load("res://Cards/card.tscn").instantiate() as Card
 	
 	
 	var btn=c.get_child(0) as Button
