@@ -32,7 +32,7 @@ func _ready():
 	create_tween().tween_property(self,"modulate",Color(1,1,1,1),1).set_ease(Tween.EASE_IN_OUT)
 	pass # Replace with function body.
 static func create(card:Card,done:Callable=func():print("nothing")):
-	var t=load("res://Unlockable.tscn").instantiate()
+	var t=load("res://menu_scenes/Unlockable.tscn").instantiate()
 	t.card=card
 	t.done=done
 	if card.card is BlockCard:

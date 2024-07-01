@@ -27,7 +27,7 @@ func _ready():
 	nav.target_position = target.global_position
 
 static func create(gameState:GameState,pos:Vector2,level:int=1)-> Spawner:
-	var s=load("res://Spawner.tscn").instantiate() as Spawner;
+	var s=load("res://GameBoard/Spawner.tscn").instantiate() as Spawner;
 	s.state=gameState;
 	s.target=gameState.target
 	s.level=level;

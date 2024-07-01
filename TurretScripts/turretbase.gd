@@ -4,7 +4,7 @@ class_name Turret
 @export var range = 1;
 @export var isBasic = true;
 @export var color: Stats.TurretColor;
-@export var stacks: int = 1;
+@export var level: int = 1;
 @export var extension: Stats.TurretExtension;
 
 
@@ -30,7 +30,7 @@ static func create(color: Stats.TurretColor, lvl: int, type: Stats.TurretExtensi
 	if turret.collisionReference == null:
 		turret.collisionReference = GameState.gameState.collisionReference
 	turret.color = color;
-	turret.stacks = lvl;
+	turret.level = lvl;
 	turret.extension = type;
 	return turret;
 	
@@ -104,14 +104,14 @@ func setUpTower():
 	base = coreFactory.getBase(color, extension);
 	add_child(base)
 	base.global_position = global_position
-	base.setLevel(stacks)
+	base.setLevel(level)
 	base.setUpTower(self)
 	base.placed=placed
 	
-	$LVL.text = str(stacks)
+	$LVL.text = str(level)
 	$AudioStreamPlayer2D.stream = load("res://Sounds/Soundeffects/" + Stats.getStringFromEnum(color) + Stats.getStringFromEnumExtension(extension) + "_shot.wav")
 	if placed:
-		lightamount = GameState.gameState.lightThresholds.getLight(global_position.y)*stacks
+		lightamount = GameState.gameState.lightThresholds.getLight(global_position.y)*level
 	
 	#if type == Stats.TurretColor.RED:
 	#	projectile.scale = Vector2(1, 1)
@@ -121,7 +121,7 @@ func setUpTower():
 	#	$AudioStreamPlayer2D.finished.connect(func(): if inRange(): $AudioStreamPlayer2D.play)
 	$Tile.texture = load("res://Assets/Tiles/tile_" + Stats.getStringFromEnumLowercase(color) + ".png")
 	if placed:
-		lightamount = GameState.gameState.lightThresholds.getLight(global_position.y) * stacks
+		lightamount = GameState.gameState.lightThresholds.getLight(global_position.y) * level
 		$Tile.modulate = Color(1 + lightamount, 1 + lightamount, 1 + lightamount)
 	
 	if placed: resetLight()
@@ -233,8 +233,8 @@ var waitingForMinions = false;
 			#for cell in coveredCells:
 				#for e in cell:
 					#if !is_instance_valid(e): continue
-					#if e.hit(type, self.damage * stacks): addKill()
-					#addDamage(self.damage * stacks)
+					#if e.hit(type, self.damage * level): addKill()
+					#addDamage(self.damage * level)
 					#projectile.playHitSound();
 			#startCooldown(cooldown * cooldownfactor)
 						#
@@ -319,13 +319,13 @@ func do(delta):
 
 
 func levelup(lvl: int=1):
-	lightamount = lightamount / stacks
-	stacks = lvl;
-	lightamount = lightamount * stacks
+	lightamount = lightamount / level
+	level = lvl;
+	lightamount = lightamount * level
 	
 	setUpTower()
-	$LVL.text = str(stacks)
-	base.setLevel(stacks)
+	$LVL.text = str(level)
+	base.setLevel(level)
 	pass ;
 
 

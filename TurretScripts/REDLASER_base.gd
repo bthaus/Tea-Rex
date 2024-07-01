@@ -7,11 +7,6 @@ func _ready():
 
 func attack(delta):
 	
-	#if !$AudioStreamPlayer2D.playing and buildup > 0:
-		#$AudioStreamPlayer2D.play()
-	#if buildup < 0.1:
-		#$AudioStreamPlayer2D.stop()
-		#
 	if target != null and buildup <= 1:
 		buildup = buildup + 1 * delta * 2;
 	if target == null and buildup > 0:

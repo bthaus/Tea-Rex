@@ -1,8 +1,8 @@
 [gd_scene load_steps=6 format=3 uid="uid://bm6i67pq5hjlm"]
 
-[ext_resource type="Script" path="res://Cards/Card.gd" id="1_jqbs8"]
-[ext_resource type="Texture2D" uid="uid://1yn00b6dh1ng" path="res://Assets/Cards/Testcard_grey.png" id="2_k4a1t"]
-[ext_resource type="Texture2D" uid="uid://bn1alymc8hger" path="res://Assets/Cards/chancel card.png" id="3_iuu1m"]
+[ext_resource type="Script" path="res://Cards/Card.gd" id="1_tep7i"]
+[ext_resource type="Texture2D" uid="uid://1yn00b6dh1ng" path="res://Assets/Cards/Testcard_grey.png" id="2_80oib"]
+[ext_resource type="Texture2D" uid="uid://bn1alymc8hger" path="res://Assets/Cards/chancel card.png" id="3_fiia3"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_c2wsv"]
 
@@ -10,7 +10,7 @@
 line_spacing = -3.0
 
 [node name="Card" type="Node2D"]
-script = ExtResource("1_jqbs8")
+script = ExtResource("1_tep7i")
 
 [node name="Button" type="Button" parent="."]
 offset_left = -62.0
@@ -22,7 +22,7 @@ theme_override_styles/normal = SubResource("StyleBoxEmpty_c2wsv")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_c2wsv")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_c2wsv")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_c2wsv")
-icon = ExtResource("2_k4a1t")
+icon = ExtResource("2_80oib")
 
 [node name="Label" type="Label" parent="."]
 z_index = 10
@@ -46,7 +46,7 @@ mouse_filter = 2
 visible = false
 z_index = 100
 position = Vector2(57, 96)
-texture = ExtResource("3_iuu1m")
+texture = ExtResource("3_fiia3")
 
 [connection signal="mouse_entered" from="Button" to="." method="_on_button_mouse_entered"]
 [connection signal="mouse_entered" from="Button" to="." method="_on_disable_button_mouse_entered"]

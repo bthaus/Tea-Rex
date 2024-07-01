@@ -1,6 +1,6 @@
 [gd_scene load_steps=13 format=3 uid="uid://dn4on70p26crl"]
 
-[ext_resource type="Script" path="res://Explosion.gd" id="1_qdan5"]
+[ext_resource type="Script" path="res://TurretScripts/Projectiles/Explosion.gd" id="1_qdan5"]
 [ext_resource type="Texture2D" uid="uid://jobgij4i5sxe" path="res://Assets/Effects/Explosion_1/e1.png" id="2_bvduy"]
 [ext_resource type="Texture2D" uid="uid://d4ma6iw4cd1mw" path="res://Assets/Effects/Explosion_1/e2.png" id="3_y80hq"]
 [ext_resource type="Texture2D" uid="uid://cn4e158dig1ir" path="res://Assets/Effects/Explosion_1/e3.png" id="4_j03lf"]

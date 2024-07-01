@@ -1,8 +1,0 @@
-[gd_scene format=3 uid="uid://dytor65sym4w5"]
-
-[node name="RayCast2D" type="RayCast2D"]
-
-[node name="Line2D" type="Line2D" parent="."]
-position = Vector2(-3.99802, 11.8432)
-points = PackedVector2Array(4.99802, -12.8432, 425.998, -12.8432)
-default_color = Color(94.675, 0, 0, 1)

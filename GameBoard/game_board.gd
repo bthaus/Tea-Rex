@@ -275,7 +275,7 @@ func _load_preview_turrets_from_selected_block():
 	for piece in selected_block.pieces:
 		if piece.color != Stats.TurretColor.GREY:
 			var turret = Turret.create(piece.color, piece.level, piece.extension)
-			#turret.get_node("EnemyDetector").visible=true
+			
 			turret.placed = false
 			add_child(turret)
 			preview_turrets.append(turret)

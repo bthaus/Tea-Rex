@@ -43,7 +43,7 @@ static var rando = [
 static var combat = [Stats.SpecialCards.FIREBALL, Stats.SpecialCards.GLUE, Stats.SpecialCards.CRYOBALL, Stats.SpecialCards.POISON]
 static func create(gameState: GameState, type=- 1):
 		
-	var retval = load("res://special_card.tscn").instantiate() as SpecialCard;
+	var retval = load("res://Cards/special_card.tscn").instantiate() as SpecialCard;
 	retval.ID = cardID + 1;
 	var rand
 	if type == - 1:
@@ -160,40 +160,12 @@ func castGLUE():
 	$Effect.z_index = -1
 	active = true;
 	$Effect.global_position = get_global_mouse_position();
-	#var removeGlue = func removeGLUE(monster: Monster):
-		#for a in monster.get_children():
-			#if a is Slower:
-				#if a.ID == ID:
-					#a.remove()
-		#pass ;
-	#var addGlue = func addGLUE(monster: Monster):
-			#if !active:
-				#return
-			#var slower = Slower.create(Stats.GLUE_Duration, Stats.GLUE_slowFactor)
-			#$Effect/EnemyDetector.enemyLeft.connect(func(e): if e == monster&&slower != null: slower.remove())
-			#monster.add_child(slower)
-				#
-			#pass ;
-	#
-	#for m in $Effect/EnemyDetector.enemiesInRange:
-		#addGlue.call(m)
-	#
-	#$Effect/EnemyDetector.enemyEntered.connect(addGlue)
-	##$Effect/EnemyDetector.enemyLeft.connect(removeGlue)
-	#create_tween().tween_callback(func removeAllGLUE():
-		#$Effect.visible=false;
-		#for m in $Effect/EnemyDetector.enemiesInRange:
-			#removeGlue.call(m)
-		#active=false;
-		#queue_free()
-		#pass ; ).set_delay((Stats.GLUE_Duration - 0.5))
-		#
+
 	return true;
 func castPOISON():
 	$Effect.visible = true;
 	$Effect.global_position = get_global_mouse_position();
 	$Effect.play(Stats.getStringFromSpecialCardEnum(cardName));
-	#$Effect/EnemyDetector.enemyEntered.connect(func(e): e.add_child(Poison.create(damage, null, Stats.POISON_decay)))
 	var ms=[]
 	var cells=GameState.gameState.collisionReference.getCellReferences(get_global_mouse_position(),range+1)
 	for c in cells:

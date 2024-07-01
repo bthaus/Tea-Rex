@@ -8,10 +8,10 @@
 [ext_resource type="Texture2D" uid="uid://c6ycnlpc8t45f" path="res://Assets/Level/Target.png" id="8_3fkrh"]
 [ext_resource type="AudioStream" uid="uid://da5rpc1vklqcv" path="res://Sounds/Music/menu music looppart.wav" id="8_b02dq"]
 [ext_resource type="Script" path="res://GameBoard/game_board_camera.gd" id="9_18cub"]
-[ext_resource type="Script" path="res://LightThresholds.gd" id="11_n87cu"]
-[ext_resource type="PackedScene" uid="uid://cf5heufemalnf" path="res://menu.tscn" id="11_po6a1"]
-[ext_resource type="Script" path="res://BulletHolder.gd" id="13_7m4ty"]
-[ext_resource type="Script" path="res://MinionHolder.gd" id="13_u8ql2"]
+[ext_resource type="Script" path="res://Game/LightThresholds.gd" id="11_n87cu"]
+[ext_resource type="PackedScene" uid="uid://cf5heufemalnf" path="res://menu_scenes/menu.tscn" id="11_po6a1"]
+[ext_resource type="Script" path="res://collision_reference/BulletHolder.gd" id="13_7m4ty"]
+[ext_resource type="Script" path="res://collision_reference/MinionHolder.gd" id="13_u8ql2"]
 
 [sub_resource type="Environment" id="Environment_83ue6"]
 background_mode = 3

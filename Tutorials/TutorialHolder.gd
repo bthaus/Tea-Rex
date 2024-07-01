@@ -1,7 +1,7 @@
 extends Node2D
 class_name TutorialHolder;
 enum tutNames {MaxLevel,Catastrophy,Catastrophy2,ColorRestriction,NoBlocking, Pathfinding, RotateBlock,UpgradeBlocks,UpgradeBlocks2,Starting,EXP,Information,Outside,Controls}
-static var instance=load("res://tutorial_node.tscn").instantiate() as TutorialHolder 
+static var instance=load("res://Tutorials/tutorial_node.tscn").instantiate() as TutorialHolder 
 
 
 # Called when the node enters the scene tree for the first time.

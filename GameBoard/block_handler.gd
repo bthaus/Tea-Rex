@@ -117,10 +117,12 @@ func can_place_block(block: Block, map_position: Vector2, navigation_region: Nav
 		#Check underlying piece
 		var board_piece = get_piece_from_board(board_pos)
 		if board_piece != null: #Tile exists at this position
-			if board_piece.color == Stats.getStringFromEnum(Stats.TurretColor.GREY): #You can NEVER place something on grey
+			#if board_piece.color == Stats.getStringFromEnum(Stats.TurretColor.GREY): #You can NEVER place something on grey
+			if board_piece.color ==Stats.TurretColor.GREY: #You can NEVER place something on grey
 				GameBoard.current_tutorial = TutorialHolder.tutNames.ColorRestriction
 				return false
-			if board_piece.color != Stats.getStringFromEnum(piece.color): #Wrong color
+			#if board_piece.color != Stats.getStringFromEnum(piece.color): #Wrong color
+			if board_piece.color != piece.color: #Wrong color	
 				GameBoard.current_tutorial = TutorialHolder.tutNames.ColorRestriction
 				return false
 			if board_piece.level != level: #Level does not match
@@ -137,7 +139,7 @@ func can_place_block(block: Block, map_position: Vector2, navigation_region: Nav
 				if piece.color != Stats.TurretColor.GREY: #Checking surrounding pieces is only for colored blocks neccessary
 					var neighbour_piece = get_piece_from_board(pos)
 					if neighbour_piece != null:
-						if neighbour_piece.color != piece.color and neighbour_piece.color != Stats.getStringFromEnum(Stats.TurretColor.GREY): #Mismatching colors (grey pieces are an exception)
+						if neighbour_piece.color != piece.color and neighbour_piece.color != Stats.TurretColor.GREY: #Mismatching colors (grey pieces are an exception)
 								GameBoard.current_tutorial = TutorialHolder.tutNames.ColorRestriction
 								return false
 				

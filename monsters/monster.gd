@@ -53,7 +53,7 @@ func _ready():
 	$HP.text = str(hp)
 	pass # Replace with function body.
 static func create(type: Stats.TurretColor, target: Node2D, wave: int=1) -> Monster:
-	var en = load("res://monster.tscn").instantiate() as Monster
+	var en = load("res://monsters/monster.tscn").instantiate() as Monster
 	if type == Stats.TurretColor.GREY:
 		type = Stats.TurretColor.BLUE
 	en.color = type;
