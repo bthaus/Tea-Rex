@@ -1,14 +1,14 @@
 extends Node2D
 
 const BLOCKLAYER = 0
-var block_handler: BlockHandler
+var block_handler
 
 func set_block(block: Block, spawn_turrets: bool):
 	
 	clear_preview()
 	if block_handler == null:
-		block_handler = BlockHandler.new($TileMap, util.TurretHolder.new())
-	block_handler.draw_block(block, Vector2(0,0))
+		block_handler = BlockHandler.new($TileMap)
+	block_handler.draw_block(block, Vector2(0,0), BLOCKLAYER, -1)
 	var turrets=[]
 	if spawn_turrets:
 		for piece in block.pieces:
@@ -18,6 +18,10 @@ func set_block(block: Block, spawn_turrets: bool):
 			turret.position = $TileMap.map_to_local(Vector2(piece.position.x, piece.position.y))
 			turret.placed=false;
 			add_child(turret)
+			
+	
+				
+
 
 func clear_preview():
 	$TileMap.clear_layer(BLOCKLAYER)
