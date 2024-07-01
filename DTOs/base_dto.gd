@@ -22,8 +22,8 @@ static func restore(json):
 		var dakey=da.keys()[0]
 		class_data.set(dakey,da.get(dakey))
 	return class_data	
-func getObject():
+func get_object():
 	
-	return self;	
+	return self;
 	
 

@@ -1,11 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://c8n0am7jadxj7"]
+[gd_scene load_steps=3 format=3 uid="uid://c8n0am7jadxj7"]
 
 [ext_resource type="Script" path="res://GameBoard/game_board.gd" id="1_yp6tt"]
 [ext_resource type="TileSet" uid="uid://dcf0fhqgihare" path="res://GameBoard/game_board_tileset.tres" id="2_dhwah"]
-[ext_resource type="TileSet" uid="uid://d0xe20r8gppag" path="res://GameBoard/game_board_background_tileset.tres" id="3_onyea"]
-[ext_resource type="Texture2D" uid="uid://g0mltpwhngd2" path="res://Assets/Level/CITY.png" id="4_q7wsm"]
-[ext_resource type="Texture2D" uid="uid://bu60t8visu6q6" path="res://Assets/Level/Sky.png" id="4_v5m4h"]
-[ext_resource type="Texture2D" uid="uid://dslb0ch8phmbh" path="res://Assets/Level/CITY_moon.png" id="5_khpt1"]
 
 [node name="GameBoard" type="Node2D"]
 script = ExtResource("1_yp6tt")
@@ -16,47 +12,10 @@ format = 2
 layer_0/name = "block_layer"
 layer_1/name = "ground_layer"
 layer_1/tile_data = PackedInt32Array()
-layer_2/name = "extension_layer"
-layer_2/z_index = -5
+layer_2/name = "selection_layer"
+layer_2/z_index = 3
 layer_2/tile_data = PackedInt32Array()
-layer_3/name = "selection_layer"
-layer_3/z_index = 3
+layer_3/name = "range_preview_layer"
 layer_3/tile_data = PackedInt32Array()
-layer_4/name = "catastrophy_layer"
-layer_4/z_index = 3
-layer_4/tile_data = PackedInt32Array()
-layer_5/name = "range_preview_layer"
-layer_5/tile_data = PackedInt32Array()
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
-
-[node name="Background" type="TileMap" parent="."]
-tile_set = ExtResource("3_onyea")
-format = 2
-layer_0/z_index = -1
-layer_1/name = "outside"
-layer_1/z_index = 3
-layer_1/tile_data = PackedInt32Array()
-
-[node name="City" type="Node2D" parent="."]
-z_index = -3
-position = Vector2(1000, -450)
-
-[node name="Sky" type="Sprite2D" parent="City"]
-position = Vector2(-11, -608)
-scale = Vector2(151, 31.4)
-texture = ExtResource("4_v5m4h")
-
-[node name="CityPiece1" type="Sprite2D" parent="City"]
-position = Vector2(-2560, 0)
-scale = Vector2(2.5, 2.5)
-texture = ExtResource("4_q7wsm")
-
-[node name="CityPiece2" type="Sprite2D" parent="City"]
-scale = Vector2(2.5, 2.5)
-texture = ExtResource("5_khpt1")
-
-[node name="CityPiece3" type="Sprite2D" parent="City"]
-position = Vector2(2560, 0)
-scale = Vector2(2.5, 2.5)
-texture = ExtResource("4_q7wsm")
