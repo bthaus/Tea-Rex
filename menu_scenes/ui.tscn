@@ -1,0 +1,451 @@
+[gd_scene load_steps=35 format=3 uid="uid://c1jrn7vi6wxab"]
+
+[ext_resource type="PackedScene" uid="uid://d3553ynahp4sx" path="res://Game/Minimap.tscn" id="1_e6okl"]
+[ext_resource type="Texture2D" uid="uid://cypv8i1ng7eq" path="res://Assets/UI/trasparent background/background.png" id="2_xms8d"]
+[ext_resource type="Texture2D" uid="uid://cy7vu8rotmx1l" path="res://Assets/UI/description_banner.png" id="3_77n4y"]
+[ext_resource type="Texture2D" uid="uid://xxf4ln6vtwpw" path="res://Assets/UI/battle_Label/battle_label_text.png" id="4_227c2"]
+[ext_resource type="Texture2D" uid="uid://b270np8lfqnei" path="res://Assets/UI/battle_Label/battle_label_an1.png" id="5_5e541"]
+[ext_resource type="Texture2D" uid="uid://dmlxjfjy017tb" path="res://Assets/UI/battle_Label/battle_label_an2.png" id="6_q8i3l"]
+[ext_resource type="Texture2D" uid="uid://bb1m2f130e8cc" path="res://Assets/UI/battle_Label/battle_label_an3.png" id="7_visp7"]
+[ext_resource type="Texture2D" uid="uid://c7fyqlm32m4ca" path="res://Assets/UI/battle_Label/battle_label_an4.png" id="8_vm3uh"]
+[ext_resource type="Texture2D" uid="uid://07wke7sjvn0u" path="res://Assets/UI/battle_Label/battle_label_an5.png" id="9_0slpw"]
+[ext_resource type="Texture2D" uid="uid://cqvtjee0rppi6" path="res://Assets/UI/battle_Label/battle_label_an6.png" id="10_24jhn"]
+[ext_resource type="Texture2D" uid="uid://bnjls4yxt4cr" path="res://Assets/UI/battle_Label/battle_label_an7.png" id="11_ac51e"]
+[ext_resource type="PackedScene" uid="uid://dfv1yobm3u5hn" path="res://Cards/hand.tscn" id="12_qsj48"]
+[ext_resource type="Texture2D" uid="uid://bdevr8e5j76ef" path="res://Assets/UI/label_maxCards.png" id="13_q5pjg"]
+[ext_resource type="PackedScene" uid="uid://b1awhns1b5kw3" path="res://menu_scenes/hover_hint.tscn" id="14_j5okt"]
+[ext_resource type="Texture2D" uid="uid://b5cbrc3bi4g6n" path="res://Assets/UI/label.png" id="15_vr2fe"]
+[ext_resource type="Texture2D" uid="uid://bd73npt4gtmpx" path="res://Assets/UI/label_redrawCards.png" id="16_lhd71"]
+[ext_resource type="Texture2D" uid="uid://c1b3prkf7whrb" path="res://Assets/UI/label_wave.png" id="17_gvwhb"]
+[ext_resource type="Texture2D" uid="uid://of2rndwdpmoi" path="res://Assets/UI/health_xp_bar/health_bar_empty.png" id="18_i0jfr"]
+[ext_resource type="Texture2D" uid="uid://bx6b4khbyfmjk" path="res://Assets/UI/health_xp_bar/health_bar_full.png" id="19_vpt3x"]
+[ext_resource type="Texture2D" uid="uid://dbkvv62e4w0m1" path="res://Assets/UI/health_xp_bar/exp_bar_empty.png" id="20_wg7to"]
+[ext_resource type="Texture2D" uid="uid://b53uqnkeq72yj" path="res://Assets/UI/health_xp_bar/exp_bar_full.png" id="21_bffi1"]
+[ext_resource type="Texture2D" uid="uid://c4wc0i1tvyilx" path="res://Assets/UI/block_empty.png" id="22_2s6nm"]
+[ext_resource type="Texture2D" uid="uid://h5a54ayfyf40" path="res://Assets/UI/block_full.png" id="23_sk277"]
+[ext_resource type="Texture2D" uid="uid://cmqh886i30ew2" path="res://Assets/UI/Phase_banner.png" id="24_kexve"]
+[ext_resource type="Texture2D" uid="uid://b4fkxofc8vxqu" path="res://Assets/UI/trasparent background/0B663119-D32F-4FA6-AC1E-3040989151F2.png" id="25_0k66t"]
+[ext_resource type="Texture2D" uid="uid://bktv1hmp420aq" path="res://Assets/UI/trasparent background/51A96E2A-E987-4DD6-9C49-37027C877AC6.png" id="26_uiwdb"]
+[ext_resource type="Texture2D" uid="uid://ci6ymrn5fohga" path="res://Assets/UI/trasparent background/DB3FCCDF-C9DB-4949-A256-86B28C643560.png" id="27_grqb4"]
+[ext_resource type="Texture2D" uid="uid://kxn06xuwbjg8" path="res://Assets/UI/trasparent background/F4D3C18B-4BE6-4A76-99CA-B95B70916A82.png" id="28_qd8my"]
+[ext_resource type="Texture2D" uid="uid://cjdhxojqft41b" path="res://Assets/UI/options_button.png" id="29_nfpk7"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_nendl"]
+font_size = 32
+
+[sub_resource type="AnimatedTexture" id="AnimatedTexture_u67pj"]
+frames = 7
+frame_0/texture = ExtResource("5_5e541")
+frame_0/duration = 0.1
+frame_1/texture = ExtResource("6_q8i3l")
+frame_1/duration = 0.1
+frame_2/texture = ExtResource("7_visp7")
+frame_2/duration = 0.1
+frame_3/texture = ExtResource("8_vm3uh")
+frame_3/duration = 0.1
+frame_4/texture = ExtResource("9_0slpw")
+frame_4/duration = 0.1
+frame_5/texture = ExtResource("10_24jhn")
+frame_5/duration = 0.1
+frame_6/texture = ExtResource("11_ac51e")
+frame_6/duration = 0.1
+
+[sub_resource type="LabelSettings" id="LabelSettings_hp71f"]
+font_size = 26
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_iq0j2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("25_0k66t")
+}, {
+"duration": 1.0,
+"texture": ExtResource("26_uiwdb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("27_grqb4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("28_qd8my")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_83itf"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("25_0k66t")
+}, {
+"duration": 1.0,
+"texture": ExtResource("26_uiwdb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("27_grqb4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("28_qd8my")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="UI" type="Node2D"]
+visible = false
+
+[node name="SpeedButton" type="Button" parent="."]
+offset_left = 1746.9
+offset_top = 803.584
+offset_right = 1831.9
+offset_bottom = 894.584
+text = "sped
+"
+
+[node name="SpeedButton2" type="Button" parent="."]
+offset_left = 1865.27
+offset_top = 803.54
+offset_right = 1950.27
+offset_bottom = 894.54
+text = "snel
+"
+
+[node name="Minimap" parent="." instance=ExtResource("1_e6okl")]
+offset_left = 120.0
+offset_top = 160.0
+offset_right = 220.0
+offset_bottom = 210.0
+scale = Vector2(0.15, 0.15)
+
+[node name="Description" type="Label" parent="."]
+z_index = 3
+offset_left = 451.0
+offset_top = 1074.0
+offset_right = 1621.0
+offset_bottom = 1138.0
+text = "Buildphase"
+label_settings = SubResource("LabelSettings_nendl")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Sprite2D" type="Sprite2D" parent="Description"]
+show_behind_parent = true
+position = Vector2(618.911, 32.3142)
+scale = Vector2(0.626556, 0.0370286)
+texture = ExtResource("2_xms8d")
+
+[node name="Descriptionbanner" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(1040.71, 60)
+scale = Vector2(1.43494, 1.43701)
+texture = ExtResource("3_77n4y")
+
+[node name="StartBattlePhase" type="TextureButton" parent="."]
+clip_contents = true
+offset_left = 1720.35
+offset_top = 925.664
+offset_right = 2242.35
+offset_bottom = 1287.66
+scale = Vector2(0.5, 0.5)
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource("4_227c2")
+texture_disabled = SubResource("AnimatedTexture_u67pj")
+stretch_mode = 0
+
+[node name="Hand" parent="." instance=ExtResource("12_qsj48")]
+position = Vector2(141.593, 950)
+scale = Vector2(1.2, 1.2)
+
+[node name="maxcards" type="Label" parent="."]
+offset_left = 99.115
+offset_top = 955.752
+offset_right = 188.115
+offset_bottom = 1013.75
+text = "5"
+
+[node name="Sprite2D" type="Sprite2D" parent="maxcards"]
+z_index = -1
+position = Vector2(-3.53981, 8.84949)
+scale = Vector2(0.343, 0.343)
+texture = ExtResource("13_q5pjg")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="maxcards"]
+visible = false
+layout_mode = 0
+offset_left = 44.0
+offset_top = -4.0
+offset_right = 127.0
+offset_bottom = 36.0
+text = "MaxCards"
+scroll_active = false
+
+[node name="HoverHint" parent="maxcards" instance=ExtResource("14_j5okt")]
+position = Vector2(-5.30973, 5.30984)
+scale = Vector2(2.275, 1.555)
+
+[node name="maxhint" type="Label" parent="maxcards"]
+layout_mode = 0
+offset_left = 111.504
+offset_top = 1.77002
+offset_right = 151.504
+offset_bottom = 24.77
+text = "Space for cards"
+
+[node name="Sprite2D" type="Sprite2D" parent="maxcards/maxhint"]
+show_behind_parent = true
+position = Vector2(77.8766, 10.6195)
+scale = Vector2(1.173, 0.918)
+texture = ExtResource("15_vr2fe")
+
+[node name="redraws" type="Label" parent="."]
+offset_left = 97.3451
+offset_top = 1072.57
+offset_right = 174.346
+offset_bottom = 1121.57
+text = "2"
+
+[node name="Sprite2D" type="Sprite2D" parent="redraws"]
+z_index = -1
+position = Vector2(-3.5398, 10.6154)
+scale = Vector2(0.343, 0.343)
+texture = ExtResource("16_lhd71")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="redraws"]
+visible = false
+layout_mode = 0
+offset_left = 44.2478
+offset_top = -3.53979
+offset_right = 113.248
+offset_bottom = 36.4602
+text = "Redraws"
+scroll_active = false
+
+[node name="HoverHint" parent="redraws" instance=ExtResource("14_j5okt")]
+position = Vector2(-3.53982, 8.84956)
+scale = Vector2(2.28, 1.605)
+
+[node name="redrawhint" type="Label" parent="redraws"]
+layout_mode = 0
+offset_left = 104.425
+offset_top = 3.53982
+offset_right = 284.425
+offset_bottom = 26.5398
+text = "Cards drawn per round"
+
+[node name="Sprite2D" type="Sprite2D" parent="redraws/redrawhint"]
+show_behind_parent = true
+position = Vector2(86.7255, 12.3859)
+scale = Vector2(1.173, 0.918)
+texture = ExtResource("15_vr2fe")
+
+[node name="Wave" type="Label" parent="."]
+offset_left = 97.3451
+offset_top = 833.628
+offset_right = 131.345
+offset_bottom = 856.628
+text = "0"
+
+[node name="Sprite2D" type="Sprite2D" parent="Wave"]
+z_index = -1
+position = Vector2(-1.76987, 12.3893)
+scale = Vector2(0.343, 0.343)
+texture = ExtResource("17_gvwhb")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Wave"]
+visible = false
+layout_mode = 0
+offset_left = 44.2478
+offset_top = -3.53979
+offset_right = 113.248
+offset_bottom = 36.4602
+text = "Wave"
+scroll_active = false
+
+[node name="wavehint" type="Label" parent="Wave"]
+layout_mode = 0
+offset_left = 120.354
+offset_top = 3.54019
+offset_right = 240.354
+offset_bottom = 58.5402
+text = "Waves survived"
+
+[node name="Sprite2D2" type="Sprite2D" parent="Wave/wavehint"]
+show_behind_parent = true
+position = Vector2(77.8761, 12.3894)
+scale = Vector2(1.173, 0.918)
+texture = ExtResource("15_vr2fe")
+
+[node name="HoverHint" parent="Wave" instance=ExtResource("14_j5okt")]
+position = Vector2(0, 5.30968)
+scale = Vector2(2.405, 1.65)
+
+[node name="Hpbar" type="TextureProgressBar" parent="."]
+offset_left = -5.30973
+offset_top = 31.8584
+offset_right = 253.69
+offset_bottom = 223.858
+scale = Vector2(1.175, 1.175)
+value = 100.0
+texture_under = ExtResource("18_i0jfr")
+texture_progress = ExtResource("19_vpt3x")
+
+[node name="maxhp" type="Label" parent="Hpbar"]
+z_index = 2
+layout_mode = 0
+offset_left = 60.0
+offset_top = 24.0
+offset_right = 236.0
+offset_bottom = 47.0
+text = "100"
+horizontal_alignment = 2
+
+[node name="EXPbar" type="TextureProgressBar" parent="."]
+offset_left = 3.53982
+offset_top = 95.5752
+offset_right = 366.54
+offset_bottom = 287.575
+texture_under = ExtResource("20_wg7to")
+texture_progress = ExtResource("21_bffi1")
+
+[node name="xpval" type="Label" parent="EXPbar"]
+layout_mode = 0
+offset_left = 71.0
+offset_top = 25.0
+offset_right = 239.0
+offset_bottom = 48.0
+text = "0"
+horizontal_alignment = 2
+
+[node name="cathint" type="Label" parent="."]
+offset_left = 230.089
+offset_top = 649.557
+offset_right = 569.089
+offset_bottom = 724.557
+text = "Catastrophy Timer"
+vertical_alignment = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="cathint"]
+show_behind_parent = true
+position = Vector2(83.1858, 38.938)
+scale = Vector2(1.173, 0.918)
+texture = ExtResource("15_vr2fe")
+
+[node name="CatBar" type="TextureProgressBar" parent="."]
+offset_left = 14.1593
+offset_top = 596.46
+offset_right = 376.159
+offset_bottom = 960.46
+scale = Vector2(0.5, 0.5)
+max_value = 5.0
+fill_mode = 4
+texture_under = ExtResource("22_2s6nm")
+texture_progress = ExtResource("23_sk277")
+
+[node name="Label" type="Label" parent="CatBar"]
+visible = false
+layout_mode = 0
+offset_left = 116.814
+offset_top = 35.3982
+offset_right = 239.814
+offset_bottom = 58.3982
+text = "next Catastropy"
+
+[node name="HoverHint" parent="." instance=ExtResource("14_j5okt")]
+position = Vector2(102.655, 676.106)
+scale = Vector2(2.62, 2.62)
+
+[node name="DamageDealt" type="Label" parent="."]
+offset_left = 243.658
+offset_top = 1066.67
+offset_right = 283.658
+offset_bottom = 1089.67
+
+[node name="UnlockSpot" type="Node2D" parent="."]
+z_index = 20
+position = Vector2(800, 545.133)
+scale = Vector2(1.5, 1.5)
+
+[node name="TutorialSpot" type="Node2D" parent="."]
+position = Vector2(923.894, 557.522)
+
+[node name="saving" type="Label" parent="."]
+offset_left = 40.708
+offset_top = 17.6991
+offset_right = 167.708
+offset_bottom = 40.6991
+text = "Saving the game
+"
+
+[node name="ExpTarget" type="Node2D" parent="."]
+position = Vector2(243.363, 116.814)
+
+[node name="BuildPhase" type="Sprite2D" parent="."]
+clip_children = 2
+position = Vector2(1042.48, -42.4558)
+texture = ExtResource("24_kexve")
+
+[node name="Label" type="Label" parent="BuildPhase"]
+offset_left = -120.354
+offset_top = -28.3186
+offset_right = 356.646
+offset_bottom = 41.6814
+text = "Build Phase started"
+label_settings = SubResource("LabelSettings_hp71f")
+metadata/_edit_use_anchors_ = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="BuildPhase"]
+position = Vector2(1.76785, -19.4911)
+scale = Vector2(0.229266, 0.229266)
+sprite_frames = SubResource("SpriteFrames_iq0j2")
+autoplay = "default"
+frame_progress = 0.851657
+
+[node name="Battlephase" type="Sprite2D" parent="."]
+clip_children = 2
+position = Vector2(1041.53, -42.4336)
+texture = ExtResource("24_kexve")
+
+[node name="Label" type="Label" parent="Battlephase"]
+offset_left = -120.354
+offset_top = -28.3186
+offset_right = 356.646
+offset_bottom = 41.6814
+text = "Battle Phase started"
+label_settings = SubResource("LabelSettings_hp71f")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Battlephase"]
+position = Vector2(10.6195, -26.5487)
+scale = Vector2(0.23, 0.23)
+sprite_frames = SubResource("SpriteFrames_83itf")
+frame_progress = 0.24972
+
+[node name="Menu Button" type="TextureButton" parent="."]
+offset_left = 1842.48
+offset_right = 2037.48
+offset_bottom = 66.0
+texture_normal = ExtResource("29_nfpk7")
+
+[node name="Cat" type="Sprite2D" parent="."]
+clip_children = 2
+position = Vector2(1042.48, -42.4558)
+texture = ExtResource("24_kexve")
+
+[node name="catlabel" type="Label" parent="Cat"]
+offset_left = -224.781
+offset_top = -33.6504
+offset_right = 252.219
+offset_bottom = 36.3496
+text = "Build Phase started"
+label_settings = SubResource("LabelSettings_hp71f")
+horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Cat"]
+position = Vector2(1.76785, -19.4911)
+scale = Vector2(0.229266, 0.229266)
+sprite_frames = SubResource("SpriteFrames_iq0j2")
+autoplay = "default"
+frame_progress = 0.851657
