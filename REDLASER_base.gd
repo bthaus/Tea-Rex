@@ -1,5 +1,5 @@
-extends Base
-class_name RedLaser_Base
+extends TurretCore
+class_name RedLaserTurretCore
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

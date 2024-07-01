@@ -13,8 +13,8 @@ var rowcounterend = 0
 var lightamount=1
 static var camera;
 
-static var baseFactory: BaseFactory = load("res://base_factory.tscn").instantiate() as BaseFactory
-var base: Base;
+static var coreFactory: TurretCore = load("res://base_factory.tscn").instantiate() as TurretCore
+var base: TurretCore;
 var placed = true;
 static var turrets = []
 var cardBuddys = []
@@ -100,7 +100,7 @@ func setUpTower():
 	on_battle_phase_started.append(resetLight)
 
 
-	base = baseFactory.getBase(type, extension);
+	base = coreFactory.getBase(type, extension);
 	add_child(base)
 	base.global_position = global_position
 	base.setLevel(stacks)

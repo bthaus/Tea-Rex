@@ -1,5 +1,5 @@
-extends Base
-class_name RedBase
+extends TurretCore
+class_name RedTurretCore
 
 
 # Called when the node enters the scene tree for the first time.

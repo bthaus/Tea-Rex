@@ -1,5 +1,5 @@
 extends Sprite2D
-class_name Base
+class_name TurretCore
 var level = 1;
 var barrels = []
 
