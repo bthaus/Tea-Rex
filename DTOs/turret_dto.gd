@@ -1,6 +1,7 @@
 extends BaseDTO
 class_name TurretDTO
 
+var tile_id: int
 var color: Stats.TurretColor
 var level: int
 var extension: Stats.TurretExtension

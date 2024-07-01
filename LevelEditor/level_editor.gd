@@ -59,8 +59,8 @@ func save_board():
 		var type = _get_tile_type(id)
 		match(type):
 			GameboardConstants.WALL_TYPE: entities.append(TileDTO.new(id, GameboardConstants.BLOCK_LAYER, pos.x, pos.y))
-			GameboardConstants.SPAWNER_TYPE: entities.append(SpawnerDTO.new(pos.x, pos.y))
-			GameboardConstants.PLAYER_BASE_TYPE: entities.append(PlayerBaseDTO.new(pos.x, pos.y))
+			GameboardConstants.SPAWNER_TYPE: entities.append(SpawnerDTO.new(id, pos.x, pos.y))
+			GameboardConstants.PLAYER_BASE_TYPE: entities.append(PlayerBaseDTO.new(id, pos.x, pos.y))
 		
 	for pos in $Board.get_used_cells(GameboardConstants.GROUND_LAYER):
 		var id = $Board.get_cell_source_id(GameboardConstants.GROUND_LAYER, pos)
