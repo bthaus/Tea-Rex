@@ -163,15 +163,5 @@ z_index = 2
 position = Vector2(395.634, 295.367)
 script = ExtResource("13_7m4ty")
 
-[node name="Button" type="Button" parent="."]
-visible = false
-z_index = 12
-offset_left = 175.0
-offset_top = 277.0
-offset_right = 264.0
-offset_bottom = 308.0
-text = "straybides"
-
 [connection signal="scrolled" from="Camera2D" to="Camera2D" method="changeBrightness"]
 [connection signal="finished" from="Camera2D/SoundPlayer/Music" to="Camera2D/SoundPlayer" method="_on_music_finished"]
-[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

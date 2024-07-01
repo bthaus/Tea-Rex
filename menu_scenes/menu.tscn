@@ -1,19 +1,8 @@
-[gd_scene load_steps=61 format=3 uid="uid://cf5heufemalnf"]
+[gd_scene load_steps=44 format=3 uid="uid://cf5heufemalnf"]
 
 [ext_resource type="Script" path="res://menu_scenes/Menu.gd" id="1_auyj4"]
-[ext_resource type="Script" path="res://menu_scenes/UI.gd" id="2_yohv8"]
-[ext_resource type="VideoStream" path="res://Assets/UI/Menu/video.ogv" id="3_knh03"]
-[ext_resource type="Texture2D" uid="uid://dsx4q267641fj" path="res://Assets/UI/battle_Label/battle_label.png" id="4_mcsn7"]
-[ext_resource type="Texture2D" uid="uid://cfbvcmros3bh2" path="res://Assets/UI/Menu/Screenshot 2024-05-09 220548.png" id="5_m5fdw"]
-[ext_resource type="Texture2D" uid="uid://7hf5shecjtu6" path="res://Assets/Level/mainMenu.jpg" id="6_kwfny"]
-[ext_resource type="Texture2D" uid="uid://bs8n1qnm63q0c" path="res://Assets/UI/StartGameButton.png" id="7_p81yt"]
-[ext_resource type="FontFile" uid="uid://dwr500qfd3ftp" path="res://Assets/pixelfont.ttf" id="8_owxef"]
-[ext_resource type="Texture2D" uid="uid://bwhdwb7ygon2o" path="res://Assets/UI/ShowAccountsButton.png" id="9_vuk01"]
-[ext_resource type="Texture2D" uid="uid://diq80qx4de0gx" path="res://Assets/UI/ShowUnlockedBUtton.png" id="10_ve7u6"]
+[ext_resource type="PackedScene" uid="uid://cqq3thsbsvhon" path="res://menu_scenes/accounts_tab.tscn" id="2_bowrm"]
 [ext_resource type="Texture2D" uid="uid://b5cbrc3bi4g6n" path="res://Assets/UI/label.png" id="11_1r048"]
-[ext_resource type="Script" path="res://Tutorials/Tutorials.gd" id="12_h1ycq"]
-[ext_resource type="PackedScene" uid="uid://b4r0647fdt4ow" path="res://Tutorials/tutorial_node.tscn" id="13_e1j72"]
-[ext_resource type="Texture2D" uid="uid://b0vjaywamx3yp" path="res://Assets/Lights/spotlight.png" id="14_fycye"]
 [ext_resource type="Texture2D" uid="uid://dpcl3osga8evf" path="res://Assets/Level/blackBackgroundLabel.png" id="15_eunkj"]
 [ext_resource type="Texture2D" uid="uid://cmqh886i30ew2" path="res://Assets/UI/Phase_banner.png" id="16_up1d7"]
 [ext_resource type="Texture2D" uid="uid://cakuat8fpfu4i" path="res://Assets/UI/unmuted.png" id="20_bc6d1"]
@@ -44,27 +33,6 @@
 [ext_resource type="Texture2D" uid="uid://ci6ymrn5fohga" path="res://Assets/UI/trasparent background/DB3FCCDF-C9DB-4949-A256-86B28C643560.png" id="45_qoykf"]
 [ext_resource type="Texture2D" uid="uid://kxn06xuwbjg8" path="res://Assets/UI/trasparent background/F4D3C18B-4BE6-4A76-99CA-B95B70916A82.png" id="46_b1vea"]
 [ext_resource type="Texture2D" uid="uid://cjdhxojqft41b" path="res://Assets/UI/options_button.png" id="47_ll7at"]
-
-[sub_resource type="LabelSettings" id="LabelSettings_t26sl"]
-font = ExtResource("8_owxef")
-font_size = 80
-
-[sub_resource type="LabelSettings" id="LabelSettings_qdrky"]
-font = ExtResource("8_owxef")
-font_size = 80
-
-[sub_resource type="LabelSettings" id="LabelSettings_licme"]
-font = ExtResource("8_owxef")
-font_size = 80
-
-[sub_resource type="LabelSettings" id="LabelSettings_hsadf"]
-font_size = 151
-
-[sub_resource type="LabelSettings" id="LabelSettings_i55r7"]
-font_size = 72
-
-[sub_resource type="LabelSettings" id="LabelSettings_wohyv"]
-font_size = 24
 
 [sub_resource type="Theme" id="Theme_io2m8"]
 
@@ -192,231 +160,13 @@ position = Vector2(519.378, 9.99976)
 script = ExtResource("1_auyj4")
 description = NodePath("CanvasLayer/UI/Description")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="." node_paths=PackedStringArray("main", "unlockedTab", "accountsTab", "menu", "ui", "parent")]
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
 scale = Vector2(0.565, 0.565)
 transform = Transform2D(0.565, 0, 0, 0.565, 0, 0)
-script = ExtResource("2_yohv8")
-main = NodePath("MainMenu/Main")
-unlockedTab = NodePath("MainMenu/UnlockedTab")
-accountsTab = NodePath("MainMenu/AccountsTab")
-menu = NodePath("MainMenu")
-ui = NodePath("UI")
-parent = NodePath("..")
 
 [node name="MainMenu" type="Node2D" parent="CanvasLayer"]
 
-[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="CanvasLayer/MainMenu"]
-z_index = -1
-offset_left = -214.159
-offset_top = -49.5575
-offset_right = 2329.84
-offset_bottom = 1278.44
-mouse_filter = 2
-stream = ExtResource("3_knh03")
-volume_db = -80.0
-autoplay = true
-loop = true
-
-[node name="Sprite2D2" type="Sprite2D" parent="CanvasLayer/MainMenu"]
-clip_children = 1
-position = Vector2(444.248, 23.0089)
-texture = ExtResource("4_mcsn7")
-
-[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/MainMenu/Sprite2D2"]
-position = Vector2(488.496, 612.389)
-texture = ExtResource("5_m5fdw")
-
-[node name="Banner" type="Sprite2D" parent="CanvasLayer/MainMenu"]
-visible = false
-position = Vector2(1007.3, 569.204)
-scale = Vector2(1.91056, 1.78872)
-texture = ExtResource("6_kwfny")
-
-[node name="Main" type="Node2D" parent="CanvasLayer/MainMenu"]
-
-[node name="StartButton" type="TextureButton" parent="CanvasLayer/MainMenu/Main"]
-self_modulate = Color(1, 1, 1, 0)
-offset_left = 611.0
-offset_top = 379.0
-offset_right = 1317.0
-offset_bottom = 547.0
-mouse_default_cursor_shape = 2
-texture_normal = ExtResource("7_p81yt")
-ignore_texture_size = true
-
-[node name="Label" type="Label" parent="CanvasLayer/MainMenu/Main/StartButton"]
-layout_mode = 0
-offset_left = 40.3274
-offset_top = 35.1593
-offset_right = 688.327
-offset_bottom = 181.159
-text = "Start Game"
-label_settings = SubResource("LabelSettings_t26sl")
-horizontal_alignment = 1
-vertical_alignment = 1
-uppercase = true
-
-[node name="UnlockedButton" type="TextureButton" parent="CanvasLayer/MainMenu/Main"]
-self_modulate = Color(1, 1, 1, 0)
-offset_left = 765.0
-offset_top = 611.0
-offset_right = 1352.0
-offset_bottom = 776.0
-mouse_default_cursor_shape = 2
-action_mode = 0
-texture_normal = ExtResource("9_vuk01")
-ignore_texture_size = true
-stretch_mode = 0
-
-[node name="Label" type="Label" parent="CanvasLayer/MainMenu/Main/UnlockedButton"]
-layout_mode = 0
-offset_left = 65.0885
-offset_top = -5.69027
-offset_right = 945.089
-offset_bottom = 140.31
-text = "INFO"
-label_settings = SubResource("LabelSettings_qdrky")
-
-[node name="Accounts" type="TextureButton" parent="CanvasLayer/MainMenu/Main"]
-self_modulate = Color(1, 1, 1, 0)
-offset_left = 952.212
-offset_top = 700.885
-offset_right = 1326.21
-offset_bottom = 856.885
-rotation = 0.00497202
-mouse_default_cursor_shape = 2
-action_mode = 0
-texture_normal = ExtResource("10_ve7u6")
-ignore_texture_size = true
-stretch_mode = 0
-
-[node name="Label" type="Label" parent="CanvasLayer/MainMenu/Main/Accounts"]
-layout_mode = 0
-offset_left = 25.0777
-offset_top = 60.053
-offset_right = 592.078
-offset_bottom = 206.052
-text = "SAVES"
-label_settings = SubResource("LabelSettings_licme")
-
-[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/MainMenu/Main"]
-position = Vector2(1932.74, 1109.73)
-texture = ExtResource("11_1r048")
-
-[node name="CheckButton" type="CheckButton" parent="CanvasLayer/MainMenu/Main/Sprite2D"]
-offset_left = -77.8761
-offset_top = -15.9291
-offset_right = 85.1239
-offset_bottom = 15.0709
-text = "Show Tutorials"
-script = ExtResource("12_h1ycq")
-
-[node name="UnlockedTab" type="Node2D" parent="CanvasLayer/MainMenu"]
-visible = false
-position = Vector2(19.469, 8.84956)
-
-[node name="Button" type="Button" parent="CanvasLayer/MainMenu/UnlockedTab"]
-offset_left = 1610.62
-offset_top = 19.469
-offset_right = 1730.62
-offset_bottom = 95.4691
-icon = ExtResource("11_1r048")
-
-[node name="Label" type="Label" parent="CanvasLayer/MainMenu/UnlockedTab/Button"]
-layout_mode = 0
-offset_left = 47.7876
-offset_top = 24.7788
-offset_right = 160.788
-offset_bottom = 47.7788
-text = "TAKE ME BACK"
-
-[node name="TutorialNode" parent="CanvasLayer/MainMenu/UnlockedTab" instance=ExtResource("13_e1j72")]
-position = Vector2(778.761, 442.478)
-
-[node name="AccountsTab" type="Node2D" parent="CanvasLayer/MainMenu"]
-position = Vector2(-38.9381, 3.53982)
-
-[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/MainMenu/AccountsTab"]
-position = Vector2(1005.31, 141.593)
-scale = Vector2(4.715, 4.715)
-texture = ExtResource("11_1r048")
-
-[node name="accountlight" type="PointLight2D" parent="CanvasLayer/MainMenu/AccountsTab/Sprite2D"]
-light_mask = 2
-position = Vector2(-0.750774, 1.50151)
-scale = Vector2(3.88282, 1.30209)
-range_layer_max = 7
-texture = ExtResource("14_fycye")
-
-[node name="AccountInput" type="LineEdit" parent="CanvasLayer/MainMenu/AccountsTab"]
-self_modulate = Color(1, 1, 1, 0)
-offset_left = 586.0
-offset_top = 23.0
-offset_right = 1439.0
-offset_bottom = 264.0
-placeholder_text = "create Your account"
-max_length = 15
-
-[node name="typehint" type="Label" parent="CanvasLayer/MainMenu/AccountsTab"]
-offset_left = 649.558
-offset_top = 40.708
-offset_right = 695.558
-offset_bottom = 247.708
-text = "I"
-label_settings = SubResource("LabelSettings_hsadf")
-
-[node name="accountnametext" type="Label" parent="CanvasLayer/MainMenu/AccountsTab"]
-offset_left = 694.0
-offset_top = 94.0
-offset_right = 1358.0
-offset_bottom = 219.0
-text = " "
-label_settings = SubResource("LabelSettings_i55r7")
-
-[node name="Button" type="TextureButton" parent="CanvasLayer/MainMenu/AccountsTab"]
-offset_left = 373.451
-offset_top = 192.92
-offset_right = 568.451
-offset_bottom = 266.92
-texture_normal = ExtResource("11_1r048")
-
-[node name="Label" type="Label" parent="CanvasLayer/MainMenu/AccountsTab/Button"]
-layout_mode = 0
-offset_left = 40.7057
-offset_top = 21.2393
-offset_right = 153.706
-offset_bottom = 44.2393
-text = "TAKE ME BACK"
-
-[node name="EntryPosition" type="Sprite2D" parent="CanvasLayer/MainMenu/AccountsTab"]
-clip_children = 1
-position = Vector2(1033.63, 952.212)
-texture = ExtResource("15_eunkj")
-
-[node name="pos" type="Node2D" parent="CanvasLayer/MainMenu/AccountsTab/EntryPosition"]
-position = Vector2(-24.7788, -405.31)
-
-[node name="Sprite2D2" type="Sprite2D" parent="CanvasLayer/MainMenu/AccountsTab"]
-light_mask = 2
-visibility_layer = 2
-position = Vector2(1015.93, 306.195)
-scale = Vector2(1.49948, 1.49948)
-texture = ExtResource("16_up1d7")
-
-[node name="AccountNameHint" type="Label" parent="CanvasLayer/MainMenu/AccountsTab/Sprite2D2"]
-offset_left = -139.281
-offset_top = -28.3284
-offset_right = 288.719
-offset_bottom = 21.6716
-text = "Enter your name to start"
-label_settings = SubResource("LabelSettings_wohyv")
-
-[node name="Button2" type="Button" parent="CanvasLayer/MainMenu/AccountsTab"]
-offset_left = 1489.0
-offset_top = 112.0
-offset_right = 1630.0
-offset_bottom = 197.0
-text = "just start"
+[node name="AccountsTab" parent="CanvasLayer/MainMenu" instance=ExtResource("2_bowrm")]
 
 [node name="SoundButton" type="Button" parent="CanvasLayer/MainMenu"]
 self_modulate = Color(1, 1, 1, 0)
@@ -814,19 +564,6 @@ texture = ExtResource("15_eunkj")
 [connection signal="statePropagation" from="." to="CanvasLayer" method="_on_menu_state_propagation"]
 [connection signal="statePropagation" from="." to="CanvasLayer/UI/Hand" method="_on_menu_state_propagation"]
 [connection signal="visibility_changed" from="CanvasLayer/MainMenu" to="CanvasLayer" method="_on_main_menu_visibility_changed"]
-[connection signal="pressed" from="CanvasLayer/MainMenu/Main/StartButton" to="." method="_on_start_button_pressed"]
-[connection signal="pressed" from="CanvasLayer/MainMenu/Main/StartButton" to="CanvasLayer" method="_on_start_button_pressed"]
-[connection signal="pressed" from="CanvasLayer/MainMenu/Main/UnlockedButton" to="CanvasLayer" method="_on_unlocked_button_pressed"]
-[connection signal="pressed" from="CanvasLayer/MainMenu/Main/Accounts" to="CanvasLayer" method="_on_accounts_pressed"]
-[connection signal="toggled" from="CanvasLayer/MainMenu/Main/Sprite2D/CheckButton" to="CanvasLayer/MainMenu/Main/Sprite2D/CheckButton" method="_on_toggled"]
-[connection signal="visibility_changed" from="CanvasLayer/MainMenu/UnlockedTab" to="CanvasLayer" method="_on_unlocked_tab_visibility_changed"]
-[connection signal="pressed" from="CanvasLayer/MainMenu/UnlockedTab/Button" to="CanvasLayer" method="hideUnlocks"]
-[connection signal="focus_entered" from="CanvasLayer/MainMenu/AccountsTab/AccountInput" to="CanvasLayer" method="_on_account_input_focus_entered"]
-[connection signal="focus_exited" from="CanvasLayer/MainMenu/AccountsTab/AccountInput" to="CanvasLayer" method="_on_account_input_focus_exited"]
-[connection signal="text_changed" from="CanvasLayer/MainMenu/AccountsTab/AccountInput" to="CanvasLayer" method="_on_account_input_text_changed"]
-[connection signal="text_submitted" from="CanvasLayer/MainMenu/AccountsTab/AccountInput" to="CanvasLayer" method="_on_account_input_text_submitted"]
-[connection signal="pressed" from="CanvasLayer/MainMenu/AccountsTab/Button" to="CanvasLayer" method="HideAccounts"]
-[connection signal="pressed" from="CanvasLayer/MainMenu/AccountsTab/Button2" to="CanvasLayer" method="_on_button_2_pressed"]
 [connection signal="pressed" from="CanvasLayer/MainMenu/SoundButton" to="." method="_on_sound_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/UI/SpeedButton" to="." method="_on_speed_button_pressed" binds= [1]]
 [connection signal="pressed" from="CanvasLayer/UI/SpeedButton2" to="." method="_on_speed_button_pressed" binds= [-1]]

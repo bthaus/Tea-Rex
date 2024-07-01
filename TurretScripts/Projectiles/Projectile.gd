@@ -129,8 +129,7 @@ func shoot(target):
 	#playShootSound()
 	
 	direction = (target.global_position - self.global_position).normalized();
-	#if type==Stats.TurretColor.BLUE:
-	#	ConeFlash.flash(self.global_position,0.1,get_tree().get_root(),direction.angle() + PI / 2.0,0.2);
+	
 	timesShot = timesShot + 1;
 	self.target = target;
 	global_rotation = direction.angle() + PI / 2.0

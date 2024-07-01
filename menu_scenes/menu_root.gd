@@ -1,6 +1,8 @@
 extends Node2D
 class_name MainMenu
-
+static var level_select=load("res://menu_scenes/level_selector.tscn").instantiate()
+static var battle_slot_picker=load("res://menu_scenes/battle_slot_picker.tscn").instantiate()
+static var accounts=load("res://menu_scenes/accounts_tab.tscn").instantiate()
 static var instance; 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -24,7 +26,7 @@ func _process(delta):
 
 
 func _on_start_game_pressed():
-	change_content(load("res://menu_scenes/level_selector.tscn").instantiate())
+	change_content(accounts)
 	pass # Replace with function body.
 
 
