@@ -9,9 +9,9 @@ class_name GameState;
 static var gameState;
 
 var account: String = "";
-#Stats.TurretExtension
+
 var unlockedExtensions = [Stats.TurretExtension.DEFAULT];
-#Stats.TurretColor
+
 var unlockedColors = [Stats.TurretColor.GREEN];
 #Stats.SpecialCards
 var unlockedSpecialCards = [Stats.SpecialCards.HEAL];
@@ -21,8 +21,7 @@ var HP = Stats.playerHP;
 var maxHP = Stats.playerMaxHP;
 var maxCards = 5;
 var cardRedraws = 2;
-var totalExp = 0;
-var levelUp = 250;
+
 var started = false;
 var wave: int = 0;
 var board_width = 11;
@@ -32,22 +31,19 @@ var background_height = 40
 var y = 0
 var spawners = []
 var target;
-var showTutorials = true;
+var showTutorials = false;
 var level = 0;
 static var game_speed=1;
 static var board;
-static var blueChance = 0;
-static var redChance = 0;
-static var greenChance = 100;
-static var yellowChance = 0;
-static var greyChance = 0;
-var colorChances = [greyChance, greenChance, redChance, yellowChance, blueChance]
+
 #subject to change
 static var bulletHolder;
 signal player_died
 signal start_build_phase;
 signal start_combat_phase;
 signal level_up(item)
+
+static var collisionReference=CollisionReference.new()
 
 var unlock = []
 
@@ -117,19 +113,13 @@ func _ready():
 	if get_child_count() == 0:
 		queue_free()
 		return
-		
-	#get_parent().print_tree_pretty()
-	print(get_children().size())
 	gameState = self;
-	
 	GameSaver.createBaseGame(self)
 	target = $Base
-	
-	#get_tree().create_timer(1).timeout.connect(drawCards.bind(maxCards))
+
 	pass # Replace with function body.
  
 func getCamera():
-
 	return cam
 	
 func drawCards(amount):
@@ -137,21 +127,8 @@ func drawCards(amount):
 		get_tree().create_timer((n as float) / 3).timeout.connect(hand.drawCard)
 	pass ;
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-var arr=[]
-func checkLoops():
-	
-	for a in range (1000):
-		if arr.is_empty():
-			for i in 50:
-			
-				arr.append([123])
-		iloop()
-		
-	pass;
-func iloop():
-	for i in range(arr.size()):
-		arr.erase(arr.pick_random())
-	pass;
+
+
 		
 func _process(delta):
 
@@ -165,6 +142,7 @@ func _process(delta):
 		$MinionHolder.do(delta/game_speed)
 		$BulletHolder.do(delta/game_speed)		
 	y = cam.position.y
+	
 	if Input.is_action_just_pressed("save"):
 		#gameBoard.queue_free()
 		#menu.queue_free()
@@ -189,12 +167,6 @@ func _process(delta):
 	pass
 
 func initNewBoard():
-	greenChance = 0;
-	greyChance = 0;
-	redChance = 0;
-	yellowChance = 0;
-	blueChance = 100;
-	colorChances = [0, 0, 0, 0, 100]
 	gameBoard.free()
 	board_height = 16;
 	var newBoard = load("res://GameBoard/game_board.tscn").instantiate()
@@ -230,19 +202,16 @@ func initNewBoard():
 	pass ;
 func startBattlePhase():
 	GameState.game_speed=GameState.restore_speed
-	print(GameState.game_speed)
 	toggleSpeed(0)
 	Spawner.numMonstersActive = 0;
 	start_combat_phase.emit()
 	menu.get_node("CanvasLayer/UI/StartBattlePhase").disabled = true;
-	averageColorChances()
 	gameBoard._set_navigation_region()
 	get_tree().create_timer(0.5).timeout.connect(func(): GameSaver.saveGame(gameState))
 	$Camera2D/SoundPlayer.stream = Sounds.StartBattlePhase
 	$Camera2D/SoundPlayer.play(0.2)
 	for s in spawners:
 		s.start(wave)
-	
 	phase = Stats.GamePhase.BATTLE
 	updateUI()
 	pass # Replace with function body.
@@ -281,65 +250,16 @@ func startBuildPhase():
 		delayUnlock = false;
 	menu.get_node("CanvasLayer/UI/StartBattlePhase").disabled = false;
 	
-	if !startCatastrophy()&&!delayUnlock:
+	if !delayUnlock:
 		checkUnlock()
 	start_build_phase.emit()
 	phase = Stats.GamePhase.BUILD
-	averageColorChances()
 	drawCards(cardRedraws)
 	updateUI()
-	#if unlock.size()>0:
-		#$Camera2D/UnlockSpot.add_child(unlock[0])
-		#for u in range(unlock.size()):
-		#	if unlock.size()>=u+1:
-		#		unlock[u].done=func():$Camera2D/UnlockSpot.add_child(unlock[u+1])
-		
+	
 	pass ;
 var index: int = 0;
-func averageColorChances():
-	if colorChances[Stats.TurretColor.BLUE - 1] > 20:
-		index = (index + 1) % 4
-		colorChances[Stats.TurretColor.BLUE - 1] = colorChances[Stats.TurretColor.BLUE - 1] - 10
-		colorChances[index] = colorChances[index] + 10
-	pass ;
-func startCatastrophy():
-	
-	#gameBoard.BULLDOZER_catastrophy(catastrophy_done)
-	#gameBoard.call("BULLDOZER_catastrophy").bind(catastrophy_done)
-	
-	if wave % 10 == 0: unlock.append(Unlockable.create(Card.create(self, SpecialCard.create(self, Stats.SpecialCards.UPDRAW))))
-	if wave % 7 == 0: hand.drawCard(Card.create(self, SpecialCard.create(self, Stats.SpecialCards.UPMAXCARDS)))
-	if wave % 5 != 0: return false
-	
-	var cat = Stats.getRandomCatastrophy();
-	
-	while true:
-		cat = Stats.getRandomCatastrophy();
-		if gameBoard.has_method(cat + "_catastrophy"):
-			break ;
-	if wave == 5:
-		cat = Stats.Catastrophies.find_key(Stats.Catastrophies.BULLDOZER)
-	start_catastrophy.emit(cat)
-	util.p(cat + "_catastrophy called")
-	gameBoard.call(cat + "_catastrophy", catastrophy_done)
-	
-	return true;
-	
-signal start_catastrophy(cat)
-func catastrophy_done(finished):
-	
-	if wave == 5:
-		
-		gameBoard.start_extension(func(): get_tree().create_timer(3).timeout.connect(
-			TutorialHolder.showTutorial.bind(TutorialHolder.tutNames.Catastrophy, self, checkUnlock)
-			
-			
-		))
-		collisionReference.addRows()
-	else:
-		gameBoard.start_extension(func(): get_tree().create_timer(3).timeout.connect(checkUnlock))
-	GameSaver.saveGame(self)
-	pass ;
+
 func checkUnlock():
 	for u in unlock:
 		$Menu/CanvasLayer/UI/UnlockSpot.add_child(u)
@@ -348,9 +268,8 @@ func checkUnlock():
 	pass ;
 func _on_spawner_wave_done():
 	startBuildPhase()
-	
 	pass # Replace with function body.
-static var collisionReference=CollisionReference.new()
+
 func startGame():
 	GameState.restore_speed=1;
 	GameState.game_speed=1;	
@@ -364,14 +283,12 @@ func startGame():
 		m.queue_free()
 		
 	menu.stopMusic()
-	#hand.add_child(Card.create(self,SpecialCard.create(self,Stats.SpecialCards.BULLDOZER)))
 	cam.move_to(Vector2(500, 500), func(): print("done"))
 	TutorialHolder.showTutorial(TutorialHolder.tutNames.Starting, self, func():
 		TutorialHolder.showTutorial(TutorialHolder.tutNames.RotateBlock, self, func():
 			TutorialHolder.showTutorial(TutorialHolder.tutNames.Controls, self)
 			)
 		)
-	#hand.drawCard(Card.create(self,BlockCard.create(self,Stats.getBlockFromShape(Stats.BlockShape.O,Stats.TurretColor.GREEN,1,Stats.TurretExtension.GREENPOISON))))	
 		
 	hand.visible = true;
 	if not started:
@@ -381,60 +298,11 @@ func startGame():
 		started = true;
 	updateUI()
 	pass # Replace with function body.
-func addExp(monster: Monster):
-	totalExp = totalExp + monster.getExp()
-	checkLevelUp()
-	updateUI()
-	
-	pass ;
-func checkLevelUp():
-	
-	if totalExp < levelUp: return
-	levelUp = levelUp * 2
-	levelUp = clamp(levelUp, 0, 25000);
-	totalExp = 0
-	level = level + 1;
-	
-	var unlocked = unlockRandom()
-	if unlocked == null:
-		return ;
-	var color;
-	if unlocked.contains("BLUE"): color = Stats.TurretColor.BLUE
-	if unlocked.contains("GREEN"): color = Stats.TurretColor.GREEN
-	if unlocked.contains("RED"): color = Stats.TurretColor.RED
-	if unlocked.contains("YELLOW"): color = Stats.TurretColor.YELLOW
-	var dic = Stats.TurretExtension
-	var c;
-	if color == null:
-		var j = Stats.SpecialCards.get(unlocked)
-		unlockedSpecialCards.append(j)
-		c = SpecialCard.create(self, j)
-		level_up.emit(unlocked)
-	else:
-		var i = Stats.TurretExtension.get(unlocked)
-		unlockedExtensions.append(i)
-		var block = Stats.getBlockFromShape(Stats.BlockShape.O, color, 1, i);
-		c = BlockCard.create(gameState, block)
-		level_up.emit(unlocked)
-	print(toUnlock.size())
-	var card = Card.create(gameState, c);
-	var u;
-	if toUnlock.size() == 0:
-		u = Unlockable.create(card, TutorialHolder.showTutorial.bind(TutorialHolder.tutNames.MaxLevel, self))
-	else:
-		u = Unlockable.create(card)
-	unlock.append(u)
-	pass ;
-	
-func unlockRandom():
-	var unlocked = toUnlock.pick_random()
-	toUnlock.erase(unlocked)
-	
-	return unlocked;
-	
-func getColorChances():
 
-	return colorChances
+
+	
+
+
 func hit_base(m):
 	if HP < 0: return
 	
@@ -442,7 +310,6 @@ func hit_base(m):
 		
 		changeHealth( - m.damage)
 		if m == null or not is_instance_valid(m): return
-		#m.monster_died.emit(m)
 		m.reached_spawn.emit(m)
 		m.queue_free()
 		
@@ -462,37 +329,10 @@ func mortarWorkaround(damage, pos, associate):
 	
 	pass ;
 
-func setSound(on):
-	if on:
-		cam.add_child(cam.listener)
-	else:
-		cam.remove_child(cam.listener)
-	pass ;
 	
 func GetAllTreeNodes( node = get_tree().root,  listOfAllNodesInTree = []):
 	listOfAllNodesInTree.append(node)
 	for childNode in node.get_children():
 		GetAllTreeNodes(childNode, listOfAllNodesInTree)
 	return listOfAllNodesInTree
-func bitshift():
-	for i in range(2000):
-		var pos=$BulletHolder.global_position
-		pos.x=int(pos.x)>>6
-		pos.y=int(pos.y)>>6
-	pass;
-func internalcall():
-	var map=gameBoard.get_node("Board")
-	for i in range(2000):
-		var pos=$BulletHolder.global_position
-		map.local_to_map(pos)
-	pass;		
-func _on_button_pressed():
-	var pos=$BulletHolder.global_position
-	
-	pos.x=int(pos.x)>>6
-	pos.y=int(pos.y)>>6
-	
-	print(pos)
-	print(gameBoard.get_node("Board").local_to_map($BulletHolder.global_position))
-	
-	pass # Replace with function body.
+		

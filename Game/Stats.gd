@@ -481,17 +481,7 @@ static func getRandomCard(gamestate):
 static func getRandomCatastrophy():
 	return Catastrophies.keys()[rng.randi_range(0,Catastrophies.size()-1)]
 static func getRandomColor(gamestate):
-	var sum = 0	
-	var color = getiterativeColor()
-	var chance = rng.randi_range(0,100)
-
-	var colorChances=gamestate.getColorChances()
-	for i in colorChances.size():
-		sum += colorChances[i]
-		if chance < sum:
-			color= TurretColor.values()[i]
-			break;
-	return color		
+	return TurretColor.values().pick_random()	
 		
 		
 

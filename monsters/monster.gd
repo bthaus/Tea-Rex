@@ -23,14 +23,13 @@ static var healthbar = [load("res://Assets/Monsters/minion_healthbar/minionhealt
 ]
 var camera;
 @export var target: Node2D # goal
-#@onready var nav: NavigationAgent2D = $NavigationAgent2D
+
 signal monster_died(monster: Monster)
 signal reached_spawn(monster: Monster)
 var maxGlow = 5;
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	
-	#$Hitbox/Hitboxshape.apply_scale(Vector2(sizemult, sizemult));
+
 	damage = Stats.getEnemyProperty(color, "damage")
 	camera = GameState.gameState.getCamera()
 	speedfactor = Stats.getEnemyProperty(color, "speed")
@@ -41,15 +40,12 @@ func _ready():
 	$Health.texture_progress = healthbar[color]
 	$Health.max_value = maxHp
 	$Health.value = hp
-	minionExp = Stats.enemy_base_exp;
+
 	GameState.gameState.player_died.connect(func(): free())
 	$Sprite2D.texture = load("res://Assets/Monsters/Monster_" + Stats.getStringFromEnum(color) + ".png")
 	maxGlow = GameState.gameState.lightThresholds.getGlow(global_position.y) * 2.5
 	maxGlow = clamp(maxGlow, 1, 5)
 	modulate = Color(maxGlow, maxGlow, maxGlow, maxGlow)
-	#get_node(Stats.getStringFromEnum(color)).visible=false;
-	#create_tween().tween_property(self,"global_position",target.global_position,20)
-	move()
 	$HP.text = str(hp)
 	pass # Replace with function body.
 static func create(type: Stats.TurretColor, target: Node2D, wave: int=1) -> Monster:
@@ -61,9 +57,7 @@ static func create(type: Stats.TurretColor, target: Node2D, wave: int=1) -> Mons
 	en.currentMinionPower = wave
 	return en
 	pass ;
-func getExp():
-	return currentMinionPower * minionExp / 3;
-	pass ;
+
 static var xptext = load("res://Assets/UI/CARDMAX.png");
 var turnOffHit=false;
 func hit(color: Stats.TurretColor, damage, type="default", noise=true):
@@ -89,13 +83,9 @@ func hit(color: Stats.TurretColor, damage, type="default", noise=true):
 	if noise: $hurt.play()
 		
 	if hp <= 0 and not died:
-	
-		#spawnEXP()
 		died = true
-		#tw.kill()
 		GameState.gameState.collisionReference.removeMonster(self)
 		monster_died.emit(self)
-		#$Hitbox.queue_free()
 		$Sprite2D.queue_free()
 		$VisibleOnScreenNotifier2D.queue_free()
 		$DeathAnim.visible = true;
@@ -103,32 +93,8 @@ func hit(color: Stats.TurretColor, damage, type="default", noise=true):
 		$DeathAnim.play(Stats.getStringFromEnum(self.color))
 		return true;
 	return false;
-func spawnEXP():
-	var sprite = Sprite2D.new();
-	sprite.texture = xptext
-	GameState.gameState.add_child(sprite);
-	sprite.global_position = global_position
-	var tween = get_tree().create_tween()
-	
-	tween.finished.connect(func(idx):
-		var a=get_tree().create_tween()
-		a.tween_property(sprite, "global_position", global_position + ((GameState.gameState.get_node("Camera2D/EXPtarget").global_position - global_position) / (10 - idx + 1)), 0.3)
-		)
-	tween.tween_property(sprite, "global_position", global_position + ((GameState.gameState.get_node("Camera2D/EXPtarget").global_position - global_position) / 10), 0.3)
-	
-	#tweener(10,sprite)
-	pass ;
-	
-func tweener(iteration, sprite):
-	
-	if iteration == 0:
-		sprite.queue_free()
-		return
-	var tween = get_tree().create_tween()
-	tween.finished.connect(tweener.bind(iteration - 1, sprite))
-	tween.tween_property(sprite, "global_position", global_position + ((GameState.gameState.get_node("Camera2D/EXPtarget").global_position - global_position) / iteration), 0.3)
-	
-	pass ;
+
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 
 var tw
@@ -152,26 +118,9 @@ func translateTowardEdge(delta):
 	distance_travelled=distance_travelled+distance
 	translate(direction*distance)
 	pass;
-func move():
-	#var direction = Vector3()
-	#nav.target_position = target.global_position
-	#var goal = nav.get_next_path_position()
-	#tw = create_tween()
-	#var length = (global_position - goal).length()
-	#length = remap(length, 0, 600, 0, 7 * 10 / (speedfactor * 2))
-	#tw.tween_property(self, "global_position", goal, length)
-	#tw.finished.connect(move)
 
-	pass ;
-func resetTween():
-	if tw.is_running():
-		tw.kill()
-	move()
-	pass ;
-func moveAndSlide():
-	#move_and_slide()
-	
-	pass ;
+
+
 	
 func _on_death_anim_animation_finished():
 	queue_free()

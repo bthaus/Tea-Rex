@@ -24,12 +24,7 @@ func _ready():
 		tween.tween_property($CanvasLayer/UI/BuildPhase,"position",Vector2(1047.788,42.478),1);
 		tween.tween_property($CanvasLayer/UI/BuildPhase,"position",Vector2(1041.531,-42),1).set_delay(2.5);
 		)
-	gamestate.start_catastrophy.connect(func(cat):
-		var tween=create_tween()
-		$CanvasLayer/UI/Cat/catlabel.text=Stats.getCatName(cat)
-		tween.tween_property($CanvasLayer/UI/Cat,"position",Vector2(1047.788,42.478),1);
-		tween.tween_property($CanvasLayer/UI/Cat,"position",Vector2(1041.531,-42),1).set_delay(2.5);
-		)		
+			
 	pass # Replace with function body.
 func stopMusic():
 	if music!=null and music.playing:music.stop()
@@ -41,12 +36,9 @@ func updateUI():
 	$CanvasLayer/UI/Wave.text=str("    ", gamestate.wave)
 	$CanvasLayer/UI/maxcards.text=str("    ", gamestate.maxCards)
 	$CanvasLayer/UI/redraws.text=str("    ", gamestate.cardRedraws)
-	$CanvasLayer/UI/EXPbar.max_value=gamestate.levelUp;
-	$CanvasLayer/UI/EXPbar.value=gamestate.totalExp
-	$CanvasLayer/UI/EXPbar.min_value=gamestate.levelUp/2
 	$CanvasLayer/UI/CatBar.value=gamestate.wave%5
 	$CanvasLayer/UI/StartBattlePhase.disabled=gamestate.phase==Stats.GamePhase.BATTLE
-	$CanvasLayer/UI/EXPbar/xpval.text=str(gamestate.totalExp)
+	
 	$CanvasLayer/UI/Hpbar/maxhp.text=str(int(gamestate.HP))
 	#var hpscale=remap(gamestate.maxHP,200,1000,1,20)
 	#$CanvasLayer/UI/Hpbar.scale.y=hpscale
