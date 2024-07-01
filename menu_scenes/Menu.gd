@@ -2,7 +2,7 @@ extends Node2D
 class_name Menu
 @export var gamestate:GameState
 signal statePropagation(gamestate:GameState)
-@export var description:Label
+
 var music;
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -13,17 +13,7 @@ func _ready():
 		print("loop"))
 	
 	statePropagation.emit(gamestate)
-	gamestate.start_combat_phase.connect(func():
-		$CanvasLayer/UI/Battlephase/AnimatedSprite2D.play("default")
-		var tween=create_tween()
-		tween.tween_property($CanvasLayer/UI/Battlephase,"position",Vector2(1047.788,42.478),1);
-		tween.tween_property($CanvasLayer/UI/Battlephase,"position",Vector2(1041.531,-42),1).set_delay(2.5);
-		)
-	gamestate.start_build_phase.connect(func():
-		var tween=create_tween()
-		tween.tween_property($CanvasLayer/UI/BuildPhase,"position",Vector2(1047.788,42.478),1);
-		tween.tween_property($CanvasLayer/UI/BuildPhase,"position",Vector2(1041.531,-42),1).set_delay(2.5);
-		)
+	 
 			
 	pass # Replace with function body.
 func stopMusic():
@@ -41,7 +31,7 @@ func updateUI():
 	$CanvasLayer/UI/Hpbar/maxhp.text=str(int(gamestate.HP))
 	
 	pass;
-
+@export var description:Label
 func showDescription(s):
 	description.text=s
 	sd=true;
@@ -50,19 +40,12 @@ func showDescription(s):
 func hideDescription():
 	sd=false;
 	pass;
-func show_tutorial(tut:Tutorial):
-	$CanvasLayer/UI/TutorialSpot.add_child(tut)
-	tut.modulate=Color(0,0,0,0)
-	var tween = get_tree().create_tween()
-	tween.tween_property(tut,"modulate",Color(1,1,1,1),1)
-	pass;
+
 func showDeathScreen():
 	
 	$CanvasLayer/AnimationPlayer.play("DeathScreen")
 	pass;
-func createNewGame():
-	gamestate.initNewBoard()
-	pass;
+
 var m:float=0	
 var s:float=0
 var saving=false;

@@ -6,6 +6,7 @@ var accountentries;
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	gameState=GameState.gameState
 	refreshAccountList()
 	blinkHint(true)
 	pass # Replace with function body.
@@ -36,8 +37,8 @@ func _process(delta):
 func showAccounts():
 	refreshAccountList()
 	blinkHint(true)	
-	$MainMenu/AccountsTab/Sprite2D2/AccountNameHint.text="Enter your name to start"
-	$MainMenu/AccountsTab/Sprite2D2/AccountNameHint.modulate=Color(1,1,1,1)
+	$Sprite2D2/AccountNameHint.text="Enter your name to start"
+	$Sprite2D2/AccountNameHint.modulate=Color(1,1,1,1)
 	pass;
 
 func initAccs():
@@ -59,14 +60,14 @@ func saveAccs(accs):
 	pass;
 	
 func selectAcc(name):
-	gameState.account=name
-	GameSaver.restoreGame(gameState)
+	#gameState.account=name
+	#GameSaver.restoreGame(gameState)
 	continue_to_select()
 	pass;
 	
 func continue_to_select():
+	print("here?")
 	MainMenu.change_content(MainMenu.level_select)
-	
 	pass		
 func saveNewAcc(name):
 	var accs=loadAccs()
@@ -133,7 +134,8 @@ func _on_account_input_focus_exited():
 	pass # Replace with function body.
 static var blinking=true;
 func blinkHint(show):
-	
+	if blinking==false:
+		return;
 	$typehint.visible=show
 	create_tween().tween_callback(blinkHint.bind(!show)).set_delay(0.5)
 	pass;
@@ -142,7 +144,7 @@ func _on_account_input_text_changed(new_text):
 		blinking=true;
 		blinkHint(true);
 	else:blinking=false;	
-	$MainMenu/AccountsTab/accountnametext.text=new_text
+	$accountnametext.text=new_text
 	pass # Replace with function body.
 
 func _on_button_2_pressed():

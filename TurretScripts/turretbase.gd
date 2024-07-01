@@ -207,12 +207,12 @@ func _on_button_mouse_entered():
 	for t in cardBuddys:
 		t.showRangeOutline()
 	if placed:
-		GameState.gameState.menu.showDescription("This turret defeated " + str(str(base.killcount) + " minions and dealt " + str(int(base.damagedealt)) + "damage."))
+		GameState.gameState.ui.showDescription("This turret defeated " + str(str(base.killcount) + " minions and dealt " + str(int(base.damagedealt)) + "damage."))
 		
 	elif extension != 1:
-		GameState.gameState.menu.showDescription(Stats.getDescription(Stats.TurretExtension.keys()[extension - 1]))
+		GameState.gameState.ui.showDescription(Stats.getDescription(Stats.TurretExtension.keys()[extension - 1]))
 	else:
-		GameState.gameState.menu.showDescription(Stats.getDescription(Stats.getStringFromEnum(color)))
+		GameState.gameState.ui.showDescription(Stats.getDescription(Stats.getStringFromEnum(color)))
 	
 	GameState.gameState.showCount(base.killcount, base.damagedealt)
 	
@@ -224,7 +224,7 @@ var m = 0;
 
 
 func _on_button_mouse_exited():
-	GameState.gameState.menu.hideDescription()
+	GameState.gameState.ui.hideDescription()
 	detectorvisible = false;
 	GameState.gameState.hideCount()
 	GameState.gameState.gameBoard.clear_range_outline()

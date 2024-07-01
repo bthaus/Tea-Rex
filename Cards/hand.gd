@@ -25,8 +25,8 @@ func _process(delta):
 func reorder():
 	var children=get_children()
 	if children.is_empty():return;
-	var off=clamp(1350/get_child_count(),15,125)
-	var offset=Vector2(125,0)
+	var off=clamp(800/get_child_count(),15,75)
+	var offset=Vector2(75,0)
 	children.reverse()
 	var z_counter=get_child_count()*3;
 	for c in children:

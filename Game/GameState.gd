@@ -3,14 +3,14 @@ class_name GameState;
 
 @export var gameBoard: GameBoard;
 @export var hand: Node2D
-@export var menu: Menu
+@onready var ui:UI=$CanvasLayer/UI
 @export var cam: Camera2D;
 @export var lightThresholds: LightThresholds;
 static var gameState;
 
 
 
-var account: String = "";
+var account: String = "dede";
 
 var unlockedExtensions = [Stats.TurretExtension.DEFAULT];
 
@@ -58,7 +58,7 @@ func upRedraws():
 	updateUI()
 	pass ;
 func updateUI():
-	menu.updateUI();
+	ui.updateUI();
 	pass ;
 func registerSpawner(spawner: Spawner):
 	spawners.append(spawner)
@@ -101,7 +101,13 @@ func toggleSpeed(val):
 	
 	pass;
 func _ready():
-	
+	if get_child_count() == 0:
+		queue_free()
+		return
+	gameState = self;
+	ui=$CanvasLayer/UI
+	hand=ui.hand
+	ui.initialise()
 	game_speed=1;
 	toggleSpeed(0)
 	#collisionReference.initialise(self)
@@ -112,13 +118,11 @@ func _ready():
 	toUnlock.erase("HEAL")
 	toUnlock.erase("UPDRAW")
 	Engine.max_fps=60
-	if get_child_count() == 0:
-		queue_free()
-		return
-	gameState = self;
+	
+	
 	GameSaver.createBaseGame(self)
 	target = $Base
-
+	startGame()
 	pass # Replace with function body.
  
 func getCamera():
@@ -150,7 +154,9 @@ func _process(delta):
 		#menu.queue_free()
 		var delay=0;
 		#maxCards=100
-		#hand.drawCard(Card.create(self,SpecialCard.create(self,Stats.SpecialCards.POISON)))
+		print("drawing")
+		maxCards=100
+		hand.drawCard(Card.create(self,SpecialCard.create(self,Stats.SpecialCards.POISON)))
 		#changeHealth(-5000)
 		#gameBoard.DRILL_catastrophy(func():)
 		#for c in hand.get_children():
@@ -207,7 +213,7 @@ func startBattlePhase():
 	toggleSpeed(0)
 	Spawner.numMonstersActive = 0;
 	start_combat_phase.emit()
-	menu.get_node("CanvasLayer/UI/StartBattlePhase").disabled = true;
+	ui.get_node("StartBattlePhase").disabled = true;
 	gameBoard._set_navigation_region()
 	get_tree().create_timer(0.5).timeout.connect(func(): GameSaver.saveGame(gameState))
 	$Camera2D/SoundPlayer.stream = Sounds.StartBattlePhase
@@ -250,7 +256,7 @@ func startBuildPhase():
 		delayUnlock = TutorialHolder.showTutorial(TutorialHolder.tutNames.UpgradeBlocks2, self, checkUnlock)
 	if wave > 6:
 		delayUnlock = false;
-	menu.get_node("CanvasLayer/UI/StartBattlePhase").disabled = false;
+	ui.get_node("StartBattlePhase").disabled = false;
 	
 	if !delayUnlock:
 		checkUnlock()
@@ -264,7 +270,7 @@ var index: int = 0;
 
 func checkUnlock():
 	for u in unlock:
-		$Menu/CanvasLayer/UI/UnlockSpot.add_child(u)
+		ui.get_node("UnlockSpot").add_child(u)
 	unlock.clear()
 	GameSaver.saveGame(self)
 	pass ;
@@ -284,7 +290,7 @@ func startGame():
 	for m in $MinionHolder.get_children():
 		m.queue_free()
 		
-	menu.stopMusic()
+	#menu.stopMusic()
 	cam.move_to(Vector2(500, 500), func(): print("done"))
 	TutorialHolder.showTutorial(TutorialHolder.tutNames.Starting, self, func():
 		TutorialHolder.showTutorial(TutorialHolder.tutNames.RotateBlock, self, func():

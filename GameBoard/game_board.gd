@@ -298,7 +298,7 @@ func reset():
 	
 	var increment = 5.0 / cells.size()
 	if cells.size() == 0:
-		gameState.menu.showDeathScreen()
+		gameState.ui.showDeathScreen()
 	
 	for cachecounter in range(cells.size()):
 		if cachecounter == cells.size() - 1:
@@ -319,7 +319,7 @@ func reset():
 						
 						if $Board.get_used_cells(2).size() == 0:
 							
-							gameState.menu.showDeathScreen()
+							gameState.ui.showDeathScreen()
 							
 						).set_delay(delay))
 		

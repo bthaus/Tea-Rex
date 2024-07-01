@@ -1,6 +1,7 @@
-[gd_scene load_steps=35 format=3 uid="uid://c1jrn7vi6wxab"]
+[gd_scene load_steps=36 format=3 uid="uid://c1jrn7vi6wxab"]
 
 [ext_resource type="PackedScene" uid="uid://d3553ynahp4sx" path="res://Game/Minimap.tscn" id="1_e6okl"]
+[ext_resource type="Script" path="res://menu_scenes/ui.gd" id="1_t51w1"]
 [ext_resource type="Texture2D" uid="uid://cypv8i1ng7eq" path="res://Assets/UI/trasparent background/background.png" id="2_xms8d"]
 [ext_resource type="Texture2D" uid="uid://cy7vu8rotmx1l" path="res://Assets/UI/description_banner.png" id="3_77n4y"]
 [ext_resource type="Texture2D" uid="uid://xxf4ln6vtwpw" path="res://Assets/UI/battle_Label/battle_label_text.png" id="4_227c2"]
@@ -93,8 +94,10 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="UI" type="Node2D"]
-visible = false
+[node name="UI" type="Node2D" node_paths=PackedStringArray("description")]
+scale = Vector2(0.555, 0.555)
+script = ExtResource("1_t51w1")
+description = NodePath("Description")
 
 [node name="SpeedButton" type="Button" parent="."]
 offset_left = 1746.9
@@ -449,3 +452,6 @@ scale = Vector2(0.229266, 0.229266)
 sprite_frames = SubResource("SpriteFrames_iq0j2")
 autoplay = "default"
 frame_progress = 0.851657
+
+[connection signal="pressed" from="SpeedButton2" to="." method="_on_speed_button_pressed" binds= [-1]]
+[connection signal="pressed" from="StartBattlePhase" to="." method="_on_start_battle_phase_pressed"]

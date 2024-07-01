@@ -78,8 +78,8 @@ static func getPropertyJson(data):
 static func saveGame(gameState:GameState):
 	
 	
-	if gameState.menu!= null:
-		gameState.menu.showSaving()
+	#if gameState.menu!= null:
+	#	gameState.menu.showSaving()
 	print("save called")
 	var props=gameState.get_script().get_script_property_list()
 	var values=[]
