@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://dus3yb545iual"]
 
-[ext_resource type="Script" path="res://menu_scenes/map_preview.gd" id="1_hbftv"]
+[ext_resource type="Script" path="res://menu_scenes/level_selector_scenes/map_preview.gd" id="1_hbftv"]
 [ext_resource type="Texture2D" uid="uid://dsx4q267641fj" path="res://Assets/UI/battle_Label/battle_label.png" id="2_y748d"]
 
 [node name="map_preview" type="Node2D"]

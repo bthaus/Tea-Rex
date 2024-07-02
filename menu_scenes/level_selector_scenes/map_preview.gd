@@ -7,7 +7,7 @@ func _ready():
 	$map_name_button.text=map_name
 	pass # Replace with function body.
 static func create(name)-> MapPreview_MenuItem:
-	var instance=load("res://menu_scenes/map_preview.tscn").instantiate() as MapPreview_MenuItem
+	var instance=load("res://menu_scenes/level_selector_scenes/map_preview.tscn").instantiate() as MapPreview_MenuItem
 	instance.map_name=name
 	return instance
 	pass;

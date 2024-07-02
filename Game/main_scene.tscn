@@ -1,7 +1,7 @@
 [gd_scene load_steps=14 format=3 uid="uid://caljchglc4xq7"]
 
 [ext_resource type="Script" path="res://Game/GameState.gd" id="1_g64db"]
-[ext_resource type="PackedScene" uid="uid://c1jrn7vi6wxab" path="res://menu_scenes/ui.tscn" id="4_4sohq"]
+[ext_resource type="PackedScene" uid="uid://c1jrn7vi6wxab" path="res://menu_scenes/UI_scenes/ui.tscn" id="4_4sohq"]
 [ext_resource type="Texture2D" uid="uid://chsgerkqrpoy6" path="res://Assets/Level/Backgrounddummy.png" id="4_ykfqr"]
 [ext_resource type="PackedScene" uid="uid://c8n0am7jadxj7" path="res://GameBoard/game_board.tscn" id="6_ghxp6"]
 [ext_resource type="AudioStream" uid="uid://c610v6rbeh60p" path="res://Sounds/Soundeffects/new sounds/Start.wav" id="6_qpv2c"]

@@ -77,14 +77,17 @@ static func _restore_fields(obj,arr):
 				for dto in innerarr:
 					dtoarr.append(get_dto_from_json(dto))
 				val.append(dtoarr)
+				
 		if val is Array and val[0] is String and val[0].contains("dto.gd"):
 			var temparr=val
 			val=[] as Array[BaseDTO]
 			for i in temparr:
 				var idto=get_dto_from_json(i)
-				val.append(idto)	
+				val.append(idto)
+					
 		if val is String and val.contains("dto.gd"):
 			val=get_dto_from_json(val)	
+			
 		obj.set(dakey,val)
 	pass;		
 func restore(destination,account,directory):

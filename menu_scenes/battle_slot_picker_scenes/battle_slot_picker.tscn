@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://wxxetrhi2blb"]
 
-[ext_resource type="Script" path="res://menu_scenes/battle_slot_picker.gd" id="1_dtjat"]
+[ext_resource type="Script" path="res://menu_scenes/battle_slot_picker_scenes/battle_slot_picker.gd" id="1_dtjat"]
 
 [node name="battle_slot_picker" type="Node2D"]
 script = ExtResource("1_dtjat")
