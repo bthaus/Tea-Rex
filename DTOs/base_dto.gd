@@ -28,7 +28,7 @@ func _init():
 func _get_if_is_array_of_dtos(val):
 	if val is Array[BaseDTO]:
 				var arr= val
-				val=[] as Array[BaseDTO]
+				val=[] as Array
 				for i in arr:
 					val.append(i.get_json())
 	return val					
@@ -47,6 +47,8 @@ func _get_if_is_2D_array_of_dtos(val):
 	return val
 
 func _get_if_is_dto(val):
+	if val is BaseDTO:
+		val=val.get_json()
 	return val
 	pass;		
 func load_json(destination,account,directory):
@@ -81,6 +83,8 @@ static func _restore_fields(obj,arr):
 			for i in temparr:
 				var idto=get_dto_from_json(i)
 				val.append(idto)	
+		if val is String and val.contains("dto.gd"):
+			val=get_dto_from_json(val)	
 		obj.set(dakey,val)
 	pass;		
 func restore(destination,account,directory):

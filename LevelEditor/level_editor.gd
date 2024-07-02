@@ -71,6 +71,9 @@ func save_board():
 	
 	var map_dto = MapDTO.new(entities)
 	map_dto.map_name=$HUD/mapname.text
+	var battle_slot_dto=BattleSlotDTO.new()
+	battle_slot_dto.amount=2;
+	map_dto.battle_slots=battle_slot_dto
 	map_dto.save(map_dto.map_name,"","maps")
 	#...do something with map_dto
 

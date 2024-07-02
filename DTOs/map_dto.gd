@@ -3,7 +3,7 @@ class_name MapDTO
 
 var entities:Array[BaseDTO]
 var map_name:String=""
-
+var battle_slots:BattleSlotDTO;
 
 func _init(entities: Array[BaseDTO]=[]):
 	self.entities = entities
