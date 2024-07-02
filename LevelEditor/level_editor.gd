@@ -70,6 +70,8 @@ func save_board():
 		entities.append(TileDTO.new(id, GameboardConstants.GROUND_LAYER, pos.x, pos.y))
 	
 	var map_dto = MapDTO.new(entities)
+	map_dto.save()
+	
 	#...do something with map_dto
 
 func _on_save_button_pressed():

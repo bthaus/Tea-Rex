@@ -2,10 +2,11 @@ extends RefCounted
 class_name BaseDTO
 var destination="defaultValue"
 var account="noAcc"
+var directory=""
 
 func save():
 	var json=get_json()
-	GameSaver.save(json,destination,account) 
+	GameSaver.save(json,destination,account,directory) 
 	pass
 func get_json():
 	var props=get_script().get_script_property_list() as Array
