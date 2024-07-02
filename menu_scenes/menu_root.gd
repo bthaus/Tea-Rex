@@ -3,6 +3,7 @@ class_name MainMenu
 static var level_select=load("res://menu_scenes/level_selector.tscn").instantiate()
 static var battle_slot_picker=load("res://menu_scenes/battle_slot_picker.tscn").instantiate()
 static var accounts=load("res://menu_scenes/accounts_tab.tscn").instantiate()
+static var level_editor=load("res://LevelEditor/level_editor.tscn").instantiate()
 static var instance; 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -34,4 +35,9 @@ func _on_back_pressed():
 	if scene_stack.size()==1:return;
 	remove_child(scene_stack.pop_back())
 	add_child(scene_stack.back())
+	pass # Replace with function body.
+
+
+func _on_button_pressed():
+	change_content(level_editor)
 	pass # Replace with function body.

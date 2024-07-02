@@ -29,6 +29,13 @@ offset_bottom = 537.0
 text = "exit game
 "
 
+[node name="level_editor" type="Button" parent="start_page"]
+offset_left = 142.0
+offset_top = 284.0
+offset_right = 323.0
+offset_bottom = 397.0
+text = "level editor"
+
 [node name="back" type="Button" parent="."]
 offset_left = 996.0
 offset_top = 31.0
@@ -37,4 +44,5 @@ offset_bottom = 88.0
 text = "Back"
 
 [connection signal="pressed" from="start_page/start_game" to="." method="_on_start_game_pressed"]
+[connection signal="pressed" from="start_page/level_editor" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="back" to="." method="_on_back_pressed"]

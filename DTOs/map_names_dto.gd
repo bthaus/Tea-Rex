@@ -1,6 +1,6 @@
 extends BaseDTO
 class_name MapNameDTO
-var names:Array[String]=[]
+var names=[]
 
 func save(a=1,b=1,c=1):
 	super.save("map_names","","maps")
