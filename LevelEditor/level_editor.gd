@@ -3,6 +3,7 @@ extends Node2D
 @onready var _selection_tile_container = $HUD/TileScrollContainer/TileGridContainer
 @onready var wave_settings = $HUD/WaveSettings
 
+@onready var board_handler = LevelEditorBoardHandler.new($Board)
 
 var _selection_tile_items = [
 	TileItem.new(GameboardConstants.WALL_TILE_ID, "Wall"),
@@ -19,21 +20,20 @@ func _ready():
 	for y in range(-200, 200):
 		for x in range(-200, 200):
 			$Background.set_cell(0, Vector2(x,y), 0, Vector2(0,0))
+	
+	board_handler.spawner_added.connect(func(): pass)
+	board_handler.spawner_removed.connect(func(idx: int): pass)
+	
 	_init_selection_tiles()
 
 #We can use unhandled input here, so that when clicking on a (hud) button the drawing wont trigger
 func _unhandled_input(event):
 	var board_pos = $Board.local_to_map(get_global_mouse_position())
 	if event.is_action_released("left_click"):
-		if _get_tile_type(selected_tile_id) == GameboardConstants.GROUND_TYPE:
-			$Board.set_cell(GameboardConstants.GROUND_LAYER, board_pos, selected_tile_id, Vector2(0,0))
-		else:
-			$Board.set_cell(GameboardConstants.BLOCK_LAYER, board_pos, selected_tile_id, Vector2(0,0))
-			$Board.set_cell(GameboardConstants.GROUND_LAYER, board_pos, -1, Vector2(0,0))
+		board_handler.set_cell(selected_tile_id, board_pos)
 	elif event.is_action_released("right_click"):
-		$Board.set_cell(GameboardConstants.BLOCK_LAYER, board_pos, -1, Vector2(0,0))
-		$Board.set_cell(GameboardConstants.GROUND_LAYER, board_pos, -1, Vector2(0,0))
-
+		board_handler.clear_cell(board_pos)
+	
 func _init_selection_tiles():
 	for child in _selection_tile_container.get_children(): child.free()
 	var tile_set = $Board.tile_set
@@ -44,39 +44,13 @@ func _init_selection_tiles():
 		item.clicked.connect(_item_selected)
 		_selection_tile_container.add_child(item)
 
-func _get_tile_type(id: int):
-	if id == -1: return null
-	var atlas: TileSetAtlasSource = $Board.tile_set.get_source(id)
-	var data = atlas.get_tile_data(Vector2(0,0), 0)
-	if data == null: return null
-	return data.get_custom_data("type").to_upper()
-
 func _item_selected(id: int):
 	selected_tile_id = id
 
-func save_board():
-	var entities:Array[BaseDTO] = []
-	
-	for pos in $Board.get_used_cells(GameboardConstants.BLOCK_LAYER):
-		var id = $Board.get_cell_source_id(GameboardConstants.BLOCK_LAYER, pos)
-		var type = _get_tile_type(id)
-		match(type):
-			GameboardConstants.WALL_TYPE: entities.append(TileDTO.new(id, GameboardConstants.BLOCK_LAYER, pos.x, pos.y))
-			GameboardConstants.SPAWNER_TYPE: entities.append(SpawnerDTO.new(id, pos.x, pos.y))
-			GameboardConstants.PLAYER_BASE_TYPE: entities.append(PlayerBaseDTO.new(id, pos.x, pos.y))
-		
-	for pos in $Board.get_used_cells(GameboardConstants.GROUND_LAYER):
-		var id = $Board.get_cell_source_id(GameboardConstants.GROUND_LAYER, pos)
-		entities.append(TileDTO.new(id, GameboardConstants.GROUND_LAYER, pos.x, pos.y))
-	
-	var map_dto = MapDTO.new(entities)
-	#...do something with map_dto
-
 func _on_save_button_pressed():
-	save_board()
+	board_handler.save_board()
 
 func _on_wave_settings_button_pressed():
-	wave_settings.set_spawner_settings(5)
 	wave_settings.show()
 	
 class TileItem:
