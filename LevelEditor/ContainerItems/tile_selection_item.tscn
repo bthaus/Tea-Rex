@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bf2lrwirkjpjy"]
 
-[ext_resource type="Script" path="res://LevelEditor/tile_selection_item.gd" id="1_isn83"]
+[ext_resource type="Script" path="res://LevelEditor/ContainerItems/tile_selection_item.gd" id="1_isn83"]
 
 [node name="TileSelectionItem" type="Button"]
 custom_minimum_size = Vector2(60, 60)

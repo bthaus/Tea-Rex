@@ -1,6 +1,9 @@
 extends Node2D
 
 @onready var _selection_tile_container = $HUD/TileScrollContainer/TileGridContainer
+@onready var wave_settings = $HUD/WaveSettings
+
+
 var _selection_tile_items = [
 	TileItem.new(GameboardConstants.WALL_TILE_ID, "Wall"),
 	TileItem.new(GameboardConstants.PLAYER_BASE_TILE_ID, "Base"),
@@ -36,7 +39,7 @@ func _init_selection_tiles():
 	var tile_set = $Board.tile_set
 	for tile_item in _selection_tile_items:
 		var atlas: TileSetAtlasSource = tile_set.get_source(tile_item.id)
-		var item = load("res://LevelEditor/tile_selection_item.tscn").instantiate()
+		var item = load("res://LevelEditor/ContainerItems/tile_selection_item.tscn").instantiate()
 		item.set_item(tile_item.id, atlas.texture, tile_item.name)
 		item.clicked.connect(_item_selected)
 		_selection_tile_container.add_child(item)
@@ -69,12 +72,16 @@ func save_board():
 	var map_dto = MapDTO.new(entities)
 	#...do something with map_dto
 
+func _on_save_button_pressed():
+	save_board()
+
+func _on_wave_settings_button_pressed():
+	wave_settings.set_spawner_settings(5)
+	wave_settings.show()
+	
 class TileItem:
 	var id: int
 	var name: String
 	func _init(id: int, name: String):
 		self.id = id
 		self.name = name
-
-func _on_button_pressed():
-	save_board()
