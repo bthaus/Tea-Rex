@@ -4,12 +4,15 @@ class_name BaseDTO
 
 func save(destination,account,directory):
 	var json=get_json()
-	GameSaver.save(json,destination,account,directory) 
-	pass
+	return GameSaver.save(json,destination,account,directory)!=-1 
+	
 func get_json():
 	var props=get_script().get_script_property_list() as Array
 	var values=[]
+	#cleanup of class descriptors
 	values.append(props.pop_front()["hint_string"])
+	if props.back()["name"]=="base_dto.gd":props.pop_back()
+	
 	for p in props:
 			var val=get(p["name"])
 			if val is Array[BaseDTO]:
@@ -19,7 +22,7 @@ func get_json():
 					val.append(i.get_json())
 			var d={p["name"]:val}
 			values.append(d)
-	var json=JSON.stringify(values)	
+	var json=JSON.stringify(values," ")	
 	return json
 	
 func _init(destination:String="defaultValue",account:String="noAcc"):

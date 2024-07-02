@@ -166,7 +166,7 @@ static func save(content:String, destination:String, save:String="",directory:St
 	if err>0:
 		print("error loading file with "+save)
 		print(err)
-		return "";
+		return "-1";
 	file.store_string(content)
 	
 	pass;
