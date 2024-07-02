@@ -1,0 +1,23 @@
+[gd_scene load_steps=2 format=3 uid="uid://bf2lrwirkjpjy"]
+
+[ext_resource type="Script" path="res://LevelEditor/tile_selection_item.gd" id="1_isn83"]
+
+[node name="TileSelectionItem" type="Button"]
+custom_minimum_size = Vector2(60, 60)
+script = ExtResource("1_isn83")
+
+[node name="Item" type="Sprite2D" parent="."]
+position = Vector2(30, 20)
+scale = Vector2(0.5, 0.5)
+
+[node name="Name" type="Label" parent="."]
+layout_mode = 0
+offset_top = 36.0
+offset_right = 61.0
+offset_bottom = 59.0
+theme_override_font_sizes/font_size = 8
+text = "some item"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]
