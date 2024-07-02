@@ -1,17 +1,17 @@
 [gd_scene load_steps=3 format=3 uid="uid://2wntfsyydaet"]
 
-[ext_resource type="Texture2D" uid="uid://bloa2axjihn3o" path="res://Assets/Monsters/Monster_BLUE.png" id="1_e2iam"]
-[ext_resource type="Script" path="res://LevelEditor/ContainerItems/minion_setting_item.gd" id="1_u6kp0"]
+[ext_resource type="Script" path="res://LevelEditor/ContainerItems/monster_setting_item.gd" id="1_jwpsb"]
+[ext_resource type="Texture2D" uid="uid://bloa2axjihn3o" path="res://Assets/Monsters/Monster_BLUE.png" id="2_s2bv5"]
 
-[node name="MinionSettingItem" type="Panel"]
+[node name="MonsterSettingItem" type="Panel"]
 custom_minimum_size = Vector2(100, 100)
 offset_right = 100.0
 offset_bottom = 100.0
-script = ExtResource("1_u6kp0")
+script = ExtResource("1_jwpsb")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(50, 28)
-texture = ExtResource("1_e2iam")
+texture = ExtResource("2_s2bv5")
 
 [node name="NameLabel" type="Label" parent="."]
 layout_mode = 0

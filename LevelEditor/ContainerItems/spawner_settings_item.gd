@@ -1,6 +1,6 @@
 extends Panel
 
-@onready var minion_item_container = $MinionScrollContainer/MinionItemContainer
+@onready var monster_item_container = $MonsterScrollContainer/MonsterItemContainer
 
 var _spawner_id: int
 
@@ -13,5 +13,5 @@ func set_spawner_id(id: int):
 	
 func _ready():
 	for i in 8: #Replace with actual number of minions
-		var item = load("res://LevelEditor/ContainerItems/minion_setting_item.tscn").instantiate()
-		minion_item_container.add_child(item)
+		var item = load("res://LevelEditor/ContainerItems/monster_setting_item.tscn").instantiate()
+		monster_item_container.add_child(item)
