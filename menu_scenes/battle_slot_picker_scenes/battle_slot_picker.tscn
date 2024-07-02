@@ -12,4 +12,7 @@ offset_right = 706.0
 offset_bottom = 497.0
 text = "do picker"
 
+[node name="battle_slot_position" type="Node2D" parent="."]
+position = Vector2(541, 135)
+
 [connection signal="pressed" from="Button" to="Button" method="_on_pressed"]

@@ -14,7 +14,7 @@ var account: String = "dede";
 
 var unlockedExtensions = [Stats.TurretExtension.DEFAULT];
 
-var unlockedColors = [Stats.TurretColor.GREEN];
+var unlockedColors = [Stats.TurretColor.BLUE];
 #Stats.SpecialCards
 var unlockedSpecialCards = [Stats.SpecialCards.HEAL];
 var toUnlock = []
