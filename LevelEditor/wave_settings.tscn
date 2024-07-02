@@ -1,0 +1,31 @@
+[gd_scene load_steps=2 format=3 uid="uid://bq3cptvw55c8"]
+
+[ext_resource type="Script" path="res://LevelEditor/wave_settings.gd" id="1_4lpow"]
+
+[node name="WaveSettings" type="Panel"]
+offset_left = 181.0
+offset_top = 128.0
+offset_right = 993.0
+offset_bottom = 526.0
+script = ExtResource("1_4lpow")
+
+[node name="SpawnerScrollContainer" type="ScrollContainer" parent="."]
+layout_mode = 0
+offset_left = 47.0
+offset_top = 67.0
+offset_right = 753.0
+offset_bottom = 313.0
+
+[node name="SpawnerItemContainer" type="VBoxContainer" parent="SpawnerScrollContainer"]
+layout_mode = 2
+
+[node name="CloseButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 710.0
+offset_top = 340.0
+offset_right = 795.0
+offset_bottom = 383.0
+text = "Close
+"
+
+[connection signal="pressed" from="CloseButton" to="." method="_on_close_button_pressed"]

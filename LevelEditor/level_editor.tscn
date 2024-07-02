@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://ceo4ed4nntj6h"]
+[gd_scene load_steps=7 format=3 uid="uid://ceo4ed4nntj6h"]
 
 [ext_resource type="Script" path="res://LevelEditor/level_editor.gd" id="1_nibhe"]
 [ext_resource type="Texture2D" uid="uid://btp3q1rq0vmmt" path="res://Assets/Tiles/ground.png" id="2_eqpsc"]
 [ext_resource type="TileSet" uid="uid://dcf0fhqgihare" path="res://GameBoard/game_board_tileset.tres" id="2_itsd3"]
+[ext_resource type="PackedScene" uid="uid://bq3cptvw55c8" path="res://LevelEditor/wave_settings.tscn" id="4_3dmyq"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ghpgt"]
 texture = ExtResource("2_eqpsc")
@@ -41,11 +42,22 @@ horizontal_scroll_mode = 0
 layout_mode = 2
 columns = 2
 
-[node name="Button" type="Button" parent="HUD"]
+[node name="SaveButton" type="Button" parent="HUD"]
 offset_left = 1030.0
 offset_top = 546.0
 offset_right = 1116.0
 offset_bottom = 599.0
 text = "save"
 
-[connection signal="pressed" from="HUD/Button" to="." method="_on_button_pressed"]
+[node name="WaveSettingsButton" type="Button" parent="HUD"]
+offset_left = 1025.0
+offset_top = 213.0
+offset_right = 1118.0
+offset_bottom = 260.0
+text = "Waves"
+
+[node name="WaveSettings" parent="HUD" instance=ExtResource("4_3dmyq")]
+visible = false
+
+[connection signal="pressed" from="HUD/SaveButton" to="." method="_on_save_button_pressed"]
+[connection signal="pressed" from="HUD/WaveSettingsButton" to="." method="_on_wave_settings_button_pressed"]
