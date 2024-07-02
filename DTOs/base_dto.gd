@@ -15,6 +15,16 @@ func get_json():
 	
 	for p in props:
 			var val=get(p["name"])
+			if val is Array:
+				if val[0] is Array and val[0][0] is BaseDTO:
+					var arr= val
+					val=[] 
+					for a in arr:
+						var innerarr=[] 
+						for dto in a:
+							var dtojson=dto.get_json()
+							innerarr.push_back(dtojson)
+						val.append(innerarr)	
 			if val is Array[BaseDTO]:
 				var arr= val
 				val=[]
@@ -25,10 +35,7 @@ func get_json():
 	var json=JSON.stringify(values," ")	
 	return json
 	
-func _init(destination:String="defaultValue",account:String="noAcc"):
-	self.destation=destination
-	self.account=account
-	
+func _init():
 	pass;	
 	
 func load_json(destination,account,directory):
@@ -48,7 +55,16 @@ static func _restore_fields(obj,arr):
 		var da=d as Dictionary
 		var dakey=da.keys()[0]
 		var val=da.get(dakey)
-		if val is Array:
+		
+		if val is Array and val[0] is Array :
+			var outerarr=val;
+			val=[]
+			for innerarr in outerarr:
+				var dtoarr=[] 
+				for dto in innerarr:
+					dtoarr.append(get_dto_from_json(dto))
+				val.append(dtoarr)
+		if val is Array[BaseDTO]:
 			var temparr=val
 			val=[] as Array[BaseDTO]
 			for i in temparr:
@@ -58,11 +74,11 @@ static func _restore_fields(obj,arr):
 	pass;		
 func restore(destination,account,directory):
 	var json=load_json(destination,account,directory)
-	if json==null: return;
+	if json==null: return false;
 	var data=JSON.parse_string(json)as Array
 	data.pop_front()
 	_restore_fields(self,data)
-	
+	return true;
 	
 func get_object():
 	
