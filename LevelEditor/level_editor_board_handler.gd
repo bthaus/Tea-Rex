@@ -24,23 +24,24 @@ func get_tile_type(layer: int, map_position: Vector2):
 	return data.get_custom_data("type").to_upper()
 
 func set_cell(id: int, map_position: Vector2):
+	var board_type = get_tile_type(GameboardConstants.BLOCK_LAYER, map_position)
+	var is_spawner_below = board_type != null and board_type == GameboardConstants.SPAWNER_TYPE
 	var type = get_tile_type_by_id(id)
+	if is_spawner_below and type != GameboardConstants.SPAWNER_TYPE: #If there is a spawner below, remove it (unless the holding piece is a spawner)
+		var i = _get_spawner_idx_at(map_position)
+		spawner_positions.remove_at(i)
+		spawner_removed.emit(i)
+			
 	match(type):
 		GameboardConstants.GROUND_TYPE:
-			board.set_cell(GameboardConstants.BLOCK_LAYER, map_position, id, Vector2(0,0))
+			board.set_cell(GameboardConstants.GROUND_LAYER, map_position, id, Vector2(0,0))
+			board.set_cell(GameboardConstants.BLOCK_LAYER, map_position, -1, Vector2(0,0))
 			return
 		GameboardConstants.SPAWNER_TYPE:
-			var board_type = get_tile_type(GameboardConstants.BLOCK_LAYER, map_position)
-			if board_type != null and board_type == GameboardConstants.SPAWNER_TYPE: return #There is already a spawner below, ignore it
+			if is_spawner_below: return #There is already a spawner below, ignore it
 			spawner_positions.append(map_position)
 			spawner_added.emit()
-		_: #Any other type of block
-			var board_type = get_tile_type(GameboardConstants.BLOCK_LAYER, map_position)
-			if board_type != null and board_type == GameboardConstants.SPAWNER_TYPE: #There is a spawner below, remove it
-				var i = _get_spawner_idx_at(map_position)
-				spawner_positions.remove_at(i)
-				spawner_removed.emit(i)
-
+	
 	board.set_cell(GameboardConstants.BLOCK_LAYER, map_position, id, Vector2(0,0))
 	board.set_cell(GameboardConstants.GROUND_LAYER, map_position, -1, Vector2(0,0))
 	

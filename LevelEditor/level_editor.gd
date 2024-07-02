@@ -21,8 +21,8 @@ func _ready():
 		for x in range(-200, 200):
 			$Background.set_cell(0, Vector2(x,y), 0, Vector2(0,0))
 	
-	board_handler.spawner_added.connect(func(): pass)
-	board_handler.spawner_removed.connect(func(idx: int): pass)
+	board_handler.spawner_added.connect(func(): wave_settings.add_spawner_setting())
+	board_handler.spawner_removed.connect(func(id: int): wave_settings.remove_spawner_setting(id))
 	
 	_init_selection_tiles()
 
