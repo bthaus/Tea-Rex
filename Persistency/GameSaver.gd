@@ -171,8 +171,8 @@ static func save(content:String, destination:String, save:String="",directory:St
 	
 	pass;
 
-static func loadfile(destination:String, save:String=""):
-	var file = FileAccess.open("user://save_game"+destination+"_"+save+".dat", FileAccess.READ)
+static func loadfile(destination:String, save:String="",directory:String=""):
+	var file = FileAccess.open("user://"+directory+"/save_game"+destination+"_"+save+".dat", FileAccess.READ)
 	var err=FileAccess.get_open_error()
 	if err>0:
 		print("error loading file with "+save)

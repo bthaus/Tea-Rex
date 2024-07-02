@@ -6,5 +6,5 @@ var entities:Array[BaseDTO]
 
 func _init(entities: Array[BaseDTO]=[]):
 	self.entities = entities
-	directory="maps"
-	account=""
+	
+	

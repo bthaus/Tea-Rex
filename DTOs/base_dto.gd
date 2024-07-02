@@ -1,10 +1,8 @@
 extends RefCounted
 class_name BaseDTO
-var destination="defaultValue"
-var account="noAcc"
-var directory=""
 
-func save():
+
+func save(destination,account,directory):
 	var json=get_json()
 	GameSaver.save(json,destination,account,directory) 
 	pass
@@ -20,7 +18,7 @@ func get_json():
 				for i in arr:
 					val.append(i.get_json())
 			var d={p["name"]:val}
-			values.append(JSON.stringify(d))
+			values.append(d)
 	var json=JSON.stringify(values)	
 	return json
 	
@@ -30,8 +28,8 @@ func _init(destination:String="defaultValue",account:String="noAcc"):
 	
 	pass;	
 	
-func load_json(destination,account):
-	var json=GameSaver.loadfile(destination,account)
+func load_json(destination,account,directory):
+	var json=GameSaver.loadfile(destination,account,directory)
 	if json=="":
 		return null;
 	return json
@@ -44,7 +42,7 @@ static func get_dto_from_json(json)->BaseDTO:
 
 static func _restore_fields(obj,arr):
 	for d in arr:
-		var da=JSON.parse_string(d) as Dictionary
+		var da=d as Dictionary
 		var dakey=da.keys()[0]
 		var val=da.get(dakey)
 		if val is Array:
@@ -55,8 +53,8 @@ static func _restore_fields(obj,arr):
 				val.append(idto)	
 		obj.set(dakey,val)
 	pass;		
-func restore():
-	var json=load_json(destination,account)
+func restore(destination,account,directory):
+	var json=load_json(destination,account,directory)
 	if json==null: return;
 	var data=JSON.parse_string(json)as Array
 	data.pop_front()
