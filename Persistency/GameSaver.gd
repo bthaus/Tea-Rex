@@ -159,6 +159,11 @@ static func loadGameMap(gameState:GameState):
 
 static func save(content:String, destination:String, save:String=""):
 	var file = FileAccess.open("user://save_game"+destination+"_"+save+".dat", FileAccess.WRITE)
+	var err=FileAccess.get_open_error()
+	if err>0:
+		print("error loading file with "+save)
+		print(err)
+		return "";
 	file.store_string(content)
 	
 	pass;
