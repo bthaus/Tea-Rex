@@ -12,7 +12,7 @@ script = ExtResource("1_4lpow")
 [node name="SpawnerScrollContainer" type="ScrollContainer" parent="."]
 layout_mode = 0
 offset_left = 47.0
-offset_top = 67.0
+offset_top = 78.0
 offset_right = 753.0
 offset_bottom = 313.0
 
@@ -28,4 +28,43 @@ offset_bottom = 383.0
 text = "Close
 "
 
+[node name="PreviousWaveButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -146.0
+offset_top = 10.0
+offset_right = -66.0
+offset_bottom = 41.0
+grow_horizontal = 2
+text = "<"
+
+[node name="NextWaveButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 64.0
+offset_top = 10.0
+offset_right = 144.0
+offset_bottom = 41.0
+grow_horizontal = 2
+text = ">"
+
+[node name="WaveLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -58.0
+offset_right = 58.0
+offset_bottom = 54.0
+grow_horizontal = 2
+text = "Wave: 0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [connection signal="pressed" from="CloseButton" to="." method="_on_close_button_pressed"]
+[connection signal="pressed" from="PreviousWaveButton" to="." method="_on_previous_wave_button_pressed"]
+[connection signal="pressed" from="NextWaveButton" to="." method="_on_next_wave_button_pressed"]
