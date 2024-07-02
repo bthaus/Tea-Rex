@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://ceo4ed4nntj6h"]
 
 [ext_resource type="Script" path="res://LevelEditor/level_editor.gd" id="1_nibhe"]
-[ext_resource type="Texture2D" uid="uid://d2bk8ok5n8utj" path="res://Assets/Tiles/ground.png" id="2_eqpsc"]
+[ext_resource type="Texture2D" path="res://Assets/Tiles/ground.png" id="2_eqpsc"]
 [ext_resource type="TileSet" uid="uid://dcf0fhqgihare" path="res://GameBoard/game_board_tileset.tres" id="2_itsd3"]
 [ext_resource type="PackedScene" uid="uid://bq3cptvw55c8" path="res://LevelEditor/wave_settings.tscn" id="4_3dmyq"]
 

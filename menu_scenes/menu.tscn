@@ -17,7 +17,7 @@
 [ext_resource type="Texture2D" uid="uid://07wke7sjvn0u" path="res://Assets/UI/battle_Label/battle_label_an5.png" id="29_88wo6"]
 [ext_resource type="Texture2D" uid="uid://cqvtjee0rppi6" path="res://Assets/UI/battle_Label/battle_label_an6.png" id="30_bd6dn"]
 [ext_resource type="Texture2D" uid="uid://bnjls4yxt4cr" path="res://Assets/UI/battle_Label/battle_label_an7.png" id="31_vh6e8"]
-[ext_resource type="PackedScene" uid="uid://dfv1yobm3u5hn" path="res://Cards/hand.tscn" id="32_lqsdn"]
+[ext_resource type="PackedScene" path="res://Cards/hand.tscn" id="32_lqsdn"]
 [ext_resource type="Texture2D" uid="uid://bdevr8e5j76ef" path="res://Assets/UI/label_maxCards.png" id="33_4u8b8"]
 [ext_resource type="PackedScene" uid="uid://b1awhns1b5kw3" path="res://menu_scenes/hover_hint.tscn" id="34_y0mqc"]
 [ext_resource type="Texture2D" uid="uid://bd73npt4gtmpx" path="res://Assets/UI/label_redrawCards.png" id="35_mgely"]

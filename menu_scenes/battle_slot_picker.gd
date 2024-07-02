@@ -1,8 +1,12 @@
-extends Button
-
+extends Node2D
+class_name BattleSlotPicker
+var map_name
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	var map_dto=MapDTO.new()
+	map_dto.restore(map_name,"","maps")
+	
 	pass # Replace with function body.
 
 

@@ -15,7 +15,26 @@ func get_json():
 	
 	for p in props:
 			var val=get(p["name"])
-			if val is Array:
+			val=_get_if_is_2D_array_of_dtos(val)	
+			val=_get_if_is_array_of_dtos(val)
+			val=_get_if_is_dto(val)
+			var d={p["name"]:val}
+			values.append(d)
+	var json=JSON.stringify(values," ")	
+	return json
+	
+func _init():
+	pass;	
+func _get_if_is_array_of_dtos(val):
+	if val is Array[BaseDTO]:
+				var arr= val
+				val=[] as Array[BaseDTO]
+				for i in arr:
+					val.append(i.get_json())
+	return val					
+
+func _get_if_is_2D_array_of_dtos(val):
+	if val is Array:
 				if val[0] is Array and val[0][0] is BaseDTO:
 					var arr= val
 					val=[] 
@@ -24,20 +43,12 @@ func get_json():
 						for dto in a:
 							var dtojson=dto.get_json()
 							innerarr.push_back(dtojson)
-						val.append(innerarr)	
-			if val is Array[BaseDTO]:
-				var arr= val
-				val=[]
-				for i in arr:
-					val.append(i.get_json())
-			var d={p["name"]:val}
-			values.append(d)
-	var json=JSON.stringify(values," ")	
-	return json
-	
-func _init():
-	pass;	
-	
+						val.append(innerarr)
+	return val
+
+func _get_if_is_dto(val):
+	return val
+	pass;		
 func load_json(destination,account,directory):
 	var json=GameSaver.loadfile(destination,account,directory)
 	if json=="":
@@ -64,7 +75,7 @@ static func _restore_fields(obj,arr):
 				for dto in innerarr:
 					dtoarr.append(get_dto_from_json(dto))
 				val.append(dtoarr)
-		if val is Array[BaseDTO]:
+		if val is Array and val[0] is String and val[0].contains("dto.gd"):
 			var temparr=val
 			val=[] as Array[BaseDTO]
 			for i in temparr:
@@ -75,7 +86,7 @@ static func _restore_fields(obj,arr):
 func restore(destination,account,directory):
 	var json=load_json(destination,account,directory)
 	if json==null: return false;
-	var data=JSON.parse_string(json)as Array
+	var data=JSON.parse_string(json)
 	data.pop_front()
 	_restore_fields(self,data)
 	return true;

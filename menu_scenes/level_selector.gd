@@ -36,5 +36,7 @@ func _process(delta):
 
 
 func _map_selected(name):
-	MainMenu.change_content(load("res://menu_scenes/battle_slot_picker.tscn").instantiate())
+	var picker=MainMenu.battle_slot_picker.duplicate()
+	picker.map_name=name
+	MainMenu.change_content(picker)
 	pass # Replace with function body.

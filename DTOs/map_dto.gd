@@ -7,8 +7,10 @@ var map_name:String=""
 
 func _init(entities: Array[BaseDTO]=[]):
 	self.entities = entities
-	
+func restore(dest,acc,dir):
+	return super.restore("map_"+dest,"",dir+"/"+dest)
+		
 func save(dest,acc,dir):
 	MapNameDTO.add_map_name(map_name)
-	return super.save(dest,acc,dir)
+	return super.save("map_"+dest,"",dir+"/"+dest)
 		
