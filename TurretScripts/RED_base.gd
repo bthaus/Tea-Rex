@@ -4,11 +4,15 @@ class_name RedTurretCore
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	after_built.append(showSaw)
+
 	
 	#$AudioStreamPlayer2D.finished.connect(func(): if inRange(): $AudioStreamPlayer2D.play)
 
 	pass # Replace with function body.
+func after_built():
+	showSaw()
+	super.after_built()
+	pass;	
 func showSaw():
 	projectile.scale = Vector2(1, 1)
 	projectile.z_index = 0;
