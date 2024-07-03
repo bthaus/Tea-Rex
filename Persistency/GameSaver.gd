@@ -46,7 +46,7 @@ static func restoreGame(gameState:GameState):
 	gameState.collisionReference=CollisionReference.new()
 	gameState.collisionReference.initialise(gameState)		
 	gameState.collisionReference.addRows()		
-	deserialiseSpawners(gameState,loadfile("spawners",gameState.account))
+	
 	loadGameMap(gameState);
 	loadHand(gameState)
 	gameState.phase=Stats.GamePhase.BUILD
@@ -91,7 +91,7 @@ static func saveGame(gameState:GameState):
 	save(JSON.stringify(values),"state",gameState.account);		
 	#storeGameMap(gameState)
 	storeHand(gameState)
-	save(serialseSpawners(gameState),"spawners",gameState.account)
+	
 	pass;
 static func storeHand(gameState:GameState):
 	if gameState.hand==null:
@@ -195,22 +195,7 @@ class Data:
 		return d
 			
 	pass	
-static func serialseSpawners(gameState:GameState):
-	var spawners=[]
-	for s:Spawner in gameState.spawners:
-		spawners.append(s.serialise())
-	return JSON.stringify(spawners)
-	pass
-static func deserialiseSpawners(gameState:GameState,json):
-	var jarr=JSON.parse_string(json)
-	#Clear all spawners
-	gameState.spawners.clear()
-	for child in gameState.get_children():
-		if child is Spawner:
-			child.queue_free()
-	for j in jarr:
-		Spawner.deserialise(j,gameState)
-	pass;
+
 static func serialiseHand(hand:Array):
 	
 	var cards=[]

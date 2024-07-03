@@ -34,6 +34,7 @@ var ignore_input = false;
 var previous_preview_pos=Vector2(0,0)
 
 func _ready():
+	gameState=GameState.gameState
 	randomize()
 	$Board.tile_set.tile_size = Vector2(Stats.block_size, Stats.block_size)
 	navigation_polygon.source_geometry_group_name = "navigation"

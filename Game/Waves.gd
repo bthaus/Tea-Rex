@@ -36,7 +36,6 @@ static func create(tile_id: int, map_layer: int, map_position:Vector2, level:int
 	s.map_layer = map_layer
 	s.map_position = map_position
 	
-	GameState.gameState.add_child(s)
 	return s
 		
 func start(wavenumber:int):
@@ -130,10 +129,10 @@ func _on_button_mouse_entered():
 	else:
 		var p=(numReachedSpawn/ numSpawned)
 		percentage=str(int(p*100))
-	state.menu.showDescription(percentage+"% of minions spawned reached your base. ")
+	#state.menu.showDescription(percentage+"% of minions spawned reached your base. ")
 	pass # Replace with function body.
 
 
 func _on_button_mouse_exited():
-	state.menu.hideDescription()
+	#state.menu.hideDescription()
 	pass # Replace with function body.

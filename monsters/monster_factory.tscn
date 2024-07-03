@@ -1,0 +1,61 @@
+[gd_scene load_steps=9 format=3 uid="uid://cx0b6rly3u3la"]
+
+[ext_resource type="Script" path="res://monsters/monster_factory.gd" id="1_27eaf"]
+[ext_resource type="Texture2D" uid="uid://24e800rshnm" path="res://Assets/Monsters/monster_blue/1.png" id="2_fc3nv"]
+[ext_resource type="Texture2D" uid="uid://d0nff4613vqiu" path="res://Assets/Monsters/monster_blue/2.png" id="3_jq1fj"]
+[ext_resource type="Texture2D" uid="uid://vcylfr4mvhbe" path="res://Assets/Monsters/monster_blue/3.png" id="4_l7yhc"]
+[ext_resource type="Texture2D" uid="uid://3sd05eiwhlia" path="res://Assets/Monsters/monster_blue/4.png" id="5_8v2nd"]
+[ext_resource type="Texture2D" uid="uid://cu8h60d2lpm2c" path="res://Assets/Monsters/Monster.png" id="6_00h8v"]
+[ext_resource type="Script" path="res://monsters/monster_apperance.gd" id="7_861mn"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xagal"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_fc3nv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_jq1fj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_l7yhc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_8v2nd")
+}],
+"loop": false,
+"name": &"die",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"hit",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_00h8v")
+}],
+"loop": true,
+"name": &"move",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_00h8v")
+}],
+"loop": true,
+"name": &"spawn",
+"speed": 5.0
+}]
+
+[node name="monster_factory" type="Node2D"]
+script = ExtResource("1_27eaf")
+
+[node name="REGULAR" type="AnimatedSprite2D" parent="."]
+process_mode = 3
+sprite_frames = SubResource("SpriteFrames_xagal")
+animation = &"die"
+frame = 3
+frame_progress = 1.0
+script = ExtResource("7_861mn")
