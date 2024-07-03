@@ -69,8 +69,8 @@ func save_board(monster_waves,map_name):
 		var type = get_tile_type_by_id(id)
 		match(type):
 			GameboardConstants.WALL_TYPE: entities.append(TileDTO.new(id, GameboardConstants.BLOCK_LAYER, pos.x, pos.y))
-			GameboardConstants.SPAWNER_TYPE: entities.append(SpawnerDTO.new(id, pos.x, pos.y))
-			GameboardConstants.PLAYER_BASE_TYPE: entities.append(PlayerBaseDTO.new(id, pos.x, pos.y))
+			GameboardConstants.SPAWNER_TYPE: entities.append(SpawnerDTO.new(id, GameboardConstants.BLOCK_LAYER,  pos.x, pos.y))
+			GameboardConstants.PLAYER_BASE_TYPE: entities.append(PlayerBaseDTO.new(id, GameboardConstants.BLOCK_LAYER, pos.x, pos.y))
 		
 	for pos in board.get_used_cells(GameboardConstants.GROUND_LAYER):
 		var id = board.get_cell_source_id(GameboardConstants.GROUND_LAYER, pos)

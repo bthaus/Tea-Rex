@@ -46,7 +46,7 @@ signal start_combat_phase;
 signal level_up(item)
 
 static var collisionReference=CollisionReference.new()
-
+var map_dto;
 var unlock = []
 
 func upMaxCards():
@@ -120,7 +120,7 @@ func _ready():
 	Engine.max_fps=60
 	
 	
-	GameSaver.createBaseGame(self)
+	#GameSaver.createBaseGame(self)
 	target = $Base
 	startGame()
 	pass # Replace with function body.
@@ -183,7 +183,7 @@ func initNewBoard():
 	for s in spawners:
 		s.free()
 	spawners.clear()
-	gameBoard.init_field()
+	#gameBoard.init_field()
 	add_child(gameBoard)
 	board=gameBoard.get_node("Board")
 	collisionReference.queue_free()
@@ -285,18 +285,18 @@ func _on_spawner_wave_done():
 	pass # Replace with function body.
 
 func startGame():
+	gameBoard=load("res://GameBoard/game_board.tscn").instantiate()
+	gameBoard.init_field(map_dto)
+	add_child(gameBoard)
 	GameState.restore_speed=1;
 	GameState.game_speed=1;	
 	collisionReference.initialise(self)
 	collisionReference.addRows()
 	board=gameBoard.get_node("Board")
-	collisionReference.registerBase(target)
+	#collisionReference.registerBase(target)
 	$MinionHolder.board=board
 	$BulletHolder.board=board;
-	for m in $MinionHolder.get_children():
-		m.queue_free()
 		
-	#menu.stopMusic()
 	cam.move_to(Vector2(500, 500), func(): print("done"))
 	TutorialHolder.showTutorial(TutorialHolder.tutNames.Starting, self, func():
 		TutorialHolder.showTutorial(TutorialHolder.tutNames.RotateBlock, self, func():
@@ -305,11 +305,8 @@ func startGame():
 		)
 		
 	hand.visible = true;
-	if not started:
-		target = $Base
-		drawCards(maxCards)
-		gameBoard.init_field()
-		started = true;
+	target = $Base
+	drawCards(maxCards)
 	updateUI()
 	pass # Replace with function body.
 

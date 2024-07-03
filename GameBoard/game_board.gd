@@ -34,6 +34,7 @@ var ignore_input = false;
 var previous_preview_pos=Vector2(0,0)
 
 func _ready():
+	gameState=GameState.gameState
 	randomize()
 	$Board.tile_set.tile_size = Vector2(Stats.block_size, Stats.block_size)
 	navigation_polygon.source_geometry_group_name = "navigation"
@@ -227,23 +228,10 @@ func _action_finished(finished: bool):
 		done.call(finished)
 		done = Callable() # Reset callable
 
-func init_field():
-	#Draw walls
-	
-	#Left and right wall
-	for row in range(0, gameState.board_height):
-		$Board.set_cell(GameboardConstants.BLOCK_LAYER, Vector2(0, row), GameboardConstants.WALL_TILE_ID, Vector2(0, 0))
-		$Board.set_cell(GameboardConstants.BLOCK_LAYER, Vector2(gameState.board_width - 1, row), GameboardConstants.WALL_TILE_ID, Vector2(0, 0))
+func init_field(map_dto: MapDTO):
+	for entity in map_dto.entities:
+		entity.get_object().place_on_board($Board)
 		
-	for col in range(0, gameState.board_width):
-		$Board.set_cell(GameboardConstants.BLOCK_LAYER, Vector2(col, 0), GameboardConstants.WALL_TILE_ID, Vector2(0, 0))
-		$Board.set_cell(GameboardConstants.BLOCK_LAYER, Vector2(col, gameState.board_height - 1), GameboardConstants.WALL_TILE_ID, Vector2(0, 0))
-
-	#Draw ground
-	for row in range(1, gameState.board_height):
-		for col in range(1, gameState.board_width - 1):
-			$Board.set_cell(GameboardConstants.GROUND_LAYER, Vector2(col, row), GameboardConstants.GROUND_TILE_ID, Vector2(0, 0))
-	
 	$NavigationRegion2D.bake_navigation_polygon()
 
 func _spawn_turrets(block: Block, map_position: Vector2):

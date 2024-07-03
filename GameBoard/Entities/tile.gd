@@ -1,13 +1,14 @@
 extends GameObjectCounted
 class_name Tile
 
-var id: int
-var layer: int
-var x: int
-var y: int
+var tile_id: int
+var map_layer: int
+var map_position: Vector2
 
-func _init(id: int, layer: int, x: int, y: int):
-	self.id = id
-	self.layer = layer
-	self.x = x
-	self.y = y
+func _init(tile_id: int, map_layer: int, map_position: Vector2):
+	self.tile_id = tile_id
+	self.map_layer = map_layer
+	self.map_position = map_position
+	
+func place_on_board(board: TileMap):
+	board.set_cell(map_layer, map_position, tile_id, Vector2(0, 0))
