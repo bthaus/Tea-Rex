@@ -1,4 +1,4 @@
-extends Node2D
+extends GameObject2D
 class_name Tutorial;
 var seen=false;
 var title="hi man"

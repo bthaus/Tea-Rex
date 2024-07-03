@@ -1,4 +1,4 @@
-extends Node2D
+extends GameObject2D
 class_name Projectile
 
 var index;

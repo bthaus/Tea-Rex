@@ -1,4 +1,4 @@
-extends Node2D
+extends GameObject2D
 class_name Monster;
 var sizemult = 1;
 var hp = Stats.enemy_base_HP;

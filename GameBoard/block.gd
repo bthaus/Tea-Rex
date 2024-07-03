@@ -1,4 +1,4 @@
-extends Resource
+extends GameObjectCounted
 
 class_name Block
 var pieces: Array

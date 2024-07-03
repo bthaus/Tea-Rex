@@ -1,4 +1,4 @@
-extends Node2D
+extends GameObject2D
 
 const BLOCKLAYER = 0
 var block_handler: BlockHandler

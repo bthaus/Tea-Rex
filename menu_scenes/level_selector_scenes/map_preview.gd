@@ -1,4 +1,4 @@
-extends Node2D
+extends GameObject2D
 class_name MapPreview_MenuItem
 var map_name:String=""
 signal selected(mapname)

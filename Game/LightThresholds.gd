@@ -1,4 +1,4 @@
-extends Node2D
+extends GameObject2D
 class_name LightThresholds
 @export var gameState:GameState
 

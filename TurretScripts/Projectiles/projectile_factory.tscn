@@ -54,12 +54,12 @@ environment = SubResource("Environment_m8uol")
 texture = ExtResource("2_7o7fm")
 
 [node name="base_projectile" type="Sprite2D" parent="."]
+visible = false
 material = SubResource("ShaderMaterial_ooya1")
 texture = ExtResource("1_dw666")
 script = ExtResource("3_tyhfm")
 
 [node name="rocket_projectile" type="Sprite2D" parent="."]
-visible = false
 position = Vector2(0, -1)
 texture = ExtResource("2_b73vb")
 script = ExtResource("5_dqb0a")

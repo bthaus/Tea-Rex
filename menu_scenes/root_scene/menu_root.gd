@@ -1,4 +1,4 @@
-extends Node2D
+extends GameObject2D
 class_name MainMenu
 static var level_select=load("res://menu_scenes/level_selector_scenes/level_selector.tscn").instantiate()
 static var battle_slot_picker=load("res://menu_scenes/battle_slot_picker_scenes/battle_slot_picker.tscn").instantiate()

@@ -1,4 +1,4 @@
-extends RefCounted
+extends GameObjectCounted
 class_name BaseDTO
 
 
@@ -69,7 +69,7 @@ static func _restore_fields(obj,arr):
 		var dakey=da.keys()[0]
 		var val=da.get(dakey)
 		
-		if val is Array and val[0] is Array :
+		if val is Array and !val.is_empty() and val[0] is Array :
 			var outerarr=val;
 			val=[]
 			for innerarr in outerarr:
@@ -78,7 +78,7 @@ static func _restore_fields(obj,arr):
 					dtoarr.append(get_dto_from_json(dto))
 				val.append(dtoarr)
 				
-		if val is Array and val[0] is String and val[0].contains("dto.gd"):
+		if val is Array and !val.is_empty() and val[0] is String and val[0].contains("dto.gd"):
 			var temparr=val
 			val=[] as Array[BaseDTO]
 			for i in temparr:

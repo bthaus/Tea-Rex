@@ -1,4 +1,4 @@
-extends Node
+extends GameObject2D
 class_name DamageStacker
 var  hits:float=1;
 var time_elapsed=2;

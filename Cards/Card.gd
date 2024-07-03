@@ -1,4 +1,4 @@
-extends Node2D
+extends GameObject2D
 class_name Card
 var card;
 var state:GameState;

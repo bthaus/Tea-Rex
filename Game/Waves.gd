@@ -1,4 +1,4 @@
-extends Node2D
+extends GameObject2D
 class_name Spawner
 var state:GameState
 signal wave_done

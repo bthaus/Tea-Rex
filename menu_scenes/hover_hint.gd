@@ -1,4 +1,4 @@
-extends Node2D
+extends GameObject2D
 @export var hintText:Label;
 
 # Called when the node enters the scene tree for the first time.

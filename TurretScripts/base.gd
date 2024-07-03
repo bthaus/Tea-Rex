@@ -1,4 +1,4 @@
-extends Sprite2D
+extends GameObject2D
 class_name TurretCore
 var level = 1;
 var barrels = []

@@ -1,4 +1,4 @@
-extends Node
+extends GameObjectCounted
 
 class_name GameboardConstants
 #LAYERS

@@ -1,4 +1,4 @@
-extends Node2D
+extends GameObject2D
 class_name GameState;
 
 @export var gameBoard: GameBoard;

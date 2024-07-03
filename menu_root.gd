@@ -1,1 +1,1 @@
-extends Node2D
+extends GameObject2D

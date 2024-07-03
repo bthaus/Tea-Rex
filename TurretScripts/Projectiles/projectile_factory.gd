@@ -1,4 +1,4 @@
-extends Node2D
+extends GameObject2D
 
 
 # Called when the node enters the scene tree for the first time.
@@ -28,8 +28,10 @@ func get_bullet(color:Stats.TurretColor,damage, speed, turret, extension:Stats.T
 	temp.speed = speed;
 	temp.pool=pool
 	temp.oneshot = Stats.getOneshotType(color, extension);
+	
 	GameState.gameState.bulletHolder.add_child(temp)
 	temp.visible=true
+	
 	return temp
 	
 	

@@ -1,4 +1,4 @@
-extends Node2D
+extends GameObject2D
 class_name BattleSlotPicker
 var map_name
 
@@ -6,7 +6,7 @@ var map_name
 func _ready():
 	var map_dto=MapDTO.new()
 	map_dto.restore(map_name)
-	
+	map_dto.get_object()
 	pass # Replace with function body.
 
 

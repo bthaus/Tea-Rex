@@ -1,4 +1,4 @@
-extends Node
+extends GameObject2D
 class_name LevelEditorBoardHandler
 
 var board: TileMap
@@ -61,7 +61,7 @@ func _get_spawner_idx_at(map_position: Vector2) -> int:
 			return i
 	return -1
 
-func save_board(monster_waves):
+func save_board(monster_waves,map_name):
 	var entities:Array[BaseDTO] = []
 	
 	for pos in board.get_used_cells(GameboardConstants.BLOCK_LAYER):
@@ -76,5 +76,5 @@ func save_board(monster_waves):
 		var id = board.get_cell_source_id(GameboardConstants.GROUND_LAYER, pos)
 		entities.append(TileDTO.new(id, GameboardConstants.GROUND_LAYER, pos.x, pos.y))
 	
-	var map_dto = MapDTO.new(entities, WavesDTO.new(monster_waves))
-	map_dto.save("test", "test", "maps")
+	var map_dto = MapDTO.new(entities, WavesDTO.new(monster_waves),map_name)
+	map_dto.save(map_name)

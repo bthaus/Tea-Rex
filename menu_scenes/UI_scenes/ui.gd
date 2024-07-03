@@ -1,4 +1,4 @@
-extends Node2D
+extends GameObject2D
 class_name UI
 var gamestate:GameState
 @onready var hand=$Hand

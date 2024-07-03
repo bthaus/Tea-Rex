@@ -6,14 +6,15 @@ var waves: WavesDTO
 var map_name:String=""
 var battle_slots:BattleSlotDTO;
 
-func _init(entities: Array[BaseDTO]=[], waves: WavesDTO = WavesDTO.new()):
+func _init(entities: Array[BaseDTO]=[], waves: WavesDTO = WavesDTO.new(),mapname=""):
 	self.entities = entities
 	self.waves = waves
+	self.map_name=mapname
 
 func restore(dest,acc="",dir="maps"):
 	return super.restore("map_"+dest,"",dir+"/"+dest)
 		
-func save(dest,acc,dir):
-	MapNameDTO.add_map_name(map_name)
+func save(dest,acc="",dir="maps"):
+	MapNameDTO.add_map_name(dest)
 	return super.save("map_"+dest,"",dir+"/"+dest)
 		

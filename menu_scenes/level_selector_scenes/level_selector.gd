@@ -1,4 +1,4 @@
-extends Node2D
+extends GameObject2D
 
 var map_items=[]
 # Called when the node enters the scene tree for the first time.

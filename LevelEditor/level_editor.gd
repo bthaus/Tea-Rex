@@ -1,4 +1,4 @@
-extends Node2D
+extends GameObject2D
 
 @onready var _selection_tile_container = $HUD/TileScrollContainer/TileGridContainer
 @onready var wave_settings = $HUD/WaveSettings
@@ -49,7 +49,7 @@ func _item_selected(id: int):
 
 func _on_save_button_pressed():
 	var monster_waves = wave_settings.get_monster_waves()
-	board_handler.save_board(monster_waves)
+	board_handler.save_board(monster_waves,$HUD/mapname.text)
 
 func _on_wave_settings_button_pressed():
 	wave_settings.show()

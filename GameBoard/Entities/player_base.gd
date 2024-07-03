@@ -1,4 +1,4 @@
-extends Node2D
+extends GameObject2D
 class_name PlayerBase
 
 var tile_id: int

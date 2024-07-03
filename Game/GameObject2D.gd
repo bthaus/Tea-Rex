@@ -1,4 +1,5 @@
-extends Node
+extends Node2D
+class_name GameObject2D
 
 
 # Called when the node enters the scene tree for the first time.

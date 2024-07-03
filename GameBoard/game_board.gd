@@ -1,4 +1,4 @@
-extends Node2D
+extends GameObject2D
 class_name GameBoard
 var selected_block = null
 

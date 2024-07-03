@@ -1,4 +1,4 @@
-extends Node
+extends GameObject2D
 class_name Stats;
 const block_size=62;
 

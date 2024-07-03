@@ -1,4 +1,4 @@
-extends Node
+extends GameObject2D
 
 class_name Slower
 var duration;
