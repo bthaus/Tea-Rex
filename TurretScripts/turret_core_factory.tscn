@@ -1,7 +1,8 @@
-[gd_scene load_steps=26 format=3 uid="uid://dmhesplq1yqqt"]
+[gd_scene load_steps=28 format=3 uid="uid://dmhesplq1yqqt"]
 
 [ext_resource type="Shader" path="res://shaders/outline.gdshader" id="1_0p7qn"]
 [ext_resource type="Script" path="res://TurretScripts/turret_core_factory.gd" id="2_t1mch"]
+[ext_resource type="Texture2D" uid="uid://dpcl3osga8evf" path="res://Assets/Level/blackBackgroundLabel.png" id="3_1m0q2"]
 [ext_resource type="Texture2D" uid="uid://d2gvjcqige384" path="res://Assets/Turrets/Bases/RED_base.png" id="3_gmvb0"]
 [ext_resource type="Script" path="res://TurretScripts/RED_base.gd" id="4_mck5e"]
 [ext_resource type="Script" path="res://TurretScripts/REDLASER_base.gd" id="5_dxa78"]
@@ -28,6 +29,22 @@ shader = ExtResource("1_0p7qn")
 shader_parameter/outline_width = 1.0
 shader_parameter/outline_color = null
 
+[sub_resource type="Environment" id="Environment_nvk1t"]
+background_mode = 3
+ambient_light_color = Color(0.552642, 0.483134, 0.873833, 1)
+tonemap_white = 1.67
+glow_enabled = true
+glow_normalized = true
+glow_intensity = 1.55
+glow_bloom = 0.3
+glow_blend_mode = 0
+fog_enabled = true
+fog_light_energy = 5.04
+adjustment_enabled = true
+adjustment_brightness = 1.08
+adjustment_contrast = 1.1
+adjustment_saturation = 1.34
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_n5si3"]
 shader = ExtResource("1_0p7qn")
 shader_parameter/outline_width = 1.0
@@ -41,6 +58,16 @@ shader_parameter/outline_color = Color(0, 0, 0, 1)
 [node name="BaseFactory" type="Node2D"]
 material = SubResource("ShaderMaterial_qu5vl")
 script = ExtResource("2_t1mch")
+
+[node name="Background" type="Node2D" parent="."]
+
+[node name="CanvasModulate" type="CanvasModulate" parent="Background"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Background"]
+environment = SubResource("Environment_nvk1t")
+
+[node name="background" type="Sprite2D" parent="Background"]
+texture = ExtResource("3_1m0q2")
 
 [node name="RED_base" type="Sprite2D" parent="."]
 visible = false

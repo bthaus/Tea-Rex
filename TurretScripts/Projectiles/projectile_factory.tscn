@@ -1,13 +1,34 @@
-[gd_scene load_steps=12 format=3 uid="uid://4otg8drx5rwi"]
+[gd_scene load_steps=16 format=3 uid="uid://4otg8drx5rwi"]
 
 [ext_resource type="Script" path="res://TurretScripts/Projectiles/projectile_factory.gd" id="1_7qlu0"]
 [ext_resource type="Texture2D" uid="uid://raoax8o4vipw" path="res://Assets/Turrets/Projectiles/BLUE_projectile.png" id="1_dw666"]
+[ext_resource type="Texture2D" uid="uid://dpcl3osga8evf" path="res://Assets/Level/blackBackgroundLabel.png" id="2_7o7fm"]
 [ext_resource type="Texture2D" uid="uid://lcfac3i1nban" path="res://Assets/Turrets/Projectiles/GREEN_projectile.png" id="2_b73vb"]
 [ext_resource type="Texture2D" uid="uid://jobgij4i5sxe" path="res://Assets/Effects/Explosion_1/e1.png" id="3_5rn2i"]
+[ext_resource type="Shader" path="res://shaders/movement_blur.gdshader" id="3_kvh44"]
 [ext_resource type="Script" path="res://TurretScripts/Projectiles/Projectile.gd" id="3_tyhfm"]
 [ext_resource type="Texture2D" uid="uid://cxkgl0lpk4xdv" path="res://Assets/Effects/Explosion_1/e7.png" id="4_w6ffe"]
 [ext_resource type="Script" path="res://TurretScripts/Projectiles/rocket_projectile.gd" id="5_dqb0a"]
 [ext_resource type="Texture2D" uid="uid://dx2iashwa3141" path="res://Assets/Turrets/Projectiles/BLUELASER_projectile.png" id="5_fqg8n"]
+
+[sub_resource type="Environment" id="Environment_m8uol"]
+background_mode = 3
+ambient_light_color = Color(0.552642, 0.483134, 0.873833, 1)
+tonemap_white = 1.67
+glow_enabled = true
+glow_normalized = true
+glow_intensity = 1.55
+glow_bloom = 0.3
+glow_blend_mode = 0
+fog_enabled = true
+fog_light_energy = 5.04
+adjustment_enabled = true
+adjustment_brightness = 1.08
+adjustment_contrast = 1.1
+adjustment_saturation = 1.34
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ooya1"]
+shader = ExtResource("3_kvh44")
 
 [sub_resource type="Curve" id="Curve_1mgww"]
 _data = [Vector2(0.0567686, 0.956044), 0.0, 0.0, 0, 0, Vector2(0.803493, 0.626374), 0.0, 0.0, 0, 0, Vector2(0.973799, 0.010989), 0.0, 0.0, 0, 0]
@@ -22,22 +43,34 @@ colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 [node name="projectile_factory" type="Node2D"]
 script = ExtResource("1_7qlu0")
 
+[node name="Background" type="Node2D" parent="."]
+
+[node name="CanvasModulate" type="CanvasModulate" parent="Background"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Background"]
+environment = SubResource("Environment_m8uol")
+
+[node name="background" type="Sprite2D" parent="Background"]
+texture = ExtResource("2_7o7fm")
+
 [node name="base_projectile" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_ooya1")
 texture = ExtResource("1_dw666")
 script = ExtResource("3_tyhfm")
 
 [node name="rocket_projectile" type="Sprite2D" parent="."]
 visible = false
+position = Vector2(0, -1)
 texture = ExtResource("2_b73vb")
 script = ExtResource("5_dqb0a")
 
 [node name="PArticles" type="Node2D" parent="rocket_projectile"]
-position = Vector2(2, 8)
+position = Vector2(1, 6)
 
 [node name="shiny" type="CPUParticles2D" parent="rocket_projectile/PArticles"]
 process_mode = 3
 z_index = 3
-position = Vector2(-1.66667, 2)
+position = Vector2(-1, -1)
 amount = 20
 randomness = 1.0
 texture = ExtResource("3_5rn2i")
@@ -50,13 +83,13 @@ angle_max = 720.0
 scale_amount_min = 0.01
 scale_amount_max = 0.1
 scale_amount_curve = SubResource("Curve_1mgww")
-color = Color(6, 2, 2, 1)
+color = Color(26.627, 1, 1, 1)
 color_ramp = SubResource("Gradient_wn7de")
 
 [node name="smoke" type="CPUParticles2D" parent="rocket_projectile/PArticles"]
 process_mode = 3
 z_index = 2
-position = Vector2(-1.66667, 2)
+position = Vector2(-1, -1)
 amount = 22
 lifetime = 1.5
 randomness = 1.0
@@ -71,11 +104,12 @@ angle_max = 720.0
 scale_amount_min = 0.01
 scale_amount_max = 0.05
 scale_amount_curve = SubResource("Curve_1mgww")
-color = Color(3, 2, 2, 1)
 color_ramp = SubResource("Gradient_3sk3a")
 
 [node name="blue_laser_projectile" type="Sprite2D" parent="."]
 visible = false
-modulate = Color(3.55, 1, 100, 1)
+modulate = Color(4.142, 8.284, 26.036, 1)
+position = Vector2(0, 3)
+scale = Vector2(0.355, 0.355)
 texture = ExtResource("5_fqg8n")
 script = ExtResource("3_tyhfm")

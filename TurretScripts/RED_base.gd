@@ -41,7 +41,7 @@ func attack(delta):
 					if !is_instance_valid(e): continue
 					if e.hit(type, self.damage * stacks): addKill()
 					addDamage(self.damage * stacks)
-					projectile.playHitSound();
+					
 			startCooldown(cooldown * cooldownfactor)
 		
 	pass;

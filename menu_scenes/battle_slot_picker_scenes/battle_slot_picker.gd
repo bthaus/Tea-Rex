@@ -17,6 +17,5 @@ func _process(delta):
 
 
 func _on_button_pressed():
-	print("Hello?")
 	MainMenu.change_content(load("res://Game/main_scene.tscn").instantiate())
 	pass # Replace with function body.
