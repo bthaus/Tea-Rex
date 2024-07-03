@@ -1,12 +1,12 @@
-extends BaseDTO
+extends EntityDTO
 class_name TurretDTO
 
-var tile_id: int
 var color: Stats.TurretColor
 var level: int
 var extension: Stats.TurretExtension
-var x: int
-var y: int
+
+func _init(tile_id: int = -1, layer: int = -1, x: int = -1, y: int = -1):
+	super(tile_id, layer, x, y)
 
 func get_object():
-	return Turret.create(self.color, self.level, self.extension)
+	return Turret.create(color, level, extension)
