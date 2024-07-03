@@ -481,7 +481,7 @@ static func getRandomCard(gamestate):
 static func getRandomCatastrophy():
 	return Catastrophies.keys()[rng.randi_range(0,Catastrophies.size()-1)]
 static func getRandomColor(gamestate):
-	return TurretColor.values().pick_random()	
+	return GameState.gameState.unlockedColors.pick_random()	
 		
 		
 

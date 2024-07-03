@@ -1,7 +1,7 @@
 [gd_scene load_steps=44 format=3 uid="uid://cf5heufemalnf"]
 
 [ext_resource type="Script" path="res://menu_scenes/Menu.gd" id="1_auyj4"]
-[ext_resource type="PackedScene" uid="uid://cqq3thsbsvhon" path="res://menu_scenes/accounts_tab.tscn" id="2_bowrm"]
+[ext_resource type="PackedScene" uid="uid://cqq3thsbsvhon" path="res://menu_scenes/account_tab_scenes/accounts_tab.tscn" id="2_bowrm"]
 [ext_resource type="Texture2D" uid="uid://b5cbrc3bi4g6n" path="res://Assets/UI/label.png" id="11_1r048"]
 [ext_resource type="Texture2D" uid="uid://dpcl3osga8evf" path="res://Assets/Level/blackBackgroundLabel.png" id="15_eunkj"]
 [ext_resource type="Texture2D" uid="uid://cmqh886i30ew2" path="res://Assets/UI/Phase_banner.png" id="16_up1d7"]

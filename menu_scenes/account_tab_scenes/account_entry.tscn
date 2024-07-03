@@ -1,6 +1,6 @@
 [gd_scene load_steps=15 format=3 uid="uid://5s45bdvu8gb1"]
 
-[ext_resource type="Script" path="res://menu_scenes/AccountEntry.gd" id="1_pbp24"]
+[ext_resource type="Script" path="res://menu_scenes/account_tab_scenes/AccountEntry.gd" id="1_pbp24"]
 [ext_resource type="Texture2D" uid="uid://b0vjaywamx3yp" path="res://Assets/Lights/spotlight.png" id="2_g4jtw"]
 [ext_resource type="Texture2D" uid="uid://dsx4q267641fj" path="res://Assets/UI/battle_Label/battle_label.png" id="3_5eumf"]
 [ext_resource type="Texture2D" uid="uid://b4fkxofc8vxqu" path="res://Assets/UI/trasparent background/0B663119-D32F-4FA6-AC1E-3040989151F2.png" id="4_lturv"]

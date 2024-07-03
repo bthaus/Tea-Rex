@@ -7,7 +7,7 @@ var battle_slots:BattleSlotDTO;
 
 func _init(entities: Array[BaseDTO]=[]):
 	self.entities = entities
-func restore(dest,acc,dir):
+func restore(dest,acc="",dir="maps"):
 	return super.restore("map_"+dest,"",dir+"/"+dest)
 		
 func save(dest,acc,dir):

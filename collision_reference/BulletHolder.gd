@@ -12,10 +12,12 @@ func _ready():
 func do(delta):
 	for b in get_children():
 		if b.shot:
-			b.translate(b.direction * delta * b.speed);
+			b.move(delta)
 			var pos=board.local_to_map(b.global_position);
 			if pos.x==b.oldpos.x&&pos.y==b.oldpos.y: continue
 			b.oldpos=pos
+			b.cell_traversed()
+			
 			
 			if pos.y>GameState.gameState.board_height || pos.y<0 || pos.x<-9 || pos.x >21:
 				b.remove()

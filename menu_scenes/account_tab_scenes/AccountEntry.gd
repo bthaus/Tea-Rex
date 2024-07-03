@@ -3,7 +3,7 @@ class_name AccountEntry
 var accountName="";
 var lvl=0;
 var wave=0;
-static var scene=load("res://menu_scenes/account_entry.tscn")
+static var scene=load("res://menu_scenes/account_tab_scenes/account_entry.tscn")
 var clicked=false;
 signal start(accountname)
 
