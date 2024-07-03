@@ -48,7 +48,8 @@ func _item_selected(id: int):
 	selected_tile_id = id
 
 func _on_save_button_pressed():
-	board_handler.save_board()
+	var monster_waves = wave_settings.get_monster_waves()
+	board_handler.save_board(monster_waves)
 
 func _on_wave_settings_button_pressed():
 	wave_settings.show()

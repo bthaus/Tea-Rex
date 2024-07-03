@@ -61,7 +61,7 @@ func _get_spawner_idx_at(map_position: Vector2) -> int:
 			return i
 	return -1
 
-func save_board():
+func save_board(monster_waves):
 	var entities:Array[BaseDTO] = []
 	
 	for pos in board.get_used_cells(GameboardConstants.BLOCK_LAYER):
@@ -77,4 +77,4 @@ func save_board():
 		entities.append(TileDTO.new(id, GameboardConstants.GROUND_LAYER, pos.x, pos.y))
 	
 	var map_dto = MapDTO.new(entities)
-	#...do something with map_dto
+	var waves_dto = WavesDTO.new(monster_waves)
