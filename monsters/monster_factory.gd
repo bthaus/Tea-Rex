@@ -7,7 +7,7 @@ func _ready():
 
 static func createMonster(type:Stats.Monstertype):
 	var searchstring=Stats.Monstertype.keys()[(type)]
-	var base= instance.get_node(searchstring).duplicate() as MonsterAppearance
+	var base= instance.get_node(searchstring).duplicate() as MonsterCore
 	return base
 	pass;
 # Called every frame. 'delta' is the elapsed time since the previous frame.

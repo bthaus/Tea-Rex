@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://vcylfr4mvhbe" path="res://Assets/Monsters/monster_blue/3.png" id="4_l7yhc"]
 [ext_resource type="Texture2D" uid="uid://3sd05eiwhlia" path="res://Assets/Monsters/monster_blue/4.png" id="5_8v2nd"]
 [ext_resource type="Texture2D" uid="uid://cu8h60d2lpm2c" path="res://Assets/Monsters/Monster.png" id="6_00h8v"]
-[ext_resource type="Script" path="res://monsters/monster_apperance.gd" id="7_861mn"]
+[ext_resource type="Script" path="res://monsters/monster_core.gd" id="7_861mn"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_xagal"]
 animations = [{
@@ -55,7 +55,6 @@ script = ExtResource("1_27eaf")
 [node name="REGULAR" type="AnimatedSprite2D" parent="."]
 process_mode = 3
 sprite_frames = SubResource("SpriteFrames_xagal")
-animation = &"die"
-frame = 3
-frame_progress = 1.0
+animation = &"move"
+frame_progress = 0.266011
 script = ExtResource("7_861mn")

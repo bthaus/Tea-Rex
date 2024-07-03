@@ -13,7 +13,7 @@ var path=[]
 @export var color: Stats.TurretColor = Stats.TurretColor.BLUE
 var died = false;
 var oldpos=Vector2(0,0)
-var appearance:MonsterAppearance:
+var appearance:MonsterCore:
 	set(value):
 		appearance=value
 		add_child(value)

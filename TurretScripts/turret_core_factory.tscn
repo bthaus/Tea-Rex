@@ -67,6 +67,7 @@ script = ExtResource("2_t1mch")
 environment = SubResource("Environment_nvk1t")
 
 [node name="background" type="Sprite2D" parent="Background"]
+position = Vector2(3, -8)
 texture = ExtResource("3_1m0q2")
 
 [node name="RED_base" type="Sprite2D" parent="."]

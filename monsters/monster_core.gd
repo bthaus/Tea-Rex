@@ -1,5 +1,5 @@
 extends AnimatedSprite2D
-class_name MonsterAppearance
+class_name MonsterCore
 signal death_animation_done
 # Called when the node enters the scene tree for the first time.
 func _ready():
