@@ -15,4 +15,4 @@ text = "do picker"
 [node name="battle_slot_position" type="Node2D" parent="."]
 position = Vector2(541, 135)
 
-[connection signal="pressed" from="Button" to="Button" method="_on_pressed"]
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

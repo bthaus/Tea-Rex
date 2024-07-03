@@ -2,6 +2,7 @@ extends Sprite2D
 class_name TurretCore
 var level = 1;
 var barrels = []
+var bullets = []
 
 var type: Stats.TurretColor = Stats.TurretColor.BLUE
 var extension: Stats.TurretExtension = Stats.TurretExtension.DEFAULT
@@ -34,7 +35,6 @@ var recentCells = []
 var on_shoot: Array[Callable] = []
 var on_hit: Array[Callable] = []
 var on_fly: Array[Callable] = []
-var on_target_found: Array[Callable] = []
 var on_target_lost: Array[Callable] = []
 var on_target_died: Array[Callable] = []
 var after_built:Array[Callable] = []
@@ -122,6 +122,9 @@ func reduceCooldown(delta):
 	pass
 
 var waitingForMinions = false;
+func on_target_found(monster:Monster):
+	monster.monster_died.connect(func (): target=null)
+	pass;
 func do(delta):
 	reduceCooldown(delta)
 	if !onCooldown:
@@ -139,14 +142,14 @@ func searchForMinionsInRecent() -> bool:
 		if not cell.is_empty():
 			target = cell.back()
 			if target != null:
-				do_all(on_target_found)
+				on_target_found(target)
 				return true;
 			else:
 				for m in cell:
 					if not is_instance_valid(m):
 						cell.erase(m)
 					else:
-						do_all(on_target_found)
+						on_target_found(target)
 						target = m
 						return true;
 	return false;
@@ -161,7 +164,7 @@ func getTarget():
 			target = cell.back()
 			
 			if target != null:
-				do_all(on_target_found)
+				on_target_found(target)
 				if recentCells.find(cell) == - 1:
 					recentCells.push_back(cell)
 				return ;
@@ -170,7 +173,7 @@ func getTarget():
 					if not is_instance_valid(m):
 						cell.erase(m)
 					else:
-						do_all(on_target_found)
+						on_target_found(target)
 						target = m
 	pass ;
 func do_all(tasks: Array[Callable]):
@@ -186,7 +189,10 @@ func checkTarget():
 	pass ;
 	
 func attack(delta):
-	if target!=null and not onCooldown:shoot(target); 
+	if target!=null :
+		if not onCooldown:
+			print("shoooting")
+			shoot(target); 
 	
 		
 	pass ;
@@ -208,7 +214,6 @@ func shoot(target):
 	startCooldown(cooldown * cooldownfactor)
 	pass ;
 func startCooldown(time):
-
 	cdt = time;
 	onCooldown = true;
 	pass ;
