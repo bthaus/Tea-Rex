@@ -76,5 +76,5 @@ func save_board(monster_waves):
 		var id = board.get_cell_source_id(GameboardConstants.GROUND_LAYER, pos)
 		entities.append(TileDTO.new(id, GameboardConstants.GROUND_LAYER, pos.x, pos.y))
 	
-	var map_dto = MapDTO.new(entities)
-	var waves_dto = WavesDTO.new(monster_waves)
+	var map_dto = MapDTO.new(entities, WavesDTO.new(monster_waves))
+	map_dto.save("test", "test", "maps")
