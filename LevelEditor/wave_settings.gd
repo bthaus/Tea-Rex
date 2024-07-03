@@ -59,7 +59,7 @@ func get_monster_waves():
 
 
 func _on_next_wave_button_pressed():
-	if wave < numer_of_waves:
+	if wave < numer_of_waves - 1:
 		wave += 1
 		_set_wave_text(wave)
 		_update_items(wave)
