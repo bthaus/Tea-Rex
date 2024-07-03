@@ -1,4 +1,4 @@
-extends GameObject2D
+extends BaseEntity
 class_name Spawner
 var state:GameState
 signal wave_done
@@ -26,26 +26,18 @@ func _ready():
 			if m != null:m.queue_free())
 	nav.target_position = target.global_position
 
-static func create(gameState:GameState,pos:Vector2,level:int=1)-> Spawner:
+static func create(tile_id: int, map_layer: int, map_position:Vector2, level:int=1)-> Spawner:
 	var s=load("res://GameBoard/Spawner.tscn").instantiate() as Spawner;
-	s.state=gameState;
-	s.target=gameState.target
+	s.state=GameState.gameState;
+	s.target=GameState.gameState.target
 	s.level=level;
-	gameState.add_child(s)
 	
-	s.global_position=pos
+	s.tile_id = tile_id
+	s.map_layer = map_layer
+	s.map_position = map_position
 	
+	GameState.gameState.add_child(s)
 	return s
-func serialise():
-	return JSON.stringify({"x":position.x,"y":position.y,"lvl":level});
-		
-	
-static func deserialise(json:String,gameState:GameState)->Spawner:
-	var d=JSON.parse_string(json) as Dictionary
-	var p=Vector2(d.get("x"),d.get("y"))
-	var s=Spawner.create(gameState,p,d.get("lvl"))
-	gameState.spawners.append(s)
-	return s;
 		
 func start(wavenumber:int):
 	
