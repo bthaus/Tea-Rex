@@ -62,7 +62,7 @@ func doBalancingLogic(waveNumber:int):
 	waveMonsters.clear()
 	for n in range(amountmonsters):
 		var strenght=clamp(waveNumber,1,global_position.y/100)/level
-		waveMonsters.append(Monster.create(Stats.getRandomColor(state),target,strenght
+		waveMonsters.append(Monster.create(Stats.Monstertype.values().pick_random(),target,strenght
 		))
 	util.p("Im changing the stats of the minions and adding them to the array")
 	
