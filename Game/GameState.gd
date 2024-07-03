@@ -209,11 +209,6 @@ func initNewBoard():
 	cam.move_to(Vector2(500, 500), func(): print("done"))
 	pass ;
 func startBattlePhase():
-	var mo=Monster.create(Stats.Monstertype.values().pick_random(),target,1)
-	mo.global_position=Vector2(500,500)
-	mo.monster_died.connect(startBuildPhase)
-	$MinionHolder.add_child(mo)
-	return
 	
 	GameState.game_speed=GameState.restore_speed
 	toggleSpeed(0)
@@ -293,7 +288,7 @@ func startGame():
 	collisionReference.initialise(self)
 	collisionReference.addRows()
 	board=gameBoard.get_node("Board")
-	#collisionReference.registerBase(target)
+	collisionReference.registerBase(target)
 	$MinionHolder.board=board
 	$BulletHolder.board=board;
 		

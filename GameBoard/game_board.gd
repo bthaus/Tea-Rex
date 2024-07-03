@@ -231,9 +231,18 @@ func _action_finished(finished: bool):
 func init_field(map_dto: MapDTO):
 	for entity in map_dto.entities:
 		entity.get_object().place_on_board($Board)
-		
+	link_spawners_to_waves(map_dto)	
 	$NavigationRegion2D.bake_navigation_polygon()
-
+func link_spawners_to_waves(map_dto):
+	for spawner in GameState.gameState.spawners:
+		
+		for w in map_dto.waves:
+			var wave=[]
+			for v in w:
+				if v.spawner_id==spawner.spawner_id:
+					wave.append(v)
+			spawner.waves.append(wave)
+	pass;
 func _spawn_turrets(block: Block, map_position: Vector2):
 	for piece in block.pieces:
 		if piece.color != Stats.TurretColor.GREY:

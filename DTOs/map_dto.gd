@@ -2,11 +2,11 @@ extends BaseDTO
 class_name MapDTO
 
 var entities:Array[BaseDTO]
-var waves: WavesDTO
+var waves
 var map_name:String=""
 var battle_slots:BattleSlotDTO;
 
-func _init(entities: Array[BaseDTO]=[], waves: WavesDTO = WavesDTO.new(),mapname=""):
+func _init(entities: Array[BaseDTO]=[], waves= [],mapname=""):
 	self.entities = entities
 	self.waves = waves
 	self.map_name=mapname

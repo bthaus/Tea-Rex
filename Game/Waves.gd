@@ -4,6 +4,9 @@ var state:GameState
 signal wave_done
 
 static var numMonstersActive=0;
+
+
+var waves=[]
 var waveMonsters=[]
 var minMonster=5
 var maxMonster=Stats.max_enemies_per_spawner
@@ -13,7 +16,7 @@ var rnd = RandomNumberGenerator.new()
 var numReachedSpawn:float=0;
 var numDied:float=0;
 var numSpawned:float=0;
-
+var spawner_id;
 @onready var nav: NavigationAgent2D = $NavigationAgent2D
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -26,25 +29,35 @@ func _ready():
 			if m != null:m.queue_free())
 	nav.target_position = target.global_position
 
-static func create(tile_id: int, map_layer: int, map_position:Vector2, level:int=1)-> Spawner:
+static func create(tile_id: int, map_layer: int, map_position:Vector2, spawner_id,level:int=1)-> Spawner:
 	var s=load("res://GameBoard/Spawner.tscn").instantiate() as Spawner;
 	s.state=GameState.gameState;
 	s.target=GameState.gameState.target
 	s.level=level;
-	
+	s.spawner_id=spawner_id
 	s.tile_id = tile_id
 	s.map_layer = map_layer
 	s.map_position = map_position
 	
+	GameState.gameState.spawners.push_back(s)
+	GameState.gameState.add_child(s)
 	return s
 		
 func start(wavenumber:int):
 	
-	if level>1:level=level-1
-	doBalancingLogic(wavenumber)
-	doSpawnLogic(wavenumber)
-		
+	#if level>1:level=level-1
+	#doBalancingLogic(wavenumber)
+	#doSpawnLogic(wavenumber)
+	start_wave(wavenumber)	
 	pass;
+func start_wave(number):
+	for dto in waves[number]:
+		for i in range(dto.count):
+			numMonstersActive=numMonstersActive+1
+			numSpawned=numSpawned+1
+			waveMonsters.append(Monster.create(dto.monster_id,target))
+	doSpawnLogic()
+	pass;	
 func doBalancingLogic(waveNumber:int):
 	var amountmonsters=int(remap(waveNumber+3,0,50,minMonster,maxMonster)/level)
 	amountmonsters=clamp(amountmonsters,minMonster,maxMonster)
@@ -58,7 +71,7 @@ func doBalancingLogic(waveNumber:int):
 	util.p("Im changing the stats of the minions and adding them to the array")
 	
 	pass;
-func doSpawnLogic(waveNumber:int):
+func doSpawnLogic():
 	var delay=0;
 	var count = 0;
 	for mo in waveMonsters:
@@ -74,7 +87,6 @@ func doSpawnLogic(waveNumber:int):
 func spawnEnemy(mo:Monster):
 
 	mo.monster_died.connect(monsterDied)
-	mo.monster_died.connect(state.addExp)
 	mo.reached_spawn.connect(monsterReachedSpawn)
 	mo.global_position=global_position
 	mo.path=nav.get_current_navigation_path()

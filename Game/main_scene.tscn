@@ -27,9 +27,8 @@ adjustment_brightness = 1.08
 adjustment_contrast = 1.1
 adjustment_saturation = 1.34
 
-[node name="MainScene" type="Node2D" node_paths=PackedStringArray("gameBoard", "cam", "lightThresholds")]
+[node name="MainScene" type="Node2D" node_paths=PackedStringArray("cam", "lightThresholds")]
 script = ExtResource("1_g64db")
-gameBoard = NodePath("")
 cam = NodePath("Camera2D")
 lightThresholds = NodePath("LightThresholds")
 

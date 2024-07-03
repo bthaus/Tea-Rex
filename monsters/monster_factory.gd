@@ -6,7 +6,8 @@ func _ready():
 	pass # Replace with function body.
 
 static func createMonster(type:Stats.Monstertype):
-	var searchstring=Stats.Monstertype.keys()[(type)]
+	#var searchstring=Stats.Monstertype.keys()[(type)]
+	var searchstring="REGULAR" #TODO replace with proper monster enum
 	var base= instance.get_node(searchstring).duplicate() as MonsterCore
 	return base
 	pass;
