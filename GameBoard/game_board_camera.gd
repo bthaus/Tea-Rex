@@ -68,10 +68,10 @@ func _ready():
 	pass;
 	
 func changeBrightness():
-	var v=thresholds.getDark(gameState.y)
-	brightness.color=Color(v,v,v,255)
-	v=thresholds.getGlow(gameState.y)
-	env.environment.glow_intensity=v
+	#var v=thresholds.getDark()
+	#brightness.color=Color(v,v,v,255)
+	#v=thresholds.getGlow(gameState.y)
+	#env.environment.glow_intensity=v
 	
 	pass;
 	

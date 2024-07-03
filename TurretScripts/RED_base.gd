@@ -10,12 +10,13 @@ func _ready():
 
 	pass # Replace with function body.
 func after_built():
-	showSaw()
 	super.after_built()
+	showSaw()
 	pass;	
 func showSaw():
+	projectile.global_position=holder.global_position
 	projectile.scale = Vector2(1, 1)
-	projectile.z_index = 0;
+	projectile.z_index =-1;
 	projectile.visible = placed
 	projectile.modulate = Color(1, 1, 1, 1)
 	pass;	

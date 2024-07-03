@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://4otg8drx5rwi"]
+[gd_scene load_steps=17 format=3 uid="uid://4otg8drx5rwi"]
 
 [ext_resource type="Script" path="res://TurretScripts/Projectiles/projectile_factory.gd" id="1_7qlu0"]
 [ext_resource type="Texture2D" uid="uid://raoax8o4vipw" path="res://Assets/Turrets/Projectiles/BLUE_projectile.png" id="1_dw666"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://cxkgl0lpk4xdv" path="res://Assets/Effects/Explosion_1/e7.png" id="4_w6ffe"]
 [ext_resource type="Script" path="res://TurretScripts/Projectiles/rocket_projectile.gd" id="5_dqb0a"]
 [ext_resource type="Texture2D" uid="uid://dx2iashwa3141" path="res://Assets/Turrets/Projectiles/BLUELASER_projectile.png" id="5_fqg8n"]
+[ext_resource type="Texture2D" uid="uid://brk5nldxaxivd" path="res://Assets/Turrets/Projectiles/RED_projectile.png" id="11_sjnq4"]
 
 [sub_resource type="Environment" id="Environment_m8uol"]
 background_mode = 3
@@ -60,6 +61,7 @@ texture = ExtResource("1_dw666")
 script = ExtResource("3_tyhfm")
 
 [node name="rocket_projectile" type="Sprite2D" parent="."]
+visible = false
 position = Vector2(0, -1)
 texture = ExtResource("2_b73vb")
 script = ExtResource("5_dqb0a")
@@ -112,4 +114,8 @@ modulate = Color(4.142, 8.284, 26.036, 1)
 position = Vector2(0, 3)
 scale = Vector2(0.355, 0.355)
 texture = ExtResource("5_fqg8n")
+script = ExtResource("3_tyhfm")
+
+[node name="red_saw" type="Sprite2D" parent="."]
+texture = ExtResource("11_sjnq4")
 script = ExtResource("3_tyhfm")

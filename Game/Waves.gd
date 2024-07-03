@@ -44,10 +44,6 @@ static func create(tile_id: int, map_layer: int, map_position:Vector2, spawner_i
 	return s
 		
 func start(wavenumber:int):
-	
-	#if level>1:level=level-1
-	#doBalancingLogic(wavenumber)
-	#doSpawnLogic(wavenumber)
 	start_wave(wavenumber)	
 	pass;
 func start_wave(number):
@@ -68,7 +64,6 @@ func doBalancingLogic(waveNumber:int):
 		var strenght=clamp(waveNumber,1,global_position.y/100)/level
 		waveMonsters.append(Monster.create(Stats.Monstertype.values().pick_random(),target,strenght
 		))
-	util.p("Im changing the stats of the minions and adding them to the array")
 	
 	pass;
 func doSpawnLogic():

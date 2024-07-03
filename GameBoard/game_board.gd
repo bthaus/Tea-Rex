@@ -235,7 +235,6 @@ func init_field(map_dto: MapDTO):
 	$NavigationRegion2D.bake_navigation_polygon()
 func link_spawners_to_waves(map_dto):
 	for spawner in GameState.gameState.spawners:
-		
 		for w in map_dto.waves:
 			var wave=[]
 			for v in w:
@@ -246,8 +245,8 @@ func link_spawners_to_waves(map_dto):
 func _spawn_turrets(block: Block, map_position: Vector2):
 	for piece in block.pieces:
 		if piece.color != Stats.TurretColor.GREY:
-			var turret = Turret.create(piece.color, piece.level, piece.extension)
-			turret.position = $Board.map_to_local(Vector2(map_position.x + piece.position.x, map_position.y + piece.position.y))
+			var turret = Turret.create(piece.color, piece.level, piece.extension,true)
+			turret.global_position = $Board.map_to_local(Vector2(map_position.x + piece.position.x, map_position.y + piece.position.y))
 			add_child(turret)
 			turret_holder.insert_turret(turret)
 
@@ -272,8 +271,6 @@ func _load_preview_turrets_from_selected_block():
 	for piece in selected_block.pieces:
 		if piece.color != Stats.TurretColor.GREY:
 			var turret = Turret.create(piece.color, piece.level, piece.extension)
-			
-			turret.placed = false
 			add_child(turret)
 			preview_turrets.append(turret)
 

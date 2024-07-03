@@ -25,13 +25,14 @@ var on_built: Array[Callable] = [setUpTower]
 var on_build_phase_started: Array[Callable] = []
 var on_battle_phase_started: Array[Callable] = []
 
-static func create(color: Stats.TurretColor, lvl: int, type: Stats.TurretExtension=Stats.TurretExtension.DEFAULT) -> Turret:
+static func create(color: Stats.TurretColor, lvl: int, type: Stats.TurretExtension=Stats.TurretExtension.DEFAULT,placed=false) -> Turret:
 	var turret = load("res://TurretScripts/turretbase.tscn").instantiate() as Turret;
 	if turret.collisionReference == null:
 		turret.collisionReference = GameState.gameState.collisionReference
 	turret.color = color;
 	turret.level = lvl;
 	turret.extension = type;
+	turret.placed=placed
 	return turret;
 	
 var id;
@@ -102,11 +103,12 @@ func setUpTower():
 
 
 	base = coreFactory.getBase(color, extension);
-	add_child(base)
-	base.global_position = global_position
+	
+	
+	base.placed=placed
 	base.setLevel(level)
 	base.setUpTower(self)
-	base.placed=placed
+	add_child(base)
 	
 	$LVL.text = str(level)
 	$AudioStreamPlayer2D.stream = load("res://Sounds/Soundeffects/" + Stats.getStringFromEnum(color) + Stats.getStringFromEnumExtension(extension) + "_shot.wav")

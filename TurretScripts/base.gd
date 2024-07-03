@@ -27,7 +27,7 @@ var damagedealt = 0
 static var camera;
 var instantHit = false;
 var baseinstantHit = false;
-var placed = true;
+var placed
 
 var coveredCells = []
 var recentCells = []

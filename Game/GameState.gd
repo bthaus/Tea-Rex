@@ -15,7 +15,6 @@ var account: String = "dede";
 var unlockedExtensions = [Stats.TurretExtension.DEFAULT];
 
 var unlockedColors = [Stats.TurretColor.BLUE,Stats.TurretColor.RED,Stats.TurretColor.GREEN,Stats.TurretColor.YELLOW];
-#Stats.SpecialCards
 var unlockedSpecialCards = [Stats.SpecialCards.HEAL];
 var toUnlock = []
 var phase: Stats.GamePhase = Stats.GamePhase.BUILD;
@@ -24,17 +23,17 @@ var maxHP = Stats.playerMaxHP;
 var maxCards = 5;
 var cardRedraws = 2;
 
-var started = false;
+
 var wave: int = 0;
 var board_width = 11;
 var board_height = 16;
 var background_width = 80
 var background_height = 40
-var y = 0
+
 var spawners = []
 var target;
 var showTutorials = false;
-var level = 0;
+
 static var game_speed=1;
 static var board;
 
@@ -43,11 +42,11 @@ static var bulletHolder;
 signal player_died
 signal start_build_phase;
 signal start_combat_phase;
-signal level_up(item)
+
 
 static var collisionReference=CollisionReference.new()
 var map_dto;
-var unlock = []
+
 
 func upMaxCards():
 	maxCards = maxCards + 1;
@@ -147,7 +146,7 @@ func _process(delta):
 			else: Turret.turrets.erase(turret)
 		$MinionHolder.do(delta/game_speed)
 		$BulletHolder.do(delta/game_speed)		
-	y = cam.position.y
+
 	
 	if Input.is_action_just_pressed("save"):
 		#gameBoard.queue_free()
@@ -174,40 +173,7 @@ func _process(delta):
 		
 	pass
 
-func initNewBoard():
-	gameBoard.free()
-	board_height = 16;
-	var newBoard = load("res://GameBoard/game_board.tscn").instantiate()
-	gameBoard = newBoard;
-	gameBoard.gameState = self
-	for s in spawners:
-		s.free()
-	spawners.clear()
-	#gameBoard.init_field()
-	add_child(gameBoard)
-	board=gameBoard.get_node("Board")
-	collisionReference.queue_free()
-	collisionReference=CollisionReference.new()
-	collisionReference.initialise(self)
-	$MinionHolder.board=board
-	$BulletHolder.board=board;
-	cleanUpAllFreedNodes()
-	HP = Stats.playerMaxHP
-	maxHP = Stats.playerMaxHP
-	for c in hand.get_children():
-		c.free()
-	drawCards(5)
-	maxCards = 5;
-	cardRedraws = 2;
-	phase = Stats.GamePhase.BUILD;
 
-	wave = 0;
-	Spawner.numMonstersActive = 0;
-	GameSaver.saveGame(self)
-	deathscalling = false;
-	updateUI()
-	cam.move_to(Vector2(500, 500), func(): print("done"))
-	pass ;
 func startBattlePhase():
 	
 	GameState.game_speed=GameState.restore_speed
@@ -217,8 +183,10 @@ func startBattlePhase():
 	ui.get_node("StartBattlePhase").disabled = true;
 	gameBoard._set_navigation_region()
 	get_tree().create_timer(0.5).timeout.connect(func(): GameSaver.saveGame(gameState))
+	
 	$Camera2D/SoundPlayer.stream = Sounds.StartBattlePhase
 	$Camera2D/SoundPlayer.play(0.2)
+	
 	for s in spawners:
 		s.start(wave)
 	phase = Stats.GamePhase.BATTLE
@@ -240,27 +208,21 @@ func startBuildPhase():
 	toggleSpeed(0)
 	cleanUpAllFreedNodes()
 	Sounds.start(Sounds.startBuildPhase)
-	GameSaver.saveGame(gameState)
 	wave = wave + 1;
-	var delayUnlock = false;
+
 	if wave == 1:
-		delayUnlock = TutorialHolder.showTutorial(TutorialHolder.tutNames.EXP, self, checkUnlock)
+		TutorialHolder.showTutorial(TutorialHolder.tutNames.EXP, self)
 	if wave == 2:
-		delayUnlock = TutorialHolder.showTutorial(TutorialHolder.tutNames.Pathfinding, self, checkUnlock)
+		TutorialHolder.showTutorial(TutorialHolder.tutNames.Pathfinding, self)
 	if wave == 3:
-		delayUnlock = TutorialHolder.showTutorial(TutorialHolder.tutNames.Information, self, checkUnlock)
+		TutorialHolder.showTutorial(TutorialHolder.tutNames.Information, self)
 	if wave == 4:
-		delayUnlock = TutorialHolder.showTutorial(TutorialHolder.tutNames.UpgradeBlocks, self, checkUnlock)
-	if wave == 5:
-		delayUnlock = false;
+		TutorialHolder.showTutorial(TutorialHolder.tutNames.UpgradeBlocks, self)
 	if wave == 6:
-		delayUnlock = TutorialHolder.showTutorial(TutorialHolder.tutNames.UpgradeBlocks2, self, checkUnlock)
-	if wave > 6:
-		delayUnlock = false;
+		TutorialHolder.showTutorial(TutorialHolder.tutNames.UpgradeBlocks2, self)
+
 	ui.get_node("StartBattlePhase").disabled = false;
-	
-	if !delayUnlock:
-		checkUnlock()
+
 	start_build_phase.emit()
 	phase = Stats.GamePhase.BUILD
 	drawCards(cardRedraws)
@@ -269,12 +231,7 @@ func startBuildPhase():
 	pass ;
 var index: int = 0;
 
-func checkUnlock():
-	for u in unlock:
-		ui.get_node("UnlockSpot").add_child(u)
-	unlock.clear()
-	GameSaver.saveGame(self)
-	pass ;
+
 func _on_spawner_wave_done():
 	startBuildPhase()
 	pass # Replace with function body.
@@ -283,14 +240,19 @@ func startGame():
 	gameBoard=load("res://GameBoard/game_board.tscn").instantiate()
 	gameBoard.init_field(map_dto)
 	add_child(gameBoard)
+	board=gameBoard.get_node("Board")
+	
 	GameState.restore_speed=1;
 	GameState.game_speed=1;	
+	
 	collisionReference.initialise(self)
 	collisionReference.addRows()
-	board=gameBoard.get_node("Board")
-	collisionReference.registerBase(target)
 	$MinionHolder.board=board
 	$BulletHolder.board=board;
+	
+	
+	collisionReference.registerBase(target)
+	
 		
 	cam.move_to(Vector2(500, 500), func(): print("done"))
 	TutorialHolder.showTutorial(TutorialHolder.tutNames.Starting, self, func():

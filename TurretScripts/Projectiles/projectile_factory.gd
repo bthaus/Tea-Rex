@@ -18,6 +18,8 @@ func get_bullet(color:Stats.TurretColor,damage, speed, turret, extension:Stats.T
 			temp= $blue_laser_projectile.duplicate()
 		elif color==Stats.TurretColor.GREEN:
 			temp= $rocket_projectile.duplicate()
+		elif color==Stats.TurretColor.RED:
+			temp=$red_saw.duplicate()	
 		else:
 			temp= $base_projectile.duplicate()		
 	temp.type = color;
