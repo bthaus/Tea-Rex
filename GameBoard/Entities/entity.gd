@@ -16,7 +16,7 @@ func _ready():
 	
 func place_on_board(board: TileMap):
 	board.set_cell(map_layer, map_position, tile_id, Vector2(0, 0))
-	position = board.map_to_local(map_position)
+	global_position = board.map_to_local(map_position)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
