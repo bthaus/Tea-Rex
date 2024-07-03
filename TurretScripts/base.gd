@@ -32,12 +32,10 @@ var placed = true;
 var coveredCells = []
 var recentCells = []
 
-var on_shoot: Array[Callable] = []
-var on_hit: Array[Callable] = []
-var on_fly: Array[Callable] = []
-var on_target_lost: Array[Callable] = []
-var on_target_died: Array[Callable] = []
-var after_built:Array[Callable] = []
+
+
+
+
 
 var holder;
 var id;
@@ -74,10 +72,7 @@ func setupCollision(clearing):
 	if clearing: coveredCells.clear()
 	recentCells.clear()
 	coveredCells.append_array(getReferences(referenceCells))
-	
-	#if type==Stats.TurretColor.RED and extension==Stats.TurretExtension.DEFAULT:
-	#	coveredCells.append_array(collisionReference.getNeighbours(global_position,referenceCells))	
-	#else:
+
 	pass ;
 func getReferences(cells):
 	return collisionReference.getCellReferences(global_position, turretRange, self, cells)
@@ -96,20 +91,16 @@ func setUpTower(holder):
 	speed = Stats.getMissileSpeed(type, extension);
 	if projectile == null: projectile = Projectile.create(type, damage * damagefactor, speed * speedfactor, self, extension);
 	projectile.visible = false;
-	#if type == Stats.TurretColor.RED:
-	#	projectile.scale = Vector2(1, 1)
-	#	projectile.z_index = 0;
-	#	projectile.visible = placed
-	#	projectile.modulate = Color(1, 1, 1, 1)
-	#	$AudioStreamPlayer2D.finished.connect(func(): if inRange(): $AudioStreamPlayer2D.play)
-	
+
 	if placed:
 		lightamount = GameState.gameState.lightThresholds.getLight(global_position.y) * stacks
 	
 	setupCollision(true)
-	do_all(after_built)
+	after_built()
 	pass ;
-
+func after_built():
+	
+	pass;
 func reduceCooldown(delta):
 
 	if not onCooldown:
@@ -125,6 +116,24 @@ var waitingForMinions = false;
 func on_target_found(monster:Monster):
 	monster.monster_died.connect(func (): target=null)
 	pass;
+	
+func on_hit(monster:Monster,damage,color:Stats.TurretColor,killed):
+	if killed: on_target_killed(monster)
+	addDamage(damage)
+	pass;	
+	
+func on_target_killed(monster:Monster):
+	addKill()
+	pass;	
+func on_shoot():
+	
+	pass;	
+func on_fly(projectile:Projectile):
+	
+	pass;	
+func on_target_lost(target:Monster):
+	
+	pass;	
 func do(delta):
 	reduceCooldown(delta)
 	if !onCooldown:
@@ -184,6 +193,7 @@ func checkTarget():
 	
 	var distancesquared = abs(global_position.distance_squared_to(target.global_position))
 	if distancesquared > abs(trueRangeSquared):
+		on_target_lost(target)
 		target = null;
 	
 	pass ;
@@ -202,7 +212,7 @@ func shoot(target):
 		var bp = b.get_child(0).global_position;
 		var shot = Projectile.create(type, damage * damagefactor, speed * speedfactor, self, extension);
 		shot.global_position = bp;
-		do_all(on_shoot)
+		on_shoot()
 		#if type == Stats.TurretColor.YELLOW&&Stats.TurretExtension.YELLOWMORTAR == extension:
 		#		Explosion.create(Stats.TurretColor.YELLOW, 0, bp, self, 0.1)
 		if instantHit:

@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://4otg8drx5rwi"]
+[gd_scene load_steps=12 format=3 uid="uid://4otg8drx5rwi"]
 
 [ext_resource type="Script" path="res://TurretScripts/Projectiles/projectile_factory.gd" id="1_7qlu0"]
 [ext_resource type="Texture2D" uid="uid://raoax8o4vipw" path="res://Assets/Turrets/Projectiles/BLUE_projectile.png" id="1_dw666"]
@@ -13,11 +13,16 @@
 _data = [Vector2(0.0567686, 0.956044), 0.0, 0.0, 0, 0, Vector2(0.803493, 0.626374), 0.0, 0.0, 0, 0, Vector2(0.973799, 0.010989), 0.0, 0.0, 0, 0]
 point_count = 3
 
+[sub_resource type="Gradient" id="Gradient_wn7de"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="Gradient" id="Gradient_3sk3a"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
 [node name="projectile_factory" type="Node2D"]
 script = ExtResource("1_7qlu0")
 
 [node name="base_projectile" type="Sprite2D" parent="."]
-visible = false
 texture = ExtResource("1_dw666")
 script = ExtResource("3_tyhfm")
 
@@ -46,6 +51,7 @@ scale_amount_min = 0.01
 scale_amount_max = 0.1
 scale_amount_curve = SubResource("Curve_1mgww")
 color = Color(6, 2, 2, 1)
+color_ramp = SubResource("Gradient_wn7de")
 
 [node name="smoke" type="CPUParticles2D" parent="rocket_projectile/PArticles"]
 process_mode = 3
@@ -66,8 +72,10 @@ scale_amount_min = 0.01
 scale_amount_max = 0.05
 scale_amount_curve = SubResource("Curve_1mgww")
 color = Color(3, 2, 2, 1)
+color_ramp = SubResource("Gradient_3sk3a")
 
 [node name="blue_laser_projectile" type="Sprite2D" parent="."]
+visible = false
 modulate = Color(3.55, 1, 100, 1)
 texture = ExtResource("5_fqg8n")
 script = ExtResource("3_tyhfm")

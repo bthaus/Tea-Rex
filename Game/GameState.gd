@@ -12,9 +12,9 @@ static var gameState;
 
 var account: String = "dede";
 
-var unlockedExtensions = [Stats.TurretExtension.DEFAULT];
+var unlockedExtensions = [Stats.TurretExtension.BLUELASER];
 
-var unlockedColors = [Stats.TurretColor.BLUE,Stats.TurretColor.GREEN];
+var unlockedColors = [Stats.TurretColor.BLUE];
 #Stats.SpecialCards
 var unlockedSpecialCards = [Stats.SpecialCards.HEAL];
 var toUnlock = []
