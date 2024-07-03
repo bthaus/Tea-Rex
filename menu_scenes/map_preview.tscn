@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://dus3yb545iual"]
+
+[ext_resource type="Script" path="res://menu_scenes/map_preview.gd" id="1_hbftv"]
+[ext_resource type="Texture2D" uid="uid://dsx4q267641fj" path="res://Assets/UI/battle_Label/battle_label.png" id="2_y748d"]
+
+[node name="map_preview" type="Node2D"]
+script = ExtResource("1_hbftv")
+
+[node name="background" type="Sprite2D" parent="."]
+position = Vector2(494, 250)
+scale = Vector2(0.461326, 0.461326)
+texture = ExtResource("2_y748d")
+
+[node name="map_name_button" type="Button" parent="."]
+offset_left = 395.0
+offset_top = 194.0
+offset_right = 588.0
+offset_bottom = 310.0
+text = "no_map"
+
+[connection signal="pressed" from="map_name_button" to="." method="_on_map_name_button_pressed"]

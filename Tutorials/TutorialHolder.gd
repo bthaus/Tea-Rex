@@ -15,7 +15,7 @@ static func showTutorial(name:tutNames,gameState:GameState,done:Callable=func():
 	if tut.isSeen() or not gameState.showTutorials:
 		done.call()
 		return false
-	gameState.menu.show_tutorial(tut)
+	gameState.ui.show_tutorial(tut)
 	gameState.gameBoard.ignore_input=true;
 	
 	return true;

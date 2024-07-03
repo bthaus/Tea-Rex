@@ -78,8 +78,8 @@ static func getPropertyJson(data):
 static func saveGame(gameState:GameState):
 	
 	
-	if gameState.menu!= null:
-		gameState.menu.showSaving()
+	#if gameState.menu!= null:
+	#	gameState.menu.showSaving()
 	print("save called")
 	var props=gameState.get_script().get_script_property_list()
 	var values=[]
@@ -157,14 +157,22 @@ static func loadGameMap(gameState:GameState):
 	#gameState.gameBoard._spawn_all_turrets()
 	pass;
 
-static func save(content:String, destination:String, save:String=""):
-	var file = FileAccess.open("user://save_game"+destination+"_"+save+".dat", FileAccess.WRITE)
+static func save(content:String, destination:String, save:String="",directory:String=""):
+	var dir=DirAccess.open("user://")
+	if not dir.dir_exists(directory):
+		dir.make_dir("user://"+directory)
+	var file = FileAccess.open("user://"+directory+"/save_game"+destination+"_"+save+".dat", FileAccess.WRITE)
+	var err=FileAccess.get_open_error()
+	if err>0:
+		print("error loading file with "+save)
+		print(err)
+		return "-1";
 	file.store_string(content)
 	
 	pass;
 
-static func loadfile(destination:String, save:String=""):
-	var file = FileAccess.open("user://save_game"+destination+"_"+save+".dat", FileAccess.READ)
+static func loadfile(destination:String, save:String="",directory:String=""):
+	var file = FileAccess.open("user://"+directory+"/save_game"+destination+"_"+save+".dat", FileAccess.READ)
 	var err=FileAccess.get_open_error()
 	if err>0:
 		print("error loading file with "+save)

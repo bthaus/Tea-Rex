@@ -165,7 +165,7 @@ func _on_button_mouse_entered():
 	
 	var tween = create_tween()
 	tween.tween_property(self, "global_position", originalPosition+Vector2(0, -25), 0.5)
-	state.menu.showDescription(description)
+	state.ui.showDescription(description)
 	
 	pass # Replace with function body.
 
@@ -175,7 +175,7 @@ func _on_button_mouse_exited():
 		z_index=originalZ
 	var tween = create_tween()
 	tween.tween_property(self, "global_position", originalPosition, 0.5)
-	state.menu.hideDescription()
+	state.ui.hideDescription()
 	mouseOut.emit()
 	pass # Replace with function body.
 

@@ -5,7 +5,7 @@ extends Node2D
 func _ready():
 	
 	$Button.modulate=Color(0,0,0,0)
-	hintText.modulate=Color(0,0,0,0)
+	#hintText.modulate=Color(0,0,0,0)
 	pass # Replace with function body.
 
 var hovered=false
