@@ -18,9 +18,7 @@ var selected_tile_id = -1
 func _ready():
 	$Board.tile_set.tile_size = Vector2(Stats.block_size, Stats.block_size)
 	$Background.tile_set.tile_size = Vector2(Stats.block_size, Stats.block_size)
-	for y in range(-200, 200):
-		for x in range(-200, 200):
-			$Background.set_cell(0, Vector2(x,y), 0, Vector2(0,0))
+	_set_background()
 	
 	board_handler.spawner_added.connect(func(): wave_settings.add_spawner_setting())
 	board_handler.spawner_removed.connect(func(id: int): wave_settings.remove_spawner_setting(id))
@@ -54,6 +52,19 @@ func _on_save_button_pressed():
 
 func _on_wave_settings_button_pressed():
 	wave_settings.show()
+
+func _set_background():
+	#Set wall frame
+	for y in range(-1, Stats.LEVEL_EDITOR_HEIGHT+1):
+		for x in range(-1, Stats.LEVEL_EDITOR_WIDTH+1):
+			$Background.set_cell(0, Vector2(x,y), 1, Vector2(0,0))
+	
+	#Set editor lines
+	for y in range(0, Stats.LEVEL_EDITOR_HEIGHT):
+		for x in range(0, Stats.LEVEL_EDITOR_WIDTH):
+			$Background.set_cell(0, Vector2(x,y), 0, Vector2(0,0))
+	
+			
 	
 class TileItem:
 	var id: int

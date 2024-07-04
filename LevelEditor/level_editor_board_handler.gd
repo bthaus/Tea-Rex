@@ -24,6 +24,8 @@ func get_tile_type(layer: int, map_position: Vector2):
 	return data.get_custom_data("type").to_upper()
 
 func set_cell(id: int, map_position: Vector2):
+	if not _is_in_editor_bounds(map_position): return
+	
 	var board_type = get_tile_type(GameboardConstants.BLOCK_LAYER, map_position)
 	var is_spawner_below = board_type != null and board_type == GameboardConstants.SPAWNER_TYPE
 	var type = get_tile_type_by_id(id)
@@ -58,6 +60,11 @@ func clear_cell(map_position: Vector2):
 	
 	board.set_cell(GameboardConstants.BLOCK_LAYER, map_position, -1, Vector2(0,0))
 	board.set_cell(GameboardConstants.GROUND_LAYER, map_position, -1, Vector2(0,0))
+
+func _is_in_editor_bounds(map_position: Vector2) -> bool:
+	if map_position.x < 0 or map_position.x > Stats.LEVEL_EDITOR_WIDTH - 1: return false
+	if map_position.y < 0 or map_position.y > Stats.LEVEL_EDITOR_HEIGHT - 1: return false
+	return true
 
 func _get_spawner_idx_at(map_position: Vector2) -> int:
 	for i in spawner_positions.size():

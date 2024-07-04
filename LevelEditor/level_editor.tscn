@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://ceo4ed4nntj6h"]
+[gd_scene load_steps=9 format=3 uid="uid://ceo4ed4nntj6h"]
 
 [ext_resource type="Script" path="res://LevelEditor/level_editor.gd" id="1_nibhe"]
-[ext_resource type="Texture2D" uid="uid://d2bk8ok5n8utj" path="res://Assets/Tiles/ground.png" id="2_eqpsc"]
+[ext_resource type="Texture2D" uid="uid://btp3q1rq0vmmt" path="res://Assets/Tiles/ground.png" id="2_eqpsc"]
 [ext_resource type="TileSet" uid="uid://dcf0fhqgihare" path="res://GameBoard/game_board_tileset.tres" id="2_itsd3"]
+[ext_resource type="Texture2D" uid="uid://swj5q2lje25d" path="res://Assets/Tiles/wall.png" id="3_cchrl"]
 [ext_resource type="PackedScene" uid="uid://bq3cptvw55c8" path="res://LevelEditor/wave_settings.tscn" id="4_3dmyq"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ghpgt"]
@@ -10,9 +11,15 @@ texture = ExtResource("2_eqpsc")
 texture_region_size = Vector2i(64, 64)
 0:0/0 = 0
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ledam"]
+texture = ExtResource("3_cchrl")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+
 [sub_resource type="TileSet" id="TileSet_obf8t"]
 tile_size = Vector2i(64, 64)
 sources/0 = SubResource("TileSetAtlasSource_ghpgt")
+sources/1 = SubResource("TileSetAtlasSource_ledam")
 
 [node name="LevelEditor" type="Node2D"]
 script = ExtResource("1_nibhe")
