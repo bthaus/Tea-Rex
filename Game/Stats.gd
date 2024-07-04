@@ -2,13 +2,9 @@ extends GameObject2D
 class_name Stats;
 const block_size=62;
 
-static var board_extend_height=10;
-static var board_cave_chance_percent=50
-static var board_cave_deepness=util.Distance.new(4,10)
-static var board_cave_spawner_chance_percent=75
+static var board_cave_deepness=util.Distance.new(4,10) #TODO: REMOVE WHEN NO SCRIPT NEEDS IT ANYMORE
 
 const CAMERA_MOVE_DURATION=2
-const CATASTROPHY_PREVIEW_DURATION=1
 
 const MAX_TURRET_LEVEL=5
 
@@ -202,19 +198,7 @@ const UPMAXCARDS_instant=true;
 const UPMAXCARDS_phase=GamePhase.BOTH;
 
 const MOVE_phase=GamePhase.BUILD;
-const MOVE_instant=true;
-
-
-static var bulldozer_catastrophy_width=5
-static var bulldozer_catastrophy_height=5
-
-static var drill_catastrophy_width=3
-
-static var level_down_catastrophy_width=5
-static var level_down_catastrophy_height=5
-
-static var colorchanger_catastrophy_width=3
-static var colorchanger_catastrophy_height=3
+const MOVE_instant=true; 
 
 static var GREY_description="This gray block does not spawn turrets. But you can place it anywhere you like!"
 static var BLUE_description="A blue turret firing regular bullets at a medium rate."
