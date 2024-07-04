@@ -78,9 +78,7 @@ static func getPropertyJson(data):
 static func saveGame(gameState:GameState):
 	
 	
-	#if gameState.menu!= null:
-	#	gameState.menu.showSaving()
-	print("save called")
+
 	var props=gameState.get_script().get_script_property_list()
 	var values=[]
 	
@@ -89,7 +87,7 @@ static func saveGame(gameState:GameState):
 		var d={p["name"]:gameState.get(p["name"])}
 		values.append(JSON.stringify(d))
 	save(JSON.stringify(values),"state",gameState.account);		
-	#storeGameMap(gameState)
+	
 	storeHand(gameState)
 	
 	pass;

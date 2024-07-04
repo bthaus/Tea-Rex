@@ -18,3 +18,14 @@ static func add_map_name(name:String):
 		return true;
 	else: return false;	
 	pass;
+
+static func exists_map_name(name:String):
+	var dto=MapNameDTO.new()
+	dto.restore()
+	return dto.names.find(name)!=-1
+	
+static func remove_account(name:String):
+	var dto=MapNameDTO.new()
+	dto.restore()
+	dto.names.erase(name)
+	pass;	

@@ -4,7 +4,11 @@ static var level_select=load("res://menu_scenes/level_selector_scenes/level_sele
 static var battle_slot_picker=load("res://menu_scenes/battle_slot_picker_scenes/battle_slot_picker.tscn").instantiate()
 static var accounts=load("res://menu_scenes/account_tab_scenes/accounts_tab.tscn").instantiate()
 static var level_editor=load("res://LevelEditor/level_editor.tscn").instantiate()
+
 static var instance; 
+static var account_dto:AccountInfoDTO
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	
@@ -20,7 +24,10 @@ static func change_content(scene):
 	instance.add_child(scene)
 	scene_stack.push_back(scene)
 	pass;
-
+	
+static func select_account(account_dto:AccountInfoDTO):
+	account_dto=account_dto
+	pass
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass

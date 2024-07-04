@@ -87,4 +87,6 @@ offset_right = 1630.0
 offset_bottom = 197.0
 text = "just start"
 
+[connection signal="tree_entered" from="." to="." method="_on_tree_entered"]
 [connection signal="text_changed" from="AccountInput" to="." method="_on_account_input_text_changed"]
+[connection signal="text_submitted" from="AccountInput" to="." method="_on_account_input_text_submitted"]

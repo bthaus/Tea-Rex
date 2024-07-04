@@ -12,24 +12,11 @@ static var allEntries=[]
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$Name.text=accountName;
-	$Sprite2D3/Wave.text=str(wave);
-	$Sprite2D4/Lvl.text=str(lvl)
 	allEntries.append(self)
 	pass # Replace with function body.
 
 static func create(name):
 	var temp=scene.instantiate()
-	var json=GameSaver.loadfile("state",name)
-	var data=JSON.parse_string(json)
-	if data==null:
-		return;
-	for d in data:
-		var dic=JSON.parse_string(d)as Dictionary
-		if dic.has("wave"):
-			temp.wave=dic.get("wave")
-		if dic.has("level"):
-			temp.lvl=dic.get("level")		
-	
 	temp.accountName=name
 	return temp;
 	pass;

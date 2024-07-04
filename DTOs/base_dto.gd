@@ -11,8 +11,11 @@ func get_json():
 	var values=[]
 	#cleanup of class descriptors
 	values.append(props.pop_front()["hint_string"])
-	if props.back()["name"]=="base_dto.gd":props.pop_back()
-	
+	var removal_arr=[]
+	for p in props:
+		if p["name"].contains(".gd"): removal_arr.append(p)
+	for p in removal_arr:
+		props.erase(p)
 	for p in props:
 			var val=get(p["name"])
 			val=_get_if_is_2D_array_of_dtos(val)	
@@ -35,7 +38,7 @@ func _get_if_is_array_of_dtos(val):
 
 func _get_if_is_2D_array_of_dtos(val):
 	if val is Array:
-				if val[0] is Array and val[0][0] is BaseDTO:
+				if !val.is_empty() and val[0] is Array and !val[0].is_empty() and val[0][0] is BaseDTO:
 					var arr= val
 					val=[] 
 					for a in arr:

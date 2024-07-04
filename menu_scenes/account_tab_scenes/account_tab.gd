@@ -41,53 +41,33 @@ func showAccounts():
 	$Sprite2D2/AccountNameHint.modulate=Color(1,1,1,1)
 	pass;
 
-func initAccs():
-	var accs=[]
-	GameSaver.save(JSON.stringify(accs),"accounts","global")
-	pass;
-
 func loadAccs():
-	var json=GameSaver.loadfile("accounts","global")
-	if json==""||JSON.parse_string(json).size()==0:
-		initAccs()
-	var acs=JSON.parse_string(json)
-	
-	return acs
-	pass;
-func saveAccs(accs):
-	var json=JSON.stringify(accs)
-	GameSaver.save(json,"accounts","global")
-	pass;
+	return AccountNamesDTO.get_names()
+
+
 	
 func selectAcc(name):
-	#gameState.account=name
-	#GameSaver.restoreGame(gameState)
+	var dto=AccountInfoDTO.new()
+	dto.restore(name)
+	MainMenu.select_account(dto)
 	continue_to_select()
 	pass;
 	
 func continue_to_select():
-	print("here?")
 	MainMenu.change_content(MainMenu.level_select)
 	pass		
 func saveNewAcc(name):
-	var accs=loadAccs()
-	gameState.account=name
-	if accs!=null and accs.find(name)!=-1:
+	
+	if AccountNamesDTO.exists_account_name(name):
 		$MainMenu/AccountsTab/Sprite2D2/AccountNameHint.text="Name taken!"
 		$MainMenu/AccountsTab/Sprite2D2/AccountNameHint.modulate=Color(1,0,0,1)
 		return
-	accs.append(name);
-	saveAccs(accs)
-	GameSaver.restoreBaseGame(gameState)
-	continue_to_select()
-		
+	AccountNamesDTO.add_account_name(name)
+	AccountInfoDTO.new(name).save(name)
+			
 	pass;
 func removeAcc(name):
-	GameSaver.remove(name)
-	var accs=loadAccs()
-	accs.erase(name)
-	saveAccs(accs)
-	
+	AccountNamesDTO.remove_account(name)
 	pass;
 	
 
@@ -96,23 +76,23 @@ func refreshAccountList():
 	for entry in $EntryPosition/pos.get_children():
 		entry.free()
 	AccountEntry.allEntries.clear()
-	#$MainMenu/AccountsTab/EntryPosition/pos.global_position=Vector2(-24,-405)
 	accountentries=$EntryPosition/pos
 	var offset=0
 	for a in accs:
 		var entry=AccountEntry.create(a)
+		#removes faulty accountnames
 		if entry==null:
 			removeAcc(a)
 			continue
 		$EntryPosition/pos.add_child(entry)
-		entry.translate(Vector2(0,offset))
+		var tw=create_tween()
+		tw.tween_property(entry,"position",Vector2(0,offset),1)
 		offset=offset+350;
 		entry.start.connect(selectAcc)
 	pass;
 func _on_account_input_text_submitted(new_text):
-	var accs=loadAccs()
 	saveNewAcc(new_text)
-	refreshAccountList()
+	continue_to_select()
 	pass # Replace with function body.
 
 
@@ -150,5 +130,10 @@ func _on_account_input_text_changed(new_text):
 func _on_button_2_pressed():
 	var accs=loadAccs()
 	saveNewAcc("unknown"+str(randi_range(0,1000000)))
+	refreshAccountList()
+	pass # Replace with function body.
+
+
+func _on_tree_entered():
 	refreshAccountList()
 	pass # Replace with function body.
