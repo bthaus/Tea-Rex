@@ -19,3 +19,14 @@ func save(name,acc="-1",dir="-1"):
 func restore(name,acc="-1",dir="-1"):
 	super.restore(name,"","acc_infos/"+name)
 	pass;
+#this method for sure returns the progress dto of a player. For sake of ease, if none is found, a progressdto is created
+#this way we dont have to worry about creating progress dtos for all accounts everytime we create a new map	
+func get_map_progress_dto_by_name(name)-> MapStatusDTO:
+	for ms in account_progress:
+		if ms.map_name==name:
+			return ms
+	var new_dto= MapStatusDTO.new(name)
+	account_progress.append(new_dto)
+	return new_dto	
+
+

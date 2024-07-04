@@ -18,15 +18,19 @@ func _ready():
 	
 @onready var start_game_scene=$start_page
 static var scene_stack:Array=[]
-
+static func get_account_dto():
+	var dto= account_dto
+	return dto
+	pass;
 static func change_content(scene):
 	instance.remove_child(scene_stack.back())
 	instance.add_child(scene)
 	scene_stack.push_back(scene)
 	pass;
 	
-static func select_account(account_dto:AccountInfoDTO):
-	account_dto=account_dto
+static func select_account(dto:AccountInfoDTO):
+	account_dto=dto
+	print(account_dto.account_name)
 	pass
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
