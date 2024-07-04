@@ -51,7 +51,6 @@ func get_monster_waves():
 		var i = 0
 		for spawner in item.get_spawner():
 			for waves in spawner:
-				print(spawner.size())
 				monster_waves[i].append(waves)
 			i += 1
 	

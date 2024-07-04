@@ -9,7 +9,8 @@ var _selection_tile_items = [
 	TileItem.new(GameboardConstants.WALL_TILE_ID, "Wall"),
 	TileItem.new(GameboardConstants.PLAYER_BASE_TILE_ID, "Base"),
 	TileItem.new(GameboardConstants.SPAWNER_TILE_ID, "Spawner"),
-	TileItem.new(GameboardConstants.GROUND_TILE_ID, "Ground")
+	TileItem.new(GameboardConstants.GROUND_TILE_ID, "Ground"),
+	TileItem.new(GameboardConstants.BUILD_GROUND_TILE_ID, "Build Ground"),
 	]
 
 var selected_tile_id = -1

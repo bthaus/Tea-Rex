@@ -37,6 +37,10 @@ func set_cell(id: int, map_position: Vector2):
 			board.set_cell(GameboardConstants.GROUND_LAYER, map_position, id, Vector2(0,0))
 			board.set_cell(GameboardConstants.BLOCK_LAYER, map_position, -1, Vector2(0,0))
 			return
+		GameboardConstants.BUILD_GROUND_TYPE:
+			board.set_cell(GameboardConstants.GROUND_LAYER, map_position, id, Vector2(0,0))
+			board.set_cell(GameboardConstants.BLOCK_LAYER, map_position, -1, Vector2(0,0))
+			return
 		GameboardConstants.SPAWNER_TYPE:
 			if is_spawner_below: return #There is already a spawner below, ignore it
 			spawner_positions.append(map_position)

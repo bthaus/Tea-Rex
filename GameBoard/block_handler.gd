@@ -119,7 +119,7 @@ func can_place_block(block: Block, map_position: Vector2, navigation_region: Nav
 			GameBoard.current_tutorial = TutorialHolder.tutNames.Outside
 			return false;
 		if ground_type != null: 
-			if ground_type != GameboardConstants.GROUND_TYPE:
+			if ground_type != GameboardConstants.BUILD_GROUND_TYPE:
 				GameBoard.current_tutorial = TutorialHolder.tutNames.Outside
 				return false
 		
