@@ -113,13 +113,13 @@ func can_place_block(block: Block, map_position: Vector2, navigation_region: Nav
 	for piece in block.pieces:
 		var board_pos = Vector2(piece.position.x + map_position.x, piece.position.y + map_position.y)
 		
-		#Check if there is a ground type a block can be placed on
-		var ground_type = get_tile_type(GameboardConstants.GROUND_LAYER, board_pos)
-		if ground_type==null:
+		#Check if there is a valid build type
+		var build_type = get_tile_type(GameboardConstants.BUILD_LAYER, board_pos)
+		if build_type==null:
 			GameBoard.current_tutorial = TutorialHolder.tutNames.Outside
 			return false;
-		if ground_type != null: 
-			if ground_type != GameboardConstants.BUILD_GROUND_TYPE:
+		if build_type != null: 
+			if build_type != GameboardConstants.ALL_BUILD_TYPE:
 				GameBoard.current_tutorial = TutorialHolder.tutNames.Outside
 				return false
 		

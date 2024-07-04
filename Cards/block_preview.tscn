@@ -9,4 +9,8 @@ script = ExtResource("1_wgj5e")
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = ExtResource("2_geh21")
 format = 2
-layer_0/name = "block_layer"
+layer_0/name = "ground_layer"
+layer_1/name = "build_layer"
+layer_1/tile_data = PackedInt32Array()
+layer_2/name = "block_layer"
+layer_2/tile_data = PackedInt32Array()

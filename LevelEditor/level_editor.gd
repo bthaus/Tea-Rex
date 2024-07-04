@@ -10,7 +10,7 @@ var _selection_tile_items = [
 	TileItem.new(GameboardConstants.PLAYER_BASE_TILE_ID, "Base"),
 	TileItem.new(GameboardConstants.SPAWNER_TILE_ID, "Spawner"),
 	TileItem.new(GameboardConstants.GROUND_TILE_ID, "Ground"),
-	TileItem.new(GameboardConstants.BUILD_GROUND_TILE_ID, "Build Ground"),
+	TileItem.new(GameboardConstants.ALL_BUILD_TILE_ID, "Build All"),
 	]
 
 var selected_tile_id = -1
@@ -31,7 +31,7 @@ func _unhandled_input(event):
 	if event.is_action_released("left_click"):
 		board_handler.set_cell(selected_tile_id, board_pos)
 	elif event.is_action_released("right_click"):
-		board_handler.clear_cell(board_pos)
+		board_handler.clear_cell_layer(board_pos)
 	
 func _init_selection_tiles():
 	for child in _selection_tile_container.get_children(): child.free()

@@ -13,7 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://bye8xuv25pgos" path="res://Assets/Tiles/base_blue.png" id="10_56wx2"]
 [ext_resource type="Texture2D" uid="uid://1rtmlrb1cmbu" path="res://Assets/Tiles/player_base.png" id="10_wg7vx"]
 [ext_resource type="Texture2D" uid="uid://5ap585m0563f" path="res://Assets/Tiles/spawner.png" id="12_oc8i3"]
-[ext_resource type="Texture2D" uid="uid://dmbgwlb3xu11x" path="res://Assets/Tiles/build_ground.png" id="14_40wsg"]
+[ext_resource type="Texture2D" uid="uid://b17wke55o31u1" path="res://Assets/Tiles/Builds/all_build.png" id="14_jmthm"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qw80p"]
 texture = ExtResource("1_phxli")
@@ -88,13 +88,13 @@ texture_region_size = Vector2i(64, 64)
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)
 0:0/0/custom_data_0 = "BASE_YELLOW"
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_t5c75"]
-texture = ExtResource("14_40wsg")
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5ah4j"]
+texture = ExtResource("10_wg7vx")
 texture_region_size = Vector2i(64, 64)
 0:0/0 = 0
 0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 0:0/0/physics_layer_0/angular_velocity = 0.0
-0:0/0/custom_data_0 = "BUILD_GROUND"
+0:0/0/custom_data_0 = "PLAYER_BASE"
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_j0kt8"]
 texture = ExtResource("10_56wx2")
@@ -104,14 +104,6 @@ texture_region_size = Vector2i(64, 64)
 0:0/0/physics_layer_0/angular_velocity = 0.0
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)
 0:0/0/custom_data_0 = "BASE_BLUE"
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5ah4j"]
-texture = ExtResource("10_wg7vx")
-texture_region_size = Vector2i(64, 64)
-0:0/0 = 0
-0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
-0:0/0/physics_layer_0/angular_velocity = 0.0
-0:0/0/custom_data_0 = "PLAYER_BASE"
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4xa2k"]
 texture = ExtResource("12_oc8i3")
@@ -130,6 +122,14 @@ texture_region_size = Vector2i(64, 64)
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)
 0:0/0/custom_data_0 = "WALL"
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5pff1"]
+texture = ExtResource("14_jmthm")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
+0:0/0/custom_data_0 = "ALL_BUILD"
+
 [resource]
 tile_size = Vector2i(64, 64)
 physics_layer_0/collision_layer = 7
@@ -146,7 +146,7 @@ sources/2 = SubResource("TileSetAtlasSource_di0ax")
 sources/3 = SubResource("TileSetAtlasSource_tv4gf")
 sources/4 = SubResource("TileSetAtlasSource_ipgf7")
 sources/101 = SubResource("TileSetAtlasSource_ofn8y")
-sources/8 = SubResource("TileSetAtlasSource_dfys5")
-sources/7 = SubResource("TileSetAtlasSource_4xa2k")
-sources/6 = SubResource("TileSetAtlasSource_5ah4j")
-sources/5 = SubResource("TileSetAtlasSource_t5c75")
+sources/5 = SubResource("TileSetAtlasSource_5ah4j")
+sources/6 = SubResource("TileSetAtlasSource_4xa2k")
+sources/7 = SubResource("TileSetAtlasSource_dfys5")
+sources/8 = SubResource("TileSetAtlasSource_5pff1")

@@ -39,8 +39,8 @@ func set_cell(id: int, map_position: Vector2):
 			board.set_cell(GameboardConstants.GROUND_LAYER, map_position, id, Vector2(0,0))
 			board.set_cell(GameboardConstants.BLOCK_LAYER, map_position, -1, Vector2(0,0))
 			return
-		GameboardConstants.BUILD_GROUND_TYPE:
-			board.set_cell(GameboardConstants.GROUND_LAYER, map_position, id, Vector2(0,0))
+		GameboardConstants.ALL_BUILD_TYPE:
+			board.set_cell(GameboardConstants.BUILD_LAYER, map_position, id, Vector2(0,0))
 			board.set_cell(GameboardConstants.BLOCK_LAYER, map_position, -1, Vector2(0,0))
 			return
 		GameboardConstants.SPAWNER_TYPE:
@@ -49,18 +49,27 @@ func set_cell(id: int, map_position: Vector2):
 			spawner_added.emit()
 	
 	board.set_cell(GameboardConstants.BLOCK_LAYER, map_position, id, Vector2(0,0))
+	board.set_cell(GameboardConstants.BUILD_LAYER, map_position, -1, Vector2(0,0))
 	board.set_cell(GameboardConstants.GROUND_LAYER, map_position, -1, Vector2(0,0))
 	
-func clear_cell(map_position: Vector2):
+func clear_cell_layer(map_position: Vector2):
 	var board_type = get_tile_type(GameboardConstants.BLOCK_LAYER, map_position)
 	if board_type != null and board_type == GameboardConstants.SPAWNER_TYPE: #There was a spawner below
 			var i = _get_spawner_idx_at(map_position)
 			spawner_positions.remove_at(i)
 			spawner_removed.emit(i)
 	
-	board.set_cell(GameboardConstants.BLOCK_LAYER, map_position, -1, Vector2(0,0))
-	board.set_cell(GameboardConstants.GROUND_LAYER, map_position, -1, Vector2(0,0))
+	#Clear one layer at a time: Block -> Build -> GROUND
+	if not _is_cell_empty(GameboardConstants.BLOCK_LAYER, map_position):
+		board.set_cell(GameboardConstants.BLOCK_LAYER, map_position, -1, Vector2(0,0))
+	elif not _is_cell_empty(GameboardConstants.BUILD_LAYER, map_position):
+		board.set_cell(GameboardConstants.BUILD_LAYER, map_position, -1, Vector2(0,0))
+	else:
+		board.set_cell(GameboardConstants.GROUND_LAYER, map_position, -1, Vector2(0,0))
 
+func _is_cell_empty(layer: int, map_position: Vector2):
+	return board.get_cell_source_id(layer, map_position) == -1
+	
 func _is_in_editor_bounds(map_position: Vector2) -> bool:
 	if map_position.x < 0 or map_position.x > Stats.LEVEL_EDITOR_WIDTH - 1: return false
 	if map_position.y < 0 or map_position.y > Stats.LEVEL_EDITOR_HEIGHT - 1: return false
@@ -75,6 +84,7 @@ func _get_spawner_idx_at(map_position: Vector2) -> int:
 func save_board(monster_waves,map_name):
 	var entities:Array[BaseDTO] = []
 	
+	#Store block layer
 	for pos in board.get_used_cells(GameboardConstants.BLOCK_LAYER):
 		var id = board.get_cell_source_id(GameboardConstants.BLOCK_LAYER, pos)
 		var type = get_tile_type_by_id(id)
@@ -82,7 +92,13 @@ func save_board(monster_waves,map_name):
 			GameboardConstants.WALL_TYPE: entities.append(TileDTO.new(id, GameboardConstants.BLOCK_LAYER, pos.x, pos.y))
 			GameboardConstants.SPAWNER_TYPE: entities.append(SpawnerDTO.new(id, GameboardConstants.BLOCK_LAYER,  pos.x, pos.y,_get_spawner_idx_at(Vector2(pos.x,pos.y))))
 			GameboardConstants.PLAYER_BASE_TYPE: entities.append(PlayerBaseDTO.new(id, GameboardConstants.BLOCK_LAYER, pos.x, pos.y))
-		
+	
+	#Store build layer
+	for pos in board.get_used_cells(GameboardConstants.BUILD_LAYER):
+		var id = board.get_cell_source_id(GameboardConstants.BUILD_LAYER, pos)
+		entities.append(TileDTO.new(id, GameboardConstants.BUILD_LAYER, pos.x, pos.y))
+	
+	#Store ground layer
 	for pos in board.get_used_cells(GameboardConstants.GROUND_LAYER):
 		var id = board.get_cell_source_id(GameboardConstants.GROUND_LAYER, pos)
 		entities.append(TileDTO.new(id, GameboardConstants.GROUND_LAYER, pos.x, pos.y))
