@@ -36,7 +36,8 @@ func _map_selected(name):
 func _on_tree_entered():
 	var name_dto=MapNameDTO.new()
 	name_dto.restore()
-	
+	for child in get_children():
+		child.queue_free()
 	for name in name_dto.names:
 		var item=MapPreview_MenuItem.create(name)
 		map_items.push_back(item)

@@ -52,3 +52,45 @@ func _on_back_pressed():
 func _on_button_pressed():
 	change_content(level_editor)
 	pass # Replace with function body.
+
+
+func _on_delete_all_pressed():
+	var dir=DirAccess.open("user://maps")
+	
+	var dirs=[]
+	delete_dir(dir,dirs)
+	var root=DirAccess.open("user://")
+	
+	dirs.reverse()	
+	for directory in dirs:
+		directory.erase(0,7)
+		root.remove(directory)
+		
+	dirs.clear()	
+	
+	pass # Replace with function body.
+
+func delete_dir(dir:DirAccess,dirs:Array):
+	if dir==null:return
+	for file in dir.get_files():
+		dir.remove(file)
+	
+	dirs.append(dir.get_current_dir())
+	for d in dir.get_directories():
+		var temp=DirAccess.open(dir.get_current_dir()+"/"+d )
+		delete_dir(temp,dirs)
+	pass;
+
+
+func _on_delete_all_accounts_pressed():
+	var dir=DirAccess.open("user://acc_infos")	
+	var dirs=[]
+	
+	var root=DirAccess.open("user://")
+	delete_dir(dir,dirs)
+	
+	dirs.reverse()	
+	for directory in dirs:
+		directory.erase(0,7)
+		root.remove(directory)	
+	pass # Replace with function body.
