@@ -121,8 +121,7 @@ static func get_paths(targets:Array, map:TileMap,spawner,monstertype):
 	pass;	
 #
 static func _get_astar_grid(map:TileMap,monstertype:Stats.Monstertype)-> AStarGrid2D:
-	var all_cells=map.get_used_cells(0)
-	var movable_cells=_get_movable_cells_per_monster_type(all_cells,monstertype)
+	var movable_cells=_get_movable_cells_per_monster_type(map,monstertype)
 	var map_square=_get_map_square(map)
 	var astar_grid=AStarGrid2D.new()
 	astar_grid.region=map_square
@@ -140,11 +139,23 @@ static func _get_map_square(map):
 	var biggest=Vector2(64,64)
 	return Rect2i(smallest.x,smallest.y,biggest.x,biggest.y)
 	pass;	
-#returns an array of cells on which the given monster type can not move. 	
-static func _get_movable_cells_per_monster_type(all_cells,monstertype:Stats.Monstertype)->Array[Vector2i]:
-		var walkable_cells=all_cells
-		#remove all non walkable cells for given type
-		return walkable_cells
+#returns an array of cells on which the given monster type can not move.
+static func _get_movable_cells_per_monster_type(map: TileMap,monstertype: Stats.Monstertype)->Array[Vector2i]:
+		var cells = []
+		match(monstertype):
+			Monster.MonsterMovingType.GROUND:
+				for pos in map.get_used_cells(GameboardConstants.GROUND_LAYER):
+					if GameboardConstants.get_tile_type(map, GameboardConstants.GROUND_LAYER, pos) != GameboardConstants.TileType.GROUND: #It is not a ground, ignore
+						continue;
+					if map.get_cell_source_id(GameboardConstants.BLOCK_LAYER, pos) == -1: #Block layer is free
+						cells.append(pos)
+				return cells
+			Monster.MonsterMovingType.AIR:
+				for y in range(0, Stats.LEVEL_EDITOR_HEIGHT):
+					for x in range(0, Stats.LEVEL_EDITOR_WIDTH):
+						cells.append(Vector2(x, y))
+		
+		return cells
 		
 func _draw():
 	targets=state.targets

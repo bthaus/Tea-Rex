@@ -1,5 +1,8 @@
 extends GameObject2D
 class_name Monster;
+enum MonsterMovingType { GROUND, AIR }
+var moving_type: MonsterMovingType
+
 var sizemult = 1;
 var hp = Stats.enemy_base_HP;
 var maxHp;
