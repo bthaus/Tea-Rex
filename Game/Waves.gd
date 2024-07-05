@@ -3,37 +3,39 @@ class_name Spawner
 var state:GameState
 signal wave_done
 
-static var numMonstersActive=0;
 
 
+var spawner_id;
+var color
 var waves=[]
 var waveMonsters=[]
-var minMonster=5
-var maxMonster=Stats.max_enemies_per_spawner
-var target:Node2D
-var level;
+
+var closest_target:Node2D
+var targets=[]
+
 var rnd = RandomNumberGenerator.new()
+
+static var numMonstersActive=0;
 var numReachedSpawn:float=0;
 var numDied:float=0;
 var numSpawned:float=0;
-var spawner_id;
+
 @onready var nav: NavigationAgent2D = $NavigationAgent2D
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	nav.path_changed.connect(queue_redraw)
+	#nav.path_changed.connect(queue_redraw)
 	state.start_build_phase.connect(func():
 		if state.spawners.find(self)==-1:queue_free()
 		)
 	GameState.gameState.player_died.connect(func():
 		for m in waveMonsters:
 			if m != null:m.queue_free())
-	nav.target_position = target.global_position
+	#nav.target_position = closest_target.global_position
 
-static func create(tile_id: int, map_layer: int, map_position:Vector2, spawner_id,level:int=1)-> Spawner:
+static func create(tile_id: int, map_layer: int, map_position:Vector2, spawner_id,color:Stats.TurretColor)-> Spawner:
 	var s=load("res://GameBoard/Spawner.tscn").instantiate() as Spawner;
 	s.state=GameState.gameState;
-	s.target=GameState.gameState.target
-	s.level=level;
+	s.color=color
 	s.spawner_id=spawner_id
 	s.tile_id = tile_id
 	s.map_layer = map_layer
@@ -44,6 +46,12 @@ static func create(tile_id: int, map_layer: int, map_position:Vector2, spawner_i
 	return s
 		
 func start(wavenumber:int):
+	if targets.is_empty():
+		for t in state.targets:
+			if t.color==color:
+				targets.append(t)
+	if targets.is_empty():
+		util.p("For some reason this spawner doesnt have same colored targets. pls report to the police. ")
 	start_wave(wavenumber)	
 	pass;
 func start_wave(number):
@@ -51,21 +59,10 @@ func start_wave(number):
 		for i in range(dto.count):
 			numMonstersActive=numMonstersActive+1
 			numSpawned=numSpawned+1
-			waveMonsters.append(Monster.create(dto.monster_id,target))
+			waveMonsters.append(Monster.create(dto.monster_id,closest_target))
 	doSpawnLogic()
 	pass;	
-func doBalancingLogic(waveNumber:int):
-	var amountmonsters=int(remap(waveNumber+3,0,50,minMonster,maxMonster)/level)
-	amountmonsters=clamp(amountmonsters,minMonster,maxMonster)
-	numMonstersActive=numMonstersActive+amountmonsters
-	numSpawned=numSpawned+amountmonsters;
-	waveMonsters.clear()
-	for n in range(amountmonsters):
-		var strenght=clamp(waveNumber,1,global_position.y/100)/level
-		waveMonsters.append(Monster.create(Stats.Monstertype.values().pick_random(),target,strenght
-		))
-	
-	pass;
+
 func doSpawnLogic():
 	var delay=0;
 	var count = 0;
@@ -84,7 +81,7 @@ func spawnEnemy(mo:Monster):
 	mo.monster_died.connect(monsterDied)
 	mo.reached_spawn.connect(monsterReachedSpawn)
 	mo.global_position=global_position
-	mo.path=nav.get_current_navigation_path()
+	mo.path=get_paths(targets,state.board,self,Stats.Monstertype.REGULAR)
 	GameState.gameState.get_node("MinionHolder").add_child(mo)
 	
 
@@ -114,8 +111,44 @@ func _process(delta):
 func can_reach_target():
 	return nav.is_target_reachable()
 	
+static func get_paths(targets:Array, map:TileMap,spawner,monstertype):
+	var astar:AStarGrid2D=_get_astar_grid(map,monstertype)
+	var path=astar.get_id_path(spawner.map_position,targets[0].map_position)
+	var global_path=[]
+	for pos in path:
+		global_path.append(map.map_to_local(pos))
+	return global_path
+	pass;	
+#
+static func _get_astar_grid(map:TileMap,monstertype:Stats.Monstertype)-> AStarGrid2D:
+	var all_cells=map.get_used_cells(0)
+	var movable_cells=_get_movable_cells_per_monster_type(all_cells,monstertype)
+	var map_square=_get_map_square(map)
+	var astar_grid=AStarGrid2D.new()
+	astar_grid.region=map_square
+	astar_grid.diagonal_mode=1
+	astar_grid.fill_solid_region(map_square,false)
+	#astar_grid.cell_size=Stats.block_size
+	for movable in movable_cells:
+		astar_grid.set_point_solid(movable,true)
+	astar_grid.update()
+	return astar_grid	
+	pass;
+#returns the smallest and largest point of a map as a rect2i 	
+static func _get_map_square(map):
+	var smallest=Vector2(0,0)
+	var biggest=Vector2(64,64)
+	return Rect2i(smallest.x,smallest.y,biggest.x,biggest.y)
+	pass;	
+#returns an array of cells on which the given monster type can not move. 	
+static func _get_movable_cells_per_monster_type(all_cells,monstertype:Stats.Monstertype)->Array[Vector2i]:
+		var walkable_cells=all_cells
+		#remove all non walkable cells for given type
+		return walkable_cells
+		
 func _draw():
-	var path = nav.get_current_navigation_path()
+	targets=state.targets
+	var path = get_paths(targets,state.board,self,Stats.Monstertype.REGULAR)
 	if path.size() == 0:
 		return
 	#lightened makes the line glow. for some reason this makes aqua and red the exact other color. i have no clue	

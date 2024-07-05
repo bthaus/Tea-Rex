@@ -33,6 +33,7 @@ var background_height = 40
 
 var spawners = []
 var target;
+var targets=[]
 var showTutorials = false;
 
 static var game_speed=1;
@@ -83,6 +84,10 @@ func _process(delta):
 		
 	pass
 
+func add_target(t):
+	target=t
+	targets.append(t)
+	pass;
 
 func startBattlePhase():
 	

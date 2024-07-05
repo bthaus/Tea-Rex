@@ -3,6 +3,7 @@ class_name MapDTO
 
 var entities:Array[BaseDTO]
 var waves
+var number_of_waves:int
 var map_name:String=""
 var battle_slots:BattleSlotDTO;
 
