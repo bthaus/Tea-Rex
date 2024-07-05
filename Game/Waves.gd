@@ -81,7 +81,10 @@ func spawnEnemy(mo:Monster):
 	mo.monster_died.connect(monsterDied)
 	mo.reached_spawn.connect(monsterReachedSpawn)
 	mo.global_position=global_position
-	mo.path=get_paths(targets,state.board,self)
+	if paths==null:return
+	for dto in paths:
+		if mo.moving_type==dto.type:
+			mo.path=dto.path
 	GameState.gameState.get_node("MinionHolder").add_child(mo)
 	
 
@@ -102,9 +105,11 @@ func monsterDied(monster:Monster):
 		state.startBuildPhase()
 	pass;
 # Called every frame. 'delta' is the elapsed time since the previous frame.
+var paths
 func _process(delta):
 	targets=state.targets
-	var paths = get_paths(targets,state.board,self)
+	paths= get_paths(targets,state.board,self)
+	
 	$drawpoint.paths=paths
 	$drawpoint.queue_redraw()
 	pass

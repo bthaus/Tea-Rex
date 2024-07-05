@@ -56,11 +56,11 @@ func hit(color: Stats.TurretColor, damage, type="default", noise=true):
 	var mod = 1;
 	if color == self.color:
 		mod = 1.5
-	hp = hp - damage * mod;
+	hp = hp - damage #* mod;
 	$Health.value = hp;
 	hp = int(hp)
 	if noise: $hurt.play()
-		
+	print(hp)	
 	if hp <= 0 and not died:
 		died = true
 		GameState.gameState.collisionReference.removeMonster(self)

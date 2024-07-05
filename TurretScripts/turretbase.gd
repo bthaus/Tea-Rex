@@ -1,4 +1,4 @@
-extends Node2D
+extends GameObject2D
 class_name Turret
 
 @export var range = 1;
@@ -103,13 +103,11 @@ func setUpTower():
 
 
 	base = coreFactory.getBase(color, extension);
-	
-	
 	base.placed=placed
 	base.setLevel(level)
-	base.setUpTower(self)
-	add_child(base)
 	
+	add_child(base)
+	base.setUpTower(self)
 	$LVL.text = str(level)
 	$AudioStreamPlayer2D.stream = load("res://Sounds/Soundeffects/" + Stats.getStringFromEnum(color) + Stats.getStringFromEnumExtension(extension) + "_shot.wav")
 	if placed:
