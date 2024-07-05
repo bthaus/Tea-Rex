@@ -6,7 +6,7 @@ signal wave_done
 
 
 var spawner_id;
-var color:Stats.TurretColor
+var color
 var waves=[]
 var waveMonsters=[]
 
@@ -23,14 +23,14 @@ var numSpawned:float=0;
 @onready var nav: NavigationAgent2D = $NavigationAgent2D
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	nav.path_changed.connect(queue_redraw)
+	#nav.path_changed.connect(queue_redraw)
 	state.start_build_phase.connect(func():
 		if state.spawners.find(self)==-1:queue_free()
 		)
 	GameState.gameState.player_died.connect(func():
 		for m in waveMonsters:
 			if m != null:m.queue_free())
-	nav.target_position = closest_target.global_position
+	#nav.target_position = closest_target.global_position
 
 static func create(tile_id: int, map_layer: int, map_position:Vector2, spawner_id,color:Stats.TurretColor)-> Spawner:
 	var s=load("res://GameBoard/Spawner.tscn").instantiate() as Spawner;
@@ -81,7 +81,7 @@ func spawnEnemy(mo:Monster):
 	mo.monster_died.connect(monsterDied)
 	mo.reached_spawn.connect(monsterReachedSpawn)
 	mo.global_position=global_position
-	mo.path=nav.get_current_navigation_path()
+	mo.path=get_paths(targets,state.board,self,Stats.Monstertype.REGULAR)
 	GameState.gameState.get_node("MinionHolder").add_child(mo)
 	
 
@@ -110,15 +110,25 @@ func _process(delta):
 	
 func can_reach_target():
 	return nav.is_target_reachable()
-#https://docs.godotengine.org/en/stable/classes/class_astargrid2d.html
-static func get_shortest_path(targets:Array,map:TileMap,spawner,monstertype:Stats.Monstertype)-> AStarGrid2D:
+	
+static func get_paths(targets:Array, map:TileMap,spawner,monstertype):
+	var astar:AStarGrid2D=_get_astar_grid(map,monstertype)
+	var path=astar.get_id_path(spawner.map_position,targets[0].map_position)
+	var global_path=[]
+	for pos in path:
+		global_path.append(map.map_to_local(pos))
+	return global_path
+	pass;	
+#
+static func _get_astar_grid(map:TileMap,monstertype:Stats.Monstertype)-> AStarGrid2D:
 	var all_cells=map.get_used_cells(0)
 	var movable_cells=_get_movable_cells_per_monster_type(all_cells,monstertype)
 	var map_square=_get_map_square(map)
 	var astar_grid=AStarGrid2D.new()
 	astar_grid.region=map_square
+	astar_grid.diagonal_mode=1
 	astar_grid.fill_solid_region(map_square,false)
-	astar_grid.cell_size=Stats.block_size
+	#astar_grid.cell_size=Stats.block_size
 	for movable in movable_cells:
 		astar_grid.set_point_solid(movable,true)
 	astar_grid.update()
@@ -132,12 +142,13 @@ static func _get_map_square(map):
 	pass;	
 #returns an array of cells on which the given monster type can not move. 	
 static func _get_movable_cells_per_monster_type(all_cells,monstertype:Stats.Monstertype)->Array[Vector2i]:
-		var walkable_cells=[]
+		var walkable_cells=all_cells
 		#remove all non walkable cells for given type
 		return walkable_cells
 		
 func _draw():
-	var path = nav.get_current_navigation_path()
+	targets=state.targets
+	var path = get_paths(targets,state.board,self,Stats.Monstertype.REGULAR)
 	if path.size() == 0:
 		return
 	#lightened makes the line glow. for some reason this makes aqua and red the exact other color. i have no clue	

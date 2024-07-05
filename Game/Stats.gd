@@ -1,6 +1,6 @@
 extends GameObject2D
 class_name Stats;
-const block_size=62;
+const block_size:int=62;
 
 static var board_cave_deepness=util.Distance.new(4,10) #TODO: REMOVE WHEN NO SCRIPT NEEDS IT ANYMORE
 const LEVEL_EDITOR_WIDTH = 64
