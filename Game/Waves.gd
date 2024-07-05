@@ -6,7 +6,7 @@ signal wave_done
 
 
 var spawner_id;
-var color
+var color: GameboardConstants.TileColor
 var waves=[]
 var waveMonsters=[]
 
@@ -32,7 +32,7 @@ func _ready():
 			if m != null:m.queue_free())
 	#nav.target_position = closest_target.global_position
 
-static func create(tile_id: int, map_layer: int, map_position:Vector2, spawner_id,color:Stats.TurretColor)-> Spawner:
+static func create(tile_id: int, map_layer: int, map_position:Vector2, spawner_id: int, color: GameboardConstants.TileColor)-> Spawner:
 	var s=load("res://GameBoard/Spawner.tscn").instantiate() as Spawner;
 	s.state=GameState.gameState;
 	s.color=color
@@ -131,7 +131,7 @@ static func _get_astar_grid(map:TileMap,monstertype:Stats.Monstertype)-> AStarGr
 	for movable in movable_cells:
 		astar_grid.set_point_solid(movable,true)
 	astar_grid.update()
-	return astar_grid	
+	return astar_grid
 	pass;
 #returns the smallest and largest point of a map as a rect2i 	
 static func _get_map_square(map):
@@ -140,8 +140,8 @@ static func _get_map_square(map):
 	return Rect2i(smallest.x,smallest.y,biggest.x,biggest.y)
 	pass;	
 #returns an array of cells on which the given monster type can not move.
-static func _get_movable_cells_per_monster_type(map: TileMap,monstertype: Stats.Monstertype)->Array[Vector2i]:
-		var cells = []
+static func _get_movable_cells_per_monster_type(map: TileMap, monstertype: Stats.Monstertype)->PackedVector2Array:
+		var cells: PackedVector2Array = []
 		match(monstertype):
 			Monster.MonsterMovingType.GROUND:
 				for pos in map.get_used_cells(GameboardConstants.GROUND_LAYER):
@@ -151,7 +151,7 @@ static func _get_movable_cells_per_monster_type(map: TileMap,monstertype: Stats.
 						cells.append(pos)
 				return cells
 			Monster.MonsterMovingType.AIR:
-				for y in range(0, Stats.LEVEL_EDITOR_HEIGHT):
+				for y in range(0, Stats.LEVEL_EDITOR_HEIGHT): #Just put every possible tile in the array
 					for x in range(0, Stats.LEVEL_EDITOR_WIDTH):
 						cells.append(Vector2(x, y))
 		

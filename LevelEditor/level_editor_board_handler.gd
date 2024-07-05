@@ -78,7 +78,10 @@ func save_board(monster_waves,map_name):
 		var type = GameboardConstants.get_tile_type_by_id(board, id)
 		match(type):
 			GameboardConstants.TileType.WALL: entities.append(TileDTO.new(id, GameboardConstants.BLOCK_LAYER, pos.x, pos.y))
-			GameboardConstants.TileType.SPAWNER: entities.append(SpawnerDTO.new(id, GameboardConstants.BLOCK_LAYER,  pos.x, pos.y,_get_spawner_idx_at(Vector2(pos.x,pos.y))))
+			GameboardConstants.TileType.SPAWNER: 
+				var idx = _get_spawner_idx_at(Vector2(pos.x, pos.y))
+				var color = GameboardConstants.get_tile_color(board, GameboardConstants.BLOCK_LAYER, pos)
+				entities.append(SpawnerDTO.new(id, GameboardConstants.BLOCK_LAYER, pos.x, pos.y, idx, color))
 			GameboardConstants.TileType.PLAYER_BASE: entities.append(PlayerBaseDTO.new(id, GameboardConstants.BLOCK_LAYER, pos.x, pos.y))
 	
 	#Store build layer
