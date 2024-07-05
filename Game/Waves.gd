@@ -23,6 +23,7 @@ var numSpawned:float=0;
 @onready var nav: NavigationAgent2D = $NavigationAgent2D
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	
 	#nav.path_changed.connect(queue_redraw)
 	state.start_build_phase.connect(func():
 		if state.spawners.find(self)==-1:queue_free()
@@ -46,6 +47,7 @@ static func create(tile_id: int, map_layer: int, map_position:Vector2, spawner_i
 	return s
 		
 func start(wavenumber:int):
+	
 	if targets.is_empty():
 		for t in state.targets:
 			if t.color==color:
@@ -107,15 +109,28 @@ func monsterDied(monster:Monster):
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 var paths
 func _process(delta):
-	targets=state.targets
-	paths= get_paths(targets,state.board,self)
 	
-	$drawpoint.paths=paths
-	$drawpoint.queue_redraw()
 	pass
 	##queue_redraw()
-	
+func refresh_path():
+	targets=state.targets
+	paths= get_paths(targets,state.board,self)
+	$drawpoint.paths=paths
+	$drawpoint.queue_redraw()
+	pass;	
+static func refresh_all_paths():
+	for s in GameState.gameState.spawners:
+		s.refresh_path()
+	pass;	
+static func can_all_reach_target():
+	for s in GameState.gameState.spawners:
+		var paths=s.get_paths(s.targets,s.state.board,s)
+		if paths==null:
+			return false
+	return true;
+	pass;	
 func can_reach_target():
+	
 	var paths=get_paths(targets,state.board,self)
 	if paths==null:
 		print("no reach")
@@ -150,10 +165,13 @@ static func get_path_of_traveltype(targets:Array, map:TileMap,spawner,monstertyp
 	return global_path
 	pass;
 #
+static func _get_astar():
+	return AStarGrid2D.new()
+	pass;
 static func _get_astar_grid(map:TileMap,monstertype:Monster.MonsterMovingType,from,to)-> AStarGrid2D:
 	var movable_cells=_get_movable_cells_per_monster_type(map,monstertype)
 	var map_square=_get_map_square(map)
-	var astar_grid=AStarGrid2D.new()
+	var astar_grid=_get_astar()
 	astar_grid.region=map_square
 	astar_grid.update()
 	astar_grid.diagonal_mode=1

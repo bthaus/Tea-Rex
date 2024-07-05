@@ -4,7 +4,7 @@ class_name CollisionReference
 var gameState: GameState
 var map = [];
 var rowCounter = []
-var basepos=Vector2(0,0)
+var bases=[]
 static var instance;
 static func normaliseX(x):
 	#return x
@@ -49,9 +49,10 @@ func setMinion(oldx, oldy, x, y, m: Monster):
 	if y>map.size():
 		addRows()
 	map[oldy][oldx].ms.erase(m)
-	if x==basepos.x and y==basepos.y:
-		gameState.hit_base(m)
-		return;
+	for base in bases:
+		if x==base.x and y==base.y:
+			gameState.hit_base(m)
+			return;
 	map[y][x].ms.push_back(m)
 	if oldy != y:
 		rowCounter[oldy] = rowCounter[oldy] - 1
@@ -110,7 +111,7 @@ func addRow(y: Array):
 	
 func registerBase(base):
 	var pos=getMapPositionNormalised(base.global_position)
-	basepos=pos;
+	bases.append(pos)
 	pass;	
 func getMinionsAroundPosition(pos):
 	if isOutOfBounds(pos.x,pos.y):return [];

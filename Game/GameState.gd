@@ -154,8 +154,8 @@ func startGame():
 	$MinionHolder.board=board
 	$BulletHolder.board=board;
 	
-	
-	collisionReference.registerBase(target)
+	for target in targets:
+		collisionReference.registerBase(target)
 	
 		
 	cam.move_to(Vector2(500, 500), func(): print("done"))
@@ -169,6 +169,8 @@ func startGame():
 	target = $Base
 	drawCards(maxCards)
 	updateUI()
+	for s in spawners:
+		s.refresh_path()
 	pass # Replace with function body.
 
 

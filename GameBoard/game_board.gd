@@ -208,7 +208,8 @@ func _place_block(block: Block, map_position: Vector2):
 		delay = delay + inc;
 		
 	block_handler.draw_block(block, map_position)
-	$NavigationRegion2D.bake_navigation_polygon()
+	Spawner.refresh_all_paths()
+	
 	
 func _action_finished(finished: bool):
 	if not finished and moved_from_block != null: # Restore block if there is something to restore
