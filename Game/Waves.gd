@@ -154,11 +154,6 @@ static func _get_movable_cells_per_monster_type(map: TileMap, monstertype: Monst
 					
 					if map.get_cell_source_id(GameboardConstants.BLOCK_LAYER, pos) == -1: #Block layer is free
 						cells.append(pos)
-						continue
-						
-					var type = GameboardConstants.get_tile_type(map, GameboardConstants.BLOCK_LAYER, pos)
-					if type == GameboardConstants.TileType.SPAWNER or type == GameboardConstants.TileType.PLAYER_BASE: #It is a spawner or player base
-						cells.append(pos)
 					
 			Monster.MonsterMovingType.AIR:
 				for y in range(0, Stats.LEVEL_EDITOR_HEIGHT): #Just put every possible tile in the array
