@@ -54,6 +54,7 @@ func selectAcc(name):
 	pass;
 	
 func continue_to_select():
+	
 	MainMenu.change_content(MainMenu.level_select)
 	pass		
 func saveNewAcc(name):
@@ -63,8 +64,9 @@ func saveNewAcc(name):
 		$MainMenu/AccountsTab/Sprite2D2/AccountNameHint.modulate=Color(1,0,0,1)
 		return
 	AccountNamesDTO.add_account_name(name)
-	AccountInfoDTO.new(name).save(name)
-			
+	var accinfo=AccountInfoDTO.new(name)
+	accinfo.save(name)
+	MainMenu.select_account(accinfo)		
 	pass;
 func removeAcc(name):
 	AccountNamesDTO.remove_account(name)

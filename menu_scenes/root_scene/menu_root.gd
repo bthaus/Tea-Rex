@@ -30,7 +30,6 @@ static func change_content(scene):
 	
 static func select_account(dto:AccountInfoDTO):
 	account_dto=dto
-	print(account_dto.account_name)
 	pass
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
