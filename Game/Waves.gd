@@ -81,7 +81,10 @@ func spawnEnemy(mo:Monster):
 	mo.monster_died.connect(monsterDied)
 	mo.reached_spawn.connect(monsterReachedSpawn)
 	mo.global_position=global_position
-	mo.path=get_paths(targets,state.board,self,Stats.Monstertype.REGULAR)
+	if paths==null:return
+	for dto in paths:
+		if mo.moving_type==dto.type:
+			mo.path=dto.path
 	GameState.gameState.get_node("MinionHolder").add_child(mo)
 	
 
@@ -102,24 +105,50 @@ func monsterDied(monster:Monster):
 		state.startBuildPhase()
 	pass;
 # Called every frame. 'delta' is the elapsed time since the previous frame.
+var paths
 func _process(delta):
+	targets=state.targets
+	paths= get_paths(targets,state.board,self)
 	
-	queue_redraw()
+	$drawpoint.paths=paths
+	$drawpoint.queue_redraw()
 	pass
 	##queue_redraw()
 	
 func can_reach_target():
-	return nav.is_target_reachable()
+	var paths=get_paths(targets,state.board,self)
+	if paths==null:
+		print("no reach")
+		return false
+	return true	
+static func get_paths(targets:Array, map:TileMap,spawner):
+	var paths=[]
+	for type in Monster.MonsterMovingType.values():
+		var temppath=get_path_of_traveltype(targets,map,spawner,type)
+		if temppath.size()==0:
+			return null
+		if type==Monster.MonsterMovingType.GROUND:
+			paths.append(path_color_type_dto.new(temppath,Color.WHITE,type))
+		else:		
+			paths.append(path_color_type_dto.new(temppath,Color.SKY_BLUE,type))
 	
-static func get_paths(targets:Array, map:TileMap,spawner,monstertype):
-	var astar:AStarGrid2D=_get_astar_grid(map,monstertype,spawner.map_position,targets[0].map_position)
-	var path=astar.get_id_path(spawner.map_position,targets[0].map_position)
+	return paths
+static func get_path_of_traveltype(targets:Array, map:TileMap,spawner,monstertype:Monster.MonsterMovingType):
+	var path=[]
+	var shortest_path=10000000
+	for target in targets:
+		#if target.color!=spawner.color:util.p("we still need to add real colors to spawners and bases")
+		var astar:AStarGrid2D=_get_astar_grid(map,monstertype,spawner.map_position,target.map_position)
+		var temp=astar.get_id_path(spawner.map_position,target.map_position)
+		if temp.size()<shortest_path:
+			shortest_path=temp.size()
+			path=temp
+	
 	var global_path=[]
-	
 	for pos in path:
 		global_path.append(map.map_to_local(pos))
 	return global_path
-	pass;	
+	pass;
 #
 static func _get_astar_grid(map:TileMap,monstertype:Monster.MonsterMovingType,from,to)-> AStarGrid2D:
 	var movable_cells=_get_movable_cells_per_monster_type(map,monstertype)
@@ -163,17 +192,20 @@ static func _get_movable_cells_per_monster_type(map: TileMap, monstertype: Monst
 		return cells
 		
 func _draw():
+	return
 	targets=state.targets
-	var path = get_paths(targets,state.board,self,Monster.MonsterMovingType.GROUND)
-	if path.size() == 0:
+	var paths = get_paths(targets,state.board,self)
+	if paths ==null:
+		
 		return
 	#lightened makes the line glow. for some reason this makes aqua and red the exact other color. i have no clue	
-	var color = Color.RED if can_reach_target() else Color.AQUA
+	var color = Color.RED 
 	color=color.lightened(8)
-	for i in range(1, path.size()):
-		draw_line(Vector2(path[i-1].x - global_position.x, path[i-1].y - global_position.y),
-		Vector2(path[i].x - global_position.x, path[i].y - global_position.y), color, 3, true)
-
+	for path in paths:
+		for i in range(1, path.size()):
+			$drawpoint.draw_line(Vector2(path[i-1].x - global_position.x, path[i-1].y - global_position.y),
+			Vector2(path[i].x - global_position.x, path[i].y - global_position.y), color, 3, true)
+			
 
 func _on_button_mouse_entered():
 	var percentage
@@ -192,3 +224,12 @@ func _on_button_mouse_entered():
 func _on_button_mouse_exited():
 	#state.menu.hideDescription()
 	pass # Replace with function body.
+
+class path_color_type_dto:
+	var path=[]
+	var color:Color
+	var type
+	func _init(path,color,type):
+		self.path=path
+		self.color=color
+		self.type=type	

@@ -79,6 +79,7 @@ func getReferences(cells):
 	pass;	
 func setUpTower(holder):
 	self.holder = holder
+	
 	minions = GameState.gameState.get_node("MinionHolder")
 	setLevel(stacks)
 	instantHit = Stats.getInstantHit(type, extension);

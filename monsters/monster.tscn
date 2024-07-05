@@ -19,6 +19,7 @@ volume_db = -11.174
 stream = ExtResource("21_v7uw0")
 
 [node name="Health" type="TextureProgressBar" parent="."]
+process_mode = 3
 z_index = 20
 offset_left = -20.0
 offset_top = -29.0

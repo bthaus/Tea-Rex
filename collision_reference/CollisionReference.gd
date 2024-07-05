@@ -7,8 +7,10 @@ var rowCounter = []
 var basepos=Vector2(0,0)
 static var instance;
 static func normaliseX(x):
+	#return x
 	return x + 9;
 static func normaliseY(y):
+	#return y
 	return y - 1;
 	
 static func normaliseVector(pos):
