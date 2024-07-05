@@ -22,6 +22,9 @@ func do(delta):
 			if pos.y>GameState.gameState.board_height || pos.y<0 || pos.x<-9 || pos.x >21:
 				b.remove()
 				continue
+			if reference.hit_wall(pos):
+				b.remove()
+				continue	
 			var moornot=reference.get_monster(pos)
 			
 			if moornot!=null:

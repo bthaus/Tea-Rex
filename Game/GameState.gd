@@ -149,7 +149,7 @@ func startGame():
 	GameState.restore_speed=1;
 	GameState.game_speed=1;	
 	
-	collisionReference.initialise(self)
+	collisionReference.initialise(self,map_dto)
 	collisionReference.addRows()
 	$MinionHolder.board=board
 	$BulletHolder.board=board;

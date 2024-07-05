@@ -122,7 +122,9 @@ func on_hit(monster:Monster,damage,color:Stats.TurretColor,killed):
 	if killed: on_target_killed(monster)
 	addDamage(damage)
 	pass;	
+func on_projectile_removed(pos):
 	
+	pass;	
 func on_target_killed(monster:Monster):
 	addKill()
 	pass;	

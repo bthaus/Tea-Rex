@@ -44,7 +44,7 @@ static func restoreGame(gameState:GameState):
 	gameState.cleanUpAllFreedNodes		
 	gameState.collisionReference.queue_free()
 	gameState.collisionReference=CollisionReference.new()
-	gameState.collisionReference.initialise(gameState)		
+	#gameState.collisionReference.initialise(gameState)		
 	gameState.collisionReference.addRows()		
 	
 	loadGameMap(gameState);

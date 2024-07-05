@@ -65,6 +65,11 @@ func getMapFromReference(pos):
 func getGlobalFromReference(pos):
 	return GameState.gameState.board.map_to_local(getMapFromReference(pos))
 	pass ;
+func hit_wall(pos):
+	pos.x = normaliseX(pos.x)
+	pos.y = normaliseY(pos.y)
+	return map[pos.y][pos.x].collides_with_bullets
+		
 func get_monster(pos):
 	
 	pos.x = normaliseX(pos.x)
@@ -83,7 +88,7 @@ func getMapPositionNormalised(pos):
 	pos = gameState.board.local_to_map(pos)
 	return normaliseVector(pos)
 	pass ;
-func initialise(g):
+func initialise(g,map_dto):
 	gameState = g
 	instance = self;
 	Turret.collisionReference = self;
@@ -91,11 +96,13 @@ func initialise(g):
 	gameState.get_node("BulletHolder").reference = self;
 	gameState.collisionReference = self;
 	
-	for i in range(gameState.board_height):
+	for i in range(Stats.LEVEL_EDITOR_HEIGHT):
 		addRow(map)
+	for entity in map_dto.entities:
+		map[normaliseY(entity.map_y)][normaliseX(entity.map_x)].collides_with_bullets=entity.collides_with_bullets
 	pass ;
 func addRows():
-	for i in range(gameState.board_height + 20 - map.size()):
+	for i in range(Stats.LEVEL_EDITOR_WIDTH):
 		addRow(map)
 	pass ;
 func addRow(y: Array):
@@ -208,5 +215,6 @@ func addholders(row: Array):
 class Holder:
 	var ts = []
 	var ms = []
+	var collides_with_bullets=false;
 	
 	pass ;

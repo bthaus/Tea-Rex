@@ -233,6 +233,7 @@ func init_field(map_dto: MapDTO):
 	for entity in map_dto.entities:
 		entity.get_object().place_on_board($Board)
 	link_spawners_to_waves(map_dto)
+	
 	$NavigationRegion2D.bake_navigation_polygon()
 	
 func link_spawners_to_waves(map_dto):
