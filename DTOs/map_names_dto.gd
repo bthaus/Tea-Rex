@@ -6,7 +6,8 @@ func save(a=1,b=1,c=1):
 	super.save("map_names","","maps")
 	pass;
 func restore(a=1,b=1,c=1):
-	super.restore("map_names","","maps")
+	if super.restore("map_names","","maps"):return
+	save()
 		
 	pass;	
 static func add_map_name(name:String):

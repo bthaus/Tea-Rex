@@ -78,6 +78,7 @@ func refreshAccountList():
 	AccountEntry.allEntries.clear()
 	accountentries=$EntryPosition/pos
 	var offset=0
+	accs.reverse()
 	for a in accs:
 		var entry=AccountEntry.create(a)
 		#removes faulty accountnames

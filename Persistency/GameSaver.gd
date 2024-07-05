@@ -173,7 +173,7 @@ static func loadfile(destination:String, save:String="",directory:String=""):
 	var file = FileAccess.open("user://"+directory+"/save_game"+destination+"_"+save+".dat", FileAccess.READ)
 	var err=FileAccess.get_open_error()
 	if err>0:
-		print("error loading file with "+save)
+		print("error loading file with "+save +" " + destination +" at "+directory)
 		return "";
 	var content = file.get_as_text()
 	return content
