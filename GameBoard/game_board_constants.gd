@@ -8,26 +8,42 @@ const BLOCK_LAYER = 2
 const SELECTION_LAYER = 3
 const TURRET_RANGE_PREVIEW_LAYER = 4
 
-#TILES
+#HELPER
 const TURRET_RANGE_PREVIEW_TILE_ID = 0
 const LEGAL_PLACEMENT_TILE_ID = 1
 const ILLEGAL_PLACEMENT_TILE_ID = 2
 const BASE_PREVIEW_TILE_ID = 3
+
+#GROUND
 const GROUND_TILE_ID = 4
 
 #ENTITIES
-const PLAYER_BASE_TILE_ID = 5
-const SPAWNER_TILE_ID = 6
+const PLAYER_BASE_GREEN_TILE_ID = 5
+const SPAWNER_GREEN_TILE_ID = 6
 const WALL_TILE_ID = 7
 
 #BUILD
-const ALL_BUILD_TILE_ID = 8
+const BUILD_ANY_TILE_ID = 8
+
+#COLORS
+enum TileColor { ANY, RED, GREEN, BLUE, YELLOW, GREY };
 
 #TYPES
-const WALL_TYPE = "WALL"
-const GROUND_TYPE = "GROUND"
-const BASE_GREY_TYPE = "BASE_GREY"
-const SPAWNER_TYPE = "SPAWNER"
-const PLAYER_BASE_TYPE = "PLAYER_BASE"
+enum TileType { WALL, GROUND, TURRET_BASE, SPAWNER, PLAYER_BASE, BUILD}
 
-const ALL_BUILD_TYPE = "ALL_BUILD"
+static func get_tile_type(board: TileMap, layer: int, map_position: Vector2):
+	var data = board.get_cell_tile_data(layer, map_position)
+	if data == null: return null
+	return TileType.get(data.get_custom_data("type").to_upper())
+	
+static func get_tile_type_by_id(board: TileMap, id: int):
+	if id == -1: return null
+	var atlas: TileSetAtlasSource = board.tile_set.get_source(id)
+	var data = atlas.get_tile_data(Vector2(0,0), 0)
+	if data == null: return null
+	return TileType.get(data.get_custom_data("type").to_upper())
+	
+static func get_tile_color(board: TileMap, layer: int, map_position: Vector2):
+	var data = board.get_cell_tile_data(layer, map_position)
+	if data == null: return null
+	return TileColor.get(data.get_custom_data("color").to_upper())

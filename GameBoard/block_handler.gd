@@ -14,11 +14,6 @@ func _init(board: TileMap, turret_holder: util.TurretHolder):
 func get_tile_id_from_block_piece(piece: Block.Piece) -> int:
 	return piece.color * 100 + piece.level
 
-func get_tile_type(layer: int, map_position: Vector2):
-	var data = board.get_cell_tile_data(layer, map_position)
-	if data == null: return null
-	return data.get_custom_data("type").to_upper()
-
 #Draws a normalized block at a given map_position. Gets tile from color + level
 func draw_block(block: Block, map_position: Vector2):
 	for piece in block.pieces:
@@ -32,8 +27,8 @@ func draw_block_with_tile_id(block: Block, map_position: Vector2, id: int, layer
 
 func remove_block_from_board(block: Block, map_position: Vector2):
 	for piece in block.pieces:
-		var type = get_tile_type(GameboardConstants.BLOCK_LAYER, Vector2(piece.position.x + map_position.x, piece.position.y + map_position.y))
-		if type != null and type == GameboardConstants.WALL_TYPE:
+		var type = GameboardConstants.get_tile_type(board, GameboardConstants.BLOCK_LAYER, Vector2(piece.position.x + map_position.x, piece.position.y + map_position.y))
+		if type != null and type == GameboardConstants.TileType.WALL:
 			continue
 		board.set_cell(GameboardConstants.BLOCK_LAYER, Vector2(piece.position.x + map_position.x, piece.position.y + map_position.y), -1, Vector2(0,0))
 
@@ -78,9 +73,11 @@ func get_piece_from_board(map_position: Vector2) -> Block.Piece:
 	if turret != null: #Turret on top, return data that is stored in it
 		return Block.Piece.new(map_position, turret.color, turret.level, turret.extension)
 	
-	var type = get_tile_type(GameboardConstants.BLOCK_LAYER, map_position)
-	if type != null and type == GameboardConstants.BASE_GREY_TYPE: #It is a grey piece (no turret on top)
-		return Block.Piece.new(map_position, Stats.TurretColor.GREY, 1, Stats.TurretExtension.DEFAULT)
+	var type = GameboardConstants.get_tile_type(board, GameboardConstants.BLOCK_LAYER, map_position)
+	var color = GameboardConstants.get_tile_color(board, GameboardConstants.BLOCK_LAYER, map_position)
+	if type != null and type == GameboardConstants.TileType.TURRET_BASE:
+		if color != null and color == GameboardConstants.TileColor.GREY: #It is a grey piece (no turret on top)
+			return Block.Piece.new(map_position, Stats.TurretColor.GREY, 1, Stats.TurretExtension.DEFAULT)
 	
 	return null
 
@@ -114,24 +111,27 @@ func can_place_block(block: Block, map_position: Vector2, navigation_region: Nav
 		var board_pos = Vector2(piece.position.x + map_position.x, piece.position.y + map_position.y)
 		
 		#Check if there is a valid build type
-		var build_type = get_tile_type(GameboardConstants.BUILD_LAYER, board_pos)
+		var build_type = GameboardConstants.get_tile_type(board, GameboardConstants.BUILD_LAYER, board_pos)
+		var build_color = GameboardConstants.get_tile_color(board, GameboardConstants.BUILD_LAYER, board_pos)
 		if build_type==null:
 			GameBoard.current_tutorial = TutorialHolder.tutNames.Outside
 			return false;
 		if build_type != null: 
-			if build_type != GameboardConstants.ALL_BUILD_TYPE:
+			if build_type != GameboardConstants.TileType.BUILD:
 				GameBoard.current_tutorial = TutorialHolder.tutNames.Outside
+				return false
+			if build_color != GameboardConstants.TileColor.ANY: #ATM only any build color is allowed
 				return false
 		
 		#Check if there is a tile of type wall
-		var board_type = get_tile_type(GameboardConstants.BLOCK_LAYER, board_pos)
-		if board_type != null and board_type == GameboardConstants.WALL_TYPE:
+		var board_type = GameboardConstants.get_tile_type(board, GameboardConstants.BLOCK_LAYER, board_pos)
+		if board_type != null and board_type == GameboardConstants.TileType.WALL:
 			return false
 		
 		#Check underlying piece
 		var board_piece = get_piece_from_board(board_pos)
 		if board_piece != null: #Tile exists at this position
-			if board_piece.color ==Stats.TurretColor.GREY: #You can NEVER place something on grey
+			if board_piece.color == Stats.TurretColor.GREY: #You can NEVER place something on grey
 				GameBoard.current_tutorial = TutorialHolder.tutNames.ColorRestriction
 				return false
 			if board_piece.color != piece.color: #Wrong color	
