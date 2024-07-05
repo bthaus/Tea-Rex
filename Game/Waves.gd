@@ -169,7 +169,7 @@ static func _get_astar_grid(map:TileMap,monstertype:Monster.MonsterMovingType,fr
 
 static func _get_map_square(map):
 	var smallest=Vector2(0,0)
-	var biggest=Vector2(64,64)
+	var biggest=Vector2(Stats.LEVEL_EDITOR_WIDTH,Stats.LEVEL_EDITOR_HEIGHT)
 	return Rect2i(smallest.x,smallest.y,biggest.x,biggest.y)
 	pass;	
 #returns an array of cells on which the given monster type can move.
