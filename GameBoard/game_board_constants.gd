@@ -34,7 +34,8 @@ enum TileType { WALL, GROUND, TURRET_BASE, SPAWNER, PLAYER_BASE, BUILD}
 static func get_tile_type(board: TileMap, layer: int, map_position: Vector2):
 	var data = board.get_cell_tile_data(layer, map_position)
 	if data == null: return null
-	return TileType.get(data.get_custom_data("type").to_upper())
+	var type= TileType.get(data.get_custom_data("type").to_upper())
+	return type
 	
 static func get_tile_type_by_id(board: TileMap, id: int):
 	if id == -1: return null

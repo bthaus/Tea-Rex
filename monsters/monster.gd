@@ -10,6 +10,7 @@ var damage = Stats.enemy_base_damage;
 var speedfactor = Stats.enemy_base_speed_factor;
 var speed = Stats.enemy_base_speed;
 var accel = Stats.enemy_base_acceleration;
+
 var minionExp;
 var currentMinionPower = 1;
 var path=[]
