@@ -3,16 +3,7 @@ extends GameObject2D
 var map_items=[]
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	var name_dto=MapNameDTO.new()
-	name_dto.restore()
 	
-	for name in name_dto.names:
-		var item=MapPreview_MenuItem.create(name)
-		map_items.push_back(item)
-		item.selected.connect(_map_selected)
-		add_child(item)
-		
-	reorder_children()	
 	pass # Replace with function body.
 func reorder_children():
 	var children=get_children()
@@ -39,4 +30,18 @@ func _map_selected(name):
 	var picker=MainMenu.battle_slot_picker.duplicate()
 	picker.map_name=name
 	MainMenu.change_content(picker)
+	pass # Replace with function body.
+
+
+func _on_tree_entered():
+	var name_dto=MapNameDTO.new()
+	name_dto.restore()
+	
+	for name in name_dto.names:
+		var item=MapPreview_MenuItem.create(name)
+		map_items.push_back(item)
+		item.selected.connect(_map_selected)
+		add_child(item)
+		
+	reorder_children()	
 	pass # Replace with function body.
