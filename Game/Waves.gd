@@ -104,44 +104,48 @@ func monsterDied(monster:Monster):
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	
-	nav.get_next_path_position()
-	
+	queue_redraw()
+	pass
 	##queue_redraw()
 	
 func can_reach_target():
 	return nav.is_target_reachable()
 	
 static func get_paths(targets:Array, map:TileMap,spawner,monstertype):
-	var astar:AStarGrid2D=_get_astar_grid(map,monstertype)
+	var astar:AStarGrid2D=_get_astar_grid(map,monstertype,spawner.map_position,targets[0].map_position)
 	var path=astar.get_id_path(spawner.map_position,targets[0].map_position)
 	var global_path=[]
+	
 	for pos in path:
 		global_path.append(map.map_to_local(pos))
 	return global_path
 	pass;	
 #
-static func _get_astar_grid(map:TileMap,monstertype:Stats.Monstertype)-> AStarGrid2D:
+static func _get_astar_grid(map:TileMap,monstertype:Monster.MonsterMovingType,from,to)-> AStarGrid2D:
 	var movable_cells=_get_movable_cells_per_monster_type(map,monstertype)
 	var map_square=_get_map_square(map)
 	var astar_grid=AStarGrid2D.new()
 	astar_grid.region=map_square
-	astar_grid.diagonal_mode=1
-	astar_grid.fill_solid_region(map_square,false)
-	#astar_grid.cell_size=Stats.block_size
-	for movable in movable_cells:
-		astar_grid.set_point_solid(movable,true)
 	astar_grid.update()
+	astar_grid.diagonal_mode=1
+	astar_grid.fill_solid_region(map_square)
+	
+	for movable in movable_cells:
+		astar_grid.set_point_solid(movable,false)
+	astar_grid.set_point_solid(from,false)
+	astar_grid.set_point_solid(to,false)
 	return astar_grid
 	pass;
 #returns the smallest and largest point of a map as a rect2i 	
+
 static func _get_map_square(map):
 	var smallest=Vector2(0,0)
 	var biggest=Vector2(64,64)
 	return Rect2i(smallest.x,smallest.y,biggest.x,biggest.y)
 	pass;	
-#returns an array of cells on which the given monster type can not move.
-static func _get_movable_cells_per_monster_type(map: TileMap, monstertype: Stats.Monstertype)->PackedVector2Array:
-		var cells: PackedVector2Array = []
+#returns an array of cells on which the given monster type can move.
+static func _get_movable_cells_per_monster_type(map: TileMap, monstertype: Monster.MonsterMovingType)->Array[Vector2i]:
+		var cells: Array[Vector2i] = []
 		match(monstertype):
 			Monster.MonsterMovingType.GROUND:
 				for pos in map.get_used_cells(GameboardConstants.GROUND_LAYER):
@@ -149,16 +153,18 @@ static func _get_movable_cells_per_monster_type(map: TileMap, monstertype: Stats
 						continue;
 					if map.get_cell_source_id(GameboardConstants.BLOCK_LAYER, pos) == -1: #Block layer is free
 						cells.append(pos)
+					else:
+						print("tower inside")	
 			Monster.MonsterMovingType.AIR:
 				for y in range(0, Stats.LEVEL_EDITOR_HEIGHT): #Just put every possible tile in the array
 					for x in range(0, Stats.LEVEL_EDITOR_WIDTH):
-						cells.append(Vector2(x, y))
+						cells.append(Vector2i(x, y))
 		
 		return cells
 		
 func _draw():
 	targets=state.targets
-	var path = get_paths(targets,state.board,self,Stats.Monstertype.REGULAR)
+	var path = get_paths(targets,state.board,self,Monster.MonsterMovingType.GROUND)
 	if path.size() == 0:
 		return
 	#lightened makes the line glow. for some reason this makes aqua and red the exact other color. i have no clue	
