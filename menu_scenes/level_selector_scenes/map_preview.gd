@@ -25,5 +25,10 @@ func _process(delta):
 
 
 func _on_pressed():
+	pass # Replace with function body.
+
+
+func _on_map_preview_pressed():
+	
 	selected.emit(map_name)
 	pass # Replace with function body.

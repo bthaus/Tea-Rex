@@ -41,4 +41,4 @@ offset_bottom = 92.0
 text = "0
 "
 
-[connection signal="pressed" from="map_preview" to="map_preview" method="_on_pressed"]
+[connection signal="pressed" from="map_preview" to="." method="_on_map_preview_pressed"]
