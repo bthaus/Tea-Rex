@@ -4,7 +4,7 @@ static var level_select=load("res://menu_scenes/level_selector_scenes/level_sele
 static var battle_slot_picker=load("res://menu_scenes/battle_slot_picker_scenes/battle_slot_picker.tscn").instantiate()
 static var accounts=load("res://menu_scenes/account_tab_scenes/accounts_tab.tscn").instantiate()
 static var level_editor=load("res://LevelEditor/level_editor.tscn").instantiate()
-
+static var win_screen=load("res://menu_scenes/win_screen_scenes/win_scene.tscn").instantiate()
 static var instance; 
 static var account_dto:AccountInfoDTO
 
@@ -18,7 +18,7 @@ func _ready():
 	
 @onready var start_game_scene=$start_page
 static var scene_stack:Array=[]
-static func get_account_dto():
+static func get_account_dto()->AccountInfoDTO:
 	var dto= account_dto
 	return dto
 	pass;

@@ -11,7 +11,10 @@ func _init(name="-1"):
 	super()
 	pass;
 
-func save(name,acc="-1",dir="-1"):
+func save(name="-1",acc="-1",dir="-1"):
+	if name=="-1" and account_name!=null:
+		name=account_name
+		
 	AccountNamesDTO.add_account_name(name)
 	super.save(name,"","acc_infos/"+name)
 	pass;

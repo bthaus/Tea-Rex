@@ -108,6 +108,7 @@ func startBattlePhase():
 	pass # Replace with function body.
 
 func startBuildPhase():
+	
 	if GameState.game_speed!=null:
 		GameState.restore_speed=GameState.game_speed
 		GameState.game_speed=1
@@ -115,9 +116,13 @@ func startBuildPhase():
 		GameState.restore_speed=1;
 		GameState.game_speed=1;	
 	toggleSpeed(0)
+	wave = wave + 1;
+	if wave==map_dto.number_of_waves:
+		win_game()
+	
 	cleanUpAllFreedNodes()
 	Sounds.start(Sounds.startBuildPhase)
-	wave = wave + 1;
+	
 
 	if wave == 1:
 		TutorialHolder.showTutorial(TutorialHolder.tutNames.EXP, self)
@@ -175,7 +180,12 @@ func startGame():
 
 
 	
-
+func win_game():
+	var win=load("res://menu_scenes/win_screen_scenes/win_scene.tscn").instantiate()
+	win.set_up(self)
+	$CanvasLayer/UI.add_child(win)
+	
+	pass;
 
 func hit_base(m):
 	if HP < 0: return

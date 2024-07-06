@@ -3,7 +3,8 @@ class_name MapDTO
 
 var entities:Array[BaseDTO]
 var waves
-var number_of_waves:int
+#TODO: change that to an actual number
+var number_of_waves:int=2
 var map_name:String=""
 var battle_slots:BattleSlotDTO;
 

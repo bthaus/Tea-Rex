@@ -1,0 +1,34 @@
+[gd_scene load_steps=4 format=3 uid="uid://btrkhdygwut15"]
+
+[ext_resource type="Texture2D" uid="uid://dsx4q267641fj" path="res://Assets/UI/battle_Label/battle_label.png" id="1_4707t"]
+[ext_resource type="Script" path="res://menu_scenes/win_screen_scenes/win_scene.gd" id="1_h7dsl"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_wi4jd"]
+font_size = 76
+
+[node name="WinScene" type="Node2D"]
+script = ExtResource("1_h7dsl")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(560, 277)
+texture = ExtResource("1_4707t")
+
+[node name="Label" type="Label" parent="Sprite2D"]
+offset_left = -160.0
+offset_top = -45.0
+offset_right = 176.0
+offset_bottom = 60.0
+text = "You won!"
+label_settings = SubResource("LabelSettings_wi4jd")
+
+[node name="continue" type="Button" parent="."]
+offset_left = 501.0
+offset_top = 492.0
+offset_right = 580.0
+offset_bottom = 523.0
+text = "Continue"
+
+[node name="Node2D" type="Node2D" parent="."]
+position = Vector2(405, 362)
+
+[connection signal="pressed" from="continue" to="." method="_on_continue_pressed"]
