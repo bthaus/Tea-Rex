@@ -94,7 +94,7 @@ func select_block(block, done: Callable):
 
 func _process(_delta):
 	$Board.clear_layer(GameboardConstants.SELECTION_LAYER)
-	Spawner.refresh_all_paths(true)
+	
 	var board_pos = $Board.local_to_map(get_global_mouse_position())
 	
 	#Highlight towers
@@ -137,10 +137,15 @@ func _process(_delta):
 				preview_turrets[idx].base.showRangeOutline()
 				previous_preview_pos = pos;
 				idx += 1
-
+var previous_mouse_pos=Vector2i(0,0)				
+func refresh_paths_on_mouse_cell_traversal(pos):
+	if pos!=previous_mouse_pos:
+		previous_mouse_pos=pos
+		Spawner.refresh_all_paths(true)
+	pass;
 func _input(event):
 	var board_pos = $Board.local_to_map(get_global_mouse_position())
-	
+	refresh_paths_on_mouse_cell_traversal(board_pos)
 	if is_delayed:
 		return
 	

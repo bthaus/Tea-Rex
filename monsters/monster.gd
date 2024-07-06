@@ -82,6 +82,7 @@ var travel_index=0;
 func translateTowardEdge(delta):
 	
 	if hp<=0:return;
+	
 	if distance_to_next_edge<=distance_travelled:
 		travel_index=travel_index+1;
 		distance_travelled=0;
