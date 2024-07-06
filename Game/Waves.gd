@@ -110,7 +110,7 @@ func monsterDied(monster:Monster):
 
 func _process(delta):
 	pass
-func refresh_path(redo_grids=false):
+func refresh_path(redo_grids=true):
 	if redo_grids:
 		_set_grids()
 	targets=state.targets
@@ -118,13 +118,13 @@ func refresh_path(redo_grids=false):
 	$drawpoint.paths=paths
 	$drawpoint.queue_redraw()
 	pass;	
-static func refresh_all_paths(redo_grids=false):
+static func refresh_all_paths(redo_grids=true):
 	if redo_grids:
 		_set_grids()
 	for s in GameState.gameState.spawners:
-		s.refresh_path()
+		s.refresh_path(false)
 	pass;	
-static func can_all_reach_target(redo_grids=false):
+static func can_all_reach_target(redo_grids=true):
 	if redo_grids:
 		_set_grids()
 	for s in GameState.gameState.spawners:
