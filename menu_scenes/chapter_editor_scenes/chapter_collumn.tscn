@@ -1,0 +1,34 @@
+[gd_scene load_steps=2 format=3 uid="uid://c62po8kamm05j"]
+
+[ext_resource type="Script" path="res://menu_scenes/chapter_editor_scenes/chapter_collumn.gd" id="1_3ajkc"]
+
+[node name="map_names" type="VBoxContainer"]
+size_flags_vertical = 3
+alignment = 1
+script = ExtResource("1_3ajkc")
+
+[node name="chapter_name" type="Label" parent="."]
+layout_mode = 2
+text = "Chaptername"
+
+[node name="maps" type="ItemList" parent="."]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 9.99
+
+[node name="select" type="Button" parent="."]
+layout_mode = 2
+text = "add selected"
+
+[node name="delete" type="Button" parent="."]
+layout_mode = 2
+text = "delete chapter"
+
+[node name="remove" type="Button" parent="."]
+layout_mode = 2
+text = "remove selected"
+
+[connection signal="item_clicked" from="maps" to="." method="_on_maps_item_clicked"]
+[connection signal="pressed" from="select" to="." method="_on_select_pressed"]
+[connection signal="pressed" from="delete" to="." method="_on_delete_pressed"]
+[connection signal="pressed" from="remove" to="." method="_on_remove_pressed"]

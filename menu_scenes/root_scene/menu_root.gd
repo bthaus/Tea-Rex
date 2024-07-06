@@ -5,6 +5,7 @@ static var battle_slot_picker=load("res://menu_scenes/battle_slot_picker_scenes/
 static var accounts=load("res://menu_scenes/account_tab_scenes/accounts_tab.tscn").instantiate()
 static var level_editor=load("res://LevelEditor/level_editor.tscn").instantiate()
 static var win_screen=load("res://menu_scenes/win_screen_scenes/win_scene.tscn").instantiate()
+static var chapter_editor=load("res://menu_scenes/chapter_editor_scenes/chapter_editor.tscn").instantiate()
 static var instance; 
 static var account_dto:AccountInfoDTO
 
@@ -94,4 +95,9 @@ func _on_delete_all_accounts_pressed():
 	for directory in dirs:
 		directory.erase(0,7)
 		root.remove(directory)	
+	pass # Replace with function body.
+
+
+func _on_chapter_editor_pressed():
+	change_content(chapter_editor)
 	pass # Replace with function body.

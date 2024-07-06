@@ -5,6 +5,17 @@
 [node name="menu_root" type="Node2D"]
 script = ExtResource("1_y0cw5")
 
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 50
+
+[node name="back" type="Button" parent="CanvasLayer"]
+z_index = 4
+offset_left = 996.0
+offset_top = 31.0
+offset_right = 1092.0
+offset_bottom = 88.0
+text = "Back"
+
 [node name="start_page" type="Node2D" parent="."]
 
 [node name="start_game" type="Button" parent="start_page"]
@@ -51,15 +62,17 @@ offset_right = 1093.0
 offset_bottom = 291.0
 text = "Delete all accounts"
 
-[node name="back" type="Button" parent="."]
-offset_left = 996.0
-offset_top = 31.0
-offset_right = 1092.0
-offset_bottom = 88.0
-text = "Back"
+[node name="chapter_editor" type="Button" parent="start_page"]
+offset_left = 146.0
+offset_top = 418.0
+offset_right = 331.0
+offset_bottom = 510.0
+text = "Chapter editor
+"
 
+[connection signal="pressed" from="CanvasLayer/back" to="." method="_on_back_pressed"]
 [connection signal="pressed" from="start_page/start_game" to="." method="_on_start_game_pressed"]
 [connection signal="pressed" from="start_page/level_editor" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="start_page/delete_all_maps" to="." method="_on_delete_all_pressed"]
 [connection signal="pressed" from="start_page/delete_all_accounts" to="." method="_on_delete_all_accounts_pressed"]
-[connection signal="pressed" from="back" to="." method="_on_back_pressed"]
+[connection signal="pressed" from="start_page/chapter_editor" to="." method="_on_chapter_editor_pressed"]

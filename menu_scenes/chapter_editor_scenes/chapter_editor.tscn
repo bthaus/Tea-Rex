@@ -1,0 +1,37 @@
+[gd_scene load_steps=2 format=3 uid="uid://ekovq0qfritq"]
+
+[ext_resource type="Script" path="res://menu_scenes/chapter_editor_scenes/chapter_editor.gd" id="1_fjnog"]
+
+[node name="ScrollContainer" type="ScrollContainer"]
+offset_right = 1144.0
+offset_bottom = 639.0
+size_flags_vertical = 3
+horizontal_scroll_mode = 2
+
+[node name="chapter_editor" type="HBoxContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 3
+script = ExtResource("1_fjnog")
+
+[node name="all_maps" type="VBoxContainer" parent="chapter_editor"]
+layout_mode = 2
+
+[node name="chaptername" type="Label" parent="chapter_editor/all_maps"]
+layout_mode = 2
+text = "unused_maps"
+
+[node name="maps" type="ItemList" parent="chapter_editor/all_maps"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="chapter_editor/all_maps"]
+layout_mode = 2
+text = "add chapter"
+
+[node name="chapter_adder" type="LineEdit" parent="chapter_editor/all_maps"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.13
+
+[connection signal="item_clicked" from="chapter_editor/all_maps/maps" to="chapter_editor" method="_on_all_maps_item_clicked"]
+[connection signal="text_submitted" from="chapter_editor/all_maps/chapter_adder" to="chapter_editor" method="_on_chapter_adder_text_submitted"]
