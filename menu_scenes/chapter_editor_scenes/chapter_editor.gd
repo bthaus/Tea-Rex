@@ -5,10 +5,7 @@ var current_map_name=""
 var unused_maps
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	unused_maps=$all_maps
-	chapters=MapChapterDTO.new()
-	chapters.restore()
-	refresh_all_cols()
+
 			
 	pass # Replace with function body.
 
@@ -62,5 +59,18 @@ func _on_all_maps_item_clicked(index, at_position, mouse_button_index):
 
 func _on_chapter_adder_text_submitted(new_text):
 	chapters.add_chapter(new_text)
+	refresh_all_cols()
+	pass # Replace with function body.
+
+
+func _on_scroll_container_tree_entered():
+	refresh_all_cols()
+	pass # Replace with function body.
+
+
+func _on_tree_entered():
+	unused_maps=$all_maps
+	chapters=MapChapterDTO.new()
+	chapters.restore()
 	refresh_all_cols()
 	pass # Replace with function body.

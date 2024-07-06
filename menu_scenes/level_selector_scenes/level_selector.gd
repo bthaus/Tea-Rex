@@ -6,7 +6,7 @@ func _ready():
 	
 	pass # Replace with function body.
 func reorder_children():
-	var children=get_children()
+	var children=$levels.get_children()
 	if children.is_empty():return;
 	var off=clamp(800/get_child_count(),15,450)
 	var offset=Vector2(-450,0)
@@ -32,17 +32,33 @@ func _map_selected(name):
 	MainMenu.change_content(picker)
 	pass # Replace with function body.
 
-
+func chapter_selected(chapter):
+	current_key=chapter
+	_on_tree_entered()
+	pass;
+var current_key	
 func _on_tree_entered():
-	var name_dto=MapNameDTO.new()
-	name_dto.restore()
-	for child in get_children():
+	var chapters=MapChapterDTO.new()
+	chapters.restore()
+	
+	for child in $chapters.get_children():
 		child.queue_free()
-	for name in name_dto.names:
+	for key in chapters.chapter_dictionary.keys():
+		if current_key==null:
+			current_key=key
+		var btn=Button.new()
+		btn.text=key
+		btn.pressed.connect(func():chapter_selected(key))
+		$chapters.add_child(btn)
+		
+	
+	for child in $levels.get_children():
+		child.queue_free()
+	for name in chapters.get_mapnames_from_chapter(current_key):
 		var item=MapPreview_MenuItem.create(name)
 		map_items.push_back(item)
 		item.selected.connect(_map_selected)
-		add_child(item)
+		$levels.add_child(item)
 		
 	reorder_children()	
 	pass # Replace with function body.
