@@ -1,4 +1,4 @@
-extends GameObject2D
+extends Control
 
 var map_items=[]
 # Called when the node enters the scene tree for the first time.
@@ -12,10 +12,10 @@ func reorder_children():
 	var offset=Vector2(-450,0)
 	children.reverse()
 	
-	for c in children:
-		offset=offset+Vector2(off,0)
-		var tween=create_tween()
-		if tween!=null:tween.tween_property(c,"global_position",global_position+offset,0.5).set_ease(Tween.EASE_IN_OUT)
+	#for c in children:
+		#offset=offset+Vector2(off,0)
+		#var tween=create_tween()
+		#if tween!=null:tween.tween_property(c,"global_position",global_position+offset,0.5).set_ease(Tween.EASE_IN_OUT)
 		
 	pass;
 
@@ -41,7 +41,7 @@ func _on_tree_entered():
 	var chapters=MapChapterDTO.new()
 	chapters.restore()
 	
-	for child in $chapters.get_children():
+	for child in $MarginContainer/chapters.get_children():
 		child.queue_free()
 	for key in chapters.chapter_dictionary.keys():
 		if current_key==null:
@@ -49,7 +49,7 @@ func _on_tree_entered():
 		var btn=Button.new()
 		btn.text=key
 		btn.pressed.connect(func():chapter_selected(key))
-		$chapters.add_child(btn)
+		$MarginContainer/chapters.add_child(btn)
 		
 	
 	for child in $levels.get_children():

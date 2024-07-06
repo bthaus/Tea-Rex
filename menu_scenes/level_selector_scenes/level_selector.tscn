@@ -2,15 +2,28 @@
 
 [ext_resource type="Script" path="res://menu_scenes/level_selector_scenes/level_selector.gd" id="1_hovw3"]
 
-[node name="level_selector" type="Node2D"]
+[node name="level_selector" type="VBoxContainer"]
+offset_left = 21.0
+offset_top = 13.0
+offset_right = 1158.0
+offset_bottom = 638.0
+size_flags_vertical = 3
+alignment = 1
 script = ExtResource("1_hovw3")
 
-[node name="chapters" type="HBoxContainer" parent="."]
-offset_left = 152.0
-offset_top = 30.0
-offset_right = 992.0
-offset_bottom = 70.0
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+size_flags_stretch_ratio = 0.42
+theme_override_constants/margin_bottom = 50
 
-[node name="levels" type="Node2D" parent="."]
+[node name="chapters" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="levels" type="GridContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 4.06
+columns = 3
 
 [connection signal="tree_entered" from="." to="." method="_on_tree_entered"]
