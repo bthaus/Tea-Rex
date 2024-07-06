@@ -23,7 +23,8 @@ static func get_account_dto():
 	return dto
 	pass;
 static func change_content(scene):
-	instance.remove_child(scene_stack.back())
+	var to_remove=scene_stack.back()
+	instance.remove_child(to_remove)
 	instance.add_child(scene)
 	scene_stack.push_back(scene)
 	pass;
@@ -43,7 +44,8 @@ func _on_start_game_pressed():
 
 func _on_back_pressed():
 	if scene_stack.size()==1:return;
-	remove_child(scene_stack.pop_back())
+	var to_remove=scene_stack.pop_back()
+	remove_child(to_remove)
 	add_child(scene_stack.back())
 	pass # Replace with function body.
 

@@ -144,5 +144,6 @@ z_index = 2
 position = Vector2(395.634, 295.367)
 script = ExtResource("13_7m4ty")
 
+[connection signal="tree_exited" from="." to="." method="_on_tree_exited"]
 [connection signal="scrolled" from="Camera2D" to="Camera2D" method="changeBrightness"]
 [connection signal="finished" from="Camera2D/SoundPlayer/Music" to="Camera2D/SoundPlayer" method="_on_music_finished"]

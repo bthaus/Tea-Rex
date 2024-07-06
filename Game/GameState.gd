@@ -284,3 +284,8 @@ func _on_spawner_wave_done():
 	startBuildPhase()
 	pass # Replace with function body.
 	
+
+
+func _on_tree_exited():
+	queue_free()
+	pass # Replace with function body.

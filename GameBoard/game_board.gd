@@ -94,7 +94,7 @@ func select_block(block, done: Callable):
 
 func _process(_delta):
 	$Board.clear_layer(GameboardConstants.SELECTION_LAYER)
-	
+	Spawner.refresh_all_paths(true)
 	var board_pos = $Board.local_to_map(get_global_mouse_position())
 	
 	#Highlight towers

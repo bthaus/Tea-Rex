@@ -9,10 +9,10 @@ var spawner_id;
 var color: GameboardConstants.TileColor
 var waves=[]
 var waveMonsters=[]
-
+static var grids:Array[grid_type_dto]=[]
 var closest_target:Node2D
 var targets=[]
-
+var paths
 var rnd = RandomNumberGenerator.new()
 
 static var numMonstersActive=0;
@@ -107,22 +107,26 @@ func monsterDied(monster:Monster):
 		state.startBuildPhase()
 	pass;
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-var paths
+
 func _process(delta):
-	
 	pass
-	##queue_redraw()
-func refresh_path():
+func refresh_path(redo_grids=false):
+	if redo_grids:
+		_set_grids()
 	targets=state.targets
-	paths= get_paths(targets,state.board,self)
+	paths= _get_paths(targets,state.board,self)
 	$drawpoint.paths=paths
 	$drawpoint.queue_redraw()
 	pass;	
-static func refresh_all_paths():
+static func refresh_all_paths(redo_grids=false):
+	if redo_grids:
+		_set_grids()
 	for s in GameState.gameState.spawners:
 		s.refresh_path()
 	pass;	
-static func can_all_reach_target():
+static func can_all_reach_target(redo_grids=false):
+	if redo_grids:
+		_set_grids()
 	for s in GameState.gameState.spawners:
 		var paths=s.get_paths(s.targets,s.state.board,s)
 		if paths==null:
@@ -131,33 +135,56 @@ static func can_all_reach_target():
 	pass;	
 func can_reach_target():
 	
-	var paths=get_paths(targets,state.board,self)
+	var paths=_get_paths(targets,state.board,self)
 	if paths==null:
 		print("no reach")
 		return false
 	return true	
-static func get_paths(targets:Array, map:TileMap,spawner):
+static func _get_paths(targets:Array, map:TileMap,spawner):
 	var paths=[]
-	for type in Monster.MonsterMovingType.values():
-		var temppath=get_path_of_traveltype(targets,map,spawner,type)
-		if temppath.size()==0:
+	if grids.is_empty():
+		_set_grids()
+	for grid in grids:
+		var path=_get_shortest_path_global(grid,targets,spawner)
+		if path.size()==0:
 			return null
+		var type=grid.type	
 		if type==Monster.MonsterMovingType.GROUND:
-			paths.append(path_color_type_dto.new(temppath,Color.WHITE,type))
+			paths.append(path_color_type_dto.new(path,Color.WHITE,type))
 		else:		
-			paths.append(path_color_type_dto.new(temppath,Color.SKY_BLUE,type))
+			paths.append(path_color_type_dto.new(path,Color.SKY_BLUE,type))
 	
 	return paths
-static func get_path_of_traveltype(targets:Array, map:TileMap,spawner,monstertype:Monster.MonsterMovingType):
+static func _get_shortest_path_global(grid:grid_type_dto,targets,spawner):
 	var path=[]
 	var shortest_path=10000000
 	for target in targets:
-		#if target.color!=spawner.color:util.p("we still need to add real colors to spawners and bases")
-		var astar:AStarGrid2D=_get_astar_grid(map,monstertype,spawner.map_position,target.map_position)
-		var temp=astar.get_id_path(spawner.map_position,target.map_position)
+		#if target.color!=spawner.color: continue
+		var temp=grid.astar_grid.get_id_path(spawner.map_position,target.map_position)
 		if temp.size()<shortest_path:
 			shortest_path=temp.size()
 			path=temp
+	var global_path=[]
+	for cell in path:
+		global_path.append(GameState.gameState.board.map_to_local(cell))
+	return global_path
+	pass;	
+static func _set_grids():
+	grids.clear()
+	for type in Monster.MonsterMovingType.values():
+		var astar:AStarGrid2D=_get_astar_grid(GameState.gameState.board,type,GameState.gameState.spawners,GameState.gameState.targets)
+		grids.append(grid_type_dto.new(astar,type))
+	pass;	
+static func _get_path_of_traveltype(targets:Array, map:TileMap,spawner,monstertype:Monster.MonsterMovingType):
+	var path=[]
+	var shortest_path=10000000
+	
+	
+	#for target in targets:
+		##var temp=astar.get_id_path(spawner.map_position,target.map_position)
+		#if temp.size()<shortest_path:
+			#shortest_path=temp.size()
+			#path=temp
 	
 	var global_path=[]
 	for pos in path:
@@ -168,7 +195,7 @@ static func get_path_of_traveltype(targets:Array, map:TileMap,spawner,monstertyp
 static func _get_astar():
 	return AStarGrid2D.new()
 	pass;
-static func _get_astar_grid(map:TileMap,monstertype:Monster.MonsterMovingType,from,to)-> AStarGrid2D:
+static func _get_astar_grid(map:TileMap,monstertype:Monster.MonsterMovingType,froms,tos)-> AStarGrid2D:
 	var movable_cells=_get_movable_cells_per_monster_type(map,monstertype)
 	var map_square=_get_map_square(map)
 	var astar_grid=_get_astar()
@@ -179,8 +206,10 @@ static func _get_astar_grid(map:TileMap,monstertype:Monster.MonsterMovingType,fr
 	
 	for movable in movable_cells:
 		astar_grid.set_point_solid(movable,false)
-	astar_grid.set_point_solid(from,false)
-	astar_grid.set_point_solid(to,false)
+	for from in froms:
+		astar_grid.set_point_solid(from.map_position,false)
+	for to in tos:
+		astar_grid.set_point_solid(to.map_position,false)
 	return astar_grid
 	pass;
 #returns the smallest and largest point of a map as a rect2i 	
@@ -212,7 +241,7 @@ static func _get_movable_cells_per_monster_type(map: TileMap, monstertype: Monst
 func _draw():
 	return
 	targets=state.targets
-	var paths = get_paths(targets,state.board,self)
+	var paths = _get_paths(targets,state.board,self)
 	if paths ==null:
 		
 		return
@@ -242,7 +271,13 @@ func _on_button_mouse_entered():
 func _on_button_mouse_exited():
 	#state.menu.hideDescription()
 	pass # Replace with function body.
-
+class grid_type_dto:
+	var astar_grid:AStarGrid2D
+	var type
+	func _init(grid,t):
+		self.astar_grid=grid
+		self.type=t
+	
 class path_color_type_dto:
 	var path=[]
 	var color:Color
