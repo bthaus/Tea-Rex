@@ -4,14 +4,22 @@ class_name ItemBlockSelectorHandler
 var board: TileMap
 var item_blocks: Array
 
-func _init(board: TileMap):
+func _init(board: TileMap, item_blocks: Array):
 	self.board = board
+	self.item_blocks = item_blocks
 
-func place_item_block(item_block: ItemBlock, map_position: Vector2):
-	if not can_place_item_block(item_block, map_position): return
+#Simply draws an item block on the board
+func draw_item_block(item_block: ItemBlock, map_position: Vector2, layer: int):
+	if item_block == null: return
 	for piece in item_block.pieces:
-		board.set_cell(ItemBlockConstants.BLOCK_LAYER, map_position + piece.position, piece.tile_id, Vector2(0, 0))
-	
+		board.set_cell(layer, map_position + piece.position, piece.tile_id, Vector2(0, 0))
+
+#Places an item on the board, and adds it to the list of items if possible
+func place_item_block(item_block: ItemBlock, map_position: Vector2):
+	if item_block == null: return
+	if not can_place_item_block(item_block, map_position): return
+	draw_item_block(item_block, map_position, ItemBlockConstants.BLOCK_LAYER)
+	item_block.map_position = map_position
 	item_blocks.append(item_block)
 
 func remove_item_block(item_block: ItemBlock):
