@@ -1,0 +1,28 @@
+[gd_scene load_steps=3 format=3 uid="uid://dhta83lpekmrd"]
+
+[ext_resource type="Script" path="res://menu_scenes/battle_slot_picker_scenes/BlockItemSelector/block_item_selector.gd" id="1_ekup2"]
+[ext_resource type="TileSet" uid="uid://dcf0fhqgihare" path="res://GameBoard/game_board_tileset.tres" id="1_iewn6"]
+
+[node name="BlockItemSelector" type="Panel"]
+offset_right = 500.0
+offset_bottom = 600.0
+script = ExtResource("1_ekup2")
+
+[node name="Board" type="TileMap" parent="."]
+scale = Vector2(0.5, 0.5)
+tile_set = ExtResource("1_iewn6")
+format = 2
+
+[node name="BlockScrollContainer" type="ScrollContainer" parent="."]
+layout_mode = 0
+offset_top = 350.0
+offset_right = 500.0
+offset_bottom = 580.0
+horizontal_scroll_mode = 0
+
+[node name="BlockGridContainer" type="GridContainer" parent="BlockScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 10
+columns = 6
