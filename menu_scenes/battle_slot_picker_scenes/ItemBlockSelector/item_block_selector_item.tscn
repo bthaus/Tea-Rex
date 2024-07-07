@@ -1,13 +1,13 @@
 [gd_scene load_steps=2 format=3 uid="uid://do8crlwyywy23"]
 
-[ext_resource type="TileSet" uid="uid://dcf0fhqgihare" path="res://GameBoard/game_board_tileset.tres" id="1_vxj6t"]
+[ext_resource type="TileSet" uid="uid://dcf0fhqgihare" path="res://GameBoard/game_board_tileset.tres" id="1_1lgp6"]
 
-[node name="BlockItemSelectorItem" type="Button"]
+[node name="ItemBlockSelectorItem" type="Button"]
 custom_minimum_size = Vector2(70, 70)
 offset_right = 50.0
 offset_bottom = 50.0
 
 [node name="TileMap" type="TileMap" parent="."]
 scale = Vector2(0.275, 0.275)
-tile_set = ExtResource("1_vxj6t")
+tile_set = ExtResource("1_1lgp6")
 format = 2
