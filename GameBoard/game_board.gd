@@ -140,7 +140,17 @@ func _process(_delta):
 var previous_mouse_pos=Vector2i(0,0)				
 func refresh_paths_on_mouse_cell_traversal(pos):
 	if pos!=previous_mouse_pos:
+		var turret_or_not_to_unhover=GameState.gameState.collisionReference.get_turret_from_board(previous_mouse_pos)
+		if turret_or_not_to_unhover!=null:
+			turret_or_not_to_unhover.on_unhover()
+		var turret_or_not=GameState.gameState.collisionReference.get_turret_from_board(pos)
+		if turret_or_not!=null:
+			turret_or_not.on_hover()
+			
+		
+		
 		previous_mouse_pos=pos
+		
 		Spawner.refresh_all_paths(true)
 	pass;
 func _input(event):

@@ -84,7 +84,7 @@ func checkPosition(off):
 	if !placed: return
 	$Tile.visible = !off;
 	base.visible = !off;
-	$Button.visible = !off;
+	#$Button.visible = !off;
 	$VisibleOnScreenNotifier2D.visible = true;
 	pass ;
 	
@@ -105,7 +105,8 @@ func setUpTower():
 	base = coreFactory.getBase(color, extension);
 	base.placed=placed
 	base.setLevel(level)
-	
+	if placed:
+		collisionReference.register_turret(self)
 	add_child(base)
 	base.setUpTower(self)
 	$LVL.text = str(level)
@@ -177,10 +178,10 @@ func do(delta):
 
 	#größter pfusch auf erden. wenn ein block in der hand ist soll er seine range anzeigen, wenn nicht dann nicht.
 	#der turm weiß nur nie ob er in der hand ist oder nicht -> card intercepten
-	if !placed:
-		if Card.contemplatingInterrupt: $Button.mouse_filter = 2
-		else:
-			$Button.mouse_filter = 0;
+	#if !placed:
+		#if Card.contemplatingInterrupt: $Button.mouse_filter = 2
+		#else:
+			#$Button.mouse_filter = 0;
 			
 	if GameState.gameState == null or not placed: return
 	base.do(delta)
@@ -202,7 +203,7 @@ func levelup(lvl: int=1):
 
 
 
-func _on_button_mouse_entered():
+func on_hover():
 	base.showRangeOutline()
 	for t in cardBuddys:
 		t.showRangeOutline()
@@ -221,18 +222,17 @@ var detectorvisible = false;
 
 var m = 0;
 
+func on_moved():
+	collisionReference.unregister_turret(self)
+	pass;
 
-
-func _on_button_mouse_exited():
+func on_unhover():
 	GameState.gameState.ui.hideDescription()
 	detectorvisible = false;
 	GameState.gameState.hideCount()
 	GameState.gameState.gameBoard.clear_range_outline()
 	pass # Replace with function body.
 
-func _on_button_pressed():
-	resetLight()
-	pass # Replace with function body.
 
 func _on_visible_on_screen_notifier_2d_screen_exited():
 	checkPosition(true)

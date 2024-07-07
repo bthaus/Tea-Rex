@@ -84,6 +84,7 @@ func get_monster(pos):
 	#map[pos.y][pos.x].ms	
 	return null;
 	pass ;
+	
 func getMapPositionNormalised(pos):
 	pos = gameState.board.local_to_map(pos)
 	return normaliseVector(pos)
@@ -162,6 +163,23 @@ func getNeighbours(pos, reference=null):
 		
 	return coveredCells;
 	pass ;
+func register_turret(turret):
+	var pos=getMapPositionNormalised(turret.global_position)
+	map[pos.y][pos.x].turret=turret
+	pass;
+func unregister_turret(turret):
+	var pos=getMapPositionNormalised(turret.global_position)
+	map[pos.y][pos.x].turret=null
+	pass;	
+func get_turret_from_global(pos):
+	var ref= getMapPositionNormalised(pos)
+	if isOutOfBounds(ref.x,ref.y): return
+	return map[ref.y][ref.x].turret
+func get_turret_from_board(pos):
+	var ref=normaliseVector(pos)
+	if isOutOfBounds(ref.x,ref.y): return
+	return map[ref.y][ref.x].turret
+	pass;			
 func getCellReferences(pos, turretRange, turret=null, cellPositions=[],sloppy=false):
 	var mapPosition = getMapPositionNormalised(pos)
 	#traversing from the top left corner to the bottom right corner
@@ -213,7 +231,7 @@ func addholders(row: Array):
 	pass ;
 
 class Holder:
-	var ts = []
+	var turret
 	var ms = []
 	var collides_with_bullets=false;
 	

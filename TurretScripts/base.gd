@@ -3,6 +3,8 @@ class_name TurretCore
 var level = 1;
 var barrels = []
 var bullets = []
+var turret_mods:Array[TurretBaseMod]= []
+
 
 var type: Stats.TurretColor = Stats.TurretColor.BLUE
 var extension: Stats.TurretExtension = Stats.TurretExtension.DEFAULT
