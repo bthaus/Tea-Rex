@@ -20,7 +20,6 @@ static var turrets = []
 var cardBuddys = []
 
 
-var on_destroy: Array[Callable] = []
 var on_built: Array[Callable] = [setUpTower]
 var on_build_phase_started: Array[Callable] = []
 var on_battle_phase_started: Array[Callable] = []
@@ -40,6 +39,10 @@ static var counter = 0;
 static var collisionReference: CollisionReference;
 var waitingDelayed = false;
 static var inhandTurrets = []
+
+func _on_destroy():
+	GameState.gameState.gameBoard.clear_range_outline()
+	pass;
 # Called when the node enters the scene tree for the first time.
 func do_all(tasks: Array[Callable]):
 	for t in tasks:
@@ -90,7 +93,7 @@ func checkPosition(off):
 	
 func _notification(what):
 	if (what == NOTIFICATION_PREDELETE):
-		do_all(on_destroy)
+		_on_destroy()
 		
 		
 var mapPosition;
@@ -202,13 +205,25 @@ func levelup(lvl: int=1):
 
 
 
-
+var infobox
+var show_box=false;
+func show_infobox():
+	if not show_box:return;
+	infobox=InfoBox.create(["Im a turret","damage dealt: "+str(int(base.damagedealt)),
+		"kills: "+ str(int(base.killcount)),
+		"damage: "+str(base.damage),
+		"cooldown:"+str(base.cooldown)])
+	if infobox!=null:$LVL.add_child(infobox)
+	pass;
 func on_hover():
+
 	base.showRangeOutline()
 	for t in cardBuddys:
 		t.showRangeOutline()
 	if placed:
-		GameState.gameState.ui.showDescription("This turret defeated " + str(str(base.killcount) + " minions and dealt " + str(int(base.damagedealt)) + "damage."))
+		show_box=true;
+		show_infobox()
+		
 		
 	elif extension != 1:
 		GameState.gameState.ui.showDescription(Stats.getDescription(Stats.TurretExtension.keys()[extension - 1]))
@@ -227,10 +242,13 @@ func on_moved():
 	pass;
 
 func on_unhover():
+	show_box=false;
 	GameState.gameState.ui.hideDescription()
 	detectorvisible = false;
 	GameState.gameState.hideCount()
 	GameState.gameState.gameBoard.clear_range_outline()
+	if infobox!=null:
+		infobox.delayed_delete()
 	pass # Replace with function body.
 
 

@@ -138,7 +138,7 @@ func _process(_delta):
 				previous_preview_pos = pos;
 				idx += 1
 var previous_mouse_pos=Vector2i(0,0)				
-func refresh_paths_on_mouse_cell_traversal(pos):
+func check_mouse_cell_traversal(pos):
 	if pos!=previous_mouse_pos:
 		var turret_or_not_to_unhover=GameState.gameState.collisionReference.get_turret_from_board(previous_mouse_pos)
 		if turret_or_not_to_unhover!=null:
@@ -146,8 +146,6 @@ func refresh_paths_on_mouse_cell_traversal(pos):
 		var turret_or_not=GameState.gameState.collisionReference.get_turret_from_board(pos)
 		if turret_or_not!=null:
 			turret_or_not.on_hover()
-			
-		
 		
 		previous_mouse_pos=pos
 		
@@ -155,7 +153,7 @@ func refresh_paths_on_mouse_cell_traversal(pos):
 	pass;
 func _input(event):
 	var board_pos = $Board.local_to_map(get_global_mouse_position())
-	refresh_paths_on_mouse_cell_traversal(board_pos)
+	check_mouse_cell_traversal(board_pos)
 	if is_delayed:
 		return
 	
