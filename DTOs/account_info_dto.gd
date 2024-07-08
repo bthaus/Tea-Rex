@@ -2,10 +2,18 @@ extends BaseDTO
 class_name AccountInfoDTO
 
 var account_name:String
-#TODO: check if typed array of subclass of BaseDTO works in restoration
 var account_progress:Array[MapStatusDTO]=[]
+var unlocked_colors:Array[Stats.TurretColor]
+#array of ItemBlockDTOs
+var unlocked_items
+#array of blueprintsDTOs 
+var blueprints
 
-
+#to be called when a item is created
+var _item_index=0
+func get_item_index():
+	_item_index=_item_index+1;
+	return _item_index
 func _init(name="-1"):
 	account_name=name
 	super()
