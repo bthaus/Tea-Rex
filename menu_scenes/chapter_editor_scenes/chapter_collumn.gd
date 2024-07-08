@@ -30,7 +30,7 @@ func _on_delete_pressed():
 	chapter_deleted.emit(chapter_name)
 	pass # Replace with function body.
 
-var currently_selected=""
+var currently_selected=[]
 func _on_maps_item_activated(index):
 	
 	map_selected.emit(chapter_name,$maps.get_item_text(index))
@@ -44,12 +44,20 @@ func deselect_all():
 	pass;
 
 func _on_remove_pressed():
-	if currently_selected=="": return
 	map_removed.emit(chapter_name,currently_selected)
 	pass # Replace with function body.
 
 
 func _on_maps_item_clicked(index, at_position, mouse_button_index):
-	currently_selected=$maps.get_item_text(index)
+	
+	pass # Replace with function body.
+
+
+func _on_maps_multi_selected(index, selected):
+	currently_selected.clear()
+	for i in $maps.get_selected_items():
+		currently_selected.append($maps.get_item_text(i))
+	currently_selected
+	
 	map_selected.emit(currently_selected)
 	pass # Replace with function body.

@@ -2,6 +2,7 @@ extends Control
 
 var chapters:MapChapterDTO
 var current_map_name=""
+var names_selected=[]
 var unused_maps
 var cols=[]
 # Called when the node enters the scene tree for the first time.
@@ -39,23 +40,24 @@ func deselect_all_subcols_but_one(col):
 		if subcol!=col:
 			subcol.deselect_all()
 	pass;	
-func select_from_chapter(mapname,col):
-	current_map_name=mapname
+func select_from_chapter(mapnames,col):
+	names_selected=mapnames
 	$all_maps/maps.deselect_all()
 	deselect_all_subcols_but_one(col)
 	pass;	
 func try_move_to_chapter(chaptername):
-	if current_map_name=="":return
-	
-	chapters.add_map_to_chapter(current_map_name,chaptername)
-	current_map_name=""
+	#if current_map_name=="":return
+	for name in names_selected:
+		chapters.add_map_to_chapter(name,chaptername)
+		current_map_name=""
 	refresh_all_cols()
 		
 		
 	pass;
 	
-func remove_map_from_chapter(chaptername,mapname):
-	chapters.remove_map_from_chapter(mapname,chaptername)
+func remove_map_from_chapter(chaptername,mapnames):
+	for mapname in mapnames:
+		chapters.remove_map_from_chapter(mapname,chaptername)
 	refresh_all_cols()
 	pass;	
 func map_selected(chapter_name, map_name):
@@ -63,7 +65,7 @@ func map_selected(chapter_name, map_name):
 	pass;
 
 func _on_all_maps_item_clicked(index, at_position, mouse_button_index):
-	current_map_name=$all_maps/maps.get_item_text(index)
+	#current_map_name=$all_maps/maps.get_item_text(index)
 	deselect_all_subcols_but_one(null)
 	pass # Replace with function body.
 
@@ -87,4 +89,12 @@ func _on_tree_entered():
 	chapters=MapChapterDTO.new()
 	chapters.restore()
 	refresh_all_cols()
+	pass # Replace with function body.
+
+
+func _on_maps_multi_selected(index, selected):
+	names_selected.clear()
+	for i in $all_maps/maps.get_selected_items():
+		names_selected.append($all_maps/maps.get_item_text(i))
+	deselect_all_subcols_but_one(null)	
 	pass # Replace with function body.

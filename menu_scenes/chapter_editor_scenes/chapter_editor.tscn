@@ -23,6 +23,7 @@ text = "unused_maps"
 [node name="maps" type="ItemList" parent="chapter_editor/all_maps"]
 layout_mode = 2
 size_flags_vertical = 3
+select_mode = 1
 
 [node name="Label" type="Label" parent="chapter_editor/all_maps"]
 layout_mode = 2
@@ -34,5 +35,5 @@ size_flags_vertical = 3
 size_flags_stretch_ratio = 0.13
 
 [connection signal="tree_entered" from="chapter_editor" to="chapter_editor" method="_on_tree_entered"]
-[connection signal="item_clicked" from="chapter_editor/all_maps/maps" to="chapter_editor" method="_on_all_maps_item_clicked"]
+[connection signal="multi_selected" from="chapter_editor/all_maps/maps" to="chapter_editor" method="_on_maps_multi_selected"]
 [connection signal="text_submitted" from="chapter_editor/all_maps/chapter_adder" to="chapter_editor" method="_on_chapter_adder_text_submitted"]
