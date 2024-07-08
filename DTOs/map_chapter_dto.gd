@@ -11,6 +11,9 @@ func restore(a="",b="",c=""):
 		save()
 
 func add_map_to_chapter(mapname,chaptername):
+	var current_chapter=get_chapter_of_map(mapname)
+	if current_chapter!=null:
+		remove_map_from_chapter(mapname,current_chapter)
 	if not chapter_dictionary.has(chaptername):
 		chapter_dictionary[chaptername]=[mapname]
 	else:

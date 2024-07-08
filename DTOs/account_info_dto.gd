@@ -2,7 +2,7 @@ extends BaseDTO
 class_name AccountInfoDTO
 
 var account_name:String
-var account_progress:Array[MapStatusDTO]=[]
+var account_progress:Array=[]
 var unlocked_colors:Array[Stats.TurretColor]
 #array of ItemBlockDTOs
 var unlocked_items

@@ -39,7 +39,9 @@ func _on_maps_item_activated(index):
 func _on_select_pressed():
 	chapter_pressed.emit(chapter_name)
 	pass # Replace with function body.
-
+func deselect_all():
+	$maps.deselect_all()
+	pass;
 
 func _on_remove_pressed():
 	if currently_selected=="": return
@@ -49,4 +51,5 @@ func _on_remove_pressed():
 
 func _on_maps_item_clicked(index, at_position, mouse_button_index):
 	currently_selected=$maps.get_item_text(index)
+	map_selected.emit(currently_selected)
 	pass # Replace with function body.

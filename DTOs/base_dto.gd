@@ -29,7 +29,7 @@ func get_json():
 func _init():
 	pass;	
 func _get_if_is_array_of_dtos(val):
-	if val is Array[BaseDTO]:
+	if val is Array and !val.is_empty() and val[0] is BaseDTO:
 				var arr= val
 				val=[] as Array
 				for i in arr:

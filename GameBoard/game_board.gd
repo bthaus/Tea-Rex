@@ -25,7 +25,7 @@ var ignore_click = false
 var is_delayed = false
 var delay_timer: Timer
 
-var navigation_polygon = NavigationPolygon.new()
+
 var points = PackedVector2Array([Vector2(), Vector2(), Vector2(), Vector2()])
 
 
@@ -37,10 +37,6 @@ func _ready():
 	gameState=GameState.gameState
 	randomize()
 	$Board.tile_set.tile_size = Vector2(Stats.block_size, Stats.block_size)
-	navigation_polygon.source_geometry_group_name = "navigation"
-	$Board.add_to_group("navigation")
-	navigation_polygon.source_geometry_mode = NavigationPolygon.SOURCE_GEOMETRY_GROUPS_WITH_CHILDREN
-	navigation_polygon.agent_radius = 26
 	
 	block_handler = BlockHandler.new($Board, turret_holder)
 	
@@ -51,9 +47,6 @@ func _ready():
 	delay_timer.timeout.connect(func(): is_delayed=false)
 	add_child(delay_timer)
 	gameState.getCamera().is_dragging_camera.connect(dragging_camera)
-	
-	_set_navigation_region()
-	$NavigationRegion2D.bake_navigation_polygon()
 	
 func start_bulldozer(done: Callable, size_x: int, size_y: int):
 	util.p("Bulldozering stuff now...", "Jojo")
@@ -121,7 +114,7 @@ func _process(_delta):
 		if action == BoardAction.BULLDOZER:
 			block_handler.draw_block_with_tile_id(selected_block, board_pos, GameboardConstants.LEGAL_PLACEMENT_TILE_ID, GameboardConstants.SELECTION_LAYER)
 		elif action != BoardAction.NONE:
-			can_place_block = block_handler.can_place_block(selected_block, board_pos, $NavigationRegion2D, gameState.spawners)
+			can_place_block = block_handler.can_place_block(selected_block, board_pos,  gameState.spawners)
 			var id = GameboardConstants.LEGAL_PLACEMENT_TILE_ID if can_place_block else GameboardConstants.ILLEGAL_PLACEMENT_TILE_ID
 			block_handler.draw_block_with_tile_id(selected_block, board_pos, id, GameboardConstants.SELECTION_LAYER)
 		
@@ -175,7 +168,7 @@ func _input(event):
 		if Card.contemplatingInterrupt: return ;
 		match action:
 			BoardAction.BUILD:
-				if block_handler.can_place_block(selected_block, board_pos, $NavigationRegion2D, gameState.spawners):
+				if block_handler.can_place_block(selected_block, board_pos,  gameState.spawners):
 					_place_block(selected_block, board_pos)
 					_action_finished(true)
 				elif current_tutorial != null:
@@ -194,7 +187,7 @@ func _input(event):
 					_remove_turrets(selected_block, board_pos)
 
 				else:
-					if block_handler.can_place_block(selected_block, board_pos, $NavigationRegion2D, gameState.spawners):
+					if block_handler.can_place_block(selected_block, board_pos,  gameState.spawners):
 						_place_block(selected_block, board_pos)
 						_action_finished(true)
 					elif current_tutorial != null:
@@ -205,7 +198,7 @@ func _input(event):
 				block_handler.remove_block_from_board(selected_block, board_pos)
 				_remove_turrets(selected_block, board_pos)
 				_action_finished(true)
-				$NavigationRegion2D.bake_navigation_polygon()
+				
 
 func _place_block(block: Block, map_position: Vector2):
 	var piece = block_handler.get_piece_from_board(map_position)
@@ -247,7 +240,7 @@ func init_field(map_dto: MapDTO):
 		entity.get_object().place_on_board($Board)
 	link_spawners_to_waves(map_dto)
 	
-	$NavigationRegion2D.bake_navigation_polygon()
+	
 	
 func link_spawners_to_waves(map_dto):
 	for spawner in GameState.gameState.spawners:
@@ -290,19 +283,7 @@ func _load_preview_turrets_from_selected_block():
 			add_child(turret)
 			preview_turrets.append(turret)
 
-func _set_navigation_region():
-	navigation_polygon.clear()
-	#Create 4 Vectors for the 4 corners
-	points[0] = Vector2( - Stats.board_cave_deepness.to * Stats.block_size, 0)
-	points[1] = Vector2((gameState.board_width + Stats.board_cave_deepness.to) * Stats.block_size, 0)
-	points[2] = Vector2((gameState.board_width + Stats.board_cave_deepness.to) * Stats.block_size, gameState.board_height * Stats.block_size)
-	points[3] = Vector2( - Stats.board_cave_deepness.to * Stats.block_size, gameState.board_height * Stats.block_size)
-	
-	navigation_polygon.add_outline(points) # add the Vector array to create the outline for the polygon
-	$NavigationRegion2D.set_navigation_polygon(navigation_polygon) # add the  Polygon to the Navigation Region
-	
-	$NavigationRegion2D.bake_navigation_polygon() # create the area inside the outlines
-	
+
 func reset():
 	var cells = $Board.get_used_cells(2)
 	
