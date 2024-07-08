@@ -14,10 +14,8 @@ layer_1/name = "build_layer"
 layer_1/tile_data = PackedInt32Array()
 layer_2/name = "block_layer"
 layer_2/tile_data = PackedInt32Array()
-layer_3/name = "selection_layer"
+layer_3/name = "preview_layer"
 layer_3/z_index = 3
 layer_3/tile_data = PackedInt32Array()
-layer_4/name = "range_preview_layer"
-layer_4/tile_data = PackedInt32Array()
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]

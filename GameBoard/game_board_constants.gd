@@ -5,8 +5,7 @@ class_name GameboardConstants
 const GROUND_LAYER = 0
 const BUILD_LAYER = 1
 const BLOCK_LAYER = 2
-const SELECTION_LAYER = 3
-const TURRET_RANGE_PREVIEW_LAYER = 4
+const PREVIEW_LAYER = 3
 
 #HELPER
 const TURRET_RANGE_PREVIEW_TILE_ID = 0

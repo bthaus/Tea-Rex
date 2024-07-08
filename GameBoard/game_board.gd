@@ -16,7 +16,6 @@ var block_handler: BlockHandler
 static var current_tutorial = null
 
 var preview_turrets = null
-var highlighted_turrets = []
 
 var is_dragging_camera = false
 var is_moving_camera = false
@@ -25,7 +24,7 @@ var ignore_click = false
 var is_delayed = false
 var delay_timer: Timer
 
-
+var previous_mouse_pos = Vector2(0,0)
 var points = PackedVector2Array([Vector2(), Vector2(), Vector2(), Vector2()])
 
 
@@ -84,66 +83,10 @@ func select_block(block, done: Callable):
 	selected_block = block
 	self.done = done
 
-
 func _process(_delta):
-	$Board.clear_layer(GameboardConstants.SELECTION_LAYER)
-	
-	var board_pos = $Board.local_to_map(get_global_mouse_position())
-	
-	#Highlight towers
-	for turret in highlighted_turrets:
-		if is_instance_valid(turret):
-			turret.de_highlight(_delta)
-
-	highlighted_turrets = []
-	var block # = block_handler.get_block_from_board(board_pos, BLOCK_LAYER, EXTENSION_LAYER, false, false, false)
-	
-	if block != null:
-		for piece in block.pieces:
-			var turret = turret_holder.get_turret_at($Board.map_to_local(piece.position))
-			if turret != null:
-				turret.highlight(_delta)
-				highlighted_turrets.append(turret)
-	
 	if is_dragging_camera:
 		ignore_click = true
 	
-	#Draw preview
-	if selected_block != null:
-		var can_place_block = false
-		if action == BoardAction.BULLDOZER:
-			block_handler.draw_block_with_tile_id(selected_block, board_pos, GameboardConstants.LEGAL_PLACEMENT_TILE_ID, GameboardConstants.SELECTION_LAYER)
-		elif action != BoardAction.NONE:
-			can_place_block = block_handler.can_place_block(selected_block, board_pos,  gameState.spawners)
-			var id = GameboardConstants.LEGAL_PLACEMENT_TILE_ID if can_place_block else GameboardConstants.ILLEGAL_PLACEMENT_TILE_ID
-			block_handler.draw_block_with_tile_id(selected_block, board_pos, id, GameboardConstants.SELECTION_LAYER)
-		
-		if preview_turrets == null: _load_preview_turrets_from_selected_block()
-		if preview_turrets.size() == selected_block.pieces.size():
-			var idx = 0
-			clear_range_outline()
-			for piece in selected_block.pieces:
-				var pos=$Board.map_to_local(Vector2(piece.position.x + board_pos.x, piece.position.y + board_pos.y))
-				preview_turrets[idx].position = pos
-				preview_turrets[idx].base.visible = can_place_block
-				#if previous_preview_pos!=pos:
-				preview_turrets[idx].base.showRangeOutline()
-				previous_preview_pos = pos;
-				idx += 1
-var previous_mouse_pos=Vector2i(0,0)				
-func check_mouse_cell_traversal(pos):
-	if pos!=previous_mouse_pos:
-		var turret_or_not_to_unhover=GameState.gameState.collisionReference.get_turret_from_board(previous_mouse_pos)
-		if turret_or_not_to_unhover!=null:
-			turret_or_not_to_unhover.on_unhover()
-		var turret_or_not=GameState.gameState.collisionReference.get_turret_from_board(pos)
-		if turret_or_not!=null:
-			turret_or_not.on_hover()
-		
-		previous_mouse_pos=pos
-		
-		Spawner.refresh_all_paths(true)
-	pass;
 func _input(event):
 	var board_pos = $Board.local_to_map(get_global_mouse_position())
 	check_mouse_cell_traversal(board_pos)
@@ -157,6 +100,7 @@ func _input(event):
 	if event.is_action_released("right_click"):
 		if selected_block != null:
 			block_handler.rotate_block(selected_block)
+			_draw_selected_block_preview(board_pos)
 	
 	if event.is_action_released("interrupt"):
 		_action_finished(false)
@@ -164,7 +108,6 @@ func _input(event):
 	if ignore_input: return
 	
 	if event.is_action_released("left_click"):
-		
 		if Card.contemplatingInterrupt: return ;
 		match action:
 			BoardAction.BUILD:
@@ -199,6 +142,45 @@ func _input(event):
 				_remove_turrets(selected_block, board_pos)
 				_action_finished(true)
 				
+
+func check_mouse_cell_traversal(map_position: Vector2):
+	if map_position!=previous_mouse_pos:
+		var turret_or_not_to_unhover=GameState.gameState.collisionReference.get_turret_from_board(previous_mouse_pos)
+		if turret_or_not_to_unhover!=null:
+			turret_or_not_to_unhover.on_unhover()
+		var turret_or_not=GameState.gameState.collisionReference.get_turret_from_board(map_position)
+		if turret_or_not!=null:
+			turret_or_not.on_hover()
+		
+		_draw_selected_block_preview(map_position)
+		previous_mouse_pos=map_position
+
+func _draw_selected_block_preview(map_position: Vector2):
+	#Draw preview
+	if selected_block != null:
+		$Board.clear_layer(GameboardConstants.PREVIEW_LAYER)
+		var can_place_block = false
+		if action == BoardAction.BULLDOZER:
+			block_handler.draw_block_with_tile_id(selected_block, map_position, GameboardConstants.LEGAL_PLACEMENT_TILE_ID, GameboardConstants.PREVIEW_LAYER)
+		elif action != BoardAction.NONE:
+			can_place_block = block_handler.can_place_block(selected_block, map_position,  gameState.spawners)
+		
+		#Draw range preview first
+		if preview_turrets == null: _load_preview_turrets_from_selected_block()
+		if preview_turrets.size() == selected_block.pieces.size():
+			var idx = 0
+			clear_range_outline()
+			for piece in selected_block.pieces:
+				var pos=$Board.map_to_local(Vector2(piece.position.x + map_position.x, piece.position.y + map_position.y))
+				preview_turrets[idx].position = pos
+				preview_turrets[idx].base.visible = can_place_block
+				preview_turrets[idx].base.showRangeOutline()
+				previous_preview_pos = pos;
+				idx += 1
+		
+		#Draw actual block shape
+		var id = GameboardConstants.LEGAL_PLACEMENT_TILE_ID if can_place_block else GameboardConstants.ILLEGAL_PLACEMENT_TILE_ID
+		block_handler.draw_block_with_tile_id(selected_block, map_position, id, GameboardConstants.PREVIEW_LAYER)
 
 func _place_block(block: Block, map_position: Vector2):
 	var piece = block_handler.get_piece_from_board(map_position)
@@ -317,10 +299,10 @@ func reset():
 		else: Explosion.pushCache(func(): )
 
 func show_outline(pos):
-	$Board.set_cell(GameboardConstants.TURRET_RANGE_PREVIEW_LAYER, $Board.local_to_map(pos), GameboardConstants.TURRET_RANGE_PREVIEW_TILE_ID, Vector2(0,0))
+	$Board.set_cell(GameboardConstants.PREVIEW_LAYER, $Board.local_to_map(pos), GameboardConstants.TURRET_RANGE_PREVIEW_TILE_ID, Vector2(0,0))
 
 func clear_range_outline():
-	$Board.clear_layer(GameboardConstants.TURRET_RANGE_PREVIEW_LAYER)
+	$Board.clear_layer(GameboardConstants.PREVIEW_LAYER)
 
 func dragging_camera(is_dragging: bool):
 	self.is_dragging_camera = is_dragging
