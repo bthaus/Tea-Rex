@@ -42,6 +42,7 @@ static var inhandTurrets = []
 
 func _on_destroy():
 	GameState.gameState.gameBoard.clear_range_outline()
+	collisionReference.unregister_turret(self)
 	pass;
 # Called when the node enters the scene tree for the first time.
 func do_all(tasks: Array[Callable]):
