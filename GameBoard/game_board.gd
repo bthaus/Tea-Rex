@@ -182,10 +182,10 @@ func _input(event):
 					TutorialHolder.showTutorial(current_tutorial, gameState)
 					current_tutorial = null
 			
-			BoardAction.MOVE:
+			BoardAction.NONE:
 				if selected_block == null:
 					var block = block_handler.get_block_from_board(board_pos, true)
-					if block.pieces.size() == 0: # If no block got selected (nothing found at the clicked pos), ignore
+					if block==null or block.pieces.size() == 0: # If no block got selected (nothing found at the clicked pos), ignore
 						return
 					block_handler.remove_block_from_board(block, board_pos)
 					selected_block = block

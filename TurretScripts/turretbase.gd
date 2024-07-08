@@ -42,6 +42,7 @@ static var inhandTurrets = []
 
 func _on_destroy():
 	if not is_instance_valid(self):return;
+	if is_instance_valid(base.projectile):base.projectile.queue_free()
 	if is_instance_valid(GameState.gameState.gameBoard): 
 		GameState.gameState.gameBoard.clear_range_outline()
 		if placed:collisionReference.unregister_turret(self)
