@@ -46,17 +46,13 @@ func setMinion(oldx, oldy, x, y, m: Monster):
 	x = normaliseX(x)
 	y = normaliseY(y)
 	oldy = normaliseY(oldy)
-	if y>map.size():
-		addRows()
+
 	map[oldy][oldx].ms.erase(m)
 	for base in bases:
 		if x==base.x and y==base.y:
 			gameState.hit_base(m)
 			return;
 	map[y][x].ms.push_back(m)
-	if oldy != y:
-		rowCounter[oldy] = rowCounter[oldy] - 1
-		rowCounter[y] = rowCounter[y] + 1
 	
 	pass ;
 	
@@ -102,19 +98,12 @@ func initialise(g,map_dto):
 	for entity in map_dto.entities:
 		map[normaliseY(entity.map_y)][normaliseX(entity.map_x)].collides_with_bullets=entity.collides_with_bullets
 	pass ;
-func addRows():
-	for i in range(Stats.LEVEL_EDITOR_WIDTH):
-		addRow(map)
-	pass ;
+
 func addRow(y: Array):
 	var row = []
 	addholders(row)
 	y.append(row)
-	var row2 = []
-	addholders(row2)
-	y.append(row2)
-	rowCounter.append(0)
-	rowCounter.append(0)
+	
 	pass ;
 	
 func registerBase(base):
@@ -226,7 +215,7 @@ func isOutOfBounds(x, y):
 			
 	pass
 func addholders(row: Array):
-	for i in range(gameState.board_width + 2 * 12):
+	for i in range(Stats.LEVEL_EDITOR_WIDTH):
 		row.append(Holder.new())
 	pass ;
 
