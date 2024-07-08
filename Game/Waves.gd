@@ -128,7 +128,7 @@ static func can_all_reach_target(redo_grids=true):
 	if redo_grids:
 		_set_grids()
 	for s in GameState.gameState.spawners:
-		var paths=s.get_paths(s.targets,s.state.board,s)
+		var paths=s._get_paths(s.targets,s.state.board,s)
 		if paths==null:
 			return false
 	return true;
