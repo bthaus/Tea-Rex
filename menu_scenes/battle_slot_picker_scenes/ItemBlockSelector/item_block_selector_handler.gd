@@ -12,6 +12,7 @@ func _init(board: TileMap, item_blocks: Array):
 func draw_item_block(item_block: ItemBlockDTO, map_position: Vector2, layer: int):
 	if item_block == null: return
 	var positions = Stats.getPositionsFromBlockShape(item_block.block_shape)
+	positions = rotate_positions(positions, item_block.rotation)
 	for pos in positions:
 		board.set_cell(layer, map_position + pos, item_block.tile_id, Vector2(0, 0))
 
@@ -22,6 +23,21 @@ func place_item_block(item_block: ItemBlockDTO, map_position: Vector2):
 	draw_item_block(item_block, map_position, ItemBlockConstants.BLOCK_LAYER)
 	item_block.map_position = map_position
 	item_blocks.append(item_block)
+
+func rotate_item(item_block: ItemBlockDTO):
+	item_block.rotation = (item_block.rotation + 1) % 4
+	
+#Rotates all positions from the origin point (0,0). Rotation parameter can be 0, 1, 2 or 3
+func rotate_positions(positions: PackedVector2Array, rotation: int) -> PackedVector2Array:
+	var rotated_positions: PackedVector2Array = []
+	for pos in positions:
+		pos.y *= -1 #Vector has positive side upwards, exactly opposite of tilemap
+		pos = pos.rotated(deg_to_rad(-90*rotation)) #This method rotates counter-clockwise, so we need to add the sign
+		pos.y *= -1 #Convert back
+		pos.x = round(pos.x) #Dont ask me, i hate it
+		pos.y = round(pos.y)
+		rotated_positions.append(pos)
+	return rotated_positions
 
 func remove_item_block(item_block: ItemBlockDTO):
 	var idx = _get_item_block_idx(item_block)
