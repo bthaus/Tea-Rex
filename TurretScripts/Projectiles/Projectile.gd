@@ -38,7 +38,7 @@ func on_remove():
 	
 	pass;
 func remove():
-	associate.on_projectile_removed(global_position)
+	associate.on_projectile_removed(self)
 	#if associate != null: global_position = associate.global_position
 	if pool == null:
 		return ;

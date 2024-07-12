@@ -134,7 +134,7 @@ const RED_enemy_damage=enemy_base_damage*3;
 
 const max_enemies_per_spawner=50;
 
-const enemy_base_speed_factor =1;
+const enemy_base_speed_factor =3;
 const enemy_base_speed=10;
 const enemy_base_acceleration = 7;
 const GREEN_enemy_speed=enemy_base_speed*1;

@@ -33,11 +33,8 @@ func prepare_projectile(projectile:Projectile):
 		
 		
 	pass;
-func on_hit(projectile:Projectile):
+func on_remove(projectile:Projectile):
 	var dup
-	if projectile.has_method("_toggle_emission")and on_projectile_node!=null:
-		projectile._toggle_emission(false)
-	if on_hit_node==null:return
 	if on_hit_cache.is_empty():
 		dup=$on_hit.duplicate()
 		dup.finished.connect(func():
@@ -47,9 +44,17 @@ func on_hit(projectile:Projectile):
 		dup=on_hit_cache.pop_back()
 		
 	add_child(dup)
-	dup.global_position=projectile.global_position	
+	dup.global_position=projectile.global_position
+	on_shoot_node.process_material.direction=Vector3(projectile.direction.x*-1,projectile.direction.y*-1,0)	
 	dup.restart()
 	dup.emitting=true;
+	pass;	
+func on_hit(projectile:Projectile):
+	
+	if projectile.has_method("_toggle_emission")and on_projectile_node!=null:
+		projectile._toggle_emission(false)
+	if on_hit_node==null:return
+	on_remove(projectile)
 	
 			
 	pass;

@@ -128,18 +128,22 @@ func on_hit(monster:Monster,damage,color:Stats.TurretColor,killed,projectile:Pro
 	for mod in turret_mods:
 		mod.on_hit(projectile)
 	pass;	
-func on_projectile_removed(pos):
-	
+func on_projectile_removed(projectile:Projectile):
+	for mod in turret_mods:
+		mod.on_remove(projectile)
 	pass;	
 func on_target_killed(monster:Monster):
 	addKill()
+	for mod in turret_mods:
+		mod.on_kill(projectile)
 	pass;	
 func on_shoot(projectile:Projectile):
 	for mod in turret_mods:
 		mod.on_shoot(projectile)
 	pass;	
 func on_fly(projectile:Projectile):
-	
+	for mod in turret_mods:
+		mod.on_cell_traversal(projectile)
 	pass;	
 func on_target_lost(target:Monster):
 	
