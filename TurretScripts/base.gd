@@ -59,17 +59,17 @@ var targetposition;
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	barrels = get_children()
-	for b in barrels:
-		remove_child(b)
+	turret_mods.append(MultipleShotsMod.new())
+	turret_mods.append(ForkingAmmunitionMod.new())
 	turret_mods.append(ExplosiveAmmunition.new())
 	turret_mods.append(PenetratingAmmunition.new())
 	
-	for mod in turret_mods:
-		mod.initialise(self)
-	if not placed:
-		for mod in turret_mods:
-			mod.visual.visible=false
+	
+		
+	
+	barrels = get_children()
+	for b in barrels:
+		remove_child(b)		
 	pass # Replace with function body.
 
 func setupCollision(clearing):
@@ -104,12 +104,23 @@ func setUpTower(holder):
 
 	if placed:
 		lightamount = GameState.gameState.lightThresholds.getLight(global_position.y) * stacks
-	
+	for mod in turret_mods:
+		mod.initialise(self)
+		if not placed:
+			mod.visual.visible=false
+		
+		
 	setupCollision(true)
 	after_built()
 	pass ;
 func after_built():
-	
+	var to_remove=[]
+	for mod in turret_mods:
+		if TurretBaseMod.color_blocks[TurretBaseMod.ModType.keys()[mod.type]].has(type):
+			to_remove.append(mod)
+	for mod in to_remove:
+		turret_mods.erase(mod)
+		mod.remove()		
 	pass;
 func reduceCooldown(delta):
 

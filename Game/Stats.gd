@@ -255,7 +255,7 @@ static var UPDRAW_big_description="It's dangerous to build alone. Take this!
 
 (lets you draw more cards)"
 static var UPMAXCARDS_big_description="Lets you hold more cards. It's magical. "
-enum TurretColor {GREY=1, GREEN=2, RED=3, YELLOW=4,BLUE=5};
+enum TurretColor {GREY=1, GREEN=2, RED=3, YELLOW=4,BLUE=5,MAGENTA=6};
 enum TurretExtension {DEFAULT=1,REDLASER=2, BLUELASER=3, YELLOWMORTAR=4, GREENPOISON=5,BLUEFREEZER=6};
 enum GamePhase {BATTLE=1,BUILD=2,BOTH=3};
 enum SpecialCards {HEAL=1,FIREBALL=2,UPHEALTH=3,CRYOBALL=4,MOVE=5, BULLDOZER=6,GLUE=7,POISON=8, UPDRAW=9, UPMAXCARDS=10}

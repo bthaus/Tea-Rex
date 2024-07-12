@@ -42,6 +42,7 @@ func on_remove(projectile:Projectile):
 func on_hit(projectile:Projectile):
 	
 	if on_hit_node==null:return
+	if projectile==null:return
 	var dup
 	if on_hit_cache.is_empty():
 		dup=$on_hit.duplicate()

@@ -4,8 +4,12 @@ extends GameObject2D
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
-
-func get_bullet(color:Stats.TurretColor,damage, speed, turret, penetrations,extension:Stats.TurretExtension):
+func duplicate_bullet(bullet:Projectile)->Projectile:
+	return get_bullet(bullet.type,bullet.damage,bullet.speed,bullet.associate,bullet.penetrations,bullet.ext)
+	
+	
+	pass;
+func get_bullet(color:Stats.TurretColor,damage, speed, turret, penetrations,extension:Stats.TurretExtension)->Projectile:
 	var temp
 	var pool=turret.bullets
 	

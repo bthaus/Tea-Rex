@@ -3,6 +3,7 @@ class_name ExplosiveAmmunition
 
 func _init():
 	description="Projectiles explode on contact"
+	super(TurretBaseMod.ModType.AMMUNITION)
 	pass;
 
 func on_hit(projectile:Projectile):
