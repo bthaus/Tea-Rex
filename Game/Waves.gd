@@ -159,11 +159,14 @@ static func _get_shortest_path_global(grid:grid_type_dto,targets,spawner):
 	var path=[]
 	var shortest_path=10000000
 	for target in targets:
+		if path.size()==0:
+			print("wtf?")	
 		#if target.color!=spawner.color: continue
 		var temp=grid.astar_grid.get_id_path(spawner.map_position,target.map_position)
-		if temp.size()<shortest_path:
+		if temp.size()<shortest_path and temp.size()>0:
 			shortest_path=temp.size()
 			path=temp
+		
 	var global_path=[]
 	for cell in path:
 		global_path.append(GameState.gameState.board.map_to_local(cell))
