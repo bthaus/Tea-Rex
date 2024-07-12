@@ -90,6 +90,7 @@ func _process(_delta):
 func _input(event):
 	var board_pos = $Board.local_to_map(get_global_mouse_position())
 	check_mouse_cell_traversal(board_pos)
+		
 	if is_delayed:
 		return
 	
@@ -113,30 +114,24 @@ func _input(event):
 			BoardAction.BUILD:
 				if block_handler.can_place_block(selected_block, board_pos,  gameState.spawners):
 					_place_block(selected_block, board_pos)
+					previous_mouse_pos = Vector2(-1000, -1000) #Pfusch
 					_action_finished(true)
 				elif current_tutorial != null:
 					TutorialHolder.showTutorial(current_tutorial, gameState)
 					current_tutorial = null
 			
 			BoardAction.NONE:
-				if selected_block == null:
-					var block = block_handler.get_block_from_board(board_pos, true)
-					if block==null or block.pieces.size() == 0: # If no block got selected (nothing found at the clicked pos), ignore
-						return
-					block_handler.remove_block_from_board(block, board_pos)
-					selected_block = block
-					moved_from_position = board_pos # Save block information in case the user interrupts the process
-					moved_from_block = selected_block.clone()
-					_remove_turrets(selected_block, board_pos)
-
-				else:
-					if block_handler.can_place_block(selected_block, board_pos,  gameState.spawners):
-						_place_block(selected_block, board_pos)
-						_action_finished(true)
-					elif current_tutorial != null:
-						TutorialHolder.showTutorial(current_tutorial, gameState)
-						current_tutorial = null
-					
+				var block = block_handler.get_block_from_board(board_pos, true)
+				if block==null or block.pieces.size() == 0: # If no block got selected (nothing found at the clicked pos), ignore
+					return
+				block_handler.remove_block_from_board(block, board_pos)
+				selected_block = block
+				moved_from_position = board_pos # Save block information in case the user interrupts the process
+				moved_from_block = selected_block.clone()
+				action = BoardAction.BUILD
+				_remove_turrets(selected_block, board_pos)
+				previous_mouse_pos = Vector2(-1000, -1000) #Pfusch
+				
 			BoardAction.BULLDOZER:
 				block_handler.remove_block_from_board(selected_block, board_pos)
 				_remove_turrets(selected_block, board_pos)
@@ -154,6 +149,16 @@ func check_mouse_cell_traversal(map_position: Vector2):
 		
 		_draw_selected_block_preview(map_position)
 		previous_mouse_pos=map_position
+
+func _update_turret_hovering(map_position: Vector2):
+	var turret_or_not_to_unhover=GameState.gameState.collisionReference.get_turret_from_board(previous_mouse_pos)
+	if turret_or_not_to_unhover!=null:
+		turret_or_not_to_unhover.on_unhover()
+	var turret_or_not=GameState.gameState.collisionReference.get_turret_from_board(map_position)
+	if turret_or_not!=null:
+		turret_or_not.on_hover()
+	
+	_draw_selected_block_preview(map_position)
 
 func _draw_selected_block_preview(map_position: Vector2):
 	#Draw preview
