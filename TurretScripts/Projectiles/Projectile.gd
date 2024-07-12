@@ -14,7 +14,7 @@ var speed;
 var target: Monster
 var associate;
 var playerDied = false;
-
+var emitter
 
 static var gamestate: GameState;
 static var camera;
@@ -48,7 +48,9 @@ func remove():
 	pool.push_back(self)
 	pass ;
 func _remove_from_tree():
-	get_parent().remove_child(self)
+	global_position=Vector2(-1000,-1000)
+	
+	#get_parent().remove_child(self)
 	pass;
 func shoot(target):
 	direction = (target.global_position - self.global_position).normalized();
@@ -68,12 +70,14 @@ func hitEnemy(enemy: Monster):
 	oneshot = oneshot - 1;
 	var killed=enemy.hit(type, damage)
 	on_hit(enemy)
-	if associate != null: associate.on_hit(enemy,damage,type,killed)
+	if associate != null: associate.on_hit(enemy,damage,type,killed,self)
 	if oneshot <= 0&&oneshot > - 100000:
 		remove()
 	
 	pass ;
-
+func _toggle_emission(b):
+	emitter.emitting=b
+	pass;
 func on_hit(enemy: Monster):
 		if type == Stats.TurretColor.RED&&ext == Stats.TurretExtension.REDLASER:
 			applyRedLaser(enemy)

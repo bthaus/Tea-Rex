@@ -61,8 +61,10 @@ func _ready():
 	barrels = get_children()
 	for b in barrels:
 		remove_child(b)
+	turret_mods.append(TurretBaseMod.new())
 	
-	
+	for mod in turret_mods:
+		mod.initialise(self)
 	pass # Replace with function body.
 
 func setupCollision(clearing):
@@ -120,9 +122,11 @@ func on_target_found(monster:Monster):
 	monster.monster_died.connect(func (): target=null)
 	pass;
 	
-func on_hit(monster:Monster,damage,color:Stats.TurretColor,killed):
+func on_hit(monster:Monster,damage,color:Stats.TurretColor,killed,projectile:Projectile):
 	if killed: on_target_killed(monster)
 	addDamage(damage)
+	for mod in turret_mods:
+		mod.on_hit(projectile)
 	pass;	
 func on_projectile_removed(pos):
 	
@@ -130,8 +134,9 @@ func on_projectile_removed(pos):
 func on_target_killed(monster:Monster):
 	addKill()
 	pass;	
-func on_shoot():
-	
+func on_shoot(projectile:Projectile):
+	for mod in turret_mods:
+		mod.on_shoot(projectile)
 	pass;	
 func on_fly(projectile:Projectile):
 	
@@ -215,9 +220,9 @@ func shoot(target):
 	var barrels = getBarrels();
 	for b in barrels:
 		var bp = b.get_child(0).global_position;
+		
 		var shot = Projectile.create(type, damage * damagefactor, speed * speedfactor, self, extension);
-		shot.global_position = bp;
-		on_shoot()
+		shot.global_position = global_position
 		#if type == Stats.TurretColor.YELLOW&&Stats.TurretExtension.YELLOWMORTAR == extension:
 		#		Explosion.create(Stats.TurretColor.YELLOW, 0, bp, self, 0.1)
 		if instantHit:
@@ -226,6 +231,7 @@ func shoot(target):
 			shot.global_position = global_position
 		else:
 			shot.shoot(target);
+		on_shoot(shot)	
 	startCooldown(cooldown * cooldownfactor)
 	pass ;
 func startCooldown(time):

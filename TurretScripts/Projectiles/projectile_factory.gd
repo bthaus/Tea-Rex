@@ -14,6 +14,7 @@ func get_bullet(color:Stats.TurretColor,damage, speed, turret, extension:Stats.T
 		temp.visible = true;
 		
 	else:
+		
 		if extension==Stats.TurretExtension.BLUELASER:
 			temp= $blue_laser_projectile.duplicate()
 		elif color==Stats.TurretColor.GREEN:
@@ -21,10 +22,12 @@ func get_bullet(color:Stats.TurretColor,damage, speed, turret, extension:Stats.T
 		elif color==Stats.TurretColor.RED:
 			temp=$red_saw.duplicate()	
 		else:
-			temp= $base_projectile.duplicate()		
+			temp= $base_projectile.duplicate()
+		for mod in turret.turret_mods:
+			mod.visual.prepare_projectile(temp)				
 	temp.type = color;
 	temp.ext = extension;
-	temp.global_position = turret.global_position
+	#temp.global_position = turret.global_position
 	temp.associate = turret
 	temp.damage = damage;
 	temp.speed = speed;
