@@ -67,6 +67,9 @@ func _ready():
 	
 	for mod in turret_mods:
 		mod.initialise(self)
+	if not placed:
+		for mod in turret_mods:
+			mod.visual.visible=false
 	pass # Replace with function body.
 
 func setupCollision(clearing):
