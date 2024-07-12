@@ -3,12 +3,7 @@ class_name RedTurretCore
 
 
 # Called when the node enters the scene tree for the first time.
-func _ready():
 
-	
-	#$AudioStreamPlayer2D.finished.connect(func(): if inRange(): $AudioStreamPlayer2D.play)
-
-	pass # Replace with function body.
 func after_built():
 	super.after_built()
 	showSaw()
@@ -37,12 +32,20 @@ func attack(delta):
 		buildup = buildup + 0.01 * delta;
 	#if not on cooldown, deal damage	
 	if !onCooldown:
+			var storepos=projectile.global_position
 			for cell in coveredCells:
+				var cell_triggered=false;
 				for e in cell:
 					if !is_instance_valid(e): continue
-					if e.hit(type, self.damage * stacks): addKill()
-					addDamage(self.damage * stacks)
+					var killed=e.hit(type, self.damage * stacks)
+					if killed: addKill()
 					
+					if not cell_triggered:
+						projectile.global_position=e.global_position
+						on_hit(e,self.damage,type,killed,projectile)
+						cell_triggered=true;
+					addDamage(self.damage * stacks)
+			projectile.global_position=storepos		
 			startCooldown(cooldown * cooldownfactor)
 		
 	pass;

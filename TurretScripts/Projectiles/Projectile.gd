@@ -15,7 +15,7 @@ var target: Monster
 var associate;
 var playerDied = false;
 var emitter
-
+var ignore_next_enemy=false;
 static var gamestate: GameState;
 static var camera;
 static var factory=load("res://TurretScripts/Projectiles/projectile_factory.tscn").instantiate()
@@ -53,7 +53,9 @@ func _remove_from_tree():
 	#get_parent().remove_child(self)
 	pass;
 func shoot(target):
-	direction = (target.global_position - self.global_position).normalized();
+	if not is_instance_valid(target):
+		direction=Vector2(1,1)
+	else: direction = (target.global_position - self.global_position).normalized();
 	self.target = target;
 	global_rotation = direction.angle() + PI / 2.0
 
@@ -66,7 +68,9 @@ func move(delta):
 func cell_traversed():
 	if associate!=null: associate.on_fly(self)
 	pass;	
+	
 func hitEnemy(enemy: Monster):
+	if ignore_next_enemy:ignore_next_enemy=false;return
 	penetrations = penetrations - 1;
 	var killed=enemy.hit(type, damage)
 	on_hit(enemy)
