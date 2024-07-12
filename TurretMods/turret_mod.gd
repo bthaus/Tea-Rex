@@ -11,9 +11,10 @@ func initialise(turret:TurretCore):
 	turret.add_child(visual)
 	
 	
+	
 	pass;
 func on_cell_traversal(projectile:Projectile):
-	print("traversed cell!!")
+	
 	pass;
 	
 func on_kill(monster:Monster):

@@ -7,7 +7,7 @@ var damage;
 var direction: Vector2;
 var type;
 var ext;
-var oneshot;
+var penetrations;
 var oneshotoriginal;
 var pool;
 var speed;
@@ -22,8 +22,8 @@ static var factory=load("res://TurretScripts/Projectiles/projectile_factory.tscn
 var oldpos=Vector2(0,0)
 
 
-static func create(type: Stats.TurretColor, damage, speed, root:TurretCore, extension: Stats.TurretExtension=Stats.TurretExtension.DEFAULT) -> Projectile:
-	return factory.get_bullet(type,damage,speed,root,extension)	
+static func create(type: Stats.TurretColor, damage, speed, root:TurretCore, penetrations:int=1, extension: Stats.TurretExtension=Stats.TurretExtension.DEFAULT) -> Projectile:
+	return factory.get_bullet(type,damage,speed,root,penetrations,extension)	
 	
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -67,11 +67,11 @@ func cell_traversed():
 	if associate!=null: associate.on_fly(self)
 	pass;	
 func hitEnemy(enemy: Monster):
-	oneshot = oneshot - 1;
+	penetrations = penetrations - 1;
 	var killed=enemy.hit(type, damage)
 	on_hit(enemy)
 	if associate != null: associate.on_hit(enemy,damage,type,killed,self)
-	if oneshot <= 0&&oneshot > - 100000:
+	if penetrations <= 0&&penetrations > - 100000:
 		remove()
 	
 	pass ;

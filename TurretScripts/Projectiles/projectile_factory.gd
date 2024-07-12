@@ -5,7 +5,7 @@ extends GameObject2D
 func _ready():
 	pass # Replace with function body.
 
-func get_bullet(color:Stats.TurretColor,damage, speed, turret, extension:Stats.TurretExtension):
+func get_bullet(color:Stats.TurretColor,damage, speed, turret, penetrations,extension:Stats.TurretExtension):
 	var temp
 	var pool=turret.bullets
 	
@@ -23,8 +23,7 @@ func get_bullet(color:Stats.TurretColor,damage, speed, turret, extension:Stats.T
 			temp=$red_saw.duplicate()	
 		else:
 			temp= $base_projectile.duplicate()
-		for mod in turret.turret_mods:
-			mod.visual.prepare_projectile(temp)				
+				
 	temp.type = color;
 	temp.ext = extension;
 	#temp.global_position = turret.global_position
@@ -32,8 +31,7 @@ func get_bullet(color:Stats.TurretColor,damage, speed, turret, extension:Stats.T
 	temp.damage = damage;
 	temp.speed = speed;
 	temp.pool=pool
-	temp.oneshot = Stats.getOneshotType(color, extension);
-	
+	temp.penetrations=penetrations
 	GameState.gameState.bulletHolder.add_child(temp)
 	temp.visible=true
 	
