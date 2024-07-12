@@ -7,14 +7,14 @@ var damage;
 var direction: Vector2;
 var type;
 var ext;
-var oneshot;
+var penetrations;
 var oneshotoriginal;
 var pool;
 var speed;
 var target: Monster
 var associate;
 var playerDied = false;
-
+var emitter
 
 static var gamestate: GameState;
 static var camera;
@@ -22,8 +22,8 @@ static var factory=load("res://TurretScripts/Projectiles/projectile_factory.tscn
 var oldpos=Vector2(0,0)
 
 
-static func create(type: Stats.TurretColor, damage, speed, root:TurretCore, extension: Stats.TurretExtension=Stats.TurretExtension.DEFAULT) -> Projectile:
-	return factory.get_bullet(type,damage,speed,root,extension)	
+static func create(type: Stats.TurretColor, damage, speed, root:TurretCore, penetrations:int=1, extension: Stats.TurretExtension=Stats.TurretExtension.DEFAULT) -> Projectile:
+	return factory.get_bullet(type,damage,speed,root,penetrations,extension)	
 	
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -38,7 +38,7 @@ func on_remove():
 	
 	pass;
 func remove():
-	associate.on_projectile_removed(global_position)
+	associate.on_projectile_removed(self)
 	#if associate != null: global_position = associate.global_position
 	if pool == null:
 		return ;
@@ -48,7 +48,9 @@ func remove():
 	pool.push_back(self)
 	pass ;
 func _remove_from_tree():
-	get_parent().remove_child(self)
+	global_position=Vector2(-1000,-1000)
+	
+	#get_parent().remove_child(self)
 	pass;
 func shoot(target):
 	direction = (target.global_position - self.global_position).normalized();
@@ -65,15 +67,17 @@ func cell_traversed():
 	if associate!=null: associate.on_fly(self)
 	pass;	
 func hitEnemy(enemy: Monster):
-	oneshot = oneshot - 1;
+	penetrations = penetrations - 1;
 	var killed=enemy.hit(type, damage)
 	on_hit(enemy)
-	if associate != null: associate.on_hit(enemy,damage,type,killed)
-	if oneshot <= 0&&oneshot > - 100000:
+	if associate != null: associate.on_hit(enemy,damage,type,killed,self)
+	if penetrations <= 0&&penetrations > - 100000:
 		remove()
 	
 	pass ;
-
+func _toggle_emission(b):
+	emitter.emitting=b
+	pass;
 func on_hit(enemy: Monster):
 		if type == Stats.TurretColor.RED&&ext == Stats.TurretExtension.REDLASER:
 			applyRedLaser(enemy)

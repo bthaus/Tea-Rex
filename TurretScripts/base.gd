@@ -25,6 +25,7 @@ var stacks = 1
 var lightamount = 1.5;
 var killcount = 0;
 var damagedealt = 0
+var penetrations=1;
 
 static var camera;
 var instantHit = false;
@@ -61,8 +62,14 @@ func _ready():
 	barrels = get_children()
 	for b in barrels:
 		remove_child(b)
+	turret_mods.append(ExplosiveAmmunition.new())
+	turret_mods.append(PenetratingAmmunition.new())
 	
-	
+	for mod in turret_mods:
+		mod.initialise(self)
+	if not placed:
+		for mod in turret_mods:
+			mod.visual.visible=false
 	pass # Replace with function body.
 
 func setupCollision(clearing):
@@ -92,7 +99,7 @@ func setUpTower(holder):
 	cooldown = Stats.getCooldown(type, extension);
 	damage = Stats.getDamage(type, extension);
 	speed = Stats.getMissileSpeed(type, extension);
-	if projectile == null: projectile = Projectile.create(type, damage * damagefactor, speed * speedfactor, self, extension);
+	if projectile == null: projectile = Projectile.create(type, damage * damagefactor, speed * speedfactor, self, extension,penetrations);
 	projectile.visible = false;
 
 	if placed:
@@ -120,21 +127,28 @@ func on_target_found(monster:Monster):
 	monster.monster_died.connect(func (): target=null)
 	pass;
 	
-func on_hit(monster:Monster,damage,color:Stats.TurretColor,killed):
+func on_hit(monster:Monster,damage,color:Stats.TurretColor,killed,projectile:Projectile):
 	if killed: on_target_killed(monster)
 	addDamage(damage)
+	for mod in turret_mods:
+		mod.on_hit(projectile)
 	pass;	
-func on_projectile_removed(pos):
-	
+func on_projectile_removed(projectile:Projectile):
+	for mod in turret_mods:
+		mod.on_remove(projectile)
 	pass;	
 func on_target_killed(monster:Monster):
 	addKill()
+	for mod in turret_mods:
+		mod.on_kill(monster)
 	pass;	
-func on_shoot():
-	
+func on_shoot(projectile:Projectile):
+	for mod in turret_mods:
+		mod.on_shoot(projectile)
 	pass;	
 func on_fly(projectile:Projectile):
-	
+	for mod in turret_mods:
+		mod.on_cell_traversal(projectile)
 	pass;	
 func on_target_lost(target:Monster):
 	
@@ -144,7 +158,7 @@ func do(delta):
 	if !onCooldown:
 		if target != null: checkTarget()
 		if target == null: getTarget()
-		if projectile == null: projectile = Projectile.create(type, damage, speed, self, extension)
+		if projectile == null: projectile = Projectile.create(type, damage, speed, self,penetrations, extension)
 			
 	if target != null:
 		direction = (target.global_position - holder.global_position).normalized();
@@ -215,9 +229,9 @@ func shoot(target):
 	var barrels = getBarrels();
 	for b in barrels:
 		var bp = b.get_child(0).global_position;
-		var shot = Projectile.create(type, damage * damagefactor, speed * speedfactor, self, extension);
-		shot.global_position = bp;
-		on_shoot()
+		
+		var shot = Projectile.create(type, damage * damagefactor, speed * speedfactor, self, penetrations,extension);
+		shot.global_position = global_position
 		#if type == Stats.TurretColor.YELLOW&&Stats.TurretExtension.YELLOWMORTAR == extension:
 		#		Explosion.create(Stats.TurretColor.YELLOW, 0, bp, self, 0.1)
 		if instantHit:
@@ -226,6 +240,7 @@ func shoot(target):
 			shot.global_position = global_position
 		else:
 			shot.shoot(target);
+		on_shoot(shot)	
 	startCooldown(cooldown * cooldownfactor)
 	pass ;
 func startCooldown(time):
