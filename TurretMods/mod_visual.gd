@@ -16,17 +16,18 @@ func _ready():
 	
 	pass;
 func on_shoot(projectile:Projectile):
-	on_shoot_node.restart()
-	on_shoot_node.emitting=true
-	var directoin=Vector3(projectile.direction.x,projectile.direction.y,0)
-
-	on_shoot_node.process_material.direction=directoin	
-	if projectile.has_method("_toggle_emission"):
+	
+	if on_shoot_node!=null:
+		on_shoot_node.restart()
+		on_shoot_node.emitting=true
+		var directoin=Vector3(projectile.direction.x,projectile.direction.y,0)
+		on_shoot_node.process_material.direction=directoin	
+	if projectile.has_method("_toggle_emission") and on_projectile_node!=null:
 		projectile._toggle_emission(true)
 	pass;	
 # Called when the node enters the scene tree for the first time.
 func prepare_projectile(projectile:Projectile):
-	if projectile.emitter==null:
+	if projectile.emitter==null and on_projectile_node!=null:
 		projectile.emitter=on_projectile_node.duplicate()
 		projectile.add_child(projectile.emitter)
 		
@@ -34,8 +35,9 @@ func prepare_projectile(projectile:Projectile):
 	pass;
 func on_hit(projectile:Projectile):
 	var dup
-	if projectile.has_method("_toggle_emission"):
+	if projectile.has_method("_toggle_emission")and on_projectile_node!=null:
 		projectile._toggle_emission(false)
+	if on_hit_node==null:return
 	if on_hit_cache.is_empty():
 		dup=$on_hit.duplicate()
 		dup.finished.connect(func():
@@ -50,15 +52,4 @@ func on_hit(projectile:Projectile):
 	dup.emitting=true;
 	
 			
-	pass;
-func copy()->Node:
-	var temp=duplicate()
-	temp=get_and_append_children(temp)
-	return temp
-	pass;
-func get_and_append_children(node):
-	for child in node.get_children():
-		var temp=child.duplicate()
-		node.add_child(get_and_append_children(temp))
-	return node	
 	pass;
