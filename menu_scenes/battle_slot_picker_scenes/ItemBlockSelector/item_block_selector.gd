@@ -1,31 +1,16 @@
 extends Panel
 
 var item_handler: ItemBlockSelectorHandler
-var selected_item: ItemBlock
+var selected_item: ItemBlockDTO
 @onready var block_grid_container = $BlockScrollContainer/BlockGridContainer
 
 func _ready():
 	item_handler = ItemBlockSelectorHandler.new($Board, [])
 	
 	var item_blocks = [
-		ItemBlock.new([
-			ItemBlock.Piece.new(Vector2(0,0), ItemBlockConstants.RED_TILE_ID), 
-			ItemBlock.Piece.new(Vector2(0,1), ItemBlockConstants.RED_TILE_ID),
-			ItemBlock.Piece.new(Vector2(1,1), ItemBlockConstants.RED_TILE_ID),
-			ItemBlock.Piece.new(Vector2(1,0), ItemBlockConstants.RED_TILE_ID)
-			]),
-		ItemBlock.new([
-			ItemBlock.Piece.new(Vector2(0,0), ItemBlockConstants.BLUE_TILE_ID), 
-			ItemBlock.Piece.new(Vector2(0,1), ItemBlockConstants.BLUE_TILE_ID),
-			ItemBlock.Piece.new(Vector2(1,1), ItemBlockConstants.BLUE_TILE_ID),
-			ItemBlock.Piece.new(Vector2(1,0), ItemBlockConstants.BLUE_TILE_ID)
-			]),
-		ItemBlock.new([
-			ItemBlock.Piece.new(Vector2(0,0), ItemBlockConstants.GREEN_TILE_ID), 
-			ItemBlock.Piece.new(Vector2(0,1), ItemBlockConstants.GREEN_TILE_ID),
-			ItemBlock.Piece.new(Vector2(1,1), ItemBlockConstants.GREEN_TILE_ID),
-			ItemBlock.Piece.new(Vector2(1,0), ItemBlockConstants.GREEN_TILE_ID)
-			]),
+		ItemBlockDTO.new(Stats.BlockShape.O, 0, ItemBlockConstants.RED_TILE_ID),
+		ItemBlockDTO.new(Stats.BlockShape.O, 0, ItemBlockConstants.BLUE_TILE_ID),
+		ItemBlockDTO.new(Stats.BlockShape.O, 0, ItemBlockConstants.GREEN_TILE_ID)
 	]
 	
 	for item_block in item_blocks:
