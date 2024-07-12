@@ -20,18 +20,18 @@ var numReachedSpawn:float=0;
 var numDied:float=0;
 var numSpawned:float=0;
 
-@onready var nav: NavigationAgent2D = $NavigationAgent2D
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	
-	#nav.path_changed.connect(queue_redraw)
+	
 	state.start_build_phase.connect(func():
 		if state.spawners.find(self)==-1:queue_free()
 		)
 	GameState.gameState.player_died.connect(func():
 		for m in waveMonsters:
 			if m != null:m.queue_free())
-	#nav.target_position = closest_target.global_position
+	
 
 static func create(tile_id: int, map_layer: int, map_position:Vector2, spawner_id: int, color: GameboardConstants.TileColor)-> Spawner:
 	var s=load("res://GameBoard/Spawner.tscn").instantiate() as Spawner;
@@ -128,7 +128,7 @@ static func can_all_reach_target(redo_grids=true):
 	if redo_grids:
 		_set_grids()
 	for s in GameState.gameState.spawners:
-		var paths=s.get_paths(s.targets,s.state.board,s)
+		var paths=s._get_paths(s.targets,s.state.board,s)
 		if paths==null:
 			return false
 	return true;

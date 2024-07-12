@@ -46,17 +46,13 @@ func setMinion(oldx, oldy, x, y, m: Monster):
 	x = normaliseX(x)
 	y = normaliseY(y)
 	oldy = normaliseY(oldy)
-	if y>map.size():
-		addRows()
+
 	map[oldy][oldx].ms.erase(m)
 	for base in bases:
 		if x==base.x and y==base.y:
 			gameState.hit_base(m)
 			return;
 	map[y][x].ms.push_back(m)
-	if oldy != y:
-		rowCounter[oldy] = rowCounter[oldy] - 1
-		rowCounter[y] = rowCounter[y] + 1
 	
 	pass ;
 	
@@ -84,6 +80,7 @@ func get_monster(pos):
 	#map[pos.y][pos.x].ms	
 	return null;
 	pass ;
+	
 func getMapPositionNormalised(pos):
 	pos = gameState.board.local_to_map(pos)
 	return normaliseVector(pos)
@@ -101,19 +98,12 @@ func initialise(g,map_dto):
 	for entity in map_dto.entities:
 		map[normaliseY(entity.map_y)][normaliseX(entity.map_x)].collides_with_bullets=entity.collides_with_bullets
 	pass ;
-func addRows():
-	for i in range(Stats.LEVEL_EDITOR_WIDTH):
-		addRow(map)
-	pass ;
+
 func addRow(y: Array):
 	var row = []
 	addholders(row)
 	y.append(row)
-	var row2 = []
-	addholders(row2)
-	y.append(row2)
-	rowCounter.append(0)
-	rowCounter.append(0)
+	
 	pass ;
 	
 func registerBase(base):
@@ -162,6 +152,23 @@ func getNeighbours(pos, reference=null):
 		
 	return coveredCells;
 	pass ;
+func register_turret(turret):
+	var pos=getMapPositionNormalised(turret.global_position)
+	map[pos.y][pos.x].turret=turret
+	pass;
+func unregister_turret(turret):
+	var pos=getMapPositionNormalised(turret.global_position)
+	map[pos.y][pos.x].turret=null
+	pass;	
+func get_turret_from_global(pos):
+	var ref= getMapPositionNormalised(pos)
+	if isOutOfBounds(ref.x,ref.y): return
+	return map[ref.y][ref.x].turret
+func get_turret_from_board(pos):
+	var ref=normaliseVector(pos)
+	if isOutOfBounds(ref.x,ref.y): return
+	return map[ref.y][ref.x].turret
+	pass;			
 func getCellReferences(pos, turretRange, turret=null, cellPositions=[],sloppy=false):
 	var mapPosition = getMapPositionNormalised(pos)
 	#traversing from the top left corner to the bottom right corner
@@ -208,12 +215,12 @@ func isOutOfBounds(x, y):
 			
 	pass
 func addholders(row: Array):
-	for i in range(gameState.board_width + 2 * 12):
+	for i in range(Stats.LEVEL_EDITOR_WIDTH):
 		row.append(Holder.new())
 	pass ;
 
 class Holder:
-	var ts = []
+	var turret
 	var ms = []
 	var collides_with_bullets=false;
 	

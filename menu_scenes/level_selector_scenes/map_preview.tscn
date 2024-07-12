@@ -27,6 +27,7 @@ scale = Vector2(0.461326, 0.461326)
 texture = ExtResource("2_y748d")
 
 [node name="unlock text" type="Label" parent="map_preview"]
+layout_mode = 0
 offset_left = -4.0
 offset_top = 69.0
 offset_right = 114.0
@@ -34,6 +35,7 @@ offset_bottom = 92.0
 text = "stars unlocked:"
 
 [node name="stars" type="Label" parent="map_preview"]
+layout_mode = 0
 offset_left = 122.0
 offset_top = 69.0
 offset_right = 240.0

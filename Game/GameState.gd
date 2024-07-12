@@ -96,7 +96,7 @@ func startBattlePhase():
 	Spawner.numMonstersActive = 0;
 	start_combat_phase.emit()
 	ui.get_node("StartBattlePhase").disabled = true;
-	gameBoard._set_navigation_region()
+	
 	
 	$Camera2D/SoundPlayer.stream = Sounds.StartBattlePhase
 	$Camera2D/SoundPlayer.play(0.2)
@@ -155,7 +155,7 @@ func startGame():
 	GameState.game_speed=1;	
 	
 	collisionReference.initialise(self,map_dto)
-	collisionReference.addRows()
+	
 	$MinionHolder.board=board
 	$BulletHolder.board=board;
 	

@@ -95,7 +95,7 @@ func set_block_level(block: Block, level: int):
 		piece.level = level
 
 #Again, checks based upon (0,0) map_position of block
-func can_place_block(block: Block, map_position: Vector2, navigation_region: NavigationRegion2D, spawners) -> bool:
+func can_place_block(block: Block, map_position: Vector2,  spawners) -> bool:
 	if block.pieces.size() == 0: return true
 
 	#Get the level of the underlying piece on the board, if available (loop will take care if its the wrong color)
@@ -168,15 +168,11 @@ func can_place_block(block: Block, map_position: Vector2, navigation_region: Nav
 	
 	#Check if a path would be valid
 	if first_piece == null: #We want to build something new (no upgrade)
-		#draw_block_with_tile_id(block, map_position, GameboardConstants.BASE_PREVIEW_TILE_ID, GameboardConstants.BLOCK_LAYER) #Draw preview block for path
-		navigation_region.bake_navigation_polygon()
-		var all_paths_valid = true
-		for spawn in spawners:
-			if not spawn.can_reach_target():
-				all_paths_valid = false
-				break
-		#remove_block_from_board(block, map_position) #Delete preview block again
-		if not all_paths_valid:
+		draw_block_with_tile_id(block, map_position, GameboardConstants.BASE_PREVIEW_TILE_ID, GameboardConstants.BLOCK_LAYER) #Draw preview block for path
+		Spawner.refresh_all_paths()
+		var can_all_reach = Spawner.can_all_reach_target()
+		remove_block_from_board(block, map_position) #Delete preview block again
+		if not can_all_reach:
 			GameBoard.current_tutorial = TutorialHolder.tutNames.Pathfinding
 			return false
 	

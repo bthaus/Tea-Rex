@@ -20,7 +20,6 @@ static var turrets = []
 var cardBuddys = []
 
 
-var on_destroy: Array[Callable] = []
 var on_built: Array[Callable] = [setUpTower]
 var on_build_phase_started: Array[Callable] = []
 var on_battle_phase_started: Array[Callable] = []
@@ -40,6 +39,14 @@ static var counter = 0;
 static var collisionReference: CollisionReference;
 var waitingDelayed = false;
 static var inhandTurrets = []
+
+func _on_destroy():
+	if not is_instance_valid(self):return;
+	if is_instance_valid(base.projectile):base.projectile.queue_free()
+	if is_instance_valid(GameState.gameState.gameBoard): 
+		GameState.gameState.gameBoard.clear_range_outline()
+		if placed:collisionReference.unregister_turret(self)
+	pass;
 # Called when the node enters the scene tree for the first time.
 func do_all(tasks: Array[Callable]):
 	for t in tasks:
@@ -84,13 +91,13 @@ func checkPosition(off):
 	if !placed: return
 	$Tile.visible = !off;
 	base.visible = !off;
-	$Button.visible = !off;
+	#$Button.visible = !off;
 	$VisibleOnScreenNotifier2D.visible = true;
 	pass ;
 	
 func _notification(what):
 	if (what == NOTIFICATION_PREDELETE):
-		do_all(on_destroy)
+		_on_destroy()
 		
 		
 var mapPosition;
@@ -105,7 +112,8 @@ func setUpTower():
 	base = coreFactory.getBase(color, extension);
 	base.placed=placed
 	base.setLevel(level)
-	
+	if placed:
+		collisionReference.register_turret(self)
 	add_child(base)
 	base.setUpTower(self)
 	$LVL.text = str(level)
@@ -177,10 +185,10 @@ func do(delta):
 
 	#größter pfusch auf erden. wenn ein block in der hand ist soll er seine range anzeigen, wenn nicht dann nicht.
 	#der turm weiß nur nie ob er in der hand ist oder nicht -> card intercepten
-	if !placed:
-		if Card.contemplatingInterrupt: $Button.mouse_filter = 2
-		else:
-			$Button.mouse_filter = 0;
+	#if !placed:
+		#if Card.contemplatingInterrupt: $Button.mouse_filter = 2
+		#else:
+			#$Button.mouse_filter = 0;
 			
 	if GameState.gameState == null or not placed: return
 	base.do(delta)
@@ -201,13 +209,25 @@ func levelup(lvl: int=1):
 
 
 
+var infobox
+var show_box=false;
+func show_infobox():
+	if not show_box:return;
+	infobox=InfoBox.create(["Im a turret","damage dealt: "+str(int(base.damagedealt)),
+		"kills: "+ str(int(base.killcount)),
+		"damage: "+str(base.damage),
+		"cooldown:"+str(base.cooldown)])
+	if infobox!=null:$LVL.add_child(infobox)
+	pass;
+func on_hover():
 
-func _on_button_mouse_entered():
 	base.showRangeOutline()
 	for t in cardBuddys:
 		t.showRangeOutline()
 	if placed:
-		GameState.gameState.ui.showDescription("This turret defeated " + str(str(base.killcount) + " minions and dealt " + str(int(base.damagedealt)) + "damage."))
+		show_box=true;
+		show_infobox()
+		
 		
 	elif extension != 1:
 		GameState.gameState.ui.showDescription(Stats.getDescription(Stats.TurretExtension.keys()[extension - 1]))
@@ -221,18 +241,20 @@ var detectorvisible = false;
 
 var m = 0;
 
+func on_moved():
+	collisionReference.unregister_turret(self)
+	pass;
 
-
-func _on_button_mouse_exited():
+func on_unhover():
+	show_box=false;
 	GameState.gameState.ui.hideDescription()
 	detectorvisible = false;
 	GameState.gameState.hideCount()
 	GameState.gameState.gameBoard.clear_range_outline()
+	if infobox!=null:
+		infobox.delayed_delete()
 	pass # Replace with function body.
 
-func _on_button_pressed():
-	resetLight()
-	pass # Replace with function body.
 
 func _on_visible_on_screen_notifier_2d_screen_exited():
 	checkPosition(true)
