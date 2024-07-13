@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://do8crlwyywy23"]
 
 [ext_resource type="Script" path="res://menu_scenes/battle_slot_picker_scenes/ItemBlockSelector/item_block_selector_item.gd" id="1_jwsf8"]
-[ext_resource type="TileSet" uid="uid://cgyibnoibofru" path="res://menu_scenes/battle_slot_picker_scenes/ItemBlock/item_block_tileset.tres" id="1_syv85"]
+[ext_resource type="TileSet" uid="uid://cgyibnoibofru" path="res://TileSets/item_block_tileset.tres" id="1_syv85"]
 
 [node name="ItemBlockSelectorItem" type="Button"]
 custom_minimum_size = Vector2(70, 70)

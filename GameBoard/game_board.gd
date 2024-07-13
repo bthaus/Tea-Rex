@@ -150,16 +150,6 @@ func check_mouse_cell_traversal(map_position: Vector2):
 		_draw_selected_block_preview(map_position)
 		previous_mouse_pos=map_position
 
-func _update_turret_hovering(map_position: Vector2):
-	var turret_or_not_to_unhover=GameState.gameState.collisionReference.get_turret_from_board(previous_mouse_pos)
-	if turret_or_not_to_unhover!=null:
-		turret_or_not_to_unhover.on_unhover()
-	var turret_or_not=GameState.gameState.collisionReference.get_turret_from_board(map_position)
-	if turret_or_not!=null:
-		turret_or_not.on_hover()
-	
-	_draw_selected_block_preview(map_position)
-
 func _draw_selected_block_preview(map_position: Vector2):
 	#Draw preview
 	if selected_block != null:
@@ -216,6 +206,7 @@ func _action_finished(finished: bool):
 	moved_from_block = null
 	moved_from_position = Vector2.ZERO
 	action = BoardAction.NONE
+	$Board.clear_layer(GameboardConstants.PREVIEW_LAYER)
 	Spawner.refresh_all_paths()
 	if not done.is_null():
 		done.call(finished)

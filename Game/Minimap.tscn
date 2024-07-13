@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://d3553ynahp4sx"]
 
 [ext_resource type="Script" path="res://Game/minimap.gd" id="1_8fgd4"]
-[ext_resource type="TileSet" uid="uid://dcf0fhqgihare" path="res://GameBoard/game_board_tileset.tres" id="2_sbym8"]
-[ext_resource type="TileSet" uid="uid://d0xe20r8gppag" path="res://GameBoard/game_board_background_tileset.tres" id="3_6qdfi"]
+[ext_resource type="TileSet" uid="uid://dcf0fhqgihare" path="res://TileSets/game_board_tileset.tres" id="2_sbym8"]
+[ext_resource type="TileSet" uid="uid://d0xe20r8gppag" path="res://TileSets/game_board_background_tileset.tres" id="3_6qdfi"]
 
 [node name="Minimap" type="Control"]
 layout_mode = 3

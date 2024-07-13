@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://c8n0am7jadxj7"]
 
 [ext_resource type="Script" path="res://GameBoard/game_board.gd" id="1_yp6tt"]
-[ext_resource type="TileSet" uid="uid://dcf0fhqgihare" path="res://GameBoard/game_board_tileset.tres" id="2_dhwah"]
+[ext_resource type="TileSet" uid="uid://dcf0fhqgihare" path="res://TileSets/game_board_tileset.tres" id="2_dhwah"]
 
 [node name="GameBoard" type="Node2D"]
 script = ExtResource("1_yp6tt")
