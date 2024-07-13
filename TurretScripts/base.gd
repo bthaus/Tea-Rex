@@ -59,11 +59,11 @@ var targetposition;
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	turret_mods.append(MultipleShotsMod.new())
-	turret_mods.append(ForkingAmmunitionMod.new())
-	turret_mods.append(ExplosiveAmmunition.new())
-	turret_mods.append(PenetratingAmmunition.new())
-	
+	#turret_mods.append(MultipleShotsMod.new())
+	#turret_mods.append(ForkingAmmunitionMod.new())
+	#turret_mods.append(ExplosiveAmmunition.new())
+	#turret_mods.append(PenetratingAmmunition.new())
+	#
 	
 		
 	
