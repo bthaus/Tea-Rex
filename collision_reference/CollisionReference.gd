@@ -46,7 +46,7 @@ func setMinion(oldx, oldy, x, y, m: Monster):
 	x = normaliseX(x)
 	y = normaliseY(y)
 	oldy = normaliseY(oldy)
-
+	trigger_minion(Vector2(x,y),m)
 	map[oldy][oldx].ms.erase(m)
 	for base in bases:
 		if x==base.x and y==base.y:
@@ -96,7 +96,7 @@ func initialise(g,map_dto):
 	for i in range(Stats.LEVEL_EDITOR_HEIGHT):
 		addRow(map)
 	for entity in map_dto.entities:
-		map[normaliseY(entity.map_y)][normaliseX(entity.map_x)].collides_with_bullets=entity.collides_with_bullets
+		map[normaliseY(entity.map_y)][normaliseX(entity.map_x)].collides_with_bullets=entity.collides_with_bullets	
 	pass ;
 
 func addRow(y: Array):
@@ -194,10 +194,22 @@ func getCellReferences(pos, turretRange, turret=null, cellPositions=[],sloppy=fa
 			
 	return coveredCells;
 	pass
+	
+func trigger_bullet(position):
+	
+	pass;
+func trigger_minion(p,minion:Monster):
+	
+	if map[p.y][p.x].entity!=null:
+		map[p.y][p.x].entity.trigger_minion(minion)
+	pass;		
 func isProperCell(x, y):
 	
 	return not isOutOfBounds(x, y)# and (not isOccupiedCell(x, y))
-	
+func register_entity(entity:BaseEntity):
+	var pos=normaliseVector(entity.map_position)
+	map[pos.y][pos.x].entity=entity
+	pass;	
 func isOccupiedCell(x, y):
 	for turret in Turret.turrets:
 		if not is_instance_valid(turret): continue
@@ -223,5 +235,6 @@ class Holder:
 	var turret
 	var ms = []
 	var collides_with_bullets=false;
+	var entity:BaseEntity
 	
 	pass ;

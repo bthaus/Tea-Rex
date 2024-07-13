@@ -75,10 +75,18 @@ func hit(color: Stats.TurretColor, damage, type="default", noise=true):
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 
-var tw
+
 var distance_travelled=0;
 var distance_to_next_edge=-1;
 var travel_index=0;
+var ignore_next_portal=false;
+func trigger_teleport():
+	if ignore_next_portal:return
+	ignore_next_portal=true
+	distance_travelled=distance_to_next_edge
+	global_position=path[travel_index+1]
+	translateTowardEdge(0.16)
+	pass;
 func translateTowardEdge(delta):
 	
 	if hp<=0:return;

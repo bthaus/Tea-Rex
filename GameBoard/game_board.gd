@@ -109,6 +109,7 @@ func _input(event):
 	if ignore_input: return
 	
 	if event.is_action_released("left_click"):
+		print(board_pos)
 		if Card.contemplatingInterrupt: return ;
 		match action:
 			BoardAction.BUILD:
