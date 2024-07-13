@@ -10,8 +10,8 @@ const BACKGROUND_TILE_ID = 3
 const VIEW_RANGE = 50
 
 func _ready():
-	$Board.tile_set.tile_size = Vector2(Stats.block_size, Stats.block_size)
-	$Background.tile_set.tile_size = Vector2(Stats.block_size, Stats.block_size)
+	$Board.tile_set.tile_size = Vector2(GameboardConstants.TILE_SIZE, GameboardConstants.TILE_SIZE)
+	$Background.tile_set.tile_size = Vector2(GameboardConstants.TILE_SIZE, GameboardConstants.TILE_SIZE)
 var time=0;
 func _process(delta):
 	time=time+delta
@@ -31,7 +31,7 @@ func _process(delta):
 	
 	var camera_position = board.local_to_map(game_state.getCamera().position)
 	for row in range(camera_position.y - VIEW_RANGE/2, camera_position.y + VIEW_RANGE/2):
-		for col in range(-Stats.board_cave_deepness.to-1, game_state.board_width+Stats.board_cave_deepness.to):
+		for col in range(0, GameboardConstants.BOARD_WIDTH):
 			var normalized_row = row - (camera_position.y - VIEW_RANGE/2)
 			var board_id_block = board.get_cell_source_id(BLOCK_LAYER, Vector2(col, row))
 			var board_id_ground = board.get_cell_source_id(GROUND_LAYER, Vector2(col, row))

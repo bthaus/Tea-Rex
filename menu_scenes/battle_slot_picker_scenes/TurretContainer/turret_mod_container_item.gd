@@ -19,8 +19,6 @@ func _ready():
 func _process(delta):
 	$Board.clear_layer(ItemBlockConstants.PREVIEW_LAYER)
 	var board_pos = _get_mouse_position_on_board()
-	if is_focused:
-		print(board_pos)
 	if board_pos.x < 0 or board_pos.x > 3 or board_pos.y < 0 or board_pos.y > 3:
 		if is_focused: focused.emit(false) #Focus now lost
 		is_focused = false

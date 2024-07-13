@@ -35,14 +35,14 @@ var previous_preview_pos=Vector2(0,0)
 func _ready():
 	gameState=GameState.gameState
 	randomize()
-	$Board.tile_set.tile_size = Vector2(Stats.block_size, Stats.block_size)
+	$Board.tile_set.tile_size = Vector2(GameboardConstants.TILE_SIZE, GameboardConstants.TILE_SIZE)
 	
 	block_handler = BlockHandler.new($Board, turret_holder)
 	
 	delay_timer = Timer.new()
 	delay_timer.autostart = false
 	delay_timer.one_shot = true
-	delay_timer.wait_time = Stats.CARD_PLACEMENT_DELAY
+	delay_timer.wait_time = GameplayConstants.CARD_PLACEMENT_DELAY
 	delay_timer.timeout.connect(func(): is_delayed=false)
 	add_child(delay_timer)
 	gameState.getCamera().is_dragging_camera.connect(dragging_camera)
@@ -66,13 +66,13 @@ func start_move(done: Callable):
 	action = BoardAction.MOVE
 	self.done = done
 
-func select_piece(shape: Stats.BlockShape, color: Stats.TurretColor, done: Callable, level: int, extension: Stats.TurretExtension=Stats.TurretExtension.DEFAULT):
+func select_piece(shape: Block.BlockShape, color: Stats.TurretColor, done: Callable, level: int, extension: Stats.TurretExtension=Stats.TurretExtension.DEFAULT):
 	util.p("Building now...", "Jojo")
 	is_delayed = true
 	delay_timer.start()
 	util.p(Stats.getStringFromEnumExtension(extension))
 	action = BoardAction.BUILD
-	selected_block = Stats.getBlockFromShape(shape, color, level)
+	selected_block = BlockUtils.get_block_from_shape(shape, color, level)
 	self.done = done
 
 func select_block(block, done: Callable):

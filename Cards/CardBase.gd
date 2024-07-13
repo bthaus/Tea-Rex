@@ -1,7 +1,7 @@
 extends MarginContainer
 class_name cardbase
 var CardName = 'Testcard'
-var CardShape = Stats.BlockShape.ARROW
+var CardShape = Block.BlockShape.ARROW
 var CardColor = Stats.TurretColor.BLUE
 var Level = 1
 #TODO extension

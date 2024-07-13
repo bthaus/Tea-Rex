@@ -192,8 +192,8 @@ static func _get_astar_grid(map:TileMap,monstertype:Monster.MonsterMovingType,fr
 
 	var astar_grid=PortalStar.new()
 	astar_grid.reserve_space(64*64)
-	for y in range(0, Stats.LEVEL_EDITOR_HEIGHT): #Just put every possible tile in the array
-				for x in range(0, Stats.LEVEL_EDITOR_WIDTH):
+	for y in range(0, GameboardConstants.BOARD_HEIGHT): #Just put every possible tile in the array
+				for x in range(0, GameboardConstants.BOARD_WIDTH):
 					if movable_cells[x][y]!=-1:
 						astar_grid.add_point(movable_cells[x][y],Vector2(x,y))
 	for y in range(movable_cells.size()):
@@ -267,9 +267,9 @@ static func _connect_with_neigbours(movable_cells,point_id,x,y,astar_grid):
 #returns an array of cells on which the given monster type can move.
 static func _get_movable_cells_per_monster_type(map: TileMap, monstertype: Monster.MonsterMovingType):
 		var cells: Array = []
-		for i in range(Stats.LEVEL_EDITOR_HEIGHT):
+		for i in range(GameboardConstants.BOARD_HEIGHT):
 			var arr=[]
-			for x in range(0, Stats.LEVEL_EDITOR_WIDTH):
+			for x in range(0, GameboardConstants.BOARD_WIDTH):
 				arr.append(-1)
 			cells.append(arr)
 		var id=0
@@ -284,8 +284,8 @@ static func _get_movable_cells_per_monster_type(map: TileMap, monstertype: Monst
 						cells[pos.x][pos.y]=id
 					
 			Monster.MonsterMovingType.AIR:
-				for y in range(0, Stats.LEVEL_EDITOR_HEIGHT): #Just put every possible tile in the array
-					for x in range(0, Stats.LEVEL_EDITOR_WIDTH):
+				for y in range(0, GameboardConstants.BOARD_HEIGHT): #Just put every possible tile in the array
+					for x in range(0, GameboardConstants.BOARD_WIDTH):
 						id=id+1;
 						cells[x][y]=id
 		_current_grid=cells

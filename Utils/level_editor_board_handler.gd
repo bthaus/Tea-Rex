@@ -59,8 +59,8 @@ func _is_cell_empty(layer: int, map_position: Vector2):
 	return board.get_cell_source_id(layer, map_position) == -1
 	
 func _is_in_editor_bounds(map_position: Vector2) -> bool:
-	if map_position.x < 0 or map_position.x > Stats.LEVEL_EDITOR_WIDTH - 1: return false
-	if map_position.y < 0 or map_position.y > Stats.LEVEL_EDITOR_HEIGHT - 1: return false
+	if map_position.x < 0 or map_position.x > GameboardConstants.BOARD_WIDTH - 1: return false
+	if map_position.y < 0 or map_position.y > GameboardConstants.BOARD_HEIGHT - 1: return false
 	return true
 
 func _get_spawner_idx_at(map_position: Vector2) -> int:

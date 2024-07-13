@@ -162,7 +162,7 @@ func can_place_block(block: Block, map_position: Vector2,  spawners) -> bool:
 						return false
 	
 	#Block could theoretically be placed to upgrade, but the underlying block already has reached the max level
-	if level == Stats.MAX_TURRET_LEVEL:
+	if level == GameplayConstants.MAX_TURRET_LEVEL:
 		GameBoard.current_tutorial = null
 		return false
 	

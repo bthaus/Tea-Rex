@@ -9,7 +9,7 @@ signal mouseIn
 signal mouseOut
 
 func select(done:Callable):
-	get_tree().create_timer(Stats.CARD_PLACEMENT_DELAY).timeout.connect(delayedSelect.bind(done))
+	get_tree().create_timer(GameplayConstants.CARD_PLACEMENT_DELAY).timeout.connect(delayedSelect.bind(done))
 	pass;
 func delayedSelect(done):
 	if isCardSelected&&selectedCard!=self:
@@ -109,15 +109,15 @@ static func create(gameState:GameState,card=-1):
 		c.preview.set_block(c.card.block, true)
 		#Just hardcoded for centering blocks
 		match(c.card.block.shape):
-			Stats.BlockShape.O: 
+			Block.BlockShape.O: 
 				c.preview.position=Vector2(60,110)
-			Stats.BlockShape.I:
+			Block.BlockShape.I:
 				c.preview.position=Vector2(50,110)
-			Stats.BlockShape.SMALL:
+			Block.BlockShape.SMALL:
 				c.preview.position=Vector2(50,110)
-			Stats.BlockShape.S:
+			Block.BlockShape.S:
 				c.preview.position=Vector2(50,110)
-			Stats.BlockShape.Z:
+			Block.BlockShape.Z:
 				c.preview.position=Vector2(50,110)
 			_:
 				c.preview.position=Vector2(50,100)
@@ -183,7 +183,7 @@ func _on_button_mouse_exited():
 func _on_disable_button_pressed():
 	scale=Vector2(1,1)
 	z_index=originalZ
-	get_tree().create_timer(Stats.CARD_PLACEMENT_DELAY+0.1).timeout.connect(func():$Button.mouse_filter=0)
+	get_tree().create_timer(GameplayConstants.CARD_PLACEMENT_DELAY+0.1).timeout.connect(func():$Button.mouse_filter=0)
 	$DisableButton.mouse_filter=2
 	$DisableButton/DisableCard.hide()
 	isCardSelected=false;	

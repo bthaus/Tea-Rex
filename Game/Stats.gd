@@ -1,14 +1,5 @@
 extends GameObject2D
 class_name Stats;
-const block_size:int=62;
-
-static var board_cave_deepness=util.Distance.new(4,10) #TODO: REMOVE WHEN NO SCRIPT NEEDS IT ANYMORE
-const LEVEL_EDITOR_WIDTH = 64
-const LEVEL_EDITOR_HEIGHT = 64
-
-const CAMERA_MOVE_DURATION=2
-
-const MAX_TURRET_LEVEL=5
 
 const base_range=2;
 const green_range=2*base_range;
@@ -222,8 +213,6 @@ static var UPDRAW_description="Increases the number of cards you draw per round.
 static var UPMAXCARDS_description="Increases the number of cards you can hold."
 static var BLUEFREEZER_description="Freezes enemies with a laser"
 
-const CARD_PLACEMENT_DELAY=0.2
-
 static var BLUE_name="Pew Pew"
 static var RED_name="Saw"
 static var GREEN_name="Rocket Launcher"
@@ -255,11 +244,10 @@ static var UPDRAW_big_description="It's dangerous to build alone. Take this!
 
 (lets you draw more cards)"
 static var UPMAXCARDS_big_description="Lets you hold more cards. It's magical. "
-enum TurretColor {WHITE=1, GREEN=2, RED=3, YELLOW=4,BLUE=5,MAGENTA=6};
+enum TurretColor {WHITE=1, GREEN=2, RED=3, YELLOW=4, BLUE=5, MAGENTA=6};
 enum TurretExtension {DEFAULT=1,REDLASER=2, BLUELASER=3, YELLOWMORTAR=4, GREENPOISON=5,BLUEFREEZER=6};
 enum GamePhase {BATTLE=1,BUILD=2,BOTH=3};
 enum SpecialCards {HEAL=1,FIREBALL=2,UPHEALTH=3,CRYOBALL=4,MOVE=5, BULLDOZER=6,GLUE=7,POISON=8, UPDRAW=9, UPMAXCARDS=10}
-enum BlockShape {O=1, I=2, S=3, Z=4, L=5, J=6, T=7, TINY=8, SMALL=9, ARROW=10, CROSS=11}
 enum Catastrophies {COLORCHANGER=1, DRILL=2, LEVELDOWN=6, BULLDOZER=7}
 enum Monstertype {REGULAR=0}
 static var COLORCHANGER_name="Color Changer!"
@@ -360,17 +348,17 @@ static func getEnumFromString(str:String):
 	pass;
 static func getShapeFromString(str:String):
 	match str:
-		"O":return BlockShape.O
-		"I":return BlockShape.I
-		"S":return BlockShape.S
-		"Z":return BlockShape.Z
-		"L":return BlockShape.L
-		"J":return BlockShape.J
-		"T":return BlockShape.T
-		"TINY":return BlockShape.TINY
-		"SMALL":return BlockShape.SMALL
-		"ARROW":return BlockShape.ARROW
-		"CROSS":return BlockShape.CROSS
+		"O":return Block.BlockShape.O
+		"I":return Block.BlockShape.I
+		"S":return Block.BlockShape.S
+		"Z":return Block.BlockShape.Z
+		"L":return Block.BlockShape.L
+		"J":return Block.BlockShape.J
+		"T":return Block.BlockShape.T
+		"TINY":return Block.BlockShape.TINY
+		"SMALL":return Block.BlockShape.SMALL
+		"ARROW":return Block.BlockShape.ARROW
+		"CROSS":return Block.BlockShape.CROSS
 	pass;
 static func getProperty(type:TurretColor,extension:TurretExtension,property:String):
 	var color=getStringFromEnumLowercase(type);
@@ -489,8 +477,8 @@ func getRandomBlock(lvl,gamestate):
 	var block=getEvaluatedShape(0)
 	
 	
-	return getBlockFromShape(block,color,lvl,extension)
-	#return getBlockFromShape(block,TurretColor.YELLOW,lvl,TurretExtension.YELLOWMORTAR)
+	return BlockUtils.get_block_from_shape(block,color,lvl,extension)
+
 static var numberOfPiecesDrawn:float=1;
 static var numberOfCardsDrawn:float=1;
 static var TargetPieceAverage:float=3.5;
@@ -500,8 +488,8 @@ static var bestCurrentShape=null;
 static var bestCurrentAverage=1;
 	
 func getEvaluatedShape(counter):
-	var shape=BlockShape.values()[rng.randi_range(0,BlockShape.size()-1)]
-	var block=getBlockFromShape(shape,0,0);
+	var shape=Block.BlockShape.values()[rng.randi_range(0,Block.BlockShape.size()-1)]
+	var block=BlockUtils.get_block_from_shape(shape,0,0);
 	var currentPieces=+numberOfPiecesDrawn+block.pieces.size()
 	var currentAverage=currentPieces/numberOfCardsDrawn 
 	
@@ -528,52 +516,8 @@ static func getExtensionFromColor(color: TurretColor):
 	pass	
 
 
-		
 static func getName(name):
 	return stats.get(name+"_name");
 static func getBigDescription(name):
 	return stats.get(name+"_big_description");
-		
-		
-
-static func getBlockFromShape(block_shape: BlockShape, color: TurretColor, level: int = 1, extension: TurretExtension = TurretExtension.DEFAULT) -> Block:
-	var pieces = []
-	var positions = getPositionsFromBlockShape(block_shape)
-	for pos in positions:
-		pieces.append(Block.Piece.new(pos, color, level, extension))
-	
-	var b = Block.new(pieces)
-	b.shape=block_shape;
-	b.color=color;
-	b.extension=extension
-	return b
-	
-static func getPositionsFromBlockShape(block_shape: BlockShape) -> PackedVector2Array:
-	var positions: PackedVector2Array = []
-	match block_shape:
-		BlockShape.O:
-			positions = [Vector2(0,0), Vector2(-1,0), Vector2(-1,-1), Vector2(0,-1)]
-		BlockShape.I:
-			positions = [Vector2(0,0), Vector2(0,1), Vector2(0,-1), Vector2(0,-2)]
-		BlockShape.S:
-			positions = [Vector2(0,0), Vector2(-1,0), Vector2(0,-1), Vector2(1,-1)]
-		BlockShape.Z:
-			positions = [Vector2(0,0), Vector2(1,0), Vector2(0,-1), Vector2(-1,-1)]
-		BlockShape.L:
-			positions = [Vector2(0,0), Vector2(0,1), Vector2(0,-1), Vector2(1,1)]
-		BlockShape.J:
-			positions = [Vector2(0,0), Vector2(0,1), Vector2(0,-1), Vector2(-1,1)]
-		BlockShape.T:
-			positions = [Vector2(0,0), Vector2(-1,0), Vector2(1,0), Vector2(0,1)]
-		BlockShape.TINY:
-			positions = [Vector2(0,0)]
-		BlockShape.SMALL:
-			positions = [Vector2(0,0), Vector2(0,-1)]
-		BlockShape.ARROW:
-			positions = [Vector2(0,0), Vector2(-1,0), Vector2(0,1)]
-		BlockShape.CROSS:
-			positions = [Vector2(0,0), Vector2(0,-1), Vector2(1,0), Vector2(0,1), Vector2(-1,0)]
-	
-	return positions
-
 

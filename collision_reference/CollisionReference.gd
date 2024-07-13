@@ -93,7 +93,7 @@ func initialise(g,map_dto):
 	gameState.get_node("BulletHolder").reference = self;
 	gameState.collisionReference = self;
 	
-	for i in range(Stats.LEVEL_EDITOR_HEIGHT):
+	for i in range(GameboardConstants.BOARD_HEIGHT):
 		addRow(map)
 	for entity in map_dto.entities:
 		map[normaliseY(entity.map_y)][normaliseX(entity.map_x)].collides_with_bullets=entity.collides_with_bullets	
@@ -187,7 +187,7 @@ func getCellReferences(pos, turretRange, turret=null, cellPositions=[],sloppy=fa
 					var glob_ref_pos=getGlobalFromReference(Vector2(int(mapPosition.x+x),int(mapPosition.y+y)))
 					if glob_ref_pos.distance_squared_to(pos)>turret.trueRangeSquared:
 						continue
-				#	if glob_ref_pos.distance_to(pos)>turretRange*Stats.block_size:
+				#	if glob_ref_pos.distance_to(pos)>turretRange*GameboardConstants.TILE_SIZE:
 					#	continue
 				coveredCells.append(map[mapPosition.y + y][mapPosition.x + x].ms)
 				cellPositions.append(Vector2(mapPosition.x + x, mapPosition.y + y))
@@ -227,7 +227,7 @@ func isOutOfBounds(x, y):
 			
 	pass
 func addholders(row: Array):
-	for i in range(Stats.LEVEL_EDITOR_WIDTH):
+	for i in range(GameboardConstants.BOARD_WIDTH):
 		row.append(Holder.new())
 	pass ;
 

@@ -1,6 +1,9 @@
 extends GameObjectCounted
 
 class_name Block
+
+enum BlockShape {O = 1, I = 2, S = 3, Z = 4, L = 5, J = 6, T = 7, TINY = 8, SMALL = 9, ARROW = 10, CROSS = 11}
+
 var pieces: Array
 var shape;
 var color;

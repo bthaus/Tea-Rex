@@ -100,9 +100,9 @@ func _input(event):
 		dragging = true
 
 		var new_pos = (mouse_start_pos - event.position) / zoom + screen_start_position
-		if new_pos.x > -(Stats.board_cave_deepness.to*Stats.block_size):
-			if new_pos.x < (gameState.board_width+Stats.board_cave_deepness.to)*Stats.block_size:
-				if new_pos.y > -VIEW_RANGE_TOLERANCE and new_pos.y < (gameState.board_height * Stats.block_size) + VIEW_RANGE_TOLERANCE:
+		if new_pos.x > 0:
+			if new_pos.x < (GameboardConstants.BOARD_WIDTH)*GameboardConstants.TILE_SIZE:
+				if new_pos.y > -VIEW_RANGE_TOLERANCE and new_pos.y < (GameboardConstants.BOARD_HEIGHT * GameboardConstants.TILE_SIZE) + VIEW_RANGE_TOLERANCE:
 					position = new_pos
 	
 	if event.is_action_pressed("scroll_up"):
@@ -120,10 +120,10 @@ func _input(event):
 			if zoom.x > MAX_ZOOM_OUT:
 				zoom = Vector2(zoom.x - CAMERA_ZOOM, zoom.y - CAMERA_ZOOM)
 		else:
-			if position.y <= (gameState.board_height * Stats.block_size):
+			if position.y <= (gameState.board_height * GameboardConstants.TILE_SIZE):
 				position += Vector2(0, SCROLL_SPEED) / zoom
 var tween			
 func move_to(position: Vector2, done: Callable):
 	tween = get_tree().create_tween()
-	tween.tween_property(self, "position", position, Stats.CAMERA_MOVE_DURATION).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	tween.tween_property(self, "position", position, GameplayConstants.CAMERA_MOVE_DURATION).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 	tween.tween_callback(func(): done.call())

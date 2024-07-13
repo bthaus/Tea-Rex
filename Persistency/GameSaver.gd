@@ -217,7 +217,7 @@ static func deserialiseHand(json,gamestate:GameState):
 			c.roundReceived=card["round"]
 			gamestate.hand.add_child(Card.create(gamestate,c))
 		else:
-			var block=Stats.getBlockFromShape(card.get("block"),card.get("color"),1,card.get("extension"))
+			var block=BlockUtils.get_block_from_shape(card.get("block"),card.get("color"),1,card.get("extension"))
 			gamestate.hand.add_child(Card.create(gamestate,BlockCard.create(gamestate,block)))
 	
 	pass;
