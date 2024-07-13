@@ -4,8 +4,12 @@ extends GameObject2D
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
-
-func get_bullet(color:Stats.TurretColor,damage, speed, turret, extension:Stats.TurretExtension):
+func duplicate_bullet(bullet:Projectile)->Projectile:
+	return get_bullet(bullet.type,bullet.damage,bullet.speed,bullet.associate,bullet.penetrations,bullet.ext)
+	
+	
+	pass;
+func get_bullet(color:Stats.TurretColor,damage, speed, turret, penetrations,extension:Stats.TurretExtension)->Projectile:
 	var temp
 	var pool=turret.bullets
 	
@@ -14,6 +18,7 @@ func get_bullet(color:Stats.TurretColor,damage, speed, turret, extension:Stats.T
 		temp.visible = true;
 		
 	else:
+		
 		if extension==Stats.TurretExtension.BLUELASER:
 			temp= $blue_laser_projectile.duplicate()
 		elif color==Stats.TurretColor.GREEN:
@@ -21,16 +26,16 @@ func get_bullet(color:Stats.TurretColor,damage, speed, turret, extension:Stats.T
 		elif color==Stats.TurretColor.RED:
 			temp=$red_saw.duplicate()	
 		else:
-			temp= $base_projectile.duplicate()		
+			temp= $base_projectile.duplicate()
+				
 	temp.type = color;
 	temp.ext = extension;
-	temp.global_position = turret.global_position
+	#temp.global_position = turret.global_position
 	temp.associate = turret
 	temp.damage = damage;
 	temp.speed = speed;
 	temp.pool=pool
-	temp.oneshot = Stats.getOneshotType(color, extension);
-	
+	temp.penetrations=penetrations
 	GameState.gameState.bulletHolder.add_child(temp)
 	temp.visible=true
 	

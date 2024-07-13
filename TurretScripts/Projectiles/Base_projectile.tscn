@@ -4,7 +4,6 @@
 [ext_resource type="Texture2D" uid="uid://lcfac3i1nban" path="res://Assets/Turrets/Projectiles/GREEN_projectile.png" id="2_15uxa"]
 
 [node name="Base_Projectile" type="Node2D"]
-process_mode = 4
 position = Vector2(5, 6)
 scale = Vector2(3, 3)
 script = ExtResource("1_mhlsq")

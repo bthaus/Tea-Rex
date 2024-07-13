@@ -1,5 +1,19 @@
 extends Node
 class_name util
+static func rotate_vector(vector: Vector2,val) -> Vector2:
+	# 45 degrees in radians
+	var angle = deg_to_rad(val)
+
+	# Calculate the rotation matrix components
+	var cos_angle = cos(angle)
+	var sin_angle = sin(angle)
+
+	# Apply the rotation matrix
+	var x_new = vector.x * cos_angle - vector.y * sin_angle
+	var y_new = vector.x * sin_angle + vector.y * cos_angle
+
+	# Return the rotated vector
+	return Vector2(x_new, y_new)	
 
 static func p(msg:String,fromperson:String="Someone",type:String="Debug"):
 	print("Type: "+type +" From: "+ fromperson+ " MSG: "+msg);
