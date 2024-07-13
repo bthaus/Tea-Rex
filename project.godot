@@ -19,10 +19,6 @@ boot_splash/fullsize=false
 config/icon="res://Assets/iconpng.png"
 boot_splash/minimum_display_time=1000
 
-[autoload]
-
-State="*res://Game/GameState.gd"
-
 [display]
 
 window/stretch/mode="canvas_items"
