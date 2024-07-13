@@ -20,10 +20,12 @@ script = ExtResource("1_7tde1")
 color = 3
 
 [node name="Board" type="TileMap" parent="."]
-scale = Vector2(0.5, 0.5)
+position = Vector2(25, 25)
+scale = Vector2(0.4, 0.4)
 tile_set = ExtResource("2_s82w2")
 format = 2
 layer_0/name = "background_layer"
+layer_0/tile_data = PackedInt32Array(0, 0, 0, 1, 0, 0, 2, 0, 0, 3, 0, 0, 65539, 0, 0, 65538, 0, 0, 65537, 0, 0, 65536, 0, 0, 131072, 0, 0, 131073, 0, 0, 131074, 0, 0, 131075, 0, 0, 196611, 0, 0, 196610, 0, 0, 196609, 0, 0, 196608, 0, 0)
 layer_1/name = "block_layer"
 layer_1/tile_data = PackedInt32Array()
 layer_2/name = "preview_layer"

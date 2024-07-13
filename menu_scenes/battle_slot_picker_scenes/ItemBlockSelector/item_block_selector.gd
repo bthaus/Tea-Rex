@@ -3,6 +3,7 @@ extends Panel
 var item_handler: ItemBlockSelectorHandler
 var selected_item: ItemBlockDTO
 @onready var item_block_container = $ItemBlockScrollContainer/ItemBlockGridContainer
+@onready var turret_mod_grid_container = $ScrollContainer/TurretModGridContainer
 
 func _ready():
 	item_handler = ItemBlockSelectorHandler.new($Board, [])
@@ -17,24 +18,28 @@ func _ready():
 		var item = load("res://menu_scenes/battle_slot_picker_scenes/ItemBlockSelector/item_block_selector_item.tscn").instantiate()
 		item_block_container.add_child(item)
 		item.set_item_block(item_block)
-		item.clicked.connect(func(item_block): selected_item = item_block)
+		item.clicked.connect(on_item_selected)
 		
-	
-	
-	
-func _process(delta):
-	$Board.clear_layer(ItemBlockConstants.PREVIEW_LAYER)
-	var board_pos = _get_mouse_position_on_board()
-	item_handler.draw_item_block(selected_item, board_pos, ItemBlockConstants.PREVIEW_LAYER)
-	
-	
-func _unhandled_input(event):
-	if event.is_action_released("left_click"):
-		var board_pos = _get_mouse_position_on_board()
-		item_handler.place_item_block(selected_item, board_pos)
-		selected_item = null
-	elif event.is_action_released("right_click"):
-		item_handler.rotate_item(selected_item)
+	for container in turret_mod_grid_container.get_children():
+		container.focused.connect(on_container_focus_changed)
+
+func on_container_focus_changed(container_focused: bool):
+	if container_focused:
+		$Board.clear_layer(ItemBlockConstants.BLOCK_LAYER)
+	else:
+		item_handler.draw_item_block(selected_item, Vector2(0,0), ItemBlockConstants.BLOCK_LAYER)
+
+func on_item_selected(item_block: ItemBlockDTO):
+	selected_item = item_block
+	item_handler.draw_item_block(selected_item, Vector2(0,0), ItemBlockConstants.BLOCK_LAYER)
+	for container in turret_mod_grid_container.get_children():
+		container.set_selected_item(item_block)
+
+func _input(event):
+	#$Board.clear_layer(ItemBlockConstants.PREVIEW_LAYER)
+	#var board_pos = _get_mouse_position_on_board()
+	#item_handler.draw_item_block(selected_item, Vector2(0,0), ItemBlockConstants.PREVIEW_LAYER)
+	$Board.position = get_global_mouse_position()
 
 func _get_mouse_position_on_board() -> Vector2:
 	return $Board.local_to_map(get_global_mouse_position() / $Board.scale)

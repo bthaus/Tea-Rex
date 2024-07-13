@@ -10,14 +10,6 @@ offset_bottom = 600.0
 mouse_filter = 2
 script = ExtResource("1_ekup2")
 
-[node name="Board" type="TileMap" parent="."]
-scale = Vector2(0.5, 0.5)
-tile_set = ExtResource("2_wjq1u")
-format = 2
-layer_0/name = "block_layer"
-layer_1/name = "selection_layer"
-layer_1/tile_data = PackedInt32Array()
-
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
 layout_mode = 0
 offset_right = 500.0
@@ -64,3 +56,13 @@ size_flags_horizontal = 6
 theme_override_constants/h_separation = 10
 theme_override_constants/v_separation = 10
 columns = 6
+
+[node name="Board" type="TileMap" parent="."]
+scale = Vector2(0.25, 0.25)
+tile_set = ExtResource("2_wjq1u")
+format = 2
+layer_0/name = "background_layer"
+layer_1/name = "block_layer"
+layer_1/tile_data = PackedInt32Array()
+layer_2/name = "preview_layer"
+layer_2/tile_data = PackedInt32Array()
