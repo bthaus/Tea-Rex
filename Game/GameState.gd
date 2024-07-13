@@ -50,10 +50,7 @@ var map_dto;
 
 
 func _ready():
-	print("i should only appear once")
-	if get_child_count() == 0:
-		queue_free()
-		return
+
 	gameState = self;
 	ui=$CanvasLayer/UI
 	hand=ui.hand
