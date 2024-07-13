@@ -1,0 +1,32 @@
+[gd_scene load_steps=4 format=3 uid="uid://cagcvoxx1smh4"]
+
+[ext_resource type="Script" path="res://menu_scenes/battle_slot_picker_scenes/TurretContainer/turret_mod_container_item.gd" id="1_7tde1"]
+[ext_resource type="TileSet" uid="uid://cgyibnoibofru" path="res://menu_scenes/battle_slot_picker_scenes/ItemBlock/item_block_tileset.tres" id="2_s82w2"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d3i5i"]
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[node name="TurretModContainerItem" type="Panel"]
+custom_minimum_size = Vector2(150, 150)
+theme_override_styles/panel = SubResource("StyleBoxFlat_d3i5i")
+script = ExtResource("1_7tde1")
+color = 3
+
+[node name="Board" type="TileMap" parent="."]
+position = Vector2(25, 25)
+scale = Vector2(0.4, 0.4)
+tile_set = ExtResource("2_s82w2")
+format = 2
+layer_0/name = "background_layer"
+layer_0/tile_data = PackedInt32Array(0, 0, 0, 1, 0, 0, 2, 0, 0, 3, 0, 0, 65539, 0, 0, 65538, 0, 0, 65537, 0, 0, 65536, 0, 0, 131072, 0, 0, 131073, 0, 0, 131074, 0, 0, 131075, 0, 0, 196611, 0, 0, 196610, 0, 0, 196609, 0, 0, 196608, 0, 0)
+layer_1/name = "block_layer"
+layer_1/tile_data = PackedInt32Array()
+layer_2/name = "preview_layer"
+layer_2/tile_data = PackedInt32Array()

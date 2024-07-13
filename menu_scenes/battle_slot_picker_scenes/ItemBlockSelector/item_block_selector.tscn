@@ -1,0 +1,68 @@
+[gd_scene load_steps=4 format=3 uid="uid://dhta83lpekmrd"]
+
+[ext_resource type="Script" path="res://menu_scenes/battle_slot_picker_scenes/ItemBlockSelector/item_block_selector.gd" id="1_ekup2"]
+[ext_resource type="TileSet" uid="uid://cgyibnoibofru" path="res://menu_scenes/battle_slot_picker_scenes/ItemBlock/item_block_tileset.tres" id="2_wjq1u"]
+[ext_resource type="PackedScene" uid="uid://cagcvoxx1smh4" path="res://menu_scenes/battle_slot_picker_scenes/TurretContainer/turret_mod_container_item.tscn" id="3_84gyh"]
+
+[node name="ItemBlockSelector" type="Panel"]
+offset_right = 500.0
+offset_bottom = 600.0
+mouse_filter = 2
+script = ExtResource("1_ekup2")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+layout_mode = 0
+offset_right = 500.0
+offset_bottom = 309.0
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 0
+
+[node name="TurretModGridContainer" type="GridContainer" parent="ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 10
+columns = 3
+
+[node name="ModContainerItemBlue" parent="ScrollContainer/TurretModGridContainer" instance=ExtResource("3_84gyh")]
+layout_mode = 2
+color = 5
+
+[node name="ModContainerItemRed" parent="ScrollContainer/TurretModGridContainer" instance=ExtResource("3_84gyh")]
+layout_mode = 2
+
+[node name="ModContainerItemGrey" parent="ScrollContainer/TurretModGridContainer" instance=ExtResource("3_84gyh")]
+layout_mode = 2
+color = 1
+
+[node name="ModContainerItemYellow" parent="ScrollContainer/TurretModGridContainer" instance=ExtResource("3_84gyh")]
+layout_mode = 2
+color = 4
+
+[node name="ModContainerItemGreen" parent="ScrollContainer/TurretModGridContainer" instance=ExtResource("3_84gyh")]
+layout_mode = 2
+color = 2
+
+[node name="ItemBlockScrollContainer" type="ScrollContainer" parent="."]
+layout_mode = 0
+offset_top = 350.0
+offset_right = 500.0
+offset_bottom = 580.0
+horizontal_scroll_mode = 0
+
+[node name="ItemBlockGridContainer" type="GridContainer" parent="ItemBlockScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 10
+columns = 6
+
+[node name="Board" type="TileMap" parent="."]
+scale = Vector2(0.25, 0.25)
+tile_set = ExtResource("2_wjq1u")
+format = 2
+layer_0/name = "background_layer"
+layer_1/name = "block_layer"
+layer_1/tile_data = PackedInt32Array()
+layer_2/name = "preview_layer"
+layer_2/tile_data = PackedInt32Array()

@@ -536,86 +536,44 @@ static func getBigDescription(name):
 		
 		
 
-static func getBlockFromShape(shape: BlockShape, color: TurretColor, level: int = 1, extension: TurretExtension = TurretExtension.DEFAULT) -> Block:
+static func getBlockFromShape(block_shape: BlockShape, color: TurretColor, level: int = 1, extension: TurretExtension = TurretExtension.DEFAULT) -> Block:
 	var pieces = []
-	match shape:
-		BlockShape.O:
-			pieces = [
-				Block.Piece.new(Vector2(0,0), color, level, extension),
-				Block.Piece.new(Vector2(-1,0), color, level, extension),
-				Block.Piece.new(Vector2(-1,-1), color, level, extension),
-				Block.Piece.new(Vector2(0,-1), color, level, extension)
-			]
-		BlockShape.I:
-			pieces = [
-				Block.Piece.new(Vector2(0,0), color, level, extension),
-				Block.Piece.new(Vector2(0,1), color, level, extension),
-				Block.Piece.new(Vector2(0,-1), color, level, extension),
-				Block.Piece.new(Vector2(0,-2), color, level, extension)
-			]
-		BlockShape.S:
-			pieces = [
-				Block.Piece.new(Vector2(0,0), color, level, extension),
-				Block.Piece.new(Vector2(-1,0), color, level, extension),
-				Block.Piece.new(Vector2(0,-1), color, level, extension),
-				Block.Piece.new(Vector2(1,-1), color, level, extension)
-			]
-		BlockShape.Z:
-			pieces = [
-				Block.Piece.new(Vector2(0,0), color, level, extension),
-				Block.Piece.new(Vector2(1,0), color, level, extension),
-				Block.Piece.new(Vector2(0,-1), color, level, extension),
-				Block.Piece.new(Vector2(-1,-1), color, level, extension)
-			]
-		BlockShape.L:
-			pieces = [
-				Block.Piece.new(Vector2(0,0), color, level, extension),
-				Block.Piece.new(Vector2(0,1), color, level, extension),
-				Block.Piece.new(Vector2(0,-1), color, level, extension),
-				Block.Piece.new(Vector2(1,1), color, level, extension)
-			]
-		BlockShape.J:
-			pieces = [
-				Block.Piece.new(Vector2(0,0), color, level, extension),
-				Block.Piece.new(Vector2(0,1), color, level, extension),
-				Block.Piece.new(Vector2(0,-1), color, level, extension),
-				Block.Piece.new(Vector2(-1,1), color, level, extension)
-			]
-		BlockShape.T:
-			pieces = [
-				Block.Piece.new(Vector2(0,0), color, level, extension),
-				Block.Piece.new(Vector2(-1,0), color, level, extension),
-				Block.Piece.new(Vector2(1,0), color, level, extension),
-				Block.Piece.new(Vector2(0,1), color, level, extension)
-			]
-		BlockShape.TINY:
-			pieces = [
-				Block.Piece.new(Vector2(0,0), color, level, extension),
-			]
-		BlockShape.SMALL:
-			pieces = [
-				Block.Piece.new(Vector2(0,0), color, level, extension),
-				Block.Piece.new(Vector2(0,-1), color, level, extension)
-			]
-		BlockShape.ARROW:
-			pieces = [
-				Block.Piece.new(Vector2(0,0), color, level, extension),
-				Block.Piece.new(Vector2(-1,0), color, level, extension),
-				Block.Piece.new(Vector2(0,1), color, level, extension)
-			]
-		BlockShape.CROSS:
-			pieces = [
-				Block.Piece.new(Vector2(0,0), color, level, extension),
-				Block.Piece.new(Vector2(0,-1), color, level, extension),
-				Block.Piece.new(Vector2(1,0), color, level, extension),
-				Block.Piece.new(Vector2(0,1), color, level, extension),
-				Block.Piece.new(Vector2(-1,0), color, level, extension)
-			]
-		
-	var b= Block.new(pieces)
-	b.shape=shape;
+	var positions = getPositionsFromBlockShape(block_shape)
+	for pos in positions:
+		pieces.append(Block.Piece.new(pos, color, level, extension))
+	
+	var b = Block.new(pieces)
+	b.shape=block_shape;
 	b.color=color;
 	b.extension=extension
 	return b
+	
+static func getPositionsFromBlockShape(block_shape: BlockShape) -> PackedVector2Array:
+	var positions: PackedVector2Array = []
+	match block_shape:
+		BlockShape.O:
+			positions = [Vector2(0,0), Vector2(-1,0), Vector2(-1,-1), Vector2(0,-1)]
+		BlockShape.I:
+			positions = [Vector2(0,0), Vector2(0,1), Vector2(0,-1), Vector2(0,-2)]
+		BlockShape.S:
+			positions = [Vector2(0,0), Vector2(-1,0), Vector2(0,-1), Vector2(1,-1)]
+		BlockShape.Z:
+			positions = [Vector2(0,0), Vector2(1,0), Vector2(0,-1), Vector2(-1,-1)]
+		BlockShape.L:
+			positions = [Vector2(0,0), Vector2(0,1), Vector2(0,-1), Vector2(1,1)]
+		BlockShape.J:
+			positions = [Vector2(0,0), Vector2(0,1), Vector2(0,-1), Vector2(-1,1)]
+		BlockShape.T:
+			positions = [Vector2(0,0), Vector2(-1,0), Vector2(1,0), Vector2(0,1)]
+		BlockShape.TINY:
+			positions = [Vector2(0,0)]
+		BlockShape.SMALL:
+			positions = [Vector2(0,0), Vector2(0,-1)]
+		BlockShape.ARROW:
+			positions = [Vector2(0,0), Vector2(-1,0), Vector2(0,1)]
+		BlockShape.CROSS:
+			positions = [Vector2(0,0), Vector2(0,-1), Vector2(1,0), Vector2(0,1), Vector2(-1,0)]
+	
+	return positions
 
 

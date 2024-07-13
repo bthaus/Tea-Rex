@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://do8crlwyywy23"]
+
+[ext_resource type="Script" path="res://menu_scenes/battle_slot_picker_scenes/ItemBlockSelector/item_block_selector_item.gd" id="1_jwsf8"]
+[ext_resource type="TileSet" uid="uid://cgyibnoibofru" path="res://menu_scenes/battle_slot_picker_scenes/ItemBlock/item_block_tileset.tres" id="1_syv85"]
+
+[node name="ItemBlockSelectorItem" type="Button"]
+custom_minimum_size = Vector2(70, 70)
+offset_right = 50.0
+offset_bottom = 50.0
+script = ExtResource("1_jwsf8")
+
+[node name="TileMap" type="TileMap" parent="."]
+scale = Vector2(0.275, 0.275)
+tile_set = ExtResource("1_syv85")
+format = 2
+layer_0/name = "block_layer"
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]
