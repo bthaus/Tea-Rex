@@ -15,7 +15,7 @@ const green_range=2*base_range;
 const blue_range=2*base_range;
 const yellow_range=10*base_range;
 const red_range=0.4*base_range;
-const grey_range=2*base_range;
+const white_range=2*base_range;
 
 const red_laser_range=1*base_range;
 const blue_laser_range=3*base_range;
@@ -31,7 +31,7 @@ const green_missile_speed=0.8*base_missile_speed;
 const blue_missile_speed=1*base_missile_speed;
 const yellow_missile_speed=3*base_missile_speed;
 const red_missile_speed=1*base_missile_speed;
-const grey_missile_speed=2*base_missile_speed;
+const white_missile_speed=2*base_missile_speed;
 
 const blue_laser_missile_speed=base_missile_speed*3;
 const red_laser_missile_speed=base_missile_speed*1;
@@ -44,7 +44,7 @@ const base_cooldown=1.2;
 const green_cooldown=base_cooldown*3;
 const blue_cooldown=base_cooldown*1;
 const yellow_cooldown=base_cooldown*3.04;
-const grey_cooldown=base_cooldown*1;
+const white_cooldown=base_cooldown*1;
 const red_cooldown=base_cooldown*0.3;
 
 const red_laser_cooldown=base_cooldown*0.4;
@@ -58,7 +58,7 @@ const base_damage=5;
 const green_damage=base_damage*7;
 const blue_damage=base_damage*4;
 const yellow_damage=base_damage*5;
-const grey_damage=base_damage*1;
+const white_damage=base_damage*1;
 const red_damage=base_damage*2;
 
 const red_laser_damage=base_damage*4;
@@ -72,7 +72,7 @@ const base_penetrations=1;
 const green_penetrations=base_penetrations*1;
 const blue_penetrations=base_penetrations*1;
 const yellow_penetrations=base_penetrations*-1000000;
-const grey_penetrations=base_penetrations*1;
+const white_penetrations=base_penetrations*1;
 const red_penetrations=base_penetrations*-1000000;
 
 const red_laser_penetrations=base_penetrations*1;
@@ -104,7 +104,7 @@ const blue_freezer_slow_duration=1
 const green_glowing=false;
 const blue_glowing=false;
 const yellow_glowing=false;
-const grey_glowing=false;
+const white_glowing=false;
 const red_glowing=false;
 
 const red_laser_glowing=false;
@@ -202,7 +202,7 @@ const UPMAXCARDS_phase=GamePhase.BOTH;
 const MOVE_phase=GamePhase.BUILD;
 const MOVE_instant=true; 
 
-static var GREY_description="This gray block does not spawn turrets. But you can place it anywhere you like!"
+static var WHITE_description="This white block does not spawn turrets. But you can place it anywhere you like!"
 static var BLUE_description="A blue turret firing regular bullets at a medium rate."
 static var RED_description="A red saw dealing high damage to close enemies."
 static var GREEN_description="A green rocket launcher dealing damage to many enemies."
@@ -228,7 +228,7 @@ static var BLUE_name="Pew Pew"
 static var RED_name="Saw"
 static var GREEN_name="Rocket Launcher"
 static var YELLOW_name="Sniper"
-static var GREY_name="Grey block"
+static var WHITE_name="Grey block"
 static var BLUELASER_name="Laser"
 static var REDLASER_name="Red laser"
 static var GREENPOISON_name="Toxicator"
@@ -255,7 +255,7 @@ static var UPDRAW_big_description="It's dangerous to build alone. Take this!
 
 (lets you draw more cards)"
 static var UPMAXCARDS_big_description="Lets you hold more cards. It's magical. "
-enum TurretColor {GREY=1, GREEN=2, RED=3, YELLOW=4,BLUE=5,MAGENTA=6};
+enum TurretColor {WHITE=1, GREEN=2, RED=3, YELLOW=4,BLUE=5,MAGENTA=6};
 enum TurretExtension {DEFAULT=1,REDLASER=2, BLUELASER=3, YELLOWMORTAR=4, GREENPOISON=5,BLUEFREEZER=6};
 enum GamePhase {BATTLE=1,BUILD=2,BOTH=3};
 enum SpecialCards {HEAL=1,FIREBALL=2,UPHEALTH=3,CRYOBALL=4,MOVE=5, BULLDOZER=6,GLUE=7,POISON=8, UPDRAW=9, UPMAXCARDS=10}
@@ -280,7 +280,7 @@ func _ready():
 static func getStringFromEnum(type:TurretColor):
 	return Stats.TurretColor.keys()[(type)-1];
 	match type:
-		1: return "GREY";
+		1: return "WHITE";
 		2: return "GREEN";
 		3: return "RED";
 		4: return "YELLOW";
@@ -292,7 +292,7 @@ static func getDescription(v:String):
 static func getStringFromEnumLowercase(type:TurretColor):
 	return Stats.TurretColor.keys()[(type)-1].to_lower();
 	match type:
-		1: return "grey";
+		1: return "white";
 		2: return "green";
 		3: return "red";
 		4: return "yellow";
@@ -336,7 +336,7 @@ static func getColorFromLowercaseString(str:String):
 		"blue":return TurretColor.BLUE;
 		"green":return TurretColor.GREEN;
 		"yellow":return TurretColor.YELLOW;
-		"grey":return TurretColor.GREY;
+		"white":return TurretColor.WHITE;
 	pass;
 	
 static func getColorFromString(str:String):
@@ -345,7 +345,7 @@ static func getColorFromString(str:String):
 		"BLUE":return TurretColor.BLUE;
 		"GREEN":return TurretColor.GREEN;
 		"YELLOW":return TurretColor.YELLOW;
-		"GREY":return TurretColor.GREY;
+		"WHITE":return TurretColor.WHITE;
 		"WALL":return -3
 	pass;
 
@@ -480,7 +480,7 @@ func getRandomBlock(lvl,gamestate):
 	
 			
 	var extension=TurretExtension.DEFAULT
-	if gamestate.unlockedExtensions.size() != 0 && color != TurretColor.GREY:
+	if gamestate.unlockedExtensions.size() != 0 && color != TurretColor.WHITE:
 		for ex in gamestate.unlockedExtensions.size():
 			if gamestate.unlockedExtensions[ex] == getExtensionFromColor(color):
 				if rng.randi_range(0,100) < extensionChance:

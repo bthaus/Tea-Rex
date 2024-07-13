@@ -12,7 +12,7 @@ var account: String = "dede";
 
 #Todo: remove and replace with battle_slot_logic
 var unlockedExtensions = [Stats.TurretExtension.DEFAULT];
-var unlockedColors = [Stats.TurretColor.RED,Stats.TurretColor.BLUE];
+var unlockedColors = [Stats.TurretColor.WHITE,Stats.TurretColor.BLUE];
 var unlockedSpecialCards = [Stats.SpecialCards.HEAL];
 
 var selected_battle_slots

@@ -76,8 +76,8 @@ func get_piece_from_board(map_position: Vector2) -> Block.Piece:
 	var type = GameboardConstants.get_tile_type(board, GameboardConstants.BLOCK_LAYER, map_position)
 	var color = GameboardConstants.get_tile_color(board, GameboardConstants.BLOCK_LAYER, map_position)
 	if type != null and type == GameboardConstants.TileType.TURRET_BASE:
-		if color != null and color == GameboardConstants.TileColor.GREY: #It is a grey piece (no turret on top)
-			return Block.Piece.new(map_position, Stats.TurretColor.GREY, 1, Stats.TurretExtension.DEFAULT)
+		if color != null and color == GameboardConstants.TileColor.WHITE: #It is a white piece (no turret on top)
+			return Block.Piece.new(map_position, Stats.TurretColor.WHITE, 1, Stats.TurretExtension.DEFAULT)
 	
 	return null
 
@@ -131,7 +131,7 @@ func can_place_block(block: Block, map_position: Vector2,  spawners) -> bool:
 		#Check underlying piece
 		var board_piece = get_piece_from_board(board_pos)
 		if board_piece != null: #Tile exists at this position
-			if board_piece.color == Stats.TurretColor.GREY: #You can NEVER place something on grey
+			if board_piece.color == Stats.TurretColor.WHITE: #You can NEVER place something on white
 				GameBoard.current_tutorial = TutorialHolder.tutNames.ColorRestriction
 				return false
 			if board_piece.color != piece.color: #Wrong color	
@@ -148,10 +148,10 @@ func can_place_block(block: Block, map_position: Vector2,  spawners) -> bool:
 		for row in range(-1,2):
 			for col in range(-1,2):
 				var pos = Vector2(board_pos.x+col, board_pos.y+row)
-				if piece.color != Stats.TurretColor.GREY: #Checking surrounding pieces is only for colored blocks neccessary
+				if piece.color != Stats.TurretColor.WHITE: #Checking surrounding pieces is only for colored blocks neccessary
 					var neighbour_piece = get_piece_from_board(pos)
 					if neighbour_piece != null:
-						if neighbour_piece.color != piece.color and neighbour_piece.color != Stats.TurretColor.GREY: #Mismatching colors (grey pieces are an exception)
+						if neighbour_piece.color != piece.color and neighbour_piece.color != Stats.TurretColor.WHITE: #Mismatching colors (white pieces are an exception)
 								GameBoard.current_tutorial = TutorialHolder.tutNames.ColorRestriction
 								return false
 				

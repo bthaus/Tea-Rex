@@ -53,7 +53,7 @@ func set_selected_item(item: ItemBlockDTO):
 
 func _get_color_from_turret_color(color: Stats.TurretColor) -> Color:
 	match (color):
-		Stats.TurretColor.GREY: return Color.WEB_GRAY
+		Stats.TurretColor.WHITE: return Color.WEB_GRAY
 		Stats.TurretColor.GREEN: return Color.LAWN_GREEN
 		Stats.TurretColor.RED: return Color.CRIMSON
 		Stats.TurretColor.YELLOW: return Color.YELLOW
