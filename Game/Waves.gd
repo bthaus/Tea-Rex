@@ -280,7 +280,8 @@ static func _get_movable_cells_per_monster_type(map: TileMap, monstertype: Monst
 					if GameboardConstants.get_tile_type(map, GameboardConstants.GROUND_LAYER, pos) != GameboardConstants.TileType.GROUND: #It is not a ground, ignore
 						continue
 					
-					if map.get_cell_source_id(GameboardConstants.BLOCK_LAYER, pos) == -1: #Block layer is free
+					var type = GameboardConstants.get_tile_type(map, GameboardConstants.BLOCK_LAYER, pos)
+					if type == null or type == GameboardConstants.TileType.PORTAL: #Block layer is free or there is a portal
 						cells[pos.x][pos.y]=id
 					
 			Monster.MonsterMovingType.AIR:
