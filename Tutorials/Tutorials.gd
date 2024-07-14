@@ -16,9 +16,7 @@ func _on_toggled(toggled_on):
 	if toggled_on:
 		for k in TutorialHolder.tutNames.keys():
 				GameSaver.save("0",k,"tutorials")
-				print("restored: "+k)
 	GameState.gameState.showTutorials=toggled_on;
-	print(GameState.gameState.showTutorials)
-	GameSaver.saveGame(GameState.gameState)
+	
 	
 	pass # Replace with function body.

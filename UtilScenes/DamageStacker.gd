@@ -16,6 +16,6 @@ func _process(delta):
 	
 func hit()->float:
 	time_elapsed=2;
-	hits=hits+Stats.red_laser_damage_stack;
+	hits=hits+GameplayConstants.red_laser_damage_stack;
 	return hits;
 	

@@ -229,10 +229,10 @@ func on_hover():
 		show_infobox()
 		
 		
-	elif extension != 1:
-		GameState.gameState.ui.showDescription(Stats.getDescription(Stats.TurretExtension.keys()[extension - 1]))
-	else:
-		GameState.gameState.ui.showDescription(Stats.getDescription(Stats.getStringFromEnum(color)))
+	#elif extension != 1:
+	#	GameState.gameState.ui.showDescription(Stats.getDescription(Stats.TurretExtension.keys()[extension - 1]))
+	#else:
+	#	GameState.gameState.ui.showDescription(Stats.getDescription(Stats.getStringFromEnum(color)))
 	
 	GameState.gameState.showCount(base.killcount, base.damagedealt)
 	

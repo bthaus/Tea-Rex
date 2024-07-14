@@ -95,11 +95,11 @@ func on_hit(enemy: Monster):
 func applyBlueFreezer(enemy:Monster):
 	var temp = false;
 	for a in enemy.get_children():
-		if a is Slower and a.factor==Stats.blue_freezer_slow_amount:
+		if a is Slower and a.factor==GameplayConstants.blue_freezer_slow_amount:
 			temp = true;
 			a.reapply()
 	if !temp:
-		enemy.add_child(Slower.create(Stats.blue_freezer_slow_duration,Stats.blue_freezer_slow_amount));
+		enemy.add_child(Slower.create(GameplayConstants.blue_freezer_slow_duration,GameplayConstants.blue_freezer_slow_amount));
 	pass;		
 func applyRedLaser(enemy: Monster):
 	
@@ -114,11 +114,11 @@ func applyRedLaser(enemy: Monster):
 func applyPoison(enemy: Monster):
 	var temp = false;
 	for a in enemy.get_children():
-		if a is Poison&&a.decay == Stats.green_poison_decay:
+		if a is Poison&&a.decay == GameplayConstants.green_poison_decay:
 			temp = true;
-			a.apply(Stats.green_poison_damage_stack)
+			a.apply(GameplayConstants.green_poison_damage_stack)
 	if !temp:
-		enemy.add_child(Poison.create(damage, associate, Stats.green_poison_decay));
+		enemy.add_child(Poison.create(damage, associate, GameplayConstants.green_poison_decay));
 	pass
 
 func applyMortarExplosion(enemy: Monster):

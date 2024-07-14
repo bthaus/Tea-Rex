@@ -1,6 +1,10 @@
 extends AnimatedSprite2D
 class_name MonsterCore
 signal death_animation_done
+@export var hp:float = 1;
+@export var damage:float = 1;
+@export var speed:float = 1;
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.

@@ -17,9 +17,9 @@ func delayedSelect(done):
 		if (selectedCard.card!=null)&&(selectedCard.card is BlockCard):
 			state.gameBoard._action_finished(false)
 			selectedCard=self;
-		elif (selectedCard.card!=null)&&(selectedCard.card is SpecialCard):
-			selectedCard.card.interrupt()
-			selectedCard=self;	
+		#elif (selectedCard.card!=null)&&(selectedCard.card is SpecialCard):
+			#selectedCard.card.interrupt()
+			#selectedCard=self;	
 	
 	if self is BlockCard and state.phase!=Stats.GamePhase.BUILD:
 		return;
@@ -54,43 +54,43 @@ static func create(gameState:GameState,card=-1):
 		c.setCard(Stats.getRandomCard(gameState))
 	c.state=gameState;
 
-	if c.card is SpecialCard:
-		#enum SpecialCards {HEAL=1,FIREBALL=2,UPHEALTH=3,CRYOBALL=4,MOVE=5, BULLDOZER=6,GLUE=7,POISON=8, UPDRAW=9, UPMAXCARDS=10}
-		var label=""
-		gameState.start_build_phase.connect(func():
-			if c==null:return
-			match c.card.cardName:
-				1:c.description=	"Heals "+str(c.card.getHealAmount())+" HP. The longer you hold it, the more it heals. "
-				2:label="Deals "+str(c.card.damage)+" damage."
-				3:c.description=	"Gives "+str(c.card.getHealAmount())+" HP. The longer you hold it, the more it gives you."
-				4:label="Deals "+str(c.card.damage)+" damage."
-				6:label="Removes "+str(c.card.damage)+"x"+str(c.card.range)+" blocks."
-				5:label="Moves 1 block"
-				7:label="Slows enemies"
-				8:label="Poisons for "+str(c.card.damage)+"."
-				9:label="Draw 1 card more."
-				10:label="Handsize +1."
-			
-			c.get_child(1).text=""	
-					)
-		match c.card.cardName:
-			1:c.description=	"Heals "+str(c.card.getHealAmount())+" HP. The longer you hold it, the more it heals. "
-			2:label="Deals "+str(c.card.damage)+" damage."
-			3:c.description=	"Gives "+str(c.card.getHealAmount())+" HP. The longer you hold it, the more it gives you."
-			4:label="Deals "+str(c.card.damage)+" damage."
-			6:label="Removes "+str(c.card.damage)+"x"+str(c.card.range)+" blocks."
-			5:label="Moves 1 block"
-			7:label="Slows enemies"
-			8:label="Poisons for "+str(c.card.damage)+"."
-			9:label="Draw 1 card more."
-			10:label="Handsize +1."
-			
-		c.get_child(1).text=""
-		c.get_child(1).visible=true;
-		var cardname=c.card.cardName;
-		c.get_node("Button").icon=load("res://Assets/SpecialCards/"+Stats.getStringFromSpecialCardEnum(cardname)+"_preview.png")
-		if c.description=="":
-			c.description=Stats.getDescription(Stats.getStringFromSpecialCardEnum(cardname))
+	#if c.card is SpecialCard:
+		##enum SpecialCards {HEAL=1,FIREBALL=2,UPHEALTH=3,CRYOBALL=4,MOVE=5, BULLDOZER=6,GLUE=7,POISON=8, UPDRAW=9, UPMAXCARDS=10}
+		#var label=""
+		#gameState.start_build_phase.connect(func():
+			#if c==null:return
+			#match c.card.cardName:
+				#1:c.description=	"Heals "+str(c.card.getHealAmount())+" HP. The longer you hold it, the more it heals. "
+				#2:label="Deals "+str(c.card.damage)+" damage."
+				#3:c.description=	"Gives "+str(c.card.getHealAmount())+" HP. The longer you hold it, the more it gives you."
+				#4:label="Deals "+str(c.card.damage)+" damage."
+				#6:label="Removes "+str(c.card.damage)+"x"+str(c.card.range)+" blocks."
+				#5:label="Moves 1 block"
+				#7:label="Slows enemies"
+				#8:label="Poisons for "+str(c.card.damage)+"."
+				#9:label="Draw 1 card more."
+				#10:label="Handsize +1."
+			#
+			#c.get_child(1).text=""	
+					#)
+		#match c.card.cardName:
+			#1:c.description=	"Heals "+str(c.card.getHealAmount())+" HP. The longer you hold it, the more it heals. "
+			#2:label="Deals "+str(c.card.damage)+" damage."
+			#3:c.description=	"Gives "+str(c.card.getHealAmount())+" HP. The longer you hold it, the more it gives you."
+			#4:label="Deals "+str(c.card.damage)+" damage."
+			#6:label="Removes "+str(c.card.damage)+"x"+str(c.card.range)+" blocks."
+			#5:label="Moves 1 block"
+			#7:label="Slows enemies"
+			#8:label="Poisons for "+str(c.card.damage)+"."
+			#9:label="Draw 1 card more."
+			#10:label="Handsize +1."
+			#
+		#c.get_child(1).text=""
+		#c.get_child(1).visible=true;
+		#var cardname=c.card.cardName;
+		#c.get_node("Button").icon=load("res://Assets/SpecialCards/"+Stats.getStringFromSpecialCardEnum(cardname)+"_preview.png")
+		#if c.description=="":
+			#c.description=Stats.getDescription(Stats.getStringFromSpecialCardEnum(cardname))
 	if c.card is BlockCard:
 		
 		
@@ -104,8 +104,6 @@ static func create(gameState:GameState,card=-1):
 		c.get_node("Button").icon=load("res://Assets/Cards/Testcard_"+Stats.getStringFromEnum(color).to_lower()+".png")
 		#use this to change color/text of card
 		c.preview=load("res://Cards/block_preview.tscn").instantiate()
-		if extension!=1: c.description=Stats.getDescription(Stats.TurretExtension.keys()[extension-1])
-		else: c.description=Stats.getDescription(Stats.getStringFromEnum(color))
 		c.preview.set_block(c.card.block, true)
 		#Just hardcoded for centering blocks
 		match(c.card.block.shape):
@@ -135,7 +133,6 @@ func played(interrupted:bool):
 			preview.queue_free()
 		queue_free()
 		finished.emit(self)
-		get_tree().create_timer(0.5).timeout.connect(GameSaver.saveGame.bind(state))
 	if isCardSelected:
 		_on_disable_button_pressed()	
 	pass;
@@ -191,9 +188,9 @@ func _on_disable_button_pressed():
 	if (selectedCard.card!=null)&&(selectedCard.card is BlockCard):
 			state.gameBoard._action_finished(false)
 			selectedCard=null;
-	elif (selectedCard.card!=null)&&(selectedCard.card is SpecialCard):
-			selectedCard.card.interrupt()
-			selectedCard=null;	
+	#elif (selectedCard.card!=null)&&(selectedCard.card is SpecialCard):
+			#selectedCard.card.interrupt()
+			#selectedCard=null;	
 	
 	pass # Replace with function body.
 

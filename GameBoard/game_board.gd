@@ -67,16 +67,13 @@ func start_move(done: Callable):
 	self.done = done
 
 func select_piece(shape: Block.BlockShape, color: Stats.TurretColor, done: Callable, level: int, extension: Stats.TurretExtension=Stats.TurretExtension.DEFAULT):
-	util.p("Building now...", "Jojo")
 	is_delayed = true
 	delay_timer.start()
-	util.p(Stats.getStringFromEnumExtension(extension))
 	action = BoardAction.BUILD
 	selected_block = BlockUtils.get_block_from_shape(shape, color, level)
 	self.done = done
 
 func select_block(block, done: Callable):
-	util.p("Building now...", "Jojo")
 	is_delayed = true
 	delay_timer.start()
 	action = BoardAction.BUILD

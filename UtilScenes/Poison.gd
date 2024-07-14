@@ -21,7 +21,7 @@ func setupPropagation():
 	get_tree().create_timer(3).timeout.connect(propagate)
 
 	pass ;
-static func create(stacks, associate, decay: int=Stats.poison_dropoff_rate):
+static func create(stacks, associate, decay: int=GameplayConstants.poison_dropoff_rate):
 	var poison = Poison.new()
 	poison.stacks = stacks;
 	poison.decay = decay

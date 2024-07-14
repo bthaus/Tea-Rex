@@ -30,7 +30,7 @@ func _process(delta):
 
 func _on_check_button_toggled(toggled_on):
 	GameState.gameState.showTutorials=!toggled_on;
-	GameSaver.saveGame(GameState.gameState)
+
 	pass # Replace with function body.
 
 

@@ -15,15 +15,11 @@ func _ready():
 	$Sprite2D/AnimatedSprite2D.play("default")
 	var name;
 	var desc;
-	if card.card is SpecialCard:
-		name=Stats.getStringFromSpecialCardEnum(card.card.cardName)
-		desc=Stats.getBigDescription(name)
-		name=name.to_lower().capitalize();
-		
+
 	if card.card is BlockCard:
 		var n=Stats.TurretExtension.find_key(card.card.block.extension);
-		name=Stats.getName(n)
-		desc=Stats.getBigDescription(n)
+		name="blockcard"
+		desc="duh"
 		
 	$Title.text=name+" unlocked!"	
 	if name=="Updraw":

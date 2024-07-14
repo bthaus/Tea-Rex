@@ -12,15 +12,20 @@ var extension: Stats.TurretExtension = Stats.TurretExtension.DEFAULT
 var onCooldown = false;
 var direction: Vector2;
 
-var speed;
-var cooldown;
+
+
+@export_range(0,10) var speed:int=1;
+@export_range(0,10) var cooldown:float=1;
+@export_range(0,10) var damage:float=1;
+@export_range(0,10) var turretRange:int=1;
+@export var instantHit:bool = false;
 var cdt;
-var damage;
-var turretRange;
 var trueRangeSquared;
+
 var speedfactor = 1;
 var damagefactor = 1;
 var cooldownfactor = 1;
+
 var stacks = 1
 var lightamount = 1.5;
 var killcount = 0;
@@ -28,17 +33,12 @@ var damagedealt = 0
 var penetrations=1;
 
 static var camera;
-var instantHit = false;
+
 var baseinstantHit = false;
 var placed
 
 var coveredCells = []
 var recentCells = []
-
-
-
-
-
 
 var holder;
 var id;
@@ -47,8 +47,7 @@ static var collisionReference: CollisionReference;
 var waitingDelayed = false;
 static var inhandTurrets = []
 
-var projectile;
-
+var projectile:Projectile;
 var mapPosition;
 var referenceCells = []
 
@@ -91,14 +90,9 @@ func setUpTower(holder):
 	
 	minions = GameState.gameState.get_node("MinionHolder")
 	setLevel(stacks)
-	instantHit = Stats.getInstantHit(type, extension);
-	baseinstantHit = instantHit;
-	turretRange = Stats.getRange(type, extension);
 	trueRangeSquared = turretRange * GameboardConstants.TILE_SIZE
 	trueRangeSquared = trueRangeSquared * trueRangeSquared;
-	cooldown = Stats.getCooldown(type, extension);
-	damage = Stats.getDamage(type, extension);
-	speed = Stats.getMissileSpeed(type, extension);
+	
 	if projectile == null: projectile = Projectile.create(type, damage * damagefactor, speed * speedfactor, self, extension,penetrations);
 	projectile.visible = false;
 
@@ -231,7 +225,6 @@ func checkTarget():
 func attack(delta):
 	if target!=null :
 		if not onCooldown:
-			print("shoooting")
 			shoot(target); 
 	
 		
@@ -240,17 +233,9 @@ func shoot(target):
 	var barrels = getBarrels();
 	for b in barrels:
 		var bp = b.get_child(0).global_position;
-		
 		var shot = Projectile.create(type, damage * damagefactor, speed * speedfactor, self, penetrations,extension);
 		shot.global_position = global_position
-		#if type == Stats.TurretColor.YELLOW&&Stats.TurretExtension.YELLOWMORTAR == extension:
-		#		Explosion.create(Stats.TurretColor.YELLOW, 0, bp, self, 0.1)
-		if instantHit:
-			shot.global_position = target.global_position
-			shot.hitEnemy(target)
-			shot.global_position = global_position
-		else:
-			shot.shoot(target);
+		shot.shoot(target);
 		on_shoot(shot)	
 	startCooldown(cooldown * cooldownfactor)
 	pass ;

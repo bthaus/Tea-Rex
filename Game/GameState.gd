@@ -13,14 +13,13 @@ var account: String = "dede";
 #Todo: remove and replace with battle_slot_logic
 var unlockedExtensions = [Stats.TurretExtension.DEFAULT];
 var unlockedColors = [Stats.TurretColor.WHITE,Stats.TurretColor.BLUE];
-var unlockedSpecialCards = [Stats.SpecialCards.HEAL];
 
 var selected_battle_slots
 
 var toUnlock = []
 var phase: Stats.GamePhase = Stats.GamePhase.BUILD;
-var HP = Stats.playerHP;
-var maxHP = Stats.playerMaxHP;
+var HP = GameplayConstants.playerHP;
+var maxHP = GameplayConstants.playerMaxHP;
 var maxCards = 5;
 var cardRedraws = 2;
 
