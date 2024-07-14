@@ -1,20 +1,24 @@
 extends GameObject2D
+class_name LevelEditor
 
 @onready var _selection_tile_container = $HUD/TileScrollContainer/TileGridContainer
 @onready var wave_settings = $HUD/WaveSettings
 
 @onready var board_handler = LevelEditorBoardHandler.new($Board)
 
+enum BuildMode { DEFAULT, DRAW, BUCKET_FILL }
+var _build_mode: BuildMode = BuildMode.DEFAULT
+
 var _selection_tile_items = [
-	TileItem.new(GameboardConstants.WALL_TILE_ID, "Wall"),
-	TileItem.new(GameboardConstants.PLAYER_BASE_GREEN_TILE_ID, "Base"),
-	TileItem.new(GameboardConstants.SPAWNER_GREEN_TILE_ID, "Spawner"),
-	TileItem.new(GameboardConstants.GROUND_TILE_ID, "Ground"),
-	TileItem.new(GameboardConstants.BUILD_ANY_TILE_ID, "Build Any"),
-	TileItem.new(GameboardConstants.PORTAL_TILE_ID, "Portal")
+	TileItem.new(GameboardConstants.WALL_TILE_ID, "Wall", GameboardConstants.BLOCK_LAYER),
+	TileItem.new(GameboardConstants.PLAYER_BASE_GREEN_TILE_ID, "Base", GameboardConstants.BLOCK_LAYER),
+	TileItem.new(GameboardConstants.SPAWNER_GREEN_TILE_ID, "Spawner", GameboardConstants.BLOCK_LAYER),
+	TileItem.new(GameboardConstants.GROUND_TILE_ID, "Ground", GameboardConstants.GROUND_LAYER),
+	TileItem.new(GameboardConstants.BUILD_ANY_TILE_ID, "Build Any", GameboardConstants.BUILD_LAYER),
+	TileItem.new(GameboardConstants.PORTAL_TILE_ID, "Portal", GameboardConstants.BLOCK_LAYER)
 	]
 
-var selected_tile_id = -1
+var selected_tile: TileItem
 
 func _ready():
 	$Board.tile_set.tile_size = Vector2(GameboardConstants.TILE_SIZE, GameboardConstants.TILE_SIZE)
@@ -30,7 +34,12 @@ func _ready():
 func _unhandled_input(event):
 	var board_pos = $Board.local_to_map(get_global_mouse_position())
 	if event.is_action_released("left_click"):
-		board_handler.set_cell(selected_tile_id, board_pos)
+		match (_build_mode):
+			BuildMode.DEFAULT:
+				board_handler.set_cell(selected_tile, board_pos)
+			BuildMode.BUCKET_FILL:
+				pass
+				
 	elif event.is_action_released("right_click"):
 		board_handler.clear_cell_layer(board_pos)
 	
@@ -40,12 +49,19 @@ func _init_selection_tiles():
 	for tile_item in _selection_tile_items:
 		var atlas: TileSetAtlasSource = tile_set.get_source(tile_item.id)
 		var item = load("res://LevelEditor/ContainerItems/tile_selection_item.tscn").instantiate()
-		item.set_item(tile_item.id, atlas.texture, tile_item.name)
+		item.set_tile(tile_item, atlas.texture)
 		item.clicked.connect(_item_selected)
 		_selection_tile_container.add_child(item)
 
-func _item_selected(id: int):
-	selected_tile_id = id
+func _item_selected(tile: TileItem):
+	selected_tile = tile
+
+func _on_default_build_mode_button_pressed():
+	_build_mode = BuildMode.DEFAULT
+	
+func _on_bucket_fill_build_mode_button_pressed():
+	_build_mode = BuildMode.BUCKET_FILL
+
 
 func _on_save_button_pressed():
 	var monster_waves = wave_settings.get_monster_waves()
@@ -65,11 +81,12 @@ func _set_background():
 		for x in range(0, GameboardConstants.BOARD_WIDTH):
 			$Background.set_cell(0, Vector2(x,y), 0, Vector2(0,0))
 	
-			
 	
 class TileItem:
 	var id: int
 	var name: String
-	func _init(id: int, name: String):
+	var layer: int
+	func _init(id: int, name: String, layer: int):
 		self.id = id
 		self.name = name
+		self.layer = layer

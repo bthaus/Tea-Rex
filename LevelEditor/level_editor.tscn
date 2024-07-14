@@ -59,10 +59,10 @@ offset_bottom = 599.0
 text = "save"
 
 [node name="WaveSettingsButton" type="Button" parent="HUD"]
-offset_left = 1025.0
-offset_top = 213.0
-offset_right = 1118.0
-offset_bottom = 260.0
+offset_left = 1029.0
+offset_top = 423.0
+offset_right = 1122.0
+offset_bottom = 470.0
 text = "Waves"
 
 [node name="WaveSettings" parent="HUD" instance=ExtResource("4_3dmyq")]
@@ -75,5 +75,21 @@ offset_right = 1149.0
 offset_bottom = 537.0
 placeholder_text = "enter your mapname"
 
+[node name="BuildModes" type="Node2D" parent="HUD"]
+position = Vector2(1000, 100)
+
+[node name="DefaultBuildModeButton" type="Button" parent="HUD/BuildModes"]
+offset_right = 137.0
+offset_bottom = 51.0
+text = "Default"
+
+[node name="BucketFillBuildModeButton" type="Button" parent="HUD/BuildModes"]
+offset_top = 60.0
+offset_right = 136.0
+offset_bottom = 117.0
+text = "Bucket Fill Mode"
+
 [connection signal="pressed" from="HUD/SaveButton" to="." method="_on_save_button_pressed"]
 [connection signal="pressed" from="HUD/WaveSettingsButton" to="." method="_on_wave_settings_button_pressed"]
+[connection signal="pressed" from="HUD/BuildModes/DefaultBuildModeButton" to="." method="_on_default_build_mode_button_pressed"]
+[connection signal="pressed" from="HUD/BuildModes/BucketFillBuildModeButton" to="." method="_on_bucket_fill_build_mode_button_pressed"]

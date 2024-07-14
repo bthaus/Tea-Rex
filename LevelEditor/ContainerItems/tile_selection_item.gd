@@ -1,12 +1,12 @@
 extends Button
 
-var _id: int
+var tile: LevelEditor.TileItem
 signal clicked
 
-func set_item(id: int, texture: Texture, name: String):
-	self._id = id
+func set_tile(tile: LevelEditor.TileItem, texture: Texture):
+	self.tile = tile
 	$Item.texture = texture
-	$Name.text = name
+	$Name.text = tile.name
 
 func _on_pressed():
-	clicked.emit(_id)
+	clicked.emit(tile)

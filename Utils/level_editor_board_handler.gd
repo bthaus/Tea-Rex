@@ -11,39 +11,41 @@ signal spawner_removed
 func _init(board: TileMap):
 	self.board = board
 
-func set_cell(id: int, map_position: Vector2):
+func set_cell(tile: LevelEditor.TileItem, map_position: Vector2):
+	if tile == null: return
 	if not _is_in_editor_bounds(map_position): return
 	
 	var board_type = GameboardConstants.get_tile_type(board, GameboardConstants.BLOCK_LAYER, map_position)
 	var is_spawner_below = board_type != null and board_type == GameboardConstants.TileType.SPAWNER
-	var type = GameboardConstants.get_tile_type_by_id(board, id)
+	var type = GameboardConstants.get_tile_type_by_id(board, tile.id)
 	if is_spawner_below and type != GameboardConstants.TileType.SPAWNER: #If there is a spawner below, remove it (unless the holding piece is a spawner)
 		var i = _get_spawner_idx_at(map_position)
 		spawner_positions.remove_at(i)
 		spawner_removed.emit(i)
+	
+	
+	match (tile.layer):
+		GameboardConstants.GROUND_LAYER:
+			board.set_cell(GameboardConstants.GROUND_LAYER, map_position, tile.id, Vector2(0,0))
 			
-	match(type):
-		GameboardConstants.TileType.GROUND:
-			board.set_cell(GameboardConstants.GROUND_LAYER, map_position, id, Vector2(0,0))
-			#board.set_cell(GameboardConstants.BLOCK_LAYER, map_position, -1, Vector2(0,0))
-			return
-		GameboardConstants.TileType.BUILD:
-			board.set_cell(GameboardConstants.BUILD_LAYER, map_position, id, Vector2(0,0))
+		GameboardConstants.BUILD_LAYER:
+			board.set_cell(GameboardConstants.BUILD_LAYER, map_position, tile.id, Vector2(0,0))
 			board.set_cell(GameboardConstants.BLOCK_LAYER, map_position, -1, Vector2(0,0))
-			return
-		GameboardConstants.TileType.PORTAL:
+			
+		GameboardConstants.BLOCK_LAYER:
+			if type == GameboardConstants.TileType.SPAWNER:
+				if is_spawner_below: return #There is already a spawner below, ignore it
+				spawner_positions.append(map_position)
+				spawner_added.emit()
+
+			board.set_cell(GameboardConstants.BLOCK_LAYER, map_position, tile.id, Vector2(0,0))
 			board.set_cell(GameboardConstants.BUILD_LAYER, map_position, -1, Vector2(0,0))
-			board.set_cell(GameboardConstants.BLOCK_LAYER, map_position, id, Vector2(0,0))
-			return
-		GameboardConstants.TileType.SPAWNER:
-			if is_spawner_below: return #There is already a spawner below, ignore it
-			spawner_positions.append(map_position)
-			spawner_added.emit()
-	
-	board.set_cell(GameboardConstants.BLOCK_LAYER, map_position, id, Vector2(0,0))
-	board.set_cell(GameboardConstants.BUILD_LAYER, map_position, -1, Vector2(0,0))
-	board.set_cell(GameboardConstants.GROUND_LAYER, map_position, -1, Vector2(0,0))
-	
+
+
+func bucket_fill(id: int, map_position: Vector2):
+	if not _is_in_editor_bounds(map_position): return
+	var type = GameboardConstants.get_tile_type(board, GameboardConstants.BLOCK_LAYER, map_position)
+
 func clear_cell_layer(map_position: Vector2):
 	var board_type = GameboardConstants.get_tile_type(board, GameboardConstants.BLOCK_LAYER, map_position)
 	if board_type != null and board_type == GameboardConstants.TileType.SPAWNER: #There was a spawner below
