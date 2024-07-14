@@ -51,26 +51,29 @@ var map_dto;
 
 
 func _ready():
-
 	gameState = self;
 	ui=$CanvasLayer/UI
 	hand=ui.hand
 	ui.initialise()
 	game_speed=1;
 	toggleSpeed(0)
-
 	bulletHolder = $BulletHolder
-
 	Engine.max_fps=60
-
 	target = $Base
 	startGame()
 	pass # Replace with function body.
  
-
+func _draw():
+	for portal in GameState.gameState.portals:
+		var pp=GameState.board.map_to_local(portal.map_position)
+		for to_connect in GameState.gameState.portals:
+			if portal==to_connect:continue
+			var tp=GameState.board.map_to_local(to_connect.map_position)
+			if portal.group_id==to_connect.group_id:
+				draw_line(pp-global_position,tp-global_position,Color.ALICE_BLUE,4)
+	pass;
 		
 func _process(delta):
-	#Spawner.refresh_all_paths()
 	for i in range(game_speed):
 		for turret in Turret.turrets:
 			if is_instance_valid(turret): turret.do(delta/game_speed);
@@ -104,6 +107,7 @@ func startBattlePhase():
 		s.start(wave)
 	phase = GameState.GamePhase.BATTLE
 	updateUI()
+	
 	pass # Replace with function body.
 
 func startBuildPhase():
@@ -177,6 +181,7 @@ func startGame():
 	updateUI()
 	for s in spawners:
 		s.refresh_path()
+	queue_redraw()	
 	pass # Replace with function body.
 
 

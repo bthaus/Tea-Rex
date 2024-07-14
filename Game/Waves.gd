@@ -220,9 +220,6 @@ static func _get_astar_grid(map:TileMap,monstertype:Monster.MonsterMovingType,fr
 	pass;
 static func _register_portals(astar,movable_cells):
 	for portal in GameState.gameState.portals:
-		#var id=get_point_id(portal.map_position.x,portal.map_position.y)
-		#if prevp!=-1:
-			#astar.remove_point(prevp)
 		var id=astar.get_available_point_id()
 		astar.add_point(id,portal.map_position)
 		_connect_with_neigbours(movable_cells,id,portal.map_position.x,portal.map_position.y,astar)
@@ -310,6 +307,7 @@ func _on_button_mouse_entered():
 func _on_button_mouse_exited():
 	#state.menu.hideDescription()
 	pass # Replace with function body.
+	
 class grid_type_dto:
 	var astar_grid:AStar2D
 	var type
@@ -320,24 +318,28 @@ class grid_type_dto:
 	func _init(grid,t):
 		self.astar_grid=grid
 		self.type=t
+		
 class spawner_astar_id_dto:
 	var spawner:Spawner
 	var astar_id:int
 	func _init(s,id):
 		self.spawner=s
 		self.astar_id=id
+		
 class base_astar_id_dto:
 	var base:PlayerBase
 	var astar_id:int	
 	func _init(s,id):
 		self.base=s
 		self.astar_id=id
+		
 class portal_astar_id_dto:
 	var portal
 	var astar_id:int	
 	func _init(s,id):
 		self.portal=s
-		self.astar_id=id				
+		self.astar_id=id
+		
 class path_color_type_dto:
 	var path=[]
 	var color:Color
