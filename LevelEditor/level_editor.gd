@@ -34,11 +34,12 @@ func _ready():
 func _unhandled_input(event):
 	var board_pos = $Board.local_to_map(get_global_mouse_position())
 	if event.is_action_released("left_click"):
+		if selected_tile == null: return
 		match (_build_mode):
 			BuildMode.DEFAULT:
 				board_handler.set_cell(selected_tile, board_pos)
 			BuildMode.BUCKET_FILL:
-				pass
+				board_handler.bucket_fill(selected_tile, board_pos)
 				
 	elif event.is_action_released("right_click"):
 		board_handler.clear_cell_layer(board_pos)

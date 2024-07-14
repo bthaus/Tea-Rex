@@ -42,9 +42,39 @@ func set_cell(tile: LevelEditor.TileItem, map_position: Vector2):
 			board.set_cell(GameboardConstants.BUILD_LAYER, map_position, -1, Vector2(0,0))
 
 
-func bucket_fill(id: int, map_position: Vector2):
+func bucket_fill(tile: LevelEditor.TileItem, map_position: Vector2):
+	if tile == null: return
 	if not _is_in_editor_bounds(map_position): return
-	var type = GameboardConstants.get_tile_type(board, GameboardConstants.BLOCK_LAYER, map_position)
+	
+	#var type = GameboardConstants.get_tile_type_by_id(board, tile.id)
+	var board_type = GameboardConstants.get_tile_type(board, tile.layer, map_position) #underlying tile
+	
+	var visited = []
+	var stack = [map_position]
+	while !stack.is_empty():
+		var curr_position = stack.pop_front()
+		visited.push_back(curr_position)
+		
+		for row in range(-1,2):
+			for col in range(-1,2):
+				#Skip diagonal cases
+				if row != 0 and (col == -1 or col == 1):
+					continue
+					
+				var pos = Vector2(curr_position.x+col, curr_position.y+row)
+				if not _is_in_editor_bounds(pos): continue
+				#Risky to leave it away but should work without checking (technically)
+				#if visited.has(pos) or stack.has(pos): continue #Piece is already present in either all the visited pieces or the current stack
+				
+				#Check if there is a block layer tile, do not search in that case (unless the tile we wanna place is from the block layer)
+				if tile.layer != GameboardConstants.BLOCK_LAYER and GameboardConstants.get_tile_type(board, GameboardConstants.BLOCK_LAYER, pos) != null:
+					continue
+				
+				var tile_type = GameboardConstants.get_tile_type(board, tile.layer, pos)
+				if tile_type == board_type:
+					set_cell(tile, pos)
+					stack.push_front(pos)
+	
 
 func clear_cell_layer(map_position: Vector2):
 	var board_type = GameboardConstants.get_tile_type(board, GameboardConstants.BLOCK_LAYER, map_position)
