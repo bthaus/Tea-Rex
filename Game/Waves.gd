@@ -155,7 +155,7 @@ static func _get_paths(map:TileMap,spawner):
 			paths.append(path_color_type_dto.new(path,Color.WHITE,type))
 		else:	
 			print("readd drawing of flying minion path once we actually have some")	
-			#paths.append(path_color_type_dto.new(path,Color.SKY_BLUE,type))
+			paths.append(path_color_type_dto.new(path,Color.SKY_BLUE,type))
 	
 	return paths
 static func _get_shortest_path_global(grid:grid_type_dto,spawner):
@@ -168,7 +168,6 @@ static func _get_shortest_path_global(grid:grid_type_dto,spawner):
 		if temp.size()<shortest_path and temp.size()>0:
 			shortest_path=temp.size()
 			path=temp
-	print(path.size())	
 	var global_path=[]
 	for cell in path:
 		global_path.append(GameState.gameState.board.map_to_local(cell))
