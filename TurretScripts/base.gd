@@ -6,8 +6,8 @@ var bullets = []
 var turret_mods:Array[TurretBaseMod]= []
 
 
-var type: Stats.TurretColor = Stats.TurretColor.BLUE
-var extension: Stats.TurretExtension = Stats.TurretExtension.DEFAULT
+var type: Turret.Hue = Turret.Hue.BLUE
+var extension: Turret.Extension = Turret.Extension.DEFAULT
 
 var onCooldown = false;
 var direction: Vector2;
@@ -132,7 +132,7 @@ func on_target_found(monster:Monster):
 	monster.monster_died.connect(func (): target=null)
 	pass;
 	
-func on_hit(monster:Monster,damage,color:Stats.TurretColor,killed,projectile:Projectile):
+func on_hit(monster:Monster,damage,color:Turret.Hue,killed,projectile:Projectile):
 	if killed: on_target_killed(monster)
 	addDamage(damage)
 	for mod in turret_mods:

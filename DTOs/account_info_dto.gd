@@ -3,7 +3,7 @@ class_name AccountInfoDTO
 
 var account_name:String
 var account_progress:Array=[]
-var unlocked_colors:Array[Stats.TurretColor]
+var unlocked_colors:Array[Turret.Hue]
 #array of ItemBlockDTOs
 var unlocked_items
 #array of blueprintsDTOs 

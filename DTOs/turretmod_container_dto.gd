@@ -9,7 +9,7 @@ class_name TurretModContainerDTO
 var turret_mods
 
 
-var color:Stats.TurretColor
+var color:Turret.Hue
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

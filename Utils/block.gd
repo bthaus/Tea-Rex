@@ -19,10 +19,10 @@ func clone() -> Block:
 
 class Piece extends Resource:
 	var position: Vector2
-	var color: Stats.TurretColor
+	var color: Turret.Hue
 	var level: int
-	var extension: Stats.TurretExtension
-	func _init(position: Vector2, color: Stats.TurretColor, level: int, extension: Stats.TurretExtension=Stats.TurretExtension.DEFAULT):
+	var extension: Turret.Extension
+	func _init(position: Vector2, color: Turret.Hue, level: int, extension: Turret.Extension=Turret.Extension.DEFAULT):
 		self.position = position
 		self.color = color
 		self.level = level

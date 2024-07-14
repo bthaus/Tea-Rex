@@ -92,11 +92,11 @@ class TurretHolder:
 		#Element is not present, return insertion point. Add 1 to avoid 0 being indistinguishable between found/not found
 		return -(left+1);
 
-static func getStringFromEnum(type:Stats.TurretColor):
-	return Stats.TurretColor.keys()[(type)-1];
-static func getStringFromEnumLowercase(type:Stats.TurretColor):
-	return Stats.TurretColor.keys()[(type)-1].to_lower();
-static func getStringFromEnumExtension(type:Stats.TurretExtension):
+static func getStringFromEnum(type:Turret.Hue):
+	return Turret.Hue.keys()[(type)-1];
+static func getStringFromEnumLowercase(type:Turret.Hue):
+	return Turret.Hue.keys()[(type)-1].to_lower();
+static func getStringFromEnumExtension(type:Turret.Extension):
 	match type:
 		1: return ""
 		2: return "LASER"
@@ -111,7 +111,7 @@ static func getStringFromEnumExtension(type:Stats.TurretExtension):
 static func getRandomBlock(lvl,gamestate):
 	var rng=RandomNumberGenerator.new()
 	var color=GameState.gameState.unlockedColors.pick_random()	
-	var extension=Stats.TurretExtension.DEFAULT
+	var extension=Turret.Extension.DEFAULT
 	var block=getEvaluatedShape(0)
 	return BlockUtils.get_block_from_shape(block,color,lvl,extension)
 

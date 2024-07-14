@@ -9,7 +9,7 @@ func duplicate_bullet(bullet:Projectile)->Projectile:
 	
 	
 	pass;
-func get_bullet(color:Stats.TurretColor,damage, speed, turret, penetrations,extension:Stats.TurretExtension)->Projectile:
+func get_bullet(color:Turret.Hue,damage, speed, turret, penetrations,extension:Turret.Extension)->Projectile:
 	var temp
 	var pool=turret.bullets
 	
@@ -19,11 +19,11 @@ func get_bullet(color:Stats.TurretColor,damage, speed, turret, penetrations,exte
 		
 	else:
 		
-		if extension==Stats.TurretExtension.BLUELASER:
+		if extension==Turret.Extension.BLUELASER:
 			temp= $blue_laser_projectile.duplicate()
-		elif color==Stats.TurretColor.GREEN:
+		elif color==Turret.Hue.GREEN:
 			temp= $rocket_projectile.duplicate()
-		elif color==Stats.TurretColor.RED:
+		elif color==Turret.Hue.RED:
 			temp=$red_saw.duplicate()	
 		else:
 			temp= $base_projectile.duplicate()

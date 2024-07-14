@@ -17,7 +17,7 @@ func _ready():
 	var desc;
 
 	if card.card is BlockCard:
-		var n=Stats.TurretExtension.find_key(card.card.block.extension);
+		var n=Turret.Extension.find_key(card.card.block.extension);
 		name="blockcard"
 		desc="duh"
 		

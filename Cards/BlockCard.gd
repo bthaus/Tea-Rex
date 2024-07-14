@@ -18,7 +18,7 @@ static func create(gameState:GameState,block=-1):
 	return card;
 func select(done:Callable):
 	
-	if state.phase==Stats.GamePhase.BATTLE:
+	if state.phase==GameState.GamePhase.BATTLE:
 		done.call(false);
 		return
 	state.gameBoard.select_block(block,done)

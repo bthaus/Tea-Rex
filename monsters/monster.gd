@@ -19,7 +19,7 @@ var hp:
 var minionExp;
 var currentMinionPower = 1;
 var path=[]
-@export var color: Stats.TurretColor = Stats.TurretColor.BLUE
+@export var color: Turret.Hue = Turret.Hue.BLUE
 var died = false;
 var oldpos=Vector2(0,0)
 var core:MonsterCore:
@@ -50,7 +50,7 @@ static func create(type, target: Node2D, wave: int=1) -> Monster:
 	
 
 
-func hit(color: Stats.TurretColor, damage, type="default", noise=true):
+func hit(color: Turret.Hue, damage, type="default", noise=true):
 	if core.hp<=0: return;
 	core.on_hit()
 	var mod = 1;

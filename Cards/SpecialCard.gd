@@ -13,7 +13,7 @@
 #var roundsInHand = 1;
 #var roundReceived: int;
 #var maxroundsHeld = 1;
-#var phase: Stats.GamePhase
+#var phase: GameState.GamePhase
 #var active = false;
 #var tasks = []
 #static var cardID = 0;
@@ -129,10 +129,10 @@
 #func castFIREBALL():
 	##$Effect.visible = true;
 	##$Effect.global_position = get_global_mouse_position();
-	#Explosion.create(Stats.TurretColor.WHITE,damage,get_global_mouse_position(),null,2)
+	#Explosion.create(Turret.Hue.WHITE,damage,get_global_mouse_position(),null,2)
 	#$Effect.play(Stats.getStringFromSpecialCardEnum(cardName));
 	##$Effect/EnemyDetector.enemyEntered.connect(func(e):
-	##	e.hit(Stats.TurretColor.WHITE, damage))
+	##	e.hit(Turret.Hue.WHITE, damage))
 	#return true;
 #
 #func castCRYOBALL():
@@ -146,7 +146,7 @@
 		#ms.append_array(c)	
 	#for m in ms:
 		#if not is_instance_valid(m):continue
-		#m.hit(Stats.TurretColor.BLUE, damage)
+		#m.hit(Turret.Hue.BLUE, damage)
 		#m.add_child(Slower.create(Stats.CRYOBALL_slowDuration, Stats.CRYOBALL_slowFactor))
 	#
 		#
@@ -235,4 +235,4 @@
 		#pass ;
 #
 #func isPhaseValid() -> bool:
-	#return gameState.phase == phase||phase == Stats.GamePhase.BOTH||gameState.phase == Stats.GamePhase.BOTH
+	#return gameState.phase == phase||phase == GameState.GamePhase.BOTH||gameState.phase == GameState.GamePhase.BOTH

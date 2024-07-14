@@ -9,9 +9,9 @@ func _ready():
 	item_handler = ItemBlockSelectorHandler.new($Board, [])
 	
 	var item_blocks = [
-		ItemBlockDTO.new(Stats.TurretColor.RED, Block.BlockShape.O, 0, ItemBlockConstants.RED_TILE_ID),
-		ItemBlockDTO.new(Stats.TurretColor.BLUE, Block.BlockShape.O, 0, ItemBlockConstants.BLUE_TILE_ID),
-		ItemBlockDTO.new(Stats.TurretColor.GREEN, Block.BlockShape.O, 0, ItemBlockConstants.GREEN_TILE_ID)
+		ItemBlockDTO.new(Turret.Hue.RED, Block.BlockShape.O, 0, ItemBlockConstants.RED_TILE_ID),
+		ItemBlockDTO.new(Turret.Hue.BLUE, Block.BlockShape.O, 0, ItemBlockConstants.BLUE_TILE_ID),
+		ItemBlockDTO.new(Turret.Hue.GREEN, Block.BlockShape.O, 0, ItemBlockConstants.GREEN_TILE_ID)
 	]
 	
 	for item_block in item_blocks:

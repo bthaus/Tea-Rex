@@ -21,7 +21,7 @@ func delayedSelect(done):
 			#selectedCard.card.interrupt()
 			#selectedCard=self;	
 	
-	if self is BlockCard and state.phase!=Stats.GamePhase.BUILD:
+	if self is BlockCard and state.phase!=GameState.GamePhase.BUILD:
 		return;
 	$DisableButton/DisableCard.show()
 	$DisableButton.mouse_filter=0;
@@ -97,9 +97,9 @@ static func create(gameState:GameState,card=-1):
 		var extension=c.card.block.extension;
 		var color=c.card.block.color;
 		#if extension==1:
-		#	c.get_node("Label").text=Stats.getName(Stats.TurretColor.find_key(color))
+		#	c.get_node("Label").text=Stats.getName(Turret.Hue.find_key(color))
 		#else:
-		#	c.get_node("Label").text=Stats.getName(Stats.TurretExtension.find_key(extension))	
+		#	c.get_node("Label").text=Stats.getName(Turret.Extension.find_key(extension))	
 		c.get_node("Label").text=""
 		c.get_node("Button").icon=load("res://Assets/Cards/Testcard_"+util.getStringFromEnum(color).to_lower()+".png")
 		#use this to change color/text of card

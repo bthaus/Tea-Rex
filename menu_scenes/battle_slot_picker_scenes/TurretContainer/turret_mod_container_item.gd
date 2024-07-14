@@ -1,6 +1,6 @@
 extends Panel
 
-@export var color: Stats.TurretColor
+@export var color: Turret.Hue
 @onready var style_box: StyleBoxFlat = get_theme_stylebox("panel").duplicate()
 
 var item_handler: ItemBlockSelectorHandler
@@ -49,11 +49,11 @@ func _get_mouse_position_on_board() -> Vector2:
 func set_selected_item(item: ItemBlockDTO):
 	selected_item = item
 
-func _get_color_from_turret_color(color: Stats.TurretColor) -> Color:
+func _get_color_from_turret_color(color: Turret.Hue) -> Color:
 	match (color):
-		Stats.TurretColor.WHITE: return Color.GHOST_WHITE
-		Stats.TurretColor.GREEN: return Color.LAWN_GREEN
-		Stats.TurretColor.RED: return Color.CRIMSON
-		Stats.TurretColor.YELLOW: return Color.YELLOW
-		Stats.TurretColor.BLUE: return Color.DODGER_BLUE
+		Turret.Hue.WHITE: return Color.GHOST_WHITE
+		Turret.Hue.GREEN: return Color.LAWN_GREEN
+		Turret.Hue.RED: return Color.CRIMSON
+		Turret.Hue.YELLOW: return Color.YELLOW
+		Turret.Hue.BLUE: return Color.DODGER_BLUE
 	return Color.BLACK

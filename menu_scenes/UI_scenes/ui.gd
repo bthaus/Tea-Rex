@@ -29,7 +29,7 @@ func updateUI():
 	$maxcards.text=str("    ", gamestate.maxCards)
 	$redraws.text=str("    ", gamestate.cardRedraws)
 	$CatBar.value=gamestate.wave%5
-	$StartBattlePhase.disabled=gamestate.phase==Stats.GamePhase.BATTLE
+	$StartBattlePhase.disabled=gamestate.phase==GameState.GamePhase.BATTLE
 	$Hpbar/maxhp.text=str(int(gamestate.HP))
 	
 	pass;

@@ -6,18 +6,19 @@ class_name GameState;
 @onready var ui:UI=$CanvasLayer/UI
 @export var cam: Camera2D;
 @export var lightThresholds: LightThresholds;
+enum GamePhase {BATTLE=1,BUILD=2,BOTH=3};
 
 static var gameState;
 var account: String = "dede";
 
 #Todo: remove and replace with battle_slot_logic
-var unlockedExtensions = [Stats.TurretExtension.DEFAULT];
-var unlockedColors = [Stats.TurretColor.WHITE,Stats.TurretColor.BLUE];
+var unlockedExtensions = [Turret.Extension.DEFAULT];
+var unlockedColors = [Turret.Hue.WHITE,Turret.Hue.BLUE];
 
 var selected_battle_slots
 
 var toUnlock = []
-var phase: Stats.GamePhase = Stats.GamePhase.BUILD;
+var phase: GameState.GamePhase = GameState.GamePhase.BUILD;
 var HP = GameplayConstants.playerHP;
 var maxHP = GameplayConstants.playerMaxHP;
 var maxCards = 5;
@@ -101,7 +102,7 @@ func startBattlePhase():
 	
 	for s in spawners:
 		s.start(wave)
-	phase = Stats.GamePhase.BATTLE
+	phase = GameState.GamePhase.BATTLE
 	updateUI()
 	pass # Replace with function body.
 
@@ -136,7 +137,7 @@ func startBuildPhase():
 	ui.get_node("StartBattlePhase").disabled = false;
 
 	start_build_phase.emit()
-	phase = Stats.GamePhase.BUILD
+	phase = GameState.GamePhase.BUILD
 	drawCards(cardRedraws)
 	updateUI()
 	
@@ -210,7 +211,7 @@ func mortarWorkaround(damage, pos, associate):
 	
 	get_tree().create_timer(1).timeout.connect(func():
 		
-		Explosion.create(Stats.TurretColor.YELLOW, damage, pos, associate, 0.5)
+		Explosion.create(Turret.Hue.YELLOW, damage, pos, associate, 0.5)
 		sprite.queue_free()
 	)
 	

@@ -22,7 +22,7 @@ static var factory=load("res://TurretScripts/Projectiles/projectile_factory.tscn
 var oldpos=Vector2(0,0)
 
 
-static func create(type: Stats.TurretColor, damage, speed, root:TurretCore, penetrations:int=1, extension: Stats.TurretExtension=Stats.TurretExtension.DEFAULT) -> Projectile:
+static func create(type: Turret.Hue, damage, speed, root:TurretCore, penetrations:int=1, extension: Turret.Extension=Turret.Extension.DEFAULT) -> Projectile:
 	return factory.get_bullet(type,damage,speed,root,penetrations,extension)	
 	
 # Called when the node enters the scene tree for the first time.
@@ -83,13 +83,13 @@ func _toggle_emission(b):
 	emitter.emitting=b
 	pass;
 func on_hit(enemy: Monster):
-		if type == Stats.TurretColor.RED&&ext == Stats.TurretExtension.REDLASER:
+		if type == Turret.Hue.RED&&ext == Turret.Extension.REDLASER:
 			applyRedLaser(enemy)
-		if type == Stats.TurretColor.GREEN&&ext == Stats.TurretExtension.GREENPOISON:
+		if type == Turret.Hue.GREEN&&ext == Turret.Extension.GREENPOISON:
 			applyPoison(enemy)
-		if type == Stats.TurretColor.YELLOW&&ext == Stats.TurretExtension.YELLOWMORTAR:
+		if type == Turret.Hue.YELLOW&&ext == Turret.Extension.YELLOWMORTAR:
 			applyMortarExplosion(enemy)
-		if ext==Stats.TurretExtension.BLUEFREEZER:
+		if ext==Turret.Extension.BLUEFREEZER:
 			applyBlueFreezer(enemy)
 		pass ;
 func applyBlueFreezer(enemy:Monster):

@@ -1,7 +1,7 @@
 extends GameObjectCounted
 class_name BlockUtils
 
-static func get_block_from_shape(block_shape: Block.BlockShape, color: Stats.TurretColor, level: int = 1, extension: Stats.TurretExtension = Stats.TurretExtension.DEFAULT) -> Block:
+static func get_block_from_shape(block_shape: Block.BlockShape, color: Turret.Hue, level: int = 1, extension: Turret.Extension = Turret.Extension.DEFAULT) -> Block:
 	var pieces = []
 	var positions = get_positions_from_block_shape(block_shape)
 	for pos in positions:

@@ -3,9 +3,11 @@ class_name Turret
 
 @export var range = 1;
 @export var isBasic = true;
-@export var color: Stats.TurretColor;
+@export var color: Turret.Hue;
 @export var level: int = 1;
-@export var extension: Stats.TurretExtension;
+@export var extension: Turret.Extension;
+enum Hue {WHITE=1, GREEN=2, RED=3, YELLOW=4, BLUE=5, MAGENTA=6};
+enum Extension {DEFAULT=1,REDLASER=2, BLUELASER=3, YELLOWMORTAR=4, GREENPOISON=5,BLUEFREEZER=6};
 
 
 var rowcounterstart = 0;
@@ -24,7 +26,7 @@ var on_built: Array[Callable] = [setUpTower]
 var on_build_phase_started: Array[Callable] = []
 var on_battle_phase_started: Array[Callable] = []
 
-static func create(color: Stats.TurretColor, lvl: int, type: Stats.TurretExtension=Stats.TurretExtension.DEFAULT,placed=false) -> Turret:
+static func create(color: Turret.Hue, lvl: int, type: Turret.Extension=Turret.Extension.DEFAULT,placed=false) -> Turret:
 	var turret = load("res://TurretScripts/turretbase.tscn").instantiate() as Turret;
 	if turret.collisionReference == null:
 		turret.collisionReference = GameState.gameState.collisionReference
@@ -154,7 +156,7 @@ var oldval = 1;
 static var globlight = false;
 var melight = false;
 func highlight(delta):
-	if GameState.gameState.phase == Stats.GamePhase.BATTLE: return
+	if GameState.gameState.phase == GameState.GamePhase.BATTLE: return
 	globlight = true;
 	melight = true;
 	#create_tween().tween_property(light, "energy", 3, 1)
@@ -164,13 +166,13 @@ func highlight(delta):
 	pass
 	
 func de_highlight(delta):
-	if GameState.gameState.phase == Stats.GamePhase.BATTLE: return
+	if GameState.gameState.phase == GameState.GamePhase.BATTLE: return
 	globlight = false;
 	melight = false;
 	pass
 	
 func checkLight(delta):
-	if GameState.gameState.phase == Stats.GamePhase.BATTLE: return
+	if GameState.gameState.phase == GameState.GamePhase.BATTLE: return
 	
 	if !placed:
 		lightamount = GameState.gameState.lightThresholds.getLight(global_position.y)
@@ -230,7 +232,7 @@ func on_hover():
 		
 		
 	#elif extension != 1:
-	#	GameState.gameState.ui.showDescription(Stats.getDescription(Stats.TurretExtension.keys()[extension - 1]))
+	#	GameState.gameState.ui.showDescription(Stats.getDescription(Turret.Extension.keys()[extension - 1]))
 	#else:
 	#	GameState.gameState.ui.showDescription(Stats.getDescription(util.getStringFromEnum(color)))
 	

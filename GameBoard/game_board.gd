@@ -54,7 +54,7 @@ func start_bulldozer(done: Callable, size_x: int, size_y: int):
 	var pieces = []
 	for row in size_y:
 		for col in size_x:
-			pieces.push_back(Block.Piece.new(Vector2( - col, -row), Stats.TurretColor.WHITE, -1)) # Color has no particular reason
+			pieces.push_back(Block.Piece.new(Vector2( - col, -row), Turret.Hue.WHITE, -1)) # Color has no particular reason
 	selected_block = Block.new(pieces)
 	action = BoardAction.BULLDOZER
 	self.done = done
@@ -66,7 +66,7 @@ func start_move(done: Callable):
 	action = BoardAction.MOVE
 	self.done = done
 
-func select_piece(shape: Block.BlockShape, color: Stats.TurretColor, done: Callable, level: int, extension: Stats.TurretExtension=Stats.TurretExtension.DEFAULT):
+func select_piece(shape: Block.BlockShape, color: Turret.Hue, done: Callable, level: int, extension: Turret.Extension=Turret.Extension.DEFAULT):
 	is_delayed = true
 	delay_timer.start()
 	action = BoardAction.BUILD
@@ -228,7 +228,7 @@ func link_spawners_to_waves(map_dto):
 	pass;
 func _spawn_turrets(block: Block, map_position: Vector2):
 	for piece in block.pieces:
-		if piece.color != Stats.TurretColor.WHITE:
+		if piece.color != Turret.Hue.WHITE:
 			var turret = Turret.create(piece.color, piece.level, piece.extension,true)
 			turret.global_position = $Board.map_to_local(Vector2(map_position.x + piece.position.x, map_position.y + piece.position.y))
 			add_child(turret)
@@ -253,7 +253,7 @@ func _set_block_and_turrets_level(block: Block, map_position: Vector2, level: in
 func _load_preview_turrets_from_selected_block():
 	preview_turrets = []
 	for piece in selected_block.pieces:
-		if piece.color != Stats.TurretColor.WHITE:
+		if piece.color != Turret.Hue.WHITE:
 			var turret = Turret.create(piece.color, piece.level, piece.extension)
 			add_child(turret)
 			preview_turrets.append(turret)
