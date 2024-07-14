@@ -11,6 +11,7 @@ var _selection_tile_items = [
 	TileItem.new(GameboardConstants.SPAWNER_GREEN_TILE_ID, "Spawner"),
 	TileItem.new(GameboardConstants.GROUND_TILE_ID, "Ground"),
 	TileItem.new(GameboardConstants.BUILD_ANY_TILE_ID, "Build Any"),
+	TileItem.new(GameboardConstants.PORTAL_TILE_ID, "Portal")
 	]
 
 var selected_tile_id = -1

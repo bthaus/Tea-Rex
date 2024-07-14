@@ -145,11 +145,8 @@ func startBuildPhase():
 
 
 func startGame():
-	#tile_id: int, layer: int, map_position: Vector2,group_id=0,entry=ENTRY_TYPE.BIDIRECTIONAL
 	portals.clear()
 	spawners.clear()
-	map_dto.entities.append(PortalDTO.new(5,1,Vector2(7,7)))
-	map_dto.entities.append(PortalDTO.new(5,1,Vector2(7,2)))
 	collisionReference.initialise(self,map_dto)
 	gameBoard=load("res://GameBoard/game_board.tscn").instantiate()
 	gameBoard.init_field(map_dto)

@@ -25,11 +25,15 @@ func set_cell(id: int, map_position: Vector2):
 	match(type):
 		GameboardConstants.TileType.GROUND:
 			board.set_cell(GameboardConstants.GROUND_LAYER, map_position, id, Vector2(0,0))
-			board.set_cell(GameboardConstants.BLOCK_LAYER, map_position, -1, Vector2(0,0))
+			#board.set_cell(GameboardConstants.BLOCK_LAYER, map_position, -1, Vector2(0,0))
 			return
 		GameboardConstants.TileType.BUILD:
 			board.set_cell(GameboardConstants.BUILD_LAYER, map_position, id, Vector2(0,0))
 			board.set_cell(GameboardConstants.BLOCK_LAYER, map_position, -1, Vector2(0,0))
+			return
+		GameboardConstants.TileType.PORTAL:
+			board.set_cell(GameboardConstants.BUILD_LAYER, map_position, -1, Vector2(0,0))
+			board.set_cell(GameboardConstants.BLOCK_LAYER, map_position, id, Vector2(0,0))
 			return
 		GameboardConstants.TileType.SPAWNER:
 			if is_spawner_below: return #There is already a spawner below, ignore it
@@ -83,6 +87,7 @@ func save_board(monster_waves,map_name):
 				var color = GameboardConstants.get_tile_color(board, GameboardConstants.BLOCK_LAYER, pos)
 				entities.append(SpawnerDTO.new(id, GameboardConstants.BLOCK_LAYER, pos.x, pos.y, idx, color))
 			GameboardConstants.TileType.PLAYER_BASE: entities.append(PlayerBaseDTO.new(id, GameboardConstants.BLOCK_LAYER, pos.x, pos.y))
+			GameboardConstants.TileType.PORTAL: entities.append(PortalDTO.new(id, GameboardConstants.BLOCK_LAYER, Vector2(pos.x, pos.y)))
 	
 	#Store build layer
 	for pos in board.get_used_cells(GameboardConstants.BUILD_LAYER):

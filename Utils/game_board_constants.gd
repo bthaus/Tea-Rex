@@ -26,6 +26,7 @@ const GROUND_TILE_ID = 4
 const PLAYER_BASE_GREEN_TILE_ID = 5
 const SPAWNER_GREEN_TILE_ID = 6
 const WALL_TILE_ID = 7
+const PORTAL_TILE_ID = 9
 
 #BUILD
 const BUILD_ANY_TILE_ID = 8
@@ -34,7 +35,7 @@ const BUILD_ANY_TILE_ID = 8
 enum TileColor { ANY, RED, GREEN, BLUE, YELLOW, WHITE };
 
 #TYPES
-enum TileType { WALL, GROUND, TURRET_BASE, SPAWNER, PLAYER_BASE, BUILD}
+enum TileType { WALL, GROUND, TURRET_BASE, SPAWNER, PLAYER_BASE, BUILD, PORTAL }
 
 static func get_tile_type(board: TileMap, layer: int, map_position: Vector2):
 	var data = board.get_cell_tile_data(layer, map_position)
