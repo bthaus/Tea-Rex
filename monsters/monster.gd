@@ -80,12 +80,17 @@ var distance_to_next_edge=-1;
 var travel_index=0;
 var ignore_next_portal=false;
 func trigger_teleport():
-	if ignore_next_portal:return
-	ignore_next_portal=true
+	if not _is_next_step_portal(): return
 	distance_travelled=distance_to_next_edge
 	global_position=path[travel_index+1]
 	translateTowardEdge(0.16)
 	pass;
+func _is_next_step_portal():
+	var current=path[travel_index]
+	var next=path[travel_index+1]
+	return abs(current.x-next.x)>GameboardConstants.TILE_SIZE+4 or abs(current.y-next.y)>GameboardConstants.TILE_SIZE+4
+		
+	
 func translateTowardEdge(delta):
 	
 	if core.hp<=0:return;
