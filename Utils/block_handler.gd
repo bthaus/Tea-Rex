@@ -154,12 +154,6 @@ func can_place_block(block: Block, map_position: Vector2,  spawners) -> bool:
 						if neighbour_piece.color != piece.color and neighbour_piece.color != Turret.Hue.WHITE: #Mismatching colors (white pieces are an exception)
 								GameBoard.current_tutorial = TutorialHolder.tutNames.ColorRestriction
 								return false
-				
-				#Check if there are any surrounding spawners
-				for spawner_pos in spawner_positions:
-					if spawner_pos.x == pos.x and spawner_pos.y == pos.y:
-						GameBoard.current_tutorial = null
-						return false
 	
 	#Block could theoretically be placed to upgrade, but the underlying block already has reached the max level
 	if level == GameplayConstants.MAX_TURRET_LEVEL:
