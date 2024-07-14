@@ -11,7 +11,7 @@ func _ready():
 	pass # Replace with function body.
 
 func getBase(color:Stats.TurretColor,extension:Stats.TurretExtension)->TurretCore:
-	var searchstring=Stats.getStringFromEnum(color)+Stats.getStringFromEnumExtension(extension)+"_base"
+	var searchstring=util.getStringFromEnum(color)+util.getStringFromEnumExtension(extension)+"_base"
 	var base=get_node(searchstring).duplicate() as TurretCore
 	base.type=color
 	base.extension=extension

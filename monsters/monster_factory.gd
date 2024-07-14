@@ -9,8 +9,8 @@ static var instance=load("res://monsters/monster_factory.tscn").instantiate()
 func _ready():
 	pass # Replace with function body.
 
-static func createMonster(type:Stats.Monstertype):
-	#var searchstring=Stats.Monstertype.keys()[(type)]
+static func createMonster(type:Monster.Monstertype):
+	#var searchstring=Monster.Monstertype.keys()[(type)]
 	var searchstring="REGULAR" #TODO replace with proper monster enum
 	var base= instance.get_node(searchstring).duplicate() as MonsterCore
 	base.speed=base.speed*instance.base_speed

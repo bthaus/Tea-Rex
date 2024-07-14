@@ -2,7 +2,7 @@ extends GameObject2D
 class_name Monster;
 enum MonsterMovingType { GROUND, AIR }
 var moving_type: MonsterMovingType
-
+enum Monstertype {REGULAR=0}
 var sizemult = 1;
 var maxHp;
 

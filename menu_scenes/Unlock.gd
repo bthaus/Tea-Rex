@@ -32,7 +32,7 @@ static func create(card:Card,done:Callable=func():print("nothing")):
 	t.card=card
 	t.done=done
 	if card.card is BlockCard:
-		t.get_node("Card").texture=load("res://Assets/Cards/Testcard_"+Stats.getStringFromEnumLowercase(card.card.block.color)+".png")
+		t.get_node("Card").texture=load("res://Assets/Cards/Testcard_"+util.getStringFromEnumLowercase(card.card.block.color)+".png")
 	return t;
 	pass;
 

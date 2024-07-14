@@ -51,6 +51,9 @@ animations = [{
 
 [node name="monster_factory" type="Node2D"]
 script = ExtResource("1_27eaf")
+base_hp = null
+base_damage = null
+base_speed = null
 
 [node name="REGULAR" type="AnimatedSprite2D" parent="."]
 process_mode = 3

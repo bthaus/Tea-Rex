@@ -13,7 +13,7 @@ static func create(gameState:GameState,block=-1):
 	if block is Block:
 		card.block=block
 	else:
-		card.block=Stats.new().getRandomBlock(1,gameState);
+		card.block=util.getRandomBlock(1,gameState);
 		
 	return card;
 func select(done:Callable):

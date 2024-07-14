@@ -92,11 +92,56 @@ class TurretHolder:
 		#Element is not present, return insertion point. Add 1 to avoid 0 being indistinguishable between found/not found
 		return -(left+1);
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
+static func getStringFromEnum(type:Stats.TurretColor):
+	return Stats.TurretColor.keys()[(type)-1];
+static func getStringFromEnumLowercase(type:Stats.TurretColor):
+	return Stats.TurretColor.keys()[(type)-1].to_lower();
+static func getStringFromEnumExtension(type:Stats.TurretExtension):
+	match type:
+		1: return ""
+		2: return "LASER"
+		3: return "LASER"
+		4: return "MORTAR"
+		5: return "POISON"
+		6: return "FREEZER"
+	return "";
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
+
+static func getRandomBlock(lvl,gamestate):
+	var rng=RandomNumberGenerator.new()
+	var color=GameState.gameState.unlockedColors.pick_random()	
+	var extension=Stats.TurretExtension.DEFAULT
+	var block=getEvaluatedShape(0)
+	return BlockUtils.get_block_from_shape(block,color,lvl,extension)
+
+
+
+static func getEvaluatedShape(counter):
+	var shape=Block.BlockShape.values()[RandomNumberGenerator.new().randi_range(0,Block.BlockShape.size()-1)]
+	var block=BlockUtils.get_block_from_shape(shape,0,0);
+	var currentPieces=+numberOfPiecesDrawn+block.pieces.size()
+	var currentAverage=currentPieces/numberOfCardsDrawn 
+	
+	if bestCurrentAverage != null and currentAverage>bestCurrentAverage:
+		bestCurrentAverage=currentAverage
+		bestCurrentShape=shape
+	var difference=currentAverage-TargetPieceAverage
+	
+	if counter>20:
+		numberOfPiecesDrawn=numberOfPiecesDrawn+block.pieces.size();
+		return bestCurrentShape;
+	if abs(difference)>tolerance:
+		return getEvaluatedShape(counter+1)
+		
+	numberOfPiecesDrawn=numberOfPiecesDrawn+block.pieces.size();	
+	return shape;	
+
+static var numberOfPiecesDrawn:float=1;
+static var numberOfCardsDrawn:float=1;
+static var TargetPieceAverage:float=3.5;
+static var tolerance:float=0.5
+
+static var bestCurrentShape=null;
+static var bestCurrentAverage=1;
+

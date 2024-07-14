@@ -117,11 +117,11 @@ func setUpTower():
 	add_child(base)
 	base.setUpTower(self)
 	$LVL.text = str(level)
-	$AudioStreamPlayer2D.stream = load("res://Sounds/Soundeffects/" + Stats.getStringFromEnum(color) + Stats.getStringFromEnumExtension(extension) + "_shot.wav")
+	$AudioStreamPlayer2D.stream = load("res://Sounds/Soundeffects/" + util.getStringFromEnum(color) + util.getStringFromEnumExtension(extension) + "_shot.wav")
 	if placed:
 		lightamount = GameState.gameState.lightThresholds.getLight(global_position.y)*level
 	
-	$Tile.texture = load("res://Assets/Tiles/tile_" + Stats.getStringFromEnumLowercase(color) + ".png")
+	$Tile.texture = load("res://Assets/Tiles/tile_" + util.getStringFromEnumLowercase(color) + ".png")
 	if placed:
 		lightamount = GameState.gameState.lightThresholds.getLight(global_position.y) * level
 		$Tile.modulate = Color(1 + lightamount, 1 + lightamount, 1 + lightamount)
@@ -232,7 +232,7 @@ func on_hover():
 	#elif extension != 1:
 	#	GameState.gameState.ui.showDescription(Stats.getDescription(Stats.TurretExtension.keys()[extension - 1]))
 	#else:
-	#	GameState.gameState.ui.showDescription(Stats.getDescription(Stats.getStringFromEnum(color)))
+	#	GameState.gameState.ui.showDescription(Stats.getDescription(util.getStringFromEnum(color)))
 	
 	GameState.gameState.showCount(base.killcount, base.damagedealt)
 	
