@@ -47,7 +47,7 @@ func bucket_fill(tile: LevelEditor.TileItem, map_position: Vector2):
 	if not _is_in_editor_bounds(map_position): return
 	
 	#var type = GameboardConstants.get_tile_type_by_id(board, tile.id)
-	var board_type = GameboardConstants.get_tile_type(board, tile.layer, map_position) #underlying tile
+	var board_id = board.get_cell_source_id(tile.layer, map_position) #underlying tile
 	
 	var visited = []
 	var stack = [map_position]
@@ -67,11 +67,11 @@ func bucket_fill(tile: LevelEditor.TileItem, map_position: Vector2):
 				#if visited.has(pos) or stack.has(pos): continue #Piece is already present in either all the visited pieces or the current stack
 				
 				#Check if there is a block layer tile, do not search in that case (unless the tile we wanna place is from the block layer)
-				if tile.layer != GameboardConstants.BLOCK_LAYER and GameboardConstants.get_tile_type(board, GameboardConstants.BLOCK_LAYER, pos) != null:
+				if tile.layer != GameboardConstants.BLOCK_LAYER and board.get_cell_source_id(GameboardConstants.BLOCK_LAYER, pos) != -1:
 					continue
 				
-				var tile_type = GameboardConstants.get_tile_type(board, tile.layer, pos)
-				if tile_type == board_type:
+				var tile_id = board.get_cell_source_id(tile.layer, pos)
+				if tile_id == board_id:
 					set_cell(tile, pos)
 					stack.push_front(pos)
 	
