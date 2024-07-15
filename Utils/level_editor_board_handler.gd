@@ -41,14 +41,17 @@ func set_cell(tile: LevelEditor.TileItem, map_position: Vector2):
 			board.set_cell(GameboardConstants.BLOCK_LAYER, map_position, tile.id, Vector2(0,0))
 			board.set_cell(GameboardConstants.BUILD_LAYER, map_position, -1, Vector2(0,0))
 
-
+#If the tile is null, it will bucket clear it
 func bucket_fill(tile: LevelEditor.TileItem, map_position: Vector2):
-	if tile == null: return
 	if not _is_in_editor_bounds(map_position): return
 	
-	#var type = GameboardConstants.get_tile_type_by_id(board, tile.id)
-	var board_id = board.get_cell_source_id(tile.layer, map_position) #underlying tile
+	var tile_layer
+	if tile == null:
+		tile_layer = get_highest_used_layer(map_position)
+	else:
+		tile_layer = tile.layer
 	
+	var board_id = board.get_cell_source_id(tile_layer, map_position) #underlying tile
 	var visited = []
 	var stack = [map_position]
 	while !stack.is_empty():
@@ -63,17 +66,18 @@ func bucket_fill(tile: LevelEditor.TileItem, map_position: Vector2):
 					
 				var pos = Vector2(curr_position.x+col, curr_position.y+row)
 				if not _is_in_editor_bounds(pos): continue
-				#Risky to leave it away but should work without checking (technically)
-				#if visited.has(pos) or stack.has(pos): continue #Piece is already present in either all the visited pieces or the current stack
 				
 				#Check if there is a block layer tile, do not search in that case (unless the tile we wanna place is from the block layer)
-				if tile.layer != GameboardConstants.BLOCK_LAYER and board.get_cell_source_id(GameboardConstants.BLOCK_LAYER, pos) != -1:
+				if tile_layer != GameboardConstants.BLOCK_LAYER and board.get_cell_source_id(GameboardConstants.BLOCK_LAYER, pos) != -1:
 					continue
 				
-				var tile_id = board.get_cell_source_id(tile.layer, pos)
+				var tile_id = board.get_cell_source_id(tile_layer, pos)
 				if tile_id == board_id:
-					set_cell(tile, pos)
-					stack.push_front(pos)
+					if tile == null: clear_cell_layer(pos)
+					else: set_cell(tile, pos)
+					
+					if not (visited.has(pos) or stack.has(pos)): #Piece is already present in either all the visited pieces or the current stack
+						stack.push_front(pos)
 	
 
 func clear_cell_layer(map_position: Vector2):
@@ -84,12 +88,18 @@ func clear_cell_layer(map_position: Vector2):
 			spawner_removed.emit(i)
 	
 	#Clear one layer at a time: Block -> Build -> GROUND
+	var layer = get_highest_used_layer(map_position)
+	if layer == -1: return
+	board.set_cell(layer, map_position, -1, Vector2(0,0))
+
+func get_highest_used_layer(map_position: Vector2) -> int:
 	if not _is_cell_empty(GameboardConstants.BLOCK_LAYER, map_position):
-		board.set_cell(GameboardConstants.BLOCK_LAYER, map_position, -1, Vector2(0,0))
+		return GameboardConstants.BLOCK_LAYER
 	elif not _is_cell_empty(GameboardConstants.BUILD_LAYER, map_position):
-		board.set_cell(GameboardConstants.BUILD_LAYER, map_position, -1, Vector2(0,0))
-	else:
-		board.set_cell(GameboardConstants.GROUND_LAYER, map_position, -1, Vector2(0,0))
+		return GameboardConstants.BUILD_LAYER
+	elif not _is_cell_empty(GameboardConstants.GROUND_LAYER, map_position):
+		return GameboardConstants.GROUND_LAYER
+	return -1
 
 func _is_cell_empty(layer: int, map_position: Vector2):
 	return board.get_cell_source_id(layer, map_position) == -1

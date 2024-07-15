@@ -42,7 +42,12 @@ func _unhandled_input(event):
 				board_handler.bucket_fill(selected_tile, board_pos)
 				
 	elif event.is_action_released("right_click"):
-		board_handler.clear_cell_layer(board_pos)
+		match (_build_mode):
+			BuildMode.DEFAULT:
+				board_handler.clear_cell_layer(board_pos)
+			BuildMode.BUCKET_FILL:
+				board_handler.bucket_fill(null, board_pos)
+			
 	
 func _init_selection_tiles():
 	for child in _selection_tile_container.get_children(): child.free()
