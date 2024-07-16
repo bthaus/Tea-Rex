@@ -1,9 +1,15 @@
-[gd_scene load_steps=2 format=3 uid="uid://bf2lrwirkjpjy"]
+[gd_scene load_steps=3 format=3 uid="uid://bf2lrwirkjpjy"]
 
+[ext_resource type="StyleBox" uid="uid://b0qhmxvb2s50r" path="res://LevelEditor/Styles/default_button.tres" id="1_dgsr1"]
 [ext_resource type="Script" path="res://LevelEditor/ContainerItems/tile_selection_item.gd" id="1_isn83"]
 
 [node name="TileSelectionItem" type="Button"]
 custom_minimum_size = Vector2(60, 60)
+theme_override_styles/normal = ExtResource("1_dgsr1")
+theme_override_styles/hover = ExtResource("1_dgsr1")
+theme_override_styles/pressed = ExtResource("1_dgsr1")
+theme_override_styles/disabled = ExtResource("1_dgsr1")
+theme_override_styles/focus = ExtResource("1_dgsr1")
 script = ExtResource("1_isn83")
 
 [node name="Item" type="Sprite2D" parent="."]

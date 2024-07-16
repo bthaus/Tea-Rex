@@ -70,21 +70,19 @@ func _init_selection_tiles():
 		var atlas: TileSetAtlasSource = tile_set.get_source(tile_item.id)
 		var item = load("res://LevelEditor/ContainerItems/tile_selection_item.tscn").instantiate()
 		item.set_tile(tile_item, atlas.texture)
-		item.clicked.connect(_item_selected)
+		item.clicked.connect(_tile_selected)
 		_selection_tile_container.add_child(item)
 
-func _item_selected(tile: TileItem):
+func _tile_selected(sender, tile: TileItem):
 	selected_tile = tile
-
-func _on_default_build_mode_button_pressed():
-	_build_mode = BuildMode.DEFAULT
+	for item in _selection_tile_container.get_children(): item.set_selected(false)
+	sender.set_selected(true)
 	
-func _on_draw_build_mode_button_pressed():
-	_build_mode = BuildMode.DRAW
+func _on_default_build_mode_button_pressed(): _build_mode = BuildMode.DEFAULT
 
-func _on_bucket_fill_build_mode_button_pressed():
-	_build_mode = BuildMode.BUCKET_FILL
+func _on_draw_build_mode_button_pressed(): _build_mode = BuildMode.DRAW
 
+func _on_bucket_fill_build_mode_button_pressed(): _build_mode = BuildMode.BUCKET_FILL
 
 func _on_save_button_pressed():
 	var monster_waves = wave_settings.get_monster_waves()
