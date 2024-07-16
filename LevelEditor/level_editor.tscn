@@ -1,9 +1,9 @@
 [gd_scene load_steps=9 format=3 uid="uid://ceo4ed4nntj6h"]
 
 [ext_resource type="Script" path="res://LevelEditor/level_editor.gd" id="1_nibhe"]
-[ext_resource type="Texture2D" uid="uid://s280x8h2kdey" path="res://Assets/Tiles/Ground/ground.png" id="2_exj2q"]
+[ext_resource type="Texture2D" uid="uid://btp3q1rq0vmmt" path="res://Assets/Tiles/Ground/ground.png" id="2_exj2q"]
 [ext_resource type="TileSet" uid="uid://dcf0fhqgihare" path="res://TileSets/game_board_tileset.tres" id="2_itsd3"]
-[ext_resource type="Texture2D" uid="uid://dakoa0g1e3ub6" path="res://Assets/Tiles/wall.png" id="3_cchrl"]
+[ext_resource type="Texture2D" uid="uid://swj5q2lje25d" path="res://Assets/Tiles/wall.png" id="3_cchrl"]
 [ext_resource type="PackedScene" uid="uid://bq3cptvw55c8" path="res://LevelEditor/wave_settings.tscn" id="4_3dmyq"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ghpgt"]
@@ -79,17 +79,25 @@ placeholder_text = "enter your mapname"
 position = Vector2(1000, 100)
 
 [node name="DefaultBuildModeButton" type="Button" parent="HUD/BuildModes"]
-offset_right = 137.0
-offset_bottom = 51.0
+offset_right = 140.0
+offset_bottom = 60.0
 text = "Default"
 
+[node name="DrawBuildModeButton" type="Button" parent="HUD/BuildModes"]
+offset_top = 74.0
+offset_right = 140.0
+offset_bottom = 134.0
+text = "Draw Mode"
+
 [node name="BucketFillBuildModeButton" type="Button" parent="HUD/BuildModes"]
-offset_top = 60.0
-offset_right = 136.0
-offset_bottom = 117.0
+offset_left = 1.0
+offset_top = 147.0
+offset_right = 141.0
+offset_bottom = 207.0
 text = "Bucket Fill Mode"
 
 [connection signal="pressed" from="HUD/SaveButton" to="." method="_on_save_button_pressed"]
 [connection signal="pressed" from="HUD/WaveSettingsButton" to="." method="_on_wave_settings_button_pressed"]
 [connection signal="pressed" from="HUD/BuildModes/DefaultBuildModeButton" to="." method="_on_default_build_mode_button_pressed"]
+[connection signal="pressed" from="HUD/BuildModes/DrawBuildModeButton" to="." method="_on_draw_build_mode_button_pressed"]
 [connection signal="pressed" from="HUD/BuildModes/BucketFillBuildModeButton" to="." method="_on_bucket_fill_build_mode_button_pressed"]

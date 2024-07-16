@@ -9,6 +9,8 @@ class_name LevelEditor
 enum BuildMode { DEFAULT, DRAW, BUCKET_FILL }
 var _build_mode: BuildMode = BuildMode.DEFAULT
 
+var previous_board_position = Vector2i(-1, -1)
+
 var _selection_tile_items = [
 	TileItem.new(GameboardConstants.WALL_TILE_ID, "Wall", GameboardConstants.BLOCK_LAYER),
 	TileItem.new(GameboardConstants.PLAYER_BASE_GREEN_TILE_ID, "Base", GameboardConstants.BLOCK_LAYER),
@@ -33,22 +35,34 @@ func _ready():
 #We can use unhandled input here, so that when clicking on a (hud) button the drawing wont trigger
 func _unhandled_input(event):
 	var board_pos = $Board.local_to_map(get_global_mouse_position())
-	if event.is_action_released("left_click"):
+	
+	#Check if we changed our mouse pressed status
+	var mouse_just_pressed = Input.is_action_just_pressed("left_click") or Input.is_action_just_pressed("right_click")
+	var mouse_just_released = Input.is_action_just_released("left_click") or Input.is_action_just_released("right_click")
+	#Check if we are at a new tile
+	var at_new_tile = true if board_pos != previous_board_position else false
+	previous_board_position = board_pos
+	
+	#Handle draw mode
+	if _build_mode == BuildMode.DRAW and (at_new_tile or mouse_just_pressed or mouse_just_released):
+		if Input.is_action_pressed("left_click"):
+			board_handler.set_cell(selected_tile, board_pos)
+		elif Input.is_action_pressed("right_click"):
+			board_handler.clear_cell_layer(board_pos)
+	
+	#Handle default and bucket fill mode
+	elif Input.is_action_just_released("left_click"):
 		if selected_tile == null: return
 		match (_build_mode):
-			BuildMode.DEFAULT:
-				board_handler.set_cell(selected_tile, board_pos)
-			BuildMode.BUCKET_FILL:
-				board_handler.bucket_fill(selected_tile, board_pos)
+			BuildMode.DEFAULT: board_handler.set_cell(selected_tile, board_pos)	
+			BuildMode.BUCKET_FILL: board_handler.bucket_fill(selected_tile, board_pos)
 				
-	elif event.is_action_released("right_click"):
+	elif Input.is_action_just_released("right_click"):
 		match (_build_mode):
-			BuildMode.DEFAULT:
-				board_handler.clear_cell_layer(board_pos)
-			BuildMode.BUCKET_FILL:
-				board_handler.bucket_fill(null, board_pos)
-			
-	
+			BuildMode.DEFAULT: board_handler.clear_cell_layer(board_pos)
+			BuildMode.BUCKET_FILL: board_handler.bucket_fill(null, board_pos)
+
+
 func _init_selection_tiles():
 	for child in _selection_tile_container.get_children(): child.free()
 	var tile_set = $Board.tile_set
@@ -65,6 +79,9 @@ func _item_selected(tile: TileItem):
 func _on_default_build_mode_button_pressed():
 	_build_mode = BuildMode.DEFAULT
 	
+func _on_draw_build_mode_button_pressed():
+	_build_mode = BuildMode.DRAW
+
 func _on_bucket_fill_build_mode_button_pressed():
 	_build_mode = BuildMode.BUCKET_FILL
 
