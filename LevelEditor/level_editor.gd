@@ -4,12 +4,19 @@ class_name LevelEditor
 @onready var _selection_tile_container = $HUD/TileScrollContainer/TileGridContainer
 @onready var wave_settings = $HUD/WaveSettings
 
+@onready var default_build_mode_button = $HUD/BuildModes/DefaultBuildModeButton
+@onready var draw_build_mode_button = $HUD/BuildModes/DrawBuildModeButton
+@onready var bucket_fill_build_mode_button = $HUD/BuildModes/BucketFillBuildModeButton
+
 @onready var board_handler = LevelEditorBoardHandler.new($Board)
 
 enum BuildMode { DEFAULT, DRAW, BUCKET_FILL }
 var _build_mode: BuildMode = BuildMode.DEFAULT
 
 var previous_board_position = Vector2i(-1, -1)
+
+const default_stylebox = preload("res://LevelEditor/Styles/default_button.tres")
+const selected_stylebox = preload("res://LevelEditor/Styles/selected_button.tres")
 
 var _selection_tile_items = [
 	TileItem.new(GameboardConstants.WALL_TILE_ID, "Wall", GameboardConstants.BLOCK_LAYER),
@@ -31,6 +38,9 @@ func _ready():
 	board_handler.spawner_removed.connect(func(id: int): wave_settings.remove_spawner_setting(id))
 	
 	_init_selection_tiles()
+	_set_button_selected(default_build_mode_button, true)
+	_set_button_selected(draw_build_mode_button, false)
+	_set_button_selected(bucket_fill_build_mode_button, false)
 
 #We can use unhandled input here, so that when clicking on a (hud) button the drawing wont trigger
 func _unhandled_input(event):
@@ -78,11 +88,23 @@ func _tile_selected(sender, tile: TileItem):
 	for item in _selection_tile_container.get_children(): item.set_selected(false)
 	sender.set_selected(true)
 	
-func _on_default_build_mode_button_pressed(): _build_mode = BuildMode.DEFAULT
+func _on_default_build_mode_button_pressed():
+	_build_mode = BuildMode.DEFAULT
+	_set_button_selected(default_build_mode_button, true)
+	_set_button_selected(draw_build_mode_button, false)
+	_set_button_selected(bucket_fill_build_mode_button, false)
 
-func _on_draw_build_mode_button_pressed(): _build_mode = BuildMode.DRAW
+func _on_draw_build_mode_button_pressed():
+	_build_mode = BuildMode.DRAW
+	_set_button_selected(default_build_mode_button, false)
+	_set_button_selected(draw_build_mode_button, true)
+	_set_button_selected(bucket_fill_build_mode_button, false)
 
-func _on_bucket_fill_build_mode_button_pressed(): _build_mode = BuildMode.BUCKET_FILL
+func _on_bucket_fill_build_mode_button_pressed():
+	_build_mode = BuildMode.BUCKET_FILL
+	_set_button_selected(default_build_mode_button, false)
+	_set_button_selected(draw_build_mode_button, false)
+	_set_button_selected(bucket_fill_build_mode_button, true)
 
 func _on_save_button_pressed():
 	var monster_waves = wave_settings.get_monster_waves()
@@ -102,7 +124,14 @@ func _set_background():
 		for x in range(0, GameboardConstants.BOARD_WIDTH):
 			$Background.set_cell(0, Vector2(x,y), 0, Vector2(0,0))
 	
-	
+
+func _set_button_selected(sender, selected: bool):
+	var style_box = selected_stylebox if selected else default_stylebox
+	sender.add_theme_stylebox_override("normal", style_box)
+	sender.add_theme_stylebox_override("hover", style_box)
+	sender.add_theme_stylebox_override("pressed", style_box)
+	sender.add_theme_stylebox_override("focus", style_box)
+
 class TileItem:
 	var id: int
 	var name: String

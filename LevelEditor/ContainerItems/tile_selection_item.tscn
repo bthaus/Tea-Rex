@@ -13,7 +13,7 @@ theme_override_styles/focus = ExtResource("1_dgsr1")
 script = ExtResource("1_isn83")
 
 [node name="Item" type="Sprite2D" parent="."]
-position = Vector2(30, 20)
+position = Vector2(30, 22)
 scale = Vector2(0.5, 0.5)
 
 [node name="Name" type="Label" parent="."]
