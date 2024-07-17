@@ -3,7 +3,7 @@ class_name TurretCore
 var level = 1;
 var barrels = []
 var bullets = []
-var turret_mods:Array[TurretBaseMod]= []
+var turret_mods= []
 
 
 var type: Turret.Hue = Turret.Hue.BLUE
@@ -18,6 +18,7 @@ var direction: Vector2;
 @export_range(0,10) var cooldown:float=1;
 @export_range(0,10) var damage:float=1;
 @export_range(0,10) var turretRange:int=1;
+@export var penetrations:int=1;
 @export var instantHit:bool = false;
 var cdt;
 var trueRangeSquared;
@@ -30,7 +31,7 @@ var stacks = 1
 var lightamount = 1.5;
 var killcount = 0;
 var damagedealt = 0
-var penetrations=1;
+
 
 static var camera;
 

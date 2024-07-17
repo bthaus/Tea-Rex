@@ -103,12 +103,16 @@ func startBattlePhase():
 	$Camera2D/SoundPlayer.stream = Sounds.StartBattlePhase
 	$Camera2D/SoundPlayer.play(0.2)
 	
-	for s in spawners:
-		s.start(wave)
+	start_wave(wave)
 	phase = GameState.GamePhase.BATTLE
 	updateUI()
 	
 	pass # Replace with function body.
+func start_wave(wave):
+	for s in spawners:
+		s.start(wave)
+	pass;
+
 
 func startBuildPhase():
 	
@@ -120,6 +124,7 @@ func startBuildPhase():
 		GameState.game_speed=1;	
 	toggleSpeed(0)
 	wave = wave + 1;
+	start_build_phase.emit()
 	if wave==map_dto.number_of_waves:
 		win_game()
 	
@@ -140,7 +145,7 @@ func startBuildPhase():
 
 	ui.get_node("StartBattlePhase").disabled = false;
 
-	start_build_phase.emit()
+	
 	phase = GameState.GamePhase.BUILD
 	drawCards(cardRedraws)
 	updateUI()

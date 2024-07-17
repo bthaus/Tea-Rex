@@ -9,15 +9,25 @@ var type:ModType
 static var color_blocks={
 	TARGETING=[],
 	HULL=[],
-	PROJECTILE=[Turret.Hue.RED,Turret.Hue.GREEN,Turret.Hue.MAGENTA],
+	PROJECTILE=[Turret.Hue.RED],
 	AMMUNITION=[],
 	PRODUCTION=[],
 	ONKILL=[]
+}
+static var implemented_mods={
+	TARGETING=[],
+	HULL=[],
+	PROJECTILE=[ForkingAmmunitionMod,MultipleShotsMod,PenetratingAmmunition],
+	AMMUNITION=[ExplosiveAmmunition,],
+	PRODUCTION=[],
+	ONKILL=[]
+	
 }
 
 enum ModType{TARGETING,HULL,PROJECTILE,AMMUNITION,PRODUCTION,ONKILL}
 
 func _init(type:ModType=ModType.HULL):
+	
 	self.type=type
 	pass;
 

@@ -21,15 +21,16 @@ var placed = true;
 static var turrets = []
 var cardBuddys = []
 
-
+var mods=[]
 var on_built: Array[Callable] = [setUpTower]
 var on_build_phase_started: Array[Callable] = []
 var on_battle_phase_started: Array[Callable] = []
 
-static func create(color: Turret.Hue, lvl: int, type: Turret.Extension=Turret.Extension.DEFAULT,placed=false) -> Turret:
+static func create(color: Turret.Hue, lvl: int, type: Turret.Extension=Turret.Extension.DEFAULT,placed=false,mods=[]) -> Turret:
 	var turret = load("res://TurretScripts/turretbase.tscn").instantiate() as Turret;
 	if turret.collisionReference == null:
 		turret.collisionReference = GameState.gameState.collisionReference
+	turret.mods=mods
 	turret.color = color;
 	turret.level = lvl;
 	turret.extension = type;
@@ -90,11 +91,11 @@ func resetLight():
 	$Tile.modulate = Color(1 + lightamount, 1 + lightamount, 1 + lightamount)
 	pass ;
 func checkPosition(off):
-	if !placed: return
-	$Tile.visible = !off;
-	base.visible = !off;
-	#$Button.visible = !off;
-	$VisibleOnScreenNotifier2D.visible = true;
+	#if !placed: return
+	#$Tile.visible = !off;
+	#base.visible = !off;
+	##$Button.visible = !off;
+	#$VisibleOnScreenNotifier2D.visible = true;
 	pass ;
 	
 func _notification(what):
@@ -104,7 +105,13 @@ func _notification(what):
 		
 var mapPosition;
 
-
+func get_info():
+	var string="Color: "+Hue.keys()[color-1]+"\n"+"Damage dealt: "+str(base.damagedealt)+"\n"+"Kills: "+str(base.killcount)
+	for mod in base.turret_mods:
+		var name=mod.get_script().get_script_property_list()[0]["name"]
+		string=string+"\n"+name
+	return string
+	pass;
 
 func setUpTower():
 
@@ -112,6 +119,7 @@ func setUpTower():
 
 
 	base = coreFactory.getBase(color, extension);
+	base.turret_mods=mods
 	base.placed=placed
 	base.setLevel(level)
 	if placed:

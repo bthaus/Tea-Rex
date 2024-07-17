@@ -22,7 +22,7 @@ static var factory=load("res://TurretScripts/Projectiles/projectile_factory.tscn
 var oldpos=Vector2(0,0)
 
 
-static func create(type: Turret.Hue, damage, speed, root:TurretCore, penetrations:int=1, extension: Turret.Extension=Turret.Extension.DEFAULT) -> Projectile:
+static func create(type: Turret.Hue, damage, speed, root:TurretCore, extension: Turret.Extension=Turret.Extension.DEFAULT, penetrations:int=1) -> Projectile:
 	return factory.get_bullet(type,damage,speed,root,penetrations,extension)	
 	
 # Called when the node enters the scene tree for the first time.

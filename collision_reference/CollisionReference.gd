@@ -111,9 +111,9 @@ func registerBase(base):
 	bases.append(pos)
 	pass;	
 func getMinionsAroundPosition(pos):
-	if isOutOfBounds(pos.x,pos.y):return [];
 	var cells = getNeighbours(pos);
 	pos = getMapPositionNormalised(pos)
+	if isOutOfBounds(pos.x,pos.y):return [];
 	cells.append(map[pos.y][pos.x].ms)
 	var minions = []
 	for ms in cells:
@@ -219,9 +219,9 @@ func isOccupiedCell(x, y):
 	return false;
 	pass ;
 func isOutOfBounds(x, y):
-	if x >= gameState.board_width + 2 * 10||x < 0:
+	if x >= GameboardConstants.BOARD_HEIGHT||x < 0:
 		return true
-	if y >= map.size()||y < 0:
+	if y >= GameboardConstants.BOARD_WIDTH||y < 0:
 		return true
 	return false
 			

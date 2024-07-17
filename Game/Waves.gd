@@ -70,12 +70,12 @@ func doSpawnLogic():
 	var count = 0;
 	for mo in waveMonsters:
 		count = count + 1
-		if count % 5 == 0: #Every 5th monster longer break
-			delay = delay + 3
-		else:
-			delay = delay + rnd.randf_range(0.0,0.5) #Change for spawning time 
+		#if count % 5 == 0: #Every 5th monster longer break
+			#delay = delay + 3
+		#else:
+			#delay = delay + rnd.randf_range(0.0,0.5) #Change for spawning time 
 		get_tree().create_timer(0.5*delay).timeout.connect(spawnEnemy.bind(mo))
-	util.p("im taking minions from the array and spawn them in a sensible way")
+	
 	pass;
 	
 func spawnEnemy(mo:Monster):
@@ -91,12 +91,14 @@ func spawnEnemy(mo:Monster):
 	
 
 	pass;
+var _is_simulation=false;	
 func monsterReachedSpawn(monster:Monster):
 	numReachedSpawn=numReachedSpawn+1;
 	numMonstersActive=numMonstersActive-1;
 
 	if numMonstersActive<=0:
-		state.startBuildPhase()
+		if _is_simulation:Simulation.wave_done()
+		else:	state.startBuildPhase()
 		
 	pass;	
 func monsterDied(monster:Monster):

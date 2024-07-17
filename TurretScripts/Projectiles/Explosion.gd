@@ -22,7 +22,7 @@ static func create(type, damage, position, root, scale=1, noise=true):
 	if cache.size() == 0:
 		temp = scene.instantiate() as Explosion;
 		
-		GameState.gameState.call_deferred("add_child", temp);
+		GameState.gameState.add_child(temp);
 		#root.add_child(temp);
 		#temp.tree_entered.connect(temp.playSound)
 		temp.visible = true;
@@ -30,7 +30,8 @@ static func create(type, damage, position, root, scale=1, noise=true):
 	else:
 		temp = cache.pop_back();
 		#root.add_child(temp);
-		GameState.gameState.call_deferred("add_child", temp);
+		#GameState.gameState.call_deferred("add_child", temp);
+		GameState.gameState.add_child(temp);
 		temp.scale = Vector2(scale, scale)
 		temp.visible = true;
 	temp.type = type;
