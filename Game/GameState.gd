@@ -218,7 +218,7 @@ func mortarWorkaround(damage, pos, associate):
 	
 	get_tree().create_timer(1).timeout.connect(func():
 		
-		Explosion.create(Turret.Hue.YELLOW, damage, pos, associate, 0.5)
+		Explosion.create(Turret.Hue.GREEN, damage, pos, associate, 0.5)
 		sprite.queue_free()
 	)
 	

@@ -1,9 +1,27 @@
 extends TurretCore
 class_name GreenTurretCore
 
-func on_projectile_removed(projectile:Projectile):
-	Explosion.create(Turret.Hue.GREEN, damage, projectile.global_position, self, GameplayConstants.green_explosion_range);
-	super.on_projectile_removed(projectile)
-	pass;
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
+func on_hit(monster:Monster,damage,color:Turret.Hue,killed,projectile:Projectile):
+	if killed: on_target_killed(monster)
+	addDamage(damage)
+	
+	pass;
+func on_projectile_removed(projectile:Projectile):
+	for mod in turret_mods:
+		mod.on_remove(projectile)
+		mod.on_hit(projectile)
+	pass;	
+	
+func getTarget():
+	if minions.get_child_count() > 0:
+		target = minions.get_children().pick_random()
+
+	pass;
+func showRangeOutline():
+	return	
+	
+func checkTarget():
+	return	
+func setupCollision(clearing):
+	return	

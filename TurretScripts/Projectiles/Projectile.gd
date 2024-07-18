@@ -38,7 +38,7 @@ func on_remove():
 	
 	pass;
 func remove():
-	associate.on_projectile_removed(self)
+	if associate!=null: associate.on_projectile_removed(self)
 	#if associate != null: global_position = associate.global_position
 	if pool == null:
 		return ;
@@ -62,6 +62,21 @@ func shoot(target):
 	shot = true;
 	pass ;
 
+func duplicate_and_shoot(angle)->Projectile:
+	var p1=Projectile.factory.duplicate_bullet(self) 
+	p1.global_position=global_position
+	for mod in associate.turret_mods:
+		mod.visual.prepare_projectile(p1)
+	p1._toggle_emission(true)	
+	_shoot_duplicate(p1,angle)
+	
+	return p1
+func _shoot_duplicate(projectile,angle):
+	projectile.shoot(target)
+	projectile.direction=util.rotate_vector(direction,angle)
+	projectile.global_rotation = projectile.direction.angle() + PI / 2.0
+	pass;	
+
 func move(delta):
 	translate(direction * delta * speed);
 	pass;
@@ -80,6 +95,7 @@ func hitEnemy(enemy: Monster):
 	
 	pass ;
 func _toggle_emission(b):
+	if emitter==null: return;
 	emitter.emitting=b
 	pass;
 func on_hit(enemy: Monster):
