@@ -200,7 +200,7 @@ func getCellReferences(pos, turretRange, turret=null, cellPositions=[],ignore_ob
 		elif !map[cell.y][cell.x].collides_with_bullets:
 			ret.append(map[cell.y][cell.x].ms)
 			cellPositions.append(cell)	
-	return coveredCells;
+	return ret;
 	pass
 static var movables=[]	
 func add_cells(coveredCells,midpoint,turret):
