@@ -181,68 +181,52 @@ func getCellReferences(pos, turretRange, turret=null, cellPositions=[],ignore_ob
 
 	#+1 because it needs to be an uneven number
 	
-	for y in range(turretRange * 2 + 1):
-		for x in range(turretRange * 2 + 1):
-			if isProperCell(mapPosition.x + x, mapPosition.y + y):
-				if isOutOfBounds(mapPosition.x + x, mapPosition.y + y):continue
-				if turret!=null:
-					var glob_ref_pos=getGlobalFromReference(Vector2(int(mapPosition.x+x),int(mapPosition.y+y)))
-					if glob_ref_pos.distance_squared_to(pos)>turret.trueRangeSquared:
-						continue
-				cellPositions.append(Vector2(mapPosition.x + x, mapPosition.y + y))
-	if not ignore_obstacles:
-		remove_unreachable_cells(cellPositions,pos,turret)
-	
-	for cell in cellPositions:
+	#for y in range(turretRange * 2 + 1):
+		#for x in range(turretRange * 2 + 1):
+			#if isProperCell(mapPosition.x + x, mapPosition.y + y):
+				#if isOutOfBounds(mapPosition.x + x, mapPosition.y + y):continue
+				#if turret!=null:
+					#var glob_ref_pos=getGlobalFromReference(Vector2(int(mapPosition.x+x),int(mapPosition.y+y)))
+					#if glob_ref_pos.distance_squared_to(pos)>turret.trueRangeSquared:
+						#continue
+				#coveredCells.append(Vector2(mapPosition.x + x, mapPosition.y + y))
+	#if not ignore_obstacles:
+	coveredCells=add_cells(cellPositions,pos,turret)
+	var ret=[]
+	for cell in coveredCells:
 		if ignore_obstacles:
-			coveredCells.append(map[cell.y][cell.x].ms)
+			ret.append(map[cell.y][cell.x].ms)
+			cellPositions.append(cell)
 		elif !map[cell.y][cell.x].collides_with_bullets:
-			coveredCells.append(map[cell.y][cell.x].ms)	
+			ret.append(map[cell.y][cell.x].ms)
+			cellPositions.append(cell)	
 	return coveredCells;
 	pass
 static var movables=[]	
-func remove_unreachable_cells(coveredCells,midpoint,turret):
+func add_cells(coveredCells,midpoint,turret):
 	var offsets=[]	
 	if offsets.is_empty():
 		for i in range(turret.range_precision):
 			var v=Vector2(10,0)
 			v=util.rotate_vector(v,360/turret.range_precision*i)
 			offsets.append(v)
-			
+	var eval=[]		
 	for offset in offsets:
 		var base_vec=midpoint
 		var collided=false;
 		while(not isOutOfBoundsVector(getMapPositionNormalised(base_vec))):
 			base_vec=base_vec+offset
+			if (base_vec-midpoint).length_squared()>turret.trueRangeSquared:
+				break;
 			var p=getMapPositionNormalised(base_vec)
 			if map[p.y][p.x].collides_with_bullets:
 				collided=true
-			
-			if collided:
-				coveredCells.erase(p)
-	var p=getMapPositionNormalised(midpoint)
-	var checks=[]
-	checks.append(Vector2(p.x + 1, p.y + 1))
-	checks.append(Vector2(p.x - 1, p.y + 1))
-	checks.append(Vector2(p.x + 1, p.y - 1))
-	checks.append(Vector2(p.x - 1, p.y - 1))
-	checks.append(Vector2(p.x + 1, p.y))
-	checks.append(Vector2(p.x - 1, p.y))
-	checks.append(Vector2(p.x, p.y + 1))
-	checks.append(Vector2(p.x, p.y - 1))
-	for check in checks:
-		if !isOutOfBoundsVector(check) and !map[check.y][check.x].collides_with_bullets and !coveredCells.has(check):
-			coveredCells.append(check)
-	if movables.is_empty():	
-		movables=Spawner._get_movable_cells_per_monster_type(GameState.board,Monster.MonsterMovingType.GROUND)
-	var removes=[]					
-	for cell in coveredCells:
-		var map_pos=getMapFromReference(cell)
-		#if movables[map_pos.x][map_pos.y]==-1:
-			#removes.append(cell)
-	for r in removes:
-		coveredCells.erase(r)	
-			
+				break;
+			if !collided and !eval.has(p):
+				eval.append(p)
+	
+	
+	return eval		
 	pass;	
 func isOutOfBoundsVector(pos):
 	return isOutOfBounds(pos.x,pos.y)

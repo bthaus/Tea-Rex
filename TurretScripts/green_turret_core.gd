@@ -2,6 +2,13 @@ extends TurretCore
 class_name GreenTurretCore
 
 
+func showRangeOutline():
+	for x in range(GameboardConstants.BOARD_HEIGHT):
+		for y in range(GameboardConstants.BOARD_WIDTH):
+			var pos = GameState.board.map_to_local(Vector2(x,y))
+			GameState.gameState.gameBoard.show_outline(pos)
+	pass ;
+
 func on_hit(monster:Monster,damage,color:Turret.Hue,killed,projectile:Projectile):
 	if killed: on_target_killed(monster)
 	addDamage(damage)
@@ -18,8 +25,7 @@ func getTarget():
 		target = minions.get_children().pick_random()
 
 	pass;
-func showRangeOutline():
-	return	
+
 	
 func checkTarget():
 	return	
