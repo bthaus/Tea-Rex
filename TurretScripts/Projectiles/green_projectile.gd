@@ -11,13 +11,14 @@ func _shoot_duplicate(projectile,angle):
 	
 var offset=Vector2(0,0)
 func shoot(target):
+	if target==null or !is_instance_valid(target):return
 	var pos=target.global_position+offset
 	global_position = pos;
 	self.target=target
 	visible=true;
 	penetrations=penetrations-1
 	get_tree().create_timer(1).timeout.connect(func():
-		Explosion.create(Turret.Hue.GREEN, damage, pos, self, 0.5)
+		Explosion.create(Turret.Hue.GREEN, damage, pos, associate, 0.5)
 		remove()
 	)
 	pass;
