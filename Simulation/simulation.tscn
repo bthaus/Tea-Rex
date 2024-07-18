@@ -4,4 +4,4 @@
 
 [node name="Simulation" type="Node2D"]
 script = ExtResource("1_yipmo")
-sim_speed = 35
+sim_speed = 1

@@ -15,6 +15,7 @@ var target: Monster
 var associate;
 var playerDied = false;
 var emitter
+
 var ignore_next_enemy=false;
 static var gamestate: GameState;
 static var camera;

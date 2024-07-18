@@ -424,6 +424,7 @@ script = ExtResource("19_s4gwq")
 speed = 10
 turretRange = 10
 penetrations = -2000000
+projectile_precision = 20
 
 [node name="Barrel1" type="Sprite2D" parent="YELLOW_base"]
 material = SubResource("ShaderMaterial_l3v4h")

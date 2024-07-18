@@ -21,6 +21,7 @@ var direction: Vector2;
 @export var penetrations:int=1;
 @export var instantHit:bool = false;
 @export var range_precision=24
+@export var projectile_precision=1
 var cdt;
 var trueRangeSquared;
 

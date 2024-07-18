@@ -2,8 +2,9 @@ extends Node2D
 class_name Simulation
 
 var gameState:GameState
+
 var mods=[]
-var color_index=2
+var color_index=4
 var mod_set_index=0
 @export var sim_speed=25
 var results=""
