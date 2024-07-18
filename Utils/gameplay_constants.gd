@@ -18,3 +18,5 @@ const green_poison_decay=1;
 
 const playerHP=200;
 const playerMaxHP=200;
+
+const entity_collision_precision=24

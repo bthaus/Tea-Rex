@@ -45,5 +45,5 @@ func _on_mouse_entered():
 func _on_mouse_exited():
 	
 	inspected=false;
-	delayed_delete()
+	poll_delete()
 	pass # Replace with function body.

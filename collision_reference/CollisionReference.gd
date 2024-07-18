@@ -140,6 +140,8 @@ func getNeighbours(pos, reference=null):
 	coveredCells.append(map[p.y][p.x + 1].ms)
 	coveredCells.append(map[p.y][p.x - 1].ms)
 	
+	
+			
 	if reference != null:
 		reference.append(Vector2(p.x + 1, p.y + 1))
 		reference.append(Vector2(p.x - 1, p.y + 1))
@@ -169,7 +171,7 @@ func get_turret_from_board(pos):
 	if isOutOfBounds(ref.x,ref.y): return
 	return map[ref.y][ref.x].turret
 	pass;			
-func getCellReferences(pos, turretRange, turret=null, cellPositions=[],sloppy=false):
+func getCellReferences(pos, turretRange, turret=null, cellPositions=[],ignore_obstacles=false):
 	var mapPosition = getMapPositionNormalised(pos)
 	#traversing from the top left corner to the bottom right corner
 
@@ -181,20 +183,56 @@ func getCellReferences(pos, turretRange, turret=null, cellPositions=[],sloppy=fa
 	
 	for y in range(turretRange * 2 + 1):
 		for x in range(turretRange * 2 + 1):
-			if sloppy||isProperCell(mapPosition.x + x, mapPosition.y + y):
+			if isProperCell(mapPosition.x + x, mapPosition.y + y):
 				if isOutOfBounds(mapPosition.x + x, mapPosition.y + y):continue
 				if turret!=null:
 					var glob_ref_pos=getGlobalFromReference(Vector2(int(mapPosition.x+x),int(mapPosition.y+y)))
 					if glob_ref_pos.distance_squared_to(pos)>turret.trueRangeSquared:
 						continue
-				#	if glob_ref_pos.distance_to(pos)>turretRange*GameboardConstants.TILE_SIZE:
-					#	continue
-				coveredCells.append(map[mapPosition.y + y][mapPosition.x + x].ms)
+				#coveredCells.append(map[mapPosition.y + y][mapPosition.x + x].ms)
 				cellPositions.append(Vector2(mapPosition.x + x, mapPosition.y + y))
-			
+	if not ignore_obstacles:
+		remove_unreachable_cells(cellPositions,pos,turret)
+	
+	for cell in cellPositions:
+		coveredCells.append(map[cell.y][cell.x].ms)	
 	return coveredCells;
 	pass
-	
+static var offsets=[]	
+func remove_unreachable_cells(coveredCells,midpoint,turret):
+	if offsets.is_empty():
+		for i in range(GameplayConstants.entity_collision_precision):
+			var v=Vector2(10,0)
+			v=util.rotate_vector(v,360/GameplayConstants.entity_collision_precision*i)
+			offsets.append(v)
+	for offset in offsets:
+		var base_vec=midpoint
+		var collided=false;
+		while(not isOutOfBoundsVector(getMapPositionNormalised(base_vec))):
+			base_vec=base_vec+offset
+			var p=getMapPositionNormalised(base_vec)
+			if map[p.y][p.x].collides_with_bullets:
+				collided=true
+			
+			if collided:
+				coveredCells.erase(p)
+	var p=getMapPositionNormalised(midpoint)
+	var checks=[]
+	checks.append(Vector2(p.x + 1, p.y + 1))
+	checks.append(Vector2(p.x - 1, p.y + 1))
+	checks.append(Vector2(p.x + 1, p.y - 1))
+	checks.append(Vector2(p.x - 1, p.y - 1))
+	checks.append(Vector2(p.x + 1, p.y))
+	checks.append(Vector2(p.x - 1, p.y))
+	checks.append(Vector2(p.x, p.y + 1))
+	checks.append(Vector2(p.x, p.y - 1))
+	for check in checks:
+		if !isOutOfBoundsVector(check) and !map[check.y][check.x].collides_with_bullets and !coveredCells.has(check):
+			coveredCells.append(check)		
+	pass;	
+func isOutOfBoundsVector(pos):
+	return isOutOfBounds(pos.x,pos.y)
+	pass;	
 func trigger_bullet(position):
 	
 	pass;
@@ -219,9 +257,9 @@ func isOccupiedCell(x, y):
 	return false;
 	pass ;
 func isOutOfBounds(x, y):
-	if x >= GameboardConstants.BOARD_HEIGHT||x < 0:
+	if x >= GameboardConstants.BOARD_HEIGHT-1||x < 0:
 		return true
-	if y >= GameboardConstants.BOARD_WIDTH||y < 0:
+	if y >= GameboardConstants.BOARD_WIDTH-1||y < 0:
 		return true
 	return false
 			

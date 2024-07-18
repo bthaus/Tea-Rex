@@ -118,6 +118,7 @@ static func getRandomBlock(lvl,gamestate):
 
 
 static func getEvaluatedShape(counter):
+
 	var shape=Block.BlockShape.values()[RandomNumberGenerator.new().randi_range(0,Block.BlockShape.size()-1)]
 	var block=BlockUtils.get_block_from_shape(shape,0,0);
 	var currentPieces=+numberOfPiecesDrawn+block.pieces.size()
@@ -135,6 +136,7 @@ static func getEvaluatedShape(counter):
 		return getEvaluatedShape(counter+1)
 		
 	numberOfPiecesDrawn=numberOfPiecesDrawn+block.pieces.size();	
+	
 	return shape;	
 
 static var numberOfPiecesDrawn:float=1;

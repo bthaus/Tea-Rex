@@ -223,11 +223,14 @@ var infobox
 var show_box=false;
 func show_infobox():
 	if not show_box:return;
-	infobox=InfoBox.create(["Im a turret","damage dealt: "+str(int(base.damagedealt)),
+	get_tree().create_timer(1).timeout.connect(func():
+		infobox=InfoBox.create(["Im a turret","damage dealt: "+str(int(base.damagedealt)),
 		"kills: "+ str(int(base.killcount)),
 		"damage: "+str(base.damage),
 		"cooldown:"+str(base.cooldown)])
-	if infobox!=null:$LVL.add_child(infobox)
+		if infobox!=null:$LVL.add_child(infobox)
+		)
+	
 	pass;
 func on_hover():
 

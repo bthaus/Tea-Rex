@@ -13,7 +13,7 @@ var account: String = "dede";
 
 #Todo: remove and replace with battle_slot_logic
 var unlockedExtensions = [Turret.Extension.DEFAULT];
-var unlockedColors = [Turret.Hue.WHITE,Turret.Hue.BLUE];
+var unlockedColors = [Turret.Hue.BLUE];
 
 var selected_battle_slots
 

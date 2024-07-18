@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://4otg8drx5rwi"]
+[gd_scene load_steps=20 format=3 uid="uid://4otg8drx5rwi"]
 
 [ext_resource type="Script" path="res://TurretScripts/Projectiles/projectile_factory.gd" id="1_7qlu0"]
 [ext_resource type="Texture2D" uid="uid://raoax8o4vipw" path="res://Assets/Turrets/Projectiles/BLUE_projectile.png" id="1_dw666"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://cxkgl0lpk4xdv" path="res://Assets/Effects/Explosion_1/e7.png" id="4_w6ffe"]
 [ext_resource type="Script" path="res://TurretScripts/Projectiles/rocket_projectile.gd" id="5_dqb0a"]
 [ext_resource type="Texture2D" uid="uid://dx2iashwa3141" path="res://Assets/Turrets/Projectiles/BLUELASER_projectile.png" id="5_fqg8n"]
+[ext_resource type="Script" path="res://TurretScripts/Projectiles/yellow_projectile.gd" id="6_nly5i"]
 [ext_resource type="Texture2D" uid="uid://brk5nldxaxivd" path="res://Assets/Turrets/Projectiles/RED_projectile.png" id="11_sjnq4"]
 [ext_resource type="Script" path="res://TurretScripts/Projectiles/green_projectile.gd" id="12_7mdqh"]
 [ext_resource type="Texture2D" uid="uid://bbhc5rkgcx0fb" path="res://Assets/Effects/pentacle-pentagram-pentacle-picture-d2c19b0c487217a0f496a65fca393f04.png" id="12_b8m1t"]
@@ -61,6 +62,12 @@ visible = false
 material = SubResource("ShaderMaterial_ooya1")
 texture = ExtResource("1_dw666")
 script = ExtResource("3_tyhfm")
+
+[node name="yellow_projectile" type="Sprite2D" parent="."]
+visible = false
+material = SubResource("ShaderMaterial_ooya1")
+texture = ExtResource("1_dw666")
+script = ExtResource("6_nly5i")
 
 [node name="rocket_projectile" type="Sprite2D" parent="."]
 visible = false
