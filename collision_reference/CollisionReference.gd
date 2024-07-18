@@ -189,22 +189,26 @@ func getCellReferences(pos, turretRange, turret=null, cellPositions=[],ignore_ob
 					var glob_ref_pos=getGlobalFromReference(Vector2(int(mapPosition.x+x),int(mapPosition.y+y)))
 					if glob_ref_pos.distance_squared_to(pos)>turret.trueRangeSquared:
 						continue
-				#coveredCells.append(map[mapPosition.y + y][mapPosition.x + x].ms)
 				cellPositions.append(Vector2(mapPosition.x + x, mapPosition.y + y))
 	if not ignore_obstacles:
 		remove_unreachable_cells(cellPositions,pos,turret)
 	
 	for cell in cellPositions:
-		coveredCells.append(map[cell.y][cell.x].ms)	
+		if ignore_obstacles:
+			coveredCells.append(map[cell.y][cell.x].ms)
+		elif !map[cell.y][cell.x].collides_with_bullets:
+			coveredCells.append(map[cell.y][cell.x].ms)	
 	return coveredCells;
 	pass
-static var offsets=[]	
+static var movables=[]	
 func remove_unreachable_cells(coveredCells,midpoint,turret):
+	var offsets=[]	
 	if offsets.is_empty():
-		for i in range(GameplayConstants.entity_collision_precision):
+		for i in range(turret.range_precision):
 			var v=Vector2(10,0)
-			v=util.rotate_vector(v,360/GameplayConstants.entity_collision_precision*i)
+			v=util.rotate_vector(v,360/turret.range_precision*i)
 			offsets.append(v)
+			
 	for offset in offsets:
 		var base_vec=midpoint
 		var collided=false;
@@ -228,7 +232,17 @@ func remove_unreachable_cells(coveredCells,midpoint,turret):
 	checks.append(Vector2(p.x, p.y - 1))
 	for check in checks:
 		if !isOutOfBoundsVector(check) and !map[check.y][check.x].collides_with_bullets and !coveredCells.has(check):
-			coveredCells.append(check)		
+			coveredCells.append(check)
+	if movables.is_empty():	
+		movables=Spawner._get_movable_cells_per_monster_type(GameState.board,Monster.MonsterMovingType.GROUND)
+	var removes=[]					
+	for cell in coveredCells:
+		var map_pos=getMapFromReference(cell)
+		#if movables[map_pos.x][map_pos.y]==-1:
+			#removes.append(cell)
+	for r in removes:
+		coveredCells.erase(r)	
+			
 	pass;	
 func isOutOfBoundsVector(pos):
 	return isOutOfBounds(pos.x,pos.y)

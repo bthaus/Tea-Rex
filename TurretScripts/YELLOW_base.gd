@@ -7,8 +7,4 @@ func getTarget():
 		target = minions.get_children().pick_random()
 	pass;
 
-	
-func setupCollision(clearing):
-	
-	return		
 

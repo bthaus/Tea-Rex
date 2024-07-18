@@ -20,6 +20,7 @@ var direction: Vector2;
 @export_range(0,10) var turretRange:int=1;
 @export var penetrations:int=1;
 @export var instantHit:bool = false;
+@export var range_precision=24
 var cdt;
 var trueRangeSquared;
 
