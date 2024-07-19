@@ -134,7 +134,7 @@ var waitingForMinions = false;
 func on_target_found(monster:Monster):
 	monster.monster_died.connect(func (): 
 		target=null)
-	monster.reached_spawn.connect(func():on_target_lost())	
+	monster.reached_spawn.connect(func(m):on_target_lost())	
 	pass;
 	
 func on_hit(monster:Monster,damage,color:Turret.Hue,killed,projectile:Projectile):

@@ -60,10 +60,8 @@ func move(delta):
 	if origin==null or !is_instance_valid(origin) or target==null or !is_instance_valid(target):return
 	
 	if connected:
-		line.clear_points()
-		line.add_point(origin.global_position)
+		draw_points(origin.global_position,global_position)
 		global_position=target.global_position
-		line.add_point(global_position)
 		return
 		
 	if not _is_duplicate and not connected:
@@ -73,11 +71,15 @@ func move(delta):
 	
 	if _is_duplicate and distance_travelled.length_squared()>associate.trueRangeSquared:
 		target=null
-	line.clear_points()
-	line.add_point(global_position)	
-	line.add_point(origin.global_position)	
+	draw_points(origin.global_position,global_position)	
 	buildup=buildup+delta*2
 	pass;
+func draw_points(a,b):
+	line.clear_points()
+	line.add_point(a)
+	line.end_cap_mode=Line2D.LINE_CAP_ROUND
+	line.add_point(b)
+	pass;	
 func apply_damage_stack(enemy: Monster):
 	var temp = false;
 	for a in enemy.get_children():

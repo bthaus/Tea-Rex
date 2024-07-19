@@ -66,11 +66,11 @@ func start_wave(number):
 	pass;	
 
 func doSpawnLogic():
-	var delay=0;
+	var delay=1;
 	var count = 0;
 	for mo in waveMonsters:
 		count = count + 1
-		if  _is_simulation:
+		if  !_is_simulation:
 			if count % 5 == 0: #Every 5th monster longer break
 				delay = delay + 3
 			else:

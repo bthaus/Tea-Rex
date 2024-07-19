@@ -19,9 +19,8 @@ func get_bullet(color:Turret.Hue,damage, speed, turret, penetrations,extension:T
 		
 	else:
 		
-		if extension==Turret.Extension.BLUELASER:
-			temp= $blue_laser_projectile.duplicate()
-		elif color==Turret.Hue.GREEN:
+		
+		if color==Turret.Hue.GREEN:
 			temp= $green_projectile.duplicate()
 		elif color==Turret.Hue.RED:
 			temp=$red_saw.duplicate()	
