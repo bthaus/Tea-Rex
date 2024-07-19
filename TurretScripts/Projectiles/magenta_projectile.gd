@@ -21,22 +21,31 @@ func on_creation():
 	children_lasers.clear()
 	pass;	
 
-func hitEnemy(enemy):
+func hitEnemy(enemy,from_turret=false):
 	if _is_duplicate:
 		target=enemy
 		buildup=1
-	if !associate.onCooldown:
-		penetrations = penetrations - 1;
-		var killed=enemy.hit(type, damage)
-		on_hit(enemy)
-		if associate != null: associate.on_hit(enemy,damage,type,killed,self)
-		associate.startCooldown(associate.cooldown*associate.cooldownfactor)
+	if not from_turret and buildup==1: return
+	for child in children_lasers:
+		if child.buildup==1:
+			child.hitEnemy(child.target,true)
+	penetrations = penetrations - 1;
+	var killed=enemy.hit(type, damage)
+	on_hit(enemy)
+	if associate != null: associate.on_hit(enemy,damage,type,killed,self)
+	associate.startCooldown(associate.cooldown*associate.cooldownfactor)
 	pass;
 func shoot(target):
 	super(target)
 	line.show()
 	pass;
 var cell_position=Vector2(0,0)
+func delete():
+	for child in children_lasers:
+		child.delete()	
+	line.queue_free()
+	queue_free()
+	pass;
 func move(delta):
 	fade(delta)	
 	if origin==null or !is_instance_valid(origin) or target==null or !is_instance_valid(target):return
@@ -47,7 +56,6 @@ func move(delta):
 	var pointy=remap(buildup,0,1,origin.global_position.y,target.global_position.y)
 	var p=Vector2(pointx,pointy)
 	line.add_point(p)
-	
 	global_position=p
 	pass;
 
@@ -64,6 +72,7 @@ func duplicate_and_shoot(angle,origin=null)->Projectile:
 	var p=super(angle)
 	if origin==null:
 		origin=self
+	p._is_duplicate=true	
 	p.origin=origin
 	children_lasers.append(p)
 	return p

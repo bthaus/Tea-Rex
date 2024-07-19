@@ -1,6 +1,6 @@
 extends Projectile
 
-func hitEnemy(enemy: Monster):
+func hitEnemy(enemy: Monster,from_turret=false):
 	if target==null or !is_instance_valid(target):
 		super(enemy)
 		return;

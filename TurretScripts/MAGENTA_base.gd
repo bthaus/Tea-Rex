@@ -9,9 +9,8 @@ func on_target_found(monster:Monster):
 	
 func _notification(what):
 	if (what == NOTIFICATION_PREDELETE):
-		projectile.line.queue_free()	
+		projectile.delete()	
 func on_target_lost():
-	
 	projectile.remove_target()
 	super()
 	pass;
@@ -20,8 +19,8 @@ func on_target_lost():
 func attack(delta):
 	if target==null:
 		projectile.remove_target()
-	#if target!=null:
-		#if not onCooldown:
-			#projectile.hitEnemy(target)
-			#startCooldown(cooldown * cooldownfactor)
+	if target!=null:
+		if not onCooldown:
+			projectile.hitEnemy(target,true)
+			startCooldown(cooldown * cooldownfactor)
 	pass;

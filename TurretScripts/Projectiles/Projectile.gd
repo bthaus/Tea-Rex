@@ -97,7 +97,7 @@ func cell_traversed():
 	if associate!=null: associate.on_fly(self)
 	pass;	
 	
-func hitEnemy(enemy: Monster):
+func hitEnemy(enemy: Monster,from_turret=false):
 	if ignore_next_enemy:ignore_next_enemy=false;return
 	penetrations = penetrations - 1;
 	var killed=enemy.hit(type, damage)
