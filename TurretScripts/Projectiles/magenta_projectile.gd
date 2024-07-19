@@ -8,6 +8,8 @@ var buildup:float:
 		buildup=clamp(val,0,1)
 func remove_target():
 	target=null
+	for child in children_lasers:
+		child.remove_target()
 	pass;		
 func on_creation():
 	line=Line2D.new()
@@ -15,14 +17,18 @@ func on_creation():
 	GameState.gameState.add_child(line)
 	origin=associate
 	process_mode=Node.PROCESS_MODE_ALWAYS
+	children_lasers.clear()
 	pass;	
 
 func hitEnemy(enemy):
 	if buildup==1:
+		
 		penetrations = penetrations - 1;
 		var killed=enemy.hit(type, damage)
 		on_hit(enemy)
 		if associate != null: associate.on_hit(enemy,damage,type,killed,self)
+		for child in children_lasers:
+			child.hitEnemy(child.target)
 	pass;
 func shoot(target):
 	super(target)
@@ -40,6 +46,7 @@ func move(delta):
 	var pointy=remap(buildup,0,1,origin.global_position.y,target.global_position.y)
 	var p=Vector2(pointx,pointy)
 	line.add_point(p)
+	
 	global_position=p
 	pass;
 
@@ -47,21 +54,24 @@ func move(delta):
 func fade(delta):
 	if target==null:
 		buildup=buildup-delta*2
+		_toggle_emission(false)
 	line.default_color=Color(1,1,1,buildup)
 		
 	pass;	
 var children_lasers=[]	
-func duplicate_and_shoot(angle)->Projectile:
-	
+func duplicate_and_shoot(angle,origin=null)->Projectile:
 	var p=super(angle)
-	p.origin=self
+	if origin==null:
+		origin=self
+	p.origin=origin
 	children_lasers.append(p)
 	return p
 func _shoot_duplicate(projectile,angle):
-	var ms=gamestate.collisionReference.getMinionsAroundPosition(projectile.global_position)
-	ms=GameState.gameState.get_node("MinionHolder").get_children().pick_random()
-	
-	projectile.shoot(ms)
+	var ms=associate.return_targets(projectile.target)
+	if ms.size()<3:
+		ms=gamestate.collisionReference.getMinionsAroundPosition(ms[0].global_position)
+	ms.erase(projectile.target)	
+	projectile.shoot(ms.pick_random())
 	
 	pass;	
 

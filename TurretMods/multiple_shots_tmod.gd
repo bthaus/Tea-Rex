@@ -14,7 +14,7 @@ func initialise(turret:TurretCore):
 func on_shoot(projectile:Projectile):
 	var degrees=[22.5,45,-22.5,-45]
 	for degree in degrees:
-		projectile.duplicate_and_shoot(degree)
+		projectile.duplicate_and_shoot(degree,associate)
 		#var p1=Projectile.factory.duplicate_bullet(projectile) as Projectile
 		#p1.global_position=projectile.global_position
 		#for mod in associate.turret_mods:

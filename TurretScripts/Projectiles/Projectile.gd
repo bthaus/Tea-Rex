@@ -52,7 +52,7 @@ func remove():
 		return ;
 	shot = false;
 	_remove_from_tree()
-	
+	_toggle_emission(false)
 	pool.push_back(self)
 	pass ;
 func _remove_from_tree():
@@ -66,15 +66,17 @@ func shoot(target):
 	else: direction = (target.global_position - self.global_position).normalized();
 	self.target = target;
 	global_rotation = direction.angle() + PI / 2.0
-
+	_toggle_emission(true)
 	shot = true;
 	pass ;
 func _get_duplicate():
 	return Projectile.factory.duplicate_bullet(self) 
-func duplicate_and_shoot(angle)->Projectile:
+func duplicate_and_shoot(angle,origin=null)->Projectile:
+	if origin==null:
+		origin=self
 	var p1=_get_duplicate()
 	p1.on_creation()
-	p1.global_position=global_position
+	p1.global_position=origin.global_position
 	for mod in associate.turret_mods:
 		mod.visual.prepare_projectile(p1)
 	p1._toggle_emission(true)	

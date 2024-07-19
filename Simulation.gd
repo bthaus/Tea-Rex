@@ -3,7 +3,7 @@ class_name Simulation
 
 var gameState:GameState
 
-var mods=[[ForkingAmmunitionMod]]
+var mods=[[MultipleShotsMod]]
 
 var color_index=6
 var mod_set_index=0

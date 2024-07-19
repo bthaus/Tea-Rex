@@ -217,6 +217,22 @@ func getTarget():
 						on_target_found(target)
 						target = m
 	pass ;
+func return_targets(non_select=null):
+	if minions.get_child_count() == 0:
+		return ;
+	var t
+	var minions=[]
+	for cell in coveredCells:
+		if !cell.is_empty():
+			t = cell.back()
+			if t==non_select:continue
+			if t != null:
+				if is_out_of_range(t):
+					t=null
+					continue
+				minions.append(t)
+	return minions		
+	pass	
 func do_all(tasks: Array[Callable]):
 	for t in tasks:
 		t.call()

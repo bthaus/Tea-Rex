@@ -29,7 +29,6 @@ func do(delta):
 					break	
 				var moornot=reference.get_monster(pos)
 				if moornot!=null:
-					
 					b.hitEnemy(moornot)
 			
 		
