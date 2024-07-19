@@ -3,6 +3,7 @@ class_name MagentaProjectile
 
 var origin:Node2D
 var line:Line2D
+var _is_duplicate=false;
 var buildup:float:
 	set(val):
 		buildup=clamp(val,0,1)
@@ -21,18 +22,18 @@ func on_creation():
 	pass;	
 
 func hitEnemy(enemy):
-	if buildup==1:
-		
+	if _is_duplicate:
+		target=enemy
+		buildup=1
+	if !associate.onCooldown:
 		penetrations = penetrations - 1;
 		var killed=enemy.hit(type, damage)
 		on_hit(enemy)
 		if associate != null: associate.on_hit(enemy,damage,type,killed,self)
-		for child in children_lasers:
-			child.hitEnemy(child.target)
+		associate.startCooldown(associate.cooldown*associate.cooldownfactor)
 	pass;
 func shoot(target):
 	super(target)
-	global_rotation=0
 	line.show()
 	pass;
 var cell_position=Vector2(0,0)
@@ -71,6 +72,11 @@ func _shoot_duplicate(projectile,angle):
 	if ms.size()<3:
 		ms=gamestate.collisionReference.getMinionsAroundPosition(ms[0].global_position)
 	ms.erase(projectile.target)	
+	#var node=Node2D.new()
+	#var off=Vector2(associate.turretRange* GameboardConstants.TILE_SIZE,0)
+	#off=util.rotate_vector(off,angle)
+	#node.position=origin.global_position+off
+	#projectile.origin.add_child(node)
 	projectile.shoot(ms.pick_random())
 	
 	pass;	

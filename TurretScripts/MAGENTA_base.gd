@@ -20,8 +20,8 @@ func on_target_lost():
 func attack(delta):
 	if target==null:
 		projectile.remove_target()
-	if target!=null:
-		if not onCooldown:
-			projectile.hitEnemy(target)
-			startCooldown(cooldown * cooldownfactor)
+	#if target!=null:
+		#if not onCooldown:
+			#projectile.hitEnemy(target)
+			#startCooldown(cooldown * cooldownfactor)
 	pass;
