@@ -18,6 +18,16 @@ func showSaw():
 func getReferences(cells):
 	return collisionReference.getNeighbours(holder.global_position,cells);
 	pass
+func checkTarget():
+	var pos=collisionReference.getMapPositionNormalised(target.global_position)
+	if !referenceCells.has(pos):
+		on_target_lost(target)
+		target=null
+	pass;	
+func is_out_of_range(t):
+	var pos=collisionReference.getMapPositionNormalised(target.global_position)
+	return !referenceCells.has(pos)
+	pass;	
 func attack(delta):
 	#check if blade should be rotating
 	if buildup > 0&&projectile != null:

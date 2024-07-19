@@ -200,6 +200,9 @@ func getTarget():
 			target = cell.back()
 			
 			if target != null:
+				if is_out_of_range(target):
+					target=null
+					continue
 				on_target_found(target)
 				if recentCells.find(cell) == - 1:
 					recentCells.push_back(cell)
@@ -218,12 +221,16 @@ func do_all(tasks: Array[Callable]):
 	pass ;
 func checkTarget():
 	
-	var distancesquared = abs(global_position.distance_squared_to(target.global_position))
-	if distancesquared > abs(trueRangeSquared):
+	if is_out_of_range(target):
 		on_target_lost(target)
 		target = null;
-	
 	pass ;
+
+func is_out_of_range(t):
+	var distancesquared=global_position-t.global_position
+	distancesquared=distancesquared.length_squared()
+	return distancesquared > abs(trueRangeSquared)
+	pass;
 	
 func attack(delta):
 	if target!=null :

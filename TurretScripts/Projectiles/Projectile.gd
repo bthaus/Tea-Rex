@@ -24,7 +24,9 @@ var oldpos=Vector2(0,0)
 
 
 static func create(type: Turret.Hue, damage, speed, root:TurretCore, extension: Turret.Extension=Turret.Extension.DEFAULT, penetrations:int=1) -> Projectile:
-	return factory.get_bullet(type,damage,speed,root,penetrations,extension)	
+	var b=factory.get_bullet(type,damage,speed,root,penetrations,extension)	
+	b.on_creation()
+	return b
 	
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -35,6 +37,10 @@ func _ready():
 		camera = gamestate.getCamera();
 
 	pass # Replace with function body.
+	
+func on_creation():
+	
+	pass;	
 func on_remove():
 	
 	pass;
@@ -77,9 +83,10 @@ func _shoot_duplicate(projectile,angle):
 	projectile.direction=util.rotate_vector(direction,angle)
 	projectile.global_rotation = projectile.direction.angle() + PI / 2.0
 	pass;	
-
+var cell_position
 func move(delta):
 	translate(direction * delta * speed);
+	cell_position=global_position
 	pass;
 func cell_traversed():
 	if associate!=null: associate.on_fly(self)

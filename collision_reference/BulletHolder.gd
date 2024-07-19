@@ -12,10 +12,12 @@ func _ready():
 func do(delta):
 	for b in get_children():
 		if b.shot:
-			
-			for i in range(b.associate.projectile_precision):
-				b.move(delta/b.associate.projectile_precision)
-				var pos=board.local_to_map(b.global_position);
+			var precision=1
+			if b.associate!=null and is_instance_valid(b.associate):
+				precision=b.associate.projectile_precision 
+			for i in range(precision):
+				b.move(delta/precision)
+				var pos=board.local_to_map(b.cell_position);
 				if pos.x==b.oldpos.x&&pos.y==b.oldpos.y: continue
 				b.oldpos=pos
 				b.cell_traversed()

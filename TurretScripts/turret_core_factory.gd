@@ -25,7 +25,8 @@ static func get_instance()-> TurretCoreFactory:
 	if instance==null:
 		instance=load("res://TurretScripts/turret_core_factory.tscn").instantiate() as TurretCoreFactory
 	return instance
-	pass;	
+	pass;
+		
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
