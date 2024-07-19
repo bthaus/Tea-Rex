@@ -91,7 +91,9 @@ func _shoot_duplicate(projectile,angle):
 
 		
 func move(delta):
-	translate(direction * delta * speed);
+	var distance=direction * delta * speed
+	translate(distance);
+	return distance
 	pass;
 func cell_traversed():
 	if associate!=null: associate.on_fly(self)

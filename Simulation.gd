@@ -3,7 +3,7 @@ class_name Simulation
 
 var gameState:GameState
 
-var mods=[[MultipleShotsMod,ExplosiveAmmunition]]
+var mods=[[MultipleShotsMod]]
 
 var color_index=6
 var mod_set_index=0
@@ -77,7 +77,7 @@ func _test_turret(color:Turret.Hue, mod_names):
 	gameState.wave=0
 	gameState.HP=10000
 	pass;
-	
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass

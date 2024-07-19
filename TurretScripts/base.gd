@@ -14,7 +14,7 @@ var direction: Vector2;
 
 
 
-@export_range(0,10) var speed:int=1;
+@export_range(0,10) var speed:float=1;
 @export_range(0,10) var cooldown:float=1;
 @export_range(0,10) var damage:float=1;
 @export_range(0,10) var turretRange:int=1;
@@ -251,7 +251,11 @@ func is_out_of_range(t):
 	distancesquared=distancesquared.length_squared()
 	return distancesquared > abs(trueRangeSquared)
 	pass;
-	
+func is_out_of_range_pos(pos):
+	var distancesquared=global_position-pos
+	distancesquared=distancesquared.length_squared()
+	return distancesquared > abs(trueRangeSquared)
+	pass;	
 func attack(delta):
 	if target!=null :
 		if not onCooldown:
