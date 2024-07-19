@@ -1,33 +1,27 @@
 extends TurretCore
 class_name MagentaCore
 
-var active_rays=[]
-func on_target_found(monster:Monster):
-	var b=shoot(monster)
-	if !active_rays.has(b):
-		active_rays.append(b)
-	pass;
 
+func on_target_found(monster:Monster):
+	projectile=shoot(monster)
+	super(monster)
+	pass;
+	
 func _notification(what):
 	if (what == NOTIFICATION_PREDELETE):
-		for b in active_rays:
-			b.line.queue_free()
-		
+		projectile.line.queue_free()	
+func on_target_lost():
 	
-
-func get_projectile():
-	return projectile
-	
+	projectile.remove_target()
+	super()
+	pass;
 
 
 func attack(delta):
-	for p in active_rays:
-		if target==null and p!=projectile:
-			p.remove_from_tree()
-		p.fade(delta)
+	if target==null:
+		projectile.remove_target()
 	if target!=null:
 		if not onCooldown:
-			for p in active_rays:
-				p.hitEnemy(target)
+			projectile.hitEnemy(target)
 			startCooldown(cooldown * cooldownfactor)
 	pass;

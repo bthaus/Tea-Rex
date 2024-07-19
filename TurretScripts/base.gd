@@ -223,6 +223,7 @@ func do_all(tasks: Array[Callable]):
 	pass ;
 func checkTarget():
 	if is_out_of_range(target):
+		print("target lost!")
 		target = null;
 	if target==null or !is_instance_valid(target):
 		on_target_lost()	
