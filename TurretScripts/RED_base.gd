@@ -21,7 +21,7 @@ func getReferences(cells):
 func checkTarget():
 	var pos=collisionReference.getMapPositionNormalised(target.global_position)
 	if !referenceCells.has(pos):
-		on_target_lost(target)
+		on_target_lost()
 		target=null
 	pass;	
 func is_out_of_range(t):

@@ -132,7 +132,9 @@ func reduceCooldown(delta):
 
 var waitingForMinions = false;
 func on_target_found(monster:Monster):
-	monster.monster_died.connect(func (): target=null)
+	monster.monster_died.connect(func (): 
+		target=null)
+	monster.reached_spawn.connect(func():on_target_lost())	
 	pass;
 	
 func on_hit(monster:Monster,damage,color:Turret.Hue,killed,projectile:Projectile):
@@ -158,7 +160,7 @@ func on_fly(projectile:Projectile):
 	for mod in turret_mods:
 		mod.on_cell_traversal(projectile)
 	pass;	
-func on_target_lost(target:Monster):
+func on_target_lost():
 	
 	pass;	
 func do(delta):
@@ -220,10 +222,11 @@ func do_all(tasks: Array[Callable]):
 		t.call()
 	pass ;
 func checkTarget():
-	
 	if is_out_of_range(target):
-		on_target_lost(target)
 		target = null;
+	if target==null or !is_instance_valid(target):
+		on_target_lost()	
+		
 	pass ;
 
 func is_out_of_range(t):
@@ -241,14 +244,19 @@ func attack(delta):
 	pass ;
 func shoot(target):
 	var barrels = getBarrels();
-	for b in barrels:
-		var bp = b.get_child(0).global_position;
-		var shot = Projectile.create(type, damage * damagefactor, speed * speedfactor, self, penetrations,extension);
-		shot.global_position = global_position
-		shot.shoot(target);
-		on_shoot(shot)	
+	var b=barrels[0]
+	var bp = b.get_child(0).global_position;
+	var shot = get_projectile()	
+	shot.global_position = global_position
+	shot.shoot(target);
+	on_shoot(shot)	
 	startCooldown(cooldown * cooldownfactor)
+	return shot
 	pass ;
+func get_projectile():
+	return Projectile.create(type, damage * damagefactor, speed * speedfactor, self, penetrations,extension);
+
+	pass;	
 func startCooldown(time):
 	cdt = time;
 	onCooldown = true;

@@ -1,6 +1,7 @@
 extends GameObject2D
 class_name Projectile
 
+	
 var index;
 var shot = false;
 var damage;
@@ -68,9 +69,11 @@ func shoot(target):
 
 	shot = true;
 	pass ;
-
+func _get_duplicate():
+	return Projectile.factory.duplicate_bullet(self) 
 func duplicate_and_shoot(angle)->Projectile:
-	var p1=Projectile.factory.duplicate_bullet(self) 
+	var p1=_get_duplicate()
+	p1.on_creation()
 	p1.global_position=global_position
 	for mod in associate.turret_mods:
 		mod.visual.prepare_projectile(p1)
@@ -83,10 +86,10 @@ func _shoot_duplicate(projectile,angle):
 	projectile.direction=util.rotate_vector(direction,angle)
 	projectile.global_rotation = projectile.direction.angle() + PI / 2.0
 	pass;	
-var cell_position
+
+		
 func move(delta):
 	translate(direction * delta * speed);
-	cell_position=global_position
 	pass;
 func cell_traversed():
 	if associate!=null: associate.on_fly(self)
