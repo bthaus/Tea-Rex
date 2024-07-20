@@ -130,11 +130,13 @@ func setUpTower():
 	$AudioStreamPlayer2D.stream = load("res://Sounds/Soundeffects/" + util.getStringFromEnum(color) + util.getStringFromEnumExtension(extension) + "_shot.wav")
 	if placed:
 		lightamount = GameState.gameState.lightThresholds.getLight(global_position.y)*level
-	
-	$Tile.texture = load("res://Assets/Tiles/tile_" + util.getStringFromEnumLowercase(color) + ".png")
-	if placed:
-		lightamount = GameState.gameState.lightThresholds.getLight(global_position.y) * level
-		$Tile.modulate = Color(1 + lightamount, 1 + lightamount, 1 + lightamount)
+	var tiletex=load("res://Assets/Tiles/tile_" + util.getStringFromEnumLowercase(color) + ".png")
+	if tiletex!=null:
+		$Tile.modulate=Color(1,1,1)
+		$Tile.texture = tiletex
+	#if placed:
+		#lightamount = GameState.gameState.lightThresholds.getLight(global_position.y) * level
+		#$Tile.modulate = Color(1 + lightamount, 1 + lightamount, 1 + lightamount)
 	
 	if placed: resetLight()
 	$Drawpoint.base = base
@@ -239,7 +241,7 @@ func on_hover():
 		t.showRangeOutline()
 	if placed:
 		show_box=true;
-		show_infobox()
+		#show_infobox()
 		
 		
 	#elif extension != 1:

@@ -9,7 +9,7 @@ func on_target_found(monster:Monster):
 	
 func _notification(what):
 	if (what == NOTIFICATION_PREDELETE):
-		projectile.delete()	
+		if is_instance_valid(projectile):projectile.delete()	
 func on_target_lost():
 	projectile.remove_target()
 	super()

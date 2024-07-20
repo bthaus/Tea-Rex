@@ -101,8 +101,10 @@ static func create(gameState:GameState,card=-1):
 		#else:
 		#	c.get_node("Label").text=Stats.getName(Turret.Extension.find_key(extension))	
 		c.get_node("Label").text=""
-		c.get_node("Button").icon=load("res://Assets/Cards/Testcard_"+util.getStringFromEnum(color).to_lower()+".png")
-		#use this to change color/text of card
+		var ic=load("res://Assets/Cards/Testcard_"+util.getStringFromEnum(color).to_lower()+".png")
+		if ic==null:
+			ic=load("res://Assets/Cards/Testcard_white.png")
+		c.get_node("Button").icon=ic	#use this to change color/text of card
 		c.preview=load("res://Cards/block_preview.tscn").instantiate()
 		c.preview.set_block(c.card.block, true)
 		#Just hardcoded for centering blocks

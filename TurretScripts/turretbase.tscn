@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://TurretScripts/turretbase.gd" id="1_87rlb"]
 [ext_resource type="Texture2D" uid="uid://dpcl3osga8evf" path="res://Assets/Level/blackBackgroundLabel.png" id="4_gxsap"]
-[ext_resource type="Texture2D" uid="uid://du8bwxjcem7l2" path="res://Assets/Tiles/tile_blue.png" id="5_sey8j"]
+[ext_resource type="Texture2D" uid="uid://dakoa0g1e3ub6" path="res://Assets/Tiles/wall.png" id="4_s4nse"]
 [ext_resource type="Script" path="res://TurretScripts/Drawpoint.gd" id="5_y5hmu"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_xaibg"]
@@ -41,8 +41,9 @@ position = Vector2(0.999999, -0.499998)
 scale = Vector2(3, 3.05)
 
 [node name="Tile" type="Sprite2D" parent="."]
+modulate = Color(2.367, 0.501, 11.243, 1)
 z_index = 1
-texture = ExtResource("5_sey8j")
+texture = ExtResource("4_s4nse")
 
 [connection signal="finished" from="AudioStreamPlayer2D" to="." method="_on_audio_stream_player_2d_finished"]
 [connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]

@@ -90,7 +90,7 @@ func getReferences(cells):
 	pass;	
 func setUpTower(holder):
 	self.holder = holder
-	
+	turret_mods.append(MultipleShotsMod.new())
 	minions = GameState.gameState.get_node("MinionHolder")
 	setLevel(stacks)
 	trueRangeSquared = turretRange * GameboardConstants.TILE_SIZE

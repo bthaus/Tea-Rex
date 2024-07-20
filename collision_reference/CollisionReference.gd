@@ -80,7 +80,11 @@ func get_monster(pos):
 	#map[pos.y][pos.x].ms	
 	return null;
 	pass ;
-	
+func get_monsters_at_pos(pos):
+	var n=getMapPositionNormalised(pos)
+	if not isOutOfBoundsVector(n):
+		return map[n.y][n.x].ms
+	else: return []	
 func getMapPositionNormalised(pos):
 	pos = gameState.board.local_to_map(pos)
 	return normaliseVector(pos)

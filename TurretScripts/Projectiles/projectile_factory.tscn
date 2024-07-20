@@ -182,16 +182,19 @@ script = ExtResource("12_7mdqh")
 script = ExtResource("15_6s2gk")
 
 [node name="hit" type="GPUParticles2D" parent="magenta_projectile"]
+z_index = 51
 process_material = SubResource("ParticleProcessMaterial_i4h20")
 texture = ExtResource("16_w8utr")
 randomness = 1.0
 
 [node name="fire" type="GPUParticles2D" parent="magenta_projectile"]
+z_index = 51
 process_material = SubResource("ParticleProcessMaterial_i4h20")
 texture = ExtResource("16_w8utr")
 randomness = 1.0
 
 [node name="beam" type="GPUParticles2D" parent="magenta_projectile"]
+z_index = 51
 amount = 40
 process_material = SubResource("ParticleProcessMaterial_hbalg")
 texture = ExtResource("16_w8utr")
