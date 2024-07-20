@@ -2,9 +2,9 @@ extends GameObject2D
 class_name MonsterFactory
 static var instance=load("res://monsters/monster_factory.tscn").instantiate()
 
-@export var base_hp:float = 100;
+@export var base_hp:float = 5000#100;
 @export var base_damage:float = 5;
-@export var base_speed:float = 128;
+@export var base_speed:float = 12#128;
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.

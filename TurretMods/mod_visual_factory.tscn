@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://TurretMods/mod_visual_factory.gd" id="1_80rsx"]
 [ext_resource type="Texture2D" uid="uid://chsgerkqrpoy6" path="res://Assets/Level/Backgrounddummy.png" id="1_wplut"]
-[ext_resource type="Texture2D" uid="uid://bnnlcdgvh57eq" path="res://Assets/Effects/particles/scorch_03.png" id="2_sl62v"]
+[ext_resource type="Texture2D" uid="uid://cw36qv6rxfwpx" path="res://Assets/Effects/particles/scorch_03.png" id="2_sl62v"]
 [ext_resource type="Script" path="res://TurretMods/mod_visual.gd" id="2_weiop"]
 [ext_resource type="Script" path="res://TurretMods/visual_on_projectile.gd" id="3_g73qt"]
 [ext_resource type="Texture2D" uid="uid://jobgij4i5sxe" path="res://Assets/Effects/Explosion_1/e1.png" id="4_y8l7j"]

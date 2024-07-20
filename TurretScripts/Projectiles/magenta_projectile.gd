@@ -5,9 +5,13 @@ var origin:Node2D
 var line:Line2D
 var _is_duplicate=false;
 var connected=false
+var start_emitter:GPUParticles2D
+var end_emitter:GPUParticles2D
+var beam_emitter:GPUParticles2D
 var buildup:float:
 	set(val):
 		buildup=clamp(val,0,1)
+		
 func remove_target():
 	target=null
 	for child in children_lasers:
@@ -15,11 +19,14 @@ func remove_target():
 	pass;		
 func on_creation():
 	line=Line2D.new()
-	line.z_index=50
+	line.default_color=Color(5,0.5,5)
 	GameState.gameState.add_child(line)
 	origin=associate
 	process_mode=Node.PROCESS_MODE_ALWAYS
 	children_lasers.clear()
+	start_emitter=$fire
+	end_emitter=$hit
+	beam_emitter=$beam
 	pass;	
 
 func hitEnemy(enemy,from_turret=false):
@@ -58,7 +65,17 @@ var distance_travelled=Vector2(0,0)
 func move(delta):
 	fade(delta)	
 	if origin==null or !is_instance_valid(origin) or target==null or !is_instance_valid(target):return
-	
+	direction = (origin.global_position-self.global_position).normalized();
+	start_emitter.global_position=origin.global_position
+	start_emitter.process_material.direction=Vector3(direction.x,direction.y,0)
+	end_emitter.emitting=connected
+	if connected:
+		end_emitter.global_position=global_position
+	start_emitter.process_material.direction=Vector3(direction.x*-1,direction.y*-1,0)
+	beam_emitter.process_material.emission_box_extents.x=(origin.global_position-global_position).length()*0.5
+	beam_emitter.global_position=lerp(global_position,origin.global_position,0.5)
+	beam_emitter.global_rotation_degrees= rad_to_deg(direction.angle() + PI / 2.0)+90
+	beam_emitter.amount_ratio=2*buildup
 	if connected:
 		draw_points(origin.global_position,global_position)
 		global_position=target.global_position
@@ -77,6 +94,7 @@ func move(delta):
 func draw_points(a,b):
 	line.clear_points()
 	line.add_point(a)
+	line.width=lerp(0,8,buildup)
 	line.end_cap_mode=Line2D.LINE_CAP_ROUND
 	line.add_point(b)
 	pass;	
@@ -92,9 +110,10 @@ func apply_damage_stack(enemy: Monster):
 	
 func fade(delta):
 	if target==null:
+		line.width=lerp(0,12,buildup)
 		buildup=buildup-delta*2
 		_toggle_emission(false)
-	line.default_color=Color(1,1,1,buildup)
+	line.default_color.a=buildup
 		
 	pass;	
 var children_lasers=[]	
@@ -110,7 +129,12 @@ func duplicate_and_shoot(angle,origin=null)->Projectile:
 	return p
 func remove():
 	target=null	
-	
+
+func _toggle_emission(b):
+	start_emitter.emitting=b
+	end_emitter.emitting=b
+	beam_emitter.emitting=b
+	pass;	
 #func _shoot_duplicate(projectile,angle):
 	##var ms=associate.return_targets(projectile.target)
 	##if ms.size()<3:
