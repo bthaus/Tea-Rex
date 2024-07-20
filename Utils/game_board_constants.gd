@@ -29,10 +29,10 @@ const WALL_TILE_ID = 7
 const PORTAL_TILE_ID = 9
 
 #BUILD
-const BUILD_ANY_TILE_ID = 8
+const BUILD_NONE_TILE_ID = 8
 
 #COLORS
-enum TileColor { ANY, RED, GREEN, BLUE, YELLOW, WHITE };
+enum TileColor { NONE, RED, GREEN, BLUE, YELLOW, WHITE, MAGENTA };
 
 #TYPES
 enum TileType { WALL, GROUND, TURRET_BASE, SPAWNER, PLAYER_BASE, PREVIEW, BUILD, PORTAL }
@@ -54,3 +54,6 @@ static func get_tile_color(board: TileMap, layer: int, map_position: Vector2):
 	var data = board.get_cell_tile_data(layer, map_position)
 	if data == null: return null
 	return TileColor.get(data.get_custom_data("color").to_upper())
+	
+static func turret_color_to_tile_color(color: Turret.Hue):
+	return TileColor.get(Turret.Hue.keys()[color])

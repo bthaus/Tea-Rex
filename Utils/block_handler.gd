@@ -110,17 +110,20 @@ func can_place_block(block: Block, map_position: Vector2,  spawners) -> bool:
 	for piece in block.pieces:
 		var board_pos = Vector2(piece.position.x + map_position.x, piece.position.y + map_position.y)
 		
-		#Check if there is a valid build type
-		var build_type = GameboardConstants.get_tile_type(board, GameboardConstants.BUILD_LAYER, board_pos)
-		var build_color = GameboardConstants.get_tile_color(board, GameboardConstants.BUILD_LAYER, board_pos)
-		if build_type==null:
+		#Check if there is ground
+		if board.get_cell_source_id(GameboardConstants.GROUND_LAYER, board_pos) == -1:
 			GameBoard.current_tutorial = TutorialHolder.tutNames.Outside
-			return false;
-		if build_type != null: 
-			if build_type != GameboardConstants.TileType.BUILD:
-				GameBoard.current_tutorial = TutorialHolder.tutNames.Outside
+			print("yo theat outside")
+			return false
+		
+		
+		#Check if there is a block place restriction
+		var build_type = GameboardConstants.get_tile_type(board, GameboardConstants.BUILD_LAYER, board_pos)
+		if build_type == GameboardConstants.TileType.BUILD: #There is a build restriction present
+			var build_color = GameboardConstants.get_tile_color(board, GameboardConstants.BUILD_LAYER, board_pos)
+			if build_color == GameboardConstants.TileColor.NONE: #No color allowed here
 				return false
-			if build_color != GameboardConstants.TileColor.ANY: #ATM only any build color is allowed
+			if build_color != GameboardConstants.turret_color_to_tile_color(piece.color): #Wrong color
 				return false
 		
 		#Check if there is a tile of type wall

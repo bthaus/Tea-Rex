@@ -23,7 +23,7 @@ var _selection_tile_items = [
 	TileItem.new(GameboardConstants.PLAYER_BASE_GREEN_TILE_ID, "Base", GameboardConstants.BLOCK_LAYER),
 	TileItem.new(GameboardConstants.SPAWNER_GREEN_TILE_ID, "Spawner", GameboardConstants.BLOCK_LAYER),
 	TileItem.new(GameboardConstants.GROUND_TILE_ID, "Ground", GameboardConstants.GROUND_LAYER),
-	TileItem.new(GameboardConstants.BUILD_ANY_TILE_ID, "Build Any", GameboardConstants.BUILD_LAYER),
+	TileItem.new(GameboardConstants.BUILD_NONE_TILE_ID, "Build None", GameboardConstants.BUILD_LAYER),
 	TileItem.new(GameboardConstants.PORTAL_TILE_ID, "Portal", GameboardConstants.BLOCK_LAYER)
 	]
 
