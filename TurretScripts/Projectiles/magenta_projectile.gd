@@ -101,18 +101,9 @@ func move(delta):
 	if origin==null or !is_instance_valid(origin) or target==null or !is_instance_valid(target):return
 	
 	buildup=buildup+delta*2
-	start_emitter.global_position=origin.global_position
-	start_emitter.process_material.direction=Vector3(direction.x,direction.y,0)
-	end_emitter.emitting=connected
-	end_emitter.global_position=global_position
 	
-	start_emitter.process_material.direction=Vector3(direction.x*-1,direction.y*-1,0)
-	beam_emitter.process_material.emission_box_extents.x=(origin.global_position-global_position).length()*0.5
-	beam_emitter.global_position=lerp(global_position,origin.global_position,0.5)
-	beam_emitter.global_rotation_degrees= rad_to_deg(direction.angle() + PI / 2.0)+90
-	beam_emitter.amount_ratio=2*buildup
 	#if direction would be updated if duplicate and not connected it wouldnt do anything (direction==0,0)
-	if not _is_duplicate and not connected:
+	if not _is_duplicate:
 		direction = (target.global_position - self.global_position).normalized()
 	#travel across the originally calculated distance	
 	if _is_duplicate:
@@ -126,7 +117,16 @@ func move(delta):
 	else:
 		distance_travelled=distance_travelled+super(delta)
 		
+	start_emitter.global_position=origin.global_position
+	start_emitter.process_material.direction=Vector3(direction.x,direction.y,0)
+	end_emitter.emitting=connected
+	end_emitter.global_position=global_position
 	
+	start_emitter.process_material.direction=Vector3(direction.x*-1,direction.y*-1,0)
+	beam_emitter.process_material.emission_box_extents.x=(origin.global_position-global_position).length()*0.5
+	beam_emitter.global_position=lerp(global_position,origin.global_position,0.5)
+	beam_emitter.global_rotation_degrees= rad_to_deg(direction.angle() + PI / 2.0)+90
+	beam_emitter.amount_ratio=2*buildup
 	if _is_duplicate and distance_travelled.length_squared()>associate.trueRangeSquared and not connected:
 		remove()
 		
