@@ -6,16 +6,16 @@
 bg_color = Color(0.945098, 0.941176, 0.945098, 1)
 
 [node name="SpawnerSettingsItem" type="Panel"]
-custom_minimum_size = Vector2(600, 120)
-offset_right = 600.0
-offset_bottom = 100.0
+custom_minimum_size = Vector2(680, 120)
+offset_right = 680.0
+offset_bottom = 120.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_5bg07")
 script = ExtResource("1_g1dqd")
 
 [node name="SpawnerId" type="Label" parent="."]
 layout_mode = 0
 offset_top = 1.0
-offset_right = 50.0
+offset_right = 47.0
 offset_bottom = 120.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "1"
@@ -24,11 +24,29 @@ vertical_alignment = 1
 
 [node name="MonsterScrollContainer" type="ScrollContainer" parent="."]
 layout_mode = 0
-offset_left = 47.0
+offset_left = 45.0
 offset_top = 12.0
-offset_right = 527.0
+offset_right = 588.0
 offset_bottom = 112.0
 vertical_scroll_mode = 0
 
 [node name="MonsterItemContainer" type="HBoxContainer" parent="MonsterScrollContainer"]
 layout_mode = 2
+
+[node name="CopyButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 600.0
+offset_top = 23.0
+offset_right = 670.0
+offset_bottom = 54.0
+text = "Copy"
+
+[node name="PasteButton" type="Button" parent="."]
+offset_left = 600.0
+offset_top = 62.0
+offset_right = 670.0
+offset_bottom = 93.0
+text = "Paste"
+
+[connection signal="pressed" from="CopyButton" to="." method="_on_copy_button_pressed"]
+[connection signal="pressed" from="PasteButton" to="." method="_on_paste_button_pressed"]

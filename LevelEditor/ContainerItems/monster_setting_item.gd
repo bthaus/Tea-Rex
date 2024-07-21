@@ -25,6 +25,9 @@ func set_number_of_waves(amount: int):
 func get_monsters():
 	return _monster_amount
 
+func set_monster_count_for_wave(wave: int, count: int):
+	_monster_amount[wave] = count
+
 func _on_increase_button_pressed():
 	if _monster_amount[_wave] < 50:
 		_monster_amount[_wave] += 1
