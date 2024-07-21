@@ -89,8 +89,8 @@ func getReferences(cells):
 	return collisionReference.getCellReferences(global_position, turretRange, self, cells)
 	pass;	
 func setUpTower(holder):
+	turret_mods.append(PenetratingAmmunition.new())
 	self.holder = holder
-	turret_mods.append(MultipleShotsMod.new())
 	minions = GameState.gameState.get_node("MinionHolder")
 	setLevel(stacks)
 	trueRangeSquared = turretRange * GameboardConstants.TILE_SIZE

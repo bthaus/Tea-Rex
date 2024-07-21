@@ -98,8 +98,7 @@ func monsterReachedSpawn(monster:Monster):
 	numMonstersActive=numMonstersActive-1;
 
 	if numMonstersActive<=0:
-		if _is_simulation:Simulation.wave_done()
-		else:	state.startBuildPhase()
+		state.startBuildPhase()
 		
 	pass;	
 func monsterDied(monster:Monster):

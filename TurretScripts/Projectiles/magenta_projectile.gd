@@ -1,14 +1,21 @@
 extends Projectile
 class_name MagentaProjectile
 
+
+var start_emitter:GPUParticles2D
+var end_emitter:GPUParticles2D
+var beam_emitter:GPUParticles2D
+
+var children_lasers=[]	
+var ignore_position
+var distance_travelled=Vector2(0,0)	
 var origin:Node2D
 var line:Line2D
 var _is_duplicate=false;
 var connected=false
-var start_emitter:GPUParticles2D
-var end_emitter:GPUParticles2D
-var beam_emitter:GPUParticles2D
-var buildup:float:
+	
+
+var buildup:float=0.1:
 	set(val):
 		buildup=clamp(val,0,1)
 		
@@ -18,48 +25,60 @@ func remove_target():
 		child.remove_target()
 	pass;		
 func on_creation():
-	line=Line2D.new()
-	line.z_index=10
-	line.default_color=Color(5,0.5,5)
-	line.show()
-	GameState.gameState.add_child(line)
+	if line==null:
+		line=Line2D.new()
+		line.z_index=10
+		line.default_color=Color(5,0.5,5)
+		line.show()
+		GameState.gameState.add_child(line)
 	origin=associate
 	process_mode=Node.PROCESS_MODE_ALWAYS
 	children_lasers.clear()
 	start_emitter=$fire
 	end_emitter=$hit
 	beam_emitter=$beam
-	distance_travelled=Vector2(0,0)	
+	connected=false
+	buildup=0.1
+	ignore_position=Vector2(0,0)
+	distance_travelled=Vector2(0,0)
+	_is_duplicate=false
 	pass;	
-
+var last_hit_position=Vector2i(0,0)
 func hitEnemy(enemy,from_turret=false):
-	print("hitting")
+	#connected turrets only hit their connected enemy
+	if connected and not from_turret:
+		return
+	#only hit without connection once per tile	
+	if not from_turret:
+		var curry=gamestate.board.local_to_map(global_position)
+		if curry==last_hit_position:
+			return
+		else:
+			last_hit_position=curry	
+	#if a duplicate hits an enemy, it checks if its on the same pos at it was created, 
+	#and connects to that target. 	
 	if _is_duplicate:
 		if ignore_position==GameState.board.local_to_map(global_position):return
 		target=enemy
 		connected=true
 		_is_duplicate=false
 		buildup=1
-	
-	if not from_turret and not connected:
-		print("not connected yet, but hitting")
-		var others=gamestate.collisionReference.get_monsters_at_pos(enemy.global_position)
-		if others.has(target):
-			enemy=target
-			connected=true
-	if connected and not from_turret:return
-	
-	for child in children_lasers:
-		if child.buildup==1:
-			child.hitEnemy(child.target,true)
+	#hits all offspring of the laser
+	if from_turret:	
+		for child in children_lasers:
+			if child.buildup==1:
+				child.hitEnemy(child.target,true)
+	#initial beam, connects only to target
 	if enemy==target:
 		connected=true	
+	#fallback safety
 	if target==null:
-		return		
+		return	
+	#hit logic		
 	penetrations = penetrations - 1;
 	apply_damage_stack(enemy)
 	var killed=enemy.hit(type, damage)
-	on_hit(enemy)
+	if killed:remove()
 	if associate != null: associate.on_hit(enemy,damage,type,killed,self)
 	if from_turret:associate.startCooldown(associate.cooldown*associate.cooldownfactor)
 	pass;
@@ -67,7 +86,7 @@ func shoot(target):
 	super(target)
 	line.show()
 	pass;
-var cell_position=Vector2(0,0)
+
 func delete():
 	for child in children_lasers:
 		child.delete()	
@@ -75,18 +94,13 @@ func delete():
 		line.queue_free()
 	if is_instance_valid(self):queue_free()
 	pass;
-var distance_travelled=Vector2(0,0)	
-var connection_mover_index:float=0:
-	set(val):
-		connection_mover_index=clamp(val,0,1)
-var distance_from_target=Vector2(0,0)	
+
 func move(delta):
 	fade(delta)	
-	if _is_duplicate:
-		print("wtf")
+	if target!=null:check_collision()
 	if origin==null or !is_instance_valid(origin) or target==null or !is_instance_valid(target):return
+	
 	buildup=buildup+delta*2
-	if not _is_duplicate:direction = (origin.global_position-self.global_position).normalized();
 	start_emitter.global_position=origin.global_position
 	start_emitter.process_material.direction=Vector3(direction.x,direction.y,0)
 	end_emitter.emitting=connected
@@ -97,37 +111,40 @@ func move(delta):
 	beam_emitter.global_position=lerp(global_position,origin.global_position,0.5)
 	beam_emitter.global_rotation_degrees= rad_to_deg(direction.angle() + PI / 2.0)+90
 	beam_emitter.amount_ratio=2*buildup
-	
-	if connected:
-		global_position=lerp(global_position,target.global_position,connection_mover_index)
-		connection_mover_index=connection_mover_index+delta*5
-		draw_points(origin.global_position,global_position,delta)
-		return	
-	else:
-		connection_mover_index=0	
-	
-		
+	#if direction would be updated if duplicate and not connected it wouldnt do anything (direction==0,0)
 	if not _is_duplicate and not connected:
 		direction = (target.global_position - self.global_position).normalized()
+	#travel across the originally calculated distance	
 	if _is_duplicate:
 		distance_travelled=distance_travelled+super(delta)
+	#move towards target if not duplicate	
 	elif target!=null:
 		var distance=delta * speed
 		global_position=global_position.move_toward(target.global_position,distance)
 		distance_travelled=distance_travelled+distance*direction
+	#fallback. shouldnt be called
 	else:
 		distance_travelled=distance_travelled+super(delta)
 		
 	
-	if _is_duplicate and distance_travelled.length_squared()>associate.trueRangeSquared:
-		target=null
+	if _is_duplicate and distance_travelled.length_squared()>associate.trueRangeSquared and not connected:
+		remove()
+		
 		
 	draw_points(origin.global_position,global_position,delta)
 	
 	pass;
 
+	
+func check_collision():
+	var start=origin.global_position
+	while start!=global_position:
+		start=start.move_toward(global_position,10)
+		if gamestate.collisionReference.hit_wall(gamestate.board.local_to_map(start)):
+			remove()
+	pass;
+	
 func draw_points(a,b,delta):
-
 	line.clear_points()
 	line.add_point(a)
 	line.end_cap_mode=Line2D.LINE_CAP_ROUND
@@ -148,22 +165,34 @@ func fade(delta):
 		#line.width=lerp(0,12,buildup)
 		buildup=buildup-delta*2
 		_toggle_emission(false)
+	if shot and buildup==0:
+		super.remove()	
 	line.default_color.a=buildup
 	line.width=lerp(0,12,buildup)	
 	pass;	
-var children_lasers=[]	
-var ignore_position
+
+func call_on_projectile_removed():
+	
+	pass;
 func duplicate_and_shoot(angle,origin=null)->Projectile:
 	var p=super(angle)
 	if origin==null:
-		origin=self
+		p.origin=self
+	else:
+		p.origin=origin	
 	p.ignore_position=GameState.board.local_to_map(global_position)	
 	p._is_duplicate=true	
-	p.origin=origin
 	children_lasers.append(p)
 	return p
 func remove():
-	target=null	
+	target=null
+	associate.on_projectile_removed(self)
+	for child in children_lasers:
+		child.remove()
+	if not _is_duplicate:
+		associate.target=null	
+		associate.on_target_lost()
+		
 
 func _toggle_emission(b):
 	start_emitter.emitting=b

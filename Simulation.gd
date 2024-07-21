@@ -3,7 +3,7 @@ class_name Simulation
 
 var gameState:GameState
 
-var mods=[[MultipleShotsMod]]
+var mods=[[PenetratingAmmunition]]
 
 var color_index=6
 var mod_set_index=0
@@ -22,7 +22,7 @@ func _ready():
 	for s in gameState.spawners:
 		s._is_simulation=true
 	gameState.game_speed
-	
+	gameState.start_build_phase.connect(_next_test)
 	_setup_mods()
 	_next_test()
 	pass # Replace with function body.
@@ -36,6 +36,7 @@ func _setup_mods():
 				
 	pass;
 func _next_test():
+	running=true
 	if current_turret!=null:
 		current_turret.queue_free()
 		var res=current_turret.get_info()+"\n"
@@ -77,7 +78,8 @@ func _test_turret(color:Turret.Hue, mod_names):
 	gameState.wave=0
 	gameState.HP=10000
 	pass;
-
+var running=false
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	
 	pass
