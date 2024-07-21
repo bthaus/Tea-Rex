@@ -49,5 +49,16 @@ offset_right = 670.0
 offset_bottom = 93.0
 text = "Paste"
 
+[node name="CopiedLabel" type="Label" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 603.0
+offset_top = 26.0
+offset_right = 669.0
+offset_bottom = 52.0
+theme_override_colors/font_color = Color(0, 1, 0, 1)
+theme_override_font_sizes/font_size = 18
+text = "Copied!"
+
 [connection signal="pressed" from="CopyButton" to="." method="_on_copy_button_pressed"]
 [connection signal="pressed" from="PasteButton" to="." method="_on_paste_button_pressed"]

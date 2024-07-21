@@ -87,13 +87,12 @@ offset_right = 190.0
 offset_bottom = 31.0
 text = "Set"
 
-[node name="WaveNumberErrorLabel" type="Label" parent="WaveNumber"]
+[node name="WaveNumberInfoLabel" type="Label" parent="WaveNumber"]
 visible = false
 offset_left = 3.0
 offset_top = 34.0
 offset_right = 191.0
 offset_bottom = 57.0
-theme_override_colors/font_color = Color(1, 0, 0, 1)
 text = "Some Error"
 horizontal_alignment = 1
 

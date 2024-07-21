@@ -1,6 +1,7 @@
 extends Panel
 
 @onready var monster_item_container = $MonsterScrollContainer/MonsterItemContainer
+@onready var copied_label = $CopiedLabel
 
 var _spawner_id: int
 var _number_of_waves = 0
@@ -64,6 +65,13 @@ func _on_copy_button_pressed():
 		monster_counts.append(monsters)
 	
 	copy.emit(monster_counts)
+	copied_label.visible = true
+	var tween = get_tree().create_tween()
+	tween.tween_property(copied_label, "position", copied_label.position + Vector2(0, -25), 1)
+	tween.parallel()
+	tween.tween_property(copied_label, "modulate:a", 0, 1)
+	tween.tween_callback(func(): copied_label.visible = false; copied_label.modulate.a = 1; copied_label.position.y += 25)
+	
 
 func _on_paste_button_pressed():
 	paste.emit(self)

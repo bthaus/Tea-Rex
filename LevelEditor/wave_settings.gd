@@ -2,7 +2,7 @@ extends Panel
 
 @onready var spawner_item_container = $SpawnerScrollContainer/SpawnerItemContainer
 @onready var wave_number_edit = $WaveNumber/WaveNumberEdit
-@onready var wave_number_error_label = $WaveNumber/WaveNumberErrorLabel
+@onready var wave_number_info_label = $WaveNumber/WaveNumberInfoLabel
 
 var _spawner_settings_count: int
 var _current_wave = 0
@@ -90,21 +90,19 @@ func _set_current_wave(wave: int):
 
 
 func _on_wave_number_set_button_pressed():
-	wave_number_error_label.visible = false
+	wave_number_info_label.visible = false
 	var waves_text = wave_number_edit.text.strip_edges()
 	var regex = RegEx.new()
 	regex.compile("\\d+")
 	var result = regex.search(waves_text)
 	if not result or result.get_string() != waves_text:
-		wave_number_error_label.text = "Invalid Input!"
-		wave_number_error_label.visible = true
+		_show_wave_number_info_text("Invalid Input", false)
 		wave_number_edit.text = str(_number_of_waves) #Reset to original value
 		return
 	
 	var waves = waves_text as int
 	if waves < GameplayConstants.MIN_NUMBER_OF_WAVES or waves > GameplayConstants.MAX_NUMBER_OF_WAVES:
-		wave_number_error_label.text = str("Must be in range ", GameplayConstants.MIN_NUMBER_OF_WAVES, " - ", GameplayConstants.MAX_NUMBER_OF_WAVES)
-		wave_number_error_label.visible = true
+		_show_wave_number_info_text(str("Must be in range ", GameplayConstants.MIN_NUMBER_OF_WAVES, " - ", GameplayConstants.MAX_NUMBER_OF_WAVES), false)
 		wave_number_edit.text = str(_number_of_waves) #Reset to original value
 		return
 
@@ -118,6 +116,16 @@ func _on_wave_number_set_button_pressed():
 	if _current_wave >= waves: #If we edit wave 10 for example but now only have 5 anymore, set _current_wave to 5.
 		_current_wave = waves - 1
 		_set_current_wave(_current_wave)
+	
+	_show_wave_number_info_text(str("Wave Number set to ", _number_of_waves), true)
+
+func _show_wave_number_info_text(text: String, success: bool):
+	if success:
+		wave_number_info_label.add_theme_color_override("font_color", Color.GREEN)
+	else:
+		wave_number_info_label.add_theme_color_override("font_color", Color.RED)
+	wave_number_info_label.text = text
+	wave_number_info_label.visible = true
 
 func _on_close_button_pressed():
 	hide()
