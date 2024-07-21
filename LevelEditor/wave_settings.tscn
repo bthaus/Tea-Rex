@@ -61,10 +61,42 @@ offset_left = -58.0
 offset_right = 58.0
 offset_bottom = 54.0
 grow_horizontal = 2
-text = "Wave: 0"
+text = "Wave: 1"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="WaveNumber" type="Node2D" parent="."]
+position = Vector2(10, 10)
+
+[node name="WaveNumberLabel" type="Label" parent="WaveNumber"]
+offset_top = 2.0
+offset_right = 59.0
+offset_bottom = 25.0
+text = "Waves:"
+
+[node name="WaveNumberEdit" type="LineEdit" parent="WaveNumber"]
+offset_left = 65.0
+offset_right = 132.063
+offset_bottom = 31.0
+text = "5"
+
+[node name="WaveNumberSetButton" type="Button" parent="WaveNumber"]
+offset_left = 146.0
+offset_right = 190.0
+offset_bottom = 31.0
+text = "Set"
+
+[node name="WaveNumberErrorLabel" type="Label" parent="WaveNumber"]
+visible = false
+offset_left = 3.0
+offset_top = 34.0
+offset_right = 191.0
+offset_bottom = 57.0
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+text = "Some Error"
+horizontal_alignment = 1
 
 [connection signal="pressed" from="CloseButton" to="." method="_on_close_button_pressed"]
 [connection signal="pressed" from="PreviousWaveButton" to="." method="_on_previous_wave_button_pressed"]
 [connection signal="pressed" from="NextWaveButton" to="." method="_on_next_wave_button_pressed"]
+[connection signal="pressed" from="WaveNumber/WaveNumberSetButton" to="." method="_on_wave_number_set_button_pressed"]
