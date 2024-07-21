@@ -42,6 +42,7 @@ offset_bottom = 54.0
 text = "Copy"
 
 [node name="PasteButton" type="Button" parent="."]
+layout_mode = 0
 offset_left = 600.0
 offset_top = 62.0
 offset_right = 670.0

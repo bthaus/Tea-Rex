@@ -112,12 +112,12 @@ func _on_wave_number_set_button_pressed():
 		return
 		
 	#Update waves
+	_number_of_waves = waves
+	_set_number_of_waves(_number_of_waves)
+	
 	if _current_wave >= waves: #If we edit wave 10 for example but now only have 5 anymore, set _current_wave to 5.
 		_current_wave = waves - 1
 		_set_current_wave(_current_wave)
-		
-	_number_of_waves = waves
-	_set_number_of_waves(_number_of_waves)
 
 func _on_close_button_pressed():
 	hide()
