@@ -108,11 +108,11 @@ func _on_wave_number_set_button_pressed():
 		wave_number_edit.text = str(_number_of_waves) #Reset to original value
 		return
 
-	if waves == _number_of_waves:
+	if waves == _number_of_waves: #Value is already set
 		return
 		
 	#Update waves
-	if _current_wave > waves: #If we edit wave 10 for example but now only have 5 anymore, set _current_wave to 5.
+	if _current_wave >= waves: #If we edit wave 10 for example but now only have 5 anymore, set _current_wave to 5.
 		_current_wave = waves - 1
 		_set_current_wave(_current_wave)
 		
