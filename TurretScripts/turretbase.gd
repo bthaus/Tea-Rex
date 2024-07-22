@@ -230,7 +230,7 @@ func on_hover():
 		t.showRangeOutline()
 	if placed:
 		show_box=true;
-		#show_infobox()
+		show_infobox()
 		
 		
 	#elif extension != 1:

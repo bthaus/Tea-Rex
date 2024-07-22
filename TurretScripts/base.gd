@@ -64,7 +64,7 @@ var targetposition;
 
 
 func get_average_damage():
-	var val= damage*damagefactor*cooldown*cooldownfactor*average_minions_hit
+	var val= damage*damagefactor/(cooldown*cooldownfactor)*average_minions_hit
 	return val
 	pass;
 
@@ -98,7 +98,7 @@ func getReferences(cells):
 	return collisionReference.getCellReferences(global_position, turretRange, self, cells)
 	pass;	
 func setUpTower(holder):
-	turret_mods.append(MultipleShotsMod.new())
+	#turret_mods.append(MultipleShotsMod.new())
 	self.holder = holder
 	minions = GameState.gameState.get_node("MinionHolder")
 	setLevel(stacks)
