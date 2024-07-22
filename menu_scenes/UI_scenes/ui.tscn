@@ -453,6 +453,13 @@ sprite_frames = SubResource("SpriteFrames_iq0j2")
 autoplay = "default"
 frame_progress = 0.851657
 
+[node name="expected_damage" type="Label" parent="."]
+offset_left = 9.0
+offset_top = 521.0
+offset_right = 337.0
+offset_bottom = 573.0
+text = "0 expected damage"
+
 [connection signal="pressed" from="SpeedButton" to="." method="_on_speed_button_pressed" binds= [1]]
 [connection signal="pressed" from="SpeedButton2" to="." method="_on_speed_button_pressed" binds= [-1]]
 [connection signal="pressed" from="StartBattlePhase" to="." method="_on_start_battle_phase_pressed"]

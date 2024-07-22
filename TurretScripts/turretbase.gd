@@ -48,9 +48,20 @@ func _on_destroy():
 	if is_instance_valid(base.projectile):base.projectile.queue_free()
 	if is_instance_valid(GameState.gameState.gameBoard): 
 		GameState.gameState.gameBoard.clear_range_outline()
-		if placed:collisionReference.unregister_turret(self)
+	if GameState.board!=null:	
+		collisionReference.unregister_turret(self,placed)
+		Spawner.update_damage_estimate()
+		
+	
+	
 	pass;
 # Called when the node enters the scene tree for the first time.
+func register_turret():
+	collisionReference.register_turret(self,placed)
+	pass;
+func unregister_turret():
+	collisionReference.unregister_turret(self,placed)
+	pass;	
 func do_all(tasks: Array[Callable]):
 	for t in tasks:
 		t.call()
@@ -116,9 +127,7 @@ func setUpTower():
 	base.setLevel(level)
 	add_child(base)
 	base.setUpTower(self)
-	
-	if placed:
-		collisionReference.register_turret(self)
+	collisionReference.register_turret(self,placed)
 	$LVL.text = str(level)
 	$AudioStreamPlayer2D.stream = load("res://Sounds/Soundeffects/" + util.getStringFromEnum(color) + util.getStringFromEnumExtension(extension) + "_shot.wav")
 	var tiletex=load("res://Assets/Tiles/tile_" + util.getStringFromEnumLowercase(color) + ".png")
@@ -237,7 +246,7 @@ var detectorvisible = false;
 var m = 0;
 
 func on_moved():
-	collisionReference.unregister_turret(self)
+	collisionReference.unregister_turret(self,placed)
 	pass;
 
 func on_unhover():

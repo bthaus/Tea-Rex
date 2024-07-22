@@ -170,7 +170,8 @@ func _draw_selected_block_preview(map_position: Vector2):
 				preview_turrets[idx].base.showRangeOutline()
 				previous_preview_pos = pos;
 				idx += 1
-		
+		#update estimated damage
+		Spawner.update_damage_estimate()
 		#Draw actual block shape
 		var id = GameboardConstants.LEGAL_PLACEMENT_TILE_ID if can_place_block else GameboardConstants.ILLEGAL_PLACEMENT_TILE_ID
 		block_handler.draw_block_with_tile_id(selected_block, map_position, id, GameboardConstants.PREVIEW_LAYER)

@@ -123,14 +123,21 @@ func refresh_path(redo_grids=true):
 static func refresh_all_paths(redo_grids=true):
 	if redo_grids:
 		_set_grids()
-	var total_average_damage=0	
+	
 	for s in GameState.gameState.spawners:
 		s.refresh_path(false)
-		total_average_damage+=s.get_average_path_damage()
-	print(total_average_damage)	
+	update_damage_estimate()
+		
 	pass;
+static func update_damage_estimate():
+	var total_average_damage=0	
+	for s in GameState.gameState.spawners:
+		total_average_damage+=s.get_average_path_damage()
+	GameState.gameState.current_expected_damage=total_average_damage	
+	pass;	
 func get_average_path_damage():
 	var total_damage=0
+	if paths==null: return 0
 	for path in paths:
 		var turrets=GameState.gameState.collisionReference.get_covering_turrets_from_path(path.path)
 		for turret in turrets:

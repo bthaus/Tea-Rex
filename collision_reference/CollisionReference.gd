@@ -158,15 +158,16 @@ func getNeighbours(pos, reference=null):
 		
 	return coveredCells;
 	pass ;
-func register_turret(turret):
+func register_turret(turret,placed):
 	var pos=getMapPositionNormalised(turret.global_position)
-	map[pos.y][pos.x].turret=turret
+	if placed:map[pos.y][pos.x].turret=turret
+	
 	for cell in turret.base.referenceCells:
 		map[cell.y][cell.x].covering_turrets.append(turret)
 	pass;
-func unregister_turret(turret):
+func unregister_turret(turret,placed):
 	var pos=getMapPositionNormalised(turret.global_position)
-	map[pos.y][pos.x].turret=null
+	if placed:map[pos.y][pos.x].turret=null
 	for cell in turret.base.referenceCells:
 		map[cell.y][cell.x].covering_turrets.erase(turret)
 	pass;	

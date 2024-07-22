@@ -7,13 +7,16 @@ class_name GameState;
 @export var cam: Camera2D;
 @export var lightThresholds: LightThresholds;
 enum GamePhase {BATTLE=1,BUILD=2,BOTH=3};
-
+var current_expected_damage=0:
+	set(value):
+		current_expected_damage=value
+		updateUI()
 static var gameState;
 var account: String = "dede";
 
 #Todo: remove and replace with battle_slot_logic
 var unlockedExtensions = [Turret.Extension.DEFAULT];
-var unlockedColors =[Turret.Hue.MAGENTA,Turret.Hue.WHITE] #[Turret.Hue.GREEN,Turret.Hue.BLUE,Turret.Hue.RED,Turret.Hue.YELLOW];
+var unlockedColors =[Turret.Hue.BLUE,Turret.Hue.WHITE] #[Turret.Hue.GREEN,Turret.Hue.BLUE,Turret.Hue.RED,Turret.Hue.YELLOW];
 
 var selected_battle_slots
 

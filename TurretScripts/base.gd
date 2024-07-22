@@ -64,7 +64,8 @@ var targetposition;
 
 
 func get_average_damage():
-	return damage*damagefactor*cooldown*cooldownfactor*average_minions_hit
+	var val= damage*damagefactor*cooldown*cooldownfactor*average_minions_hit
+	return val
 	pass;
 
 # Called when the node enters the scene tree for the first time.
@@ -86,7 +87,7 @@ func setupCollision(clearing):
 	if collisionReference == null:
 		collisionReference = GameState.gameState.collisionReference
 
-	if not placed: return ;
+	#if not placed: return ;
 	
 	if clearing: coveredCells.clear()
 	recentCells.clear()
@@ -111,8 +112,8 @@ func setUpTower(holder):
 		lightamount = GameState.gameState.lightThresholds.getLight(global_position.y) * stacks
 	for mod in turret_mods:
 		mod.initialise(self)
-		if not placed:
-			mod.visual.visible=false
+		#if not placed:
+			#mod.visual.visible=false
 		
 		
 	setupCollision(true)
@@ -329,7 +330,12 @@ func showRangeOutline():
 				
 	else:
 		var showCells = []
+		holder.unregister_turret()
+		print(referenceCells.size())
 		getReferences(showCells)
+		referenceCells=showCells
+		print(referenceCells.size())
+		holder.register_turret()
 		for c in showCells:
 			var pos = collisionReference.getGlobalFromReference(c)
 			GameState.gameState.gameBoard.show_outline(pos)
