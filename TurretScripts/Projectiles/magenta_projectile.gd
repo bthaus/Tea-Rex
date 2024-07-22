@@ -20,6 +20,9 @@ var buildup:float=0.1:
 		buildup=clamp(val,0,1)
 		
 func remove_target():
+	if not shot:return
+	
+	remove()
 	target=null
 	for child in children_lasers:
 		child.remove_target()
@@ -37,6 +40,7 @@ func on_creation():
 	start_emitter=$fire
 	end_emitter=$hit
 	beam_emitter=$beam
+	
 	connected=false
 	buildup=0.1
 	ignore_position=Vector2(0,0)
@@ -125,11 +129,12 @@ func move(delta):
 	start_emitter.process_material.direction=Vector3(direction.x*-1,direction.y*-1,0)
 	beam_emitter.process_material.emission_box_extents.x=(origin.global_position-global_position).length()*0.5
 	beam_emitter.global_position=lerp(global_position,origin.global_position,0.5)
-	beam_emitter.global_rotation_degrees= rad_to_deg(direction.angle() + PI / 2.0)+90
+	beam_emitter.global_rotation_degrees= rad_to_deg((origin.global_position-global_position).angle() + PI / 2.0)+90
+	
 	beam_emitter.amount_ratio=2*buildup
 	if _is_duplicate and distance_travelled.length_squared()>associate.trueRangeSquared and not connected:
 		remove()
-		
+			
 		
 	draw_points(origin.global_position,global_position,delta)
 	
@@ -165,8 +170,8 @@ func fade(delta):
 		#line.width=lerp(0,12,buildup)
 		buildup=buildup-delta*2
 		_toggle_emission(false)
-	if shot and buildup==0:
-		super.remove()	
+	if shot and buildup<0.1:
+		super.remove()
 	line.default_color.a=buildup
 	line.width=lerp(0,12,buildup)	
 	pass;	
@@ -186,13 +191,19 @@ func duplicate_and_shoot(angle,origin=null)->Projectile:
 	return p
 func remove():
 	target=null
+	if !is_instance_valid(self) or self==null:return
+	if !is_instance_valid(associate) or associate==null:return
 	associate.on_projectile_removed(self)
 	for child in children_lasers:
 		child.remove()
+	children_lasers.clear()	
 	if not _is_duplicate:
 		associate.target=null	
-		associate.on_target_lost()
-		
+		#associate.on_target_lost()
+func _remove_from_tree():
+	line.hide()
+	super()
+	pass;	
 
 func _toggle_emission(b):
 	start_emitter.emitting=b

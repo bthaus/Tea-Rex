@@ -1,7 +1,9 @@
 extends TurretCore
 class_name GreenTurretCore
 
-
+func setUpTower(holder):
+	average_minions_hit=average_minions_hit+5
+	pass;
 func showRangeOutline():
 	for x in range(GameboardConstants.BOARD_HEIGHT):
 		for y in range(GameboardConstants.BOARD_WIDTH):

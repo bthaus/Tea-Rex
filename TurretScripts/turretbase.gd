@@ -75,7 +75,6 @@ func _ready():
 		do_all(on_battle_phase_started)
 		globlight=false;
 		melight=false;
-		resetLight()
 		waitingForMinions=false;
 		waitingDelayed=true;
 		get_tree().create_timer(5).timeout.connect(func(): waitingDelayed=false)
@@ -83,13 +82,10 @@ func _ready():
 		)
 	GameState.gameState.start_build_phase.connect(func():
 		do_all(on_build_phase_started)
-		resetLight()
 		waitingForMinions=true;
 		)
 	pass # Replace with function body.
-func resetLight():
-	$Tile.modulate = Color(1 + lightamount, 1 + lightamount, 1 + lightamount)
-	pass ;
+
 func checkPosition(off):
 	#if !placed: return
 	#$Tile.visible = !off;
@@ -114,31 +110,22 @@ func get_info():
 	pass;
 
 func setUpTower():
-
-	on_battle_phase_started.append(resetLight)
-
-
 	base = coreFactory.getBase(color, extension);
 	base.turret_mods=mods
 	base.placed=placed
 	base.setLevel(level)
-	if placed:
-		collisionReference.register_turret(self)
 	add_child(base)
 	base.setUpTower(self)
+	
+	if placed:
+		collisionReference.register_turret(self)
 	$LVL.text = str(level)
 	$AudioStreamPlayer2D.stream = load("res://Sounds/Soundeffects/" + util.getStringFromEnum(color) + util.getStringFromEnumExtension(extension) + "_shot.wav")
-	if placed:
-		lightamount = GameState.gameState.lightThresholds.getLight(global_position.y)*level
 	var tiletex=load("res://Assets/Tiles/tile_" + util.getStringFromEnumLowercase(color) + ".png")
 	if tiletex!=null:
 		$Tile.modulate=Color(1,1,1)
 		$Tile.texture = tiletex
-	#if placed:
-		#lightamount = GameState.gameState.lightThresholds.getLight(global_position.y) * level
-		#$Tile.modulate = Color(1 + lightamount, 1 + lightamount, 1 + lightamount)
-	
-	if placed: resetLight()
+
 	$Drawpoint.base = base
 	point.type = color
 
@@ -151,15 +138,8 @@ func setUpTower():
 @onready var point = $Drawpoint
 
 func reduceCooldown(delta):
-
-	var ml = lightamount;
 	if not base.onCooldown:
 		return ;
-	var increase = (ml / base.cooldown) * delta
-	$Tile.modulate = Color($Tile.modulate.r + increase, $Tile.modulate.r + increase, $Tile.modulate.r + increase)
-	
-	remap(255, 0, 0, 1, 254)
-
 	pass
 
 var oldval = 1;
@@ -182,16 +162,16 @@ func de_highlight(delta):
 	pass
 	
 func checkLight(delta):
-	if GameState.gameState.phase == GameState.GamePhase.BATTLE: return
-	
-	if !placed:
-		lightamount = GameState.gameState.lightThresholds.getLight(global_position.y)
 
 	pass ;
 
 var waitingForMinions = false;
-
-
+func clear_path():
+	base.clear_path()
+	pass;
+func register_path(cell):
+	base.register_path(cell)	
+	pass;
 
 func do(delta):
 

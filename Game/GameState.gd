@@ -92,7 +92,14 @@ func add_target(t):
 	pass;
 
 func startBattlePhase():
-	
+	for turret in Turret.turrets:
+		turret.clear_path()
+	for s in spawners:
+		for path in s.paths:
+			for cell in path.path:
+				collisionReference.register_path_cell_in_turrets(cell)
+	for turret in Turret.turrets:
+		print(turret.base.path_cells.size())			
 	GameState.game_speed=GameState.restore_speed
 	toggleSpeed(0)
 	Spawner.numMonstersActive = 0;

@@ -33,7 +33,7 @@ var stacks = 1
 var lightamount = 1.5;
 var killcount = 0;
 var damagedealt = 0
-
+var average_minions_hit=1
 
 static var camera;
 
@@ -42,6 +42,11 @@ var placed
 
 var coveredCells = []
 var recentCells = []
+var mapPosition;
+var referenceCells = []
+var path_cells=[]
+
+var targetable_enemy_types:Array[Monster.MonsterMovingType]=[Monster.MonsterMovingType.GROUND]
 
 var holder;
 var id;
@@ -51,28 +56,31 @@ var waitingDelayed = false;
 static var inhandTurrets = []
 
 var projectile:Projectile;
-var mapPosition;
-var referenceCells = []
 
 var minions;
 var target;
 var buildup = 0;
 var targetposition;
 
+
+func get_average_damage():
+	return damage*damagefactor*cooldown*cooldownfactor*average_minions_hit
+	pass;
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	#turret_mods.append(MultipleShotsMod.new())
-	#turret_mods.append(ForkingAmmunitionMod.new())
-	#turret_mods.append(ExplosiveAmmunition.new())
-	#turret_mods.append(PenetratingAmmunition.new())
-	#
-	
-		
 	
 	barrels = get_children()
 	for b in barrels:
 		remove_child(b)		
 	pass # Replace with function body.
+	
+func clear_path():
+	path_cells.clear()
+	pass;
+func register_path(cell):
+	path_cells.append(cell)
+	pass;
 
 func setupCollision(clearing):
 	if collisionReference == null:
@@ -93,7 +101,7 @@ func setUpTower(holder):
 	self.holder = holder
 	minions = GameState.gameState.get_node("MinionHolder")
 	setLevel(stacks)
-	trueRangeSquared = turretRange * GameboardConstants.TILE_SIZE
+	trueRangeSquared = turretRange * GameboardConstants.TILE_SIZE+GameboardConstants.TILE_SIZE
 	trueRangeSquared = trueRangeSquared * trueRangeSquared;
 	
 	if projectile == null: projectile = Projectile.create(type, damage * damagefactor, speed * speedfactor, self, extension,penetrations);
@@ -117,7 +125,8 @@ func after_built():
 			to_remove.append(mod)
 	for mod in to_remove:
 		turret_mods.erase(mod)
-		mod.remove()		
+		mod.remove()	
+		
 	pass;
 func reduceCooldown(delta):
 
@@ -197,6 +206,29 @@ func getTarget():
 		return ;
 	#check cells where minions have been found recently
 	if searchForMinionsInRecent(): return
+#region search in path
+	for cell in path_cells:
+
+		if !cell.is_empty():
+			target = cell.back()
+			
+			if target != null:
+				if is_out_of_range(target):
+					target=null
+					continue
+				on_target_found(target)
+				if recentCells.find(cell) == - 1:
+					recentCells.push_back(cell)
+				return ;
+			else:
+				for m in cell:
+					if not is_instance_valid(m):
+						cell.erase(m)
+					else:
+						on_target_found(target)
+						target = m
+#endregion						
+#region search everywhere
 	for cell in coveredCells:
 		if !cell.is_empty():
 			target = cell.back()
@@ -216,6 +248,7 @@ func getTarget():
 					else:
 						on_target_found(target)
 						target = m
+#endregion
 	pass ;
 func return_targets(non_select=null):
 	if minions.get_child_count() == 0:
@@ -247,6 +280,9 @@ func checkTarget():
 	pass ;
 
 func is_out_of_range(t):
+	#tinypfusch to avoid code duplication
+	if !targetable_enemy_types.has(t.moving_type):
+		return true
 	var distancesquared=global_position-t.global_position
 	distancesquared=distancesquared.length_squared()
 	return distancesquared > abs(trueRangeSquared)
@@ -278,7 +314,9 @@ func get_projectile():
 	return Projectile.create(type, damage * damagefactor, speed * speedfactor, self, penetrations,extension);
 
 	pass;	
-func startCooldown(time):
+func startCooldown(time=-1):
+	if time==-1:
+		time=cooldown*cooldownfactor
 	cdt = time;
 	onCooldown = true;
 	pass ;

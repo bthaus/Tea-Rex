@@ -161,10 +161,14 @@ func getNeighbours(pos, reference=null):
 func register_turret(turret):
 	var pos=getMapPositionNormalised(turret.global_position)
 	map[pos.y][pos.x].turret=turret
+	for cell in turret.base.referenceCells:
+		map[cell.y][cell.x].covering_turrets.append(turret)
 	pass;
 func unregister_turret(turret):
 	var pos=getMapPositionNormalised(turret.global_position)
 	map[pos.y][pos.x].turret=null
+	for cell in turret.base.referenceCells:
+		map[cell.y][cell.x].covering_turrets.erase(turret)
 	pass;	
 func get_turret_from_global(pos):
 	var ref= getMapPositionNormalised(pos)
@@ -271,9 +275,22 @@ func addholders(row: Array):
 		row.append(Holder.new())
 	pass ;
 
+func register_path_cell_in_turrets(glob_pos):
+	var pos=getMapPositionNormalised(glob_pos)
+	for turret in map[pos.y][pos.x].covering_turrets:
+		turret.register_path(map[pos.y][pos.x].ms)
+	pass;
+func get_covering_turrets_from_path(path):
+	var turrets=[]
+	for cell in path:
+		var pos=getMapPositionNormalised(cell)
+		turrets.append_array(map[pos.y][pos.x].covering_turrets)
+	return turrets	
+	pass;
 class Holder:
 	var turret
 	var ms = []
+	var covering_turrets=[]
 	var collides_with_bullets=false;
 	var entity:BaseEntity
 	
