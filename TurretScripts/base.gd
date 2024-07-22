@@ -65,7 +65,7 @@ var targetposition;
 
 func get_average_damage():
 	var val= damage*damagefactor/(cooldown*cooldownfactor)*average_minions_hit
-	return val
+	return 1#val
 	pass;
 
 # Called when the node enters the scene tree for the first time.
