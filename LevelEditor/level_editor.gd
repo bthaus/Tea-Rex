@@ -34,8 +34,8 @@ func _ready():
 	$Background.tile_set.tile_size = Vector2(GameboardConstants.TILE_SIZE, GameboardConstants.TILE_SIZE)
 	_set_background()
 	
-	board_handler.spawner_added.connect(func(): wave_settings.add_spawner_setting())
-	board_handler.spawner_removed.connect(func(id: int): wave_settings.remove_spawner_setting(id))
+	board_handler.spawner_added.connect(_on_spawner_added)
+	board_handler.spawner_removed.connect(_on_spawner_removed)
 	
 	_init_selection_tiles()
 	_set_button_selected(default_build_mode_button, true)
@@ -80,14 +80,33 @@ func _init_selection_tiles():
 		var atlas: TileSetAtlasSource = tile_set.get_source(tile_item.id)
 		var item = load("res://LevelEditor/ContainerItems/tile_selection_item.tscn").instantiate()
 		item.set_tile(tile_item, atlas.texture)
-		item.clicked.connect(_tile_selected)
+		item.clicked.connect(_on_tile_selected)
 		_selection_tile_container.add_child(item)
 
-func _tile_selected(sender, tile: TileItem):
+func _on_tile_selected(sender, tile: TileItem):
 	selected_tile = tile
 	for item in _selection_tile_container.get_children(): item.set_selected(false)
 	sender.set_selected(true)
+
+func _on_spawner_added():
+	wave_settings.add_spawner_setting()
+	_update_spawner_labels()
+
+func _on_spawner_removed(id: int):
+	wave_settings.remove_spawner_setting(id)
+	_update_spawner_labels()
 	
+func _update_spawner_labels():
+	var spawner_map_positions = board_handler.get_spawner_map_positions()
+	for child in $SpawnerLabels.get_children(): child.queue_free()
+	for i in spawner_map_positions.size():
+		var label = Label.new()
+		label.text = str(i+1)
+		label.add_theme_color_override("font_color", Color.BLACK)
+		label.add_theme_font_size_override("font_size", 30)
+		label.resized.connect(func(): label.position = $Board.map_to_local(spawner_map_positions[i]) - label.get_rect().size / 2) #Wait until text is set
+		$SpawnerLabels.add_child(label)
+
 func _on_default_build_mode_button_pressed():
 	_build_mode = BuildMode.DEFAULT
 	_set_button_selected(default_build_mode_button, true)
