@@ -1,10 +1,13 @@
 extends Node2D
 
+@onready var item_container = $Panel/ScrollContainer/ItemGridContainer
+
+
 var _style_box: StyleBoxFlat = load("res://Styles/item_block_selector_tab.tres")
 var _group: ButtonGroup
 
-#Maps tab to color
-@onready var _color_map = [
+#Maps tab to values
+@onready var _tab_map = [
 	[$TargetingTab, Color.WHITE],
 	[$ProjectileTab, Color.YELLOW],
 	[$AmmunitionTab, Color.RED],
@@ -29,11 +32,23 @@ func _select_tab(tab: Button):
 			t.position.y = $TabHeight.position.y
 	
 	tab.position.y = $TabSelectedHeight.position.y
-	_update_container_color(tab)
 	tab.z_index = 1
+	_update_container_color(tab)
+	_update_container_items(tab)
+
+func _update_container_items(tab):
+	for child in item_container.get_children(): child.queue_free()
+	for i in 10:
+		var item = load("res://menu_scenes/battle_slot_picker_scenes/ItemBlockSelector/item_block_selector_item.tscn").instantiate()
+		#TODO: insert actual item block
+		item.clicked.connect(_on_item_clicked)
+		item_container.add_child(item)
+
+func _on_item_clicked(item_block: ItemBlockDTO):
+	print(item_block)
 
 func _init_tab_colors():
-	for entry in _color_map:
+	for entry in _tab_map:
 		var style = _style_box.duplicate()
 		style.bg_color = entry[1]
 		entry[0].add_theme_stylebox_override("normal", style)
@@ -43,11 +58,11 @@ func _init_tab_colors():
 	
 func _update_container_color(tab):
 	var color
-	for entry in _color_map:
+	for entry in _tab_map:
 		if tab == entry[0]:
 			color = entry[1]
 			break
 	
-	var style = $ScrollContainer.get_theme_stylebox("panel")
+	var style = $Panel.get_theme_stylebox("panel")
 	style.bg_color = color
-	$ScrollContainer.add_theme_stylebox_override("panel", style)
+	$Panel.add_theme_stylebox_override("panel", style)

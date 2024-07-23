@@ -49,20 +49,6 @@ color = 4
 layout_mode = 2
 color = 2
 
-[node name="ItemBlockScrollContainer" type="ScrollContainer" parent="."]
-layout_mode = 0
-offset_top = 350.0
-offset_right = 500.0
-offset_bottom = 580.0
-horizontal_scroll_mode = 0
-
-[node name="ItemBlockGridContainer" type="GridContainer" parent="ItemBlockScrollContainer"]
-layout_mode = 2
-size_flags_horizontal = 6
-theme_override_constants/h_separation = 10
-theme_override_constants/v_separation = 10
-columns = 6
-
 [node name="Board" type="TileMap" parent="."]
 scale = Vector2(0.25, 0.25)
 tile_set = ExtResource("3_a0p0s")
@@ -74,4 +60,4 @@ layer_2/name = "preview_layer"
 layer_2/tile_data = PackedInt32Array()
 
 [node name="ItemBlockSelectorContainer" parent="." instance=ExtResource("4_jc33w")]
-position = Vector2(8, 400)
+position = Vector2(8, 379)

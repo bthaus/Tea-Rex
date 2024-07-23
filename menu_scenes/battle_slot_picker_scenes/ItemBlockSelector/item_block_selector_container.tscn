@@ -1,10 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://bv34txjrodcmi"]
+[gd_scene load_steps=6 format=3 uid="uid://bv34txjrodcmi"]
 
 [ext_resource type="ButtonGroup" uid="uid://delxd7qexmf51" path="res://menu_scenes/battle_slot_picker_scenes/ItemBlockSelector/item_block_selector_button_group.tres" id="1_hn2og"]
 [ext_resource type="Script" path="res://menu_scenes/battle_slot_picker_scenes/ItemBlockSelector/item_block_selector_container.gd" id="1_ufr0p"]
 [ext_resource type="StyleBox" uid="uid://defr3nu6cg2bq" path="res://Styles/item_block_selector_tab.tres" id="2_yjbdt"]
+[ext_resource type="PackedScene" uid="uid://do8crlwyywy23" path="res://menu_scenes/battle_slot_picker_scenes/ItemBlockSelector/item_block_selector_item.tscn" id="4_kufx3"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cuwre"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1aiwo"]
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
@@ -123,18 +124,50 @@ text = "Kill Effect
 
 "
 
-[node name="ScrollContainer" type="ScrollContainer" parent="."]
-offset_top = 27.0
+[node name="Panel" type="Panel" parent="."]
+offset_top = 28.0
 offset_right = 533.0
-offset_bottom = 232.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_cuwre")
+offset_bottom = 252.0
+size_flags_horizontal = 6
+theme_override_styles/panel = SubResource("StyleBoxFlat_1aiwo")
 
-[node name="GridContainer" type="GridContainer" parent="ScrollContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -230.5
+offset_top = -94.0
+offset_right = 230.5
+offset_bottom = 110.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ItemGridContainer" type="GridContainer" parent="Panel/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 6
-columns = 6
+theme_override_constants/h_separation = 25
+theme_override_constants/v_separation = 25
+columns = 4
+
+[node name="ItemBlockSelectorItem" parent="Panel/ScrollContainer/ItemGridContainer" instance=ExtResource("4_kufx3")]
+layout_mode = 2
+
+[node name="ItemBlockSelectorItem2" parent="Panel/ScrollContainer/ItemGridContainer" instance=ExtResource("4_kufx3")]
+layout_mode = 2
+
+[node name="ItemBlockSelectorItem3" parent="Panel/ScrollContainer/ItemGridContainer" instance=ExtResource("4_kufx3")]
+layout_mode = 2
+
+[node name="ItemBlockSelectorItem4" parent="Panel/ScrollContainer/ItemGridContainer" instance=ExtResource("4_kufx3")]
+layout_mode = 2
+
+[node name="ItemBlockSelectorItem5" parent="Panel/ScrollContainer/ItemGridContainer" instance=ExtResource("4_kufx3")]
+layout_mode = 2
 
 [node name="TabSelectedHeight" type="Node2D" parent="."]
-position = Vector2(0, -15)
+position = Vector2(0, -13)
 
 [node name="TabHeight" type="Node2D" parent="."]
