@@ -43,3 +43,6 @@ func _input(event):
 
 func _get_mouse_position_on_board() -> Vector2:
 	return $Board.local_to_map(get_global_mouse_position() / $Board.scale)
+	
+func _init_item_block_selection_container():
+	pass

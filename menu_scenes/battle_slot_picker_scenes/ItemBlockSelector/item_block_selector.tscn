@@ -1,19 +1,25 @@
-[gd_scene load_steps=4 format=3 uid="uid://dhta83lpekmrd"]
+[gd_scene load_steps=5 format=3 uid="uid://dhta83lpekmrd"]
 
 [ext_resource type="Script" path="res://menu_scenes/battle_slot_picker_scenes/ItemBlockSelector/item_block_selector.gd" id="1_ekup2"]
 [ext_resource type="PackedScene" uid="uid://cagcvoxx1smh4" path="res://menu_scenes/battle_slot_picker_scenes/TurretContainer/turret_mod_container_item.tscn" id="3_84gyh"]
 [ext_resource type="TileSet" uid="uid://cgyibnoibofru" path="res://TileSets/item_block_tileset.tres" id="3_a0p0s"]
+[ext_resource type="PackedScene" uid="uid://bv34txjrodcmi" path="res://menu_scenes/battle_slot_picker_scenes/ItemBlockSelector/item_block_selector_container.tscn" id="4_jc33w"]
 
 [node name="ItemBlockSelector" type="Panel"]
-offset_right = 500.0
-offset_bottom = 600.0
+offset_right = 556.0
+offset_bottom = 648.0
 mouse_filter = 2
 script = ExtResource("1_ekup2")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
-layout_mode = 0
-offset_right = 500.0
-offset_bottom = 309.0
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -250.0
+offset_right = 250.0
+offset_bottom = 310.0
+grow_horizontal = 2
 horizontal_scroll_mode = 0
 vertical_scroll_mode = 0
 
@@ -66,3 +72,6 @@ layer_1/name = "block_layer"
 layer_1/tile_data = PackedInt32Array()
 layer_2/name = "preview_layer"
 layer_2/tile_data = PackedInt32Array()
+
+[node name="ItemBlockSelectorContainer" parent="." instance=ExtResource("4_jc33w")]
+position = Vector2(8, 400)

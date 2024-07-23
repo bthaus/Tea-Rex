@@ -1,0 +1,83 @@
+[gd_scene load_steps=4 format=3 uid="uid://bv34txjrodcmi"]
+
+[ext_resource type="ButtonGroup" uid="uid://delxd7qexmf51" path="res://menu_scenes/battle_slot_picker_scenes/ItemBlockSelector/item_block_selector_button_group.tres" id="1_hn2og"]
+[ext_resource type="Script" path="res://menu_scenes/battle_slot_picker_scenes/ItemBlockSelector/item_block_selector_container.gd" id="1_ufr0p"]
+[ext_resource type="StyleBox" uid="uid://defr3nu6cg2bq" path="res://Styles/item_block_selector_tab.tres" id="2_yjbdt"]
+
+[node name="ItemBlockSelectorContainer" type="Node2D"]
+script = ExtResource("1_ufr0p")
+
+[node name="ProjectileTab" type="Button" parent="."]
+offset_left = 90.0
+offset_right = 178.0
+offset_bottom = 30.0
+theme_override_font_sizes/font_size = 15
+theme_override_styles/normal = ExtResource("2_yjbdt")
+toggle_mode = true
+button_group = ExtResource("1_hn2og")
+text = "Projectile"
+
+[node name="AmmunitionTab" type="Button" parent="."]
+offset_left = 180.0
+offset_right = 268.0
+offset_bottom = 30.0
+theme_override_font_sizes/font_size = 15
+theme_override_styles/normal = ExtResource("2_yjbdt")
+toggle_mode = true
+button_group = ExtResource("1_hn2og")
+text = "Ammo
+"
+
+[node name="HullTab" type="Button" parent="."]
+offset_left = 270.0
+offset_right = 358.0
+offset_bottom = 30.0
+theme_override_font_sizes/font_size = 15
+theme_override_styles/normal = ExtResource("2_yjbdt")
+toggle_mode = true
+button_group = ExtResource("1_hn2og")
+text = "Hull
+"
+
+[node name="TargetingTab" type="Button" parent="."]
+offset_right = 88.0
+offset_bottom = 30.0
+theme_override_font_sizes/font_size = 15
+theme_override_styles/normal = ExtResource("2_yjbdt")
+toggle_mode = true
+button_group = ExtResource("1_hn2og")
+text = "Targeting
+"
+
+[node name="ProductionTab" type="Button" parent="."]
+offset_left = 360.0
+offset_right = 448.0
+offset_bottom = 30.0
+theme_override_font_sizes/font_size = 15
+theme_override_styles/normal = ExtResource("2_yjbdt")
+toggle_mode = true
+button_group = ExtResource("1_hn2og")
+text = "Production
+"
+
+[node name="KillEffectTab" type="Button" parent="."]
+offset_left = 450.0
+offset_right = 538.0
+offset_bottom = 30.0
+theme_override_font_sizes/font_size = 15
+theme_override_styles/normal = ExtResource("2_yjbdt")
+toggle_mode = true
+button_group = ExtResource("1_hn2og")
+text = "Kill Effect
+"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+offset_left = -1.0
+offset_top = 32.0
+offset_right = 537.0
+offset_bottom = 238.0
+
+[node name="GridContainer" type="GridContainer" parent="ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+columns = 6

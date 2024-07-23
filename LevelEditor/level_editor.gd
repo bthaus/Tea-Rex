@@ -15,8 +15,8 @@ var _build_mode: BuildMode = BuildMode.DEFAULT
 
 var previous_board_position = Vector2i(-1, -1)
 
-const default_stylebox = preload("res://LevelEditor/Styles/default_button.tres")
-const selected_stylebox = preload("res://LevelEditor/Styles/selected_button.tres")
+const default_stylebox = preload("res://Styles/default_button.tres")
+const selected_stylebox = preload("res://Styles/selected_button.tres")
 
 var _selection_tile_items = [
 	TileItem.new(GameboardConstants.WALL_TILE_ID, "Wall", GameboardConstants.BLOCK_LAYER),
