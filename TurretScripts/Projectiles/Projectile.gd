@@ -13,7 +13,7 @@ var oneshotoriginal;
 var pool;
 var speed;
 var target: Monster
-var associate;
+var associate:TurretCore;
 var playerDied = false;
 var emitter
 

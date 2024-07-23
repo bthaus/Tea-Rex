@@ -1,5 +1,5 @@
 extends TurretCore
-class_name RedTurretCore
+class_name RedTurretCoreLegacy
 
 
 # Called when the node enters the scene tree for the first time.

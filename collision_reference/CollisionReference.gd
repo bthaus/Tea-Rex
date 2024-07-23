@@ -147,14 +147,20 @@ func getNeighbours(pos, reference=null):
 	
 			
 	if reference != null:
-		reference.append(Vector2(p.x + 1, p.y + 1))
-		reference.append(Vector2(p.x - 1, p.y + 1))
-		reference.append(Vector2(p.x + 1, p.y - 1))
-		reference.append(Vector2(p.x - 1, p.y - 1))
-		reference.append(Vector2(p.x + 1, p.y))
-		reference.append(Vector2(p.x - 1, p.y))
 		reference.append(Vector2(p.x, p.y + 1))
+		reference.append(Vector2(p.x + 1, p.y + 1))
+		reference.append(Vector2(p.x + 1, p.y))
+		reference.append(Vector2(p.x + 1, p.y - 1))
 		reference.append(Vector2(p.x, p.y - 1))
+		reference.append(Vector2(p.x - 1, p.y - 1))
+		reference.append(Vector2(p.x - 1, p.y))
+		reference.append(Vector2(p.x - 1, p.y + 1))
+		
+		
+		
+		
+		
+		
 		
 	return coveredCells;
 	pass ;
