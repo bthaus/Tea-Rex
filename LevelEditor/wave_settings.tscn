@@ -53,6 +53,33 @@ offset_bottom = 41.0
 grow_horizontal = 2
 text = ">"
 
+[node name="CopyButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 507.0
+offset_top = 325.0
+offset_right = 554.0
+offset_bottom = 356.0
+text = "Copy"
+
+[node name="PasteButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 565.0
+offset_top = 325.0
+offset_right = 616.0
+offset_bottom = 356.0
+text = "Paste
+"
+
+[node name="CopiedLabel" type="Label" parent="."]
+visible = false
+offset_left = 501.0
+offset_top = 328.0
+offset_right = 567.0
+offset_bottom = 354.0
+theme_override_colors/font_color = Color(0, 1, 0, 1)
+theme_override_font_sizes/font_size = 18
+text = "Copied!"
+
 [node name="WaveLabel" type="Label" parent="."]
 layout_mode = 1
 anchors_preset = 5
@@ -99,4 +126,6 @@ horizontal_alignment = 1
 [connection signal="pressed" from="CloseButton" to="." method="_on_close_button_pressed"]
 [connection signal="pressed" from="PreviousWaveButton" to="." method="_on_previous_wave_button_pressed"]
 [connection signal="pressed" from="NextWaveButton" to="." method="_on_next_wave_button_pressed"]
+[connection signal="pressed" from="CopyButton" to="." method="_on_copy_button_pressed"]
+[connection signal="pressed" from="PasteButton" to="." method="_on_paste_button_pressed"]
 [connection signal="pressed" from="WaveNumber/WaveNumberSetButton" to="." method="_on_wave_number_set_button_pressed"]

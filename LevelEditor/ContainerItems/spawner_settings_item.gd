@@ -51,7 +51,15 @@ func get_spawner():
 			
 	return waves
 
-func set_monsters_for_wave(wave: int, monsters: Array):
+func get_monsters_count_for_wave(wave: int):
+	var monster_counts = []
+	for item in monster_item_container.get_children():
+		var monsters = item.get_monsters()[wave]
+		monster_counts.append(monsters)
+
+	return monster_counts
+
+func set_monsters_count_for_wave(wave: int, monsters: Array):
 	var idx = 0
 	for item in monster_item_container.get_children():
 		item.set_monster_count_for_wave(wave, monsters[idx])
@@ -59,11 +67,7 @@ func set_monsters_for_wave(wave: int, monsters: Array):
 		idx += 1
 
 func _on_copy_button_pressed():
-	var monster_counts = []
-	for item in monster_item_container.get_children():
-		var monsters = item.get_monsters()[_current_wave]
-		monster_counts.append(monsters)
-	
+	var monster_counts = get_monsters_count_for_wave(_current_wave)
 	copy.emit(monster_counts)
 	copied_label.visible = true
 	var tween = get_tree().create_tween()

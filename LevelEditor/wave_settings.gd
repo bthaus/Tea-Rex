@@ -9,6 +9,7 @@ var _current_wave = 0
 var _number_of_waves: int
 
 var _copied_monsters = null
+var _copied_wave = null
 
 func _ready():
 	_number_of_waves = wave_number_edit.text as int
@@ -52,8 +53,36 @@ func _on_spawner_copy(monster_counts: Array):
 func _on_spawner_paste(sender):
 	if _copied_monsters == null:
 		return
-	sender.set_monsters_for_wave(_current_wave, _copied_monsters)
+	sender.set_monsters_count_for_wave(_current_wave, _copied_monsters)
+
+
+#Copies the spawners into this structure:
+# ----> Monster count
+# |
+# |
+# v Spawners
+func _on_copy_button_pressed():
+	_copied_wave = []
+	for item in spawner_item_container.get_children():
+		var monsters_count = item.get_monsters_count_for_wave(_current_wave)
+		_copied_wave.append(monsters_count)
 	
+	$CopiedLabel.visible = true
+	var tween = get_tree().create_tween()
+	tween.tween_property($CopiedLabel, "position", $CopiedLabel.position + Vector2(0, -25), 1)
+	tween.parallel()
+	tween.tween_property($CopiedLabel, "modulate:a", 0, 1)
+	tween.tween_callback(func(): $CopiedLabel.visible = false; $CopiedLabel.modulate.a = 1; $CopiedLabel.position.y += 25)
+
+func _on_paste_button_pressed():
+	if _copied_wave == null: 
+		return
+	
+	var spawner = spawner_item_container.get_children()
+	for i in _copied_wave.size():
+		spawner[i].set_monsters_count_for_wave(_current_wave, _copied_wave[i])
+		
+
 #Returns this format
 #   ---> MonsterWaveDTO of all spawners
 # |
