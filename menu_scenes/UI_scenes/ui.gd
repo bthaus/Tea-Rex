@@ -31,6 +31,7 @@ func updateUI():
 	$CatBar.value=gamestate.wave%5
 	$StartBattlePhase.disabled=gamestate.phase==GameState.GamePhase.BATTLE
 	$Hpbar/maxhp.text=str(int(gamestate.HP))
+	$expected_damage.text="path coverage rating: "+str(int(gamestate.current_expected_damage))
 	
 	pass;
 func show_tutorial(tut:Tutorial):

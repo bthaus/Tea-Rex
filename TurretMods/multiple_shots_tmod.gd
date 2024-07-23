@@ -4,11 +4,13 @@ class_name MultipleShotsMod
 func _init():
 	description="Shoot multiple, weaker Projectiles"
 	super(TurretBaseMod.ModType.PROJECTILE)
+	
 	pass;
 
 func initialise(turret:TurretCore):
 	turret.damage=turret.damage/2
 	super(turret)
+	associate.average_minions_hit=associate.average_minions_hit+4
 	pass;
 
 func on_shoot(projectile:Projectile):

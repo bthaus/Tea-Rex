@@ -11,14 +11,14 @@ func _notification(what):
 	if (what == NOTIFICATION_PREDELETE):
 		if is_instance_valid(projectile):projectile.delete()	
 func on_target_lost():
-	projectile.remove_target()
+	projectile.remove()
 	super()
 	pass;
 
 
 func attack(delta):
-	if target==null:
-		projectile.remove_target()
+	#if target==null:
+		#projectile.remove_target()
 	if target!=null:
 		if not onCooldown:
 			projectile.hitEnemy(target,true)
