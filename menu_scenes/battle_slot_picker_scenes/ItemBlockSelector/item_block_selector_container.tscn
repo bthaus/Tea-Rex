@@ -7,77 +7,125 @@
 [node name="ItemBlockSelectorContainer" type="Node2D"]
 script = ExtResource("1_ufr0p")
 
-[node name="ProjectileTab" type="Button" parent="."]
-offset_left = 90.0
-offset_right = 178.0
-offset_bottom = 30.0
-theme_override_font_sizes/font_size = 15
-theme_override_styles/normal = ExtResource("2_yjbdt")
-toggle_mode = true
-button_group = ExtResource("1_hn2og")
-text = "Projectile"
-
-[node name="AmmunitionTab" type="Button" parent="."]
-offset_left = 180.0
-offset_right = 268.0
-offset_bottom = 30.0
-theme_override_font_sizes/font_size = 15
-theme_override_styles/normal = ExtResource("2_yjbdt")
-toggle_mode = true
-button_group = ExtResource("1_hn2og")
-text = "Ammo
-"
-
-[node name="HullTab" type="Button" parent="."]
-offset_left = 270.0
-offset_right = 358.0
-offset_bottom = 30.0
-theme_override_font_sizes/font_size = 15
-theme_override_styles/normal = ExtResource("2_yjbdt")
-toggle_mode = true
-button_group = ExtResource("1_hn2og")
-text = "Hull
-"
-
 [node name="TargetingTab" type="Button" parent="."]
 offset_right = 88.0
-offset_bottom = 30.0
+offset_bottom = 46.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 15
 theme_override_styles/normal = ExtResource("2_yjbdt")
 toggle_mode = true
 button_group = ExtResource("1_hn2og")
 text = "Targeting
+
+"
+
+[node name="ProjectileTab" type="Button" parent="."]
+offset_left = 89.0
+offset_right = 177.0
+offset_bottom = 46.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 15
+theme_override_styles/normal = ExtResource("2_yjbdt")
+toggle_mode = true
+button_group = ExtResource("1_hn2og")
+text = "Projectile
+
+"
+
+[node name="AmmunitionTab" type="Button" parent="."]
+offset_left = 178.0
+offset_right = 266.0
+offset_bottom = 46.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 15
+theme_override_styles/normal = ExtResource("2_yjbdt")
+toggle_mode = true
+button_group = ExtResource("1_hn2og")
+text = "Ammo
+
+"
+
+[node name="HullTab" type="Button" parent="."]
+offset_left = 267.0
+offset_right = 355.0
+offset_bottom = 46.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 15
+theme_override_styles/normal = ExtResource("2_yjbdt")
+toggle_mode = true
+button_group = ExtResource("1_hn2og")
+text = "Hull
+
 "
 
 [node name="ProductionTab" type="Button" parent="."]
-offset_left = 360.0
-offset_right = 448.0
-offset_bottom = 30.0
+offset_left = 356.0
+offset_right = 444.0
+offset_bottom = 46.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 15
 theme_override_styles/normal = ExtResource("2_yjbdt")
 toggle_mode = true
 button_group = ExtResource("1_hn2og")
 text = "Production
+
 "
 
 [node name="KillEffectTab" type="Button" parent="."]
-offset_left = 450.0
-offset_right = 538.0
-offset_bottom = 30.0
+offset_left = 445.0
+offset_right = 533.0
+offset_bottom = 46.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 15
 theme_override_styles/normal = ExtResource("2_yjbdt")
 toggle_mode = true
 button_group = ExtResource("1_hn2og")
 text = "Kill Effect
+
 "
 
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
-offset_left = -1.0
-offset_top = 32.0
-offset_right = 537.0
-offset_bottom = 238.0
+offset_top = 27.0
+offset_right = 533.0
+offset_bottom = 233.0
+theme_override_styles/panel = ExtResource("2_yjbdt")
 
 [node name="GridContainer" type="GridContainer" parent="ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 6
 columns = 6
+
+[node name="TabSelectedHeight" type="Node2D" parent="."]
+position = Vector2(0, -10)
+
+[node name="TabHeight" type="Node2D" parent="."]
