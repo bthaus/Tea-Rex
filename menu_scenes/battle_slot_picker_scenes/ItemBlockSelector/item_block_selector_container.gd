@@ -3,14 +3,14 @@ extends Node2D
 var _style_box: StyleBoxFlat = load("res://Styles/item_block_selector_tab.tres")
 var _group: ButtonGroup
 
-#Maps tab to color. Syntax: Tab, Tab color, container color
+#Maps tab to color
 @onready var _color_map = [
-	[$TargetingTab, Color.WHITE, Color.WHITE],
-	[$ProjectileTab, Color.YELLOW, Color.YELLOW],
-	[$AmmunitionTab, Color.RED, Color.RED],
-	[$HullTab, Color.ROYAL_BLUE, Color.ROYAL_BLUE],
-	[$ProductionTab, Color.GREEN, Color.GREEN],
-	[$KillEffectTab, Color.MAGENTA, Color.MAGENTA]
+	[$TargetingTab, Color.WHITE],
+	[$ProjectileTab, Color.YELLOW],
+	[$AmmunitionTab, Color.RED],
+	[$HullTab, Color.ROYAL_BLUE],
+	[$ProductionTab, Color.GREEN],
+	[$KillEffectTab, Color.MAGENTA]
 	]
 
 func _ready():
@@ -45,7 +45,7 @@ func _update_container_color(tab):
 	var color
 	for entry in _color_map:
 		if tab == entry[0]:
-			color = entry[2]
+			color = entry[1]
 			break
 	
 	var style = $ScrollContainer.get_theme_stylebox("panel")
