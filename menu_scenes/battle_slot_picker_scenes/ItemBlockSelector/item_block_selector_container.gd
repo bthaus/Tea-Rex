@@ -1,34 +1,51 @@
 extends Node2D
 
-var style_box: StyleBoxFlat = load("res://Styles/item_block_selector_tab.tres")
-var group: ButtonGroup
+var _style_box: StyleBoxFlat = load("res://Styles/item_block_selector_tab.tres")
+var _group: ButtonGroup
+
+#Maps tab to color. Syntax: Tab, Tab color, container color
+@onready var _color_map = [
+	[$TargetingTab, Color.WHITE, Color.WHITE],
+	[$ProjectileTab, Color.YELLOW, Color.YELLOW],
+	[$AmmunitionTab, Color.RED, Color.RED],
+	[$HullTab, Color.ROYAL_BLUE, Color.ROYAL_BLUE],
+	[$ProductionTab, Color.GREEN, Color.GREEN],
+	[$KillEffectTab, Color.MAGENTA, Color.MAGENTA]
+	]
 
 func _ready():
-	group = $TargetingTab.button_group
-	_change_tab_color($TargetingTab, Color.WHITE)
-	_change_tab_color($ProjectileTab, Color.YELLOW)
-	_change_tab_color($AmmunitionTab, Color.RED)
-	_change_tab_color($HullTab, Color.ROYAL_BLUE)
-	_change_tab_color($ProductionTab, Color.GREEN)
-	_change_tab_color($KillEffectTab, Color.MAGENTA)
+	_group = $TargetingTab.button_group
+	for i in _group.get_buttons():
+		i.pressed.connect(func(): _select_tab(_group.get_pressed_button()))
 	
-	for i in group.get_buttons():
-		i.pressed.connect(_tab_pressed)
-		
+	_init_tab_colors()
+	_select_tab($TargetingTab)
 
-func _tab_pressed():
-	var tab = group.get_pressed_button()
-	for t in group.get_buttons():
+func _select_tab(tab):
+	for t in _group.get_buttons():
 		if t == tab: continue
 		if t.position.y < $TabHeight.position.y:
 			t.position.y = $TabHeight.position.y
 	
 	tab.position.y = $TabSelectedHeight.position.y
+	_update_container_color(tab)
 
-func _change_tab_color(node, color: Color):
-	var style = style_box.duplicate()
+func _init_tab_colors():
+	for entry in _color_map:
+		var style = _style_box.duplicate()
+		style.bg_color = entry[1]
+		entry[0].add_theme_stylebox_override("normal", style)
+		entry[0].add_theme_stylebox_override("hover", style)
+		entry[0].add_theme_stylebox_override("pressed", style)
+		entry[0].add_theme_stylebox_override("focus", style)
+	
+func _update_container_color(tab):
+	var color
+	for entry in _color_map:
+		if tab == entry[0]:
+			color = entry[2]
+			break
+	
+	var style = _style_box.duplicate()
 	style.bg_color = color
-	node.add_theme_stylebox_override("normal", style)
-	node.add_theme_stylebox_override("hover", style)
-	node.add_theme_stylebox_override("pressed", style)
-	node.add_theme_stylebox_override("focus", style)
+	$ScrollContainer.add_theme_stylebox_override("panel", style)
