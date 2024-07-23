@@ -28,8 +28,22 @@ func get_monsters():
 func set_monster_count_for_wave(wave: int, count: int):
 	_monster_amount[wave] = count
 
+func _on_count_edit_focus_exited():
+	var str = $CountEdit.text.strip_edges()
+	if not util.is_str_valid_positive_int(str):
+		$CountEdit.text = str(_monster_amount[_wave])
+		return
+	
+	var new_count = str as int
+	if new_count > GameplayConstants.MAX_NUMBER_OF_MONSTERS_PER_TYPE:
+		$CountEdit.text = str(_monster_amount[_wave])
+		return
+	
+	_set_monster_count_text(new_count)
+	_monster_amount[_wave] = new_count
+
 func _on_increase_button_pressed():
-	if _monster_amount[_wave] < 50:
+	if _monster_amount[_wave] < GameplayConstants.MAX_NUMBER_OF_MONSTERS_PER_TYPE:
 		_monster_amount[_wave] += 1
 		_set_monster_count_text(_monster_amount[_wave])
 	
@@ -39,4 +53,5 @@ func _on_decrease_button_pressed():
 		_set_monster_count_text(_monster_amount[_wave])
 
 func _set_monster_count_text(count: int):
-	$CountLabel.text = str(count)
+	$CountEdit.text = str(count)
+

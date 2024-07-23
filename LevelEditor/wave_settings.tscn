@@ -72,6 +72,7 @@ text = "Paste
 
 [node name="CopiedLabel" type="Label" parent="."]
 visible = false
+layout_mode = 0
 offset_left = 501.0
 offset_top = 328.0
 offset_right = 567.0

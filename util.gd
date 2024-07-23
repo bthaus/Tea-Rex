@@ -19,12 +19,13 @@ static func p(msg:String,fromperson:String="Someone",type:String="Debug"):
 	print("Type: "+type +" From: "+ fromperson+ " MSG: "+msg);
 	pass;
 
-class Distance:
-	var from: int
-	var to: int
-	func _init(from: int, to: int):
-		self.from = from
-		self.to = to
+static func is_str_valid_positive_int(str: String) -> bool:
+	var regex = RegEx.new()
+	regex.compile("\\d+")
+	var result = regex.search(str)
+	if result == null or result.get_string() != str:
+		return false
+	return true
 
 class TurretHolder:
 	var _turrets = []

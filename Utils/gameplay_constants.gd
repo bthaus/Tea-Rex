@@ -7,6 +7,7 @@ const CARD_PLACEMENT_DELAY = 0.2
 
 const MIN_NUMBER_OF_WAVES = 1
 const MAX_NUMBER_OF_WAVES = 100
+const MAX_NUMBER_OF_MONSTERS_PER_TYPE = 50
 
 const green_explosion_range=0.5;
 const red_laser_damage_stack=3;

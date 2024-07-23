@@ -121,10 +121,7 @@ func _set_current_wave(wave: int):
 func _on_wave_number_set_button_pressed():
 	wave_number_info_label.visible = false
 	var waves_text = wave_number_edit.text.strip_edges()
-	var regex = RegEx.new()
-	regex.compile("\\d+")
-	var result = regex.search(waves_text)
-	if not result or result.get_string() != waves_text:
+	if not util.is_str_valid_positive_int(waves_text):
 		_show_wave_number_info_text("Invalid Input", false)
 		wave_number_edit.text = str(_number_of_waves) #Reset to original value
 		return
