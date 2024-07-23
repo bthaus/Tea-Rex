@@ -1,8 +1,17 @@
-[gd_scene load_steps=4 format=3 uid="uid://bv34txjrodcmi"]
+[gd_scene load_steps=5 format=3 uid="uid://bv34txjrodcmi"]
 
 [ext_resource type="ButtonGroup" uid="uid://delxd7qexmf51" path="res://menu_scenes/battle_slot_picker_scenes/ItemBlockSelector/item_block_selector_button_group.tres" id="1_hn2og"]
 [ext_resource type="Script" path="res://menu_scenes/battle_slot_picker_scenes/ItemBlockSelector/item_block_selector_container.gd" id="1_ufr0p"]
 [ext_resource type="StyleBox" uid="uid://defr3nu6cg2bq" path="res://Styles/item_block_selector_tab.tres" id="2_yjbdt"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cuwre"]
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
 
 [node name="ItemBlockSelectorContainer" type="Node2D"]
 script = ExtResource("1_ufr0p")
@@ -117,8 +126,8 @@ text = "Kill Effect
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
 offset_top = 27.0
 offset_right = 533.0
-offset_bottom = 233.0
-theme_override_styles/panel = ExtResource("2_yjbdt")
+offset_bottom = 232.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_cuwre")
 
 [node name="GridContainer" type="GridContainer" parent="ScrollContainer"]
 layout_mode = 2
@@ -126,6 +135,6 @@ size_flags_horizontal = 6
 columns = 6
 
 [node name="TabSelectedHeight" type="Node2D" parent="."]
-position = Vector2(0, -10)
+position = Vector2(0, -15)
 
 [node name="TabHeight" type="Node2D" parent="."]

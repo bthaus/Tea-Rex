@@ -21,14 +21,16 @@ func _ready():
 	_init_tab_colors()
 	_select_tab($TargetingTab)
 
-func _select_tab(tab):
+func _select_tab(tab: Button):
 	for t in _group.get_buttons():
 		if t == tab: continue
+		t.z_index = 0
 		if t.position.y < $TabHeight.position.y:
 			t.position.y = $TabHeight.position.y
 	
 	tab.position.y = $TabSelectedHeight.position.y
 	_update_container_color(tab)
+	tab.z_index = 1
 
 func _init_tab_colors():
 	for entry in _color_map:
@@ -46,6 +48,6 @@ func _update_container_color(tab):
 			color = entry[2]
 			break
 	
-	var style = _style_box.duplicate()
+	var style = $ScrollContainer.get_theme_stylebox("panel")
 	style.bg_color = color
 	$ScrollContainer.add_theme_stylebox_override("panel", style)
