@@ -261,6 +261,14 @@ func register_entity(entity:BaseEntity):
 	var pos=normaliseVector(entity.map_position)
 	map[pos.y][pos.x].entity=entity
 	pass;	
+func remove_entity(entity:BaseEntity):
+	var pos=normaliseVector(entity.map_position)
+	
+	pass	
+func get_entity(pos):
+	var p=getMapPositionNormalised(pos)
+	return map[p.y][p.x].entity
+	pass;	
 func isOccupiedCell(x, y):
 	for turret in Turret.turrets:
 		if not is_instance_valid(turret): continue

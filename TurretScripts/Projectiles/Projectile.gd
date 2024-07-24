@@ -16,7 +16,7 @@ var target: Monster
 var associate:TurretCore;
 var playerDied = false;
 var emitter
-
+signal removed
 var ignore_next_enemy=false;
 static var gamestate: GameState;
 static var camera;
@@ -54,9 +54,11 @@ func remove():
 	_remove_from_tree()
 	_toggle_emission(false)
 	pool.push_back(self)
+
 	pass ;
 func call_on_projectile_removed():
 	if associate!=null: associate.on_projectile_removed(self)
+	removed.emit()
 	pass;	
 func _remove_from_tree():
 	global_position=Vector2(-1000,-1000)
@@ -79,7 +81,7 @@ func duplicate_and_shoot(angle,origin=null)->Projectile:
 		origin=self
 	var p1=_get_duplicate()
 	p1.on_creation()
-	
+	p1.ignore_next_enemy=true
 	p1.global_position=origin.global_position
 	for mod in associate.turret_mods:
 		mod.visual.prepare_projectile(p1)

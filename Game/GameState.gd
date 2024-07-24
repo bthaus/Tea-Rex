@@ -16,7 +16,7 @@ var account: String = "dede";
 
 #Todo: remove and replace with battle_slot_logic
 var unlockedExtensions = [Turret.Extension.DEFAULT];
-var unlockedColors =[Turret.Hue.RED,Turret.Hue.WHITE] #[Turret.Hue.GREEN,Turret.Hue.BLUE,Turret.Hue.RED,Turret.Hue.YELLOW];
+var unlockedColors =[Turret.Hue.BLUE,Turret.Hue.MAGENTA] #[Turret.Hue.GREEN,Turret.Hue.BLUE,Turret.Hue.RED,Turret.Hue.YELLOW];
 
 var selected_battle_slots
 
@@ -54,6 +54,7 @@ var map_dto;
 
 
 func _ready():
+	#add_child(load("res://effects/fire_test.tscn").instantiate())
 	gameState = self;
 	ui=$CanvasLayer/UI
 	hand=ui.hand
@@ -197,6 +198,7 @@ func startGame():
 	for s in spawners:
 		s.refresh_path()
 	queue_redraw()	
+	#board.global_rotation_degrees=45
 	pass # Replace with function body.
 
 

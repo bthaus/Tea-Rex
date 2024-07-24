@@ -28,7 +28,7 @@ func get_bullet(color:Turret.Hue,damage, speed, turret, penetrations,extension:T
 			temp=$magenta_projectile.duplicate()	
 		else:
 			temp= $base_projectile.duplicate()
-				
+	temp.ignore_next_enemy=false			
 	temp.type = color;
 	temp.ext = extension;
 	#temp.global_position = turret.global_position

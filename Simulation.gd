@@ -5,7 +5,7 @@ var gameState:GameState
 
 var mods=[[PenetratingAmmunition]]
 
-var color_index=3
+var color_index=6
 var mod_set_index=0
 @export var sim_speed=25
 var results=""
@@ -68,7 +68,7 @@ func _test_turret(color:Turret.Hue, mod_names):
 	for mod in mod_names:
 		mods.append(mod.new())
 	var turret=Turret.create(color,1,Turret.Extension.DEFAULT,true,mods)
-	turret.global_position=gameState.board.map_to_local(Vector2(9,4))
+	turret.global_position=gameState.board.map_to_local(Vector2(10,4))
 	add_child(turret)
 	current_turret=turret
 	gameState.phase=gameState.GamePhase.BATTLE
