@@ -7,7 +7,6 @@
 
 [node name="Monster" type="Node2D"]
 process_mode = 4
-z_index = 3
 script = ExtResource("1_g1k27")
 color = 2
 

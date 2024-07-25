@@ -9,7 +9,7 @@ var type:ModType
 static var color_blocks={
 	TARGETING=[],
 	HULL=[],
-	PROJECTILE=[Turret.Hue.RED],
+	PROJECTILE=[],
 	AMMUNITION=[],
 	PRODUCTION=[],
 	ONKILL=[]
@@ -40,7 +40,7 @@ func initialise(turret:TurretCore):
 	
 	pass;
 func on_cell_traversal(projectile:Projectile):
-	
+	print("traversed")
 	pass;
 	
 func on_kill(monster:Monster):

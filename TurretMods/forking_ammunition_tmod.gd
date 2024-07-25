@@ -1,6 +1,6 @@
 extends TurretBaseMod
 class_name ForkingAmmunitionMod
-
+var degrees=[45,-45]
 func _init():
 	description="Projectiles fork on impact."
 	super(TurretBaseMod.ModType.PROJECTILE)
@@ -14,7 +14,7 @@ func on_hit(projectile:Projectile):
 	if projectile==null:return
 	if projectile.penetrations<=-1 and projectile.penetrations>-500:
 		return
-	var degrees=[45,-45]
+	
 	for degree in degrees:
 		var p=projectile.duplicate_and_shoot(degree)
 		p.ignore_next_enemy=true

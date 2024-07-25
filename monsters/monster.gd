@@ -90,7 +90,7 @@ func _is_next_step_portal():
 	var next=path[travel_index+1]
 	return abs(current.x-next.x)>GameboardConstants.TILE_SIZE+4 or abs(current.y-next.y)>GameboardConstants.TILE_SIZE+4
 		
-	
+var direction	
 func translateTowardEdge(delta):
 	
 	if core.hp<=0:return;
@@ -102,7 +102,7 @@ func translateTowardEdge(delta):
 		distance_to_next_edge=global_position.distance_to(path[travel_index])
 		
 	if travel_index>path.size()-1:return;
-	var direction=(path[travel_index]-global_position).normalized()
+	direction=(path[travel_index]-global_position).normalized()
 	var distance=core.speed*delta
 	distance_travelled=distance_travelled+distance
 	translate(direction*distance)

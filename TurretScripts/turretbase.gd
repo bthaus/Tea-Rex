@@ -45,13 +45,13 @@ static var inhandTurrets = []
 
 func _on_destroy():
 	if not is_instance_valid(self):return;
-	if is_instance_valid(base.projectile):base.projectile.queue_free()
+	if is_instance_valid(base.ref_proj):base.ref_proj.queue_free()
 	if is_instance_valid(GameState.gameState.gameBoard): 
 		GameState.gameState.gameBoard.clear_range_outline()
 	if GameState.board!=null:	
 		collisionReference.unregister_turret(self,placed)
 		Spawner.update_damage_estimate()
-		
+	base.on_destroy()	
 	
 	
 	pass;
@@ -213,6 +213,7 @@ func levelup(lvl: int=1):
 var infobox
 var show_box=false;
 func show_infobox():
+	return
 	if not show_box:return;
 	get_tree().create_timer(1).timeout.connect(func():
 		infobox=InfoBox.create(["Im a turret","damage dealt: "+str(int(base.damagedealt)),

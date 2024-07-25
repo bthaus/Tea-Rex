@@ -3,8 +3,7 @@ class_name TurretCore
 var level = 1;
 var barrels = []
 var bullets = []
-var turret_mods= []
-
+var turret_mods = []
 
 var type: Turret.Hue = Turret.Hue.BLUE
 var extension: Turret.Extension = Turret.Extension.DEFAULT
@@ -12,16 +11,14 @@ var extension: Turret.Extension = Turret.Extension.DEFAULT
 var onCooldown = false;
 var direction: Vector2;
 
-
-
-@export_range(0,10) var speed:float=1;
-@export_range(0,10) var cooldown:float=1;
-@export_range(0,10) var damage:float=1;
-@export_range(0,10) var turretRange:int=1;
-@export var penetrations:int=1;
-@export var instantHit:bool = false;
-@export var range_precision=24
-@export var projectile_precision=1
+@export_range(0, 10) var speed: float = 1;
+@export_range(0, 10) var cooldown: float = 1;
+@export_range(0, 10) var damage: float = 1;
+@export_range(0, 10) var turretRange: int = 1;
+@export var penetrations: int = 1;
+@export var instantHit: bool = false;
+@export var range_precision = 24
+@export var projectile_precision = 1
 var cdt;
 var trueRangeSquared;
 
@@ -33,7 +30,7 @@ var stacks = 1
 var lightamount = 1.5;
 var killcount = 0;
 var damagedealt = 0
-var average_minions_hit=1
+var average_minions_hit = 1
 
 static var camera;
 
@@ -44,9 +41,9 @@ var coveredCells = []
 var recentCells = []
 var mapPosition;
 var referenceCells = []
-var path_cells=[]
+var path_cells = []
 
-var targetable_enemy_types:Array[Monster.MonsterMovingType]=[Monster.MonsterMovingType.GROUND]
+var targetable_enemy_types: Array[Monster.MonsterMovingType] = [Monster.MonsterMovingType.GROUND]
 
 var holder;
 var id;
@@ -55,33 +52,32 @@ static var collisionReference: CollisionReference;
 var waitingDelayed = false;
 static var inhandTurrets = []
 
-var projectile:Projectile;
+var ref_proj: Projectile;
 
 var minions;
 var target;
 var buildup = 0;
 var targetposition;
 
-
 func get_average_damage():
-	var val= damage*damagefactor/(cooldown*cooldownfactor)*average_minions_hit
-	return 1#val
-	pass;
+	var val = damage * damagefactor / (cooldown * cooldownfactor) * average_minions_hit
+	return 1 # val
+	pass ;
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	
 	barrels = get_children()
 	for b in barrels:
-		remove_child(b)		
+		remove_child(b)
 	pass # Replace with function body.
 	
 func clear_path():
 	path_cells.clear()
-	pass;
+	pass ;
 func register_path(cell):
 	path_cells.append(cell)
-	pass;
+	pass ;
 
 func setupCollision(clearing):
 	if collisionReference == null:
@@ -96,17 +92,17 @@ func setupCollision(clearing):
 	pass ;
 func getReferences(cells):
 	return collisionReference.getCellReferences(global_position, turretRange, self, cells)
-	pass;	
+	pass ;
 func setUpTower(holder):
-	#turret_mods.append(MultipleShotsMod.new())
+	turret_mods.append(MultipleShotsMod.new())
 	self.holder = holder
 	minions = GameState.gameState.get_node("MinionHolder")
 	setLevel(stacks)
-	trueRangeSquared = turretRange * GameboardConstants.TILE_SIZE+GameboardConstants.TILE_SIZE
+	trueRangeSquared = turretRange * GameboardConstants.TILE_SIZE + GameboardConstants.TILE_SIZE
 	trueRangeSquared = trueRangeSquared * trueRangeSquared;
 	
-	if projectile == null: projectile = Projectile.create(type, damage * damagefactor, speed * speedfactor, self, extension,penetrations);
-	projectile.visible = false;
+	if ref_proj == null: ref_proj = Projectile.create(type, damage * damagefactor, speed * speedfactor, self, extension, penetrations);
+	ref_proj.visible = false;
 
 	if placed:
 		lightamount = GameState.gameState.lightThresholds.getLight(global_position.y) * stacks
@@ -115,20 +111,22 @@ func setUpTower(holder):
 		#if not placed:
 			#mod.visual.visible=false
 		
-		
 	setupCollision(true)
 	after_built()
 	pass ;
+func on_destroy():
+	
+	pass;	
 func after_built():
-	var to_remove=[]
+	var to_remove = []
 	for mod in turret_mods:
 		if TurretBaseMod.color_blocks[TurretBaseMod.ModType.keys()[mod.type]].has(type):
 			to_remove.append(mod)
 	for mod in to_remove:
 		turret_mods.erase(mod)
-		mod.remove()	
+		mod.remove()
 		
-	pass;
+	pass ;
 func reduceCooldown(delta):
 
 	if not onCooldown:
@@ -141,44 +139,44 @@ func reduceCooldown(delta):
 	pass
 
 var waitingForMinions = false;
-func on_target_found(monster:Monster):
-	monster.monster_died.connect(func (): 
+func on_target_found(monster: Monster):
+	monster.monster_died.connect(func():
 		target=null)
-	monster.reached_spawn.connect(func(m):on_target_lost())	
-	pass;
+	monster.reached_spawn.connect(func(m): on_target_lost())
+	pass ;
 	
-func on_hit(monster:Monster,damage,color:Turret.Hue,killed,projectile:Projectile):
+func on_hit(monster: Monster, damage, color: Turret.Hue, killed, projectile: Projectile):
 	if killed: on_target_killed(monster)
 	addDamage(damage)
 	for mod in turret_mods:
 		mod.on_hit(projectile)
-	pass;	
-func on_projectile_removed(projectile:Projectile):
+	pass ;
+func on_projectile_removed(projectile: Projectile):
 	for mod in turret_mods:
 		mod.on_remove(projectile)
-	pass;	
-func on_target_killed(monster:Monster):
+	pass ;
+func on_target_killed(monster: Monster):
 	addKill()
 	for mod in turret_mods:
 		mod.on_kill(monster)
-	pass;	
-func on_shoot(projectile:Projectile):
+	pass ;
+func on_shoot(projectile: Projectile):
 	for mod in turret_mods:
 		mod.on_shoot(projectile)
-	pass;	
-func on_fly(projectile:Projectile):
+	pass ;
+func on_fly(projectile: Projectile):
 	for mod in turret_mods:
 		mod.on_cell_traversal(projectile)
-	pass;	
+	pass ;
 func on_target_lost():
 	
-	pass;	
+	pass ;
 func do(delta):
 	reduceCooldown(delta)
 	if !onCooldown:
 		if target != null: checkTarget()
 		if target == null: getTarget()
-		if projectile == null: projectile = Projectile.create(type, damage, speed, self,penetrations, extension)
+		if ref_proj == null: ref_proj = Projectile.create(type, damage, speed, self, penetrations, extension)
 			
 	if target != null:
 		direction = (target.global_position - holder.global_position).normalized();
@@ -215,7 +213,7 @@ func getTarget():
 			
 			if target != null:
 				if is_out_of_range(target):
-					target=null
+					target = null
 					continue
 				on_target_found(target)
 				if recentCells.find(cell) == - 1:
@@ -236,7 +234,7 @@ func getTarget():
 			
 			if target != null:
 				if is_out_of_range(target):
-					target=null
+					target = null
 					continue
 				on_target_found(target)
 				if recentCells.find(cell) == - 1:
@@ -255,18 +253,18 @@ func return_targets(non_select=null):
 	if minions.get_child_count() == 0:
 		return ;
 	var t
-	var minions=[]
+	var minions = []
 	for cell in coveredCells:
 		if !cell.is_empty():
 			t = cell.back()
-			if t==non_select:continue
+			if t == non_select: continue
 			if t != null:
 				if is_out_of_range(t):
-					t=null
+					t = null
 					continue
 				minions.append(t)
-	return minions		
-	pass	
+	return minions
+	pass
 func do_all(tasks: Array[Callable]):
 	for t in tasks:
 		t.call()
@@ -275,8 +273,8 @@ func checkTarget():
 	if is_out_of_range(target):
 		print("target lost!")
 		target = null;
-	if target==null or !is_instance_valid(target):
-		on_target_lost()	
+	if target == null or !is_instance_valid(target):
+		on_target_lost()
 		
 	pass ;
 
@@ -284,40 +282,39 @@ func is_out_of_range(t):
 	#tinypfusch to avoid code duplication
 	if !targetable_enemy_types.has(t.moving_type):
 		return true
-	var distancesquared=global_position-t.global_position
-	distancesquared=distancesquared.length_squared()
+	var distancesquared = global_position - t.global_position
+	distancesquared = distancesquared.length_squared()
 	return distancesquared > abs(trueRangeSquared)
-	pass;
+	pass ;
 func is_out_of_range_pos(pos):
-	var distancesquared=global_position-pos
-	distancesquared=distancesquared.length_squared()
+	var distancesquared = global_position - pos
+	distancesquared = distancesquared.length_squared()
 	return distancesquared > abs(trueRangeSquared)
-	pass;	
+	pass ;
 func attack(delta):
-	if target!=null :
+	if target != null:
 		if not onCooldown:
-			shoot(target); 
-	
+			shoot(target);
 		
 	pass ;
 func shoot(target):
 	var barrels = getBarrels();
-	var b=barrels[0]
+	var b = barrels[0]
 	var bp = b.get_child(0).global_position;
-	var shot = get_projectile()	
+	var shot = get_projectile()
 	shot.global_position = global_position
 	shot.shoot(target);
-	on_shoot(shot)	
+	on_shoot(shot)
 	startCooldown(cooldown * cooldownfactor)
 	return shot
 	pass ;
 func get_projectile():
-	return Projectile.create(type, damage * damagefactor, speed * speedfactor, self, penetrations,extension);
+	return Projectile.create(type, damage * damagefactor, speed * speedfactor, self, penetrations, extension);
 
-	pass;	
-func startCooldown(time=-1):
-	if time==-1:
-		time=cooldown*cooldownfactor
+	pass ;
+func startCooldown(time=- 1):
+	if time == - 1:
+		time = cooldown * cooldownfactor
 	cdt = time;
 	onCooldown = true;
 	pass ;
@@ -333,7 +330,7 @@ func showRangeOutline():
 		holder.unregister_turret()
 		print(referenceCells.size())
 		getReferences(showCells)
-		referenceCells=showCells
+		referenceCells = showCells
 		print(referenceCells.size())
 		holder.register_turret()
 		for c in showCells:

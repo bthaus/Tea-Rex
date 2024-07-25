@@ -13,10 +13,10 @@ var oneshotoriginal;
 var pool;
 var speed;
 var target: Monster
-var associate;
+var associate:TurretCore;
 var playerDied = false;
-var emitter
-
+var emitters=[]
+signal removed
 var ignore_next_enemy=false;
 static var gamestate: GameState;
 static var camera;
@@ -54,14 +54,14 @@ func remove():
 	_remove_from_tree()
 	_toggle_emission(false)
 	pool.push_back(self)
+
 	pass ;
 func call_on_projectile_removed():
 	if associate!=null: associate.on_projectile_removed(self)
+	removed.emit()
 	pass;	
 func _remove_from_tree():
 	global_position=Vector2(-1000,-1000)
-	
-	#get_parent().remove_child(self)
 	pass;
 func shoot(target):
 	if not is_instance_valid(target):
@@ -69,6 +69,7 @@ func shoot(target):
 	else: direction = (target.global_position - self.global_position).normalized();
 	self.target = target;
 	global_rotation = direction.angle() + PI / 2.0
+	print(global_rotation_degrees)
 	_toggle_emission(true)
 	shot = true;
 	pass ;
@@ -79,8 +80,8 @@ func duplicate_and_shoot(angle,origin=null)->Projectile:
 		origin=self
 	var p1=_get_duplicate()
 	p1.on_creation()
-	
-	p1.global_position=origin.global_position
+	p1.ignore_next_enemy=true
+	p1.global_position=origin.get_global()
 	for mod in associate.turret_mods:
 		mod.visual.prepare_projectile(p1)
 	p1._toggle_emission(true)	
@@ -92,8 +93,15 @@ func _shoot_duplicate(projectile,angle):
 	projectile.direction=util.rotate_vector(direction,angle)
 	projectile.global_rotation = projectile.direction.angle() + PI / 2.0
 	pass;	
-
-		
+var last_hit_cell=Vector2i(0,0)
+func hit_cell():
+	var pos=get_map()
+	if last_hit_cell==pos:return
+	var moornot=GameState.gameState.collisionReference.get_monster(pos)
+	if moornot!=null:
+		last_hit_cell=pos
+		hitEnemy(moornot)
+	pass;		
 func move(delta):
 	var distance=direction * delta * speed
 	translate(distance);
@@ -114,10 +122,20 @@ func hitEnemy(enemy: Monster,from_turret=false):
 		remove()
 	
 	pass ;
+func hit_wall():
+	return GameState.gameState.collisionReference.hit_wall(get_map())
+	pass;	
 func _toggle_emission(b):
-	if emitter==null: return;
-	emitter.emitting=b
+	for e in emitters:
+		e.emitting=b
+	
+	#if emitter==null: return;
+	#emitter.emitting=b
 	pass;
+func add_emitter(e):
+	emitters.append(e)
+	add_child(e)
+	pass	
 func on_hit(enemy: Monster):
 		if type == Turret.Hue.RED&&ext == Turret.Extension.REDLASER:
 			applyRedLaser(enemy)

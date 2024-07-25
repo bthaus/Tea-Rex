@@ -8,7 +8,6 @@ class_name TurretModContainerDTO
 #this container
 var turret_mods: Array[ItemBlockDTO]
 
-
 var color: Turret.Hue
 
 # Called when the node enters the scene tree for the first time.

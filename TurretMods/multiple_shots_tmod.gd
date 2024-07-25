@@ -1,6 +1,6 @@
 extends TurretBaseMod
 class_name MultipleShotsMod
-
+var degrees=[22.5,-22.5]
 func _init():
 	description="Shoot multiple, weaker Projectiles"
 	super(TurretBaseMod.ModType.PROJECTILE)
@@ -8,13 +8,16 @@ func _init():
 	pass;
 
 func initialise(turret:TurretCore):
+	if turret is RedTurretCore:
+		turret.num_active_projectiles+=degrees.size()
 	turret.damage=turret.damage/2
 	super(turret)
 	associate.average_minions_hit=associate.average_minions_hit+4
 	pass;
 
 func on_shoot(projectile:Projectile):
-	var degrees=[22.5,45,-22.5,-45]
+	#var degrees=[22.5,45,-22.5,-45]
+	if associate is RedTurretCore:return
 	for degree in degrees:
 		projectile.duplicate_and_shoot(degree,associate)
 		#var p1=Projectile.factory.duplicate_bullet(projectile) as Projectile
