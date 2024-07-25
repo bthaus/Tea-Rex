@@ -1,5 +1,5 @@
 extends BaseEntity
-class_name Fire
+class_name FireTrail
 signal done
 var bullet
 var origin
@@ -16,7 +16,6 @@ func _ready():
 	var arr=$trail.emission_points
 	arr.append(Vector2(50,50))
 	$trail.emission_points=arr
-	#line.default_color=Color(0,0,0,0)
 	default_gradient=gradient.duplicate()
 	pass;
 func _notification(what):
@@ -46,7 +45,12 @@ func _process(delta):
 		line.gradient=gradient
 		for point in range(5):
 			gradient.set_offset(point,lerp(0.0,gradient.get_offset(point),decay))
-		
+		var off=gradient.get_offset(3)
+		var remove_pos=lerp(origin,get_global(),off)
+		if off<0.01:
+			remove()
+		GameState.gameState.collisionReference.remove_entity_from_position(self,remove_pos)
+	
 	if decay<=0:
 		remove()			
 	pass;
@@ -81,15 +85,16 @@ func register_bullet(projectile:Projectile):
 	origin=projectile.get_global()
 	
 	pass;	
-static func get_fire():
+static func get_trail():
 	var fire
 	if cache.is_empty():
-		fire=load("res://effects/cell_fire.tscn").instantiate()
+		fire=_load_trail()
 	else:
-		fire=cache.pop_back()
-		
+		fire=cache.pop_back()	
 	return fire	
-	pass;	
+
+static func _load_trail():
+	return 	load("res://effects/cell_fire.tscn").instantiate()	
 static func cache_fire(fire):
 	fire.get_parent().remove_child(fire)
 	cache.push_back(fire)

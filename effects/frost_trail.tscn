@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3 uid="uid://b7c6mvaowcf4u"]
+
+[ext_resource type="Script" path="res://effects/frost_trail.gd" id="1_tk1gi"]
+[ext_resource type="Texture2D" uid="uid://cefjv1h4yvfak" path="res://Assets/Effects/particles/small/circle_05_small.png" id="2_8s8cl"]
+
+[sub_resource type="Gradient" id="Gradient_fp5oy"]
+offsets = PackedFloat32Array(0, 0.242678, 0.51046, 0.728033, 1)
+colors = PackedColorArray(0.67144, 1, 0.995479, 1, 0.639341, 0.962713, 0.995764, 0.966442, 0.603922, 0.921569, 0.996078, 0.929412, 0.574292, 0.88671, 0.997821, 0.51634, 0.537255, 0.843137, 1, 0)
+
+[sub_resource type="Gradient" id="Gradient_26qcm"]
+colors = PackedColorArray(0.644578, 0.85816, 1, 1, 0.437799, 0.616361, 1, 1)
+
+[node name="FrostTrail" type="Node2D"]
+script = ExtResource("1_tk1gi")
+gradient = SubResource("Gradient_fp5oy")
+
+[node name="trail" type="CPUParticles2D" parent="."]
+amount = 16
+lifetime = 0.5
+speed_scale = 0.2
+fixed_fps = 30
+draw_order = 1
+texture = ExtResource("2_8s8cl")
+emission_shape = 4
+emission_points = PackedVector2Array()
+emission_colors = PackedColorArray()
+direction = Vector2(0, -1)
+spread = 17.0
+gravity = Vector2(0, -10)
+initial_velocity_min = 11.95
+initial_velocity_max = 76.46
+scale_amount_max = 2.0
+color_ramp = SubResource("Gradient_26qcm")

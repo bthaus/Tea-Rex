@@ -247,12 +247,14 @@ func add_cells(coveredCells,midpoint,turret):
 func isOutOfBoundsVector(pos):
 	return isOutOfBounds(pos.x,pos.y)
 	pass;	
-func trigger_bullet(position):
-	
+func trigger_bullet(bullet:Projectile):
+	var p=bullet.get_reference()
+	for entity in map[p.y][p.x].entities:
+		map[p.y][p.x].entity.trigger_bullet(bullet)
 	pass;
 func trigger_minion(p,minion:Monster):
-	
-	if map[p.y][p.x].entity!=null:
+	for entity in map[p.y][p.x].entities:
+		if !entity.has_method("tigger_minion"):continue
 		map[p.y][p.x].entity.trigger_minion(minion)
 	pass;		
 func isProperCell(x, y):
@@ -260,15 +262,18 @@ func isProperCell(x, y):
 	return not isOutOfBounds(x, y)# and (not isOccupiedCell(x, y))
 func register_entity(entity:BaseEntity):
 	var pos=normaliseVector(entity.map_position)
-	map[pos.y][pos.x].entity=entity
+	map[pos.y][pos.x].entities.append(entity)
 	pass;	
 func remove_entity(entity:BaseEntity):
 	var pos=normaliseVector(entity.map_position)
-	
-	pass	
-func get_entity(pos):
+	map[pos.y][pos.x].entities.erase(entity)
+	pass
+func remove_entity_from_position(entity:BaseEntity,glob):
+	var pos=getMapPositionNormalised(glob)
+	map[pos.y][pos.x].entities.erase(entity)		
+func get_entities(pos):
 	var p=getMapPositionNormalised(pos)
-	return map[p.y][p.x].entity
+	return map[p.y][p.x].entities
 	pass;	
 func isOccupiedCell(x, y):
 	for turret in Turret.turrets:
@@ -308,6 +313,7 @@ class Holder:
 	var ms = []
 	var covering_turrets=[]
 	var collides_with_bullets=false;
+	var entities=[]
 	var entity:BaseEntity
 	
 	pass ;

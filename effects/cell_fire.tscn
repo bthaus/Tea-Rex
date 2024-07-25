@@ -15,7 +15,6 @@ offsets = PackedFloat32Array(0, 0.215962, 0.532864, 0.835681, 1)
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 0, 1, 1, 0.49833, 0.110753, 1, 0, 0, 0, 1, 0, 0, 0, 0)
 
 [node name="Node2D" type="Node2D"]
-process_mode = 3
 script = ExtResource("1_nelbu")
 gradient = SubResource("Gradient_51ci8")
 
