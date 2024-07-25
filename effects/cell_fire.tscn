@@ -1,6 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://cq26xcsqu648h"]
+[gd_scene load_steps=5 format=3 uid="uid://cq26xcsqu648h"]
 
 [ext_resource type="Script" path="res://effects/fire_entitity.gd" id="1_nelbu"]
+
+[sub_resource type="Gradient" id="Gradient_51ci8"]
+offsets = PackedFloat32Array(0, 0.158996, 0.439331, 0.654812, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 0, 1, 0.901961, 0.368627, 0, 1, 0.69246, 1.841e-06, 7.70092e-07, 1, 0.760784, 0, 0.188235, 0)
 
 [sub_resource type="Curve" id="Curve_iywxx"]
 _data = [Vector2(0, 0.521109), 0.0, 0.0, 0, 0, Vector2(0.696035, 0.714818), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
@@ -13,8 +17,9 @@ colors = PackedColorArray(1, 1, 1, 1, 1, 1, 0, 1, 1, 0.49833, 0.110753, 1, 0, 0,
 [node name="Node2D" type="Node2D"]
 process_mode = 3
 script = ExtResource("1_nelbu")
+gradient = SubResource("Gradient_51ci8")
 
-[node name="fire" type="CPUParticles2D" parent="."]
+[node name="trail" type="CPUParticles2D" parent="."]
 z_index = 50
 amount = 12
 lifetime = 2.0

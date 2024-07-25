@@ -3,43 +3,62 @@ class_name Fire
 signal done
 var bullet
 var origin
-var decay=2	
+var decay=1
 var decaying=false;
 static var cache=[]	
 var line:Line2D
+@export var gradient:Gradient
+var default_gradient
 
 
 func _ready():
 	get_tree().create_timer(decay).timeout.connect(func():decaying=true)
-	var arr=$fire.emission_points
+	var arr=$trail.emission_points
 	arr.append(Vector2(50,50))
-	$fire.emission_points=arr
+	$trail.emission_points=arr
+	#line.default_color=Color(0,0,0,0)
+	default_gradient=gradient.duplicate()
 	pass;
-	
+func _notification(what):
+	if what==NOTIFICATION_PREDELETE:
+		line.queue_free()	
 func _process(delta):
 	
-	if bullet.shot:	
+	if bullet!=null:
+		if !bullet.shot:
+			bullet=null
+			var p=line.points
+			p.reverse()
+			line.points=p
+			return
+			
 		line.add_point(bullet.get_global())
-		var arr=$fire.emission_points
+		var arr=$trail.emission_points
 		arr.push_back(bullet.get_global())
-		$fire.emission_points=arr	
-	if decaying and not bullet.shot:
-		decay-=delta
-		line.default_color.a=decay/5
-		var arr=$fire.emission_points
+		$trail.emission_points=arr	
+		
+	elif decaying:
+	
+		decay-=delta/200
+		var arr=$trail.emission_points
 		arr.resize(arr.size()-1)
-		$fire.emission_points=arr
+		$trail.emission_points=arr
+		line.gradient=gradient
+		for point in range(5):
+			gradient.set_offset(point,lerp(0.0,gradient.get_offset(point),decay))
+		
 	if decay<=0:
 		remove()			
 	pass;
 func initialise():
 	bullet=null
-	decay=5	
+	decay=1	
 	if line==null:
 		line=Line2D.new()
 		GameState.gameState.add_child(line)
 	else:
-		line.clear()	
+		line.clear_points()	
+	line.gradient=default_gradient	
 	line.width=4	
 	origin=null
 	decaying=false
@@ -49,6 +68,7 @@ func remove():
 	GameState.collisionReference.remove_entity(self)
 	done.emit()
 	cache_fire(self)
+	line.clear_points()
 	pass
 func trigger_minion(monster:Monster):
 	print("hitt fire")
