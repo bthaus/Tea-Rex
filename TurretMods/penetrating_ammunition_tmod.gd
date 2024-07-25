@@ -1,6 +1,6 @@
 extends TurretBaseMod
 class_name PenetratingAmmunition
-
+var penetration_amount=3
 
 func _init():
 	description="Projectiles penetrate enemies. "
@@ -16,7 +16,9 @@ func on_hit(p:Projectile):
 	pass;
 	
 func initialise(turret:TurretCore):
-	turret.penetrations=3;
+	if turret is RedTurretCore:
+		turret.num_active_projectiles+=penetration_amount
+	turret.penetrations=penetration_amount;
 	super(turret)
-	associate.average_minions_hit=associate.average_minions_hit+3
+	associate.average_minions_hit=associate.average_minions_hit+penetration_amount
 	pass;

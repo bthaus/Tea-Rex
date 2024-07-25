@@ -213,6 +213,7 @@ func levelup(lvl: int=1):
 var infobox
 var show_box=false;
 func show_infobox():
+	return
 	if not show_box:return;
 	get_tree().create_timer(1).timeout.connect(func():
 		infobox=InfoBox.create(["Im a turret","damage dealt: "+str(int(base.damagedealt)),

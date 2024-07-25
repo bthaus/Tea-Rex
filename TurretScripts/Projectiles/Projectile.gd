@@ -62,8 +62,6 @@ func call_on_projectile_removed():
 	pass;	
 func _remove_from_tree():
 	global_position=Vector2(-1000,-1000)
-	
-	#get_parent().remove_child(self)
 	pass;
 func shoot(target):
 	if not is_instance_valid(target):
@@ -71,6 +69,7 @@ func shoot(target):
 	else: direction = (target.global_position - self.global_position).normalized();
 	self.target = target;
 	global_rotation = direction.angle() + PI / 2.0
+	print(global_rotation_degrees)
 	_toggle_emission(true)
 	shot = true;
 	pass ;
@@ -116,6 +115,9 @@ func hitEnemy(enemy: Monster,from_turret=false):
 		remove()
 	
 	pass ;
+func hit_wall():
+	return GameState.gameState.collisionReference.hit_wall(get_map())
+	pass;	
 func _toggle_emission(b):
 	for e in emitters:
 		e.emitting=b

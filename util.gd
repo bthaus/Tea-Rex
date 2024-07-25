@@ -118,7 +118,7 @@ static func getRandomBlock(lvl,gamestate):
 
 
 static func getEvaluatedShape(counter):
-	return Block.BlockShape.TINY
+	#return Block.BlockShape.TINY
 	return Block.BlockShape.values().pick_random()
 	var shape=Block.BlockShape.values()[RandomNumberGenerator.new().randi_range(0,Block.BlockShape.size()-1)]
 	var block=BlockUtils.get_block_from_shape(shape,0,0);

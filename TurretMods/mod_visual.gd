@@ -53,7 +53,7 @@ func on_hit(projectile:Projectile):
 		dup=on_hit_cache.pop_back()
 		
 	add_child(dup)
-	dup.global_position=projectile.global_position
+	dup.global_position=projectile.get_global()
 	on_shoot_node.process_material.direction=Vector3(projectile.direction.x*-1,projectile.direction.y*-1,0)	
 	dup.restart()
 	dup.emitting=true;

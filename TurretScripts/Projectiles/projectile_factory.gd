@@ -37,8 +37,10 @@ func get_bullet(color:Turret.Hue,damage, speed, turret, penetrations,extension:T
 	temp.speed = speed;
 	temp.pool=pool
 	temp.penetrations=penetrations
-	GameState.gameState.bulletHolder.add_child(temp)
 	temp.visible=true
+	
+	if temp.get_parent()==null:GameState.gameState.bulletHolder.add_child(temp)
+	
 	
 	return temp
 	
