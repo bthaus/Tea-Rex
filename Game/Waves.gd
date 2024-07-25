@@ -238,7 +238,7 @@ static func _get_astar_grid(map:TileMap,monstertype:Monster.MonsterMovingType,fr
 	
 	
 	return grid_type_dto
-	pass;
+
 static func _register_portals(astar,movable_cells):
 	for portal in GameState.gameState.portals:
 		var id=astar.get_available_point_id()
@@ -299,7 +299,7 @@ static func _get_movable_cells_per_monster_type(map: TileMap, monstertype: Monst
 					
 					var type = GameboardConstants.get_tile_type(map, GameboardConstants.BLOCK_LAYER, pos)
 					if type == null or type == GameboardConstants.TileType.PORTAL: #Block layer is free or there is a portal
-						cells[pos.x][pos.y]=id
+						cells[pos.x][pos.y]=id #Vector2(id,weight)
 					
 			Monster.MonsterMovingType.AIR:
 				for y in range(0, GameboardConstants.BOARD_HEIGHT): #Just put every possible tile in the array

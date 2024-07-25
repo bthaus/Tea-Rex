@@ -27,9 +27,9 @@ func on_shoot(projectile:Projectile):
 	pass;	
 # Called when the node enters the scene tree for the first time.
 func prepare_projectile(projectile:Projectile):
-	if projectile.emitter==null and on_projectile_node!=null:
-		projectile.emitter=on_projectile_node.duplicate()
-		projectile.add_child(projectile.emitter)
+	if on_projectile_node!=null:
+		projectile.add_emitter(on_projectile_node.duplicate())
+		
 		
 		
 	pass;
@@ -53,7 +53,7 @@ func on_hit(projectile:Projectile):
 		dup=on_hit_cache.pop_back()
 		
 	add_child(dup)
-	dup.global_position=projectile.global_position
+	dup.global_position=projectile.get_global()
 	on_shoot_node.process_material.direction=Vector3(projectile.direction.x*-1,projectile.direction.y*-1,0)	
 	dup.restart()
 	dup.emitting=true;

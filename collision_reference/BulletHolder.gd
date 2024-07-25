@@ -17,19 +17,18 @@ func do(delta):
 				precision=b.associate.projectile_precision 
 			for i in range(precision):
 				b.move(delta/precision)
-				var pos=board.local_to_map(b.global_position);
+				var pos=b.get_map()
+				b.hit_cell()
 				if pos.x==b.oldpos.x&&pos.y==b.oldpos.y: continue
 				b.oldpos=pos
 				b.cell_traversed()
 				if pos.y>GameState.gameState.board_height || pos.y<0 || pos.x<-9 || pos.x >21:
 					b.remove()
 					break;
-				if reference.hit_wall(pos):
+				if b.hit_wall():
 					b.remove()
 					break	
-				var moornot=reference.get_monster(pos)
-				if moornot!=null:
-					b.hitEnemy(moornot)
+				
 			
 		
 		

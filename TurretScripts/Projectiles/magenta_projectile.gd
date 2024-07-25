@@ -105,10 +105,10 @@ func move(delta):
 	if origin==null or !is_instance_valid(origin) or target==null or !is_instance_valid(target):return
 	
 	buildup=buildup+delta*2
-	
+	print(direction)
 	#if direction would be updated if duplicate and not connected it wouldnt do anything (direction==0,0)
 	if not _is_duplicate:
-		direction = (target.global_position - self.global_position).normalized()
+		direction = (target.global_position - origin.global_position).normalized()
 	#travel across the originally calculated distance	
 	if _is_duplicate:
 		distance_travelled=distance_travelled+super(delta)
@@ -120,7 +120,9 @@ func move(delta):
 	#fallback. shouldnt be called
 	else:
 		distance_travelled=distance_travelled+super(delta)
-		
+	if not connected:
+		if global_position==target.global_position:
+			hitEnemy(target,false)	
 	start_emitter.global_position=origin.global_position
 	start_emitter.process_material.direction=Vector3(direction.x,direction.y,0)
 	end_emitter.emitting=connected
@@ -187,6 +189,7 @@ func duplicate_and_shoot(angle,origin=null)->Projectile:
 		p.origin=origin	
 	p.ignore_position=GameState.board.local_to_map(global_position)	
 	p._is_duplicate=true	
+	p.buildup=1
 	children_lasers.append(p)
 	return p
 func remove():

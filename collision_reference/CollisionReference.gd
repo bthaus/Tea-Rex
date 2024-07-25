@@ -72,6 +72,7 @@ func get_monster(pos):
 	pos.y = normaliseY(pos.y)
 	
 	#if rowCounter[pos.y-1]>0:
+	if isOutOfBoundsVector(pos):return
 	if map[pos.y][pos.x].ms.size() > 0:
 		
 		var mo = map[pos.y][pos.x].ms.back()
@@ -147,14 +148,20 @@ func getNeighbours(pos, reference=null):
 	
 			
 	if reference != null:
-		reference.append(Vector2(p.x + 1, p.y + 1))
-		reference.append(Vector2(p.x - 1, p.y + 1))
-		reference.append(Vector2(p.x + 1, p.y - 1))
-		reference.append(Vector2(p.x - 1, p.y - 1))
-		reference.append(Vector2(p.x + 1, p.y))
-		reference.append(Vector2(p.x - 1, p.y))
 		reference.append(Vector2(p.x, p.y + 1))
+		reference.append(Vector2(p.x + 1, p.y + 1))
+		reference.append(Vector2(p.x + 1, p.y))
+		reference.append(Vector2(p.x + 1, p.y - 1))
 		reference.append(Vector2(p.x, p.y - 1))
+		reference.append(Vector2(p.x - 1, p.y - 1))
+		reference.append(Vector2(p.x - 1, p.y))
+		reference.append(Vector2(p.x - 1, p.y + 1))
+		
+		
+		
+		
+		
+		
 		
 	return coveredCells;
 	pass ;
@@ -254,6 +261,14 @@ func isProperCell(x, y):
 func register_entity(entity:BaseEntity):
 	var pos=normaliseVector(entity.map_position)
 	map[pos.y][pos.x].entity=entity
+	pass;	
+func remove_entity(entity:BaseEntity):
+	var pos=normaliseVector(entity.map_position)
+	
+	pass	
+func get_entity(pos):
+	var p=getMapPositionNormalised(pos)
+	return map[p.y][p.x].entity
 	pass;	
 func isOccupiedCell(x, y):
 	for turret in Turret.turrets:

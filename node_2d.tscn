@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://d1u0xry1mctok"]
+
+[ext_resource type="Script" path="res://Node2D.gd" id="1_xa2dn"]
+[ext_resource type="Texture2D" uid="uid://dfmhpcofhimqu" path="res://Assets/Effects/particles/circle_04.png" id="2_nxphd"]
+
+[node name="Node2D" type="Node2D"]
+position = Vector2(1, 2)
+rotation = 6.28319
+script = ExtResource("1_xa2dn")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(500, -4)
+texture = ExtResource("2_nxphd")
