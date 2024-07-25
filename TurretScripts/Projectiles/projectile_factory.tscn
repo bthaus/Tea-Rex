@@ -180,11 +180,14 @@ material = SubResource("ShaderMaterial_ooya1")
 texture = ExtResource("12_b8m1t")
 script = ExtResource("12_7mdqh")
 
-[node name="red_projectile" type="Sprite2D" parent="."]
-material = SubResource("ShaderMaterial_ooya1")
+[node name="red_projectile" type="Node2D" parent="."]
 scale = Vector2(0.121094, 0.121094)
-texture = ExtResource("15_oupr7")
 script = ExtResource("16_7b50o")
+
+[node name="orb" type="Sprite2D" parent="red_projectile"]
+material = SubResource("ShaderMaterial_ooya1")
+position = Vector2(619.354, 0)
+texture = ExtResource("15_oupr7")
 
 [node name="magenta_projectile" type="Node2D" parent="."]
 visible = false

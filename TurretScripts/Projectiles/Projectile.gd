@@ -15,7 +15,7 @@ var speed;
 var target: Monster
 var associate:TurretCore;
 var playerDied = false;
-var emitter
+var emitters=[]
 signal removed
 var ignore_next_enemy=false;
 static var gamestate: GameState;
@@ -117,9 +117,16 @@ func hitEnemy(enemy: Monster,from_turret=false):
 	
 	pass ;
 func _toggle_emission(b):
-	if emitter==null: return;
-	emitter.emitting=b
+	for e in emitters:
+		e.emitting=b
+	
+	#if emitter==null: return;
+	#emitter.emitting=b
 	pass;
+func add_emitter(e):
+	emitters.append(e)
+	add_child(e)
+	pass	
 func on_hit(enemy: Monster):
 		if type == Turret.Hue.RED&&ext == Turret.Extension.REDLASER:
 			applyRedLaser(enemy)

@@ -17,7 +17,7 @@ func do(delta):
 				precision=b.associate.projectile_precision 
 			for i in range(precision):
 				b.move(delta/precision)
-				var pos=board.local_to_map(b.global_position);
+				var pos=b.get_map()
 				if pos.x==b.oldpos.x&&pos.y==b.oldpos.y: continue
 				b.oldpos=pos
 				b.cell_traversed()

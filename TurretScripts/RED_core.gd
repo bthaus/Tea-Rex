@@ -4,6 +4,7 @@ class_name RedTurretCore
 @export var num_active_projectiles=3
 
 func do(delta):
+	rotate(delta)
 	return
 func getReferences(cells):
 	return collisionReference.getNeighbours(global_position,cells)
