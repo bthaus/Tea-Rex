@@ -75,6 +75,7 @@ func shoot(target):
 	pass ;
 func _get_duplicate():
 	return Projectile.factory.duplicate_bullet(self) 
+var is_duplicate=false	
 func duplicate_and_shoot(angle,origin=null)->Projectile:
 	if origin==null:
 		origin=self
@@ -82,6 +83,7 @@ func duplicate_and_shoot(angle,origin=null)->Projectile:
 	p1.on_creation()
 	p1.ignore_next_enemy=true
 	p1.global_position=origin.get_global()
+	p1.is_duplicate=true
 	for mod in associate.turret_mods:
 		mod.visual.prepare_projectile(p1)
 	p1._toggle_emission(true)	

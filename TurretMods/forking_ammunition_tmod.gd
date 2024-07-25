@@ -12,9 +12,9 @@ func initialise(turret:TurretCore):
 	pass;
 func on_hit(projectile:Projectile):
 	if projectile==null:return
-	if projectile.penetrations<=-1 and projectile.penetrations>-500:
-		return
-	
+	#if projectile.penetrations<=-1 and projectile.penetrations>-500:
+		#return
+	if projectile.is_duplicate:return
 	for degree in degrees:
 		var p=projectile.duplicate_and_shoot(degree)
 		p.ignore_next_enemy=true

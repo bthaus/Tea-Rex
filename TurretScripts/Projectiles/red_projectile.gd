@@ -1,7 +1,7 @@
 extends Projectile
 class_name RedProjectile
 var rotation_direction=CLOCKWISE
-var is_duplicate=false;
+
 func on_creation():
 	#z_index=2
 	
@@ -18,12 +18,14 @@ func add_emitter(emitter):
 func toggle_emitter(b):
 	
 	pass;	
-	
+var prev_pos=Vector2(0,0)	
 func move(delta):
+	
 	penetrations=1
 	if not is_duplicate:
 		rotate(delta)
-		direction = (get_global() - associate.get_global()).normalized()
+		direction = (get_global() - prev_pos).normalized()
+		prev_pos=get_global()
 	else:
 		super(delta)	
 	pass;
