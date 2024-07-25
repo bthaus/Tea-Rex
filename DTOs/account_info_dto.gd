@@ -30,8 +30,9 @@ func _init(name="-1"):
 
 func _insert_test_items():
 	unlocked_items = []
-	unlocked_items.append(ItemBlockDTO.new(Turret.Hue.WHITE))
-	unlocked_items.append(ItemBlockDTO.new(Turret.Hue.RED))
+	unlocked_items.append(ItemBlockDTO.new(Turret.Hue.WHITE, Block.BlockShape.O, 0, ItemBlockConstants.WHITE_TILE_ID))
+	unlocked_items.append(ItemBlockDTO.new(Turret.Hue.WHITE, Block.BlockShape.Z, 0, ItemBlockConstants.WHITE_TILE_ID))
+	unlocked_items.append(ItemBlockDTO.new(Turret.Hue.RED, Block.BlockShape.L, 0, ItemBlockConstants.RED_TILE_ID))
 
 func save(name="-1",acc="-1",dir="-1"):
 	if name=="-1" and account_name!=null:

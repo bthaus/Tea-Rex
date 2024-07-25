@@ -19,13 +19,13 @@ func _ready():
 	$ItemBlockSelectorContainer.item_selected.connect(_on_item_selected)
 
 func on_container_focus_changed(container_focused: bool):
-	if container_focused:
-		$Board.clear_layer(ItemBlockConstants.BLOCK_LAYER)
-	else:
+	$Board.clear_layer(ItemBlockConstants.BLOCK_LAYER)
+	if not container_focused:
 		item_handler.draw_item_block(selected_item, Vector2(0,0), ItemBlockConstants.BLOCK_LAYER)
 
 func _on_item_selected(item_block: ItemBlockDTO):
 	selected_item = item_block
+	$Board.clear_layer(ItemBlockConstants.BLOCK_LAYER)
 	item_handler.draw_item_block(selected_item, Vector2(0,0), ItemBlockConstants.BLOCK_LAYER)
 	for container in turret_mod_grid_container.get_children():
 		container.set_selected_item(item_block)
