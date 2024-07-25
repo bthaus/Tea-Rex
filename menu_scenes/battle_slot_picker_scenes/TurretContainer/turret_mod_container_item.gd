@@ -30,13 +30,16 @@ func _process(delta):
 	is_focused = true
 	
 	if selected_item == null: return
-	item_handler.draw_item_block(selected_item, board_pos, ItemBlockConstants.PREVIEW_LAYER)
+	var can_place = item_handler.can_place_item_block(selected_item, board_pos)
+	var id = ItemBlockConstants.LEGAL_PLACEMENT_TILE_ID if can_place else ItemBlockConstants.ILLEGAL_PLACEMENT_TILE_ID
+	item_handler.draw_item_block_with_id(selected_item, id, board_pos, ItemBlockConstants.PREVIEW_LAYER)
 	
 func _input(event):
 	if selected_item == null or not is_focused: return
 
 	if event.is_action_released("left_click"):
 		var board_pos = _get_mouse_position_on_board()
+		print($Board.get_used_cells(ItemBlockConstants.GROUND_LAYER))
 		item_handler.place_item_block(selected_item, board_pos)
 		placed.emit()
 	elif event.is_action_released("right_click"):

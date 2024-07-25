@@ -18,6 +18,14 @@ func draw_item_block(item_block: ItemBlockDTO, map_position: Vector2, layer: int
 	for pos in positions:
 		board.set_cell(layer, map_position + pos, item_block.tile_id, Vector2(0, 0))
 
+#Simply draws an item block on the board using an id
+func draw_item_block_with_id(item_block: ItemBlockDTO, tile_id: int, map_position: Vector2, layer: int):
+	if item_block == null: return
+	var positions = BlockUtils.get_positions_from_block_shape(item_block.block_shape)
+	positions = rotate_positions(positions, item_block.rotation)
+	for pos in positions:
+		board.set_cell(layer, map_position + pos, tile_id, Vector2(0, 0))
+
 #Places an item on the board, and adds it to the list of items if possible
 func place_item_block(item_block: ItemBlockDTO, map_position: Vector2):
 	if item_block == null: return
@@ -71,7 +79,7 @@ func can_place_item_block(item_block: ItemBlockDTO, map_position: Vector2) -> bo
 		var board_pos = map_position + pos
 		
 		#No ground present
-		if board.get_cell_source_id(ItemBlockConstants.GROUND_LAYER, board_pos) != -1:
+		if board.get_cell_source_id(ItemBlockConstants.GROUND_LAYER, board_pos) == -1:
 			return false
 		
 		#Block is already present
