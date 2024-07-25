@@ -38,7 +38,6 @@ func _input(event):
 	if event.is_action_released("left_click"):
 		var board_pos = _get_mouse_position_on_board()
 		item_handler.place_item_block(selected_item, board_pos)
-		selected_item = null
 		placed.emit()
 	elif event.is_action_released("right_click"):
 		item_handler.rotate_item(selected_item)

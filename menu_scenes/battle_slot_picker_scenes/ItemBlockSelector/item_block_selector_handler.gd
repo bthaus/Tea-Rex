@@ -64,6 +64,7 @@ func get_item_block_at(map_position: Vector2) -> ItemBlockDTO:
 
 func can_place_item_block(item_block: ItemBlockDTO, map_position: Vector2) -> bool:
 	var positions = BlockUtils.get_positions_from_block_shape(item_block.block_shape)
+	positions = rotate_positions(positions, item_block.rotation)
 	for pos in positions:
 		if board.get_cell_source_id(ItemBlockConstants.BLOCK_LAYER, map_position + pos) != -1:
 			return false
