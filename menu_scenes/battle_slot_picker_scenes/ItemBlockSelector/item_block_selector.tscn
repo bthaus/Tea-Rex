@@ -37,23 +37,27 @@ color = 5
 [node name="ModContainerItemRed" parent="ScrollContainer/TurretModGridContainer" instance=ExtResource("3_84gyh")]
 layout_mode = 2
 
-[node name="ModContainerItemGrey" parent="ScrollContainer/TurretModGridContainer" instance=ExtResource("3_84gyh")]
+[node name="ModContainerItemGreen" parent="ScrollContainer/TurretModGridContainer" instance=ExtResource("3_84gyh")]
 layout_mode = 2
-color = 1
+color = 2
 
 [node name="ModContainerItemYellow" parent="ScrollContainer/TurretModGridContainer" instance=ExtResource("3_84gyh")]
 layout_mode = 2
 color = 4
 
-[node name="ModContainerItemGreen" parent="ScrollContainer/TurretModGridContainer" instance=ExtResource("3_84gyh")]
+[node name="ModContainerItemWhite" parent="ScrollContainer/TurretModGridContainer" instance=ExtResource("3_84gyh")]
 layout_mode = 2
-color = 2
+color = 1
+
+[node name="ModContainerItemMagenta" parent="ScrollContainer/TurretModGridContainer" instance=ExtResource("3_84gyh")]
+layout_mode = 2
+color = 6
 
 [node name="Board" type="TileMap" parent="."]
 scale = Vector2(0.25, 0.25)
 tile_set = ExtResource("3_a0p0s")
 format = 2
-layer_0/name = "background_layer"
+layer_0/name = "ground_layer"
 layer_1/name = "block_layer"
 layer_1/tile_data = PackedInt32Array()
 layer_2/name = "preview_layer"

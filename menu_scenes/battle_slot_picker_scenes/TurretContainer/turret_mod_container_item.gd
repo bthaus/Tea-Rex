@@ -39,9 +39,9 @@ func _input(event):
 
 	if event.is_action_released("left_click"):
 		var board_pos = _get_mouse_position_on_board()
-		print($Board.get_used_cells(ItemBlockConstants.GROUND_LAYER))
-		item_handler.place_item_block(selected_item, board_pos)
-		placed.emit()
+		if item_handler.can_place_item_block(selected_item, board_pos):
+			item_handler.place_item_block(selected_item, board_pos)
+			placed.emit()
 	elif event.is_action_released("right_click"):
 		item_handler.rotate_item(selected_item)
 		
@@ -60,4 +60,5 @@ func _get_color_from_turret_color(color: Turret.Hue) -> Color:
 		Turret.Hue.RED: return Color.CRIMSON
 		Turret.Hue.YELLOW: return Color.YELLOW
 		Turret.Hue.BLUE: return Color.DODGER_BLUE
+		Turret.Hue.MAGENTA: return Color.MAGENTA
 	return Color.BLACK

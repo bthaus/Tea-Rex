@@ -20,7 +20,6 @@ class TabEntry:
 #Maps tab to values
 @onready var _tabs: Array[TabEntry] = [
 	TabEntry.new($TargetingTab, Turret.Hue.WHITE, Color.WHITE),
-	TabEntry.new($TargetingTab, Turret.Hue.WHITE, Color.WHITE),
 	TabEntry.new($ProjectileTab, Turret.Hue.YELLOW, Color.YELLOW),
 	TabEntry.new($AmmunitionTab, Turret.Hue.RED, Color.RED),
 	TabEntry.new($HullTab, Turret.Hue.BLUE, Color.ROYAL_BLUE),
