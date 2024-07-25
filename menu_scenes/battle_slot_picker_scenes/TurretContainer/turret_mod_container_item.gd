@@ -45,8 +45,8 @@ func _input(event):
 		
 
 func _get_mouse_position_on_board() -> Vector2:
-	#return $Board.local_to_map(get_local_mouse_position() / $Board.scale)
-	return $Board.local_to_map($Board.to_local(get_local_mouse_position()))
+	#return $Board.local_to_map($Board.to_local(get_local_mouse_position())) - $Board.local_to_map($Board.to_local($Board.position))
+	return $Board.local_to_map((get_local_mouse_position() - $Board.position) / $Board.scale)
 
 func set_selected_item(item: ItemBlockDTO):
 	selected_item = item
