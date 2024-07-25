@@ -2,11 +2,13 @@ extends Node
 class_name ItemBlockSelectorHandler
 
 var board: TileMap
-var item_blocks: Array
+var item_blocks: Array[ItemBlockDTO]
 
-func _init(board: TileMap, item_blocks: Array):
+func _init(board: TileMap, item_blocks: Array[ItemBlockDTO]):
 	self.board = board
 	self.item_blocks = item_blocks
+	for item in item_blocks:
+		draw_item_block(item, item.map_position, ItemBlockConstants.BLOCK_LAYER)
 
 #Simply draws an item block on the board
 func draw_item_block(item_block: ItemBlockDTO, map_position: Vector2, layer: int):
@@ -66,6 +68,29 @@ func can_place_item_block(item_block: ItemBlockDTO, map_position: Vector2) -> bo
 	var positions = BlockUtils.get_positions_from_block_shape(item_block.block_shape)
 	positions = rotate_positions(positions, item_block.rotation)
 	for pos in positions:
-		if board.get_cell_source_id(ItemBlockConstants.BLOCK_LAYER, map_position + pos) != -1:
+		var board_pos = map_position + pos
+		
+		#No ground present
+		if board.get_cell_source_id(ItemBlockConstants.GROUND_LAYER, board_pos) != -1:
 			return false
+		
+		#Block is already present
+		if board.get_cell_source_id(ItemBlockConstants.BLOCK_LAYER, board_pos) != -1:
+			return false
+		
+		#If the piece is white and we passed until here, continue
+		if item_block.color == Turret.Hue.WHITE:
+			continue
+			
+		#Check near mismatching colors
+		for row in range(-1,2):
+			for col in range(-1,2):
+				var cell_pos = Vector2(board_pos.x+col, board_pos.y+row)
+				var neighbour_color = ItemBlockConstants.get_color_from_tile(board, ItemBlockConstants.BLOCK_LAYER, cell_pos)
+				if neighbour_color == null or neighbour_color == Turret.Hue.WHITE: #Checking surrounding pieces is only for colored blocks neccessary
+					continue 
+				
+				if neighbour_color != item_block.color:
+					return false
+		
 	return true
