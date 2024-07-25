@@ -254,22 +254,35 @@ func trigger_bullet(bullet:Projectile):
 	pass;
 func trigger_minion(p,minion:Monster):
 	for entity in map[p.y][p.x].entities:
-		if !entity.has_method("tigger_minion"):continue
-		map[p.y][p.x].entity.trigger_minion(minion)
+		if !entity.has_method("trigger_minion"):continue
+		entity.trigger_minion(minion)
 	pass;		
 func isProperCell(x, y):
 	
 	return not isOutOfBounds(x, y)# and (not isOccupiedCell(x, y))
 func register_entity(entity:BaseEntity):
-	var pos=normaliseVector(entity.map_position)
+	var pos=entity.get_reference()
 	map[pos.y][pos.x].entities.append(entity)
+	_trigger_monsters_for_entity_at_pos(entity,entity.get_global())
+	pass;	
+func _trigger_monsters_for_entity_at_pos(entity,pos):
+	var monsters=get_monsters_at_pos(pos)
+	for m in monsters:
+		trigger_minion(getMapPositionNormalised(pos),m)
 	pass;	
 func remove_entity(entity:BaseEntity):
-	var pos=normaliseVector(entity.map_position)
+	var pos=entity.get_reference()
 	map[pos.y][pos.x].entities.erase(entity)
 	pass
+func register_entity_at_position(entitity:BaseEntity,glob):
+	var pos=getMapPositionNormalised(glob)
+	if isOutOfBoundsVector(pos):return
+	map[pos.y][pos.x].entities.push_back(entitity)
+	_trigger_monsters_for_entity_at_pos(entitity,glob)
+	pass;	
 func remove_entity_from_position(entity:BaseEntity,glob):
 	var pos=getMapPositionNormalised(glob)
+	if isOutOfBoundsVector(pos):return
 	map[pos.y][pos.x].entities.erase(entity)		
 func get_entities(pos):
 	var p=getMapPositionNormalised(pos)

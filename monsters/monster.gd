@@ -90,8 +90,15 @@ func _is_next_step_portal():
 	var next=path[travel_index+1]
 	return abs(current.x-next.x)>GameboardConstants.TILE_SIZE+4 or abs(current.y-next.y)>GameboardConstants.TILE_SIZE+4
 		
-var direction	
+var direction
+func do(delta):
+	translateTowardEdge(delta)
+	apply_debuffs(delta)
+	pass;	
+	
 func translateTowardEdge(delta):
+	
+	
 	
 	if core.hp<=0:return;
 	

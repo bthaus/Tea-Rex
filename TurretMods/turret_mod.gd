@@ -40,7 +40,7 @@ func initialise(turret:TurretCore):
 	
 	pass;
 func on_cell_traversal(projectile:Projectile):
-	print("traversed")
+
 	pass;
 	
 func on_kill(monster:Monster):

@@ -11,7 +11,7 @@ var current_expected_damage=0:
 	set(value):
 		current_expected_damage=value
 		updateUI()
-static var gameState;
+static var gameState:GameState;
 var account: String = "dede";
 
 #Todo: remove and replace with battle_slot_logic
@@ -45,11 +45,12 @@ static var board;
 
 #subject to change
 static var bulletHolder;
+
 signal player_died
 signal start_build_phase;
 signal start_combat_phase;
 
-static var collisionReference=CollisionReference.new()
+static var collisionReference:CollisionReference=CollisionReference.new()
 var map_dto;
 
 
@@ -86,8 +87,8 @@ func _process(delta):
 			if is_instance_valid(turret): turret.do(delta/game_speed);
 			else: Turret.turrets.erase(turret)
 		$MinionHolder.do(delta/game_speed)
-		$BulletHolder.do(delta/game_speed)		
-		
+		$BulletHolder.do(delta/game_speed)
+	
 	pass
 
 func add_target(t):
@@ -169,9 +170,10 @@ func startGame():
 	spawners.clear()
 	collisionReference.initialise(self,map_dto)
 	gameBoard=load("res://GameBoard/game_board.tscn").instantiate()
-	gameBoard.init_field(map_dto)
 	add_child(gameBoard)
 	board=gameBoard.get_node("Board")
+	gameBoard.init_field(map_dto)
+	
 	
 	GameState.restore_speed=1;
 	GameState.game_speed=1;	

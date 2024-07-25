@@ -21,7 +21,7 @@ var ignore_next_enemy=false;
 static var gamestate: GameState;
 static var camera;
 static var factory=load("res://TurretScripts/Projectiles/projectile_factory.tscn").instantiate()
-var oldpos=Vector2(0,0)
+var oldpos=Vector2i(0,0)
 
 
 static func create(type: Turret.Hue, damage, speed, root:TurretCore, extension: Turret.Extension=Turret.Extension.DEFAULT, penetrations:int=1) -> Projectile:

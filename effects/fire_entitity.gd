@@ -16,13 +16,23 @@ func _ready():
 	var arr=$trail.emission_points
 	arr.append(Vector2(50,50))
 	$trail.emission_points=arr
-	default_gradient=gradient.duplicate()
+	
+	
 	pass;
 func _notification(what):
 	if what==NOTIFICATION_PREDELETE:
 		line.queue_free()	
+		
+func on_cell_traversal():
+	if bullet==null:
+		return
+	print("registered at: "+str(bullet.get_reference()))	
+	GameState.collisionReference.register_entity_at_position(self,bullet.get_global())
+	pass;		
 func _process(delta):
-	
+	if decay<=0:
+		remove()
+		return
 	if bullet!=null:
 		if !bullet.shot:
 			bullet=null
@@ -30,16 +40,18 @@ func _process(delta):
 			p.reverse()
 			line.points=p
 			return
-			
 		line.add_point(bullet.get_global())
 		var arr=$trail.emission_points
-		arr.push_back(bullet.get_global())
+		var point=bullet.get_global()
+		arr.push_back(point)
 		$trail.emission_points=arr	
 		
 	elif decaying:
 	
 		decay-=delta/200
 		var arr=$trail.emission_points
+		if arr.is_empty():return
+		
 		arr.resize(arr.size()-1)
 		$trail.emission_points=arr
 		line.gradient=gradient
@@ -51,18 +63,20 @@ func _process(delta):
 			remove()
 		GameState.gameState.collisionReference.remove_entity_from_position(self,remove_pos)
 	
-	if decay<=0:
-		remove()			
+				
 	pass;
 func initialise():
 	bullet=null
-	decay=1	
+	decay=1
 	if line==null:
 		line=Line2D.new()
 		GameState.gameState.add_child(line)
 	else:
 		line.clear_points()	
-	line.gradient=default_gradient	
+	if default_gradient==null:
+		default_gradient=gradient.duplicate()	
+	gradient=default_gradient	
+	line.gradient=gradient
 	line.width=4	
 	origin=null
 	decaying=false
