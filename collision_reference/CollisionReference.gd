@@ -72,6 +72,7 @@ func get_monster(pos):
 	pos.y = normaliseY(pos.y)
 	
 	#if rowCounter[pos.y-1]>0:
+	if isOutOfBoundsVector(pos):return
 	if map[pos.y][pos.x].ms.size() > 0:
 		
 		var mo = map[pos.y][pos.x].ms.back()

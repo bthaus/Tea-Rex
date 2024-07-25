@@ -18,6 +18,7 @@ func do(delta):
 			for i in range(precision):
 				b.move(delta/precision)
 				var pos=b.get_map()
+				b.hit_cell()
 				if pos.x==b.oldpos.x&&pos.y==b.oldpos.y: continue
 				b.oldpos=pos
 				b.cell_traversed()
@@ -27,9 +28,7 @@ func do(delta):
 				if b.hit_wall():
 					b.remove()
 					break	
-				var moornot=reference.get_monster(pos)
-				if moornot!=null:
-					b.hitEnemy(moornot)
+				
 			
 		
 		

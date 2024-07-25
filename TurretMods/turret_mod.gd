@@ -9,7 +9,7 @@ var type:ModType
 static var color_blocks={
 	TARGETING=[],
 	HULL=[],
-	PROJECTILE=[Turret.Hue.RED],
+	PROJECTILE=[],
 	AMMUNITION=[],
 	PRODUCTION=[],
 	ONKILL=[]

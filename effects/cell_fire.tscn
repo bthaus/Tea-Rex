@@ -11,24 +11,27 @@ offsets = PackedFloat32Array(0, 0.215962, 0.532864, 0.835681, 1)
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 0, 1, 1, 0.49833, 0.110753, 1, 0, 0, 0, 1, 0, 0, 0, 0)
 
 [node name="Node2D" type="Node2D"]
+process_mode = 3
 script = ExtResource("1_nelbu")
 
 [node name="fire" type="CPUParticles2D" parent="."]
 z_index = 50
-amount = 64
-lifetime = 4.0
+amount = 12
+lifetime = 2.0
+speed_scale = 0.5
 fixed_fps = 30
 draw_order = 1
 emission_shape = 4
-emission_points = PackedVector2Array(0, 0, 2, 2, 10, 0)
+emission_points = PackedVector2Array()
 emission_colors = PackedColorArray()
 direction = Vector2(0, -1)
+spread = 14.16
 gravity = Vector2(0, -10)
-initial_velocity_min = 27.89
-initial_velocity_max = 27.89
+initial_velocity_min = 11.95
+initial_velocity_max = 19.92
 tangential_accel_min = -0.25
 tangential_accel_max = 6.39
-damping_max = 15.353
+damping_max = 33.013
 scale_amount_min = 8.0
 scale_amount_max = 12.0
 scale_amount_curve = SubResource("Curve_iywxx")

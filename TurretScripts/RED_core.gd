@@ -2,7 +2,7 @@ extends TurretCore
 class_name RedTurretCore
 @export var projectile_destroy_timeout:float=2
 @export var num_active_projectiles=3
-var delay_between_projectiles=0.5
+var delay_between_projectiles=1
 var in_range=false;
 var projectiles_active=false;
 signal destroy_projectiles
@@ -23,6 +23,7 @@ func attack(delta):
 			#shoot(target)
 			projectiles_active=true	
 	pass
+	
 #func shoot(target):
 	#var shot = get_projectile()
 	#shot.global_position = global_position

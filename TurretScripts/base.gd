@@ -52,7 +52,7 @@ static var collisionReference: CollisionReference;
 var waitingDelayed = false;
 static var inhandTurrets = []
 
-var projectile: Projectile;
+var ref_proj: Projectile;
 
 var minions;
 var target;
@@ -94,15 +94,15 @@ func getReferences(cells):
 	return collisionReference.getCellReferences(global_position, turretRange, self, cells)
 	pass ;
 func setUpTower(holder):
-	turret_mods.append(FireTrailMod.new())
+	turret_mods.append(MultipleShotsMod.new())
 	self.holder = holder
 	minions = GameState.gameState.get_node("MinionHolder")
 	setLevel(stacks)
 	trueRangeSquared = turretRange * GameboardConstants.TILE_SIZE + GameboardConstants.TILE_SIZE
 	trueRangeSquared = trueRangeSquared * trueRangeSquared;
 	
-	if projectile == null: projectile = Projectile.create(type, damage * damagefactor, speed * speedfactor, self, extension, penetrations);
-	projectile.visible = false;
+	if ref_proj == null: ref_proj = Projectile.create(type, damage * damagefactor, speed * speedfactor, self, extension, penetrations);
+	ref_proj.visible = false;
 
 	if placed:
 		lightamount = GameState.gameState.lightThresholds.getLight(global_position.y) * stacks
@@ -176,7 +176,7 @@ func do(delta):
 	if !onCooldown:
 		if target != null: checkTarget()
 		if target == null: getTarget()
-		if projectile == null: projectile = Projectile.create(type, damage, speed, self, penetrations, extension)
+		if ref_proj == null: ref_proj = Projectile.create(type, damage, speed, self, penetrations, extension)
 			
 	if target != null:
 		direction = (target.global_position - holder.global_position).normalized();

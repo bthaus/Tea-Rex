@@ -17,18 +17,20 @@ func _ready():
 	pass;
 	
 func _process(delta):
-	if decaying:
-		decay-=delta
+	
 	if bullet.shot:	
 		line.add_point(bullet.get_global())
 		var arr=$fire.emission_points
 		arr.push_back(bullet.get_global())
 		$fire.emission_points=arr	
 	if decaying and not bullet.shot:
+		decay-=delta
 		line.default_color.a=decay/5
 		var arr=$fire.emission_points
 		arr.resize(arr.size()-1)
-		$fire.emission_points=arr		
+		$fire.emission_points=arr
+	if decay<=0:
+		remove()			
 	pass;
 func initialise():
 	bullet=null
@@ -57,14 +59,7 @@ func trigger_projectile(projectile:Projectile):
 func register_bullet(projectile:Projectile):
 	bullet=projectile
 	origin=projectile.get_global()
-	#bullet.removed.connsect(func():
-		#var larr=line.points
-		##larr.reverse()
-		#line.points=larr
-		#var arr=$fire.emission_points
-		##arr.reverse()
-		#$fire.emission_points=arr
-		#)
+	
 	pass;	
 static func get_fire():
 	var fire

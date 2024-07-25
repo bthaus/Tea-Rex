@@ -17,7 +17,7 @@ func initialise(turret:TurretCore):
 
 func on_shoot(projectile:Projectile):
 	#var degrees=[22.5,45,-22.5,-45]
-	
+	if associate is RedTurretCore:return
 	for degree in degrees:
 		projectile.duplicate_and_shoot(degree,associate)
 		#var p1=Projectile.factory.duplicate_bullet(projectile) as Projectile

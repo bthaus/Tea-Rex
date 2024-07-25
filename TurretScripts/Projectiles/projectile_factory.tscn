@@ -187,8 +187,8 @@ scale = Vector2(0.121094, 0.121094)
 script = ExtResource("16_7b50o")
 
 [node name="orb" type="Sprite2D" parent="red_projectile"]
-position = Vector2(0, -503.741)
-scale = Vector2(0.595, 0.595)
+position = Vector2(0, -528.515)
+scale = Vector2(0.515, 0.515)
 texture = ExtResource("15_oupr7")
 
 [node name="magenta_projectile" type="Node2D" parent="."]

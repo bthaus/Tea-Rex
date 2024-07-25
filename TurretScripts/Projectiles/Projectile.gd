@@ -81,7 +81,7 @@ func duplicate_and_shoot(angle,origin=null)->Projectile:
 	var p1=_get_duplicate()
 	p1.on_creation()
 	p1.ignore_next_enemy=true
-	p1.global_position=origin.global_position
+	p1.global_position=origin.get_global()
 	for mod in associate.turret_mods:
 		mod.visual.prepare_projectile(p1)
 	p1._toggle_emission(true)	
@@ -93,8 +93,15 @@ func _shoot_duplicate(projectile,angle):
 	projectile.direction=util.rotate_vector(direction,angle)
 	projectile.global_rotation = projectile.direction.angle() + PI / 2.0
 	pass;	
-
-		
+var last_hit_cell=Vector2i(0,0)
+func hit_cell():
+	var pos=get_map()
+	if last_hit_cell==pos:return
+	var moornot=GameState.gameState.collisionReference.get_monster(pos)
+	if moornot!=null:
+		last_hit_cell=pos
+		hitEnemy(moornot)
+	pass;		
 func move(delta):
 	var distance=direction * delta * speed
 	translate(distance);

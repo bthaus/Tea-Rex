@@ -7,8 +7,6 @@ func _init():
 	
 	pass;
 func initialise(turret:TurretCore):
-	if turret is RedTurretCore:
-		turret.num_active_projectiles+=degrees.size()
 	super(turret)
 	associate.average_minions_hit=associate.average_minions_hit+2
 	pass;
