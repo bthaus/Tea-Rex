@@ -20,9 +20,9 @@ func _process(delta):
 	if decaying:
 		decay-=delta
 	if bullet.shot:	
-		line.add_point(bullet.global_position)
+		line.add_point(bullet.get_global())
 		var arr=$fire.emission_points
-		arr.push_back(bullet.global_position)
+		arr.push_back(bullet.get_global())
 		$fire.emission_points=arr	
 	if decaying and not bullet.shot:
 		line.default_color.a=decay/5
@@ -56,7 +56,7 @@ func trigger_projectile(projectile:Projectile):
 	pass;	
 func register_bullet(projectile:Projectile):
 	bullet=projectile
-	origin=projectile.global_position
+	origin=projectile.get_global()
 	#bullet.removed.connsect(func():
 		#var larr=line.points
 		##larr.reverse()

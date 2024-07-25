@@ -19,15 +19,16 @@ func attack(delta):
 				delay+=delay_between_projectiles
 				get_tree().create_timer(delay).timeout.connect(shoot.bind(target))
 				
-			on_shoot(p)
+			
 			#shoot(target)
 			projectiles_active=true	
 	pass
-func shoot(target):
-	var shot = get_projectile()
-	shot.global_position = global_position
-	shot.shoot(target);
-	return shot
+#func shoot(target):
+	#var shot = get_projectile()
+	#shot.global_position = global_position
+	#shot.shoot(target);
+	#
+	#return shot
 func destroy_projectiles_conditional():
 	if in_range:return
 	destroy_projectiles.emit()
