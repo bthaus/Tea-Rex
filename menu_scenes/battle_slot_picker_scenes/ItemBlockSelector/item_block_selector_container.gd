@@ -5,15 +5,27 @@ extends Node2D
 
 var _style_box: StyleBoxFlat = load("res://Styles/item_block_selector_tab.tres")
 var _group: ButtonGroup
+var _selected_tab: TabEntry = null
+signal item_selected
 
+class TabEntry:
+	var node
+	var turret_color: Turret.Hue
+	var display_color: Color
+	func _init(node, turret_color: Turret.Hue, display_color: Color):
+		self.node = node
+		self.turret_color = turret_color
+		self.display_color = display_color
+		
 #Maps tab to values
-@onready var _tab_map = [
-	[$TargetingTab, Color.WHITE],
-	[$ProjectileTab, Color.YELLOW],
-	[$AmmunitionTab, Color.RED],
-	[$HullTab, Color.ROYAL_BLUE],
-	[$ProductionTab, Color.GREEN],
-	[$KillEffectTab, Color.MAGENTA]
+@onready var _tabs: Array[TabEntry] = [
+	TabEntry.new($TargetingTab, Turret.Hue.WHITE, Color.WHITE),
+	TabEntry.new($TargetingTab, Turret.Hue.WHITE, Color.WHITE),
+	TabEntry.new($ProjectileTab, Turret.Hue.YELLOW, Color.YELLOW),
+	TabEntry.new($AmmunitionTab, Turret.Hue.RED, Color.RED),
+	TabEntry.new($HullTab, Turret.Hue.BLUE, Color.ROYAL_BLUE),
+	TabEntry.new($ProductionTab, Turret.Hue.GREEN, Color.GREEN),
+	TabEntry.new($KillEffectTab, Turret.Hue.MAGENTA, Color.MAGENTA)
 	]
 
 func _ready():
@@ -33,36 +45,39 @@ func _select_tab(tab: Button):
 	
 	tab.position.y = $TabSelectedHeight.position.y
 	tab.z_index = 1
-	_update_container_color(tab)
-	_update_container_items(tab)
+	for t in _tabs:
+		if tab == t.node:
+			_selected_tab = t
+			break
+	_update_container_color()
+	_update_container_items()
 
-func _update_container_items(tab):
+func _update_container_items():
 	for child in item_container.get_children(): child.queue_free()
-	for i in 10:
-		var item = load("res://menu_scenes/battle_slot_picker_scenes/ItemBlockSelector/item_block_selector_item.tscn").instantiate()
-		#TODO: insert actual item block
-		item.clicked.connect(_on_item_clicked)
-		item_container.add_child(item)
+	var unlocked_items = []
+	for item in MainMenu.get_account_dto().unlocked_items:
+		if item.color == _selected_tab.turret_color:
+			unlocked_items.append(item)
+	
+	for item in unlocked_items:
+		var child = load("res://menu_scenes/battle_slot_picker_scenes/ItemBlockSelector/item_block_selector_item.tscn").instantiate()
+		child.set_item(item)
+		child.clicked.connect(_on_item_selected)
+		item_container.add_child(child)
 
-func _on_item_clicked(item_block: ItemBlockDTO):
-	print(item_block)
+func _on_item_selected(item_block: ItemBlockDTO):
+	item_selected.emit(item_block)
 
 func _init_tab_colors():
-	for entry in _tab_map:
+	for entry in _tabs:
 		var style = _style_box.duplicate()
-		style.bg_color = entry[1]
-		entry[0].add_theme_stylebox_override("normal", style)
-		entry[0].add_theme_stylebox_override("hover", style)
-		entry[0].add_theme_stylebox_override("pressed", style)
-		entry[0].add_theme_stylebox_override("focus", style)
+		style.bg_color = entry.display_color
+		entry.node.add_theme_stylebox_override("normal", style)
+		entry.node.add_theme_stylebox_override("hover", style)
+		entry.node.add_theme_stylebox_override("pressed", style)
+		entry.node.add_theme_stylebox_override("focus", style)
 	
-func _update_container_color(tab):
-	var color
-	for entry in _tab_map:
-		if tab == entry[0]:
-			color = entry[1]
-			break
-	
+func _update_container_color():
 	var style = $Panel.get_theme_stylebox("panel")
-	style.bg_color = color
+	style.bg_color = _selected_tab.display_color
 	$Panel.add_theme_stylebox_override("panel", style)

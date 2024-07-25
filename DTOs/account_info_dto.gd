@@ -4,10 +4,12 @@ class_name AccountInfoDTO
 var account_name:String
 var account_progress:Array=[]
 var unlocked_colors:Array[Turret.Hue]
-#array of ItemBlockDTOs
-var unlocked_items
+
+var unlocked_items: Array[ItemBlockDTO]
 #array of blueprintsDTOs 
 var blueprints
+
+var turret_mod_containers: Array[TurretModContainerDTO]
 
 #to be called when a item is created
 var _item_index=0
@@ -16,8 +18,20 @@ func get_item_index():
 	return _item_index
 func _init(name="-1"):
 	account_name=name
+	turret_mod_containers = []
+	for key in Turret.Hue.keys():
+		var container = TurretModContainerDTO.new()
+		container.color = Turret.Hue.get(key)
+		turret_mod_containers.append(container)
+		
+	_insert_test_items()
 	super()
 	pass;
+
+func _insert_test_items():
+	unlocked_items = []
+	unlocked_items.append(ItemBlockDTO.new(Turret.Hue.WHITE))
+	unlocked_items.append(ItemBlockDTO.new(Turret.Hue.RED))
 
 func save(name="-1",acc="-1",dir="-1"):
 	if name=="-1" and account_name!=null:

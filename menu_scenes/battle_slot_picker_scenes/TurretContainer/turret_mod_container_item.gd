@@ -13,8 +13,10 @@ func _ready():
 	item_handler = ItemBlockSelectorHandler.new($Board, [])
 	style_box.set("border_color", _get_color_from_turret_color(color))
 	add_theme_stylebox_override("panel", style_box)
-	$Board.set_cell(ItemBlockConstants.BLOCK_LAYER, Vector2(0,1), ItemBlockConstants.BLUE_TILE_ID, Vector2(0, 0))
 	
+func set_mods(item_blocks: Array[ItemBlockDTO]):
+	for item in item_blocks:
+		item_handler.draw_item_block(item, item.map_position, ItemBlockConstants.BLOCK_LAYER)
 
 func _process(delta):
 	$Board.clear_layer(ItemBlockConstants.PREVIEW_LAYER)

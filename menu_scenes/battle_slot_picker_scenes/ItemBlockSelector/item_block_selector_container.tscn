@@ -147,7 +147,6 @@ grow_vertical = 2
 
 [node name="ItemGridContainer" type="GridContainer" parent="Panel/ScrollContainer"]
 layout_mode = 2
-size_flags_horizontal = 6
 theme_override_constants/h_separation = 25
 theme_override_constants/v_separation = 25
 columns = 4
@@ -165,6 +164,9 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="ItemBlockSelectorItem5" parent="Panel/ScrollContainer/ItemGridContainer" instance=ExtResource("4_kufx3")]
+layout_mode = 2
+
+[node name="ItemBlockSelectorItem6" parent="Panel/ScrollContainer/ItemGridContainer" instance=ExtResource("4_kufx3")]
 layout_mode = 2
 
 [node name="TabSelectedHeight" type="Node2D" parent="."]

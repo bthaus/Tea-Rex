@@ -6,9 +6,17 @@ var selected_item: ItemBlockDTO
 
 func _ready():
 	item_handler = ItemBlockSelectorHandler.new($Board, [])
-		
+
 	for container in turret_mod_grid_container.get_children():
+		var mods
+		for mod_container in MainMenu.get_account_dto().turret_mod_containers:
+			if mod_container.color == container.color:
+				mods = mod_container.turret_mods
+				break
+		container.set_mods(mods)
 		container.focused.connect(on_container_focus_changed)
+	
+	$ItemBlockSelectorContainer.item_selected.connect(_on_item_selected)
 
 func on_container_focus_changed(container_focused: bool):
 	if container_focused:
@@ -16,7 +24,7 @@ func on_container_focus_changed(container_focused: bool):
 	else:
 		item_handler.draw_item_block(selected_item, Vector2(0,0), ItemBlockConstants.BLOCK_LAYER)
 
-func on_item_selected(item_block: ItemBlockDTO):
+func _on_item_selected(item_block: ItemBlockDTO):
 	selected_item = item_block
 	item_handler.draw_item_block(selected_item, Vector2(0,0), ItemBlockConstants.BLOCK_LAYER)
 	for container in turret_mod_grid_container.get_children():

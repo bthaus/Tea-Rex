@@ -6,10 +6,10 @@ class_name TurretModContainerDTO
 #you can store your mods in it, they are saved
 #you can put a blueprint _on_ a battleslot, so the turret of the slots color has the mods from 
 #this container
-var turret_mods
+var turret_mods: Array[ItemBlockDTO]
 
 
-var color:Turret.Hue
+var color: Turret.Hue
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

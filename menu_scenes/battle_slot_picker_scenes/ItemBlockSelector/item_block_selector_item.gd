@@ -3,7 +3,7 @@ extends Button
 var _item_block: ItemBlockDTO
 signal clicked
 
-func set_item_block(item_block: ItemBlockDTO):
+func set_item(item_block: ItemBlockDTO):
 	_item_block = item_block
 	#TODO set texture etc.
 
