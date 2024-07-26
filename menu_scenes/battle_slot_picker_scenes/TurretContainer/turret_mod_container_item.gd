@@ -42,8 +42,6 @@ func _input(event):
 		if item_handler.can_place_item_block(selected_item, board_pos):
 			item_handler.place_item_block(selected_item, board_pos)
 			placed.emit()
-	elif event.is_action_released("right_click"):
-		item_handler.rotate_item(selected_item)
 		
 
 func _get_mouse_position_on_board() -> Vector2:
