@@ -48,7 +48,7 @@ func apply_effect(delta):
 	pass;	
 	
 func get_container()->debuff_container:
-	return debuff_container.new()
+	return debuff_container.new(affected)
 	
 
 class debuff_container:
@@ -61,6 +61,10 @@ class debuff_container:
 				if val!=null:val.on_removal()
 				strongest_debuff.on_initial_application()
 	var visual
+	var affected
+	func _init(affected):
+		self.affected=affected
+		
 	func get_strongest_debuff()->Debuff:
 		return strongest_debuff
 	
@@ -72,16 +76,26 @@ class debuff_container:
 			remove_debuff(strongest_debuff,delta)
 			
 		pass;
+	func add_visual():
 		
+		pass;
+	func remove_visual():
+		
+		pass;		
 	func add_debuff(d:Debuff):
+		if debuffs.is_empty:
+			add_visual()	
 		if strongest_debuff!=null and strongest_debuff.strength==d.strength:
 			strongest_debuff.refresh()
 			return
+		
 		debuffs.push_back(d)
 		compute_strongest_debuff()
 		
 	func remove_debuff(d:Debuff,delta):
 		debuffs.erase(d)
+		if debuffs.is_empty():
+			remove_visual()
 		compute_strongest_debuff()
 		trigger(delta)
 				

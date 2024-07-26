@@ -1,0 +1,3 @@
+[gd_scene format=3 uid="uid://dpgd43fcaiop2"]
+
+[node name="debuff_visual_factory" type="Node2D"]
