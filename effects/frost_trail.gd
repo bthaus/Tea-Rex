@@ -4,8 +4,8 @@ class_name FrostTrail
 static var frost_cache=[]
 
 func trigger_minion(monster:Monster):
-	var frost=FrostDebuff.new(1)
-	frost.register(monster)
+	#var frost=FrostDebuff.new(1)
+	#frost.register(monster)
 	pass;
 func trigger_projectile(projectile:Projectile):
 	print("trigger frost")

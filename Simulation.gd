@@ -3,7 +3,7 @@ class_name Simulation
 
 var gameState:GameState
 
-var mods=[[ForkingAmmunitionMod]]
+var mods=[[MultipleShotsMod,ForkingAmmunitionMod]]
 #enum Hue {WHITE=1, GREEN=2, RED=3, YELLOW=4, BLUE=5, MAGENTA=6};
 
 var color_index=6
@@ -45,7 +45,7 @@ func _next_test():
 		var res=current_turret.get_info()+"\n"
 		print(res)
 		results=results+res+"\n"
-	#	get_tree().create_timer(5).timeout.connect(_test_turret.bind(color_index,mods[mod_set_index]))
+		#get_tree().create_timer(5).timeout.connect(_test_turret.bind(color_index,mods[mod_set_index]))
 		#return
 	if mod_set_index>=mods.size():
 		mod_set_index=0

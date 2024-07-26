@@ -64,6 +64,7 @@ func _process(delta):
 		if GameState.collisionReference.getMapPositionNormalised(remove_pos)!=GameState.collisionReference.getMapPositionNormalised(previous_pos):	
 			GameState.gameState.collisionReference.remove_entity_from_position(self,remove_pos)
 			previous_pos=remove_pos
+			print("removed from "+str(remove_pos))
 			
 				
 	pass;
@@ -90,7 +91,8 @@ func remove():
 	done.emit()
 	cache_fire(self)
 	$trail.emission_points.clear()
-	line.clear_points()
+	if is_instance_valid(line):
+		line.clear_points()
 	pass
 func trigger_minion(monster:Monster):
 	pass;

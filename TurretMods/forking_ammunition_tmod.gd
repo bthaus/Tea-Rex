@@ -3,7 +3,7 @@ class_name ForkingAmmunitionMod
 var degrees=[45,-45]
 func _init():
 	description="Projectiles fork on impact."
-	super(TurretBaseMod.ModType.PROJECTILE)
+	super(TurretBaseMod.ModType.AMMUNITION)
 	
 	pass;
 func initialise(turret:TurretCore):

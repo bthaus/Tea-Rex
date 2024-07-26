@@ -15,7 +15,7 @@ var speed:
 var hp:
 	get:return core.hp
 	set(val):core.hp=val
-
+var default_speed
 var minionExp;
 var currentMinionPower = 1;
 var path=[]
@@ -33,6 +33,7 @@ signal reached_spawn(monster: Monster)
 var maxGlow = 5;
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	default_speed=speed
 	core.death_animation_done.connect(queue_free)
 	core.on_spawn()
 	maxHp = core.hp

@@ -98,6 +98,7 @@ func initialise(g,map_dto):
 	gameState.get_node("BulletHolder").reference = self;
 	gameState.collisionReference = self;
 	map=[]
+	bases.clear()
 	for i in range(GameboardConstants.BOARD_HEIGHT):
 		addRow(map)
 	for entity in map_dto.entities:

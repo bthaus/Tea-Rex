@@ -94,7 +94,8 @@ func getReferences(cells):
 	return collisionReference.getCellReferences(global_position, turretRange, self, cells)
 	pass ;
 func setUpTower(holder):
-	turret_mods.append(FireTrailMod.new())
+	turret_mods.append(MultipleShotsMod.new())
+	turret_mods.append(ForkingAmmunitionMod.new())
 	self.holder = holder
 	minions = GameState.gameState.minions
 	setLevel(stacks)
