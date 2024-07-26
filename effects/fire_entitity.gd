@@ -9,6 +9,7 @@ static var cache=[]
 var line:Line2D
 @export var gradient:Gradient
 var default_gradient
+var associate:TurretCore
 
 
 func _ready():
@@ -104,12 +105,13 @@ func register_bullet(projectile:Projectile):
 	origin=projectile.get_global()
 	
 	pass;	
-static func get_trail():
+static func get_trail(associate:TurretCore):
 	var fire
 	if cache.is_empty():
 		fire=_load_trail()
 	else:
-		fire=cache.pop_back()	
+		fire=cache.pop_back()
+	fire.associate=associate		
 	return fire	
 
 static func _load_trail():

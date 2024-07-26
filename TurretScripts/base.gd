@@ -95,7 +95,7 @@ func getReferences(cells):
 	pass ;
 func setUpTower(holder):
 	turret_mods.append(MultipleShotsMod.new())
-	turret_mods.append(ForkingAmmunitionMod.new())
+
 	self.holder = holder
 	minions = GameState.gameState.minions
 	setLevel(stacks)
@@ -348,12 +348,16 @@ func addDamage(Damage):
 	pass ;
 	
 func setLevel(lvl: int):
-	var children = barrels
-	level = lvl;
-	for i in range(lvl):
-		if i < children.size():
-			add_child(children[i])
-			children[i].visible = true;
+	stacks=lvl
+	for mod:TurretBaseMod in turret_mods:
+		mod.on_level_up(lvl)
+	damagefactor=lvl	
+	#var children = barrels
+	#level = lvl;
+	#for i in range(lvl):
+		#if i < children.size():
+			#add_child(children[i])
+			#children[i].visible = true;
 
 	pass ;
 	

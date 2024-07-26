@@ -200,11 +200,7 @@ func do(delta):
 
 
 func levelup(lvl: int=1):
-	lightamount = lightamount / level
 	level = lvl;
-	lightamount = lightamount * level
-	
-	setUpTower()
 	$LVL.text = str(level)
 	base.setLevel(level)
 	pass ;

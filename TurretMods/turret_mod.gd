@@ -4,7 +4,8 @@ var description="I am a base mod. I dont do anything"
 var visual:ModVisual
 var associate:TurretCore
 var type:ModType
-
+var level=1
+var damage_factor=1
 
 static var color_blocks={
 	TARGETING=[],
@@ -34,11 +35,16 @@ func _init(type:ModType=ModType.HULL):
 func initialise(turret:TurretCore):
 	visual=ModVisualFactory.get_visual(self)
 	associate=turret
+	level=associate.stacks
 	turret.add_child(visual)
-	
-	
-	
 	pass;
+
+func on_level_up(lvl):
+	level=lvl
+	pass;
+func get_damage():
+	return (associate.damage*associate.damagefactor)*(damage_factor*level)
+	pass;	
 func on_cell_traversal(projectile:Projectile):
 
 	pass;

@@ -1,8 +1,9 @@
 extends TurretBaseMod
 class_name FireTrailMod
 var trails=[]
+var strength_of_fire_dot=1
 func on_shoot(projectile:Projectile):
-	var trail = FireTrail.get_trail()
+	var trail = FireTrail.get_trail(associate)
 	trail.initialise()
 	trail.register_bullet(projectile)
 	GameState.gameState.add_child(trail)
@@ -19,3 +20,7 @@ func remove():
 		trail.remove()
 	super()
 	pass;	
+func on_level_up(lvl):
+	strength_of_fire_dot=lvl
+	super(lvl)
+	pass;
