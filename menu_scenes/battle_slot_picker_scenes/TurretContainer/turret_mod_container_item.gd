@@ -10,13 +10,15 @@ signal placed
 signal focused
 
 func _ready():
-	item_handler = ItemBlockSelectorHandler.new($Board, [])
+	var mods: Array[ItemBlockDTO]
+	for container in MainMenu.get_account_dto().turret_mod_containers:
+		if container.color == color:
+			mods = container.turret_mods
+			break
+	
+	item_handler = ItemBlockSelectorHandler.new($Board, mods)
 	style_box.set("border_color", _get_color_from_turret_color(color))
 	add_theme_stylebox_override("panel", style_box)
-	
-func set_mods(item_blocks: Array[ItemBlockDTO]):
-	for item in item_blocks:
-		item_handler.draw_item_block(item, item.map_position, ItemBlockConstants.BLOCK_LAYER)
 
 func _process(delta):
 	$Board.clear_layer(ItemBlockConstants.PREVIEW_LAYER)

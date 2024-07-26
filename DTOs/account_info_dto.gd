@@ -34,6 +34,8 @@ func _insert_test_items():
 	unlocked_items.append(ItemBlockDTO.new(Turret.Hue.WHITE, Block.BlockShape.Z, 0, ItemBlockConstants.WHITE_TILE_ID))
 	unlocked_items.append(ItemBlockDTO.new(Turret.Hue.YELLOW, Block.BlockShape.I, 0, ItemBlockConstants.YELLOW_TILE_ID))
 	unlocked_items.append(ItemBlockDTO.new(Turret.Hue.RED, Block.BlockShape.L, 0, ItemBlockConstants.RED_TILE_ID))
+	
+	turret_mod_containers[0].turret_mods.append(ItemBlockDTO.new(Turret.Hue.BLUE, Block.BlockShape.L, 0, ItemBlockConstants.BLUE_TILE_ID, Vector2(1,1)))
 
 func save(name="-1",acc="-1",dir="-1"):
 	if name=="-1" and account_name!=null:
