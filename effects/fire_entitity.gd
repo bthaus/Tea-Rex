@@ -48,16 +48,16 @@ func _process(delta):
 		
 	elif decaying:
 	
-		decay-=delta/200
+		decay-=delta/10
 		var arr=$trail.emission_points
-		if arr.is_empty():return
-		
-		arr.resize(arr.size()-1)
-		$trail.emission_points=arr
+		if !arr.is_empty():
+			arr.resize(arr.size()-1)
+			$trail.emission_points=arr
 		line.gradient=gradient
 		for point in range(5):
-			gradient.set_offset(point,lerp(0.0,gradient.get_offset(point),decay))
-		var off=gradient.get_offset(3)
+			gradient.set_offset(point,lerp(0.0,default_gradient.get_offset(point),decay))
+		var off=gradient.get_offset(4)
+		
 		var remove_pos=lerp(origin,get_global(),off)
 		if off<0.01:
 			remove()
@@ -89,13 +89,13 @@ func remove():
 	GameState.collisionReference.remove_entity(self)
 	done.emit()
 	cache_fire(self)
+	$trail.emission_points.clear()
 	line.clear_points()
 	pass
 func trigger_minion(monster:Monster):
-	print("hitt fire")
 	pass;
 func trigger_projectile(projectile:Projectile):
-	print("trigger projectile")
+	
 	pass;	
 func register_bullet(projectile:Projectile):
 	bullet=projectile

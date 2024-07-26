@@ -3,10 +3,10 @@ class_name Simulation
 
 var gameState:GameState
 
-var mods=[[FrostTrailMod]]
+var mods=[]
 #enum Hue {WHITE=1, GREEN=2, RED=3, YELLOW=4, BLUE=5, MAGENTA=6};
 
-var color_index=5
+var color_index=2
 var mod_set_index=0
 @export var sim_speed=25
 var results=""
@@ -16,6 +16,7 @@ static var instance
 func _ready():
 	instance=self
 	gameState=load("res://Game/main_scene.tscn").instantiate()
+	
 	var map=MapDTO.new()
 	map.restore("sim_debug")
 	gameState.map_dto=map
@@ -44,8 +45,8 @@ func _next_test():
 		var res=current_turret.get_info()+"\n"
 		print(res)
 		results=results+res+"\n"
-		get_tree().create_timer(5).timeout.connect(_test_turret.bind(color_index,mods[mod_set_index]))
-		return
+	#	get_tree().create_timer(5).timeout.connect(_test_turret.bind(color_index,mods[mod_set_index]))
+		#return
 	if mod_set_index>=mods.size():
 		mod_set_index=0
 		color_index=color_index+1

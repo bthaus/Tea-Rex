@@ -15,3 +15,8 @@ func on_cell_traversal(projectile:Projectile):
 		trail.on_cell_traversal()
 	super(projectile)	
 	pass;
+func remove():
+	for trail in trails:
+		trail.remove()
+	super()
+	pass;	

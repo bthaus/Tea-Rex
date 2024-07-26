@@ -96,7 +96,7 @@ func getReferences(cells):
 func setUpTower(holder):
 	turret_mods.append(FireTrailMod.new())
 	self.holder = holder
-	minions = GameState.gameState.get_node("MinionHolder")
+	minions = GameState.gameState.minions
 	setLevel(stacks)
 	trueRangeSquared = turretRange * GameboardConstants.TILE_SIZE + GameboardConstants.TILE_SIZE
 	trueRangeSquared = trueRangeSquared * trueRangeSquared;
@@ -115,7 +115,8 @@ func setUpTower(holder):
 	after_built()
 	pass ;
 func on_destroy():
-	
+	for mod in turret_mods:
+		mod.remove()
 	pass;	
 func after_built():
 	var to_remove = []

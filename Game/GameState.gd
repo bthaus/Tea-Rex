@@ -16,7 +16,7 @@ var account: String = "dede";
 
 #Todo: remove and replace with battle_slot_logic
 var unlockedExtensions = [Turret.Extension.DEFAULT];
-var unlockedColors =[Turret.Hue.RED] #[Turret.Hue.GREEN,Turret.Hue.BLUE,Turret.Hue.RED,Turret.Hue.YELLOW];
+var unlockedColors =[Turret.Hue.BLUE] #[Turret.Hue.GREEN,Turret.Hue.BLUE,Turret.Hue.RED,Turret.Hue.YELLOW];
 
 var selected_battle_slots
 
@@ -39,7 +39,7 @@ static var spawners = []
 var target;
 var targets=[]
 var showTutorials = false;
-
+var minions
 static var game_speed=1;
 static var board;
 
@@ -178,7 +178,7 @@ func startGame():
 	GameState.restore_speed=1;
 	GameState.game_speed=1;	
 	
-	
+	minions=$MinionHolder
 	$MinionHolder.board=board
 	$BulletHolder.board=board;
 	
