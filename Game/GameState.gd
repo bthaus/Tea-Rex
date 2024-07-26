@@ -63,12 +63,6 @@ func register_battle_slot_containers(containers:Array[TurretModContainerDTO]):
 	pass;
 
 func _ready():
-	var con=TurretModContainerDTO.new()
-	var mod=ItemBlockDTO.new()
-	mod.turret_mod=FireTrailMod
-	con.turret_mods.append(mod)
-	con.color=Turret.Hue.BLUE
-	register_battle_slot_containers([con])
 	gameState = self;
 	ui=$CanvasLayer/UI
 	hand=ui.hand
