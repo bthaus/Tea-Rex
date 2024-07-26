@@ -11,11 +11,11 @@ var damage:
 	set(val):core.damage=val
 var speed:
 	get:return core.speed
-	set(val):core.speed=val
+	set(val):core.speed=clamp(val,0,10000)
 var hp:
 	get:return core.hp
 	set(val):core.hp=val
-
+var default_speed
 var minionExp;
 var currentMinionPower = 1;
 var path=[]
@@ -33,6 +33,7 @@ signal reached_spawn(monster: Monster)
 var maxGlow = 5;
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	default_speed=speed
 	core.death_animation_done.connect(queue_free)
 	core.on_spawn()
 	maxHp = core.hp
@@ -90,7 +91,12 @@ func _is_next_step_portal():
 	var next=path[travel_index+1]
 	return abs(current.x-next.x)>GameboardConstants.TILE_SIZE+4 or abs(current.y-next.y)>GameboardConstants.TILE_SIZE+4
 		
-var direction	
+var direction
+func do(delta):
+	translateTowardEdge(delta)
+	apply_debuffs(delta)
+	pass;	
+	
 func translateTowardEdge(delta):
 	
 	if core.hp<=0:return;

@@ -1,15 +1,15 @@
 extends TurretBaseMod
-class_name FireTrailMod
+class_name FrostTrailMod
 var trails=[]
-var strength_of_fire_dot=1
 func on_shoot(projectile:Projectile):
-	var trail = FireTrail.get_trail(associate)
-	trail.initialise()
-	trail.register_bullet(projectile)
-	GameState.gameState.add_child(trail)
+	var frost = FrostTrail.get_trail()
+	frost.initialise()
+	frost.register_bullet(projectile)
+	GameState.gameState.add_child(frost)
+	trails.append(frost)
 	super(projectile)
-	trails.append(trail)
 	pass;
+
 func on_cell_traversal(projectile:Projectile):
 	for trail in trails:
 		trail.on_cell_traversal()
@@ -20,7 +20,3 @@ func remove():
 		trail.remove()
 	super()
 	pass;	
-func on_level_up(lvl):
-	strength_of_fire_dot=lvl
-	super(lvl)
-	pass;

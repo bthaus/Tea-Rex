@@ -3,6 +3,7 @@ class_name GreenTurretCore
 
 func setUpTower(holder):
 	average_minions_hit=average_minions_hit+5
+	super(holder)
 	pass;
 func showRangeOutline():
 	for x in range(GameboardConstants.BOARD_HEIGHT):

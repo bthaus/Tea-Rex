@@ -21,7 +21,7 @@ var ignore_next_enemy=false;
 static var gamestate: GameState;
 static var camera;
 static var factory=load("res://TurretScripts/Projectiles/projectile_factory.tscn").instantiate()
-var oldpos=Vector2(0,0)
+var oldpos=Vector2i(0,0)
 
 
 static func create(type: Turret.Hue, damage, speed, root:TurretCore, extension: Turret.Extension=Turret.Extension.DEFAULT, penetrations:int=1) -> Projectile:
@@ -75,6 +75,7 @@ func shoot(target):
 	pass ;
 func _get_duplicate():
 	return Projectile.factory.duplicate_bullet(self) 
+var is_duplicate=false	
 func duplicate_and_shoot(angle,origin=null)->Projectile:
 	if origin==null:
 		origin=self
@@ -82,6 +83,7 @@ func duplicate_and_shoot(angle,origin=null)->Projectile:
 	p1.on_creation()
 	p1.ignore_next_enemy=true
 	p1.global_position=origin.get_global()
+	p1.is_duplicate=true
 	for mod in associate.turret_mods:
 		mod.visual.prepare_projectile(p1)
 	p1._toggle_emission(true)	

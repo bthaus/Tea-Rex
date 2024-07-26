@@ -33,6 +33,9 @@ func prepare_projectile(projectile:Projectile):
 		
 		
 	pass;
+func delete():
+	
+	pass;	
 func on_remove(projectile:Projectile):
 	
 	if projectile.has_method("_toggle_emission")and on_projectile_node!=null:

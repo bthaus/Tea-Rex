@@ -23,7 +23,10 @@ func attack(delta):
 			#shoot(target)
 			projectiles_active=true	
 	pass
-	
+func on_destroy():
+	destroy_projectiles.emit()
+	super()
+	pass;	
 #func shoot(target):
 	#var shot = get_projectile()
 	#shot.global_position = global_position

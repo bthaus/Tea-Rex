@@ -10,7 +10,7 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func do(delta):
-	for b in get_children():
+	for b:Projectile in get_children():
 		if b.shot:
 			var precision=1
 			if b.associate!=null and is_instance_valid(b.associate):
@@ -18,16 +18,16 @@ func do(delta):
 			for i in range(precision):
 				b.move(delta/precision)
 				var pos=b.get_map()
-				b.hit_cell()
-				if pos.x==b.oldpos.x&&pos.y==b.oldpos.y: continue
-				b.oldpos=pos
-				b.cell_traversed()
-				if pos.y>GameState.gameState.board_height || pos.y<0 || pos.x<-9 || pos.x >21:
-					b.remove()
-					break;
-				if b.hit_wall():
-					b.remove()
-					break	
+				
+				if pos!=b.oldpos: 
+					b.oldpos=pos
+					b.cell_traversed()
+					if pos.y>GameState.gameState.board_height || pos.y<0 || pos.x<-9 || pos.x >21:
+						b.remove()
+					elif b.hit_wall():
+						b.remove()
+				if is_instance_valid(b):b.hit_cell()		
+						
 				
 			
 		

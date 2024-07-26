@@ -97,7 +97,8 @@ func initialise(g,map_dto):
 	gameState.get_node("MinionHolder").reference = self;
 	gameState.get_node("BulletHolder").reference = self;
 	gameState.collisionReference = self;
-	
+	map=[]
+	bases.clear()
 	for i in range(GameboardConstants.BOARD_HEIGHT):
 		addRow(map)
 	for entity in map_dto.entities:
@@ -247,28 +248,46 @@ func add_cells(coveredCells,midpoint,turret):
 func isOutOfBoundsVector(pos):
 	return isOutOfBounds(pos.x,pos.y)
 	pass;	
-func trigger_bullet(position):
-	
+func trigger_bullet(bullet:Projectile):
+	var p=bullet.get_reference()
+	for entity in map[p.y][p.x].entities:
+		map[p.y][p.x].entity.trigger_bullet(bullet)
 	pass;
 func trigger_minion(p,minion:Monster):
-	
-	if map[p.y][p.x].entity!=null:
-		map[p.y][p.x].entity.trigger_minion(minion)
+	for entity in map[p.y][p.x].entities:
+		#if !entity.has_method("trigger_minion"):continue
+		entity.trigger_minion(minion)
 	pass;		
 func isProperCell(x, y):
 	
 	return not isOutOfBounds(x, y)# and (not isOccupiedCell(x, y))
 func register_entity(entity:BaseEntity):
 	var pos=normaliseVector(entity.map_position)
-	map[pos.y][pos.x].entity=entity
+	map[pos.y][pos.x].entities.append(entity)
+	_trigger_monsters_for_entity_at_pos(entity,entity.get_global())
+	pass;	
+func _trigger_monsters_for_entity_at_pos(entity,pos):
+	var monsters=get_monsters_at_pos(pos)
+	for m in monsters:
+		trigger_minion(getMapPositionNormalised(pos),m)
 	pass;	
 func remove_entity(entity:BaseEntity):
-	var pos=normaliseVector(entity.map_position)
-	
-	pass	
-func get_entity(pos):
+	var pos=entity.get_reference()
+	map[pos.y][pos.x].entities.erase(entity)
+	pass
+func register_entity_at_position(entitity:BaseEntity,glob):
+	var pos=getMapPositionNormalised(glob)
+	if isOutOfBoundsVector(pos):return
+	map[pos.y][pos.x].entities.push_back(entitity)
+	_trigger_monsters_for_entity_at_pos(entitity,glob)
+	pass;	
+func remove_entity_from_position(entity:BaseEntity,glob):
+	var pos=getMapPositionNormalised(glob)
+	if isOutOfBoundsVector(pos):return
+	map[pos.y][pos.x].entities.erase(entity)		
+func get_entities(pos):
 	var p=getMapPositionNormalised(pos)
-	return map[p.y][p.x].entity
+	return map[p.y][p.x].entities
 	pass;	
 func isOccupiedCell(x, y):
 	for turret in Turret.turrets:
@@ -308,6 +327,7 @@ class Holder:
 	var ms = []
 	var covering_turrets=[]
 	var collides_with_bullets=false;
+	var entities=[]
 	var entity:BaseEntity
 	
 	pass ;
