@@ -90,7 +90,8 @@ static func _restore_fields(obj,arr):
 					
 		if val is String and val.contains("dto.gd"):
 			val=get_dto_from_json(val)	
-			
+		elif val is String and val.contains(".gd"):
+			val=load(val).new()	
 		obj.set(dakey,val)
 	pass;		
 func restore(destination,account,directory):

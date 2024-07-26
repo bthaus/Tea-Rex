@@ -122,8 +122,7 @@ func get_info():
 	pass;
 
 func setUpTower():
-	base = coreFactory.getBase(color, extension);
-	base.turret_mods=mods
+	base = TurretCoreFactory.getBase(color, extension);
 	base.placed=placed
 	base.setLevel(level)
 	add_child(base)

@@ -11,7 +11,7 @@ signal picked_up
 signal focused
 
 func _ready():
-	var mods: Array[ItemBlockDTO]
+	var mods
 	for container in MainMenu.get_account_dto().turret_mod_containers:
 		if container.color == color:
 			mods = container.turret_mods

@@ -16,7 +16,7 @@ var account: String = "dede";
 
 #Todo: remove and replace with battle_slot_logic
 var unlockedExtensions = [Turret.Extension.DEFAULT];
-var unlockedColors =[Turret.Hue.MAGENTA] #[Turret.Hue.GREEN,Turret.Hue.BLUE,Turret.Hue.RED,Turret.Hue.YELLOW];
+var unlockedColors =[Turret.Hue.BLUE] #[Turret.Hue.GREEN,Turret.Hue.BLUE,Turret.Hue.RED,Turret.Hue.YELLOW];
 
 var selected_battle_slots
 
@@ -54,8 +54,21 @@ static var collisionReference:CollisionReference=CollisionReference.new()
 var map_dto;
 
 
+func register_battle_slot_containers(containers:Array[TurretModContainerDTO]):
+	unlockedColors.clear()
+	for container in containers:
+		unlockedColors.push_back(container.color)
+		
+	TurretCoreFactory.register_mod_containers(containers)	
+	pass;
+
 func _ready():
-	#add_child(load("res://effects/fire_test.tscn").instantiate())
+	var con=TurretModContainerDTO.new()
+	var mod=ItemBlockDTO.new()
+	mod.turret_mod=FireTrailMod
+	con.turret_mods.append(mod)
+	con.color=Turret.Hue.BLUE
+	register_battle_slot_containers([con])
 	gameState = self;
 	ui=$CanvasLayer/UI
 	hand=ui.hand

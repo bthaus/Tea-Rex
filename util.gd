@@ -148,4 +148,11 @@ static var tolerance:float=0.5
 
 static var bestCurrentShape=null;
 static var bestCurrentAverage=1;
-
+static func erase(obj):
+	if obj!=null and is_instance_valid(obj):
+		obj.queue_free()
+	pass;
+static func copy_object_shallow(obj):
+	var props=obj.get_script_property_list() as Array
+	return load(props.pop_front()["hint_string"]).new()
+	pass;

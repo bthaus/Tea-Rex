@@ -2,7 +2,7 @@ extends TurretBaseMod
 class_name FrostTrailMod
 var trails=[]
 func on_shoot(projectile:Projectile):
-	var frost = FrostTrail.get_trail()
+	var frost = FrostTrail.get_trail(associate)
 	frost.initialise()
 	frost.register_bullet(projectile)
 	GameState.gameState.add_child(frost)
