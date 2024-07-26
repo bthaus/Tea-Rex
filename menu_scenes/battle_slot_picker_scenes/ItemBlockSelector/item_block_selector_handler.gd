@@ -13,16 +13,14 @@ func _init(board: TileMap, item_blocks: Array[ItemBlockDTO]):
 #Simply draws an item block on the board
 func draw_item_block(item_block: ItemBlockDTO, map_position: Vector2, layer: int):
 	if item_block == null: return
-	var positions = BlockUtils.get_positions_from_block_shape(item_block.block_shape)
-	positions = rotate_positions(positions, item_block.rotation)
+	var positions = get_item_block_positions(item_block)
 	for pos in positions:
 		board.set_cell(layer, map_position + pos, item_block.tile_id, Vector2(0, 0))
 
 #Simply draws an item block on the board using an id
 func draw_item_block_with_id(item_block: ItemBlockDTO, tile_id: int, map_position: Vector2, layer: int):
 	if item_block == null: return
-	var positions = BlockUtils.get_positions_from_block_shape(item_block.block_shape)
-	positions = rotate_positions(positions, item_block.rotation)
+	var positions = get_item_block_positions(item_block)
 	for pos in positions:
 		board.set_cell(layer, map_position + pos, tile_id, Vector2(0, 0))
 
@@ -52,7 +50,7 @@ func rotate_positions(positions: PackedVector2Array, rotation: int) -> PackedVec
 func remove_item_block(item_block: ItemBlockDTO):
 	var idx = _get_item_block_idx(item_block)
 	if idx == -1: return
-	var positions = BlockUtils.get_positions_from_block_shape(item_block.block_shape)
+	var positions = get_item_block_positions(item_block)
 	for pos in positions:
 		board.set_cell(ItemBlockConstants.BLOCK_LAYER, item_block.map_position + pos, -1, Vector2(0, 0))
 		
@@ -66,15 +64,20 @@ func _get_item_block_idx(item_block: ItemBlockDTO) -> int:
 
 func get_item_block_at(map_position: Vector2) -> ItemBlockDTO:
 	for item in item_blocks:
-		var positions = BlockUtils.get_positions_from_block_shape(item.block_shape)
+		var positions = get_item_block_positions(item)
 		for pos in positions:
 			if map_position == item.map_position + pos:
 				return item
 	return null
 
-func can_place_item_block(item_block: ItemBlockDTO, map_position: Vector2) -> bool:
+func get_item_block_positions(item_block: ItemBlockDTO) -> PackedVector2Array:
 	var positions = BlockUtils.get_positions_from_block_shape(item_block.block_shape)
 	positions = rotate_positions(positions, item_block.rotation)
+	return positions
+
+
+func can_place_item_block(item_block: ItemBlockDTO, map_position: Vector2) -> bool:
+	var positions = get_item_block_positions(item_block)
 	for pos in positions:
 		var board_pos = map_position + pos
 		

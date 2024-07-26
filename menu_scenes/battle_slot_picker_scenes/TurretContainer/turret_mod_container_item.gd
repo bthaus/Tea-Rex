@@ -7,6 +7,7 @@ var item_handler: ItemBlockSelectorHandler
 var selected_item: ItemBlockDTO
 var is_focused = false
 signal placed
+signal picked_up
 signal focused
 
 func _ready():
@@ -37,14 +38,20 @@ func _process(delta):
 	item_handler.draw_item_block_with_id(selected_item, id, board_pos, ItemBlockConstants.PREVIEW_LAYER)
 	
 func _input(event):
-	if selected_item == null or not is_focused: return
-
+	if not is_focused: return
 	if event.is_action_released("left_click"):
 		var board_pos = _get_mouse_position_on_board()
-		if item_handler.can_place_item_block(selected_item, board_pos):
-			item_handler.place_item_block(selected_item, board_pos)
-			placed.emit()
-		
+		#Place down
+		if selected_item != null:
+			if item_handler.can_place_item_block(selected_item, board_pos):
+				item_handler.place_item_block(selected_item, board_pos)
+				placed.emit()
+		#Pick up
+		else:
+			var item = item_handler.get_item_block_at(board_pos)
+			if item != null:
+				item_handler.remove_item_block(item)
+				picked_up.emit(item)
 
 func _get_mouse_position_on_board() -> Vector2:
 	#return $Board.local_to_map($Board.to_local(get_local_mouse_position())) - $Board.local_to_map($Board.to_local($Board.position))
