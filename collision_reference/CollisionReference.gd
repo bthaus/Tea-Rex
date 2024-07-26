@@ -97,7 +97,7 @@ func initialise(g,map_dto):
 	gameState.get_node("MinionHolder").reference = self;
 	gameState.get_node("BulletHolder").reference = self;
 	gameState.collisionReference = self;
-	
+	map=[]
 	for i in range(GameboardConstants.BOARD_HEIGHT):
 		addRow(map)
 	for entity in map_dto.entities:
@@ -254,14 +254,14 @@ func trigger_bullet(bullet:Projectile):
 	pass;
 func trigger_minion(p,minion:Monster):
 	for entity in map[p.y][p.x].entities:
-		if !entity.has_method("trigger_minion"):continue
+		#if !entity.has_method("trigger_minion"):continue
 		entity.trigger_minion(minion)
 	pass;		
 func isProperCell(x, y):
 	
 	return not isOutOfBounds(x, y)# and (not isOccupiedCell(x, y))
 func register_entity(entity:BaseEntity):
-	var pos=entity.get_reference()
+	var pos=normaliseVector(entity.map_position)
 	map[pos.y][pos.x].entities.append(entity)
 	_trigger_monsters_for_entity_at_pos(entity,entity.get_global())
 	pass;	

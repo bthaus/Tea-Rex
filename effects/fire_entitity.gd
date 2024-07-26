@@ -61,10 +61,13 @@ func _process(delta):
 		var remove_pos=lerp(origin,get_global(),off)
 		if off<0.01:
 			remove()
-		GameState.gameState.collisionReference.remove_entity_from_position(self,remove_pos)
-	
+		if GameState.collisionReference.getMapPositionNormalised(remove_pos)!=GameState.collisionReference.getMapPositionNormalised(previous_pos):	
+			GameState.gameState.collisionReference.remove_entity_from_position(self,remove_pos)
+			previous_pos=remove_pos
+			
 				
 	pass;
+var previous_pos=Vector2(0,0)	
 func initialise():
 	bullet=null
 	decay=1

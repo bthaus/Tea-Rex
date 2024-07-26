@@ -22,6 +22,7 @@ func register(affected:GameObject2D):
 	self.affected=affected
 	last_tick_time=Time.get_ticks_msec()
 	pass;
+	
 func order_by_strenght(a,b):
 	return a.strength>b.strength
 	pass;	
@@ -46,4 +47,17 @@ func remove():
 	affected.debuffs[type].erase(self)
 	affected.debuffs[type].sort_custom(order_by_strenght)
 	pass;	
+
+class debuff_container:
+	var debuffs=[]
+	var strongest_debuff:Debuff
+	var visual
+	
+	func compute_strongest_buff():
+		var strongest=0
+		for debuff:Debuff in debuffs:
+			if debuff.strength>strongest.strength:
+				strongest=debuff
+		strongest_debuff=strongest		
+		pass;	
 	

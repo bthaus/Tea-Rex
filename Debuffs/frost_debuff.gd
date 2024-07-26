@@ -4,5 +4,4 @@ class_name FrostDebuff
 func get_name():
 	return "frost"
 func apply_effect(delta):
-	
 	pass;

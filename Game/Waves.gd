@@ -240,10 +240,14 @@ static func _get_astar_grid(map:TileMap,monstertype:Monster.MonsterMovingType,fr
 	return grid_type_dto
 
 static func _register_portals(astar,movable_cells):
-	for portal in GameState.gameState.portals:
+	var portals=GameState.gameState.portals
+	for portal in portals:
 		var id=astar.get_available_point_id()
 		astar.add_point(id,portal.map_position)
+		_current_grid[portal.map_position.x][portal.map_position.y]=id
 		_connect_with_neigbours(movable_cells,id,portal.map_position.x,portal.map_position.y,astar)
+		
+	for portal in portals:
 		for to_connect in GameState.gameState.portals:
 			if portal==to_connect:continue
 			if portal.group_id==to_connect.group_id:
@@ -256,7 +260,9 @@ static func _register_portals(astar,movable_cells):
 				
 	pass;	
 static func _connect_portals(portal,to_connect,astar,bi=true):
-	astar.connect_points(get_point_id(portal.map_position.x,portal.map_position.y),get_point_id(to_connect.map_position.x,to_connect.map_position.y),bi)
+	var a =get_point_id(portal.map_position.x,portal.map_position.y)
+	var b =get_point_id(to_connect.map_position.x,to_connect.map_position.y)
+	astar.connect_points(a,b,bi)
 	pass;	
 #returns the smallest and largest point of a map as a rect2i 	
 static func _connect_with_neigbours(movable_cells,point_id,x,y,astar_grid):

@@ -98,8 +98,6 @@ func do(delta):
 	
 func translateTowardEdge(delta):
 	
-	
-	
 	if core.hp<=0:return;
 	
 	if distance_to_next_edge<=distance_travelled:
