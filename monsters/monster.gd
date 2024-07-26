@@ -11,7 +11,7 @@ var damage:
 	set(val):core.damage=val
 var speed:
 	get:return core.speed
-	set(val):core.speed=val
+	set(val):core.speed=clamp(val,0,10000)
 var hp:
 	get:return core.hp
 	set(val):core.hp=val

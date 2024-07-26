@@ -19,13 +19,13 @@ func _init(str,lifetime=GameplayConstants.DEBUFF_STANDART_LIFETIME):
 	
 func register(affected:GameObject2D):
 	if !affected.debuffs.has(type):affected.debuffs[type]=get_container()
-	affected.debuffs[type].add_debuff(self)
 	self.affected=affected
 	last_tick_time=Time.get_ticks_msec()
+	affected.debuffs[type].add_debuff(self)
 	pass;
 	
 func refresh():
-	lifetime=GameplayConstants.DEBUFF_STANDART_LIFETIME
+	lifetime=GameplayConstants.DEBUFF_STANDART_LIFETIME*1000-1
 	pass;	
 var last_tick_time=0	
 func on_tick(delta):
@@ -53,15 +53,20 @@ func get_container()->debuff_container:
 
 class debuff_container:
 	var debuffs=[]
-	var strongest_debuff:Debuff
+	var strongest_debuff:Debuff:
+		set(val):
+			
+			if strongest_debuff!=val:
+				strongest_debuff=val
+				if val!=null:val.on_removal()
+				strongest_debuff.on_initial_application()
 	var visual
 	func get_strongest_debuff()->Debuff:
 		return strongest_debuff
 	
 	func trigger(delta):
 		if strongest_debuff==null:return
-		if strongest_debuff.lifetime==strongest_debuff.default_lifetime:
-			strongest_debuff.on_initial_application()
+		
 		strongest_debuff.on_tick(delta)
 		if strongest_debuff.to_remove:
 			remove_debuff(strongest_debuff,delta)
@@ -69,12 +74,14 @@ class debuff_container:
 		pass;
 		
 	func add_debuff(d:Debuff):
+		if strongest_debuff!=null and strongest_debuff.strength==d.strength:
+			strongest_debuff.refresh()
+			return
 		debuffs.push_back(d)
 		compute_strongest_debuff()
 		
 	func remove_debuff(d:Debuff,delta):
 		debuffs.erase(d)
-		d.on_removal()
 		compute_strongest_debuff()
 		trigger(delta)
 				
