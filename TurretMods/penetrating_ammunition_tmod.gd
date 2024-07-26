@@ -22,3 +22,7 @@ func initialise(turret:TurretCore):
 	super(turret)
 	associate.average_minions_hit=associate.average_minions_hit+penetration_amount
 	pass;
+func on_level_up(lvl):
+	penetration_amount=lvl
+	super(lvl)
+	pass;

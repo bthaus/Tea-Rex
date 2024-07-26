@@ -50,7 +50,8 @@ func _on_destroy():
 		GameState.gameState.gameBoard.clear_range_outline()
 	if GameState.board!=null:	
 		collisionReference.unregister_turret(self,placed)
-		Spawner.update_damage_estimate()
+
+	if is_instance_valid(GameState.spawners[0]):Spawner.update_damage_estimate()
 	base.on_destroy()	
 	
 	
@@ -199,11 +200,7 @@ func do(delta):
 
 
 func levelup(lvl: int=1):
-	lightamount = lightamount / level
 	level = lvl;
-	lightamount = lightamount * level
-	
-	setUpTower()
 	$LVL.text = str(level)
 	base.setLevel(level)
 	pass ;

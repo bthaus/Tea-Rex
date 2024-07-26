@@ -95,8 +95,9 @@ func getReferences(cells):
 	pass ;
 func setUpTower(holder):
 	turret_mods.append(MultipleShotsMod.new())
+
 	self.holder = holder
-	minions = GameState.gameState.get_node("MinionHolder")
+	minions = GameState.gameState.minions
 	setLevel(stacks)
 	trueRangeSquared = turretRange * GameboardConstants.TILE_SIZE + GameboardConstants.TILE_SIZE
 	trueRangeSquared = trueRangeSquared * trueRangeSquared;
@@ -115,7 +116,8 @@ func setUpTower(holder):
 	after_built()
 	pass ;
 func on_destroy():
-	
+	for mod in turret_mods:
+		mod.remove()
 	pass;	
 func after_built():
 	var to_remove = []
@@ -346,12 +348,16 @@ func addDamage(Damage):
 	pass ;
 	
 func setLevel(lvl: int):
-	var children = barrels
-	level = lvl;
-	for i in range(lvl):
-		if i < children.size():
-			add_child(children[i])
-			children[i].visible = true;
+	stacks=lvl
+	for mod:TurretBaseMod in turret_mods:
+		mod.on_level_up(lvl)
+	damagefactor=lvl	
+	#var children = barrels
+	#level = lvl;
+	#for i in range(lvl):
+		#if i < children.size():
+			#add_child(children[i])
+			#children[i].visible = true;
 
 	pass ;
 	

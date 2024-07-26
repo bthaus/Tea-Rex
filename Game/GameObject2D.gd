@@ -1,6 +1,13 @@
 extends Node2D
 class_name GameObject2D
 
+var debuffs={}
+
+func apply_debuffs(delta):
+	for d in debuffs:
+		debuffs[d].trigger(delta)
+	pass;
+
 func get_global():
 	return global_position
 	pass;
@@ -15,6 +22,3 @@ func _ready():
 	pass # Replace with function body.
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass

@@ -12,10 +12,11 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func do(delta):
 	for m:Monster in get_children():
-		m.translateTowardEdge(delta)
+		m.do(delta)
 			
 		
 		var pos=board.local_to_map(m.global_position)
+		
 		if pos.x!=m.oldpos.x||pos.y!=m.oldpos.y:
 			if m==null:continue
 			reference.setMinion(m.oldpos.x,m.oldpos.y,pos.x,pos.y,m)
