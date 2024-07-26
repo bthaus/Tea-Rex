@@ -113,6 +113,8 @@ static func get_trail():
 static func _load_trail():
 	return 	load("res://effects/cell_fire.tscn").instantiate()	
 static func cache_fire(fire):
-	fire.get_parent().remove_child(fire)
+	var parent=fire.get_parent()
+	if parent!=null:
+		parent.remove_child(fire)
 	cache.push_back(fire)
 	pass;	

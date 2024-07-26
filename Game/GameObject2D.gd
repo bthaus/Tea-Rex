@@ -5,11 +5,7 @@ var debuffs={}
 
 func apply_debuffs(delta):
 	for d in debuffs:
-		if debuffs[d].is_empty():continue
-		debuffs[d][0].on_tick()
-		#thats just a stub for properly removing debuffs from the array
-		if debuffs[d][0].to_remove:
-			debuffs[d][0].remove()
+		debuffs[d].trigger(delta)
 	pass;
 
 func get_global():
