@@ -19,7 +19,37 @@ const blue_freezer_slow_duration=1
 
 const poison_dropoff_rate=3;
 const poison_propagation_rate=3;
+enum ModType{TARGETING,HULL,PROJECTILE,AMMUNITION,PRODUCTION,ONKILL}
+const target=TurretBaseMod.ModType.TARGETING
+const hull=TurretBaseMod.ModType.HULL
+const proj=TurretBaseMod.ModType.PROJECTILE
+const ammo=TurretBaseMod.ModType.AMMUNITION
+const prod=TurretBaseMod.ModType.PRODUCTION
+const kill=TurretBaseMod.ModType.ONKILL
 
+const arrow=Block.BlockShape.ARROW
+const o=Block.BlockShape.O
+const i=Block.BlockShape.I
+const s=Block.BlockShape.S
+const z=Block.BlockShape.Z
+const l=Block.BlockShape.L
+const j=Block.BlockShape.J
+const t=Block.BlockShape.T
+const tiny=Block.BlockShape.TINY
+const small=Block.BlockShape.SMALL
+const cross=Block.BlockShape.CROSS
+static var turret_mods={
+	ForkingAmmunitionMod:d(arrow,target),
+	FireTrailMod:d(tiny,ammo)
+}
+static func d(shape,type):
+	return data.new(shape,type)
+class data:
+	var shape
+	var type
+	func _init(shape,type):
+		self.shape=shape
+		self.type=type
 const green_poison_decay=1;
 
 const playerHP=200;

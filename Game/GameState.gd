@@ -63,6 +63,7 @@ func register_battle_slot_containers(containers:Array[TurretModContainerDTO]):
 	pass;
 
 func _ready():
+	
 	gameState = self;
 	ui=$CanvasLayer/UI
 	hand=ui.hand

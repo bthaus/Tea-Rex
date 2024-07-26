@@ -14,6 +14,8 @@ var results=""
 static var instance
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	
+	print(GameplayConstants.turret_mods[ForkingAmmunitionMod])
 	instance=self
 	gameState=load("res://Game/main_scene.tscn").instantiate()
 	

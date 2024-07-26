@@ -91,7 +91,8 @@ func remove():
 	GameState.collisionReference.remove_entity(self)
 	done.emit()
 	cache_fire(self)
-	$trail.emission_points.clear()
+	bullet=null
+	$trail.emission_points=[]
 	if is_instance_valid(line):
 		line.clear_points()
 	pass
