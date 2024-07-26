@@ -351,12 +351,12 @@ func setLevel(lvl: int):
 	for mod:TurretBaseMod in turret_mods:
 		mod.on_level_up(lvl)
 	damagefactor=lvl	
-	#var children = barrels
-	#level = lvl;
-	#for i in range(lvl):
-		#if i < children.size():
-			#add_child(children[i])
-			#children[i].visible = true;
+	var children = barrels
+	level = lvl;
+	for i in range(lvl):
+		if i < children.size():
+			add_child(children[i])
+			children[i].visible = true;
 
 	pass ;
 	
