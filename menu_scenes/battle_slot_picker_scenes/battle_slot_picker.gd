@@ -7,7 +7,12 @@ func _ready():
 	var map_dto=MapDTO.new()
 	map_dto.restore(map_name)
 	map=map_dto
-	pass # Replace with function body.
+	
+	#DELETE DELETE DELETE
+	map.battle_slots = BattleSlotDTO.new()
+	map.battle_slots.amount = 3
+	
+	$BlockSelector.set_map(map)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

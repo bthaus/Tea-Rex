@@ -3,12 +3,18 @@ extends Panel
 @export var color: Turret.Hue
 @onready var style_box: StyleBoxFlat = get_theme_stylebox("panel").duplicate()
 
+@onready var checked_style_box = load("res://Styles/checked_button.tres")
+@onready var unchecked_style_box = load("res://Styles/unchecked_button.tres")
+
 var item_handler: ItemBlockSelectorHandler
 var selected_item: ItemBlockDTO
 var is_focused = false
+var container_selected = false
+
 signal placed
 signal picked_up
 signal focused
+signal selected
 
 func _ready():
 	var mods
@@ -45,12 +51,14 @@ func _input(event):
 		if selected_item != null:
 			if item_handler.can_place_item_block(selected_item, board_pos):
 				item_handler.place_item_block(selected_item, board_pos)
+				MainMenu.get_account_dto().save()
 				placed.emit()
 		#Pick up
 		else:
 			var item = item_handler.get_item_block_at(board_pos)
 			if item != null:
 				item_handler.remove_item_block(item)
+				MainMenu.get_account_dto().save()
 				picked_up.emit(item)
 
 func _get_mouse_position_on_board() -> Vector2:
@@ -59,6 +67,18 @@ func _get_mouse_position_on_board() -> Vector2:
 
 func set_selected_item(item: ItemBlockDTO):
 	selected_item = item
+
+func _on_selected_button_pressed():
+	selected.emit(self, not container_selected)
+
+func set_selected_state(selected: bool):
+	container_selected = selected
+	var style = checked_style_box if selected else unchecked_style_box
+	$SelectedButton.add_theme_stylebox_override("normal", style)
+	$SelectedButton.add_theme_stylebox_override("hover", style)
+	$SelectedButton.add_theme_stylebox_override("pressed", style)
+	$SelectedButton.add_theme_stylebox_override("disabled", style)
+	$SelectedButton.add_theme_stylebox_override("focus", style)
 
 func _get_color_from_turret_color(color: Turret.Hue) -> Color:
 	match (color):

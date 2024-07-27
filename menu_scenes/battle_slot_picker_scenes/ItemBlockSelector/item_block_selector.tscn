@@ -11,45 +11,37 @@ offset_bottom = 648.0
 mouse_filter = 2
 script = ExtResource("1_ekup2")
 
-[node name="ScrollContainer" type="ScrollContainer" parent="."]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -250.0
-offset_right = 250.0
-offset_bottom = 310.0
-grow_horizontal = 2
-horizontal_scroll_mode = 0
-vertical_scroll_mode = 0
-
-[node name="TurretModGridContainer" type="GridContainer" parent="ScrollContainer"]
+[node name="TurretModGridContainer" type="GridContainer" parent="."]
 layout_mode = 2
+offset_left = 43.0
+offset_top = 84.0
+offset_right = 513.0
+offset_bottom = 374.0
 size_flags_horizontal = 6
 theme_override_constants/h_separation = 10
 theme_override_constants/v_separation = 10
 columns = 3
 
-[node name="ModContainerItemBlue" parent="ScrollContainer/TurretModGridContainer" instance=ExtResource("3_84gyh")]
+[node name="ModContainerItemBlue" parent="TurretModGridContainer" instance=ExtResource("3_84gyh")]
 layout_mode = 2
 color = 5
 
-[node name="ModContainerItemRed" parent="ScrollContainer/TurretModGridContainer" instance=ExtResource("3_84gyh")]
+[node name="ModContainerItemRed" parent="TurretModGridContainer" instance=ExtResource("3_84gyh")]
 layout_mode = 2
 
-[node name="ModContainerItemGreen" parent="ScrollContainer/TurretModGridContainer" instance=ExtResource("3_84gyh")]
+[node name="ModContainerItemGreen" parent="TurretModGridContainer" instance=ExtResource("3_84gyh")]
 layout_mode = 2
 color = 2
 
-[node name="ModContainerItemYellow" parent="ScrollContainer/TurretModGridContainer" instance=ExtResource("3_84gyh")]
+[node name="ModContainerItemYellow" parent="TurretModGridContainer" instance=ExtResource("3_84gyh")]
 layout_mode = 2
 color = 4
 
-[node name="ModContainerItemWhite" parent="ScrollContainer/TurretModGridContainer" instance=ExtResource("3_84gyh")]
+[node name="ModContainerItemWhite" parent="TurretModGridContainer" instance=ExtResource("3_84gyh")]
 layout_mode = 2
 color = 1
 
-[node name="ModContainerItemMagenta" parent="ScrollContainer/TurretModGridContainer" instance=ExtResource("3_84gyh")]
+[node name="ModContainerItemMagenta" parent="TurretModGridContainer" instance=ExtResource("3_84gyh")]
 layout_mode = 2
 color = 6
 
@@ -65,3 +57,11 @@ layer_2/tile_data = PackedInt32Array()
 
 [node name="ItemBlockSelectorContainer" parent="." instance=ExtResource("4_jc33w")]
 position = Vector2(8, 379)
+
+[node name="BattleSlotsAmountLabel" type="Label" parent="."]
+layout_mode = 0
+offset_right = 556.0
+offset_bottom = 49.0
+text = "Slots Selected: ?/?"
+horizontal_alignment = 1
+vertical_alignment = 1
