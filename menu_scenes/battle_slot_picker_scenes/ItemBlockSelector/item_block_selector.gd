@@ -4,7 +4,7 @@ var map: MapDTO
 var item_handler: ItemBlockSelectorHandler
 var selected_item: ItemBlockDTO
 var has_focus = true
-var selected_slots_amount = 0
+var selected_containers: Array[TurretModContainerDTO] = []
 
 func _ready():
 	item_handler = ItemBlockSelectorHandler.new($Board, [])
@@ -30,15 +30,18 @@ func _on_container_focus_changed(container_focused: bool):
 
 func _on_container_selected(sender, selected: bool):
 	if selected:
-		if selected_slots_amount < map.battle_slots.amount:
+		if selected_containers.size() < map.battle_slots.amount:
 			sender.set_selected_state(true)
-			selected_slots_amount += 1
+			selected_containers.append(sender.container)
 		else:
 			sender.set_selected_state(false)
 	else:
-		selected_slots_amount -= 1
 		sender.set_selected_state(false)
-	
+		for i in selected_containers.size():
+			if selected_containers[i] == sender.container:
+				selected_containers.remove_at(i)
+				break
+
 	_update_battle_slot_amount_label()
 
 func _on_item_selected(item_block: ItemBlockDTO):
@@ -78,4 +81,4 @@ func _get_mouse_position_on_board() -> Vector2:
 	return $Board.local_to_map(get_global_mouse_position() / $Board.scale)
 
 func _update_battle_slot_amount_label():
-	$BattleSlotsAmountLabel.text = str("Slots selected: ", selected_slots_amount, "/", map.battle_slots.amount)
+	$BattleSlotsAmountLabel.text = str("Slots selected: ", selected_containers.size(), "/", map.battle_slots.amount)

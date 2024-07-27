@@ -10,6 +10,7 @@ var item_handler: ItemBlockSelectorHandler
 var selected_item: ItemBlockDTO
 var is_focused = false
 var container_selected = false
+var container
 
 signal placed
 signal picked_up
@@ -18,9 +19,10 @@ signal selected
 
 func _ready():
 	var mods
-	for container in MainMenu.get_account_dto().turret_mod_containers:
-		if container.color == color:
-			mods = container.turret_mods
+	for c in MainMenu.get_account_dto().turret_mod_containers:
+		if c.color == color:
+			mods = c.turret_mods
+			container = c
 			break
 	
 	item_handler = ItemBlockSelectorHandler.new($Board, mods)
@@ -51,14 +53,12 @@ func _input(event):
 		if selected_item != null:
 			if item_handler.can_place_item_block(selected_item, board_pos):
 				item_handler.place_item_block(selected_item, board_pos)
-				MainMenu.get_account_dto().save()
 				placed.emit()
 		#Pick up
 		else:
 			var item = item_handler.get_item_block_at(board_pos)
 			if item != null:
 				item_handler.remove_item_block(item)
-				MainMenu.get_account_dto().save()
 				picked_up.emit(item)
 
 func _get_mouse_position_on_board() -> Vector2:

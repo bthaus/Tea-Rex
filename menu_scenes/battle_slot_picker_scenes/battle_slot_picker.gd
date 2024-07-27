@@ -24,5 +24,5 @@ func _process(delta):
 func _on_button_pressed():
 	var game_state=load("res://Game/main_scene.tscn").instantiate()
 	game_state.map_dto=map
+	game_state.register_battle_slot_containers($BlockSelector.selected_containers)
 	MainMenu.change_content(game_state)
-	pass # Replace with function body.
