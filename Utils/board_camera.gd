@@ -31,18 +31,12 @@ func shake(duration: float, intensity: float,position,maxval=MAX_SHAKE):
 	shake_timer = 0.0
 	self.duration=duration;
 	self.intensity=self.intensity+intensity
-	
-	pass	
 
-
-
-	
 func isOffCamera(position):
-
 	var diff= abs(abs(position.y)-abs(global_position.y))
 	return diff>1000
-	
-	pass;	
+
+
 func _process(delta):
 	if shake_timer < duration:
 		var x_offset = randf_range(-intensity, intensity)
@@ -55,10 +49,8 @@ func _process(delta):
 		
 	if tween!=null&&tween.is_running:
 		scrolled.emit()
-	
 
-	
-	lastpos=global_position.y	
+	lastpos=global_position.y
 	pass;
 	
 func _ready():
@@ -107,22 +99,15 @@ func _input(event):
 	
 	if event.is_action_pressed("scroll_up"):
 		scrolled.emit()
-		if Input.is_action_pressed("control"):
-			if zoom.x < MAX_ZOOM_IN:
-				zoom = Vector2(zoom.x + CAMERA_ZOOM, zoom.y + CAMERA_ZOOM)
-		else:
-			if position.y > 0:
-				position -= Vector2(0, SCROLL_SPEED) / zoom
-			
+		if zoom.x < MAX_ZOOM_IN:
+			zoom = Vector2(zoom.x + CAMERA_ZOOM, zoom.y + CAMERA_ZOOM)
+
 	if event.is_action_pressed("scroll_down"):
 		scrolled.emit()
-		if Input.is_action_pressed("control"):
-			if zoom.x > MAX_ZOOM_OUT:
-				zoom = Vector2(zoom.x - CAMERA_ZOOM, zoom.y - CAMERA_ZOOM)
-		else:
-			if position.y <= (gameState.board_height * GameboardConstants.TILE_SIZE):
-				position += Vector2(0, SCROLL_SPEED) / zoom
-var tween			
+		if zoom.x > MAX_ZOOM_OUT:
+			zoom = Vector2(zoom.x - CAMERA_ZOOM, zoom.y - CAMERA_ZOOM)
+
+var tween
 func move_to(position: Vector2, done: Callable):
 	tween = get_tree().create_tween()
 	tween.tween_property(self, "position", position, GameplayConstants.CAMERA_MOVE_DURATION).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
