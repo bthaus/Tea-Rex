@@ -28,6 +28,7 @@ var _selection_tile_items = [
 	]
 
 var selected_tile: TileItem
+var ignore_click = false
 
 func _ready():
 	$Board.tile_set.tile_size = Vector2(GameboardConstants.TILE_SIZE, GameboardConstants.TILE_SIZE)
@@ -37,41 +38,55 @@ func _ready():
 	board_handler.spawner_added.connect(_on_spawner_added)
 	board_handler.spawner_removed.connect(_on_spawner_removed)
 	
+	$Camera2D.is_dragging_camera.connect(dragging_camera)
+	
 	_init_selection_tiles()
 	_set_button_selected(default_build_mode_button, true)
 	_set_button_selected(draw_build_mode_button, false)
 	_set_button_selected(bucket_fill_build_mode_button, false)
 
+
 #We can use unhandled input here, so that when clicking on a (hud) button the drawing wont trigger
 func _unhandled_input(event):
+	if _is_action_just_released(event, "left_click") and ignore_click: # Ignore the next click
+		ignore_click = false
+		return
+
+
 	var board_pos = $Board.local_to_map(get_global_mouse_position())
 	
 	#Check if we changed our mouse pressed status
-	var mouse_just_pressed = Input.is_action_just_pressed("left_click") or Input.is_action_just_pressed("right_click")
-	var mouse_just_released = Input.is_action_just_released("left_click") or Input.is_action_just_released("right_click")
+	var mouse_just_pressed = _is_action_just_pressed(event, "left_click")or _is_action_just_pressed(event, "right_click")
+	var mouse_just_released = _is_action_just_released(event, "left_click") or _is_action_just_released(event, "right_click")
 	#Check if we are at a new tile
 	var at_new_tile = true if board_pos != previous_board_position else false
 	previous_board_position = board_pos
 	
 	#Handle draw mode
 	if _build_mode == BuildMode.DRAW and (at_new_tile or mouse_just_pressed or mouse_just_released):
-		if Input.is_action_pressed("left_click"):
+		if event.is_action_pressed("left_click"):
 			board_handler.set_cell(selected_tile, board_pos)
-		elif Input.is_action_pressed("right_click"):
+		elif event.is_action_pressed("right_click"):
 			board_handler.clear_cell_layer(board_pos)
 	
 	#Handle default and bucket fill mode
-	elif Input.is_action_just_released("left_click"):
+	elif _is_action_just_released(event, "left_click"):
 		if selected_tile == null: return
 		match (_build_mode):
 			BuildMode.DEFAULT: board_handler.set_cell(selected_tile, board_pos)	
 			BuildMode.BUCKET_FILL: board_handler.bucket_fill(selected_tile, board_pos)
 				
-	elif Input.is_action_just_released("right_click"):
+	elif _is_action_just_released(event, "right_click"):
 		match (_build_mode):
 			BuildMode.DEFAULT: board_handler.clear_cell_layer(board_pos)
 			BuildMode.BUCKET_FILL: board_handler.bucket_fill(null, board_pos)
 
+
+func _is_action_just_pressed(event: InputEvent, action: StringName) -> bool:
+	return event.is_action(action) and event.is_pressed() and not event.is_echo()
+
+func _is_action_just_released(event: InputEvent, action: StringName) -> bool:
+	return event.is_action(action) and event.is_released() and not event.is_echo()
 
 func _init_selection_tiles():
 	for child in _selection_tile_container.get_children(): child.free()
@@ -150,6 +165,10 @@ func _set_button_selected(sender, selected: bool):
 	sender.add_theme_stylebox_override("hover", style_box)
 	sender.add_theme_stylebox_override("pressed", style_box)
 	sender.add_theme_stylebox_override("focus", style_box)
+
+
+func dragging_camera(is_dragging: bool):
+	ignore_click = is_dragging
 
 class TileItem:
 	var id: int

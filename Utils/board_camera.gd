@@ -2,7 +2,6 @@ extends Camera2D
 
 var mouse_start_pos
 var screen_start_position
-@export var brightness:CanvasModulate
 
 @export var thresholds:LightThresholds
 @export var gameState:GameState
@@ -22,7 +21,8 @@ var original_position=0;
 var shake_timer=0;
 var duration=0;
 var intensity=0;
-signal scrolled;
+
+
 func shake(duration: float, intensity: float,position,maxval=MAX_SHAKE):
 	if intensity>maxval: return;
 	if abs(abs(position.y)-abs(position.y))>1000:return
@@ -46,49 +46,44 @@ func _process(delta):
 		offset.y =y_offset/zoom.x
 		duration=duration-1*delta
 		if intensity>0:intensity=intensity-1*delta
-		
-	if tween!=null&&tween.is_running:
-		scrolled.emit()
 
 	lastpos=global_position.y
-	pass;
-	
+
 func _ready():
 	
 	Projectile.camera=self;
 	Turret.camera=self;
 	pass;
 	
-func changeBrightness():
-	#var v=thresholds.getDark()
-	#brightness.color=Color(v,v,v,255)
-	#v=thresholds.getGlow(gameState.y)
-	#env.environment.glow_intensity=v
-	
-	pass;
-	
 func _input(event):
-	if event.is_action("left_click"):
-		scrolled.emit()
-		if event.is_pressed():
-			mouse_start_pos = event.position
-			screen_start_position = position
-			clicked = true
-		else:
-			if dragging:
-				is_dragging_camera.emit(false)
-			clicked = false
-			dragging = false
+	if Input.is_action_just_pressed("left_click"):
+		mouse_start_pos = event.position
+		screen_start_position = position
+		clicked = true
+		
+	if Input.is_action_just_released("left_click"):
+		clicked = false
+		dragging = false
+		#is_dragging_camera.emit(false)
+	#if event.is_action("left_click"):
+		#if event.is_pressed():
+			#mouse_start_pos = event.position
+			#screen_start_position = position
+			#clicked = true
+		#else:
+			#if dragging:
+				#is_dragging_camera.emit(false)
+			#clicked = false
+			#dragging = false
 			
 	if event is InputEventMouseMotion and clicked:
-		
 		var drag_distance = mouse_start_pos.distance_to(event.position)
 		#Player has to drag for a minimum distance to be recognized as dragging motion
-		if not dragging and drag_distance < MIN_RECOGNIZABLE_DRAG_DISTANCE: 
-			return
 		if not dragging:
+			if drag_distance < MIN_RECOGNIZABLE_DRAG_DISTANCE: 
+				return
 			is_dragging_camera.emit(true)
-			scrolled.emit()
+
 		dragging = true
 
 		var new_pos = (mouse_start_pos - event.position) / zoom + screen_start_position
@@ -98,12 +93,10 @@ func _input(event):
 					position = new_pos
 	
 	if event.is_action_pressed("scroll_up"):
-		scrolled.emit()
 		if zoom.x < MAX_ZOOM_IN:
 			zoom = Vector2(zoom.x + CAMERA_ZOOM, zoom.y + CAMERA_ZOOM)
 
 	if event.is_action_pressed("scroll_down"):
-		scrolled.emit()
 		if zoom.x > MAX_ZOOM_OUT:
 			zoom = Vector2(zoom.x - CAMERA_ZOOM, zoom.y - CAMERA_ZOOM)
 
