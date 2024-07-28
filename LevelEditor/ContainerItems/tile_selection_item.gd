@@ -1,14 +1,14 @@
 extends Button
 
-var tile: LevelEditor.TileItem
+var tile: TileSelection.TileItem
 const default_stylebox = preload("res://Styles/default_button.tres")
 const selected_stylebox = preload("res://Styles/selected_button.tres")
 signal clicked
 
-func set_tile(tile: LevelEditor.TileItem, texture: Texture):
-	self.tile = tile
+func set_tile(tile_item: TileSelection.TileItem, texture: Texture):
+	self.tile = tile_item
 	$Item.texture = texture
-	$Name.text = tile.name
+	$Name.text = tile_item.name
 
 func _on_pressed():
 	clicked.emit(self, tile)

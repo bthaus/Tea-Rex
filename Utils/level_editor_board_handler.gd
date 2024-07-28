@@ -2,37 +2,39 @@ extends GameObject2D
 class_name LevelEditorBoardHandler
 
 var board: TileMap
+var object_holder: ObjectHolder
 
 var spawner_map_positions: PackedVector2Array = [] #Holds all the spawners on the board. Index indicates which spawner is which.
 
 signal spawner_added
 signal spawner_removed
 
-func _init(board: TileMap):
+func _init(board: TileMap, object_holder):
 	self.board = board
+	self.object_holder = object_holder
 
 func get_spawner_map_positions() -> PackedVector2Array:
 	return spawner_map_positions
 
-func set_cell(tile: LevelEditor.TileItem, map_position: Vector2):
+func set_cell(tile: TileSelection.TileItem, map_position: Vector2):
 	if tile == null: return
 	if not _is_in_editor_bounds(map_position): return
 	
 	var board_type = GameboardConstants.get_tile_type(board, GameboardConstants.BLOCK_LAYER, map_position)
 	var is_spawner_below = board_type != null and board_type == GameboardConstants.TileType.SPAWNER
-	var type = GameboardConstants.get_tile_type_by_id(board, tile.id)
+	var type = GameboardConstants.get_tile_type_by_id(board, tile.dto.tile_id)
 	if is_spawner_below and type != GameboardConstants.TileType.SPAWNER: #If there is a spawner below, remove it (unless the holding piece is a spawner)
 		var i = _get_spawner_idx_at(map_position)
 		spawner_map_positions.remove_at(i)
 		spawner_removed.emit(i)
 	
 	
-	match (tile.layer):
+	match (tile.dto.map_layer):
 		GameboardConstants.GROUND_LAYER:
-			board.set_cell(GameboardConstants.GROUND_LAYER, map_position, tile.id, Vector2(0,0))
+			board.set_cell(GameboardConstants.GROUND_LAYER, map_position, tile.dto.tile_id, Vector2(0,0))
 			
 		GameboardConstants.BUILD_LAYER:
-			board.set_cell(GameboardConstants.BUILD_LAYER, map_position, tile.id, Vector2(0,0))
+			board.set_cell(GameboardConstants.BUILD_LAYER, map_position, tile.dto.tile_id, Vector2(0,0))
 			board.set_cell(GameboardConstants.BLOCK_LAYER, map_position, -1, Vector2(0,0))
 			
 		GameboardConstants.BLOCK_LAYER:
@@ -41,18 +43,18 @@ func set_cell(tile: LevelEditor.TileItem, map_position: Vector2):
 				spawner_map_positions.append(map_position)
 				spawner_added.emit()
 
-			board.set_cell(GameboardConstants.BLOCK_LAYER, map_position, tile.id, Vector2(0,0))
+			board.set_cell(GameboardConstants.BLOCK_LAYER, map_position, tile.dto.tile_id, Vector2(0,0))
 			board.set_cell(GameboardConstants.BUILD_LAYER, map_position, -1, Vector2(0,0))
 
 #If the tile is null, it will bucket clear it
-func bucket_fill(tile: LevelEditor.TileItem, map_position: Vector2):
+func bucket_fill(tile: TileSelection.TileItem, map_position: Vector2):
 	if not _is_in_editor_bounds(map_position): return
 	
 	var tile_layer
 	if tile == null:
 		tile_layer = get_highest_used_layer(map_position)
 	else:
-		tile_layer = tile.layer
+		tile_layer = tile.dto.map_layer
 	
 	var board_id = board.get_cell_source_id(tile_layer, map_position) #underlying tile
 	var visited = []

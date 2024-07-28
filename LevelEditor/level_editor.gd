@@ -1,15 +1,17 @@
 extends GameObject2D
 class_name LevelEditor
 
-@onready var _selection_tile_container = $Camera2D/HUD/TileScrollContainer/TileGridContainer
 @onready var wave_settings = $Camera2D/HUD/WaveSettings
 
 @onready var default_build_mode_button = $Camera2D/HUD/BuildModes/DefaultBuildModeButton
 @onready var draw_build_mode_button = $Camera2D/HUD/BuildModes/DrawBuildModeButton
 @onready var bucket_fill_build_mode_button = $Camera2D/HUD/BuildModes/BucketFillBuildModeButton
 @onready var map_name = $Camera2D/HUD/mapname
+@onready var tile_selection = $Camera2D/HUD/TileSelection
 
-@onready var board_handler = LevelEditorBoardHandler.new($Board)
+
+@onready var object_holder = ObjectHolder.new()
+@onready var board_handler: LevelEditorBoardHandler
 
 enum BuildMode { DEFAULT, DRAW, BUCKET_FILL }
 var _build_mode: BuildMode = BuildMode.DEFAULT
@@ -19,16 +21,7 @@ var previous_board_position = Vector2i(-1, -1)
 const default_stylebox = preload("res://Styles/default_button.tres")
 const selected_stylebox = preload("res://Styles/selected_button.tres")
 
-var _selection_tile_items = [
-	TileItem.new(GameboardConstants.WALL_TILE_ID, "Wall", GameboardConstants.BLOCK_LAYER),
-	TileItem.new(GameboardConstants.PLAYER_BASE_GREEN_TILE_ID, "Base", GameboardConstants.BLOCK_LAYER),
-	TileItem.new(GameboardConstants.SPAWNER_GREEN_TILE_ID, "Spawner", GameboardConstants.BLOCK_LAYER),
-	TileItem.new(GameboardConstants.GROUND_TILE_ID, "Ground", GameboardConstants.GROUND_LAYER),
-	TileItem.new(GameboardConstants.BUILD_NONE_TILE_ID, "Build None", GameboardConstants.BUILD_LAYER),
-	TileItem.new(GameboardConstants.PORTAL_TILE_ID, "Portal", GameboardConstants.BLOCK_LAYER)
-	]
-
-var selected_tile: TileItem
+var selected_tile: TileSelection.TileItem
 var ignore_click = false
 
 func _ready():
@@ -36,12 +29,13 @@ func _ready():
 	$Background.tile_set.tile_size = Vector2(GameboardConstants.TILE_SIZE, GameboardConstants.TILE_SIZE)
 	_set_background()
 	
+	board_handler = LevelEditorBoardHandler.new($Board, object_holder)
 	board_handler.spawner_added.connect(_on_spawner_added)
 	board_handler.spawner_removed.connect(_on_spawner_removed)
 	
 	$Camera2D.dragging_camera.connect(dragging_camera)
+	tile_selection.tile_selected.connect(_on_tile_selected)
 	
-	_init_selection_tiles()
 	_set_button_selected(default_build_mode_button, true)
 	_set_button_selected(draw_build_mode_button, false)
 	_set_button_selected(bucket_fill_build_mode_button, false)
@@ -75,7 +69,7 @@ func _unhandled_input(event):
 	elif InputUtils.is_action_just_released(event, "left_click"):
 		if selected_tile == null: return
 		match (_build_mode):
-			BuildMode.DEFAULT: board_handler.set_cell(selected_tile, board_pos)	
+			BuildMode.DEFAULT: board_handler.set_cell(selected_tile, board_pos)
 			BuildMode.BUCKET_FILL: board_handler.bucket_fill(selected_tile, board_pos)
 				
 	elif InputUtils.is_action_just_released(event, "right_click"):
@@ -83,20 +77,8 @@ func _unhandled_input(event):
 			BuildMode.DEFAULT: board_handler.clear_cell_layer(board_pos)
 			BuildMode.BUCKET_FILL: board_handler.bucket_fill(null, board_pos)
 
-func _init_selection_tiles():
-	for child in _selection_tile_container.get_children(): child.free()
-	var tile_set = $Board.tile_set
-	for tile_item in _selection_tile_items:
-		var atlas: TileSetAtlasSource = tile_set.get_source(tile_item.id)
-		var item = load("res://LevelEditor/ContainerItems/tile_selection_item.tscn").instantiate()
-		item.set_tile(tile_item, atlas.texture)
-		item.clicked.connect(_on_tile_selected)
-		_selection_tile_container.add_child(item)
-
-func _on_tile_selected(sender, tile: TileItem):
+func _on_tile_selected(tile: TileSelection.TileItem):
 	selected_tile = tile
-	for item in _selection_tile_container.get_children(): item.set_selected(false)
-	sender.set_selected(true)
 
 func _on_spawner_added():
 	wave_settings.add_spawner_setting()
@@ -156,7 +138,6 @@ func _set_background():
 		for x in range(0, GameboardConstants.BOARD_WIDTH):
 			$Background.set_cell(0, Vector2(x,y), 0, Vector2(0,0))
 	
-
 func _set_button_selected(sender, selected: bool):
 	var style_box = selected_stylebox if selected else default_stylebox
 	sender.add_theme_stylebox_override("normal", style_box)
@@ -164,15 +145,5 @@ func _set_button_selected(sender, selected: bool):
 	sender.add_theme_stylebox_override("pressed", style_box)
 	sender.add_theme_stylebox_override("focus", style_box)
 
-
 func dragging_camera():
 	ignore_click = true
-
-class TileItem:
-	var id: int
-	var name: String
-	var layer: int
-	func _init(id: int, name: String, layer: int):
-		self.id = id
-		self.name = name
-		self.layer = layer

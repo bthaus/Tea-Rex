@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://ceo4ed4nntj6h"]
+[gd_scene load_steps=11 format=3 uid="uid://ceo4ed4nntj6h"]
 
 [ext_resource type="Script" path="res://LevelEditor/level_editor.gd" id="1_nibhe"]
 [ext_resource type="Texture2D" uid="uid://btp3q1rq0vmmt" path="res://Assets/Tiles/Ground/ground.png" id="2_exj2q"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://swj5q2lje25d" path="res://Assets/Tiles/wall.png" id="3_cchrl"]
 [ext_resource type="Script" path="res://Utils/board_camera.gd" id="4_0cb1y"]
 [ext_resource type="PackedScene" uid="uid://bq3cptvw55c8" path="res://LevelEditor/wave_settings.tscn" id="4_3dmyq"]
+[ext_resource type="PackedScene" uid="uid://cpal4oo6lrf4t" path="res://LevelEditor/tile_selection.tscn" id="6_mdk6g"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ghpgt"]
 texture = ExtResource("2_exj2q")
@@ -47,16 +48,10 @@ script = ExtResource("4_0cb1y")
 
 [node name="HUD" type="CanvasLayer" parent="Camera2D"]
 
-[node name="TileScrollContainer" type="ScrollContainer" parent="Camera2D/HUD"]
-offset_left = 21.0
-offset_top = 84.0
-offset_right = 192.0
-offset_bottom = 434.0
-horizontal_scroll_mode = 0
-
-[node name="TileGridContainer" type="GridContainer" parent="Camera2D/HUD/TileScrollContainer"]
-layout_mode = 2
-columns = 2
+[node name="TileSelection" parent="Camera2D/HUD" instance=ExtResource("6_mdk6g")]
+offset_top = 54.0
+offset_right = 258.0
+offset_bottom = 533.0
 
 [node name="SaveButton" type="Button" parent="Camera2D/HUD"]
 offset_left = 1030.0

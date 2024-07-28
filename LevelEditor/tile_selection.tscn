@@ -1,0 +1,27 @@
+[gd_scene load_steps=2 format=3 uid="uid://cpal4oo6lrf4t"]
+
+[ext_resource type="Script" path="res://LevelEditor/tile_selection.gd" id="1_p0q8q"]
+
+[node name="TileSelection" type="TabContainer"]
+offset_right = 255.0
+offset_bottom = 376.0
+script = ExtResource("1_p0q8q")
+
+[node name="All" type="GridContainer" parent="."]
+layout_mode = 2
+columns = 2
+
+[node name="Ground" type="GridContainer" parent="."]
+visible = false
+layout_mode = 2
+columns = 2
+
+[node name="Build" type="GridContainer" parent="."]
+visible = false
+layout_mode = 2
+columns = 2
+
+[node name="Block" type="GridContainer" parent="."]
+visible = false
+layout_mode = 2
+columns = 2
