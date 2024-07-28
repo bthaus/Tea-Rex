@@ -8,7 +8,7 @@ var screen_start_position
 @export var env:WorldEnvironment
 var dragging = false
 var clicked = false
-signal is_dragging_camera
+signal dragging_camera
 const MAX_SHAKE=5
 const CAMERA_ZOOM = 0.1
 const SCROLL_SPEED = 100
@@ -36,7 +36,6 @@ func isOffCamera(position):
 	var diff= abs(abs(position.y)-abs(global_position.y))
 	return diff>1000
 
-
 func _process(delta):
 	if shake_timer < duration:
 		var x_offset = randf_range(-intensity, intensity)
@@ -50,10 +49,8 @@ func _process(delta):
 	lastpos=global_position.y
 
 func _ready():
-	
 	Projectile.camera=self;
 	Turret.camera=self;
-	pass;
 	
 func _input(event):
 	if InputUtils.is_action_just_pressed(event, "left_click"):
@@ -64,17 +61,6 @@ func _input(event):
 	if InputUtils.is_action_just_released(event, "left_click"):
 		clicked = false
 		dragging = false
-		#is_dragging_camera.emit(false)
-	#if event.is_action("left_click"):
-		#if event.is_pressed():
-			#mouse_start_pos = event.position
-			#screen_start_position = position
-			#clicked = true
-		#else:
-			#if dragging:
-				#is_dragging_camera.emit(false)
-			#clicked = false
-			#dragging = false
 			
 	if event is InputEventMouseMotion and clicked:
 		var drag_distance = mouse_start_pos.distance_to(event.position)
@@ -82,7 +68,7 @@ func _input(event):
 		if not dragging:
 			if drag_distance < MIN_RECOGNIZABLE_DRAG_DISTANCE: 
 				return
-			is_dragging_camera.emit(true)
+			dragging_camera.emit()
 
 		dragging = true
 

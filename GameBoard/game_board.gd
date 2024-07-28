@@ -17,10 +17,7 @@ static var current_tutorial = null
 
 var preview_turrets = null
 
-var is_dragging_camera = false
-var is_moving_camera = false
 var ignore_click = false
-
 var is_delayed = false
 var delay_timer: Timer
 
@@ -45,7 +42,7 @@ func _ready():
 	delay_timer.wait_time = GameplayConstants.CARD_PLACEMENT_DELAY
 	delay_timer.timeout.connect(func(): is_delayed=false)
 	add_child(delay_timer)
-	gameState.getCamera().is_dragging_camera.connect(dragging_camera)
+	gameState.getCamera().dragging_camera.connect(dragging_camera)
 	
 func start_bulldozer(done: Callable, size_x: int, size_y: int):
 	util.p("Bulldozering stuff now...", "Jojo")
@@ -80,10 +77,7 @@ func select_block(block, done: Callable):
 	selected_block = block
 	self.done = done
 
-func _process(_delta):
-	if is_dragging_camera:
-		ignore_click = true
-	
+
 func _input(event):
 	var board_pos = $Board.local_to_map(get_global_mouse_position())
 	check_mouse_cell_traversal(board_pos)
@@ -91,23 +85,23 @@ func _input(event):
 	if is_delayed:
 		return
 	
-	if not event is InputEventMouseMotion and ignore_click: # Ignore the next click
+	if InputUtils.is_action_just_released(event, "left_click") and ignore_click: # Ignore the next click
 		ignore_click = false
 		return
+		
 	#interrupt and rightclick moved upwards so thats still detectable
-	if event.is_action_released("right_click"):
+	if InputUtils.is_action_just_released(event, "right_click"):
 		if selected_block != null:
 			block_handler.rotate_block(selected_block)
 			_draw_selected_block_preview(board_pos)
 	
-	if event.is_action_released("interrupt"):
+	if InputUtils.is_action_just_released(event, "interrupt"):
 		_action_finished(false)
 	#this uses the inputstopper flag for tutorials and handhovering
 	if ignore_input: return
 	
-	if event.is_action_released("left_click"):
-		print(board_pos)
-		if Card.contemplatingInterrupt: return ;
+	if InputUtils.is_action_just_released(event, "left_click"):
+		if Card.contemplatingInterrupt: return
 		match action:
 			BoardAction.BUILD:
 				if block_handler.can_place_block(selected_block, board_pos,  gameState.spawners):
@@ -298,5 +292,5 @@ func show_outline(pos):
 func clear_range_outline():
 	$Board.clear_layer(GameboardConstants.PREVIEW_LAYER)
 
-func dragging_camera(is_dragging: bool):
-	self.is_dragging_camera = is_dragging
+func dragging_camera():
+	ignore_click = true

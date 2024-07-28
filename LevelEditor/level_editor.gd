@@ -7,6 +7,7 @@ class_name LevelEditor
 @onready var default_build_mode_button = $Camera2D/HUD/BuildModes/DefaultBuildModeButton
 @onready var draw_build_mode_button = $Camera2D/HUD/BuildModes/DrawBuildModeButton
 @onready var bucket_fill_build_mode_button = $Camera2D/HUD/BuildModes/BucketFillBuildModeButton
+@onready var map_name = $Camera2D/HUD/mapname
 
 @onready var board_handler = LevelEditorBoardHandler.new($Board)
 
@@ -38,7 +39,7 @@ func _ready():
 	board_handler.spawner_added.connect(_on_spawner_added)
 	board_handler.spawner_removed.connect(_on_spawner_removed)
 	
-	$Camera2D.is_dragging_camera.connect(dragging_camera)
+	$Camera2D.dragging_camera.connect(dragging_camera)
 	
 	_init_selection_tiles()
 	_set_button_selected(default_build_mode_button, true)
@@ -134,7 +135,7 @@ func _on_bucket_fill_build_mode_button_pressed():
 
 func _on_save_button_pressed():
 	var monster_waves = wave_settings.get_monster_waves()
-	board_handler.save_board(monster_waves,$HUD/mapname.text)
+	board_handler.save_board(monster_waves, map_name.text)
 
 func _on_wave_settings_button_pressed():
 	wave_settings.show()
@@ -159,8 +160,8 @@ func _set_button_selected(sender, selected: bool):
 	sender.add_theme_stylebox_override("focus", style_box)
 
 
-func dragging_camera(is_dragging: bool):
-	ignore_click = is_dragging
+func dragging_camera():
+	ignore_click = true
 
 class TileItem:
 	var id: int
