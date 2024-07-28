@@ -3,10 +3,8 @@ extends Camera2D
 var mouse_start_pos
 var screen_start_position
 
-@export var thresholds:LightThresholds
-@export var gameState:GameState
-@export var env:WorldEnvironment
 var dragging = false
+var dragging_disabled = false
 var clicked = false
 signal dragging_camera
 const MAX_SHAKE=5
@@ -17,11 +15,10 @@ const MAX_ZOOM_OUT = 0.45
 const MAX_ZOOM_IN = 2
 const VIEW_RANGE_TOLERANCE = 200
 var lastpos=0
-var original_position=0;
+
 var shake_timer=0;
 var duration=0;
 var intensity=0;
-
 
 func shake(duration: float, intensity: float,position,maxval=MAX_SHAKE):
 	if intensity>maxval: return;
@@ -36,11 +33,14 @@ func isOffCamera(position):
 	var diff= abs(abs(position.y)-abs(global_position.y))
 	return diff>1000
 
+func disable_dragging(disable: bool):
+	dragging_disabled = disable
+
 func _process(delta):
 	if shake_timer < duration:
 		var x_offset = randf_range(-intensity, intensity)
 		var y_offset = randf_range(-intensity, intensity)
-				
+		
 		offset.x =x_offset/zoom.x
 		offset.y =y_offset/zoom.x
 		duration=duration-1*delta
@@ -63,6 +63,8 @@ func _input(event):
 		dragging = false
 			
 	if event is InputEventMouseMotion and clicked:
+		if dragging_disabled: 
+			return
 		var drag_distance = mouse_start_pos.distance_to(event.position)
 		#Player has to drag for a minimum distance to be recognized as dragging motion
 		if not dragging:

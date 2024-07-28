@@ -56,17 +56,22 @@ func _unhandled_input(event):
 	var board_pos = $Board.local_to_map(get_global_mouse_position())
 	
 	#Check if we changed our mouse pressed status
-	var mouse_just_pressed = InputUtils.is_action_just_pressed(event, "left_click")or InputUtils.is_action_just_pressed(event, "right_click")
+	var mouse_just_pressed = InputUtils.is_action_just_pressed(event, "left_click") or InputUtils.is_action_just_pressed(event, "right_click")
 	var mouse_just_released = InputUtils.is_action_just_released(event, "left_click") or InputUtils.is_action_just_released(event, "right_click")
+	
 	#Check if we are at a new tile
 	var at_new_tile = true if board_pos != previous_board_position else false
 	previous_board_position = board_pos
 	
+	print(event.is_action_pressed("left_click"))
+	
 	#Handle draw mode
 	if _build_mode == BuildMode.DRAW and (at_new_tile or mouse_just_pressed or mouse_just_released):
-		if event.is_action_pressed("left_click"):
+		if Input.is_action_pressed("left_click"):
+		#if event.is_action_pressed("left_click"):
 			board_handler.set_cell(selected_tile, board_pos)
-		elif event.is_action_pressed("right_click"):
+		elif Input.is_action_pressed("right_click"):
+		#elif event.is_action_pressed("right_click"):
 			board_handler.clear_cell_layer(board_pos)
 	
 	#Handle default and bucket fill mode
@@ -120,18 +125,21 @@ func _on_default_build_mode_button_pressed():
 	_set_button_selected(default_build_mode_button, true)
 	_set_button_selected(draw_build_mode_button, false)
 	_set_button_selected(bucket_fill_build_mode_button, false)
+	$Camera2D.disable_dragging(false)
 
 func _on_draw_build_mode_button_pressed():
 	_build_mode = BuildMode.DRAW
 	_set_button_selected(default_build_mode_button, false)
 	_set_button_selected(draw_build_mode_button, true)
 	_set_button_selected(bucket_fill_build_mode_button, false)
+	$Camera2D.disable_dragging(true)
 
 func _on_bucket_fill_build_mode_button_pressed():
 	_build_mode = BuildMode.BUCKET_FILL
 	_set_button_selected(default_build_mode_button, false)
 	_set_button_selected(draw_build_mode_button, false)
 	_set_button_selected(bucket_fill_build_mode_button, true)
+	$Camera2D.disable_dragging(false)
 
 func _on_save_button_pressed():
 	var monster_waves = wave_settings.get_monster_waves()
