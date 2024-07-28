@@ -1,12 +1,12 @@
 extends GameObject2D
 class_name LevelEditor
 
-@onready var _selection_tile_container = $HUD/TileScrollContainer/TileGridContainer
-@onready var wave_settings = $HUD/WaveSettings
+@onready var _selection_tile_container = $Camera2D/HUD/TileScrollContainer/TileGridContainer
+@onready var wave_settings = $Camera2D/HUD/WaveSettings
 
-@onready var default_build_mode_button = $HUD/BuildModes/DefaultBuildModeButton
-@onready var draw_build_mode_button = $HUD/BuildModes/DrawBuildModeButton
-@onready var bucket_fill_build_mode_button = $HUD/BuildModes/BucketFillBuildModeButton
+@onready var default_build_mode_button = $Camera2D/HUD/BuildModes/DefaultBuildModeButton
+@onready var draw_build_mode_button = $Camera2D/HUD/BuildModes/DrawBuildModeButton
+@onready var bucket_fill_build_mode_button = $Camera2D/HUD/BuildModes/BucketFillBuildModeButton
 
 @onready var board_handler = LevelEditorBoardHandler.new($Board)
 

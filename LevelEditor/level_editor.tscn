@@ -1,8 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://ceo4ed4nntj6h"]
+[gd_scene load_steps=10 format=3 uid="uid://ceo4ed4nntj6h"]
 
+[ext_resource type="Script" path="res://LevelEditor/level_editor.gd" id="1_nibhe"]
 [ext_resource type="Texture2D" uid="uid://btp3q1rq0vmmt" path="res://Assets/Tiles/Ground/ground.png" id="2_exj2q"]
 [ext_resource type="TileSet" uid="uid://dcf0fhqgihare" path="res://TileSets/game_board_tileset.tres" id="2_itsd3"]
 [ext_resource type="Texture2D" uid="uid://swj5q2lje25d" path="res://Assets/Tiles/wall.png" id="3_cchrl"]
+[ext_resource type="Script" path="res://Utils/board_camera.gd" id="4_0cb1y"]
 [ext_resource type="PackedScene" uid="uid://bq3cptvw55c8" path="res://LevelEditor/wave_settings.tscn" id="4_3dmyq"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ghpgt"]
@@ -21,6 +23,7 @@ sources/0 = SubResource("TileSetAtlasSource_ghpgt")
 sources/1 = SubResource("TileSetAtlasSource_ledam")
 
 [node name="LevelEditor" type="Node2D"]
+script = ExtResource("1_nibhe")
 
 [node name="Background" type="TileMap" parent="."]
 modulate = Color(0, 0, 0, 1)
@@ -38,66 +41,70 @@ layer_2/tile_data = PackedInt32Array()
 
 [node name="SpawnerLabels" type="Node2D" parent="."]
 
-[node name="HUD" type="CanvasLayer" parent="."]
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(576, 324)
+script = ExtResource("4_0cb1y")
 
-[node name="TileScrollContainer" type="ScrollContainer" parent="HUD"]
+[node name="HUD" type="CanvasLayer" parent="Camera2D"]
+
+[node name="TileScrollContainer" type="ScrollContainer" parent="Camera2D/HUD"]
 offset_left = 21.0
 offset_top = 84.0
 offset_right = 192.0
 offset_bottom = 434.0
 horizontal_scroll_mode = 0
 
-[node name="TileGridContainer" type="GridContainer" parent="HUD/TileScrollContainer"]
+[node name="TileGridContainer" type="GridContainer" parent="Camera2D/HUD/TileScrollContainer"]
 layout_mode = 2
 columns = 2
 
-[node name="SaveButton" type="Button" parent="HUD"]
+[node name="SaveButton" type="Button" parent="Camera2D/HUD"]
 offset_left = 1030.0
 offset_top = 546.0
 offset_right = 1116.0
 offset_bottom = 599.0
 text = "save"
 
-[node name="WaveSettingsButton" type="Button" parent="HUD"]
+[node name="WaveSettingsButton" type="Button" parent="Camera2D/HUD"]
 offset_left = 1029.0
 offset_top = 423.0
 offset_right = 1122.0
 offset_bottom = 470.0
 text = "Waves"
 
-[node name="WaveSettings" parent="HUD" instance=ExtResource("4_3dmyq")]
+[node name="WaveSettings" parent="Camera2D/HUD" instance=ExtResource("4_3dmyq")]
 visible = false
 
-[node name="mapname" type="TextEdit" parent="HUD"]
+[node name="mapname" type="TextEdit" parent="Camera2D/HUD"]
 offset_left = 947.0
 offset_top = 491.0
 offset_right = 1149.0
 offset_bottom = 537.0
 placeholder_text = "enter your mapname"
 
-[node name="BuildModes" type="Node2D" parent="HUD"]
+[node name="BuildModes" type="Node2D" parent="Camera2D/HUD"]
 position = Vector2(1000, 100)
 
-[node name="DefaultBuildModeButton" type="Button" parent="HUD/BuildModes"]
+[node name="DefaultBuildModeButton" type="Button" parent="Camera2D/HUD/BuildModes"]
 offset_right = 140.0
 offset_bottom = 60.0
 text = "Default"
 
-[node name="DrawBuildModeButton" type="Button" parent="HUD/BuildModes"]
+[node name="DrawBuildModeButton" type="Button" parent="Camera2D/HUD/BuildModes"]
 offset_top = 74.0
 offset_right = 140.0
 offset_bottom = 134.0
 text = "Draw Mode"
 
-[node name="BucketFillBuildModeButton" type="Button" parent="HUD/BuildModes"]
+[node name="BucketFillBuildModeButton" type="Button" parent="Camera2D/HUD/BuildModes"]
 offset_left = 1.0
 offset_top = 147.0
 offset_right = 141.0
 offset_bottom = 207.0
 text = "Bucket Fill Mode"
 
-[connection signal="pressed" from="HUD/SaveButton" to="." method="_on_save_button_pressed"]
-[connection signal="pressed" from="HUD/WaveSettingsButton" to="." method="_on_wave_settings_button_pressed"]
-[connection signal="pressed" from="HUD/BuildModes/DefaultBuildModeButton" to="." method="_on_default_build_mode_button_pressed"]
-[connection signal="pressed" from="HUD/BuildModes/DrawBuildModeButton" to="." method="_on_draw_build_mode_button_pressed"]
-[connection signal="pressed" from="HUD/BuildModes/BucketFillBuildModeButton" to="." method="_on_bucket_fill_build_mode_button_pressed"]
+[connection signal="pressed" from="Camera2D/HUD/SaveButton" to="." method="_on_save_button_pressed"]
+[connection signal="pressed" from="Camera2D/HUD/WaveSettingsButton" to="." method="_on_wave_settings_button_pressed"]
+[connection signal="pressed" from="Camera2D/HUD/BuildModes/DefaultBuildModeButton" to="." method="_on_default_build_mode_button_pressed"]
+[connection signal="pressed" from="Camera2D/HUD/BuildModes/DrawBuildModeButton" to="." method="_on_draw_build_mode_button_pressed"]
+[connection signal="pressed" from="Camera2D/HUD/BuildModes/BucketFillBuildModeButton" to="." method="_on_bucket_fill_build_mode_button_pressed"]

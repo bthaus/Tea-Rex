@@ -1,8 +1,8 @@
 extends Button
 
 var tile: LevelEditor.TileItem
-const default_stylebox = preload("res://LevelEditor/Styles/default_button.tres")
-const selected_stylebox = preload("res://LevelEditor/Styles/selected_button.tres")
+const default_stylebox = preload("res://Styles/default_button.tres")
+const selected_stylebox = preload("res://Styles/selected_button.tres")
 signal clicked
 
 func set_tile(tile: LevelEditor.TileItem, texture: Texture):
