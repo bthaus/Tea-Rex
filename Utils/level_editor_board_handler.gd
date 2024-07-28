@@ -2,19 +2,40 @@ extends GameObject2D
 class_name LevelEditorBoardHandler
 
 var board: TileMap
-var object_holder: ObjectHolder
+var tiles_holder: Array[GameObjectHolder]
 
 var spawner_map_positions: PackedVector2Array = [] #Holds all the spawners on the board. Index indicates which spawner is which.
 
 signal spawner_added
 signal spawner_removed
 
-func _init(board: TileMap, object_holder):
+func _init(board: TileMap, tiles_holder: Array[GameObjectHolder]):
 	self.board = board
-	self.object_holder = object_holder
+	self.tiles_holder = tiles_holder
 
 func get_spawner_map_positions() -> PackedVector2Array:
 	return spawner_map_positions
+
+func _set_board_cell(tile_item: TileSelection.TileItem, map_position: Vector2):
+	var handler_layer
+	match(tile_item.dto.map_layer):
+		GameboardConstants.GROUND_LAYER: handler_layer = 0
+		GameboardConstants.BUILD_LAYER: handler_layer = 1
+		GameboardConstants.BLOCK_LAYER: handler_layer = 2
+	
+	board.set_cell(tile_item.dto.map_layer, map_position, tile_item.dto.tile_id, Vector2(0,0))
+	var dto = BaseDTO.get_dto_from_json(tile_item.dto.get_json())
+	tiles_holder[handler_layer].set_object_at(dto, map_position)
+
+func _clear_board_cell(layer: int, map_position: Vector2):
+	var handler_layer
+	match(layer):
+		GameboardConstants.GROUND_LAYER: handler_layer = 0
+		GameboardConstants.BUILD_LAYER: handler_layer = 1
+		GameboardConstants.BLOCK_LAYER: handler_layer = 2
+	
+	board.set_cell(layer, map_position, -1, Vector2(0,0))
+	tiles_holder[handler_layer].set_object_at(null, map_position)
 
 func set_cell(tile: TileSelection.TileItem, map_position: Vector2):
 	if tile == null: return
@@ -31,11 +52,11 @@ func set_cell(tile: TileSelection.TileItem, map_position: Vector2):
 	
 	match (tile.dto.map_layer):
 		GameboardConstants.GROUND_LAYER:
-			board.set_cell(GameboardConstants.GROUND_LAYER, map_position, tile.dto.tile_id, Vector2(0,0))
+			_set_board_cell(tile, map_position)
 			
 		GameboardConstants.BUILD_LAYER:
-			board.set_cell(GameboardConstants.BUILD_LAYER, map_position, tile.dto.tile_id, Vector2(0,0))
-			board.set_cell(GameboardConstants.BLOCK_LAYER, map_position, -1, Vector2(0,0))
+			_set_board_cell(tile, map_position)
+			_clear_board_cell(GameboardConstants.BLOCK_LAYER, map_position)
 			
 		GameboardConstants.BLOCK_LAYER:
 			if type == GameboardConstants.TileType.SPAWNER:
@@ -43,8 +64,8 @@ func set_cell(tile: TileSelection.TileItem, map_position: Vector2):
 				spawner_map_positions.append(map_position)
 				spawner_added.emit()
 
-			board.set_cell(GameboardConstants.BLOCK_LAYER, map_position, tile.dto.tile_id, Vector2(0,0))
-			board.set_cell(GameboardConstants.BUILD_LAYER, map_position, -1, Vector2(0,0))
+			_set_board_cell(tile, map_position)
+			_clear_board_cell(GameboardConstants.BUILD_LAYER, map_position)
 
 #If the tile is null, it will bucket clear it
 func bucket_fill(tile: TileSelection.TileItem, map_position: Vector2):
@@ -95,7 +116,7 @@ func clear_cell_layer(map_position: Vector2):
 	#Clear one layer at a time: Block -> Build -> GROUND
 	var layer = get_highest_used_layer(map_position)
 	if layer == -1: return
-	board.set_cell(layer, map_position, -1, Vector2(0,0))
+	_clear_board_cell(layer, map_position)
 
 func get_highest_used_layer(map_position: Vector2) -> int:
 	if not _is_cell_empty(GameboardConstants.BLOCK_LAYER, map_position):

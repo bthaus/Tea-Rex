@@ -9,8 +9,7 @@ class_name LevelEditor
 @onready var map_name = $Camera2D/HUD/mapname
 @onready var tile_selection = $Camera2D/HUD/TileSelection
 
-
-@onready var object_holder = ObjectHolder.new()
+@onready var tiles_holder: Array[GameObjectHolder]
 @onready var board_handler: LevelEditorBoardHandler
 
 enum BuildMode { DEFAULT, DRAW, BUCKET_FILL }
@@ -29,7 +28,9 @@ func _ready():
 	$Background.tile_set.tile_size = Vector2(GameboardConstants.TILE_SIZE, GameboardConstants.TILE_SIZE)
 	_set_background()
 	
-	board_handler = LevelEditorBoardHandler.new($Board, object_holder)
+	#Stores all tile infos for each layer: Ground, Build and Block
+	tiles_holder = [GameObjectHolder.new(), GameObjectHolder.new(), GameObjectHolder.new()]
+	board_handler = LevelEditorBoardHandler.new($Board, tiles_holder)
 	board_handler.spawner_added.connect(_on_spawner_added)
 	board_handler.spawner_removed.connect(_on_spawner_removed)
 	

@@ -1,5 +1,5 @@
 extends GameObjectCounted
-class_name ObjectHolder
+class_name GameObjectHolder
 
 var _objects = []
 
@@ -10,7 +10,7 @@ func _init():
 			line.append(null)
 		_objects.append(line)
 
-func insert_object(object, position: Vector2):
+func set_object_at(object, position: Vector2):
 	_objects[position.y][position.x] = object
 
 func get_object_at(position: Vector2):
