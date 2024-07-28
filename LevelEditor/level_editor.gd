@@ -63,15 +63,12 @@ func _unhandled_input(event):
 	var at_new_tile = true if board_pos != previous_board_position else false
 	previous_board_position = board_pos
 	
-	print(event.is_action_pressed("left_click"))
-	
 	#Handle draw mode
 	if _build_mode == BuildMode.DRAW and (at_new_tile or mouse_just_pressed or mouse_just_released):
+		#Input should technically not be used in _input... but it works
 		if Input.is_action_pressed("left_click"):
-		#if event.is_action_pressed("left_click"):
 			board_handler.set_cell(selected_tile, board_pos)
 		elif Input.is_action_pressed("right_click"):
-		#elif event.is_action_pressed("right_click"):
 			board_handler.clear_cell_layer(board_pos)
 	
 	#Handle default and bucket fill mode
