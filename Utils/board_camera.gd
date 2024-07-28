@@ -56,12 +56,12 @@ func _ready():
 	pass;
 	
 func _input(event):
-	if Input.is_action_just_pressed("left_click"):
+	if InputUtils.is_action_just_pressed(event, "left_click"):
 		mouse_start_pos = event.position
 		screen_start_position = position
 		clicked = true
 		
-	if Input.is_action_just_released("left_click"):
+	if InputUtils.is_action_just_released(event, "left_click"):
 		clicked = false
 		dragging = false
 		#is_dragging_camera.emit(false)
