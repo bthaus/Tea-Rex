@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://bvxla7lbtrw8l"]
 
-[ext_resource type="Script" path="res://LevelEditor/ContainerItems/spawner_settings_item.gd" id="1_g1dqd"]
+[ext_resource type="Script" path="res://LevelEditor/WaveSettings/spawner_settings_item.gd" id="1_g1dqd"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5bg07"]
 bg_color = Color(0.945098, 0.941176, 0.945098, 1)

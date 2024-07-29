@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://2wntfsyydaet"]
 
-[ext_resource type="Script" path="res://LevelEditor/ContainerItems/monster_setting_item.gd" id="1_jwpsb"]
+[ext_resource type="Script" path="res://LevelEditor/WaveSettings/monster_setting_item.gd" id="1_jwpsb"]
 [ext_resource type="Texture2D" uid="uid://bloa2axjihn3o" path="res://Assets/Monsters/Monster_BLUE.png" id="2_s2bv5"]
 
 [node name="MonsterSettingItem" type="Panel"]

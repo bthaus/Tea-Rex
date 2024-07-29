@@ -30,7 +30,7 @@ func remove_spawner_setting(spawner_id: int):
 	_update_items(_current_wave)
 
 func add_spawner_setting():
-	var item = load("res://LevelEditor/ContainerItems/spawner_settings_item.tscn").instantiate()
+	var item = load("res://LevelEditor/WaveSettings/spawner_settings_item.tscn").instantiate()
 	spawner_item_container.add_child(item)
 	item.set_spawner_id(_spawner_settings_count)
 	item.set_number_of_waves(_number_of_waves)
