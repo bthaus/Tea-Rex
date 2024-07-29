@@ -23,6 +23,8 @@ const selected_stylebox = preload("res://Styles/selected_button.tres")
 var selected_tile: TileSelection.TileItem
 var ignore_click = false
 
+var editor_game_state:EditorGameState
+
 func _ready():
 	$Board.tile_set.tile_size = Vector2(GameboardConstants.TILE_SIZE, GameboardConstants.TILE_SIZE)
 	$Background.tile_set.tile_size = Vector2(GameboardConstants.TILE_SIZE, GameboardConstants.TILE_SIZE)
@@ -34,6 +36,7 @@ func _ready():
 	board_handler.spawner_added.connect(_on_spawner_added)
 	board_handler.spawner_removed.connect(_on_spawner_removed)
 	
+	
 	$Camera2D.dragging_camera.connect(dragging_camera)
 	tile_selection.tile_selected.connect(_on_tile_selected)
 	
@@ -41,9 +44,20 @@ func _ready():
 	_set_button_selected(draw_build_mode_button, false)
 	_set_button_selected(bucket_fill_build_mode_button, false)
 
-
+func create_fake_state(map_dto:MapDTO):
+	var state=load("res://Game/main_scene.tscn").instantiate()
+	state.set_script(load("res://Game/editor_gamestate.gd"))
+	editor_game_state=state
+	editor_game_state.map_dto=map_dto
+	editor_game_state.board=$Board
+	add_child(editor_game_state)
+	pass;
 func load_map(map_dto: MapDTO):
 	board_handler.spawner_map_positions = []
+	
+	create_fake_state(map_dto)
+	
+	
 	for entity in map_dto.entities:
 		var layer
 		match(entity.map_layer):
@@ -52,7 +66,9 @@ func load_map(map_dto: MapDTO):
 			GameboardConstants.BLOCK_LAYER: layer = 2
 		
 		tiles_holders[layer].set_object_at(entity, Vector2(entity.map_x, entity.map_y))
-		entity.get_object().place_on_board($Board)
+		#wird im editor_gamestate im ready aufgerufen, gleich wie im originalen gamestate
+		#wsl ists auch ok das hier zu machen. wies für dich besser passt
+		#entity.get_object().place_on_board($Board)
 		if is_instance_of(entity, SpawnerDTO):
 			board_handler.spawner_map_positions.insert(entity.spawner_id, Vector2(entity.map_x, entity.map_y))
 			_on_spawner_added()
@@ -108,6 +124,7 @@ func _on_spawner_removed(id: int):
 	_update_spawner_labels()
 	
 func _update_spawner_labels():
+	#this was the method that got lost somehow
 	var spawner_map_positions = board_handler.get_spawner_map_positions()
 	for child in $SpawnerLabels.get_children(): child.queue_free()
 	for i in spawner_map_positions.size():

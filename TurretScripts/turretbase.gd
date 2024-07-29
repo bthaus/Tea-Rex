@@ -51,7 +51,7 @@ func _on_destroy():
 	if GameState.board!=null:	
 		collisionReference.unregister_turret(self,placed)
 
-	if is_instance_valid(GameState.spawners[0]):Spawner.update_damage_estimate()
+	if is_instance_valid(!GameState.spawners.is_empty() and GameState.spawners[0]):Spawner.update_damage_estimate()
 	base.on_destroy()	
 	
 	

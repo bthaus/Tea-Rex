@@ -132,7 +132,6 @@ static func refresh_all_paths(redo_grids=true):
 static func update_damage_estimate():
 	var total_average_damage=0	
 	for s in GameState.gameState.spawners:
-		
 		total_average_damage+=s.get_average_path_damage()
 	GameState.gameState.current_expected_damage=total_average_damage	
 	pass;	

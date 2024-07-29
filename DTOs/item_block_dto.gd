@@ -16,6 +16,7 @@ func _init(color: Turret.Hue = Turret.Hue.BLUE, block_shape: Block.BlockShape = 
 	self.tile_id = tile_id
 	self.map_position = map_position
 func get_json():
+	if turret_mod==null: return super()
 	var props=turret_mod.get_script_property_list() as Array
 	turret_mod=props.pop_front()["hint_string"]
 	return super()

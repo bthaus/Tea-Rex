@@ -5,13 +5,17 @@ class_name GameState;
 @export var hand: Node2D
 @onready var ui:UI=$CanvasLayer/UI
 @export var cam: Camera2D;
-@export var lightThresholds: LightThresholds;
 enum GamePhase {BATTLE=1,BUILD=2,BOTH=3};
 var current_expected_damage=0:
 	set(value):
 		current_expected_damage=value
 		updateUI()
-static var gameState:GameState;
+static var gameState:GameState
+	#get:
+		#if gameState==null:
+			#gameState=load("res://Game/main_scene.tscn").instantiate()
+			#MainMenu.instance.add_child(gameState)
+		#return gameState	
 var account: String = "dede";
 
 #Todo: remove and replace with battle_slot_logic
@@ -35,7 +39,7 @@ var background_width = 80
 var background_height = 40
 
 static var portals:Array[Portal]=[]
-static var spawners = []
+static var spawners:Array[Spawner] = []
 var target;
 var targets=[]
 var showTutorials = false;
@@ -58,8 +62,10 @@ func register_battle_slot_containers(containers:Array[TurretModContainerDTO]):
 	unlockedColors.clear()
 	for container in containers:
 		unlockedColors.push_back(container.color)
-		
+	if unlockedColors.is_empty():
+		unlockedColors.push_back(Turret.Hue.BLUE)	
 	TurretCoreFactory.register_mod_containers(containers)	
+	
 	pass;
 
 func _ready():

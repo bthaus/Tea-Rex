@@ -99,7 +99,7 @@ func initialise(g,map_dto):
 	gameState.collisionReference = self;
 	map=[]
 	bases.clear()
-	for i in range(GameboardConstants.BOARD_HEIGHT):
+	for i in range(GameboardConstants.BOARD_HEIGHT+12):
 		addRow(map)
 	for entity in map_dto.entities:
 		map[normaliseY(entity.map_y)][normaliseX(entity.map_x)].collides_with_bullets=entity.collides_with_bullets	
@@ -298,15 +298,15 @@ func isOccupiedCell(x, y):
 	return false;
 	pass ;
 func isOutOfBounds(x, y):
-	if x >= GameboardConstants.BOARD_HEIGHT-1||x < 0:
+	if x >= GameboardConstants.BOARD_HEIGHT+11||x < 0:
 		return true
-	if y >= GameboardConstants.BOARD_WIDTH-1||y < 0:
+	if y >= GameboardConstants.BOARD_WIDTH+11||y < 0:
 		return true
 	return false
 			
 	pass
 func addholders(row: Array):
-	for i in range(GameboardConstants.BOARD_WIDTH):
+	for i in range(GameboardConstants.BOARD_WIDTH+12):
 		row.append(Holder.new())
 	pass ;
 

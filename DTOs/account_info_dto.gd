@@ -2,14 +2,14 @@ extends BaseDTO
 class_name AccountInfoDTO
 
 var account_name:String
-var account_progress:Array=[]
-var unlocked_colors:Array[Turret.Hue]
+var account_progress#:Array=[]
+var unlocked_colors#:Array[Turret.Hue]
 
-var unlocked_items: Array[ItemBlockDTO]
+var unlocked_items#: Array[ItemBlockDTO]
 #array of blueprintsDTOs 
 var blueprints
 
-var turret_mod_containers: Array[TurretModContainerDTO]
+var turret_mod_containers#: Array[TurretModContainerDTO]
 
 #to be called when a item is created
 var _item_index=0

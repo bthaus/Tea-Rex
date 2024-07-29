@@ -8,7 +8,7 @@ static var level_editor=load("res://LevelEditor/level_editor.tscn").instantiate(
 static var win_screen=load("res://menu_scenes/win_screen_scenes/win_scene.tscn").instantiate()
 static var chapter_editor=load("res://menu_scenes/chapter_editor_scenes/chapter_editor.tscn").instantiate()
 static var instance; 
-static var account_dto:AccountInfoDTO
+static var account_dto:AccountInfoDTO=AccountInfoDTO.new()
 
 
 # Called when the node enters the scene tree for the first time.

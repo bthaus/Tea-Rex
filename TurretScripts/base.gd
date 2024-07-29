@@ -104,8 +104,6 @@ func setUpTower(holder):
 	if ref_proj == null: ref_proj = Projectile.create(type, damage * damagefactor, speed * speedfactor, self, extension, penetrations);
 	ref_proj.visible = false;
 
-	if placed:
-		lightamount = GameState.gameState.lightThresholds.getLight(global_position.y) * stacks
 	for mod in turret_mods:
 		mod.initialise(self)
 		#if not placed:

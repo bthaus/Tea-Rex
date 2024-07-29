@@ -3,9 +3,9 @@
 [ext_resource type="Script" path="res://Game/GameState.gd" id="1_g64db"]
 [ext_resource type="PackedScene" uid="uid://c1jrn7vi6wxab" path="res://menu_scenes/UI_scenes/ui.tscn" id="4_4sohq"]
 [ext_resource type="Texture2D" uid="uid://chsgerkqrpoy6" path="res://Assets/Level/Backgrounddummy.png" id="4_ykfqr"]
-[ext_resource type="AudioStream" uid="uid://b13fmg2prbsaj" path="res://Sounds/Soundeffects/new sounds/Start.wav" id="6_qpv2c"]
+[ext_resource type="AudioStream" uid="uid://c610v6rbeh60p" path="res://Sounds/Soundeffects/new sounds/Start.wav" id="6_qpv2c"]
 [ext_resource type="Script" path="res://Sounds/Sounds.gd" id="7_cb883"]
-[ext_resource type="AudioStream" uid="uid://bni8ou2pe4d70" path="res://Sounds/Music/menu music looppart.wav" id="8_b02dq"]
+[ext_resource type="AudioStream" uid="uid://da5rpc1vklqcv" path="res://Sounds/Music/menu music looppart.wav" id="8_b02dq"]
 [ext_resource type="Script" path="res://Utils/board_camera.gd" id="9_18cub"]
 [ext_resource type="Script" path="res://Game/LightThresholds.gd" id="11_n87cu"]
 [ext_resource type="Script" path="res://collision_reference/BulletHolder.gd" id="13_7m4ty"]
@@ -26,10 +26,9 @@ adjustment_brightness = 1.08
 adjustment_contrast = 1.1
 adjustment_saturation = 1.34
 
-[node name="MainScene" type="Node2D" node_paths=PackedStringArray("cam", "lightThresholds")]
+[node name="MainScene" type="Node2D" node_paths=PackedStringArray("cam")]
 script = ExtResource("1_g64db")
 cam = NodePath("Camera2D")
-lightThresholds = NodePath("LightThresholds")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
