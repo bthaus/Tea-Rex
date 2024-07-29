@@ -83,6 +83,24 @@ func _on_paste_button_pressed():
 		spawner[i].set_monsters_count_for_wave(_current_wave, _copied_wave[i])
 		
 
+#Takes this format
+#   ---> MonsterWaveDTO of all spawners
+# |
+# |
+# v Waves
+func set_monster_waves(waves):
+	_set_number_of_waves(waves.size())
+	var idx = 0
+	for wave in waves:
+		for dto in wave:
+			var spawner
+			for item in spawner_item_container.get_children():
+				if item.get_spawner_id() == dto.spawner_id:
+					spawner = item
+					item.set_monster_count_for_wave(idx, dto.monster_id, dto.count)
+					break
+		idx += 1
+
 #Returns this format
 #   ---> MonsterWaveDTO of all spawners
 # |

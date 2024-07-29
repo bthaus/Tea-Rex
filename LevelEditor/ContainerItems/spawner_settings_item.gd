@@ -65,6 +65,13 @@ func set_monsters_count_for_wave(wave: int, monsters: Array):
 		item.set_monster_count_for_wave(wave, monsters[idx])
 		item.update(wave)
 		idx += 1
+		
+func set_monster_count_for_wave(wave: int, monster_id: int, count: int):
+	for item in monster_item_container.get_children():
+		if item.get_monster_id() == monster_id:
+			item.set_monster_count_for_wave(wave, count)
+			return
+
 
 func _on_copy_button_pressed():
 	var monster_counts = get_monsters_count_for_wave(_current_wave)

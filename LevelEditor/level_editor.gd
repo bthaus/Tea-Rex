@@ -42,6 +42,24 @@ func _ready():
 	_set_button_selected(bucket_fill_build_mode_button, false)
 
 
+func load_editor(map_dto: MapDTO):
+	board_handler.spawner_map_positions = []
+	for entity in map_dto.entities:
+		var layer
+		match(entity.map_layer):
+			GameboardConstants.GROUND_LAYER: layer = 0
+			GameboardConstants.BUILD_LAYER: layer = 1
+			GameboardConstants.BLOCK_LAYER: layer = 2
+		var object = entity.get_object()
+		tiles_holders[layer].set_object_at(object, Vector2(entity.map_x, entity.map_y))
+		object.place_on_board($Board)
+		if is_instance_of(object, SpawnerDTO):
+			board_handler.spawner_map_positions.insert(object.spawner_id, Vector2(object.map_x, object.map_y))
+			_on_spawner_added()
+	
+	wave_settings.set_monster_waves(map_dto.waves)
+	map_name.text = map_dto.map_name
+
 #We can use unhandled input here, so that when clicking on a (hud) button the drawing wont trigger
 func _unhandled_input(event):
 	if InputUtils.is_action_just_released(event, "left_click") and ignore_click: # Ignore the next click

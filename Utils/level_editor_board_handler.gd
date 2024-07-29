@@ -13,9 +13,6 @@ func _init(board: TileMap, tiles_holders: Array[GameObjectHolder]):
 	self.board = board
 	self.tiles_holders = tiles_holders
 
-func get_spawner_map_positions() -> PackedVector2Array:
-	return spawner_map_positions
-
 func _set_board_cell(tile_item: TileSelection.TileItem, map_position: Vector2):
 	var handler_layer
 	match(tile_item.dto.map_layer):
