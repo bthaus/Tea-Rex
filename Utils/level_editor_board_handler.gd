@@ -151,7 +151,7 @@ func save_board(monster_waves,map_name):
 				if object == null: continue
 				
 				if is_instance_of(object, SpawnerDTO):
-					var idx = _get_spawner_idx_at(Vector2(row, col))
+					var idx = _get_spawner_idx_at(Vector2(col, row))
 					object.spawner_id = idx
 				
 				object.map_x = col
