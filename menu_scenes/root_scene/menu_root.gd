@@ -3,6 +3,7 @@ class_name MainMenu
 static var level_select=load("res://menu_scenes/level_selector_scenes/level_selector.tscn").instantiate()
 static var battle_slot_picker=load("res://menu_scenes/battle_slot_picker_scenes/battle_slot_picker.tscn").instantiate()
 static var accounts=load("res://menu_scenes/account_tab_scenes/accounts_tab.tscn").instantiate()
+static var level_editor_menu=load("res://LevelEditor/Menu/level_editor_menu.tscn").instantiate()
 static var level_editor=load("res://LevelEditor/level_editor.tscn").instantiate()
 static var win_screen=load("res://menu_scenes/win_screen_scenes/win_scene.tscn").instantiate()
 static var chapter_editor=load("res://menu_scenes/chapter_editor_scenes/chapter_editor.tscn").instantiate()
@@ -52,7 +53,7 @@ func _on_back_pressed():
 
 
 func _on_button_pressed():
-	change_content(level_editor)
+	change_content(level_editor_menu)
 	pass # Replace with function body.
 
 

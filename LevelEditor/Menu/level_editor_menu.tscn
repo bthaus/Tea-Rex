@@ -1,0 +1,29 @@
+[gd_scene load_steps=3 format=3 uid="uid://d23yd2kujc20t"]
+
+[ext_resource type="PackedScene" uid="uid://ddd8ed1kevi6j" path="res://LevelEditor/Menu/level_editor_menu_item.tscn" id="1_0abjd"]
+[ext_resource type="Script" path="res://LevelEditor/Menu/level_editor_menu.gd" id="1_u8g4u"]
+
+[node name="LevelEditorMenu" type="Node2D"]
+script = ExtResource("1_u8g4u")
+
+[node name="LevelScrollContainer" type="ScrollContainer" parent="."]
+offset_left = 315.0
+offset_top = 46.0
+offset_right = 881.0
+offset_bottom = 646.0
+
+[node name="LevelVBoxContainer" type="VBoxContainer" parent="LevelScrollContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="LevelEditorMenuItem" parent="LevelScrollContainer/LevelVBoxContainer" instance=ExtResource("1_0abjd")]
+layout_mode = 2
+
+[node name="NewLevelButton" type="Button" parent="."]
+offset_left = 989.0
+offset_top = 557.0
+offset_right = 1111.0
+offset_bottom = 612.0
+text = "Add New "
+
+[connection signal="pressed" from="NewLevelButton" to="." method="_on_new_level_button_pressed"]
