@@ -16,6 +16,9 @@ func set_object_at(object, position: Vector2):
 func get_object_at(position: Vector2):
 	return _objects[position.y][position.x]
 
+func get_objects():
+	return _objects
+
 func pop_object_at(position: Vector2):
 	var obj = _objects[position.y][position.x]
 	_objects[position.y][position.x] = null

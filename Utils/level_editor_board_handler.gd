@@ -2,16 +2,16 @@ extends GameObject2D
 class_name LevelEditorBoardHandler
 
 var board: TileMap
-var tiles_holder: Array[GameObjectHolder]
+var tiles_holders: Array[GameObjectHolder]
 
 var spawner_map_positions: PackedVector2Array = [] #Holds all the spawners on the board. Index indicates which spawner is which.
 
 signal spawner_added
 signal spawner_removed
 
-func _init(board: TileMap, tiles_holder: Array[GameObjectHolder]):
+func _init(board: TileMap, tiles_holders: Array[GameObjectHolder]):
 	self.board = board
-	self.tiles_holder = tiles_holder
+	self.tiles_holders = tiles_holders
 
 func get_spawner_map_positions() -> PackedVector2Array:
 	return spawner_map_positions
@@ -25,7 +25,7 @@ func _set_board_cell(tile_item: TileSelection.TileItem, map_position: Vector2):
 	
 	board.set_cell(tile_item.dto.map_layer, map_position, tile_item.dto.tile_id, Vector2(0,0))
 	var dto = BaseDTO.get_dto_from_json(tile_item.dto.get_json())
-	tiles_holder[handler_layer].set_object_at(dto, map_position)
+	tiles_holders[handler_layer].set_object_at(dto, map_position)
 
 func _clear_board_cell(layer: int, map_position: Vector2):
 	var handler_layer
@@ -35,7 +35,7 @@ func _clear_board_cell(layer: int, map_position: Vector2):
 		GameboardConstants.BLOCK_LAYER: handler_layer = 2
 	
 	board.set_cell(layer, map_position, -1, Vector2(0,0))
-	tiles_holder[handler_layer].set_object_at(null, map_position)
+	tiles_holders[handler_layer].set_object_at(null, map_position)
 
 func set_cell(tile: TileSelection.TileItem, map_position: Vector2):
 	if tile == null: return
@@ -143,29 +143,20 @@ func _get_spawner_idx_at(map_position: Vector2) -> int:
 
 func save_board(monster_waves,map_name):
 	var entities:Array[BaseDTO] = []
-	
-	#Store block layer
-	for pos in board.get_used_cells(GameboardConstants.BLOCK_LAYER):
-		var id = board.get_cell_source_id(GameboardConstants.BLOCK_LAYER, pos)
-		var type = GameboardConstants.get_tile_type_by_id(board, id)
-		match(type):
-			GameboardConstants.TileType.WALL: entities.append(TileDTO.new(id, GameboardConstants.BLOCK_LAYER, pos.x, pos.y,true))
-			GameboardConstants.TileType.SPAWNER: 
-				var idx = _get_spawner_idx_at(Vector2(pos.x, pos.y))
-				var color = GameboardConstants.get_tile_color(board, GameboardConstants.BLOCK_LAYER, pos)
-				entities.append(SpawnerDTO.new(id, GameboardConstants.BLOCK_LAYER, pos.x, pos.y, idx, color))
-			GameboardConstants.TileType.PLAYER_BASE: entities.append(PlayerBaseDTO.new(id, GameboardConstants.BLOCK_LAYER, pos.x, pos.y))
-			GameboardConstants.TileType.PORTAL: entities.append(PortalDTO.new(id, GameboardConstants.BLOCK_LAYER, Vector2(pos.x, pos.y)))
-	
-	#Store build layer
-	for pos in board.get_used_cells(GameboardConstants.BUILD_LAYER):
-		var id = board.get_cell_source_id(GameboardConstants.BUILD_LAYER, pos)
-		entities.append(TileDTO.new(id, GameboardConstants.BUILD_LAYER, pos.x, pos.y))
-	
-	#Store ground layer
-	for pos in board.get_used_cells(GameboardConstants.GROUND_LAYER):
-		var id = board.get_cell_source_id(GameboardConstants.GROUND_LAYER, pos)
-		entities.append(TileDTO.new(id, GameboardConstants.GROUND_LAYER, pos.x, pos.y))
+	for tiles_holder in tiles_holders:
+		var objects = tiles_holder.get_objects()
+		for row in objects.size():
+			for col in objects[row].size():
+				var object = objects[row][col]
+				if object == null: continue
+				
+				if is_instance_of(object, SpawnerDTO):
+					var idx = _get_spawner_idx_at(Vector2(row, col))
+					object.spawner_id = idx
+				
+				object.map_x = col
+				object.map_y = row
+				entities.append(object)
 	
 	var map_dto = MapDTO.new(entities, monster_waves,map_name)
 	map_dto.save(map_name)
