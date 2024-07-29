@@ -3,9 +3,9 @@ extends GameObject2D
 class_name BlockHandler
 var board: TileMap
 var gameState:GameState
-var turret_holder: util.TurretHolder
+var turret_holder: GameObjectHolder
 
-func _init(board: TileMap, turret_holder: util.TurretHolder):
+func _init(board: TileMap, turret_holder: GameObjectHolder):
 	self.board = board
 	self.gameState=GameState.gameState
 	self.turret_holder = turret_holder
@@ -69,7 +69,7 @@ func get_block_from_board(map_position: Vector2, normalize: bool, search_diagona
 	
 #Note: Walls will be ignored as the information cannot be stored in a piece properly!
 func get_piece_from_board(map_position: Vector2) -> Block.Piece:
-	var turret = turret_holder.get_turret_at(Vector2(board.map_to_local(map_position)))
+	var turret = turret_holder.get_object_at(map_position)
 	if turret != null: #Turret on top, return data that is stored in it
 		return Block.Piece.new(map_position, turret.color, turret.level, turret.extension)
 	

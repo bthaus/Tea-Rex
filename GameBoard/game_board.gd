@@ -10,7 +10,7 @@ enum BoardAction {NONE = 0, BUILD = 1, MOVE = 2, BULLDOZER = 3}
 var action: BoardAction = BoardAction.NONE
 var done: Callable
 
-var turret_holder = util.TurretHolder.new()
+var turret_holder = GameObjectHolder.new()
 var block_handler: BlockHandler
 
 static var current_tutorial = null
@@ -225,22 +225,21 @@ func _spawn_turrets(block: Block, map_position: Vector2):
 	for piece in block.pieces:
 		if piece.color != Turret.Hue.WHITE:
 			var turret = Turret.create(piece.color, piece.level, piece.extension,true)
-			turret.global_position = $Board.map_to_local(Vector2(map_position.x + piece.position.x, map_position.y + piece.position.y))
+			var pos = Vector2(map_position.x + piece.position.x, map_position.y + piece.position.y)
+			turret.global_position = $Board.map_to_local(pos)
 			add_child(turret)
-			turret_holder.insert_turret(turret)
+			turret_holder.set_object_at(turret, pos)
 
 func _remove_turrets(block: Block, map_position: Vector2):
 	for piece in block.pieces:
-		var pos = $Board.map_to_local(Vector2(map_position.x + piece.position.x, map_position.y + piece.position.y))
-		var turret = turret_holder.pop_turret_at(pos)
+		var turret = turret_holder.pop_object_at(Vector2(map_position.x + piece.position.x, map_position.y + piece.position.y))
 		if turret != null:
 			turret.queue_free()
 
 func _set_block_and_turrets_level(block: Block, map_position: Vector2, level: int):
 	block_handler.set_block_level(block, level)
 	for piece in block.pieces:
-		var pos = $Board.map_to_local(Vector2(map_position.x + piece.position.x, map_position.y + piece.position.y))
-		var turret = turret_holder.get_turret_at(pos)
+		var turret = turret_holder.get_object_at(Vector2(map_position.x + piece.position.x, map_position.y + piece.position.y))
 		if turret != null:
 			if block.extension != null: turret.extension = block.extension
 			turret.levelup(level)
