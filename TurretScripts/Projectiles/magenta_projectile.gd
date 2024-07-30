@@ -84,7 +84,7 @@ func hitEnemy(enemy,from_turret=false):
 	var killed=enemy.hit(type, damage)
 	if killed:remove()
 	if associate != null: associate.on_hit(enemy,damage,type,killed,self)
-	if from_turret:associate.startCooldown(associate.cooldown*associate.cooldownfactor)
+	if from_turret:associate.startCooldown()
 	pass;
 func shoot(target):
 	super(target)
@@ -144,6 +144,8 @@ func move(delta):
 
 	
 func check_collision():
+	if ghost_projectile:
+		return
 	var start=origin.global_position
 	while start!=global_position:
 		start=start.move_toward(global_position,10)

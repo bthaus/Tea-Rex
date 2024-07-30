@@ -2,9 +2,10 @@ extends GameObject2D
 class_name Monster;
 enum MonsterMovingType { GROUND, AIR }
 var moving_type: MonsterMovingType
-enum Monstertype {REGULAR=0}
+enum Monstertype {REGULAR=0,BOSS=1}
 var sizemult = 1;
 var maxHp;
+var monstertype:Monstertype
 
 var damage:
 	get:return core.damage
@@ -46,6 +47,7 @@ static func create(type, target: Node2D, wave: int=1) -> Monster:
 	en.core=MonsterFactory.createMonster(type)
 	en.target = target;
 	en.currentMinionPower = wave
+	en.monstertype=en.core.type
 	
 	return en
 	

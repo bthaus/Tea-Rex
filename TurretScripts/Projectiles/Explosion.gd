@@ -89,7 +89,7 @@ func hit():
 		ms=GameState.gameState.collisionReference.getMinionsAroundPosition(global_position)
 	else:
 		range=int(range)
-		var cells=GameState.gameState.collisionReference.getCellReferences(global_position,range+1)
+		var cells=GameState.gameState.collisionReference.getCellReferences(global_position,range+1,null,[],true)
 		for c in cells:
 			ms.append_array(c)	
 	for m in ms:

@@ -200,6 +200,7 @@ z_index = 3
 material = SubResource("ShaderMaterial_l3v4h")
 texture = ExtResource("7_ilila")
 script = ExtResource("8_61sru")
+damage = 10.0
 turretRange = 3
 
 [node name="Barrel1" type="Sprite2D" parent="BLUE_base"]
@@ -582,6 +583,7 @@ material = SubResource("ShaderMaterial_l3v4h")
 texture = ExtResource("7_ilila")
 script = ExtResource("24_aegkc")
 speed = 0.577
+damage = 10.0
 turretRange = 3
 
 [node name="Barrel1" type="Sprite2D" parent="MAGENTA_base"]

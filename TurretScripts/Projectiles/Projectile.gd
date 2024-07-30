@@ -23,6 +23,7 @@ static var camera;
 static var factory=load("res://TurretScripts/Projectiles/projectile_factory.tscn").instantiate()
 var oldpos=Vector2i(0,0)
 var wall_penetrations=0
+var ghost_projectile=false;
 
 static func create(type: Turret.Hue, damage, speed, root:TurretCore, extension: Turret.Extension=Turret.Extension.DEFAULT, penetrations:int=1) -> Projectile:
 	var b=factory.get_bullet(type,damage,speed,root,penetrations,extension)	
@@ -84,6 +85,8 @@ func duplicate_and_shoot(angle,origin=null)->Projectile:
 	p1.on_creation()
 	p1.ignore_next_enemy=true
 	p1.global_position=origin.get_global()
+	p1.wall_penetrations=wall_penetrations
+	p1.ghost_projectile=ghost_projectile
 	p1.is_duplicate=true
 	for mod in associate.turret_mods:
 		mod.visual.prepare_projectile(p1)

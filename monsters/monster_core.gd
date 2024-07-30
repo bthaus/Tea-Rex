@@ -4,6 +4,7 @@ signal death_animation_done
 @export var hp:float = 1;
 @export var damage:float = 1;
 @export var speed:float = 1;
+@export var type:Monster.Monstertype
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -25,8 +26,5 @@ func on_hit():
 	play("hit")
 	pass;
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
 
 

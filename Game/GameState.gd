@@ -5,6 +5,7 @@ class_name GameState;
 @export var hand: Node2D
 @onready var ui:UI=$CanvasLayer/UI
 @export var cam: Camera2D;
+
 enum GamePhase {BATTLE=1,BUILD=2,BOTH=3};
 var current_expected_damage=0:
 	set(value):
@@ -20,7 +21,7 @@ var account: String = "dede";
 
 #Todo: remove and replace with battle_slot_logic
 var unlockedExtensions = [Turret.Extension.DEFAULT];
-var unlockedColors =[Turret.Hue.BLUE] #[Turret.Hue.GREEN,Turret.Hue.BLUE,Turret.Hue.RED,Turret.Hue.YELLOW];
+var unlockedColors =[Turret.Hue.MAGENTA] #[Turret.Hue.GREEN,Turret.Hue.BLUE,Turret.Hue.RED,Turret.Hue.YELLOW];
 
 var selected_battle_slots
 
@@ -57,19 +58,27 @@ signal start_combat_phase;
 static var collisionReference:CollisionReference=CollisionReference.new()
 var map_dto;
 
-
+static var monsters
+var containers
 func register_battle_slot_containers(containers:Array[TurretModContainerDTO]):
+	self.containers=containers
 	unlockedColors.clear()
 	for container in containers:
 		unlockedColors.push_back(container.color)
 	if unlockedColors.is_empty():
-		unlockedColors.push_back(Turret.Hue.BLUE)	
+		unlockedColors.push_back(Turret.Hue.MAGENTA)	
 	TurretCoreFactory.register_mod_containers(containers)	
 	
 	pass;
 
+func apply_mods_before_start():
+	for c:TurretModContainerDTO in containers:
+		for item:ItemBlockDTO in c.turret_mods:
+			item.turret_mod.before_game_start(c.color)
+	pass;
+
 func _ready():
-	
+	monsters=$MinionHolder
 	gameState = self;
 	ui=$CanvasLayer/UI
 	hand=ui.hand
@@ -187,6 +196,7 @@ func startGame():
 	add_child(gameBoard)
 	board=gameBoard.get_node("Board")
 	gameBoard.init_field(map_dto)
+	apply_mods_before_start()
 	
 	
 	GameState.restore_speed=1;

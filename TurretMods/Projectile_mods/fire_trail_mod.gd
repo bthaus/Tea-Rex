@@ -13,10 +13,10 @@ func on_shoot(projectile:Projectile):
 	pass;
 
 func trigger_minion(monster):
-	var fire=FireDebuff.new(FIRE_TRAIL_FIRE_DURATION*FIRE_TRAIL_SCALING*level,
+	var fire=FireDebuff.new(FIRE_TRAIL_FIRE_DURATION*pow(FIRE_TRAIL_SCALING,level),
 	associate
 	,level,
-	FIRE_TRAIL_TICK_DAMAGE*FIRE_TRAIL_SCALING*level)
+	FIRE_TRAIL_TICK_DAMAGE*pow(FIRE_TRAIL_SCALING,level))
 	fire.register(monster)
 func trigger_projectile(p:Projectile):
 	

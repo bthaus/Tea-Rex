@@ -22,5 +22,5 @@ func attack(delta):
 	if target!=null:
 		if not onCooldown:
 			ref_proj.hitEnemy(target,true)
-			startCooldown(cooldown * cooldownfactor)
+			startCooldown()
 	pass;

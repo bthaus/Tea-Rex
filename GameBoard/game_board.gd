@@ -292,5 +292,12 @@ func show_outline(pos):
 func clear_range_outline():
 	$Board.clear_layer(GameboardConstants.PREVIEW_LAYER)
 
+func register_blocking_color(movement_type:Monster.MonsterMovingType,color:Turret.Hue):
+	
+	pass;
+func increase_max_stacks(color:Turret.Hue,amount:int):
+	
+	pass;	
+
 func dragging_camera():
 	ignore_click = true

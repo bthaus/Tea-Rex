@@ -21,7 +21,7 @@ const blue_freezer_slow_duration = 1
 const poison_dropoff_rate = 3;
 const poison_propagation_rate = 3;
 enum ModType {BASE, HULL, PROJECTILE, AMMUNITION, PRODUCTION, ONKILL}
-const target = TurretBaseMod.ModType.BASE
+const base = TurretBaseMod.ModType.BASE
 const hull = TurretBaseMod.ModType.HULL
 const proj = TurretBaseMod.ModType.PROJECTILE
 const ammo = TurretBaseMod.ModType.AMMUNITION
@@ -44,17 +44,35 @@ static func get_mod_data(mod)->data:
 	return turret_mods[mod.get_script()]
 	pass;
 static var turret_mods = {
-	ForkingAmmunitionMod: d(arrow, ammo),
+	
 	FireTrailMod: d(tiny, proj),
 	MultipleShotsMod:d(l,proj),
 	PenetratingAmmunition:d(o,proj),
-	FireTrailMod:d(small,proj),
 	FrostTrailMod:d(small,proj),
+	GhostProjectileMod:d(small,proj),
+	
+	ForkingAmmunitionMod: d(arrow, ammo),
 	ExplosiveAmmunition:d(cross,ammo),
 	FireAmmunitionMod:d(tiny,ammo),
 	FrostAmmunitionMod:d(small,ammo),
 	LightningAmmunitionMod:d(small,ammo),
 	PoisonAmmunitionMod:d(small,ammo),
+	
+	FrozenBloodKillMod:d(arrow,kill),
+	ExplosiveUnitMod:d(o,kill),
+	RegenerateKillMod:d(cross,kill),
+	StunningKillMod:d(s,kill),
+	VoodooKillMod:d(s,kill),
+	OverchargeKillMod:d(cross,kill),
+	
+	AirBlockMod:d(s,base),
+	AirAttackMod:d(s,base),
+	AirAndGroundAttackMod:d(cross,base),
+	WallhackMod:d(tiny,base),
+	StackIncreaseMod:d(o,base)
+	
+	
+	
 	
 	
 }
