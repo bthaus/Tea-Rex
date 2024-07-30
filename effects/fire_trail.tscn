@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://cq26xcsqu648h"]
 
-[ext_resource type="Script" path="res://effects/fire_entitity.gd" id="1_nelbu"]
+[ext_resource type="Script" path="res://effects/fire_trail.gd" id="1_nelbu"]
 
 [sub_resource type="Gradient" id="Gradient_51ci8"]
 offsets = PackedFloat32Array(0, 0.158996, 0.439331, 0.654812, 1)

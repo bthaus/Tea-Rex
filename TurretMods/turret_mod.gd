@@ -6,6 +6,13 @@ var associate:TurretCore
 var type:ModType
 var level=1
 var damage_factor=1
+#constants
+const FROST_TRAIL_SLOW_AMOUNT = 100
+const FROST_TRAIL_SLOW_DURATION = GameplayConstants.DEBUFF_STANDART_LIFETIME
+
+const FIRE_TRAIL_TICK_DAMAGE=1
+const FIRE_TRAIL_FIRE_DURATION = GameplayConstants.DEBUFF_STANDART_LIFETIME
+
 
 static var color_blocks={
 	TARGETING=[],
@@ -18,8 +25,8 @@ static var color_blocks={
 static var implemented_mods={
 	TARGETING=[],
 	HULL=[],
-	PROJECTILE=[ForkingAmmunitionMod,MultipleShotsMod,PenetratingAmmunition],
-	AMMUNITION=[ExplosiveAmmunition,],
+	PROJECTILE=[MultipleShotsMod,PenetratingAmmunition,FireTrailMod,FrostTrailMod],
+	AMMUNITION=[ExplosiveAmmunition,ForkingAmmunitionMod,],
 	PRODUCTION=[],
 	ONKILL=[]
 	

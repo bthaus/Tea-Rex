@@ -3,7 +3,7 @@ class_name Simulation
 
 var gameState:GameState
 
-var mods=[[FrostTrailMod]]
+var mods=[[FireTrailMod]]
 #enum Hue {WHITE=1, GREEN=2, RED=3, YELLOW=4, BLUE=5, MAGENTA=6};
 
 var color_index=6
@@ -15,7 +15,6 @@ static var instance
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	
-	print(ForkingAmmunitionMod)
 	instance=self
 	gameState=load("res://Game/main_scene.tscn").instantiate()
 	
@@ -78,6 +77,9 @@ func _test_turret(color:Turret.Hue, mod_names):
 	var turret=Turret.create(color,1,Turret.Extension.DEFAULT,true,mods)
 	turret.global_position=gameState.board.map_to_local(Vector2(11,4))
 	add_child(turret)
+	turret.base.turret_mods=mods
+	for mod in mods:
+		mod.initialise(turret.base)
 	current_turret=turret
 	gameState.phase=gameState.GamePhase.BATTLE
 	gameState.start_wave(0)
