@@ -23,6 +23,7 @@ func _clear_board_cell(layer: int, map_position: Vector2):
 	for entity in entities:
 		if entity.map_layer == layer:
 			editor_game_state.collisionReference.remove_entity_from_position(entity, board.map_to_local(map_position))
+			entity.queue_free()
 	board.set_cell(layer, map_position, -1, Vector2(0,0))
 	Spawner.refresh_all_paths()
 
@@ -125,9 +126,10 @@ func _remove_spawner_at(map_position: Vector2):
 	var idx = _get_spawner_idx_at(map_position)
 	spawner_map_positions.remove_at(idx)
 	for i in editor_game_state.spawners.size():
-		
 		if editor_game_state.spawners[i].map_position == map_position:
+			var entity = editor_game_state.spawners[i]
 			editor_game_state.spawners.remove_at(i)
+			entity.queue_free()
 			break
 			
 	spawner_removed.emit(idx)
