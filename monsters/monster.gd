@@ -94,7 +94,7 @@ func _is_next_step_portal():
 var direction
 func do(delta):
 	translateTowardEdge(delta)
-	apply_debuffs(delta)
+	apply_status_effects(delta)
 	pass;	
 	
 func translateTowardEdge(delta):

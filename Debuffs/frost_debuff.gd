@@ -1,4 +1,4 @@
-extends Debuff
+extends StatusEffect
 class_name FrostDebuff
 #how much slow can be applied in total
 var max_slow
