@@ -59,7 +59,7 @@ static var collisionReference:CollisionReference=CollisionReference.new()
 var map_dto;
 
 static var monsters
-var containers
+var containers=[]
 func register_battle_slot_containers(containers:Array[TurretModContainerDTO]):
 	self.containers=containers
 	unlockedColors.clear()

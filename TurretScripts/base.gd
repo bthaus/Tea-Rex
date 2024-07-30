@@ -118,14 +118,14 @@ func on_destroy():
 		mod.remove()
 	pass;	
 func after_built():
-	var to_remove = []
-	for mod in turret_mods:
-		if TurretBaseMod.color_blocks[TurretBaseMod.ModType.keys()[mod.type]].has(type):
-			to_remove.append(mod)
-	for mod in to_remove:
-		turret_mods.erase(mod)
-		mod.remove()
-		
+	#var to_remove = []
+	#for mod in turret_mods:
+		#if TurretBaseMod.color_blocks[TurretBaseMod.ModType.keys()[mod.type]].has(type):
+			#to_remove.append(mod)
+	#for mod in to_remove:
+		#turret_mods.erase(mod)
+		#mod.remove()
+		#
 	pass ;
 func reduceCooldown(delta):
 

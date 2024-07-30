@@ -76,6 +76,12 @@ static var turret_mods = {
 	
 	
 }
+static func register_mods_for_sim():
+	for mod in turret_mods.keys():
+		var type=turret_mods[mod].type
+		if !TurretBaseMod.implemented_mods.has(type):TurretBaseMod.implemented_mods[type]=[]
+		TurretBaseMod.implemented_mods[type].append(mod)
+	pass;
 static func d(shape, type):
 	return data.new(shape, type)
 class data:

@@ -53,12 +53,6 @@ const REGENERATION_DIVISOR=1000
 const FORKING_DEGREE=22.5
 
 static var color_blocks={
-	TARGETING=[],
-	HULL=[],
-	PROJECTILE=[],
-	AMMUNITION=[],
-	PRODUCTION=[],
-	ONKILL=[]
 }
 static var implemented_mods={
 	TARGETING=[],

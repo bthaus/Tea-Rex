@@ -6,7 +6,7 @@ var gameState:GameState
 var mods=[]
 #enum Hue {WHITE=1, GREEN=2, RED=3, YELLOW=4, BLUE=5, MAGENTA=6};
 
-var color_index=5
+var color_index=6
 var mod_set_index=0
 @export var sim_speed=25
 var results=""
@@ -30,6 +30,7 @@ func _ready():
 	_next_test()
 	pass # Replace with function body.
 func _setup_mods():
+	GameplayConstants.register_mods_for_sim()
 	for i in TurretBaseMod.implemented_mods.size():
 		for mod in TurretBaseMod.implemented_mods.values()[i]:
 			for j in TurretBaseMod.implemented_mods.size():

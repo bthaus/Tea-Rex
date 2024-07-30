@@ -6,7 +6,7 @@ var time_slice_duration=1
 var default_lifetime
 var affected:GameObject2D
 var associate
-var strength:float
+var strength:float=1
 var to_remove=false;
 var time_slice_time=0
 
@@ -23,6 +23,7 @@ func _init(str,associate,lifetime=GameplayConstants.DEBUFF_STANDART_LIFETIME):
 	self.associate=associate
 	
 func register(affected:GameObject2D):
+	if !util.valid(affected):return
 	if !affected.status_effects.has(type):affected.status_effects[type]=get_container()
 	self.affected=affected
 	last_tick_time=Time.get_ticks_msec()
@@ -64,7 +65,6 @@ class status_effect_container:
 	var status_effects=[]
 	var strongest_status_effect:StatusEffect:
 		set(val):
-			
 			if strongest_status_effect!=val:
 				if strongest_status_effect!=null:strongest_status_effect.on_removal()
 				strongest_status_effect=val
@@ -92,6 +92,8 @@ class status_effect_container:
 		
 		pass;		
 	func add_status_effect(d:StatusEffect):
+		if status_effects.size()>100:
+			var ass=strongest_status_effect.associate
 		if status_effects.is_empty():
 			add_visual()	
 		if strongest_status_effect!=null and strongest_status_effect.get_str()==d.get_str():

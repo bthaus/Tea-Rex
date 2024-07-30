@@ -7,7 +7,7 @@ var change=0
 
 func _init(lifetime,associate,str,max):
 	self.max_slow=max
-	super(lifetime,associate,str)
+	super(str,associate,lifetime)
 	pass;
 func get_name():
 	return "frost"

@@ -11,6 +11,7 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func do(delta):
 	for b:Projectile in get_children():
+		
 		if b.shot:
 			var precision=1
 			if b.associate!=null and is_instance_valid(b.associate):
