@@ -4,18 +4,18 @@ class_name TileSelection
 @onready var tile_set = load("res://TileSets/game_board_tileset.tres")
 
 var _ground_tile_items: Array[TileItem] = [
-	TileItem.new(TileDTO.new(GameboardConstants.GROUND_TILE_ID, GameboardConstants.GROUND_LAYER), "Ground")
+	TileItem.new(GameboardConstants.GROUND_TILE_ID, "Ground")
 ]
 
 var _build_tile_items: Array[TileItem] = [
-	TileItem.new(TileDTO.new(GameboardConstants.BUILD_NONE_TILE_ID, GameboardConstants.BUILD_LAYER), "Build None")
+	TileItem.new(GameboardConstants.BUILD_NONE_TILE_ID, "Build None")
 ]
 
 var _block_tile_items: Array[TileItem] = [
-	TileItem.new(TileDTO.new(GameboardConstants.WALL_TILE_ID, GameboardConstants.BLOCK_LAYER), "Wall"),
-	TileItem.new(PlayerBaseDTO.new(GameboardConstants.PLAYER_BASE_GREEN_TILE_ID, GameboardConstants.BLOCK_LAYER, GameboardConstants.TileColor.GREEN), "Green Base"),
-	TileItem.new(SpawnerDTO.new(GameboardConstants.SPAWNER_GREEN_TILE_ID, GameboardConstants.BLOCK_LAYER, -1, GameboardConstants.TileColor.GREEN), "Green Spawner"),
-	TileItem.new(PortalDTO.new(GameboardConstants.PORTAL_TILE_ID, GameboardConstants.BLOCK_LAYER), "Portal")
+	TileItem.new(GameboardConstants.WALL_TILE_ID, "Wall"),
+	TileItem.new(GameboardConstants.PLAYER_BASE_GREEN_TILE_ID, "Green Base"),
+	TileItem.new(GameboardConstants.SPAWNER_GREEN_TILE_ID, "Green Spawner"),
+	TileItem.new(GameboardConstants.PORTAL_TILE_ID, "Portal")
 ]
 
 signal tile_selected
@@ -34,7 +34,7 @@ func _ready():
 	
 func _add_tiles_to_container(container: GridContainer, tile_items: Array[TileItem]):
 	for tile_item in tile_items:
-		var atlas: TileSetAtlasSource = tile_set.get_source(tile_item.dto.tile_id)
+		var atlas: TileSetAtlasSource = tile_set.get_source(tile_item.tile_id)
 		var item = load("res://LevelEditor/TileSelection/tile_selection_item.tscn").instantiate()
 		item.set_tile(tile_item, atlas.texture)
 		item.clicked.connect(_on_tile_selected)
@@ -48,9 +48,9 @@ func _on_tile_selected(sender, tile_item: TileItem):
 	tile_selected.emit(tile_item)
 
 class TileItem:
-	var dto: BaseDTO
+	var tile_id: int
 	var name: String
 	
-	func _init(dto: BaseDTO, name: String):
-		self.dto = dto
+	func _init(tile_id: int, name: String):
+		self.tile_id = tile_id
 		self.name = name
