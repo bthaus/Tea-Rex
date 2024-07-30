@@ -92,6 +92,9 @@ func initialise(turret:TurretCore):
 	level=associate.stacks
 	turret.add_child(visual)
 	pass;
+func on_turret_build(turret:TurretCore):
+	
+	pass;	
 func get_item():
 	var item=ItemBlockDTO.new(color,shape)
 	item.turret_mod=self
