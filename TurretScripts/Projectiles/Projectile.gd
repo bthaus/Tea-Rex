@@ -22,7 +22,7 @@ static var gamestate: GameState;
 static var camera;
 static var factory=load("res://TurretScripts/Projectiles/projectile_factory.tscn").instantiate()
 var oldpos=Vector2i(0,0)
-
+var wall_penetrations=0
 
 static func create(type: Turret.Hue, damage, speed, root:TurretCore, extension: Turret.Extension=Turret.Extension.DEFAULT, penetrations:int=1) -> Projectile:
 	var b=factory.get_bullet(type,damage,speed,root,penetrations,extension)	
@@ -40,7 +40,7 @@ func _ready():
 	pass # Replace with function body.
 	
 func on_creation():
-	
+	wall_penetrations=0
 	pass;	
 func on_remove():
 	
@@ -125,7 +125,12 @@ func hitEnemy(enemy: Monster,from_turret=false):
 	
 	pass ;
 func hit_wall():
-	return GameState.gameState.collisionReference.hit_wall(get_map())
+	var walled=GameState.gameState.collisionReference.hit_wall(get_map())
+	if not walled:return false;
+	if wall_penetrations>0:
+		wall_penetrations-=1
+		return false	
+	return true	
 	pass;	
 func _toggle_emission(b):
 	for e in emitters:

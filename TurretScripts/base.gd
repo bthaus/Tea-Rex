@@ -19,6 +19,7 @@ var direction: Vector2;
 @export var instantHit: bool = false;
 @export var range_precision = 24
 @export var projectile_precision = 1
+@export var wall_hack=false
 var cdt;
 var trueRangeSquared;
 
@@ -91,7 +92,7 @@ func setupCollision(clearing):
 
 	pass ;
 func getReferences(cells):
-	return collisionReference.getCellReferences(global_position, turretRange, self, cells)
+	return collisionReference.getCellReferences(global_position, turretRange, self, cells,wall_hack)
 	pass ;
 func setUpTower(holder):
 	

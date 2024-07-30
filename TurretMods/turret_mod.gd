@@ -4,6 +4,8 @@ var description="I am a base mod. I dont do anything"
 var visual:ModVisual
 var associate:TurretCore
 var type:ModType
+var shape:Block.BlockShape
+var color:Turret.Hue
 var level=1
 var damage_factor=1
 #constants
@@ -32,11 +34,18 @@ static var implemented_mods={
 	
 }
 
-enum ModType{TARGETING,HULL,PROJECTILE,AMMUNITION,PRODUCTION,ONKILL}
+enum ModType{BASE=Turret.Hue.WHITE,
+HULL=Turret.Hue.BLUE,
+PROJECTILE=Turret.Hue.YELLOW,
+AMMUNITION=Turret.Hue.RED,
+PRODUCTION=Turret.Hue.GREEN,
+ONKILL=Turret.Hue.MAGENTA}
 
-func _init(type:ModType=ModType.HULL):
-	
-	self.type=type
+func _init():
+	var data=GameplayConstants.get_mod_data(self)
+	type=data.type
+	shape=data.shape
+	color=ModType.values()[type]+1
 	pass;
 
 func initialise(turret:TurretCore):
@@ -45,7 +54,11 @@ func initialise(turret:TurretCore):
 	level=associate.stacks
 	turret.add_child(visual)
 	pass;
-
+func get_item():
+	var item=ItemBlockDTO.new(color,shape)
+	item.turret_mod=self
+	return item
+	
 func on_level_up(lvl):
 	level=lvl
 	pass;

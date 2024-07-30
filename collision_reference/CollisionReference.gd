@@ -208,7 +208,7 @@ func getCellReferences(pos, turretRange, turret=null, cellPositions=[],ignore_ob
 						#continue
 				#coveredCells.append(Vector2(mapPosition.x + x, mapPosition.y + y))
 	#if not ignore_obstacles:
-	coveredCells=add_cells(cellPositions,pos,turret)
+	coveredCells=add_cells(cellPositions,pos,turret,ignore_obstacles)
 	var ret=[]
 	for cell in coveredCells:
 		if ignore_obstacles:
@@ -220,7 +220,7 @@ func getCellReferences(pos, turretRange, turret=null, cellPositions=[],ignore_ob
 	return ret;
 	pass
 static var movables=[]	
-func add_cells(coveredCells,midpoint,turret):
+func add_cells(coveredCells,midpoint,turret,ignores_obstacles):
 	var offsets=[]	
 	if offsets.is_empty():
 		for i in range(turret.range_precision):
@@ -236,7 +236,7 @@ func add_cells(coveredCells,midpoint,turret):
 			if (base_vec-midpoint).length_squared()>turret.trueRangeSquared:
 				break;
 			var p=getMapPositionNormalised(base_vec)
-			if map[p.y][p.x].collides_with_bullets:
+			if map[p.y][p.x].collides_with_bullets and !ignores_obstacles:
 				collided=true
 				break;
 			if !collided and !eval.has(p):

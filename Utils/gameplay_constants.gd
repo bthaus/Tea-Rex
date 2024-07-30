@@ -20,8 +20,8 @@ const blue_freezer_slow_duration = 1
 
 const poison_dropoff_rate = 3;
 const poison_propagation_rate = 3;
-enum ModType {TARGETING, HULL, PROJECTILE, AMMUNITION, PRODUCTION, ONKILL}
-const target = TurretBaseMod.ModType.TARGETING
+enum ModType {BASE, HULL, PROJECTILE, AMMUNITION, PRODUCTION, ONKILL}
+const target = TurretBaseMod.ModType.BASE
 const hull = TurretBaseMod.ModType.HULL
 const proj = TurretBaseMod.ModType.PROJECTILE
 const ammo = TurretBaseMod.ModType.AMMUNITION
@@ -39,15 +39,26 @@ const t = Block.BlockShape.T
 const tiny = Block.BlockShape.TINY
 const small = Block.BlockShape.SMALL
 const cross = Block.BlockShape.CROSS
+
+static func get_mod_data(mod)->data:
+	return turret_mods[mod.get_script()]
+	pass;
 static var turret_mods = {
-	ForkingAmmunitionMod: d(arrow, target),
-	FireTrailMod: d(tiny, ammo)
+	ForkingAmmunitionMod: d(arrow, ammo),
+	FireTrailMod: d(tiny, proj),
+	MultipleShotsMod:d(l,proj),
+	PenetratingAmmunition:d(o,proj),
+	FireTrailMod:d(small,proj),
+	FrostTrailMod:d(small,proj),
+	ExplosiveAmmunition:d(cross,ammo),
+	
 }
 static func d(shape, type):
 	return data.new(shape, type)
 class data:
-	var shape
-	var type
+	var shape:Block.BlockShape
+	var type:TurretBaseMod.ModType
+
 	func _init(shape, type):
 		self.shape = shape
 		self.type = type
