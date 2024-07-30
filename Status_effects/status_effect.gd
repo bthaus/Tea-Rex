@@ -66,8 +66,8 @@ class status_effect_container:
 		set(val):
 			
 			if strongest_status_effect!=val:
+				if strongest_status_effect!=null:strongest_status_effect.on_removal()
 				strongest_status_effect=val
-				if val!=null:val.on_removal()
 				if util.valid(strongest_status_effect):strongest_status_effect.on_initial_application()
 	var visual
 	var affected

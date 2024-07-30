@@ -132,7 +132,6 @@ func reduceCooldown(delta):
 	if not onCooldown:
 		return ;
 	holder.reduceCooldown(delta)
-	remap(255, 0, 0, 1, 254)
 	cdt = cdt - delta;
 	if cdt < 0:
 		onCooldown = false;
@@ -173,6 +172,7 @@ func on_target_lost():
 	pass ;
 func do(delta):
 	reduceCooldown(delta)
+	apply_status_effects(delta)
 	if !onCooldown:
 		if target != null: checkTarget()
 		if target == null: getTarget()
@@ -305,20 +305,21 @@ func shoot(target):
 	shot.global_position = global_position
 	shot.shoot(target);
 	on_shoot(shot)
-	startCooldown(cooldown * cooldownfactor)
+	startCooldown()
 	return shot
 	pass ;
 func get_projectile():
 	return Projectile.create(type, damage * damagefactor, speed * speedfactor, self, penetrations, extension);
 
 	pass ;
-func startCooldown(time=- 1):
-	if time == - 1:
-		time = cooldown * cooldownfactor
+func startCooldown():
+	var time = cooldown * cooldownfactor
 	cdt = time;
 	onCooldown = true;
 	pass ;
-	
+func reset_cooldown():
+	onCooldown=false
+	pass;	
 func showRangeOutline():
 	if placed:
 		for c in referenceCells:
