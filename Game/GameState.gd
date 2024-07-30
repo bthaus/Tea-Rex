@@ -59,7 +59,9 @@ static var collisionReference:CollisionReference=CollisionReference.new()
 var map_dto;
 
 static var monsters
+var containers
 func register_battle_slot_containers(containers:Array[TurretModContainerDTO]):
+	self.containers=containers
 	unlockedColors.clear()
 	for container in containers:
 		unlockedColors.push_back(container.color)
@@ -67,6 +69,12 @@ func register_battle_slot_containers(containers:Array[TurretModContainerDTO]):
 		unlockedColors.push_back(Turret.Hue.MAGENTA)	
 	TurretCoreFactory.register_mod_containers(containers)	
 	
+	pass;
+
+func apply_mods_before_start():
+	for c:TurretModContainerDTO in containers:
+		for item:ItemBlockDTO in c.turret_mods:
+			item.turret_mod.before_game_start(c.color)
 	pass;
 
 func _ready():
@@ -188,6 +196,7 @@ func startGame():
 	add_child(gameBoard)
 	board=gameBoard.get_node("Board")
 	gameBoard.init_field(map_dto)
+	apply_mods_before_start()
 	
 	
 	GameState.restore_speed=1;

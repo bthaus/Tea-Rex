@@ -21,7 +21,7 @@ const blue_freezer_slow_duration = 1
 const poison_dropoff_rate = 3;
 const poison_propagation_rate = 3;
 enum ModType {BASE, HULL, PROJECTILE, AMMUNITION, PRODUCTION, ONKILL}
-const target = TurretBaseMod.ModType.BASE
+const base = TurretBaseMod.ModType.BASE
 const hull = TurretBaseMod.ModType.HULL
 const proj = TurretBaseMod.ModType.PROJECTILE
 const ammo = TurretBaseMod.ModType.AMMUNITION
@@ -63,7 +63,14 @@ static var turret_mods = {
 	RegenerateKillMod:d(cross,kill),
 	StunningKillMod:d(s,kill),
 	VoodooKillMod:d(s,kill),
-	OverchargeKillMod:d(cross,kill)
+	OverchargeKillMod:d(cross,kill),
+	
+	AirBlockMod:d(s,base),
+	AirAttackMod:d(s,base),
+	AirAndGroundAttackMod:d(cross,base),
+	WallhackMod:d(tiny,base),
+	StackIncreaseMod:d(o,base)
+	
 	
 	
 	

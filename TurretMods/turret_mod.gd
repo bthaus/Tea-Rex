@@ -96,6 +96,10 @@ func get_item():
 	var item=ItemBlockDTO.new(color,shape)
 	item.turret_mod=self
 	return item
+
+func before_game_start(color:Turret.Hue):
+	
+	pass;
 	
 func on_level_up(lvl):
 	level=lvl
