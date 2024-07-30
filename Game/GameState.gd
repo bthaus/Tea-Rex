@@ -63,7 +63,7 @@ func register_battle_slot_containers(containers:Array[TurretModContainerDTO]):
 	for container in containers:
 		unlockedColors.push_back(container.color)
 	if unlockedColors.is_empty():
-		unlockedColors.push_back(Turret.Hue.BLUE)	
+		unlockedColors.push_back(Turret.Hue.WHITE)	
 	TurretCoreFactory.register_mod_containers(containers)	
 	
 	pass;

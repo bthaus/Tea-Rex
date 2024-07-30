@@ -1,0 +1,3 @@
+extends TurretBaseMod
+class_name FrostAmmunitionMod
+
