@@ -28,6 +28,13 @@ const SPAWNER_GREEN_TILE_ID = 6
 const WALL_TILE_ID = 7
 const PORTAL_TILE_ID = 9
 
+const TURRET_BASE_WHITE_TILE_ID = 101
+const TURRET_BASE_GREEN_TILE_ID = 201
+const TURRET_BASE_RED_TILE_ID = 301
+const TURRET_BASE_YELLOW_TILE_ID = 401
+const TURRET_BASE_BLUE_TILE_ID = 501
+const TURRET_BASE_MAGENTA_TILE_ID = 601
+
 #BUILD
 const BUILD_NONE_TILE_ID = 8
 
@@ -72,5 +79,12 @@ static func tile_to_dto(tile_id: int) -> BaseDTO:
 		SPAWNER_GREEN_TILE_ID: return SpawnerDTO.new(GameboardConstants.SPAWNER_GREEN_TILE_ID, GameboardConstants.BLOCK_LAYER, -1, GameboardConstants.TileColor.GREEN)
 		WALL_TILE_ID: return TileDTO.new(GameboardConstants.WALL_TILE_ID, GameboardConstants.BLOCK_LAYER)
 		PORTAL_TILE_ID: return PortalDTO.new(GameboardConstants.PORTAL_TILE_ID, GameboardConstants.BLOCK_LAYER)
+		
+		TURRET_BASE_WHITE_TILE_ID: return TileDTO.new(GameboardConstants.TURRET_BASE_WHITE_TILE_ID, GameboardConstants.BLOCK_LAYER)
+		TURRET_BASE_BLUE_TILE_ID: return TileDTO.new(GameboardConstants.TURRET_BASE_BLUE_TILE_ID, GameboardConstants.BLOCK_LAYER)
+		TURRET_BASE_RED_TILE_ID: return TileDTO.new(GameboardConstants.TURRET_BASE_RED_TILE_ID, GameboardConstants.BLOCK_LAYER)
+		TURRET_BASE_GREEN_TILE_ID: return TileDTO.new(GameboardConstants.TURRET_BASE_GREEN_TILE_ID, GameboardConstants.BLOCK_LAYER)
+		TURRET_BASE_YELLOW_TILE_ID: return TileDTO.new(GameboardConstants.TURRET_BASE_YELLOW_TILE_ID, GameboardConstants.BLOCK_LAYER)
+		TURRET_BASE_MAGENTA_TILE_ID: return TileDTO.new(GameboardConstants.TURRET_BASE_MAGENTA_TILE_ID, GameboardConstants.BLOCK_LAYER)
 
 	return null

@@ -15,7 +15,14 @@ var _block_tile_items: Array[TileItem] = [
 	TileItem.new(GameboardConstants.WALL_TILE_ID, "Wall"),
 	TileItem.new(GameboardConstants.PLAYER_BASE_GREEN_TILE_ID, "Green Base"),
 	TileItem.new(GameboardConstants.SPAWNER_GREEN_TILE_ID, "Green Spawner"),
-	TileItem.new(GameboardConstants.PORTAL_TILE_ID, "Portal")
+	TileItem.new(GameboardConstants.PORTAL_TILE_ID, "Portal"),
+	
+	TileItem.new(GameboardConstants.TURRET_BASE_WHITE_TILE_ID, "White Base"),
+	TileItem.new(GameboardConstants.TURRET_BASE_BLUE_TILE_ID, "Blue Base"),
+	TileItem.new(GameboardConstants.TURRET_BASE_GREEN_TILE_ID, "Green Base"),
+	TileItem.new(GameboardConstants.TURRET_BASE_RED_TILE_ID, "Red Base"),
+	TileItem.new(GameboardConstants.TURRET_BASE_YELLOW_TILE_ID, "Yellow Base"),
+	TileItem.new(GameboardConstants.TURRET_BASE_MAGENTA_TILE_ID, "Magenta Base"),
 ]
 
 signal tile_selected
