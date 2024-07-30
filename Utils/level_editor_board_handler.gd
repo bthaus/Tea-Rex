@@ -2,6 +2,7 @@ extends GameObject2D
 class_name LevelEditorBoardHandler
 
 var board: TileMap
+var editor_game_state: EditorGameState
 var tiles_holders: Array[GameObjectHolder]
 
 var spawner_map_positions: PackedVector2Array = [] #Holds all the spawners on the board. Index indicates which spawner is which.
@@ -9,8 +10,9 @@ var spawner_map_positions: PackedVector2Array = [] #Holds all the spawners on th
 signal spawner_added
 signal spawner_removed
 
-func _init(board: TileMap, tiles_holders: Array[GameObjectHolder]):
+func _init(board: TileMap, editor_game_state: EditorGameState, tiles_holders: Array[GameObjectHolder]):
 	self.board = board
+	self.editor_game_state = editor_game_state
 	self.tiles_holders = tiles_holders
 
 func _set_board_cell(tile_item: TileSelection.TileItem, map_position: Vector2):
@@ -23,6 +25,7 @@ func _set_board_cell(tile_item: TileSelection.TileItem, map_position: Vector2):
 	board.set_cell(tile_item.dto.map_layer, map_position, tile_item.dto.tile_id, Vector2(0,0))
 	var dto = BaseDTO.get_dto_from_json(tile_item.dto.get_json())
 	tiles_holders[handler_layer].set_object_at(dto, map_position)
+	Spawner.refresh_all_paths()
 
 func _clear_board_cell(layer: int, map_position: Vector2):
 	var handler_layer
@@ -33,6 +36,7 @@ func _clear_board_cell(layer: int, map_position: Vector2):
 	
 	board.set_cell(layer, map_position, -1, Vector2(0,0))
 	tiles_holders[handler_layer].set_object_at(null, map_position)
+	Spawner.refresh_all_paths()
 
 func set_cell(tile: TileSelection.TileItem, map_position: Vector2):
 	if tile == null: return
@@ -42,10 +46,7 @@ func set_cell(tile: TileSelection.TileItem, map_position: Vector2):
 	var is_spawner_below = board_type != null and board_type == GameboardConstants.TileType.SPAWNER
 	var type = GameboardConstants.get_tile_type_by_id(board, tile.dto.tile_id)
 	if is_spawner_below and type != GameboardConstants.TileType.SPAWNER: #If there is a spawner below, remove it (unless the holding piece is a spawner)
-		var i = _get_spawner_idx_at(map_position)
-		spawner_map_positions.remove_at(i)
-		spawner_removed.emit(i)
-	
+		_remove_spawner_at(map_position)
 	
 	match (tile.dto.map_layer):
 		GameboardConstants.GROUND_LAYER:
@@ -58,8 +59,7 @@ func set_cell(tile: TileSelection.TileItem, map_position: Vector2):
 		GameboardConstants.BLOCK_LAYER:
 			if type == GameboardConstants.TileType.SPAWNER:
 				if is_spawner_below: return #There is already a spawner below, ignore it
-				spawner_map_positions.append(map_position)
-				spawner_added.emit()
+				_add_spawner_at(tile, map_position)
 
 			_set_board_cell(tile, map_position)
 			_clear_board_cell(GameboardConstants.BUILD_LAYER, map_position)
@@ -106,9 +106,7 @@ func bucket_fill(tile: TileSelection.TileItem, map_position: Vector2):
 func clear_cell_layer(map_position: Vector2):
 	var board_type = GameboardConstants.get_tile_type(board, GameboardConstants.BLOCK_LAYER, map_position)
 	if board_type != null and board_type == GameboardConstants.TileType.SPAWNER: #There was a spawner below
-			var i = _get_spawner_idx_at(map_position)
-			spawner_map_positions.remove_at(i)
-			spawner_removed.emit(i)
+		_remove_spawner_at(map_position)
 	
 	#Clear one layer at a time: Block -> Build -> GROUND
 	var layer = get_highest_used_layer(map_position)
@@ -131,6 +129,22 @@ func _is_in_editor_bounds(map_position: Vector2) -> bool:
 	if map_position.x < 0 or map_position.x > GameboardConstants.BOARD_WIDTH - 1: return false
 	if map_position.y < 0 or map_position.y > GameboardConstants.BOARD_HEIGHT - 1: return false
 	return true
+
+func _add_spawner_at(tile: TileSelection.TileItem, map_position: Vector2):
+		spawner_map_positions.append(map_position)
+		Spawner.create(tile.dto.tile_id, GameboardConstants.BLOCK_LAYER, map_position, spawner_map_positions.size()-1, tile.dto.color)
+		spawner_added.emit()
+
+func _remove_spawner_at(map_position: Vector2):
+	var idx = _get_spawner_idx_at(map_position)
+	spawner_map_positions.remove_at(idx)
+	
+	for i in editor_game_state.spawners.size():
+		if editor_game_state.spawners[i].map_position == map_position:
+			editor_game_state.spawners.remove_at(i)
+			break
+			
+	spawner_removed.emit(idx)
 
 func _get_spawner_idx_at(map_position: Vector2) -> int:
 	for i in spawner_map_positions.size():

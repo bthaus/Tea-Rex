@@ -23,7 +23,7 @@ const selected_stylebox = preload("res://Styles/selected_button.tres")
 var selected_tile: TileSelection.TileItem
 var ignore_click = false
 
-var editor_game_state:EditorGameState
+var editor_game_state: EditorGameState
 
 func _ready():
 	$Board.tile_set.tile_size = Vector2(GameboardConstants.TILE_SIZE, GameboardConstants.TILE_SIZE)
@@ -32,7 +32,7 @@ func _ready():
 	
 	#Stores all tile infos for each layer: Ground, Build and Block
 	tiles_holders = [GameObjectHolder.new(), GameObjectHolder.new(), GameObjectHolder.new()]
-	board_handler = LevelEditorBoardHandler.new($Board, tiles_holders)
+	board_handler = LevelEditorBoardHandler.new($Board, editor_game_state, tiles_holders)
 	board_handler.spawner_added.connect(_on_spawner_added)
 	board_handler.spawner_removed.connect(_on_spawner_removed)
 	
@@ -50,14 +50,13 @@ func create_fake_state(map_dto:MapDTO):
 	editor_game_state=state
 	editor_game_state.map_dto=map_dto
 	editor_game_state.board=$Board
+	board_handler.editor_game_state = state
 	add_child(editor_game_state)
-	pass;
+
 func load_map(map_dto: MapDTO):
 	board_handler.spawner_map_positions = []
-	
 	create_fake_state(map_dto)
-	
-	
+	var spawner_entities = []
 	for entity in map_dto.entities:
 		var layer
 		match(entity.map_layer):
@@ -70,11 +69,16 @@ func load_map(map_dto: MapDTO):
 		#wsl ists auch ok das hier zu machen. wies für dich besser passt
 		#entity.get_object().place_on_board($Board)
 		if is_instance_of(entity, SpawnerDTO):
-			board_handler.spawner_map_positions.insert(entity.spawner_id, Vector2(entity.map_x, entity.map_y))
-			_on_spawner_added()
-	
+			spawner_entities.append(entity)
+			
+	board_handler.spawner_map_positions.resize(spawner_entities.size())
+	for entity in spawner_entities:
+		board_handler.spawner_map_positions[entity.spawner_id] = Vector2(entity.map_x, entity.map_y)
+		_on_spawner_added()
+		
 	wave_settings.set_monster_waves(map_dto.waves)
 	map_name.text = map_dto.map_name
+	_update_spawner_labels()
 
 #We can use unhandled input here, so that when clicking on a (hud) button the drawing wont trigger
 func _unhandled_input(event):
@@ -125,7 +129,7 @@ func _on_spawner_removed(id: int):
 	
 func _update_spawner_labels():
 	#this was the method that got lost somehow
-	var spawner_map_positions = board_handler.get_spawner_map_positions()
+	var spawner_map_positions = board_handler.spawner_map_positions
 	for child in $SpawnerLabels.get_children(): child.queue_free()
 	for i in spawner_map_positions.size():
 		var label = Label.new()
