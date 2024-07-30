@@ -29,7 +29,6 @@ func _ready():
 	$Background.tile_set.tile_size = Vector2(GameboardConstants.TILE_SIZE, GameboardConstants.TILE_SIZE)
 	_set_background()
 	
-	
 	board_handler = LevelEditorBoardHandler.new($Board)
 	board_handler.spawner_added.connect(_on_spawner_added)
 	board_handler.spawner_removed.connect(_on_spawner_removed)
@@ -53,16 +52,13 @@ func create_editor_game_state(map_dto:MapDTO):
 
 
 func load_map(map_dto: MapDTO):
-	board_handler.spawner_map_positions = []
 	create_editor_game_state(map_dto)
 	var spawner_entities = []
 	for entity in map_dto.entities:
-		#wird im editor_gamestate im ready aufgerufen, gleich wie im originalen gamestate
-		#wsl ists auch ok das hier zu machen. wies für dich besser passt
-		#entity.get_object().place_on_board($Board)
 		if is_instance_of(entity, SpawnerDTO):
 			spawner_entities.append(entity)
-			
+	
+	#Insert spawners sorted by index
 	board_handler.spawner_map_positions.resize(spawner_entities.size())
 	for entity in spawner_entities:
 		board_handler.spawner_map_positions[entity.spawner_id] = Vector2(entity.map_x, entity.map_y)
@@ -70,7 +66,6 @@ func load_map(map_dto: MapDTO):
 		
 	wave_settings.set_monster_waves(map_dto.waves)
 	map_name.text = map_dto.map_name
-	_update_spawner_labels()
 
 #We can use unhandled input here, so that when clicking on a (hud) button the drawing wont trigger
 func _unhandled_input(event):
