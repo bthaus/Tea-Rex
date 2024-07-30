@@ -1,17 +1,13 @@
 extends TurretBaseMod
 class_name ForkingAmmunitionMod
 var degrees=[25,-25]
-var degree_offset=25
-func _init():
-	description="Projectiles fork on impact."
-	super(TurretBaseMod.ModType.AMMUNITION)
-	
-	pass;
+var degree_offset=FORKING_DEGREE
+
 func initialise(turret:TurretCore):
 	super(turret)
 	associate.average_minions_hit=associate.average_minions_hit+2
 	pass;
-func on_hit(projectile:Projectile):
+func on_hit(projectile:Projectile,monster:Monster):
 	if projectile==null:return
 	#if projectile.penetrations<=-1 and projectile.penetrations>-500:
 		#return

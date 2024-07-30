@@ -1,11 +1,11 @@
 extends Node2D
 class_name GameObject2D
 
-var debuffs={}
+var status_effects={}
 
-func apply_debuffs(delta):
-	for d in debuffs:
-		debuffs[d].trigger(delta)
+func apply_status_effects(delta):
+	for d in status_effects:
+		status_effects[d].trigger(delta)
 	pass;
 
 func get_global():

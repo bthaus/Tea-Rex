@@ -126,6 +126,7 @@ func setUpTower():
 	base.placed=placed
 	base.setLevel(level)
 	add_child(base)
+	
 	base.setUpTower(self)
 	collisionReference.register_turret(self,placed)
 	$LVL.text = str(level)

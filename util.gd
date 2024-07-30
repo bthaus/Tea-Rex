@@ -86,6 +86,8 @@ static func erase(obj):
 	if obj!=null and is_instance_valid(obj):
 		obj.queue_free()
 	pass;
+static func valid(obj)->bool:
+	return obj!=null and is_instance_valid(obj)	
 static func copy_object_shallow(obj):
 	var props=obj.get_script_property_list() as Array
 	return load(props.pop_front()["hint_string"]).new()

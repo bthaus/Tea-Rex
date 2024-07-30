@@ -9,8 +9,8 @@ static var cache=[]
 var line:Line2D
 @export var gradient:Gradient
 var default_gradient
-var associate:TurretCore
-
+var str=1
+var mod:TurretBaseMod
 
 func _ready():
 	get_tree().create_timer(decay).timeout.connect(func():decaying=true)
@@ -70,8 +70,9 @@ func _process(delta):
 				
 	pass;
 var previous_pos=Vector2(0,0)	
-func initialise():
+func initialise(mod):
 	bullet=null
+	self.mod=mod
 	decay=1
 	if line==null:
 		line=Line2D.new()
@@ -97,26 +98,27 @@ func remove():
 		line.clear_points()
 	pass
 func trigger_minion(monster:Monster):
+	if util.valid(mod):
+		mod.trigger_minion(monster)
 	pass;
 func trigger_projectile(projectile:Projectile):
-	
+	if util.valid(mod):mod.trigger_projectile()
 	pass;	
 func register_bullet(projectile:Projectile):
 	bullet=projectile
 	origin=projectile.get_global()
 	
 	pass;	
-static func get_trail(associate:TurretCore):
+static func get_trail():
 	var fire
 	if cache.is_empty():
 		fire=_load_trail()
 	else:
 		fire=cache.pop_back()
-	fire.associate=associate		
 	return fire	
 
 static func _load_trail():
-	return 	load("res://effects/cell_fire.tscn").instantiate()	
+	return 	load("res://effects/fire_trail.tscn").instantiate()	
 static func cache_fire(fire):
 	var parent=fire.get_parent()
 	if parent!=null:

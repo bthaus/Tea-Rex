@@ -1,13 +1,13 @@
-extends Debuff
+extends StatusEffect
 class_name FrostDebuff
 #how much slow can be applied in total
 var max_slow
 var change=0
 
 
-func _init(lifetime,str,max):
+func _init(lifetime,associate,str,max):
 	self.max_slow=max
-	super(lifetime,str)
+	super(lifetime,associate,str)
 	pass;
 func get_name():
 	return "frost"

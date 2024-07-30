@@ -7,10 +7,10 @@ var rowCounter = []
 var bases=[]
 static var instance;
 static func normaliseX(x):
-	#return x
+	return x
 	return x + 9;
 static func normaliseY(y):
-	#return y
+	return y
 	return y - 1;
 	
 static func normaliseVector(pos):
@@ -57,6 +57,7 @@ func setMinion(oldx, oldy, x, y, m: Monster):
 	pass ;
 	
 func getMapFromReference(pos):
+	return pos
 	return Vector2(pos.x - 9, pos.y + 1)
 func getGlobalFromReference(pos):
 	return GameState.gameState.board.map_to_local(getMapFromReference(pos))
@@ -190,6 +191,7 @@ func get_turret_from_board(pos):
 	pass;			
 func getCellReferences(pos, turretRange, turret=null, cellPositions=[],ignore_obstacles=false):
 	var mapPosition = getMapPositionNormalised(pos)
+	print(mapPosition)
 	#traversing from the top left corner to the bottom right corner
 
 	mapPosition.x = mapPosition.x - turretRange;
@@ -208,7 +210,7 @@ func getCellReferences(pos, turretRange, turret=null, cellPositions=[],ignore_ob
 						#continue
 				#coveredCells.append(Vector2(mapPosition.x + x, mapPosition.y + y))
 	#if not ignore_obstacles:
-	coveredCells=add_cells(cellPositions,pos,turret)
+	coveredCells=add_cells(cellPositions,pos,turret,ignore_obstacles)
 	var ret=[]
 	for cell in coveredCells:
 		if ignore_obstacles:
@@ -220,7 +222,7 @@ func getCellReferences(pos, turretRange, turret=null, cellPositions=[],ignore_ob
 	return ret;
 	pass
 static var movables=[]	
-func add_cells(coveredCells,midpoint,turret):
+func add_cells(coveredCells,midpoint,turret,ignores_obstacles):
 	var offsets=[]	
 	if offsets.is_empty():
 		for i in range(turret.range_precision):
@@ -236,7 +238,7 @@ func add_cells(coveredCells,midpoint,turret):
 			if (base_vec-midpoint).length_squared()>turret.trueRangeSquared:
 				break;
 			var p=getMapPositionNormalised(base_vec)
-			if map[p.y][p.x].collides_with_bullets:
+			if map[p.y][p.x].collides_with_bullets and !ignores_obstacles:
 				collided=true
 				break;
 			if !collided and !eval.has(p):
@@ -263,6 +265,10 @@ func isProperCell(x, y):
 	return not isOutOfBounds(x, y)# and (not isOccupiedCell(x, y))
 func register_entity(entity:BaseEntity):
 	var pos=normaliseVector(entity.map_position)
+	
+	var glob=entity.get_global()
+	var ref=entity.get_reference()
+	var glob_to_map=GameState.board.local_to_map(glob)
 	map[pos.y][pos.x].entities.append(entity)
 	_trigger_monsters_for_entity_at_pos(entity,entity.get_global())
 	pass;	

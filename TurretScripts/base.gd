@@ -19,6 +19,7 @@ var direction: Vector2;
 @export var instantHit: bool = false;
 @export var range_precision = 24
 @export var projectile_precision = 1
+@export var wall_hack=false
 var cdt;
 var trueRangeSquared;
 
@@ -91,7 +92,7 @@ func setupCollision(clearing):
 
 	pass ;
 func getReferences(cells):
-	return collisionReference.getCellReferences(global_position, turretRange, self, cells)
+	return collisionReference.getCellReferences(global_position, turretRange, self, cells,wall_hack)
 	pass ;
 func setUpTower(holder):
 	
@@ -148,7 +149,7 @@ func on_hit(monster: Monster, damage, color: Turret.Hue, killed, projectile: Pro
 	if killed: on_target_killed(monster)
 	addDamage(damage)
 	for mod in turret_mods:
-		mod.on_hit(projectile)
+		mod.on_hit(projectile,monster)
 	pass ;
 func on_projectile_removed(projectile: Projectile):
 	for mod in turret_mods:
@@ -327,10 +328,8 @@ func showRangeOutline():
 	else:
 		var showCells = []
 		holder.unregister_turret()
-		print(referenceCells.size())
 		getReferences(showCells)
 		referenceCells = showCells
-		print(referenceCells.size())
 		holder.register_turret()
 		for c in showCells:
 			var pos = collisionReference.getGlobalFromReference(c)

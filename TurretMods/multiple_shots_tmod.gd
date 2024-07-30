@@ -2,11 +2,6 @@ extends TurretBaseMod
 class_name MultipleShotsMod
 var degrees=[22.5,-22.5]
 var degree_offset=22.5
-func _init():
-	description="Shoot multiple, weaker Projectiles"
-	super(TurretBaseMod.ModType.PROJECTILE)
-	
-	pass;
 
 func initialise(turret:TurretCore):
 	if turret is RedTurretCore:

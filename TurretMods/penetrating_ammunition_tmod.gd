@@ -2,15 +2,9 @@ extends TurretBaseMod
 class_name PenetratingAmmunition
 var penetration_amount=3
 
-func _init():
-	description="Projectiles penetrate enemies. "
-	super(TurretBaseMod.ModType.PROJECTILE)
-	
-	pass;
 
 
-
-func on_hit(p:Projectile):
+func on_hit(p:Projectile,monster:Monster):
 	if p.penetrations>=0:
 		p.duplicate_and_shoot(0,p)
 	pass;

@@ -4,8 +4,28 @@ var description="I am a base mod. I dont do anything"
 var visual:ModVisual
 var associate:TurretCore
 var type:ModType
+var shape:Block.BlockShape
+var color:Turret.Hue
 var level=1
 var damage_factor=1
+#constants
+const FROST_TRAIL_SLOW_AMOUNT = 50
+const FROST_TRAIL_SLOW_DURATION = GameplayConstants.DEBUFF_STANDART_LIFETIME
+const FROST_TRAIL_SCALING=1.2
+
+const FROST_AMMO_SLOW_AMOUNT = 100
+const FROST_AMMO_SLOW_DURATION = GameplayConstants.DEBUFF_STANDART_LIFETIME
+const FROST_AMMO_SCALING=1.5
+
+const FIRE_TRAIL_TICK_DAMAGE=1
+const FIRE_TRAIL_FIRE_DURATION = GameplayConstants.DEBUFF_STANDART_LIFETIME
+const FIRE_TRAIL_SCALING=1.2
+
+const FIRE_AMMO_TICK_DAMAGE=5000
+const FIRE_AMMO_FIRE_DURATION = GameplayConstants.DEBUFF_STANDART_LIFETIME
+const FIRE_AMMO_SCALING=1.2
+
+const FORKING_DEGREE=22.5
 
 static var color_blocks={
 	TARGETING=[],
@@ -18,18 +38,25 @@ static var color_blocks={
 static var implemented_mods={
 	TARGETING=[],
 	HULL=[],
-	PROJECTILE=[ForkingAmmunitionMod,MultipleShotsMod,PenetratingAmmunition],
-	AMMUNITION=[ExplosiveAmmunition,],
+	PROJECTILE=[MultipleShotsMod,PenetratingAmmunition,FireTrailMod,FrostTrailMod],
+	AMMUNITION=[ExplosiveAmmunition,ForkingAmmunitionMod,],
 	PRODUCTION=[],
 	ONKILL=[]
 	
 }
 
-enum ModType{TARGETING,HULL,PROJECTILE,AMMUNITION,PRODUCTION,ONKILL}
+enum ModType{BASE=Turret.Hue.WHITE,
+HULL=Turret.Hue.BLUE,
+PROJECTILE=Turret.Hue.YELLOW,
+AMMUNITION=Turret.Hue.RED,
+PRODUCTION=Turret.Hue.GREEN,
+ONKILL=Turret.Hue.MAGENTA}
 
-func _init(type:ModType=ModType.HULL):
-	
-	self.type=type
+func _init():
+	var data=GameplayConstants.get_mod_data(self)
+	type=data.type
+	shape=data.shape
+	color=ModType.values()[type]+1
 	pass;
 
 func initialise(turret:TurretCore):
@@ -38,7 +65,11 @@ func initialise(turret:TurretCore):
 	level=associate.stacks
 	turret.add_child(visual)
 	pass;
-
+func get_item():
+	var item=ItemBlockDTO.new(color,shape)
+	item.turret_mod=self
+	return item
+	
 func on_level_up(lvl):
 	level=lvl
 	pass;
@@ -55,7 +86,7 @@ func on_kill(monster:Monster):
 func on_shoot(projectile:Projectile):
 	visual.on_shoot(projectile)
 	pass;
-func on_hit(projectile:Projectile):
+func on_hit(projectile:Projectile,monster:Monster):
 	visual.on_hit(projectile)
 	pass;
 func on_remove(projectile:Projectile):
