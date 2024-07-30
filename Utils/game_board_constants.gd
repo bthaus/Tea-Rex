@@ -57,3 +57,20 @@ static func get_tile_color(board: TileMap, layer: int, map_position: Vector2):
 	
 static func turret_color_to_tile_color(color: Turret.Hue):
 	return TileColor.get(Turret.Hue.keys()[color])
+
+
+static func tile_to_dto(tile_id: int) -> BaseDTO:
+	match (tile_id):
+		#GROUND
+		GROUND_TILE_ID: return TileDTO.new(GameboardConstants.GROUND_TILE_ID, GameboardConstants.GROUND_LAYER)
+		
+		#BUILD
+		BUILD_NONE_TILE_ID: return TileDTO.new(GameboardConstants.BUILD_NONE_TILE_ID, GameboardConstants.BUILD_LAYER)
+		
+		#ENTITIES
+		PLAYER_BASE_GREEN_TILE_ID: return PlayerBaseDTO.new(GameboardConstants.PLAYER_BASE_GREEN_TILE_ID, GameboardConstants.BLOCK_LAYER, GameboardConstants.TileColor.GREEN)
+		SPAWNER_GREEN_TILE_ID: return SpawnerDTO.new(GameboardConstants.SPAWNER_GREEN_TILE_ID, GameboardConstants.BLOCK_LAYER, -1, GameboardConstants.TileColor.GREEN)
+		WALL_TILE_ID: return TileDTO.new(GameboardConstants.WALL_TILE_ID, GameboardConstants.BLOCK_LAYER)
+		PORTAL_TILE_ID: return PortalDTO.new(GameboardConstants.PORTAL_TILE_ID, GameboardConstants.BLOCK_LAYER)
+
+	return null

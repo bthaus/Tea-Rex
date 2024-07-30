@@ -9,7 +9,6 @@ class_name LevelEditor
 @onready var map_name = $Camera2D/HUD/mapname
 @onready var tile_selection = $Camera2D/HUD/TileSelection
 
-@onready var tiles_holders: Array[GameObjectHolder]
 @onready var board_handler: LevelEditorBoardHandler
 
 enum BuildMode { DEFAULT, DRAW, BUCKET_FILL }
@@ -30,12 +29,11 @@ func _ready():
 	$Background.tile_set.tile_size = Vector2(GameboardConstants.TILE_SIZE, GameboardConstants.TILE_SIZE)
 	_set_background()
 	
-	#Stores all tile infos for each layer: Ground, Build and Block
-	tiles_holders = [GameObjectHolder.new(), GameObjectHolder.new(), GameObjectHolder.new()]
-	board_handler = LevelEditorBoardHandler.new($Board, editor_game_state, tiles_holders)
+	
+	board_handler = LevelEditorBoardHandler.new($Board)
 	board_handler.spawner_added.connect(_on_spawner_added)
 	board_handler.spawner_removed.connect(_on_spawner_removed)
-	
+	create_editor_game_state(MapDTO.new())
 	
 	$Camera2D.dragging_camera.connect(dragging_camera)
 	tile_selection.tile_selected.connect(_on_tile_selected)
@@ -44,7 +42,7 @@ func _ready():
 	_set_button_selected(draw_build_mode_button, false)
 	_set_button_selected(bucket_fill_build_mode_button, false)
 
-func create_fake_state(map_dto:MapDTO):
+func create_editor_game_state(map_dto:MapDTO):
 	var state=load("res://Game/main_scene.tscn").instantiate()
 	state.set_script(load("res://Game/editor_gamestate.gd"))
 	editor_game_state=state
@@ -53,18 +51,12 @@ func create_fake_state(map_dto:MapDTO):
 	board_handler.editor_game_state = state
 	add_child(editor_game_state)
 
+
 func load_map(map_dto: MapDTO):
 	board_handler.spawner_map_positions = []
-	create_fake_state(map_dto)
+	create_editor_game_state(map_dto)
 	var spawner_entities = []
 	for entity in map_dto.entities:
-		var layer
-		match(entity.map_layer):
-			GameboardConstants.GROUND_LAYER: layer = 0
-			GameboardConstants.BUILD_LAYER: layer = 1
-			GameboardConstants.BLOCK_LAYER: layer = 2
-		
-		tiles_holders[layer].set_object_at(entity, Vector2(entity.map_x, entity.map_y))
 		#wird im editor_gamestate im ready aufgerufen, gleich wie im originalen gamestate
 		#wsl ists auch ok das hier zu machen. wies für dich besser passt
 		#entity.get_object().place_on_board($Board)

@@ -3,39 +3,21 @@ class_name LevelEditorBoardHandler
 
 var board: TileMap
 var editor_game_state: EditorGameState
-var tiles_holders: Array[GameObjectHolder]
 
 var spawner_map_positions: PackedVector2Array = [] #Holds all the spawners on the board. Index indicates which spawner is which.
 
 signal spawner_added
 signal spawner_removed
 
-func _init(board: TileMap, editor_game_state: EditorGameState, tiles_holders: Array[GameObjectHolder]):
+func _init(board: TileMap):
 	self.board = board
-	self.editor_game_state = editor_game_state
-	self.tiles_holders = tiles_holders
 
 func _set_board_cell(tile_item: TileSelection.TileItem, map_position: Vector2):
-	var handler_layer
-	match(tile_item.dto.map_layer):
-		GameboardConstants.GROUND_LAYER: handler_layer = 0
-		GameboardConstants.BUILD_LAYER: handler_layer = 1
-		GameboardConstants.BLOCK_LAYER: handler_layer = 2
-	
 	board.set_cell(tile_item.dto.map_layer, map_position, tile_item.dto.tile_id, Vector2(0,0))
-	var dto = BaseDTO.get_dto_from_json(tile_item.dto.get_json())
-	tiles_holders[handler_layer].set_object_at(dto, map_position)
 	Spawner.refresh_all_paths()
 
 func _clear_board_cell(layer: int, map_position: Vector2):
-	var handler_layer
-	match(layer):
-		GameboardConstants.GROUND_LAYER: handler_layer = 0
-		GameboardConstants.BUILD_LAYER: handler_layer = 1
-		GameboardConstants.BLOCK_LAYER: handler_layer = 2
-	
 	board.set_cell(layer, map_position, -1, Vector2(0,0))
-	tiles_holders[handler_layer].set_object_at(null, map_position)
 	Spawner.refresh_all_paths()
 
 func set_cell(tile: TileSelection.TileItem, map_position: Vector2):
@@ -154,20 +136,19 @@ func _get_spawner_idx_at(map_position: Vector2) -> int:
 
 func save_board(monster_waves,map_name):
 	var entities:Array[BaseDTO] = []
-	for tiles_holder in tiles_holders:
-		var objects = tiles_holder.get_objects()
-		for row in objects.size():
-			for col in objects[row].size():
-				var object = objects[row][col]
-				if object == null: continue
-				
-				if is_instance_of(object, SpawnerDTO):
-					var idx = _get_spawner_idx_at(Vector2(col, row))
-					object.spawner_id = idx
-				
-				object.map_x = col
-				object.map_y = row
-				entities.append(object)
 	
-	var map_dto = MapDTO.new(entities, monster_waves,map_name)
+	for pos in board.get_used_cells(GameboardConstants.GROUND_LAYER): entities.append(_get_entity(GameboardConstants.GROUND_LAYER, pos))
+	for pos in board.get_used_cells(GameboardConstants.BUILD_LAYER): entities.append(_get_entity(GameboardConstants.BUILD_LAYER, pos))
+	for pos in board.get_used_cells(GameboardConstants.BLOCK_LAYER): entities.append(_get_entity(GameboardConstants.BLOCK_LAYER, pos))
+	
+	var map_dto = MapDTO.new(entities, monster_waves, map_name)
 	map_dto.save(map_name)
+
+func _get_entity(layer: int, map_position: Vector2):
+	var entity = GameboardConstants.tile_to_dto(board.get_cell_source_id(layer, map_position))
+	entity.map_x = map_position.x
+	entity.map_y = map_position.y
+	if is_instance_of(entity, SpawnerDTO):
+		entity.spawner_id = _get_spawner_idx_at(map_position)
+	
+	return entity
