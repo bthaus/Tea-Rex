@@ -45,7 +45,7 @@ func _init():
 	var data=GameplayConstants.get_mod_data(self)
 	type=data.type
 	shape=data.shape
-	color=ModType.values()[type]+1
+	color=ModType.values()[type]
 	pass;
 
 func initialise(turret:TurretCore):

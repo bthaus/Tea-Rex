@@ -6,7 +6,7 @@ class_name Turret
 @export var color: Turret.Hue;
 @export var level: int = 1;
 @export var extension: Turret.Extension;
-enum Hue {WHITE=1, GREEN=2, RED=3, YELLOW=4, BLUE=5, MAGENTA=6};
+enum Hue {WHITE=0, GREEN=1, RED=2, YELLOW=3, BLUE=4, MAGENTA=5};
 enum Extension {DEFAULT=1,REDLASER=2, BLUELASER=3, YELLOWMORTAR=4, GREENPOISON=5,BLUEFREEZER=6};
 
 

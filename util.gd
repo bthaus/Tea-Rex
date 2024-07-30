@@ -28,9 +28,9 @@ static func is_str_valid_positive_int(str: String) -> bool:
 	return true
 
 static func getStringFromEnum(type:Turret.Hue):
-	return Turret.Hue.keys()[(type)-1];
+	return Turret.Hue.keys()[(type)];
 static func getStringFromEnumLowercase(type:Turret.Hue):
-	return Turret.Hue.keys()[(type)-1].to_lower();
+	return Turret.Hue.keys()[(type)].to_lower();
 static func getStringFromEnumExtension(type:Turret.Extension):
 	match type:
 		1: return ""
