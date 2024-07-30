@@ -10,10 +10,10 @@ func on_shoot(projectile:Projectile):
 	super(projectile)
 	pass;
 func trigger_minion(monster):
-	var frost=FrostDebuff.new(FROST_TRAIL_SLOW_DURATION,
+	var frost=FrostDebuff.new(FROST_TRAIL_SLOW_DURATION*FROST_TRAIL_SCALING*level,
 	associate
 	,level,
-	FROST_TRAIL_SLOW_AMOUNT)
+	FROST_TRAIL_SLOW_AMOUNT*FROST_TRAIL_SCALING*level)
 	frost.register(monster)
 func trigger_projectile(p:Projectile):
 	

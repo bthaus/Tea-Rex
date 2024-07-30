@@ -51,6 +51,11 @@ static var turret_mods = {
 	FireTrailMod:d(small,proj),
 	FrostTrailMod:d(small,proj),
 	ExplosiveAmmunition:d(cross,ammo),
+	FireAmmunitionMod:d(tiny,ammo),
+	FrostAmmunitionMod:d(small,ammo),
+	LightningAmmunitionMod:d(small,ammo),
+	PoisonAmmunitionMod:d(small,ammo),
+	
 	
 }
 static func d(shape, type):

@@ -14,6 +14,6 @@ func get_name():
 	return "fire"
 	
 func apply_effect(delta):
-	print("firing")
-	affected.hit(color, damage_per_tick)
+	var killed= affected.hit(color, damage_per_tick)
+	if killed:associate.on_target_killed(affected)
 	pass;	

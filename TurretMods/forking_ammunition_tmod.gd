@@ -1,7 +1,7 @@
 extends TurretBaseMod
 class_name ForkingAmmunitionMod
 var degrees=[25,-25]
-var degree_offset=25
+var degree_offset=FORKING_DEGREE
 
 func initialise(turret:TurretCore):
 	super(turret)

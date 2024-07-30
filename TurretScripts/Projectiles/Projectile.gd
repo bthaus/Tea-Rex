@@ -126,11 +126,10 @@ func hitEnemy(enemy: Monster,from_turret=false):
 	pass ;
 func hit_wall():
 	var walled=GameState.gameState.collisionReference.hit_wall(get_map())
-	if not walled:return false;
-	if wall_penetrations>0:
+	if walled and wall_penetrations>0:
 		wall_penetrations-=1
 		return false	
-	return true	
+	return walled
 	pass;	
 func _toggle_emission(b):
 	for e in emitters:

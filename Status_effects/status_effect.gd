@@ -38,7 +38,6 @@ func on_tick(delta):
 	var deltatime=Time.get_ticks_msec()-last_tick_time
 	last_tick_time=Time.get_ticks_msec()
 	lifetime-=deltatime
-	print(delta)
 	time_slice_time+=delta
 	if lifetime<0:
 		to_remove=true
