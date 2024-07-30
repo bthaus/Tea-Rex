@@ -41,6 +41,7 @@ func _ready():
 	
 func on_creation():
 	wall_penetrations=0
+	last_hit_cell=Vector2i(0,0)
 	pass;	
 func on_remove():
 	
