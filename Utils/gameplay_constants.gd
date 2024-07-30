@@ -55,6 +55,7 @@ static var turret_mods = {
 	FrostAmmunitionMod:d(small,ammo),
 	LightningAmmunitionMod:d(small,ammo),
 	PoisonAmmunitionMod:d(small,ammo),
+	GhostProjectileMod:d(small,proj)
 	
 	
 }

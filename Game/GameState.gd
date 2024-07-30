@@ -20,7 +20,7 @@ var account: String = "dede";
 
 #Todo: remove and replace with battle_slot_logic
 var unlockedExtensions = [Turret.Extension.DEFAULT];
-var unlockedColors =[Turret.Hue.BLUE] #[Turret.Hue.GREEN,Turret.Hue.BLUE,Turret.Hue.RED,Turret.Hue.YELLOW];
+var unlockedColors =[Turret.Hue.MAGENTA] #[Turret.Hue.GREEN,Turret.Hue.BLUE,Turret.Hue.RED,Turret.Hue.YELLOW];
 
 var selected_battle_slots
 
@@ -63,7 +63,7 @@ func register_battle_slot_containers(containers:Array[TurretModContainerDTO]):
 	for container in containers:
 		unlockedColors.push_back(container.color)
 	if unlockedColors.is_empty():
-		unlockedColors.push_back(Turret.Hue.BLUE)	
+		unlockedColors.push_back(Turret.Hue.MAGENTA)	
 	TurretCoreFactory.register_mod_containers(containers)	
 	
 	pass;
