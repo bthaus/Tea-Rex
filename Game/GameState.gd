@@ -5,6 +5,7 @@ class_name GameState;
 @export var hand: Node2D
 @onready var ui:UI=$CanvasLayer/UI
 @export var cam: Camera2D;
+
 enum GamePhase {BATTLE=1,BUILD=2,BOTH=3};
 var current_expected_damage=0:
 	set(value):
@@ -57,7 +58,7 @@ signal start_combat_phase;
 static var collisionReference:CollisionReference=CollisionReference.new()
 var map_dto;
 
-
+static var monsters
 func register_battle_slot_containers(containers:Array[TurretModContainerDTO]):
 	unlockedColors.clear()
 	for container in containers:
@@ -69,7 +70,7 @@ func register_battle_slot_containers(containers:Array[TurretModContainerDTO]):
 	pass;
 
 func _ready():
-	
+	monsters=$MinionHolder
 	gameState = self;
 	ui=$CanvasLayer/UI
 	hand=ui.hand
