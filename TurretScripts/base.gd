@@ -328,10 +328,8 @@ func showRangeOutline():
 	else:
 		var showCells = []
 		holder.unregister_turret()
-		print(referenceCells.size())
 		getReferences(showCells)
 		referenceCells = showCells
-		print(referenceCells.size())
 		holder.register_turret()
 		for c in showCells:
 			var pos = collisionReference.getGlobalFromReference(c)
