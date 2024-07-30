@@ -7,4 +7,5 @@ func on_kill(m:Monster):
 	OVERCHARGE_COOLDOWN_REDUCTION*pow(OVERCHARGE_SCALING,level),
 	OVERCHARGE_BUFF_DURATION*pow(OVERCHARGE_SCALING,level))
 	charge.register(associate)
+	super(m)
 	pass;
