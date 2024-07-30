@@ -210,7 +210,13 @@ func getCellReferences(pos, turretRange, turret=null, cellPositions=[],ignore_ob
 						#continue
 				#coveredCells.append(Vector2(mapPosition.x + x, mapPosition.y + y))
 	#if not ignore_obstacles:
-	coveredCells=add_cells(cellPositions,pos,turret,ignore_obstacles)
+	var range_squared
+	if turret!=null:
+		range_squared=turret.trueRangeSquared
+	else:
+		range_squared=turretRange*GameboardConstants.TILE_SIZE
+		range_squared*=range_squared	
+	coveredCells=add_cells(cellPositions,pos,turret,ignore_obstacles,range_squared)
 	var ret=[]
 	for cell in coveredCells:
 		if ignore_obstacles:
@@ -222,12 +228,17 @@ func getCellReferences(pos, turretRange, turret=null, cellPositions=[],ignore_ob
 	return ret;
 	pass
 static var movables=[]	
-func add_cells(coveredCells,midpoint,turret,ignores_obstacles):
+func add_cells(coveredCells,midpoint,turret,ignores_obstacles,range):
+	
+	var precision=25
+	
+	if turret!=null:
+		precision=turret.range_precision
 	var offsets=[]	
 	if offsets.is_empty():
-		for i in range(turret.range_precision):
+		for i in range(precision):
 			var v=Vector2(10,0)
-			v=util.rotate_vector(v,360/turret.range_precision*i)
+			v=util.rotate_vector(v,360/precision*i)
 			offsets.append(v)
 	var eval=[]		
 	for offset in offsets:
@@ -235,7 +246,7 @@ func add_cells(coveredCells,midpoint,turret,ignores_obstacles):
 		var collided=false;
 		while(not isOutOfBoundsVector(getMapPositionNormalised(base_vec))):
 			base_vec=base_vec+offset
-			if (base_vec-midpoint).length_squared()>turret.trueRangeSquared:
+			if (base_vec-midpoint).length_squared()>range:
 				break;
 			var p=getMapPositionNormalised(base_vec)
 			if map[p.y][p.x].collides_with_bullets and !ignores_obstacles:

@@ -44,18 +44,28 @@ static func get_mod_data(mod)->data:
 	return turret_mods[mod.get_script()]
 	pass;
 static var turret_mods = {
-	ForkingAmmunitionMod: d(arrow, ammo),
+	
 	FireTrailMod: d(tiny, proj),
 	MultipleShotsMod:d(l,proj),
 	PenetratingAmmunition:d(o,proj),
-	FireTrailMod:d(small,proj),
 	FrostTrailMod:d(small,proj),
+	GhostProjectileMod:d(small,proj),
+	
+	ForkingAmmunitionMod: d(arrow, ammo),
 	ExplosiveAmmunition:d(cross,ammo),
 	FireAmmunitionMod:d(tiny,ammo),
 	FrostAmmunitionMod:d(small,ammo),
 	LightningAmmunitionMod:d(small,ammo),
 	PoisonAmmunitionMod:d(small,ammo),
-	GhostProjectileMod:d(small,proj)
+	
+	FrozenBloodKillMod:d(arrow,kill),
+	ExplosiveUnitMod:d(o,kill),
+	RegenerateKillMod:d(cross,kill),
+	StunningKillMod:d(s,kill),
+	VoodooKillMod:d(s,kill),
+	OverchargeKillMod:d(cross,kill)
+	
+	
 	
 	
 }

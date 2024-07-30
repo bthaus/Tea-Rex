@@ -38,6 +38,10 @@ const POISON_AMMO_FIRE_DURATION = GameplayConstants.DEBUFF_STANDART_LIFETIME
 const POISON_AMMO_SCALING=1.2
 const POISON_AMMO_PROPAGATION_TIME=2
 
+const EXPLOSIVE_UNIT_HEALTH_PERCENTAGE_DAMAGE=0.25
+const EXPLOSIVE_UNIT_SCALING=1.5
+const EXPLOSIVE_UNIT_EXPLOSION_RANGE=2
+
 
 
 const FORKING_DEGREE=22.5
@@ -71,7 +75,8 @@ func _init():
 	var data=GameplayConstants.get_mod_data(self)
 	type=data.type
 	shape=data.shape
-	color=ModType.values()[type]+1
+	color=ModType.values()[type-1]
+	color+=1
 	pass;
 
 
