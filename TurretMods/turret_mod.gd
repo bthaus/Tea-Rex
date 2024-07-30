@@ -75,7 +75,7 @@ func on_kill(monster:Monster):
 func on_shoot(projectile:Projectile):
 	visual.on_shoot(projectile)
 	pass;
-func on_hit(projectile:Projectile):
+func on_hit(projectile:Projectile,monster:Monster):
 	visual.on_hit(projectile)
 	pass;
 func on_remove(projectile:Projectile):

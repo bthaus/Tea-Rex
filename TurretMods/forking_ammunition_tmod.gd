@@ -7,7 +7,7 @@ func initialise(turret:TurretCore):
 	super(turret)
 	associate.average_minions_hit=associate.average_minions_hit+2
 	pass;
-func on_hit(projectile:Projectile):
+func on_hit(projectile:Projectile,monster:Monster):
 	if projectile==null:return
 	#if projectile.penetrations<=-1 and projectile.penetrations>-500:
 		#return

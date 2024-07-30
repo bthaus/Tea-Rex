@@ -149,7 +149,7 @@ func on_hit(monster: Monster, damage, color: Turret.Hue, killed, projectile: Pro
 	if killed: on_target_killed(monster)
 	addDamage(damage)
 	for mod in turret_mods:
-		mod.on_hit(projectile)
+		mod.on_hit(projectile,monster)
 	pass ;
 func on_projectile_removed(projectile: Projectile):
 	for mod in turret_mods:
