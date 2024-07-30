@@ -8,6 +8,11 @@ var shape:Block.BlockShape
 var color:Turret.Hue
 var level=1
 var damage_factor=1
+var scale=1:
+	get:
+		var on=scale-1
+		on*level
+		return on+1
 #constants
 const FROST_TRAIL_SLOW_AMOUNT = 50
 const FROST_TRAIL_SLOW_DURATION = GameplayConstants.DEBUFF_STANDART_LIFETIME
@@ -16,6 +21,9 @@ const FROST_TRAIL_SCALING=1.2
 const FROST_AMMO_SLOW_AMOUNT = 100
 const FROST_AMMO_SLOW_DURATION = GameplayConstants.DEBUFF_STANDART_LIFETIME
 const FROST_AMMO_SCALING=1.5
+
+const FROZEN_DURATION=1
+const FROZEN_SCALING=1.2
 
 const FIRE_TRAIL_TICK_DAMAGE=1
 const FIRE_TRAIL_FIRE_DURATION = GameplayConstants.DEBUFF_STANDART_LIFETIME
@@ -29,6 +37,8 @@ const POISON_AMMO_TICK_DAMAGE=5000
 const POISON_AMMO_FIRE_DURATION = GameplayConstants.DEBUFF_STANDART_LIFETIME
 const POISON_AMMO_SCALING=1.2
 const POISON_AMMO_PROPAGATION_TIME=2
+
+
 
 const FORKING_DEGREE=22.5
 
@@ -64,6 +74,7 @@ func _init():
 	color=ModType.values()[type]+1
 	pass;
 
+
 func initialise(turret:TurretCore):
 	visual=ModVisualFactory.get_visual(self)
 	associate=turret
@@ -94,6 +105,7 @@ func on_shoot(projectile:Projectile):
 func on_hit(projectile:Projectile,monster:Monster):
 	visual.on_hit(projectile)
 	pass;
+	
 func on_remove(projectile:Projectile):
 	visual.on_remove(projectile)
 	pass;
