@@ -12,9 +12,10 @@ const GREEN_TILE_ID = 2
 const RED_TILE_ID = 3
 const YELLOW_TILE_ID = 4
 const BLUE_TILE_ID = 5
+const MAGENTA_TILE_ID = 6
 
-const LEGAL_PLACEMENT_TILE_ID = 6
-const ILLEGAL_PLACEMENT_TILE_ID = 7
+const LEGAL_PLACEMENT_TILE_ID = 7
+const ILLEGAL_PLACEMENT_TILE_ID = 8
 
 static func get_color_from_tile(board: TileMap, layer: int, map_position: Vector2):
 	var data = board.get_cell_tile_data(layer, map_position)

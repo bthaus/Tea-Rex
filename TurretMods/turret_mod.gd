@@ -5,6 +5,7 @@ var visual:ModVisual
 var associate:TurretCore
 var type:ModType
 var shape:Block.BlockShape
+var tile_id:int
 var color:Turret.Hue
 var level=1
 var damage_factor=1
@@ -75,10 +76,8 @@ func _init():
 	var data=GameplayConstants.get_mod_data(self)
 	type=data.type
 	shape=data.shape
-	color=ModType.values()[type-1]
-	color+=1
-	pass;
-
+	tile_id=data.tile_id
+	color=Turret.Hue.get(Turret.Hue.keys()[type-1])
 
 func initialise(turret:TurretCore):
 	visual=ModVisualFactory.get_visual(self)
@@ -90,7 +89,7 @@ func on_turret_build(turret:TurretCore):
 	
 	pass;	
 func get_item():
-	var item=ItemBlockDTO.new(color,shape)
+	var item=ItemBlockDTO.new(color,shape,tile_id)
 	item.turret_mod=self
 	return item
 

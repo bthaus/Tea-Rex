@@ -45,31 +45,31 @@ static func get_mod_data(mod)->data:
 	pass;
 static var turret_mods = {
 	
-	FireTrailMod: d(tiny, proj),
-	MultipleShotsMod:d(l,proj),
-	PenetratingAmmunition:d(o,proj),
-	FrostTrailMod:d(small,proj),
-	GhostProjectileMod:d(small,proj),
+	FireTrailMod: d(tiny, proj, ItemBlockConstants.YELLOW_TILE_ID),
+	MultipleShotsMod:d(l,proj, ItemBlockConstants.YELLOW_TILE_ID),
+	PenetratingAmmunition:d(o,proj, ItemBlockConstants.YELLOW_TILE_ID),
+	FrostTrailMod:d(small,proj, ItemBlockConstants.YELLOW_TILE_ID),
+	GhostProjectileMod:d(small,proj, ItemBlockConstants.YELLOW_TILE_ID),
 	
-	ForkingAmmunitionMod: d(arrow, ammo),
-	ExplosiveAmmunition:d(cross,ammo),
-	FireAmmunitionMod:d(tiny,ammo),
-	FrostAmmunitionMod:d(small,ammo),
-	LightningAmmunitionMod:d(small,ammo),
-	PoisonAmmunitionMod:d(small,ammo),
+	ForkingAmmunitionMod: d(arrow, ammo, ItemBlockConstants.RED_TILE_ID),
+	ExplosiveAmmunition:d(cross,ammo, ItemBlockConstants.RED_TILE_ID),
+	FireAmmunitionMod:d(tiny,ammo, ItemBlockConstants.RED_TILE_ID),
+	FrostAmmunitionMod:d(small,ammo, ItemBlockConstants.RED_TILE_ID),
+	LightningAmmunitionMod:d(small,ammo, ItemBlockConstants.RED_TILE_ID),
+	PoisonAmmunitionMod:d(small,ammo, ItemBlockConstants.RED_TILE_ID),
 	
-	FrozenBloodKillMod:d(arrow,kill),
-	ExplosiveUnitMod:d(o,kill),
-	RegenerateKillMod:d(cross,kill),
-	StunningKillMod:d(s,kill),
-	VoodooKillMod:d(s,kill),
-	OverchargeKillMod:d(cross,kill),
+	FrozenBloodKillMod:d(arrow,kill, ItemBlockConstants.MAGENTA_TILE_ID),
+	ExplosiveUnitMod:d(o,kill, ItemBlockConstants.MAGENTA_TILE_ID),
+	RegenerateKillMod:d(cross,kill, ItemBlockConstants.MAGENTA_TILE_ID),
+	StunningKillMod:d(s,kill, ItemBlockConstants.MAGENTA_TILE_ID),
+	VoodooKillMod:d(s,kill, ItemBlockConstants.MAGENTA_TILE_ID),
+	OverchargeKillMod:d(cross,kill, ItemBlockConstants.MAGENTA_TILE_ID),
 	
-	AirBlockMod:d(s,base),
-	AirAttackMod:d(s,base),
-	AirAndGroundAttackMod:d(cross,base),
-	WallhackMod:d(tiny,base),
-	StackIncreaseMod:d(o,base)
+	AirBlockMod:d(s,base, ItemBlockConstants.WHITE_TILE_ID),
+	AirAttackMod:d(s,base, ItemBlockConstants.WHITE_TILE_ID),
+	AirAndGroundAttackMod:d(cross,base, ItemBlockConstants.WHITE_TILE_ID),
+	WallhackMod:d(tiny,base, ItemBlockConstants.WHITE_TILE_ID),
+	StackIncreaseMod:d(o,base, ItemBlockConstants.WHITE_TILE_ID)
 	
 	
 	
@@ -82,15 +82,18 @@ static func register_mods_for_sim():
 		if !TurretBaseMod.implemented_mods.has(type):TurretBaseMod.implemented_mods[type]=[]
 		TurretBaseMod.implemented_mods[type].append(mod)
 	pass;
-static func d(shape, type):
-	return data.new(shape, type)
+static func d(shape, type, tile_id):
+	return data.new(shape, type, tile_id)
 class data:
 	var shape:Block.BlockShape
 	var type:TurretBaseMod.ModType
+	var tile_id:int
 
-	func _init(shape, type):
+	func _init(shape, type, tile_id):
 		self.shape = shape
 		self.type = type
+		self.tile_id = tile_id
+		
 const green_poison_decay = 1;
 
 const playerHP = 200;
