@@ -18,12 +18,13 @@ signal focused
 signal selected
 
 func _ready():
-	var mods
-	for c in MainMenu.get_account_dto().turret_mod_containers:
-		if c.color == color:
-			mods = c.turret_mods
-			container = c
-			break
+	var mods = []
+	if MainMenu.get_account_dto() != null:
+		for c in MainMenu.get_account_dto().turret_mod_containers:
+			if c.color == color:
+				mods = c.turret_mods
+				container = c
+				break
 	
 	item_handler = ItemBlockSelectorHandler.new($Board, mods)
 	style_box.set("border_color", _get_color_from_turret_color(color))
@@ -64,6 +65,10 @@ func _input(event):
 func _get_mouse_position_on_board() -> Vector2:
 	#return $Board.local_to_map($Board.to_local(get_local_mouse_position())) - $Board.local_to_map($Board.to_local($Board.position))
 	return $Board.local_to_map((get_local_mouse_position() - $Board.position) / $Board.scale)
+
+func clear_mods():
+	item_handler.item_blocks.clear()
+	$Board.clear_layer(GameboardConstants.BLOCK_LAYER)
 
 func set_selected_item(item: ItemBlockDTO):
 	selected_item = item

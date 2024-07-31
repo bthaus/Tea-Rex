@@ -5,6 +5,7 @@ var item_handler: ItemBlockSelectorHandler
 var selected_item: ItemBlockDTO
 var has_focus = true
 var selected_containers: Array[TurretModContainerDTO] = []
+var _sandbox_mode = false
 
 func _ready():
 	item_handler = ItemBlockSelectorHandler.new($Board, [])
@@ -16,7 +17,14 @@ func _ready():
 		container.selected.connect(_on_container_selected)
 	
 	$ItemBlockSelectorContainer.item_selected.connect(_on_item_selected)
+
+func enable_sandbox_mode():
+	_sandbox_mode = true
+	for container in $TurretModGridContainer.get_children():
+		container.clear_mods()
 	
+	$ItemBlockSelectorContainer.enable_sandbox_mode()
+
 func set_map(map: MapDTO):
 	self.map = map
 	_update_battle_slot_amount_label()

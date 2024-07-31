@@ -17,7 +17,7 @@ corner_radius_bottom_left = 5
 [node name="ItemBlockSelectorContainer" type="Node2D"]
 script = ExtResource("1_ufr0p")
 
-[node name="TargetingTab" type="Button" parent="."]
+[node name="BaseTab" type="Button" parent="."]
 offset_right = 75.0
 offset_bottom = 36.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
@@ -30,7 +30,7 @@ theme_override_font_sizes/font_size = 12
 theme_override_styles/normal = ExtResource("2_yjbdt")
 toggle_mode = true
 button_group = ExtResource("1_hn2og")
-text = "Targeting
+text = "Base
 
 "
 

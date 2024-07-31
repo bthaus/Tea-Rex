@@ -19,6 +19,8 @@ func _ready():
 func _process(delta):
 	pass
 
+func enable_sandbox_mode():
+	$BlockSelector.enable_sandbox_mode()
 
 
 func _on_button_pressed():

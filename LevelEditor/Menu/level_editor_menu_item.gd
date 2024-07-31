@@ -12,8 +12,8 @@ func _on_edit_button_pressed():
 	MainMenu.change_content(MainMenu.level_editor)
 	MainMenu.level_editor.load_map(map_dto)
 
-
 func _on_play_button_pressed():
 	var picker = MainMenu.battle_slot_picker.duplicate()
 	picker.map_name=name
 	MainMenu.change_content(picker)
+	picker.enable_sandbox_mode()

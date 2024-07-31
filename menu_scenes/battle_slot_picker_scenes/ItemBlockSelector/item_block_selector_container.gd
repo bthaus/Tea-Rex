@@ -6,34 +6,35 @@ extends Node2D
 var _style_box: StyleBoxFlat = load("res://Styles/item_block_selector_tab.tres")
 var _group: ButtonGroup
 var _selected_tab: TabEntry = null
+var _sandbox_mode = false
 signal item_selected
 
 class TabEntry:
 	var node
-	var turret_color: Turret.Hue
+	var turret_mod_type: TurretBaseMod.ModType
 	var display_color: Color
-	func _init(node, turret_color: Turret.Hue, display_color: Color):
+	func _init(node, turret_mod_type: TurretBaseMod.ModType, display_color: Color):
 		self.node = node
-		self.turret_color = turret_color
+		self.turret_mod_type = turret_mod_type
 		self.display_color = display_color
 		
 #Maps tab to values
 @onready var _tabs: Array[TabEntry] = [
-	TabEntry.new($TargetingTab, Turret.Hue.WHITE, Color.WHITE),
-	TabEntry.new($ProjectileTab, Turret.Hue.YELLOW, Color.YELLOW),
-	TabEntry.new($AmmunitionTab, Turret.Hue.RED, Color.RED),
-	TabEntry.new($HullTab, Turret.Hue.BLUE, Color.ROYAL_BLUE),
-	TabEntry.new($ProductionTab, Turret.Hue.GREEN, Color.GREEN),
-	TabEntry.new($KillEffectTab, Turret.Hue.MAGENTA, Color.MAGENTA)
+	TabEntry.new($BaseTab, TurretBaseMod.ModType.BASE, Color.WHITE),
+	TabEntry.new($ProjectileTab, TurretBaseMod.ModType.PROJECTILE, Color.YELLOW),
+	TabEntry.new($AmmunitionTab, TurretBaseMod.ModType.AMMUNITION, Color.RED),
+	TabEntry.new($HullTab, TurretBaseMod.ModType.HULL, Color.ROYAL_BLUE),
+	TabEntry.new($ProductionTab, TurretBaseMod.ModType.PRODUCTION, Color.GREEN),
+	TabEntry.new($KillEffectTab, TurretBaseMod.ModType.ONKILL, Color.MAGENTA)
 	]
 
 func _ready():
-	_group = $TargetingTab.button_group
+	_group = $BaseTab.button_group
 	for i in _group.get_buttons():
 		i.pressed.connect(func(): _select_tab(_group.get_pressed_button()))
 	
 	_init_tab_colors()
-	_select_tab($TargetingTab)
+	_select_tab($BaseTab)
 
 func _select_tab(tab: Button):
 	for t in _group.get_buttons():
@@ -53,16 +54,28 @@ func _select_tab(tab: Button):
 
 func _update_container_items():
 	for child in item_container.get_children(): child.queue_free()
-	var unlocked_items = []
-	for item in MainMenu.get_account_dto().unlocked_items:
-		if item.color == _selected_tab.turret_color:
-			unlocked_items.append(item)
+	var items = []
 	
-	for item in unlocked_items:
+	if _sandbox_mode:
+		for mod_class in GameplayConstants.turret_mods.keys():
+			var mod = mod_class.new()
+			if mod.type == _selected_tab.turret_mod_type:
+				items.append(mod.get_item())
+				
+	elif MainMenu.get_account_dto() != null:
+		for mod in MainMenu.get_account_dto().unlocked_turret_mods:
+			if mod.type == _selected_tab.turret_mod_type:
+				items.append(mod.get_item())
+	
+	for item in items:
 		var child = load("res://menu_scenes/battle_slot_picker_scenes/ItemBlockSelector/item_block_selector_item.tscn").instantiate()
 		child.set_item(item)
 		child.clicked.connect(_on_item_selected)
 		item_container.add_child(child)
+
+func enable_sandbox_mode():
+	_sandbox_mode = true
+	_update_container_items()
 
 func _on_item_selected(item_block: ItemBlockDTO):
 	item_selected.emit(item_block)

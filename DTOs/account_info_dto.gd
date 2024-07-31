@@ -5,7 +5,7 @@ var account_name:String
 var account_progress#:Array=[]
 var unlocked_colors#:Array[Turret.Hue]
 
-var unlocked_items#: Array[ItemBlockDTO]
+var unlocked_turret_mods#: Array[ItemBlockDTO]
 #array of blueprintsDTOs 
 var blueprints
 
@@ -29,13 +29,10 @@ func _init(name="-1"):
 	pass;
 
 func _insert_test_items():
-	unlocked_items = []
-	unlocked_items.append(ItemBlockDTO.new(Turret.Hue.WHITE, Block.BlockShape.O, 0, ItemBlockConstants.WHITE_TILE_ID))
-	unlocked_items.append(ItemBlockDTO.new(Turret.Hue.WHITE, Block.BlockShape.Z, 0, ItemBlockConstants.WHITE_TILE_ID))
-	unlocked_items.append(ItemBlockDTO.new(Turret.Hue.YELLOW, Block.BlockShape.I, 0, ItemBlockConstants.YELLOW_TILE_ID))
-	unlocked_items.append(ItemBlockDTO.new(Turret.Hue.RED, Block.BlockShape.L, 0, ItemBlockConstants.RED_TILE_ID))
+	unlocked_turret_mods = []
+	unlocked_turret_mods.append_array([FireTrailMod.new(), PenetratingAmmunition.new(), ForkingAmmunitionMod.new(), LightningAmmunitionMod.new(), FrozenBloodKillMod.new(), AirBlockMod.new()])
 	
-	turret_mod_containers[0].turret_mods.append(ItemBlockDTO.new(Turret.Hue.BLUE, Block.BlockShape.L, 0, ItemBlockConstants.BLUE_TILE_ID, Vector2(1,1)))
+	turret_mod_containers[0].turret_mods.append(ItemBlockDTO.new(Turret.Hue.BLUE, Block.BlockShape.L, ItemBlockConstants.BLUE_TILE_ID, 0, Vector2(1,1)))
 
 func save(name="-1",acc="-1",dir="-1"):
 	if name=="-1" and account_name!=null:

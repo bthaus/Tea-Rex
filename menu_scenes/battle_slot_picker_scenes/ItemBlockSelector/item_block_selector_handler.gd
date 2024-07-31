@@ -2,7 +2,7 @@ extends Node
 class_name ItemBlockSelectorHandler
 
 var board: TileMap
-var item_blocks
+var item_blocks = []
 
 func _init(board: TileMap, item_blocks):
 	self.board = board

@@ -9,12 +9,13 @@ var tile_id: int
 var map_position: Vector2
 var turret_mod
 
-func _init(color: Turret.Hue = Turret.Hue.BLUE, block_shape: Block.BlockShape = Block.BlockShape.O, rotation: int = 0, tile_id: int = -1, map_position: Vector2 = Vector2(-1, -1)):
+func _init(color: Turret.Hue = Turret.Hue.BLUE, block_shape: Block.BlockShape = Block.BlockShape.O, tile_id: int = -1, rotation: int = 0, map_position: Vector2 = Vector2(-1, -1)):
 	self.color = color
 	self.block_shape = block_shape
-	self.rotation = rotation
 	self.tile_id = tile_id
+	self.rotation = rotation
 	self.map_position = map_position
+	
 func get_json():
 	if turret_mod==null: return super()
 	var props=turret_mod.get_script_property_list() as Array
