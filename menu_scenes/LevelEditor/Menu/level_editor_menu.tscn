@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://d23yd2kujc20t"]
 
-[ext_resource type="PackedScene" uid="uid://ddd8ed1kevi6j" path="res://LevelEditor/Menu/level_editor_menu_item.tscn" id="1_0abjd"]
-[ext_resource type="Script" path="res://LevelEditor/Menu/level_editor_menu.gd" id="1_u8g4u"]
+[ext_resource type="PackedScene" uid="uid://ddd8ed1kevi6j" path="res://menu_scenes/LevelEditor/Menu/level_editor_menu_item.tscn" id="1_0abjd"]
+[ext_resource type="Script" path="res://menu_scenes/LevelEditor/Menu/level_editor_menu.gd" id="1_u8g4u"]
 
 [node name="LevelEditorMenu" type="Node2D"]
 script = ExtResource("1_u8g4u")

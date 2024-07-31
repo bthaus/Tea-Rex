@@ -19,7 +19,7 @@ func set_spawner_id(id: int):
 	
 func _ready():
 	for i in 8: #Replace with actual number of minions
-		var item = load("res://LevelEditor/WaveSettings/monster_setting_item.tscn").instantiate()
+		var item = load("res://menu_scenes/LevelEditor/WaveSettings/monster_setting_item.tscn").instantiate()
 		monster_item_container.add_child(item)
 		item.set_monster_id(i)
 		

@@ -12,7 +12,7 @@ func _ready():
 	
 	for chapter in chapters.chapter_dictionary.keys():
 		for name in chapters.get_mapnames_from_chapter(chapter):
-			var item = load("res://LevelEditor/Menu/level_editor_menu_item.tscn").instantiate()
+			var item = load("res://menu_scenes/LevelEditor/Menu/level_editor_menu_item.tscn").instantiate()
 			item.set_map(name)
 			level_container.add_child(item)
 

@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://ddd8ed1kevi6j"]
 
-[ext_resource type="Script" path="res://LevelEditor/Menu/level_editor_menu_item.gd" id="1_yhgmr"]
+[ext_resource type="Script" path="res://menu_scenes/LevelEditor/Menu/level_editor_menu_item.gd" id="1_yhgmr"]
 
 [node name="LevelEditorMenuItem" type="Panel"]
 custom_minimum_size = Vector2(500, 100)

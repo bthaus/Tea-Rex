@@ -42,7 +42,7 @@ func _ready():
 func _add_tiles_to_container(container: GridContainer, tile_items: Array[TileItem]):
 	for tile_item in tile_items:
 		var atlas: TileSetAtlasSource = tile_set.get_source(tile_item.tile_id)
-		var item = load("res://LevelEditor/TileSelection/tile_selection_item.tscn").instantiate()
+		var item = load("res://menu_scenes/LevelEditor/TileSelection/tile_selection_item.tscn").instantiate()
 		item.set_tile(tile_item, atlas.texture)
 		item.clicked.connect(_on_tile_selected)
 		container.add_child(item)

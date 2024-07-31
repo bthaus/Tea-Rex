@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://bf2lrwirkjpjy"]
 
 [ext_resource type="StyleBox" uid="uid://b0qhmxvb2s50r" path="res://Styles/default_button.tres" id="1_dgsr1"]
-[ext_resource type="Script" path="res://LevelEditor/TileSelection/tile_selection_item.gd" id="1_isn83"]
+[ext_resource type="Script" path="res://menu_scenes/LevelEditor/TileSelection/tile_selection_item.gd" id="1_isn83"]
 
 [node name="TileSelectionItem" type="Button"]
 custom_minimum_size = Vector2(60, 60)

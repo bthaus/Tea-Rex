@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://cpal4oo6lrf4t"]
 
-[ext_resource type="Script" path="res://LevelEditor/TileSelection/tile_selection.gd" id="1_p0q8q"]
+[ext_resource type="Script" path="res://menu_scenes/LevelEditor/TileSelection/tile_selection.gd" id="1_p0q8q"]
 
 [node name="TileSelection" type="TabContainer"]
 offset_right = 255.0

@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bq3cptvw55c8"]
 
-[ext_resource type="Script" path="res://LevelEditor/WaveSettings/wave_settings.gd" id="1_4lpow"]
+[ext_resource type="Script" path="res://menu_scenes/LevelEditor/WaveSettings/wave_settings.gd" id="1_4lpow"]
 
 [node name="WaveSettings" type="Panel"]
 offset_left = 181.0
