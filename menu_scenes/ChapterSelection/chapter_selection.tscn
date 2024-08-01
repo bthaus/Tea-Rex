@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://btt1p72y8bu75"]
+
+[ext_resource type="PackedScene" uid="uid://het7mtvkb5uw" path="res://menu_scenes/ChapterSelection/chapter_point.tscn" id="1_oqt2r"]
+[ext_resource type="Script" path="res://menu_scenes/ChapterSelection/chapter_selection.gd" id="1_vdyvk"]
+
+[node name="ChapterSelection" type="Node2D"]
+script = ExtResource("1_vdyvk")
+
+[node name="ChapterPoint" parent="." instance=ExtResource("1_oqt2r")]
+offset_left = 6.0
+offset_top = 7.0
+offset_right = 14.0
+offset_bottom = 15.0
