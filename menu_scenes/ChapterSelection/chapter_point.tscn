@@ -2,7 +2,9 @@
 
 [ext_resource type="Script" path="res://menu_scenes/ChapterSelection/chapter_point.gd" id="1_ic0u5"]
 
-[node name="WorldSelectionPoint" type="Button"]
+[node name="ChapterPoint" type="Button"]
 offset_right = 8.0
 offset_bottom = 8.0
 script = ExtResource("1_ic0u5")
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]
