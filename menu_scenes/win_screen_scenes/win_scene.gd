@@ -17,5 +17,5 @@ func set_up(game_state):
 	account.save()
 	pass;
 func _on_continue_pressed():
-	MainMenu.change_content(MainMenu.level_select)
+	MainMenu.change_content(MainMenu.get_scene_instance(MainMenu.LEVEL_SELECT_PATH))
 	pass # Replace with function body.

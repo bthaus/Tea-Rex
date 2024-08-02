@@ -1,19 +1,21 @@
 extends GameObject2D
 class_name MainMenu
-static var level_select=load("res://menu_scenes/level_selector_scenes/level_selector.tscn").instantiate()
-static var battle_slot_picker=load("res://menu_scenes/battle_slot_picker_scenes/battle_slot_picker.tscn").instantiate()
-static var accounts=load("res://menu_scenes/account_tab_scenes/accounts_tab.tscn").instantiate()
-static var level_editor_menu=load("res://menu_scenes/LevelEditor/Menu/level_editor_menu.tscn").instantiate()
-static var level_editor=load("res://menu_scenes/LevelEditor/level_editor.tscn").instantiate()
-static var win_screen=load("res://menu_scenes/win_screen_scenes/win_scene.tscn").instantiate()
-static var chapter_editor=load("res://menu_scenes/chapter_editor_scenes/chapter_editor.tscn").instantiate()
+
+const GAME_STATE_PATH = "res://Game/main_scene.tscn"
+const LEVEL_SELECT_PATH = "res://menu_scenes/level_selector_scenes/level_selector.tscn"
+const BATTLE_SLOT_PICKER_PATH = "res://menu_scenes/battle_slot_picker_scenes/battle_slot_picker.tscn"
+const ACCOUNTS_PATH = "res://menu_scenes/account_tab_scenes/accounts_tab.tscn"
+const LEVEL_EDITOR_MENU_PATH = "res://menu_scenes/LevelEditor/Menu/level_editor_menu.tscn"
+const LEVEL_EDITOR_PATH = "res://menu_scenes/LevelEditor/level_editor.tscn"
+const WIN_SCREEN_PATH = "res://menu_scenes/win_screen_scenes/win_scene.tscn"
+const CHAPTER_EDITOR_PATH = "res://menu_scenes/chapter_editor_scenes/chapter_editor.tscn"
+
 static var instance; 
 static var account_dto:AccountInfoDTO=AccountInfoDTO.new()
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	
 	instance=self;
 	scene_stack.push_back(start_game_scene)
 	pass # Replace with function body.
@@ -24,13 +26,17 @@ static func get_account_dto()->AccountInfoDTO:
 	var dto= account_dto
 	return dto
 	pass;
+	
 static func change_content(scene):
 	var to_remove=scene_stack.back()
 	instance.remove_child(to_remove)
 	instance.add_child(scene)
 	scene_stack.push_back(scene)
 	pass;
-	
+
+static func get_scene_instance(scene_path: String):
+	return load(scene_path).instantiate()
+
 static func select_account(dto:AccountInfoDTO):
 	account_dto=dto
 	pass
@@ -40,7 +46,7 @@ func _process(delta):
 
 
 func _on_start_game_pressed():
-	change_content(accounts)
+	change_content(get_scene_instance(ACCOUNTS_PATH))
 	pass # Replace with function body.
 
 
@@ -53,7 +59,7 @@ func _on_back_pressed():
 
 
 func _on_button_pressed():
-	change_content(level_editor_menu)
+	change_content(get_scene_instance(LEVEL_EDITOR_MENU_PATH))
 	pass # Replace with function body.
 
 
@@ -100,5 +106,5 @@ func _on_delete_all_accounts_pressed():
 
 
 func _on_chapter_editor_pressed():
-	change_content(chapter_editor)
+	change_content(get_scene_instance(CHAPTER_EDITOR_PATH))
 	pass # Replace with function body.

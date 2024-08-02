@@ -23,11 +23,8 @@ func reorder_children():
 func _process(delta):
 	pass
 
-
-
-
 func _map_selected(name):
-	var picker=MainMenu.battle_slot_picker.duplicate()
+	var picker = MainMenu.get_scene_instance(MainMenu.BATTLE_SLOT_PICKER_PATH)
 	picker.map_name=name
 	MainMenu.change_content(picker)
 	pass # Replace with function body.

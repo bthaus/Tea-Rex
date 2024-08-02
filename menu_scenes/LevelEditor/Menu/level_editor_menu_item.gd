@@ -9,11 +9,12 @@ func set_map(map_name: String):
 func _on_edit_button_pressed():
 	var map_dto = MapDTO.new()
 	map_dto.restore(map_name)
-	MainMenu.change_content(MainMenu.level_editor)
-	MainMenu.level_editor.load_map(map_dto)
+	var level_editor = MainMenu.get_scene_instance(MainMenu.LEVEL_EDITOR_PATH)
+	MainMenu.change_content(level_editor)
+	level_editor.load_map(map_dto)
 
 func _on_play_button_pressed():
-	var picker = MainMenu.battle_slot_picker.duplicate()
+	var picker = MainMenu.get_scene_instance(MainMenu.BATTLE_SLOT_PICKER_PATH)
 	picker.map_name=name
 	MainMenu.change_content(picker)
 	picker.enable_sandbox_mode()

@@ -54,9 +54,9 @@ func selectAcc(name):
 	pass;
 	
 func continue_to_select():
-	
-	MainMenu.change_content(MainMenu.level_select)
-	pass		
+	var level_select = MainMenu.get_scene_instance(MainMenu.LEVEL_SELECT_PATH)
+	MainMenu.change_content(level_select)
+
 func saveNewAcc(name):
 	
 	if AccountNamesDTO.exists_account_name(name):

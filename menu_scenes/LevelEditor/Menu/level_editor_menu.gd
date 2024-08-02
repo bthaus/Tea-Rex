@@ -18,4 +18,4 @@ func _ready():
 
 
 func _on_new_level_button_pressed(): 
-	MainMenu.change_content(MainMenu.level_editor)
+	MainMenu.change_content(MainMenu.get_scene_instance(MainMenu.LEVEL_EDITOR_PATH))
