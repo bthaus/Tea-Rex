@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://bahtj4trsgn5q"]
+[gd_scene load_steps=13 format=3 uid="uid://bahtj4trsgn5q"]
 
 [ext_resource type="Script" path="res://monsters/monster_factory.gd" id="1_27eaf"]
 [ext_resource type="Texture2D" uid="uid://24e800rshnm" path="res://Assets/Monsters/monster_blue/1.png" id="2_fc3nv"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" path="res://monsters/YETI.gd" id="8_tkrlx"]
 [ext_resource type="Texture2D" uid="uid://bwj5i4k0ocqx4" path="res://Assets/Effects/particles/circle_05.png" id="9_j4vht"]
 [ext_resource type="Script" path="res://monsters/Snowball.gd" id="10_5a1du"]
+[ext_resource type="Script" path="res://monsters/Snowman.gd" id="11_hnnj1"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_xagal"]
 animations = [{
@@ -132,3 +133,11 @@ position = Vector2(2.85294, 0.125)
 scale = Vector2(4.36765, 4.36765)
 texture = ExtResource("9_j4vht")
 script = ExtResource("10_5a1du")
+
+[node name="SNOWMAN" type="Node2D" parent="."]
+script = ExtResource("11_hnnj1")
+
+[node name="Animation" type="AnimatedSprite2D" parent="SNOWMAN"]
+process_mode = 3
+sprite_frames = SubResource("SpriteFrames_xagal")
+animation = &"shoot"

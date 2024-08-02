@@ -261,7 +261,7 @@ func get_cells_around_pos(glob,range,collides)->Array[Holder]:
 	var pos=getMapPositionNormalised(glob)
 	var vecs=[]
 	add_cells(vecs,pos,null,collides,range)
-	var cells=[]
+	var cells:Array[Holder]=[]
 	for v in vecs:
 		cells.append(map[v.y][v.x])
 	return cells
