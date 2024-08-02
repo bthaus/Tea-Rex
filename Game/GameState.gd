@@ -74,6 +74,7 @@ func register_battle_slot_containers(containers:Array[TurretModContainerDTO]):
 func apply_mods_before_start():
 	for c:TurretModContainerDTO in containers:
 		for item:ItemBlockDTO in c.turret_mods:
+			if !util.valid(item.turret_mod):continue
 			item.turret_mod.before_game_start(c.color)
 	pass;
 

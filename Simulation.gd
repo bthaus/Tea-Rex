@@ -19,9 +19,38 @@ func _ready():
 	gameState=load("res://Game/main_scene.tscn").instantiate()
 	
 	var map=MapDTO.new()
-	map.restore("sim_debug")
+	map.restore("testbase")
+	var ent=map.entities
+	var turrets=[]
+	for e:EntityDTO in ent:
+		if e.tile_id==GameboardConstants.TURRET_BASE_RED_TILE_ID:
+			turrets.append(Turret.create(Turret.Hue.RED,1,1))
+		if e.tile_id==GameboardConstants.TURRET_BASE_GREEN_TILE_ID:
+			turrets.append(Turret.create(Turret.Hue.GREEN,1,1))
+		if e.tile_id==GameboardConstants.TURRET_BASE_YELLOW_TILE_ID:
+			turrets.append(Turret.create(Turret.Hue.YELLOW,1,1))		
+		if e.tile_id==GameboardConstants.TURRET_BASE_MAGENTA_TILE_ID:
+			turrets.append(Turret.create(Turret.Hue.MAGENTA,1,1))
+		if e.tile_id==GameboardConstants.TURRET_BASE_BLUE_TILE_ID:
+			turrets.append(Turret.create(Turret.Hue.BLUE,1,1))
+	var cont=TurretModContainerDTO.new()
+	cont.color=Turret.Hue.BLUE
+	cont.turret_mods.append_array([
+		MultipleShotsMod.new().get_item(),
+		FrostAmmunitionMod.new().get_item()
+	])
+	var red=TurretModContainerDTO.new()
+	red.color=Turret.Hue.RED
+	red.turret_mods.append_array([
+		FireTrailMod.new().get_item(),
+		ForkingAmmunitionMod.new().get_item()
+	])
+					
 	gameState.map_dto=map
+	gameState.register_battle_slot_containers([cont,red])
 	add_child(gameState)
+	test_scenario(turrets)
+	return
 	for s in gameState.spawners:
 		s._is_simulation=true
 	gameState.game_speed
@@ -29,6 +58,10 @@ func _ready():
 	_setup_mods()
 	_next_test()
 	pass # Replace with function body.
+	
+func test_scenario(turrets):
+	
+	pass;	
 func _setup_mods():
 	GameplayConstants.register_mods_for_sim()
 	for i in TurretBaseMod.implemented_mods.size():
