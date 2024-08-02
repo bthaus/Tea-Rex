@@ -196,7 +196,7 @@ func startGame():
 	add_child(gameBoard)
 	board=gameBoard.get_node("Board")
 	gameBoard.init_field(map_dto)
-	apply_mods_before_start()
+	#apply_mods_before_start()
 	
 	
 	GameState.restore_speed=1;
