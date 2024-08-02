@@ -12,13 +12,10 @@ func _ready():
 
 static func createMonster(type:Monster.Monstertype):
 	#var searchstring=Monster.Monstertype.keys()[(type)]
-	var searchstring="SWARM" #TODO replace with proper monster enum
+	var searchstring="YETI" #TODO replace with proper monster enum
 	var base= instance.get_node(searchstring).duplicate() as MonsterCore
 	base.speed=base.speed*instance.base_speed
 	base.hp=base.hp*instance.base_hp
 	base.damage=base.damage*instance.base_damage
 	return base
 	pass;
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass

@@ -25,7 +25,7 @@ var oldpos=Vector2i(0,0)
 var wall_penetrations=0
 var ghost_projectile=false;
 
-static func create(type: Turret.Hue, damage, speed, root:TurretCore, extension: Turret.Extension=Turret.Extension.DEFAULT, penetrations:int=1) -> Projectile:
+static func create(type, damage, speed, root, extension: Turret.Extension=Turret.Extension.DEFAULT, penetrations:int=1) -> Projectile:
 	var b=factory.get_bullet(type,damage,speed,root,penetrations,extension)	
 	b.on_creation()
 	return b

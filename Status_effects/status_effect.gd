@@ -18,7 +18,7 @@ var type:
 #needs to be overridden		
 func get_name():
 	return Name.NONE	
-func _init(str,associate,lifetime=GameplayConstants.DEBUFF_STANDART_LIFETIME):
+func _init(str=1,associate=null,lifetime=GameplayConstants.DEBUFF_STANDART_LIFETIME):
 	self.lifetime=lifetime*1000
 	self.default_lifetime=lifetime*1000
 	self.strength=str

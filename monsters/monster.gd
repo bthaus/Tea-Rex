@@ -1,6 +1,6 @@
 extends GameObject2D
 class_name Monster;
-enum MonsterMovingType { GROUND, AIR }
+enum MonsterMovingType { GROUND, AIR, }
 var moving_type: MonsterMovingType
 enum Monstertype {REGULAR=0,BOSS=1}
 var sizemult = 1;
@@ -84,9 +84,7 @@ func do(delta):
 	translateTowardEdge(delta)
 	core.do(delta)
 	pass;	
-func apply_status_effects(delta):
-	
-	pass;	
+
 func translateTowardEdge(delta):
 	
 	if core.hp<=0:return;
