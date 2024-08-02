@@ -2,7 +2,7 @@ extends GameObjectCounted
 class_name GameplayConstants
 
 const CAMERA_MOVE_DURATION = 2
-const MAX_TURRET_LEVEL = 5
+const MAX_TURRET_LEVEL = 3
 const CARD_PLACEMENT_DELAY = 0.2
 
 const MIN_NUMBER_OF_WAVES = 1
@@ -70,9 +70,6 @@ static var turret_mods = {
 	AirAndGroundAttackMod:d(cross,base, ItemBlockConstants.WHITE_TILE_ID),
 	WallhackMod:d(tiny,base, ItemBlockConstants.WHITE_TILE_ID),
 	StackIncreaseMod:d(o,base, ItemBlockConstants.WHITE_TILE_ID)
-	
-	
-	
 	
 	
 }

@@ -32,6 +32,7 @@ var damagefactor = 1;
 var cooldownfactor = 1;
 
 var stacks = 1
+var max_stacks=GameplayConstants.MAX_TURRET_LEVEL
 var lightamount = 1.5;
 var killcount = 0;
 var damagedealt = 0

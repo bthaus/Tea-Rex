@@ -120,7 +120,9 @@ func get_info():
 		string=string+"\n"+name
 	return string
 	pass;
-
+func is_max_level()->bool:
+	return base.stacks==base.max_stacks
+	pass;
 func setUpTower():
 	base = TurretCoreFactory.getBase(color, extension);
 	base.placed=placed
