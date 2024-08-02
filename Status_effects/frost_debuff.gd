@@ -6,20 +6,22 @@ var change=0
 
 
 func _init(lifetime,associate,str,max):
-	self.max_slow=max
 	super(str,associate,lifetime)
+	self.max_slow=max
+	
 	pass;
 func get_name():
-	return "frost"
+	return Name.FREEZING
 func on_initial_application():
-	affected=affected as Monster
+	affected=affected as MonsterCore
 	change=affected.speed
-	affected.speed-=max_slow
+	var effect=max_slow*get_str()
+	affected.speed-=effect
 	change-=affected.speed
 	super()
 	pass;
 func on_removal():
-	affected=affected as Monster
+	affected=affected as MonsterCore
 	affected.speed+=change
 	super()
 	pass;

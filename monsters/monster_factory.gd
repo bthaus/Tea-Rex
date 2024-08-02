@@ -10,15 +10,12 @@ static var instance=load("res://monsters/monster_factory.tscn").instantiate()
 func _ready():
 	pass # Replace with function body.
 
-static func createMonster(type:Monster.Monstertype):
+static func createMonster(type:Monster.MonsterName):
 	#var searchstring=Monster.Monstertype.keys()[(type)]
-	var searchstring="REGULAR" #TODO replace with proper monster enum
+	var searchstring="SNOWMAN" #TODO replace with proper monster enum
 	var base= instance.get_node(searchstring).duplicate() as MonsterCore
 	base.speed=base.speed*instance.base_speed
 	base.hp=base.hp*instance.base_hp
 	base.damage=base.damage*instance.base_damage
 	return base
 	pass;
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass

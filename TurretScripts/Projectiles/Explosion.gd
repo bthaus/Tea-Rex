@@ -1,7 +1,7 @@
 extends GameObject2D
 class_name Explosion
 static var cache = []
-static var scene = load("res://TurretScripts/Projectiles/Explosion.tscn")
+static var scene = load("res://TurretScripts/Projectiles/Explosion.tscn").instantiate()
 
 var damage;
 var type

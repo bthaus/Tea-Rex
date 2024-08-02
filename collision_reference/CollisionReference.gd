@@ -235,11 +235,10 @@ func add_cells(coveredCells,midpoint,turret,ignores_obstacles,range):
 	if turret!=null:
 		precision=turret.range_precision
 	var offsets=[]	
-	if offsets.is_empty():
-		for i in range(precision):
-			var v=Vector2(10,0)
-			v=util.rotate_vector(v,360/precision*i)
-			offsets.append(v)
+	for i in range(precision):
+		var v=Vector2(10,0)
+		v=util.rotate_vector(v,360/precision*i)
+		offsets.append(v)
 	var eval=[]		
 	for offset in offsets:
 		var base_vec=midpoint
@@ -257,6 +256,43 @@ func add_cells(coveredCells,midpoint,turret,ignores_obstacles,range):
 	
 	
 	return eval		
+	pass;	
+func get_cells_around_pos(glob,range,collides)->Array[Holder]:
+	var pos=getMapPositionNormalised(glob)
+	var vecs=[]
+	add_cells(vecs,pos,null,collides,range)
+	var cells:Array[Holder]=[]
+	for v in vecs:
+		cells.append(map[v.y][v.x])
+	return cells
+	pass;	
+func get_random_turret_in_range(global_position,range,collides):
+	var midpoint=global_position
+	var precision=25
+	var offsets=[]	
+	
+	range*=GameboardConstants.TILE_SIZE
+	range*=range
+	for i in range(precision):
+		var v=Vector2(10,0)
+		v=util.rotate_vector(v,360/precision*i)
+		offsets.append(v)
+	offsets.shuffle()	
+	for offset in offsets:
+		var base_vec=midpoint
+		var collided=false;
+		while(not isOutOfBoundsVector(getMapPositionNormalised(base_vec))):
+			base_vec=base_vec+offset
+			if (base_vec-midpoint).length_squared()>range:
+				break;
+			var p=getMapPositionNormalised(base_vec)
+			if map[p.y][p.x].collides_with_bullets and collides:
+				collided=true
+				break;
+			if !collided and map[p.y][p.x].turret!=null:
+				return map[p.y][p.x].turret
+	return null			
+	
 	pass;	
 func isOutOfBoundsVector(pos):
 	return isOutOfBounds(pos.x,pos.y)

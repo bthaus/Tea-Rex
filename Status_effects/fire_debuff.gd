@@ -7,14 +7,14 @@ const color=Turret.Hue.RED
 
 
 func _init(lifetime,associate,str,tick_damage):
-	self.damage_per_tick=tick_damage
 	super(lifetime,associate,str)
+	self.damage_per_tick=tick_damage
 	pass;
 func get_name():
-	return "fire"
+	return Name.BURNING
 	
 func apply_effect(delta):
-	var killed= affected.hit(color, damage_per_tick)
+	var killed= affected.hit(color, damage_per_tick*get_str())
 	if !util.valid(associate):return
 	if killed:associate.on_target_killed(affected)
 	pass;	

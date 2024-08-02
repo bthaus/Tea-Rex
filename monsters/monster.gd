@@ -1,8 +1,11 @@
 extends GameObject2D
 class_name Monster;
-enum MonsterMovingType { GROUND, AIR }
+
 var moving_type: MonsterMovingType
+enum MonsterMovingType { GROUND, AIR, }
 enum Monstertype {REGULAR=0,BOSS=1}
+enum MonsterName {SWARM,TANK,MINION,PYTHON,PYRO,YETI,SNOWMAN}
+var monster_name:MonsterName
 var sizemult = 1;
 var maxHp;
 var monstertype:Monstertype
@@ -42,33 +45,19 @@ func _ready():
 	$Health.value = core.hp
 	GameState.gameState.player_died.connect(func(): free())
 	pass # Replace with function body.
-static func create(type, target: Node2D, wave: int=1) -> Monster:
+static func create(monster_name, target: Node2D, wave: int=1) -> Monster:
 	var en = load("res://monsters/monster.tscn").instantiate() as Monster
-	en.core=MonsterFactory.createMonster(type)
+	en.core=MonsterFactory.createMonster(monster_name)
 	en.target = target;
 	en.currentMinionPower = wave
 	en.monstertype=en.core.type
 	
 	return en
-	
-
 
 func hit(color: Turret.Hue, damage, type="default", noise=true):
-	if core.hp<=0: return;
-	core.on_hit()
-	var mod = 1;
-	if color == self.color:
-		mod = 1.5
-	core.hp = core.hp - damage #* mod;
 	$Health.value = core.hp;
-	core.hp = int(core.hp)
 	if noise: $hurt.play()
-		
-	if core.hp <= 0 and not died:
-		died = true
-		GameState.gameState.collisionReference.removeMonster(self)
-		monster_died.emit(self)
-		core.on_death()
+	if core.hit(color,damage,type,noise):
 		$VisibleOnScreenNotifier2D.queue_free()
 		$AudioStreamPlayer.play()
 		return true;
@@ -96,9 +85,9 @@ func _is_next_step_portal():
 var direction
 func do(delta):
 	translateTowardEdge(delta)
-	apply_status_effects(delta)
+	core.do(delta)
 	pass;	
-	
+
 func translateTowardEdge(delta):
 	
 	if core.hp<=0:return;

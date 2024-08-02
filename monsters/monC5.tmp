@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bahtj4trsgn5q"]
+[gd_scene load_steps=12 format=3 uid="uid://bahtj4trsgn5q"]
 
 [ext_resource type="Script" path="res://monsters/monster_factory.gd" id="1_27eaf"]
 [ext_resource type="Texture2D" uid="uid://24e800rshnm" path="res://Assets/Monsters/monster_blue/1.png" id="2_fc3nv"]
@@ -8,9 +8,8 @@
 [ext_resource type="Texture2D" uid="uid://cu8h60d2lpm2c" path="res://Assets/Monsters/Monster.png" id="6_00h8v"]
 [ext_resource type="Script" path="res://monsters/monster_core.gd" id="7_861mn"]
 [ext_resource type="Script" path="res://monsters/YETI.gd" id="8_tkrlx"]
+[ext_resource type="Script" path="res://TurretScripts/Projectiles/Projectile.gd" id="9_3vyq5"]
 [ext_resource type="Texture2D" uid="uid://bwj5i4k0ocqx4" path="res://Assets/Effects/particles/circle_05.png" id="9_j4vht"]
-[ext_resource type="Script" path="res://monsters/Snowball.gd" id="10_5a1du"]
-[ext_resource type="Script" path="res://monsters/Snowman.gd" id="11_hnnj1"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_xagal"]
 animations = [{
@@ -110,6 +109,8 @@ animation = &"spawn"
 
 [node name="PYRO" type="Node2D" parent="."]
 script = ExtResource("7_861mn")
+movable_cells = Array[int]([0, 2])
+immunities = Array[int]([0])
 
 [node name="Animation" type="AnimatedSprite2D" parent="PYRO"]
 process_mode = 3
@@ -119,8 +120,7 @@ animation = &"spawn"
 [node name="YETI" type="Node2D" parent="."]
 script = ExtResource("8_tkrlx")
 range = 3
-projectile_speed = 350
-special_cooldown = 3.0
+special_cooldown = 3
 immunities = Array[int]([2])
 
 [node name="Animation" type="AnimatedSprite2D" parent="YETI"]
@@ -132,12 +132,4 @@ animation = &"shoot"
 position = Vector2(2.85294, 0.125)
 scale = Vector2(4.36765, 4.36765)
 texture = ExtResource("9_j4vht")
-script = ExtResource("10_5a1du")
-
-[node name="SNOWMAN" type="Node2D" parent="."]
-script = ExtResource("11_hnnj1")
-
-[node name="Animation" type="AnimatedSprite2D" parent="SNOWMAN"]
-process_mode = 3
-sprite_frames = SubResource("SpriteFrames_xagal")
-animation = &"shoot"
+script = ExtResource("9_3vyq5")

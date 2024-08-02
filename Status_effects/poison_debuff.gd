@@ -8,15 +8,16 @@ const color=Turret.Hue.GREEN
 
 
 func _init(lifetime,associate,str,tick_damage,propagation_time):
+	super(lifetime,associate,str)
 	self.propagation_time=propagation_time
 	self.damage_per_tick=tick_damage
-	super(lifetime,associate,str)
+
 	pass;
 func get_name():
-	return "poison"
+	return Name.POISONED
 	
 func apply_effect(delta):
-	var killed= affected.hit(color, damage_per_tick)
+	var killed= affected.hit(color, damage_per_tick*get_str())
 	if killed:associate.on_target_killed(affected)
 	pass;
 func propagate():
