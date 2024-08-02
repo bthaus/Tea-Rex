@@ -116,6 +116,7 @@ func _process(delta):
 func refresh_path(redo_grids=true):
 	if redo_grids:
 		_set_grids()
+		
 	paths= _get_paths(state.board,self)
 	$drawpoint.paths=paths
 	$drawpoint.queue_redraw()

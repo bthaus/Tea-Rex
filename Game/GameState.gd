@@ -88,9 +88,12 @@ func _ready():
 	bulletHolder = $BulletHolder
 	Engine.max_fps=60
 	target = $Base
+	$selection.selected.connect(target_minions)
 	startGame()
 	pass # Replace with function body.
- 
+func target_minions(cells):
+	print("hi")
+	pass;
 func _draw():
 	for portal in GameState.gameState.portals:
 		var pp=GameState.board.map_to_local(portal.map_position)
