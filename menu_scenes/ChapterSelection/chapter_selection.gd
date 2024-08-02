@@ -25,8 +25,8 @@ func _ready():
 			child.clicked.connect(_on_chapter_point_clicked)
 
 func _process(delta):
-	if _current_point.index == _move_to_point.index: return
-	
+	if _current_point.index == _move_to_point.index and not _is_moving: return
+
 	if not _is_moving:
 		if _current_point.index < _move_to_point.index:
 			var previous_point = _get_chapter_point_with_index(_current_point.index - 1)
@@ -39,8 +39,8 @@ func _process(delta):
 	
 		if _current_point.index > _move_to_point.index:
 			if _current_point.next_point_path != null: _current_point.next_point_path.get_child(0).remove_child(character)
-			var previous_point = _get_chapter_point_with_index(_current_point.index - 1)
-			_path_follow = previous_point.next_point_path.get_child(0)
+			_current_point = _get_chapter_point_with_index(_current_point.index - 1)
+			_path_follow = _current_point.next_point_path.get_child(0)
 			_path_follow.add_child(character)
 			_previous_progress = 1.0
 			_path_follow.progress_ratio = 1.0
@@ -58,13 +58,20 @@ func _process(delta):
 			_path_follow.progress_ratio -= CHARACTER_SPEED * delta
 			if _previous_progress < _path_follow.progress_ratio: #We have reached a point under 0
 				_path_follow.progress_ratio = 0
-				_current_point = _get_chapter_point_with_index(_current_point.index - 1)
 				_is_moving = false
 		
 		_previous_progress = _path_follow.progress_ratio
 
 
 func _on_chapter_point_clicked(sender: ChapterPoint):
+	if _move_to_point == sender: #TODO: SWITCH TO SCENE
+		print("switch")
+
+	if _is_moving:
+		if sender.index > _move_to_point.index:
+			_is_forward_direction = true
+		if sender.index < _move_to_point.index:
+			_is_forward_direction = false
 	_move_to_point = sender
 
 func _get_chapter_point_with_index(index: int) -> ChapterPoint:
