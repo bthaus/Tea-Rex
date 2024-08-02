@@ -2,11 +2,20 @@ extends Node2D
 class_name GameObject2D
 
 var status_effects={}
-
+@export var immunities:Array[StatusEffect.Name]=[]
+#@export var resistances:Array[Resistance]
 func apply_status_effects(delta):
 	for d in status_effects:
 		status_effects[d].trigger(delta)
 	pass;
+func get_status_effect_effectiveness(name:StatusEffect.Name):
+	var effect=1
+	if immunities.has(name):
+		effect=0
+	#for res in resistances:
+		#if res.resistance==name:
+			#effect+=res.effect
+	return effect				
 
 func get_global():
 	return global_position

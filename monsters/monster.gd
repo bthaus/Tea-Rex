@@ -50,25 +50,11 @@ static func create(type, target: Node2D, wave: int=1) -> Monster:
 	en.monstertype=en.core.type
 	
 	return en
-	
-
 
 func hit(color: Turret.Hue, damage, type="default", noise=true):
-	if core.hp<=0: return;
-	core.on_hit()
-	var mod = 1;
-	if color == self.color:
-		mod = 1.5
-	core.hp = core.hp - damage #* mod;
 	$Health.value = core.hp;
-	core.hp = int(core.hp)
 	if noise: $hurt.play()
-		
-	if core.hp <= 0 and not died:
-		died = true
-		GameState.gameState.collisionReference.removeMonster(self)
-		monster_died.emit(self)
-		core.on_death()
+	if core.hit(color,damage,type,noise):
 		$VisibleOnScreenNotifier2D.queue_free()
 		$AudioStreamPlayer.play()
 		return true;
@@ -96,9 +82,11 @@ func _is_next_step_portal():
 var direction
 func do(delta):
 	translateTowardEdge(delta)
-	apply_status_effects(delta)
+	core.do(delta)
 	pass;	
+func apply_status_effects(delta):
 	
+	pass;	
 func translateTowardEdge(delta):
 	
 	if core.hp<=0:return;

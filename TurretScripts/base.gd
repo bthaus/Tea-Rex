@@ -9,7 +9,11 @@ var type: Turret.Hue = Turret.Hue.BLUE
 var extension: Turret.Extension = Turret.Extension.DEFAULT
 
 var onCooldown = false;
+var cooldown_reduction_factor=1
 var direction: Vector2;
+
+var functional=true
+var action_speed=1
 
 @export_range(0, 10) var speed: float = 1;
 @export_range(0, 10) var cooldown: float = 1;
@@ -132,7 +136,7 @@ func reduceCooldown(delta):
 	if not onCooldown:
 		return ;
 	holder.reduceCooldown(delta)
-	cdt = cdt - delta;
+	cdt = cdt - delta*cooldown_reduction_factor;
 	if cdt < 0:
 		onCooldown = false;
 	pass
@@ -171,6 +175,8 @@ func on_target_lost():
 	
 	pass ;
 func do(delta):
+	if not functional:return
+	delta*=action_speed
 	reduceCooldown(delta)
 	apply_status_effects(delta)
 	if !onCooldown:
