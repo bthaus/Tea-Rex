@@ -12,22 +12,24 @@ signal spawner_removed
 func _init(board: TileMap):
 	self.board = board
 
-func _set_board_cell(dto: EntityDTO, map_position: Vector2):
+func _set_board_cell(dto: EntityDTO, map_position: Vector2, refresh_spawner_paths: bool = true):
 	dto.map_x = map_position.x
 	dto.map_y = map_position.y
 	dto.get_object().place_on_board(board)
-	Spawner.refresh_all_paths()
+	if refresh_spawner_paths:
+		Spawner.refresh_all_paths()
 
-func _clear_board_cell(layer: int, map_position: Vector2):
+func _clear_board_cell(layer: int, map_position: Vector2, refresh_spawner_paths: bool = true):
 	var entities = editor_game_state.collisionReference.get_entities(map_position)
 	for entity in entities:
 		if entity.map_layer == layer:
 			editor_game_state.collisionReference.remove_entity_from_position(entity, board.map_to_local(map_position))
 			entity.queue_free()
 	board.set_cell(layer, map_position, -1, Vector2(0,0))
-	Spawner.refresh_all_paths()
+	if refresh_spawner_paths:
+		Spawner.refresh_all_paths()
 
-func set_cell(tile: TileSelection.TileItem, map_position: Vector2):
+func set_cell(tile: TileSelection.TileItem, map_position: Vector2, refresh_spawner_paths: bool = true):
 	if tile == null: return
 	if not _is_in_editor_bounds(map_position): return
 	
@@ -40,11 +42,11 @@ func set_cell(tile: TileSelection.TileItem, map_position: Vector2):
 	var dto = GameboardConstants.tile_to_dto(tile.tile_id)
 	match (dto.map_layer):
 		GameboardConstants.GROUND_LAYER:
-			_set_board_cell(dto, map_position)
+			_set_board_cell(dto, map_position, refresh_spawner_paths)
 			
 		GameboardConstants.BUILD_LAYER:
-			_set_board_cell(dto, map_position)
-			_clear_board_cell(GameboardConstants.BLOCK_LAYER, map_position)
+			_set_board_cell(dto, map_position, refresh_spawner_paths)
+			_clear_board_cell(GameboardConstants.BLOCK_LAYER, map_position, refresh_spawner_paths)
 			
 		GameboardConstants.BLOCK_LAYER:
 			if type == GameboardConstants.TileType.SPAWNER:
@@ -52,8 +54,8 @@ func set_cell(tile: TileSelection.TileItem, map_position: Vector2):
 				spawner_map_positions.append(map_position)
 				spawner_added.emit()
 
-			_set_board_cell(dto, map_position)
-			_clear_board_cell(GameboardConstants.BUILD_LAYER, map_position)
+			_set_board_cell(dto, map_position, refresh_spawner_paths)
+			_clear_board_cell(GameboardConstants.BUILD_LAYER, map_position, refresh_spawner_paths)
 
 #If the tile is null, it will bucket clear it
 func bucket_fill(tile: TileSelection.TileItem, map_position: Vector2):
@@ -89,11 +91,12 @@ func bucket_fill(tile: TileSelection.TileItem, map_position: Vector2):
 				var tile_id = board.get_cell_source_id(tile_layer, pos)
 				if tile_id == board_id:
 					if tile == null: clear_cell_layer(pos)
-					else: set_cell(tile, pos)
+					else: set_cell(tile, pos, false)
 					
 					if not (visited.has(pos) or stack.has(pos)): #Piece is already present in either all the visited pieces or the current stack
 						stack.push_front(pos)
 	
+	Spawner.refresh_all_paths()
 
 func clear_cell_layer(map_position: Vector2):
 	var board_type = GameboardConstants.get_tile_type(board, GameboardConstants.BLOCK_LAYER, map_position)
