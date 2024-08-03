@@ -20,7 +20,7 @@ static func create(type, damage, position, root, scale=1, noise=true):
 	var temp;
 	
 	if cache.size() == 0:
-		temp = scene.instantiate() as Explosion;
+		temp = scene.duplicate() as Explosion;
 		
 		GameState.gameState.add_child(temp);
 		#root.add_child(temp);

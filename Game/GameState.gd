@@ -92,7 +92,22 @@ func _ready():
 	startGame()
 	pass # Replace with function body.
 func target_minions(cells):
-	print("hi")
+	var turret_dic={} as Dictionary
+	for cell in cells:
+		var holder=collisionReference.get_cell_at_map_pos(cell) as CollisionReference.Holder
+		if holder.ms.is_empty():continue
+		for turret:Turret in holder.covering_turrets:
+			if !turret_dic.has(turret):
+				turret_dic[turret]=[]
+			turret_dic[turret].append(holder.ms)
+	for t in turret_dic:
+		var target=turret_dic[t].pick_random().pick_random()
+		while !util.valid(target):
+			for a in turret_dic[t]:
+				a.erase(target)
+			target=turret_dic[t].pick_random().pick_random()
+		t.base.target_override(target)		
+			
 	pass;
 func _draw():
 	for portal in GameState.gameState.portals:
@@ -129,8 +144,6 @@ func startBattlePhase():
 		for path in s.paths:
 			for cell in path.path:
 				collisionReference.register_path_cell_in_turrets(cell)
-	for turret in Turret.turrets:
-		print(turret.base.path_cells.size())			
 	GameState.game_speed=GameState.restore_speed
 	toggleSpeed(0)
 	Spawner.numMonstersActive = 0;
@@ -212,7 +225,7 @@ func startGame():
 	for target in targets:
 		collisionReference.registerBase(target)
 	
-		
+	cam=$Camera2D	
 	cam.move_to(Vector2(500, 500), func(): print("done"))
 	TutorialHolder.showTutorial(TutorialHolder.tutNames.Starting, self, func():
 		TutorialHolder.showTutorial(TutorialHolder.tutNames.RotateBlock, self, func():
@@ -327,7 +340,7 @@ func GetAllTreeNodes( node = get_tree().root,  listOfAllNodesInTree = []):
 	return listOfAllNodesInTree
 		
 func getCamera():
-	return cam
+	return $Camera2D
 	
 func drawCards(amount):
 	for n in range(amount):

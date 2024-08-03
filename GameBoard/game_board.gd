@@ -80,7 +80,6 @@ func select_block(block, done: Callable):
 
 func _input(event):
 	var board_pos = $Board.local_to_map(get_global_mouse_position())
-	print(board_pos)
 	check_mouse_cell_traversal(board_pos)
 		
 	if is_delayed:
@@ -269,7 +268,6 @@ func reset():
 				for c in cells:
 					var p=Block.Piece.new(Vector2(0, 0), 0, 0, 0)
 					delay=delay + increment
-					print(delay)
 					
 					create_tween().tween_callback(func():
 						

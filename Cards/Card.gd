@@ -159,7 +159,6 @@ var originalPosition;
 var originalZ=0;
 func _on_button_mouse_entered():
 	originalZ=z_index;
-	print(z_index)
 	z_index=2000
 	
 	var tween = create_tween()

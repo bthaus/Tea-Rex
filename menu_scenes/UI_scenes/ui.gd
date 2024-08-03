@@ -53,8 +53,8 @@ func _on_speed_button_pressed(val):
 	
 @export var description:Label
 func showDescription(s):
-	description.text=s
-	sd=true;
+	#description.text=s
+	#sd=true;
 	pass;
 	
 func hideDescription():

@@ -100,7 +100,6 @@ func getReferences(cells):
 	return collisionReference.getCellReferences(global_position, turretRange, self, cells,wall_hack)
 	pass ;
 func setUpTower(holder):
-	turret_mods.append(GhostProjectileMod.new())
 	self.holder = holder
 	minions = GameState.gameState.minions
 	setLevel(stacks)
@@ -199,7 +198,7 @@ func searchForMinionsInRecent() -> bool:
 				return true;
 			else:
 				for m in cell:
-					if not is_instance_valid(m):
+					if !util.valid(m):
 						cell.erase(m)
 					else:
 						on_target_found(target)
@@ -212,6 +211,7 @@ func getTarget():
 		return ;
 	#check cells where minions have been found recently
 	if searchForMinionsInRecent(): return
+	
 #region search in path
 	for cell in path_cells:
 
@@ -256,6 +256,13 @@ func getTarget():
 						target = m
 #endregion
 	pass ;
+func target_override(monster:Monster):
+	on_target_lost()
+	target=monster
+	on_target_found(target)
+	checkTarget()
+	
+	pass;	
 func return_targets(non_select=null):
 	if minions.get_child_count() == 0:
 		return ;
@@ -289,6 +296,13 @@ func is_out_of_range(t):
 	#tinypfusch to avoid code duplication
 	if !targetable_enemy_types.has(t.moving_type):
 		return true
+	var start=global_position
+	if !ref_proj.ghost_projectile:
+		while start!=global_position:
+			start=start.move_toward(global_position,10)
+			if GameState.gameState.collisionReference.hit_wall(GameState.board.local_to_map(start)):
+				return true	
+		
 	var distancesquared = global_position - t.global_position
 	distancesquared = distancesquared.length_squared()
 	return distancesquared > abs(trueRangeSquared)
