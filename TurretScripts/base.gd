@@ -197,13 +197,18 @@ func searchForMinionsInRecent() -> bool:
 				on_target_found(target)
 				return true;
 			else:
+				var erase=[]
+				var found=false;
 				for m in cell:
 					if !util.valid(m):
-						cell.erase(m)
+						erase.append(m)
 					else:
-						on_target_found(target)
 						target = m
-						return true;
+						on_target_found(target)
+						found=true;
+				for m in erase:
+					cell.erase(m)
+				return found			
 	return false;
 func getTarget():
 	
