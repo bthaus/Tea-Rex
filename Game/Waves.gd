@@ -206,17 +206,17 @@ static func _set_grids():
 	
 static var _current_grid
 static func get_point_id(x, y):
-	return _current_grid[x][y]
+	return _current_grid[x][y].id
 	pass;	
 static func _get_astar_grid(map:TileMap,monstertype:Monster.MonsterMovingType,froms,tos):
 	var movable_cells=_get_movable_cells_per_monster_type(map,monstertype)
 
 	var astar_grid=PortalStar.new()
-	astar_grid.reserve_space(64*64)
+	astar_grid.reserve_space(GameboardConstants.BOARD_WIDTH * GameboardConstants.BOARD_HEIGHT)
 	for y in range(0, GameboardConstants.BOARD_HEIGHT): #Just put every possible tile in the array
 				for x in range(0, GameboardConstants.BOARD_WIDTH):
-					if movable_cells[x][y]!=-1:
-						astar_grid.add_point(movable_cells[x][y],Vector2(x,y))
+					if movable_cells[x][y].id!=-1:
+						astar_grid.add_point(movable_cells[x][y].id,Vector2(x,y),movable_cells[x][y].weight)
 	for y in range(movable_cells.size()):
 		for x in range(movable_cells[y].size()):
 			var point_id = get_point_id(x, y)
@@ -294,7 +294,7 @@ static func _get_movable_cells_per_monster_type(map: TileMap, monstertype: Monst
 		for i in range(GameboardConstants.BOARD_HEIGHT):
 			var arr=[]
 			for x in range(0, GameboardConstants.BOARD_WIDTH):
-				arr.append(-1)
+				arr.append(astar_id_weight_dto.new(-1))
 			cells.append(arr)
 		var id=0
 		match(monstertype):
@@ -306,13 +306,13 @@ static func _get_movable_cells_per_monster_type(map: TileMap, monstertype: Monst
 					
 					var type = GameboardConstants.get_tile_type(map, GameboardConstants.BLOCK_LAYER, pos)
 					if type == null or type == GameboardConstants.TileType.PORTAL: #Block layer is free or there is a portal
-						cells[pos.x][pos.y]=id #Vector2(id,weight)
+						cells[pos.x][pos.y]=astar_id_weight_dto.new(id,1)
 					
 			Monster.MonsterMovingType.AIR:
 				for y in range(0, GameboardConstants.BOARD_HEIGHT): #Just put every possible tile in the array
 					for x in range(0, GameboardConstants.BOARD_WIDTH):
 						id=id+1;
-						cells[x][y]=id
+						cells[x][y]=astar_id_weight_dto.new(id)
 		_current_grid=cells
 		return cells
 		
@@ -367,7 +367,12 @@ class portal_astar_id_dto:
 	func _init(s,id):
 		self.portal=s
 		self.astar_id=id
-		
+class astar_id_weight_dto:
+	var weight:float
+	var id:int		
+	func _init(i,w=1):
+		weight=w
+		id=i
 class path_color_type_dto:
 	var path=[]
 	var color:Color
