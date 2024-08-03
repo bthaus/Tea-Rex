@@ -258,8 +258,11 @@ func getTarget():
 #endregion
 	pass ;
 func target_override(monster:Monster):
+	on_target_lost()
 	target=monster
+	on_target_found(target)
 	checkTarget()
+	
 	pass;	
 func return_targets(non_select=null):
 	if minions.get_child_count() == 0:

@@ -101,7 +101,12 @@ func target_minions(cells):
 				turret_dic[turret]=[]
 			turret_dic[turret].append(holder.ms)
 	for t in turret_dic:
-		t.base.target_override(turret_dic[t].pick_random().pick_random())		
+		var target=turret_dic[t].pick_random().pick_random()
+		while !util.valid(target):
+			for a in turret_dic[t]:
+				a.erase(target)
+			target=turret_dic[t].pick_random().pick_random()
+		t.base.target_override(target)		
 			
 	pass;
 func _draw():
