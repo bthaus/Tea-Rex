@@ -297,6 +297,14 @@ func is_out_of_range(t):
 	#tinypfusch to avoid code duplication
 	if !targetable_enemy_types.has(t.moving_type):
 		return true
+	var start=global_position
+	#var distance=0
+	while start!=global_position:
+		#distance+=10
+		start=start.move_toward(global_position,10)
+		if GameState.gameState.collisionReference.hit_wall(GameState.board.local_to_map(start)):
+			return true	
+		
 	var distancesquared = global_position - t.global_position
 	distancesquared = distancesquared.length_squared()
 	return distancesquared > abs(trueRangeSquared)

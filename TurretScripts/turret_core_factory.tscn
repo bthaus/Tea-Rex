@@ -77,7 +77,6 @@ z_index = 3
 material = SubResource("ShaderMaterial_n5si3")
 texture = ExtResource("3_gmvb0")
 script = ExtResource("5_btw66")
-speed = 0.183
 
 [node name="Barrel1" type="Sprite2D" parent="RED_base"]
 material = SubResource("ShaderMaterial_l3v4h")
@@ -473,9 +472,6 @@ z_index = 3
 material = SubResource("ShaderMaterial_l3v4h")
 texture = ExtResource("18_uf4ji")
 script = ExtResource("19_s4gwq")
-turretRange = 10
-penetrations = -2000000
-projectile_precision = 20
 
 [node name="Barrel1" type="Sprite2D" parent="YELLOW_base"]
 material = SubResource("ShaderMaterial_l3v4h")
@@ -582,8 +578,6 @@ z_index = 3
 material = SubResource("ShaderMaterial_l3v4h")
 texture = ExtResource("7_ilila")
 script = ExtResource("24_aegkc")
-speed = 0.577
-turretRange = 3
 
 [node name="Barrel1" type="Sprite2D" parent="MAGENTA_base"]
 material = SubResource("ShaderMaterial_l3v4h")

@@ -77,7 +77,7 @@ static func tile_to_dto(tile_id: int) -> BaseDTO:
 		#ENTITIES
 		PLAYER_BASE_GREEN_TILE_ID: return PlayerBaseDTO.new(GameboardConstants.PLAYER_BASE_GREEN_TILE_ID, GameboardConstants.BLOCK_LAYER, GameboardConstants.TileColor.GREEN)
 		SPAWNER_GREEN_TILE_ID: return SpawnerDTO.new(GameboardConstants.SPAWNER_GREEN_TILE_ID, GameboardConstants.BLOCK_LAYER, -1, GameboardConstants.TileColor.GREEN)
-		WALL_TILE_ID: return TileDTO.new(GameboardConstants.WALL_TILE_ID, GameboardConstants.BLOCK_LAYER)
+		WALL_TILE_ID: return TileDTO.new(GameboardConstants.WALL_TILE_ID, GameboardConstants.BLOCK_LAYER,1,1,true)
 		PORTAL_TILE_ID: return PortalDTO.new(GameboardConstants.PORTAL_TILE_ID, GameboardConstants.BLOCK_LAYER)
 		
 		TURRET_BASE_WHITE_TILE_ID: return TileDTO.new(GameboardConstants.TURRET_BASE_WHITE_TILE_ID, GameboardConstants.BLOCK_LAYER)
