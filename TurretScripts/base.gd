@@ -297,10 +297,8 @@ func is_out_of_range(t):
 	if !targetable_enemy_types.has(t.moving_type):
 		return true
 	var start=global_position
-	#var distance=0
 	if !ref_proj.ghost_projectile:
 		while start!=global_position:
-			#distance+=10
 			start=start.move_toward(global_position,10)
 			if GameState.gameState.collisionReference.hit_wall(GameState.board.local_to_map(start)):
 				return true	
