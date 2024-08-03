@@ -199,7 +199,7 @@ func searchForMinionsInRecent() -> bool:
 				return true;
 			else:
 				for m in cell:
-					if not is_instance_valid(m):
+					if !util.valid(m):
 						cell.erase(m)
 					else:
 						on_target_found(target)
@@ -212,6 +212,7 @@ func getTarget():
 		return ;
 	#check cells where minions have been found recently
 	if searchForMinionsInRecent(): return
+	
 #region search in path
 	for cell in path_cells:
 
@@ -256,6 +257,10 @@ func getTarget():
 						target = m
 #endregion
 	pass ;
+func target_override(monster:Monster):
+	target=monster
+	checkTarget()
+	pass;	
 func return_targets(non_select=null):
 	if minions.get_child_count() == 0:
 		return ;

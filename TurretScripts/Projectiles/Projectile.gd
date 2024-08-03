@@ -71,7 +71,6 @@ func shoot(target):
 	else: direction = (target.global_position - self.global_position).normalized();
 	self.target = target;
 	global_rotation = direction.angle() + PI / 2.0
-	print(global_rotation_degrees)
 	_toggle_emission(true)
 	shot = true;
 	pass ;

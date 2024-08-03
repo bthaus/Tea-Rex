@@ -10,7 +10,7 @@ func _ready():
 	music=Sounds.playFromCamera(gamestate,Sounds.music[3],false,func():
 		music.stream=Sounds.loop
 		music.play()
-		print("loop"))
+		)
 	
 	statePropagation.emit(gamestate)
 	 

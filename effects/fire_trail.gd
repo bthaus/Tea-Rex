@@ -27,7 +27,6 @@ func _notification(what):
 func on_cell_traversal():
 	if bullet==null:
 		return
-	print("registered at: "+str(bullet.get_reference()))	
 	GameState.collisionReference.register_entity_at_position(self,bullet.get_global())
 	pass;		
 func _process(delta):
@@ -65,8 +64,6 @@ func _process(delta):
 		if GameState.collisionReference.getMapPositionNormalised(remove_pos)!=GameState.collisionReference.getMapPositionNormalised(previous_pos):	
 			GameState.gameState.collisionReference.remove_entity_from_position(self,remove_pos)
 			previous_pos=remove_pos
-			print("removed from "+str(remove_pos))
-			
 				
 	pass;
 var previous_pos=Vector2(0,0)	

@@ -191,7 +191,6 @@ func get_turret_from_board(pos):
 	pass;			
 func getCellReferences(pos, turretRange, turret=null, cellPositions=[],ignore_obstacles=false):
 	var mapPosition = getMapPositionNormalised(pos)
-	print(mapPosition)
 	#traversing from the top left corner to the bottom right corner
 
 	mapPosition.x = mapPosition.x - turretRange;
@@ -265,7 +264,9 @@ func get_cells_around_pos(glob,range,collides)->Array[Holder]:
 	for v in vecs:
 		cells.append(map[v.y][v.x])
 	return cells
-	pass;	
+	pass;
+func get_cell_at_map_pos(pos):
+	return map[pos.y][pos.x]		
 func get_random_turret_in_range(global_position,range,collides):
 	var midpoint=global_position
 	var precision=25
