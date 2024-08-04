@@ -307,6 +307,7 @@ func isOutOfBoundsVector(pos):
 func trigger_bullet(bullet:Projectile):
 	var p=bullet.get_reference()
 	for entity in map[p.y][p.x].entities:
+		if !util.valid(entity):continue
 		map[p.y][p.x].entity.trigger_bullet(bullet)
 	pass;
 func trigger_minion(p,minion:Monster):

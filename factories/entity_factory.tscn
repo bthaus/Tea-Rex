@@ -8,6 +8,7 @@
 script = ExtResource("1_bwspe")
 
 [node name="Volcano" parent="." instance=ExtResource("1_q001u")]
+visible = false
 collides_with_bullets = true
 processing = true
 

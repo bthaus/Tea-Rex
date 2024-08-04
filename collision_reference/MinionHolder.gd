@@ -20,9 +20,10 @@ func do(delta):
 		if pos.x!=m.oldpos.x||pos.y!=m.oldpos.y:
 			if m==null:continue
 			reference.setMinion(m.oldpos.x,m.oldpos.y,pos.x,pos.y,m)
+			if m==null:continue
 			m.cell_traversed()
 			if GameState.gameState.deathscalling:return;
-			if m==null:continue
+			
 			m.oldpos=pos
 			#print("minion pos is: "+str(pos))
 			

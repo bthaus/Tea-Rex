@@ -70,12 +70,12 @@ func doSpawnLogic():
 	var count = 0;
 	for mo in waveMonsters:
 		count = count + 1
-	
+		spawnEnemy(mo)
 		#if count % 5 == 0: #Every 5th monster longer break
 			#delay = delay + 3
 		#else:
 			#delay = delay + rnd.randf_range(0.0,0.5) #Change for spawning time 
-		get_tree().create_timer(0.5*count).timeout.connect(spawnEnemy.bind(mo))
+		#get_tree().create_timer(0.5*count).timeout.connect(spawnEnemy.bind(mo))
 	
 	pass;
 	
@@ -84,6 +84,7 @@ func spawnEnemy(mo:Monster):
 	mo.monster_died.connect(monsterDied)
 	mo.reached_spawn.connect(monsterReachedSpawn)
 	mo.global_position=global_position
+	mo.spawner_color=color
 	if paths==null:return
 	for dto in paths:
 		if mo.moving_type==dto.type:
@@ -110,9 +111,35 @@ func monsterDied(monster:Monster):
 	pass;
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 
-func _process(delta):
+
+
+static func get_new_path(monster:Monster):
+	var from=monster.global_position
+	var to=monster.path.back()
 	
-	pass
+	var grid:grid_type_dto
+	for g in grids:
+		if g.type==monster.moving_type:
+			grid=g
+	if grid==null:
+		print("wtf, type missmatch")
+		return null
+	var from_id=GameState.board.local_to_map(from)
+	from_id=grid.get_point_id(from_id.x,from_id.y)
+	var path
+	var length=99999
+	for t in grid.base_ids:
+		if t.base.color==monster.spawner_color:
+			var temp=grid.astar_grid.get_point_path(from_id,t.astar_id)	
+			if temp.size()<length:
+				path=temp
+				length=path.size()
+	var global_path=[]
+	for cell in path:
+		global_path.append(GameState.gameState.board.map_to_local(cell))
+	return global_path			
+	
+	
 func refresh_path(redo_grids=true):
 	if redo_grids:
 		_set_grids()
@@ -210,7 +237,6 @@ static func get_point_id(x, y):
 	pass;	
 static func _get_astar_grid(map:TileMap,monstertype:Monster.MonsterMovingType,froms,tos):
 	var movable_cells=_get_movable_cells_per_monster_type(map,monstertype)
-
 	var astar_grid=PortalStar.new()
 	astar_grid.reserve_space(GameboardConstants.BOARD_WIDTH * GameboardConstants.BOARD_HEIGHT)
 	for y in range(0, GameboardConstants.BOARD_HEIGHT): #Just put every possible tile in the array
@@ -223,14 +249,18 @@ static func _get_astar_grid(map:TileMap,monstertype:Monster.MonsterMovingType,fr
 			if point_id != -1:
 				_connect_with_neigbours(movable_cells,point_id,x,y,astar_grid)
 				# Connect to the right neighbor
-	var grid_type_dto=grid_type_dto.new(astar_grid,monstertype)				
+	var grid_type_dto=grid_type_dto.new(astar_grid,monstertype)	
+	grid_type_dto.id_array=movable_cells			
 	for from in froms:
 		from._astar_id=astar_grid.get_available_point_id()
+		grid_type_dto.id_array[from.map_position.x][from.map_position.y]=astar_id_weight_dto.new(from._astar_id)
 		astar_grid.add_point(from._astar_id,from.map_position)
 		_connect_with_neigbours(movable_cells,from._astar_id,from.map_position.x,from.map_position.y,astar_grid)
 		grid_type_dto.spawner_ids.append(spawner_astar_id_dto.new(from,from._astar_id))
 	for to in tos:
 		to._astar_id=astar_grid.get_available_point_id()
+		grid_type_dto.id_array[to.map_position.x][to.map_position.y]=astar_id_weight_dto.new(to._astar_id)
+		
 		astar_grid.add_point(to._astar_id,to.map_position)
 		_connect_with_neigbours(movable_cells,to._astar_id,to.map_position.x,to.map_position.y,astar_grid)
 		grid_type_dto.base_ids.append(base_astar_id_dto.new(to,to._astar_id))
@@ -342,7 +372,10 @@ class grid_type_dto:
 	var spawner_ids:Array[spawner_astar_id_dto]=[]
 	var base_ids:Array[base_astar_id_dto]=[]
 	var portal_ids:Array[portal_astar_id_dto]=[]
-	
+	var id_array
+	func get_point_id(x, y):
+		return id_array[x][y].id
+		
 	func _init(grid,t):
 		self.astar_grid=grid
 		self.type=t

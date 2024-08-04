@@ -9,7 +9,7 @@ var monster_name:MonsterName
 var sizemult = 1;
 var maxHp;
 var monstertype:Monstertype
-
+var spawner_color
 var damage:
 	get:return core.damage
 	set(val):core.damage=val
@@ -66,7 +66,14 @@ func hit(color: Turret.Hue, damage, type="default", noise=true):
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 
-
+func refresh_path():
+	var newpath=Spawner.get_new_path(self)
+	distance_travelled=0
+	distance_to_next_edge=-1
+	travel_index=0
+	ignore_next_portal=false
+	path=newpath
+	pass;
 var distance_travelled=0;
 var distance_to_next_edge=-1;
 var travel_index=0;
@@ -104,6 +111,8 @@ func translateTowardEdge(delta):
 	distance_travelled=distance_travelled+distance
 	translate(direction*distance)
 	pass;
+	
+	
 func cell_traversed():
 	core.on_cell_traversal()
 	pass;
