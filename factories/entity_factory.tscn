@@ -1,9 +1,15 @@
-[gd_scene load_steps=3 format=3 uid="uid://bismehfpdggum"]
+[gd_scene load_steps=4 format=3 uid="uid://bismehfpdggum"]
 
 [ext_resource type="Script" path="res://factories/entity_factory.gd" id="1_bwspe"]
 [ext_resource type="PackedScene" uid="uid://h5p4fp80ye04" path="res://GameBoard/Entities/volcano.tscn" id="1_q001u"]
+[ext_resource type="PackedScene" uid="uid://dctbefilrhgdw" path="res://GameBoard/Entities/forest_entity.tscn" id="3_2l8hi"]
 
 [node name="EntityFactory" type="Node2D"]
 script = ExtResource("1_bwspe")
 
 [node name="Volcano" parent="." instance=ExtResource("1_q001u")]
+collides_with_bullets = true
+processing = true
+
+[node name="ForestEntity" parent="." instance=ExtResource("3_2l8hi")]
+collides_with_bullets = true

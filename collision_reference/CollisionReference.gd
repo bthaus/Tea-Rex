@@ -65,7 +65,9 @@ func getGlobalFromReference(pos):
 func hit_wall(pos):
 	pos.x = normaliseX(pos.x)
 	pos.y = normaliseY(pos.y)
+	
 	return map[pos.y][pos.x].collides_with_bullets
+	
 		
 func get_monster(pos):
 	

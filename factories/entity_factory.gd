@@ -8,6 +8,6 @@ static func create(dto:EntityDTO):
 	node.tile_id=dto.tile_id
 	node.map_position=Vector2(dto.map_x,dto.map_y)
 	node.collides_with_bullets=dto.collides_with_bullets
-	node.processing=true
+	
 	return node
 	pass;

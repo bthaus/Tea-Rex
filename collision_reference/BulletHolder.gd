@@ -23,6 +23,7 @@ func do(delta):
 				if pos!=b.oldpos: 
 					b.oldpos=pos
 					b.cell_traversed()
+					GameState.collisionReference.trigger_bullet(b)
 					if pos.y>GameState.gameState.board_height || pos.y<0 || pos.x<-9 || pos.x >21:
 						b.remove()
 					elif b.hit_wall():

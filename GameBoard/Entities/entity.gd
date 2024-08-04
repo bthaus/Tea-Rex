@@ -4,8 +4,8 @@ class_name BaseEntity
 var tile_id: int
 var map_layer: int
 var map_position: Vector2
-var collides_with_bullets=false;
-var processing=false;
+@export var collides_with_bullets=false;
+@export var processing=false;
 func _init(tile_id: int = -1, map_layer: int = -1, map_position: Vector2 = Vector2(0, 0)):
 	self.tile_id = tile_id
 	self.map_layer = map_layer

@@ -6,7 +6,7 @@ const color=Turret.Hue.RED
 
 
 
-func _init(lifetime,associate,str,tick_damage):
+func _init(lifetime=GameplayConstants.DEBUFF_STANDART_LIFETIME,associate=null,str=1,tick_damage=2):
 	super(lifetime,associate,str)
 	self.damage_per_tick=tick_damage
 	pass;
