@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://bismehfpdggum"]
+
+[ext_resource type="Script" path="res://factories/entity_factory.gd" id="1_bwspe"]
+[ext_resource type="PackedScene" uid="uid://h5p4fp80ye04" path="res://GameBoard/Entities/volcano.tscn" id="1_q001u"]
+
+[node name="EntityFactory" type="Node2D"]
+script = ExtResource("1_bwspe")
+
+[node name="Volcano" parent="." instance=ExtResource("1_q001u")]
