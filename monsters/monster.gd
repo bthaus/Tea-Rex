@@ -51,6 +51,7 @@ static func create(monster_name, target: Node2D, wave: int=1) -> Monster:
 	en.target = target;
 	en.currentMinionPower = wave
 	en.monstertype=en.core.type
+	en.core.holder=en
 	
 	return en
 

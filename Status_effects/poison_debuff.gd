@@ -18,7 +18,7 @@ func get_name():
 	
 func apply_effect(delta):
 	var killed= affected.hit(color, damage_per_tick*get_str())
-	if killed:associate.on_target_killed(affected)
+	if killed:associate.on_target_killed(affected.holder)
 	pass;
 func propagate():
 	if !util.valid(affected):return

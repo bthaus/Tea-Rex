@@ -9,7 +9,7 @@ signal death_animation_done
 @export var type:Monster.Monstertype
 @export var movable_cells:Array[Monster.MonsterMovingType]=[Monster.MonsterMovingType.GROUND]
 @export var special_cooldown:float=0
-
+var holder:Monster
 
 var died=false
 # Called when the node enters the scene tree for the first time.
