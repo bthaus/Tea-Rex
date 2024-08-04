@@ -1,6 +1,6 @@
 extends GPUParticles2D
 class_name CellFire
-@export var size:int
+@export var size:int=1
 func _ready():
 	set_size(size)
 	pass;

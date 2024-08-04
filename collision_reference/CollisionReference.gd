@@ -105,6 +105,7 @@ func initialise(g,map_dto):
 	for i in range(GameboardConstants.BOARD_HEIGHT+12):
 		addRow(map)
 	for entity in map_dto.entities:
+		if map[normaliseY(entity.map_y)][normaliseX(entity.map_x)].collides_with_bullets:continue
 		map[normaliseY(entity.map_y)][normaliseX(entity.map_x)].collides_with_bullets=entity.collides_with_bullets	
 		
 	for x in range(map.size()):
@@ -308,7 +309,7 @@ func trigger_bullet(bullet:Projectile):
 	var p=bullet.get_reference()
 	for entity in map[p.y][p.x].entities:
 		if !util.valid(entity):continue
-		map[p.y][p.x].entity.trigger_bullet(bullet)
+		entity.trigger_bullet(bullet)
 	pass;
 func trigger_minion(p,minion:Monster):
 	for entity in map[p.y][p.x].entities:
@@ -325,6 +326,8 @@ func register_entity(entity:BaseEntity):
 	var ref=entity.get_reference()
 	var glob_to_map=GameState.board.local_to_map(glob)
 	map[pos.y][pos.x].entities.append(entity)
+	if entity.collides_with_bullets:
+		map[pos.y][pos.x].collides_with_bullets=true
 	_trigger_monsters_for_entity_at_pos(entity,entity.get_global())
 	pass;	
 func _trigger_monsters_for_entity_at_pos(entity,pos):
@@ -335,6 +338,10 @@ func _trigger_monsters_for_entity_at_pos(entity,pos):
 func remove_entity(entity:BaseEntity):
 	var pos=entity.get_reference()
 	map[pos.y][pos.x].entities.erase(entity)
+	for e in map[pos.y][pos.x].entities:
+		if e.collides_with_bullets:
+			map[pos.y][pos.x].collides_with_bullets=true
+			return
 	pass
 func register_entity_at_position(entitity:BaseEntity,glob):
 	var pos=getMapPositionNormalised(glob)

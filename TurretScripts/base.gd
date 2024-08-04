@@ -106,6 +106,9 @@ func getReferences(cells):
 	pass ;
 func setUpTower(holder):
 	self.holder = holder
+	turret_mods.append(FireAmmunitionMod.new())
+	turret_mods.append(GhostProjectileMod.new())
+	turret_mods.append(WallhackMod.new())
 	minions = GameState.gameState.minions
 	setLevel(stacks)
 	trueRangeSquared = turretRange * GameboardConstants.TILE_SIZE + GameboardConstants.TILE_SIZE

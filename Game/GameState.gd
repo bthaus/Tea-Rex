@@ -132,7 +132,10 @@ func _process(delta):
 		$EntityHolder.do(delta/game_speed)
 	
 	pass
-
+func recalculate_minion_paths():
+	for m:Monster in minions.get_children():
+		m.refresh_path()
+	pass;
 func add_target(t):
 	target=t
 	targets.append(t)
@@ -146,12 +149,14 @@ func register_entity(entity:BaseEntity):
 			entity.reparent($EntityHolder)
 		else:
 			$EntityHolder.add_child(entity)	
-		
+	else:
+		add_child(entity)	
 	pass;
 func unregister_entity(entity:BaseEntity):
 	collisionReference.remove_entity(entity)
-	if entity.processing:
-		$EntityHolder.remove_child(entity)
+	var parent=entity.get_parent()
+	if util.valid(parent):
+		parent.remove_child(entity)
 		
 	pass;	
 func startBattlePhase():
@@ -226,7 +231,7 @@ func startGame():
 	spawners.clear()
 	var volcano=EntityDTO.new()
 	volcano.map_x=12
-	volcano.map_y=8
+	volcano.map_y=3
 	map_dto.entities.append(volcano)
 	collisionReference.initialise(self,map_dto)
 	gameBoard=load("res://GameBoard/game_board.tscn").instantiate()

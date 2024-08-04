@@ -131,6 +131,7 @@ func hitEnemy(enemy: Monster,from_turret=false):
 	
 	pass ;
 func hit_wall():
+	if ghost_projectile:return false
 	var walled=GameState.gameState.collisionReference.hit_wall(get_map())
 	if walled and wall_penetrations>0:
 		wall_penetrations-=1

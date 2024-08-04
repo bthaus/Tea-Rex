@@ -19,7 +19,9 @@ func place_on_board(board: TileMap):
 	board.set_cell(map_layer, map_position, tile_id, Vector2(0, 0))
 	global_position = board.map_to_local(map_position)
 	GameState.gameState.register_entity(self)
-
+func remove_from_board():
+	GameState.gameState.unregister_entity(self)
+	pass;
 func trigger_minion(monster:Monster):
 	
 	pass;
