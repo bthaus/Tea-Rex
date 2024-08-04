@@ -90,18 +90,14 @@ func rotate_block(block: Block):
 		piece.position.x = round(piece.position.x) #Dont ask me, i hate it
 		piece.position.y = round(piece.position.y)
 
-func set_block_level(block: Block, level: int):
-	for piece in block.pieces:
-		piece.level = level
 
 #Again, checks based upon (0,0) map_position of block
 func can_place_block(block: Block, map_position: Vector2,  spawners) -> bool:
 	if block.pieces.size() == 0: return true
 
 	#Get the level of the underlying piece on the board, if available (loop will take care if its the wrong color)
-	#If the level is -1 it means that there is an empty cell
 	var first_piece = get_piece_from_board(Vector2(block.pieces[0].position.x + map_position.x, block.pieces[0].position.y + map_position.y))
-	var level = -1 if first_piece == null else first_piece.level
+	var max_level_turret_count = 0
 	
 	var spawner_positions = []
 	for spawner in spawners:
@@ -133,6 +129,10 @@ func can_place_block(block: Block, map_position: Vector2,  spawners) -> bool:
 		
 		#Check underlying piece
 		var board_piece = get_piece_from_board(board_pos)
+		if (board_piece != null and first_piece == null) or (board_piece == null and first_piece != null): #Either no blocks below or all blocks!
+			GameBoard.current_tutorial = null
+			return false
+		
 		if board_piece != null: #Tile exists at this position
 			if board_piece.color == Turret.Hue.WHITE: #You can NEVER place something on white
 				GameBoard.current_tutorial = TutorialHolder.tutNames.ColorRestriction
@@ -140,13 +140,14 @@ func can_place_block(block: Block, map_position: Vector2,  spawners) -> bool:
 			if board_piece.color != piece.color: #Wrong color	
 				GameBoard.current_tutorial = TutorialHolder.tutNames.ColorRestriction
 				return false
-			if board_piece.level != level: #Level does not match
-				GameBoard.current_tutorial = TutorialHolder.tutNames.UpgradeBlocks2
-				return false
-		elif level != -1: #We expect a non-empty cell
-			GameBoard.current_tutorial = null
-			return false
 			
+			if turret_holder.get_object_at(board_pos).is_max_level():
+				max_level_turret_count += 1
+				if max_level_turret_count == block.pieces.size(): #All turrets below are already at max level
+					GameBoard.current_tutorial = null
+					return false
+		
+		
 		#Check near mismatching colors
 		for row in range(-1,2):
 			for col in range(-1,2):
@@ -157,11 +158,6 @@ func can_place_block(block: Block, map_position: Vector2,  spawners) -> bool:
 						if neighbour_piece.color != piece.color and neighbour_piece.color != Turret.Hue.WHITE: #Mismatching colors (white pieces are an exception)
 								GameBoard.current_tutorial = TutorialHolder.tutNames.ColorRestriction
 								return false
-	
-	#Block could theoretically be placed to upgrade, but the underlying block already has reached the max level
-	if level == GameplayConstants.MAX_TURRET_LEVEL:
-		GameBoard.current_tutorial = null
-		return false
 	
 	#Check if a path would be valid
 	if first_piece == null: #We want to build something new (no upgrade)

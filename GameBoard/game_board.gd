@@ -173,7 +173,7 @@ func _draw_selected_block_preview(map_position: Vector2):
 func _place_block(block: Block, map_position: Vector2):
 	var piece = block_handler.get_piece_from_board(map_position)
 	if piece != null: # There is already a piece -> upgrade
-		_set_block_and_turrets_level(block, map_position, piece.level + 1)
+		_upgrade_turrets(block, map_position)
 	else:
 		_spawn_turrets(block, map_position)
 	#soundMechanic:
@@ -236,13 +236,13 @@ func _remove_turrets(block: Block, map_position: Vector2):
 		if turret != null:
 			turret.queue_free()
 
-func _set_block_and_turrets_level(block: Block, map_position: Vector2, level: int):
-	block_handler.set_block_level(block, level)
+func _upgrade_turrets(block: Block, map_position: Vector2):
 	for piece in block.pieces:
 		var turret = turret_holder.get_object_at(Vector2(map_position.x + piece.position.x, map_position.y + piece.position.y))
 		if turret != null:
 			if block.extension != null: turret.extension = block.extension
-			turret.levelup(level)
+			if not turret.is_max_level():
+				turret.levelup(turret.base.stacks + 1)
 
 func _load_preview_turrets_from_selected_block():
 	preview_turrets = []
