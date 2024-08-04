@@ -1,0 +1,42 @@
+[gd_scene load_steps=7 format=3 uid="uid://2efwcak85shk"]
+
+[ext_resource type="Script" path="res://cell_fire.gd" id="1_q37or"]
+
+[sub_resource type="Gradient" id="Gradient_npyex"]
+offsets = PackedFloat32Array(0, 0.215962, 0.532864, 0.835681, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 0, 1, 1, 0.49833, 0.110753, 1, 0, 0, 0, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_pn12v"]
+gradient = SubResource("Gradient_npyex")
+
+[sub_resource type="Curve" id="Curve_6armc"]
+_data = [Vector2(0, 0.521109), 0.0, 0.0, 0, 0, Vector2(0.696035, 0.714818), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_w26f3"]
+curve = SubResource("Curve_6armc")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_wvxp6"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(32, 32, 0)
+direction = Vector3(0, -1, 0)
+spread = 14.16
+initial_velocity_min = 11.95
+initial_velocity_max = 19.92
+gravity = Vector3(0, -10, 0)
+tangential_accel_min = -0.25
+tangential_accel_max = 6.39
+damping_max = 33.013
+scale_min = 8.0
+scale_max = 12.0
+scale_curve = SubResource("CurveTexture_w26f3")
+color_ramp = SubResource("GradientTexture1D_pn12v")
+
+[node name="cell_fire" type="GPUParticles2D"]
+z_index = 50
+amount = 32
+process_material = SubResource("ParticleProcessMaterial_wvxp6")
+lifetime = 2.0
+speed_scale = 0.5
+script = ExtResource("1_q37or")

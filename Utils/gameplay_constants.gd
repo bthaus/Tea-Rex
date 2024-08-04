@@ -21,6 +21,15 @@ const blue_freezer_slow_duration = 1
 const poison_dropoff_rate = 3;
 const poison_propagation_rate = 3;
 enum ModType {BASE, HULL, PROJECTILE, AMMUNITION, PRODUCTION, ONKILL}
+enum DamageTypes{NORMAL,FIRE,FROST,EXPLOSION,POISON,MAGIC,LIGHTNING}
+const lightn=DamageTypes.LIGHTNING
+const norm=DamageTypes.NORMAL
+const fire=DamageTypes.FIRE
+const frost=DamageTypes.FROST
+const explo=DamageTypes.EXPLOSION
+const poison=DamageTypes.POISON
+const magic=DamageTypes.MAGIC
+
 const base = TurretBaseMod.ModType.BASE
 const hull = TurretBaseMod.ModType.HULL
 const proj = TurretBaseMod.ModType.PROJECTILE
@@ -43,26 +52,27 @@ const cross = Block.BlockShape.CROSS
 static func get_mod_data(mod)->data:
 	return turret_mods[mod.get_script()]
 	pass;
+	
 static var turret_mods = {
 	
-	FireTrailMod: d(tiny, proj, ItemBlockConstants.YELLOW_TILE_ID),
+	FireTrailMod: d(tiny, proj, ItemBlockConstants.YELLOW_TILE_ID,fire),
 	MultipleShotsMod:d(l,proj, ItemBlockConstants.YELLOW_TILE_ID),
 	PenetratingAmmunition:d(o,proj, ItemBlockConstants.YELLOW_TILE_ID),
-	FrostTrailMod:d(small,proj, ItemBlockConstants.YELLOW_TILE_ID),
+	FrostTrailMod:d(small,proj, ItemBlockConstants.YELLOW_TILE_ID,frost),
 	GhostProjectileMod:d(small,proj, ItemBlockConstants.YELLOW_TILE_ID),
 	
 	ForkingAmmunitionMod: d(arrow, ammo, ItemBlockConstants.RED_TILE_ID),
-	ExplosiveAmmunition:d(cross,ammo, ItemBlockConstants.RED_TILE_ID),
-	FireAmmunitionMod:d(tiny,ammo, ItemBlockConstants.RED_TILE_ID),
-	FrostAmmunitionMod:d(small,ammo, ItemBlockConstants.RED_TILE_ID),
-	LightningAmmunitionMod:d(small,ammo, ItemBlockConstants.RED_TILE_ID),
-	PoisonAmmunitionMod:d(small,ammo, ItemBlockConstants.RED_TILE_ID),
+	ExplosiveAmmunition:d(cross,ammo, ItemBlockConstants.RED_TILE_ID,explo),
+	FireAmmunitionMod:d(tiny,ammo, ItemBlockConstants.RED_TILE_ID,fire),
+	FrostAmmunitionMod:d(small,ammo, ItemBlockConstants.RED_TILE_ID,frost),
+	LightningAmmunitionMod:d(small,ammo, ItemBlockConstants.RED_TILE_ID,lightn),
+	PoisonAmmunitionMod:d(small,ammo, ItemBlockConstants.RED_TILE_ID,poison),
 	
-	FrozenBloodKillMod:d(arrow,kill, ItemBlockConstants.MAGENTA_TILE_ID),
-	ExplosiveUnitMod:d(o,kill, ItemBlockConstants.MAGENTA_TILE_ID),
+	FrozenBloodKillMod:d(arrow,kill, ItemBlockConstants.MAGENTA_TILE_ID,frost),
+	ExplosiveUnitMod:d(o,kill, ItemBlockConstants.MAGENTA_TILE_ID,explo),
 	RegenerateKillMod:d(cross,kill, ItemBlockConstants.MAGENTA_TILE_ID),
 	StunningKillMod:d(s,kill, ItemBlockConstants.MAGENTA_TILE_ID),
-	VoodooKillMod:d(s,kill, ItemBlockConstants.MAGENTA_TILE_ID),
+	VoodooKillMod:d(s,kill, ItemBlockConstants.MAGENTA_TILE_ID,magic),
 	OverchargeKillMod:d(cross,kill, ItemBlockConstants.MAGENTA_TILE_ID),
 	
 	AirBlockMod:d(s,base, ItemBlockConstants.WHITE_TILE_ID),
@@ -79,17 +89,19 @@ static func register_mods_for_sim():
 		if !TurretBaseMod.implemented_mods.has(type):TurretBaseMod.implemented_mods[type]=[]
 		TurretBaseMod.implemented_mods[type].append(mod)
 	pass;
-static func d(shape, type, tile_id):
-	return data.new(shape, type, tile_id)
+static func d(shape, type, tile_id,damage_type=norm):
+	return data.new(shape, type, tile_id,damage_type)
 class data:
 	var shape:Block.BlockShape
 	var type:TurretBaseMod.ModType
 	var tile_id:int
+	var damage_type:DamageTypes
 
-	func _init(shape, type, tile_id):
+	func _init(shape, type, tile_id,damagetype=norm):
 		self.shape = shape
 		self.type = type
 		self.tile_id = tile_id
+		self.damage_type=damagetype
 		
 const green_poison_decay = 1;
 

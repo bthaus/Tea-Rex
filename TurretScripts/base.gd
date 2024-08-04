@@ -24,6 +24,9 @@ var action_speed=1
 @export var range_precision = 24
 @export var projectile_precision = 1
 @export var wall_hack=false
+@export var damage_types:Array[GameplayConstants.DamageTypes]=[GameplayConstants.DamageTypes.NORMAL]
+@export var targetable_enemy_types: Array[Monster.MonsterMovingType] = [Monster.MonsterMovingType.GROUND]
+
 var cdt;
 var trueRangeSquared;
 
@@ -49,7 +52,6 @@ var mapPosition;
 var referenceCells = []
 var path_cells = []
 
-var targetable_enemy_types: Array[Monster.MonsterMovingType] = [Monster.MonsterMovingType.GROUND]
 
 var holder;
 var id;
@@ -84,7 +86,10 @@ func clear_path():
 func register_path(cell):
 	path_cells.append(cell)
 	pass ;
-
+func add_damage_type(damage_type:GameplayConstants.DamageTypes):
+	if damage_types.has(damage_type):return
+	damage_types.append(damage_type)
+	pass;
 func setupCollision(clearing):
 	if collisionReference == null:
 		collisionReference = GameState.gameState.collisionReference

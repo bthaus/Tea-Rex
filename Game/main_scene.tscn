@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://dmpdpmsbc8rkq"]
+[gd_scene load_steps=14 format=3 uid="uid://dmpdpmsbc8rkq"]
 
 [ext_resource type="Script" path="res://Game/GameState.gd" id="1_g64db"]
 [ext_resource type="PackedScene" uid="uid://c1jrn7vi6wxab" path="res://menu_scenes/UI_scenes/ui.tscn" id="4_4sohq"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" path="res://Utils/board_camera.gd" id="9_18cub"]
 [ext_resource type="Script" path="res://Game/LightThresholds.gd" id="11_n87cu"]
 [ext_resource type="PackedScene" uid="uid://buxrixa70ofmb" path="res://Utils/selection.tscn" id="11_u7m6a"]
+[ext_resource type="Script" path="res://Game/EntityHolder.gd" id="12_3a3vi"]
 [ext_resource type="Script" path="res://collision_reference/BulletHolder.gd" id="13_7m4ty"]
 [ext_resource type="Script" path="res://collision_reference/MinionHolder.gd" id="13_u8ql2"]
 
@@ -131,6 +132,9 @@ script = ExtResource("13_u8ql2")
 z_index = 2
 position = Vector2(395.634, 295.367)
 script = ExtResource("13_7m4ty")
+
+[node name="EntityHolder" type="Node2D" parent="."]
+script = ExtResource("12_3a3vi")
 
 [node name="selection" parent="." instance=ExtResource("11_u7m6a")]
 

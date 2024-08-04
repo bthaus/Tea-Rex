@@ -16,6 +16,7 @@ var target: Monster
 var associate:TurretCore;
 var playerDied = false;
 var emitters=[]
+var damage_types:Array[GameplayConstants.DamageTypes]=[]
 signal removed
 var ignore_next_enemy=false;
 static var gamestate: GameState;
@@ -115,7 +116,9 @@ func move(delta):
 func cell_traversed():
 	if associate!=null: associate.on_fly(self)
 	pass;	
-	
+func get_damage_types()->Array[GameplayConstants.DamageTypes]:
+	return associate.damage_types
+	pass;	
 func hitEnemy(enemy: Monster,from_turret=false):
 	if ignore_next_enemy:ignore_next_enemy=false;return
 	penetrations = penetrations - 1;

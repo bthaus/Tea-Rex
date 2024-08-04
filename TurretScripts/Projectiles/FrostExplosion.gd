@@ -22,7 +22,7 @@ static func create(type, damage, position, root, scale=1, noise=true):
 		GameState.gameState.add_child(temp);
 		temp.scale = Vector2(scale, scale)
 		temp.visible = true;
-	temp.type = type;
+	temp.type = GameplayConstants.DamageTypes.FROST;
 	temp.scale = Vector2(scale, scale)
 	#temp.apply_scale(Vector2(scale,scale));
 	temp.damage = damage;	

@@ -136,7 +136,13 @@ func add_target(t):
 	target=t
 	targets.append(t)
 	pass;
-
+func register_entity(entity:BaseEntity):
+	collisionReference.register_entity(entity)
+	start_build_phase.connect(entity.on_build_phase_started)
+	start_combat_phase.connect(entity.on_battle_phase_started)
+	if entity.processing:
+		$EntityHolder.add_child(entity)
+	pass;
 func startBattlePhase():
 	for turret in Turret.turrets:
 		turret.clear_path()

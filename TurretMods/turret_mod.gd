@@ -71,18 +71,21 @@ PROJECTILE=Turret.Hue.YELLOW,
 AMMUNITION=Turret.Hue.RED,
 PRODUCTION=Turret.Hue.GREEN,
 ONKILL=Turret.Hue.MAGENTA}
-
+var damage_type:GameplayConstants.DamageTypes
 func _init():
 	var data=GameplayConstants.get_mod_data(self)
 	type=data.type
 	shape=data.shape
 	tile_id=data.tile_id
+	damage_type=data.damage_type
 	color=Turret.Hue.get(Turret.Hue.keys()[type-1])
 
 func initialise(turret:TurretCore):
 	visual=ModVisualFactory.get_visual(self)
 	associate=turret
 	level=associate.stacks
+	
+	associate.add_damage_type(damage_type)
 	turret.add_child(visual)
 	pass;
 func on_turret_build(turret:TurretCore):
