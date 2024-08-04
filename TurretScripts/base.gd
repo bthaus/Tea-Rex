@@ -241,8 +241,8 @@ func getTarget():
 					if not is_instance_valid(m):
 						cell.erase(m)
 					else:
-						on_target_found(target)
 						target = m
+						on_target_found(target)
 #endregion						
 #region search everywhere
 	for cell in coveredCells:
@@ -262,8 +262,8 @@ func getTarget():
 					if not is_instance_valid(m):
 						cell.erase(m)
 					else:
-						on_target_found(target)
 						target = m
+						on_target_found(target)
 #endregion
 	pass ;
 func target_override(monster:Monster):

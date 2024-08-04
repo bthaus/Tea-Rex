@@ -13,3 +13,6 @@ func _init(tile_id: int=-1, map_layer: int=-1, map_x: int=-1, map_y: int=-1,coll
 	self.map_x = map_x
 	self.map_y = map_y
 	self.collides_with_bullets=collides
+func get_object():
+	return EntityFactory.create(self)
+	pass;

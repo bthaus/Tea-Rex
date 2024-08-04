@@ -99,8 +99,6 @@ class status_effect_container:
 		
 		pass;		
 	func add_status_effect(d:StatusEffect):
-		if status_effects.size()>100:
-			var ass=strongest_status_effect.associate
 		if status_effects.is_empty():
 			add_visual()	
 		if strongest_status_effect!=null and strongest_status_effect.get_str()==d.get_str():

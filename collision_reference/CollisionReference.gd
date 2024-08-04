@@ -104,8 +104,10 @@ func initialise(g,map_dto):
 		addRow(map)
 	for entity in map_dto.entities:
 		map[normaliseY(entity.map_y)][normaliseX(entity.map_x)].collides_with_bullets=entity.collides_with_bullets	
-		if entity.collides_with_bullets:
-			print("colliding bro")	
+		
+	for x in range(map.size()):
+		for y in range(map[x].size()):
+			map[y][x].pos=Vector2(x,y)		
 	pass ;
 
 func addRow(y: Array):
@@ -385,5 +387,6 @@ class Holder:
 	var collides_with_bullets=false;
 	var entities=[]
 	var entity:BaseEntity
+	var pos
 	
 	pass ;

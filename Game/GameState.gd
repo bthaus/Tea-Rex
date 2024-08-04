@@ -129,6 +129,7 @@ func _process(delta):
 			else: Turret.turrets.erase(turret)
 		$MinionHolder.do(delta/game_speed)
 		$BulletHolder.do(delta/game_speed)
+		$EntityHolder.do(delta/game_speed)
 	
 	pass
 
@@ -141,8 +142,18 @@ func register_entity(entity:BaseEntity):
 	start_build_phase.connect(entity.on_build_phase_started)
 	start_combat_phase.connect(entity.on_battle_phase_started)
 	if entity.processing:
-		$EntityHolder.add_child(entity)
+		if entity.get_parent()!=null:
+			entity.reparent($EntityHolder)
+		else:
+			$EntityHolder.add_child(entity)	
+		
 	pass;
+func unregister_entity(entity:BaseEntity):
+	collisionReference.remove_entity(entity)
+	if entity.processing:
+		$EntityHolder.remove_child(entity)
+		
+	pass;	
 func startBattlePhase():
 	for turret in Turret.turrets:
 		turret.clear_path()
@@ -213,10 +224,15 @@ func startBuildPhase():
 func startGame():
 	portals.clear()
 	spawners.clear()
+	var volcano=EntityDTO.new()
+	volcano.map_x=12
+	volcano.map_y=8
+	map_dto.entities.append(volcano)
 	collisionReference.initialise(self,map_dto)
 	gameBoard=load("res://GameBoard/game_board.tscn").instantiate()
 	add_child(gameBoard)
 	board=gameBoard.get_node("Board")
+	
 	gameBoard.init_field(map_dto)
 	#apply_mods_before_start()
 	
