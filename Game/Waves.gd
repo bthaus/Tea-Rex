@@ -320,11 +320,14 @@ static func _connect_with_neigbours(movable_cells,point_id,x,y,astar_grid):
 
 #returns an array of cells on which the given monster type can move.
 static func _get_movable_cells_per_monster_type(map: TileMap, monstertype: Monster.MonsterMovingType):
+		var reference=GameState.collisionReference
 		var cells: Array = []
 		for i in range(GameboardConstants.BOARD_HEIGHT):
 			var arr=[]
 			for x in range(0, GameboardConstants.BOARD_WIDTH):
+				#var entities=reference.get_entities_from_map(Vector2(i,x))
 				arr.append(astar_id_weight_dto.new(-1))
+				
 			cells.append(arr)
 		var id=0
 		match(monstertype):

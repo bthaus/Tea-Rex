@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://bismehfpdggum"]
+[gd_scene load_steps=8 format=3 uid="uid://bismehfpdggum"]
 
 [ext_resource type="Script" path="res://factories/entity_factory.gd" id="1_bwspe"]
 [ext_resource type="PackedScene" uid="uid://h5p4fp80ye04" path="res://GameBoard/Entities/volcano.tscn" id="1_q001u"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://GameBoard/Entities/entity.gd" id="4_btsoo"]
 [ext_resource type="Script" path="res://GameBoard/Entities/Tunnel.gd" id="5_hkbjr"]
 [ext_resource type="Texture2D" uid="uid://b8n0busmwromw" path="res://icon.svg" id="5_ic4o0"]
+[ext_resource type="Script" path="res://factories/Barrel.gd" id="7_8yr0s"]
 
 [node name="EntityFactory" type="Node2D"]
 script = ExtResource("1_bwspe")
@@ -30,3 +31,10 @@ texture = ExtResource("5_ic4o0")
 script = ExtResource("5_hkbjr")
 collides_with_bullets = true
 moving_types = Array[int]([0])
+
+[node name="Barrel" type="Sprite2D" parent="."]
+texture = ExtResource("5_ic4o0")
+script = ExtResource("7_8yr0s")
+explodes_with = Array[int]([3, 1, 6])
+collides_with_bullets = true
+moving_types = Array[int]([])

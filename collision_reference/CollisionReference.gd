@@ -362,6 +362,9 @@ func get_entities(pos):
 	var p=getMapPositionNormalised(pos)
 	return map[p.y][p.x].entities
 	pass;	
+func get_entities_from_map(p):
+	return map[p.y][p.x].entities
+	pass;	
 func isOccupiedCell(x, y):
 	for turret in Turret.turrets:
 		if not is_instance_valid(turret): continue

@@ -9,7 +9,7 @@ static func create(dto:EntityDTO):
 		if n.tile_id==dto.tile_id:
 			node=n.duplicate()
 			break;
-	node=instance.get_node("Tunnel").duplicate()		
+	node=instance.get_node("Barrel").duplicate()		
 	node.map_position=Vector2(dto.map_x,dto.map_y)
 	node.visible=true
 	return node
