@@ -4,7 +4,7 @@ class_name HighGrassEntity
 var effects={}
 func trigger_minion(m:Monster):
 	if weight_excludes.has(m.moving_type):return 
-	var buff=MissableBuff.new(dodge_chance)
+	var buff=CamouflageBuff.new(dodge_chance)
 	buff.register(m)
 	effects[m]=buff
 	pass;

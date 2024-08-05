@@ -1,5 +1,5 @@
 extends PermanentStatusEffect
-class_name MissableBuff
+class_name CamouflageBuff
 var change
 func on_initial_application():
 	change=affected.dodge_chance
@@ -11,4 +11,4 @@ func on_removal():
 	pass;
 
 func get_name():
-	return Name.MISSABLE	
+	return Name.CAMOUFLAGE	

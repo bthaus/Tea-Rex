@@ -63,7 +63,17 @@ buildable = true
 [node name="High Grass" type="Sprite2D" parent="."]
 texture = ExtResource("5_ic4o0")
 script = ExtResource("9_duham")
+dodge_chance = null
+tile_id = null
+collides_with_bullets = null
+processing = null
+moving_types = null
+description = null
+map_layer = null
 move_weight = 1.3
+weight_excludes = null
+buildable = null
+immunities = null
 
 [node name="Damage Booster" type="Sprite2D" parent="."]
 script = ExtResource("8_jwewy")
