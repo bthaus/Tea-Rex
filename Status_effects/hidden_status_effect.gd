@@ -1,7 +1,7 @@
-extends StatusEffect
+extends PermanentStatusEffect
 class_name HiddenStatusEffect
 func _init():
-	super(1,null,99999)
+	super(1,null)
 	pass;
 func get_name():
 	return Name.HIDDEN	

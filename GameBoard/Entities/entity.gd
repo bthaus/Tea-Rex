@@ -54,6 +54,9 @@ func on_battle_phase_started():
 func on_build_phase_started():
 	
 	pass;
+func on_turret_built(turret:Turret):
+	
+	pass	
 func on_destroy():
 	
 	pass;			

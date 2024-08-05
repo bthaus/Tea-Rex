@@ -11,7 +11,7 @@ var to_remove=false;
 var time_slice_time=0
 var effectiveness=1
 
-enum Name{BURNING,FROZEN,FREEZING,POISONED,OVERCHARGED,FROZEN_TOWER,NONE,HIDDEN}
+enum Name{BURNING,FROZEN,FREEZING,POISONED,OVERCHARGED,FROZEN_TOWER,NONE,HIDDEN,DAMAGE,COOLDOWN,RANGE,MISSABLE}
 var type:
 	get:
 		return get_name()
@@ -66,7 +66,9 @@ func get_str():
 	pass;	
 func get_container()->status_effect_container:
 	return status_effect_container.new(affected)
-	
+func remove():
+	affected.status_effects[type].remove_status_effect(self,0.001)
+	pass;	
 
 class status_effect_container:
 	var status_effects=[]

@@ -10,7 +10,7 @@ signal death_animation_done
 @export var movable_cells:Array[Monster.MonsterMovingType]=[Monster.MonsterMovingType.GROUND]
 @export var special_cooldown:float=0
 var holder:Monster
-
+var dodge_chance=0
 var died=false
 # Called when the node enters the scene tree for the first time.
 func change_status_effect():
@@ -46,6 +46,9 @@ func do_special():
 	pass;
 func hit(color: Turret.Hue, damage, type="default", noise=true):
 	if hp<=0: return false;
+	if randi_range(0,100)<dodge_chance:
+		print("missed!")
+		return
 	on_hit()
 	hp = hp - damage #* mod;
 	if hp <= 0 and not died:

@@ -223,6 +223,10 @@ func show_infobox():
 		)
 	
 	pass;
+	
+func add_status_effect(effect:StatusEffect):
+	effect.register(base)
+	pass;	
 func on_hover():
 
 	base.showRangeOutline()
