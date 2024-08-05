@@ -151,6 +151,7 @@ func reduceCooldown(delta):
 
 var waitingForMinions = false;
 func on_target_found(monster: Monster):
+	monster.status_changed.connect(checkTarget)
 	monster.monster_died.connect(func():
 		target=null)
 	monster.reached_spawn.connect(func(m): on_target_lost())
@@ -297,6 +298,7 @@ func do_all(tasks: Array[Callable]):
 		t.call()
 	pass ;
 func checkTarget():
+	if !util.valid(target):return
 	if is_out_of_range(target):
 		print("target lost!")
 		target = null;
@@ -309,6 +311,8 @@ func is_out_of_range(t):
 	#tinypfusch to avoid code duplication
 	if !targetable_enemy_types.has(t.moving_type):
 		return true
+	if not t.is_targettable():
+		return true;	
 	var start=global_position
 	if !ref_proj.ghost_projectile:
 		while start!=global_position:

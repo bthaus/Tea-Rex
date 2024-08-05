@@ -11,7 +11,7 @@ var to_remove=false;
 var time_slice_time=0
 var effectiveness=1
 
-enum Name{BURNING,FROZEN,FREEZING,POISONED,OVERCHARGED,FROZEN_TOWER,NONE}
+enum Name{BURNING,FROZEN,FREEZING,POISONED,OVERCHARGED,FROZEN_TOWER,NONE,HIDDEN}
 var type:
 	get:
 		return get_name()
@@ -80,7 +80,11 @@ class status_effect_container:
 	var affected
 	func _init(affected):
 		self.affected=affected
-		
+	func remove():
+		status_effects.clear()
+		strongest_status_effect=null
+		remove_visual()
+		pass;	
 	func get_strongest_status_effect()->StatusEffect:
 		return strongest_status_effect
 	
@@ -93,20 +97,26 @@ class status_effect_container:
 			
 		pass;
 	func add_visual():
-		
+		var label=Label.new()
+		label.z_index=100
+		label.text=get_strongest_status_effect().get_name()
+		get_strongest_status_effect().affected.add_child(label)
+		label.position+=Vector2(randf_range(10,32),randf_range(10,32))
+		visual=label
 		pass;
 	func remove_visual():
-		
+		if !util.valid(visual):return
+		visual.queue_free()
 		pass;		
 	func add_status_effect(d:StatusEffect):
-		if status_effects.is_empty():
-			add_visual()	
 		if strongest_status_effect!=null and strongest_status_effect.get_str()==d.get_str():
 			strongest_status_effect.refresh()
 			return
 		
 		status_effects.push_back(d)
 		compute_strongest_status_effect()
+		if status_effects.is_empty():
+			add_visual()
 		
 	func remove_status_effect(d:StatusEffect,delta):
 		status_effects.erase(d)

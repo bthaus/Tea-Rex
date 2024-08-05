@@ -15,8 +15,17 @@ func get_status_effect_effectiveness(name:StatusEffect.Name):
 	#for res in resistances:
 		#if res.resistance==name:
 			#effect+=res.effect
-	return effect				
-
+	return effect	
+func remove_status_effect(name):
+	if status_effects.has(name):
+		status_effects[name].remove()
+	pass;				
+func has_effect(name:StatusEffect.Name):
+	if status_effects.has(name):
+		if status_effects[name].get_strongest_status_effect()!=null:
+			return true
+	return false;		
+	pass;
 func get_global():
 	return global_position
 	pass;

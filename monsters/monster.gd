@@ -10,6 +10,7 @@ var sizemult = 1;
 var maxHp;
 var monstertype:Monstertype
 var spawner_color
+signal status_changed
 var damage:
 	get:return core.damage
 	set(val):core.damage=val
@@ -35,6 +36,9 @@ var core:MonsterCore:
 signal monster_died(monster: Monster)
 signal reached_spawn(monster: Monster)
 var maxGlow = 5;
+func remove_status_effect(name):
+	core.remove_status_effect(name)
+	pass;
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	default_speed=speed
@@ -54,7 +58,12 @@ static func create(monster_name, target: Node2D, wave: int=1) -> Monster:
 	en.core.holder=en
 	
 	return en
-
+func is_targettable():
+	if core.has_effect(StatusEffect.Name.HIDDEN):return false
+	if core.died:return false
+	
+	return true;
+	pass;
 func hit(color: Turret.Hue, damage, type="default", noise=true):
 	$Health.value = core.hp;
 	if noise: $hurt.play()

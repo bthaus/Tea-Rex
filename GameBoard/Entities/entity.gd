@@ -34,6 +34,9 @@ func trigger_minion(monster:Monster):
 func trigger_bullet(bullet:Projectile):
 	
 	pass;	
+func on_cell_left(monster:Monster):
+	
+	pass;	
 func on_battle_phase_started():
 	
 	pass;

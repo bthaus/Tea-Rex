@@ -13,7 +13,9 @@ var holder:Monster
 
 var died=false
 # Called when the node enters the scene tree for the first time.
-	
+func change_status_effect():
+	holder.status_changed.emit()
+	pass;	
 func on_move():
 	
 	pass;

@@ -42,18 +42,18 @@ static func create(type, damage, position, root, scale=1, noise=true):
 	pass ;	
 func hit():
 	
-	var ms=[]
-	if range<=1:
-		ms=GameState.gameState.collisionReference.getMinionsAroundPosition(global_position)
-	else:
-		range=int(range)
-		var cells=GameState.gameState.collisionReference.getCellReferences(global_position,range+1,null,[],true)
-		for c in cells:
-			ms.append_array(c)	
-	for m in ms:
-		if not is_instance_valid(m):continue
-		var frost=FrostDebuff.new(1,self,1,9999)
-		frost.register(m)
+	#var ms=[]
+	#if range<=1:
+		#ms=GameState.gameState.collisionReference.getMinionsAroundPosition(global_position)
+	#else:
+		#range=int(range)
+		#var cells=GameState.gameState.collisionReference.getCellReferences(global_position,range+1,null,[],true)
+		#for c in cells:
+			#ms.append_array(c)	
+	#for m in ms:
+		#if not is_instance_valid(m):continue
+		#var frost=FrostDebuff.new(1,self,1,9999)
+		#frost.register(m)
 	var turrets=GameState.gameState.collisionReference.get_cells_around_pos(global_position,range,false)
 	for cell in turrets:
 		if !util.valid(cell.turret):continue

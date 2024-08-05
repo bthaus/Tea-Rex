@@ -46,6 +46,7 @@ func setMinion(oldx, oldy, x, y, m: Monster):
 	x = normaliseX(x)
 	y = normaliseY(y)
 	oldy = normaliseY(oldy)
+	leave_cell(Vector2(oldx,oldy),m)
 	trigger_minion(Vector2(x,y),m)
 	map[oldy][oldx].ms.erase(m)
 	for base in bases:
@@ -311,6 +312,10 @@ func trigger_bullet(bullet:Projectile):
 		if !util.valid(entity):continue
 		entity.trigger_bullet(bullet)
 	pass;
+func leave_cell(p,m):
+	for entity in map[p.y][p.x].entities:
+		entity.on_cell_left(m)
+	pass;	
 func trigger_minion(p,minion:Monster):
 	for entity in map[p.y][p.x].entities:
 		#if !entity.has_method("trigger_minion"):continue
