@@ -32,9 +32,15 @@ script = ExtResource("5_hkbjr")
 collides_with_bullets = true
 moving_types = Array[int]([0])
 
-[node name="Barrel" type="Sprite2D" parent="."]
+[node name="ExplosiveBarrel" type="Sprite2D" parent="."]
 texture = ExtResource("5_ic4o0")
 script = ExtResource("7_8yr0s")
 explodes_with = Array[int]([3, 1, 6])
+collides_with_bullets = true
+moving_types = Array[int]([])
+
+[node name="Barrel" type="Sprite2D" parent="."]
+texture = ExtResource("5_ic4o0")
+script = ExtResource("7_8yr0s")
 collides_with_bullets = true
 moving_types = Array[int]([])
