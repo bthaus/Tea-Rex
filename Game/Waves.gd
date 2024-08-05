@@ -325,7 +325,6 @@ static func _get_movable_cells_per_monster_type(map: TileMap, monstertype: Monst
 		for i in range(GameboardConstants.BOARD_HEIGHT):
 			var arr=[]
 			for x in range(0, GameboardConstants.BOARD_WIDTH):
-				#var entities=reference.get_entities_from_map(Vector2(i,x))
 				arr.append(astar_id_weight_dto.new(-1))
 				
 			cells.append(arr)
@@ -339,7 +338,8 @@ static func _get_movable_cells_per_monster_type(map: TileMap, monstertype: Monst
 					
 					var type = GameboardConstants.get_tile_type(map, GameboardConstants.BLOCK_LAYER, pos)
 					if type == null or type == GameboardConstants.TileType.PORTAL: #Block layer is free or there is a portal
-						cells[pos.x][pos.y]=astar_id_weight_dto.new(id,1)
+						var weight=reference.get_weight_from_cell(pos,monstertype)
+						cells[pos.x][pos.y]=astar_id_weight_dto.new(id,weight)
 					
 			Monster.MonsterMovingType.AIR:
 				for y in range(0, GameboardConstants.BOARD_HEIGHT): #Just put every possible tile in the array

@@ -10,6 +10,9 @@ var map_position: Vector2
 @export var moving_types:Array[Monster.MonsterMovingType]=[Monster.MonsterMovingType.GROUND,Monster.MonsterMovingType.AIR]
 @export var description:String=""
 @export var map_layer:GameboardConstants.MapLayer
+@export_range(0,5) var move_weight:float=1
+@export var weight_excludes:Array[Monster.MonsterMovingType]=[Monster.MonsterMovingType.AIR]
+@export var buildable:bool=false;
 func _init(tile_id: int = -1, map_layer: int = -1, map_position: Vector2 = Vector2(0, 0)):
 	self.tile_id = tile_id
 	self.map_layer = map_layer
@@ -28,6 +31,14 @@ func place_on_board(board: TileMap):
 func remove_from_board(board:TileMap):
 	GameState.gameState.unregister_entity(self)
 	pass;
+func can_move(type:Monster.MonsterMovingType):
+	return moving_types.has(type)
+		
+func get_weight_from_type(type:Monster.MonsterMovingType):
+	if weight_excludes.has(type):
+		return 1
+	return move_weight	
+	pass;	
 func trigger_minion(monster:Monster):
 	
 	pass;

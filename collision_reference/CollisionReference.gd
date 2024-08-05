@@ -364,7 +364,20 @@ func get_entities(pos):
 	pass;	
 func get_entities_from_map(p):
 	return map[p.y][p.x].entities
+		
+func get_weight_from_cell(pos,monster_type:Monster.MonsterMovingType):
+	var entities=get_entities_from_map(pos)
+	var weight=1000
+	for e in entities:
+		if !e.can_move(monster_type):continue;
+		var w=e.get_weight_from_type(monster_type)
+		if w<weight:
+			weight=w
+	if weight==1000:
+		weight=1	
+	return weight
 	pass;	
+	
 func isOccupiedCell(x, y):
 	for turret in Turret.turrets:
 		if not is_instance_valid(turret): continue

@@ -28,6 +28,7 @@ func on_spawn():
 	$Animation.play("spawn")
 	pass;
 func on_cell_traversal():
+	
 	pass;
 func on_hit():
 	$Animation.play("hit")

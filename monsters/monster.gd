@@ -21,6 +21,7 @@ var hp:
 	get:return core.hp
 	set(val):core.hp=val
 var default_speed
+var speed_factor=1
 var minionExp;
 var currentMinionPower = 1;
 var path=[]
@@ -117,7 +118,7 @@ func translateTowardEdge(delta):
 		
 	if travel_index>path.size()-1:return;
 	direction=(path[travel_index]-global_position).normalized()
-	var distance=core.speed*delta
+	var distance=core.speed*delta/speed_factor
 	distance_travelled=distance_travelled+distance
 	translate(direction*distance)
 	pass;
@@ -125,6 +126,8 @@ func translateTowardEdge(delta):
 	
 func cell_traversed():
 	core.on_cell_traversal()
+	var weight=GameState.collisionReference.get_weight_from_cell(get_map(),moving_type)
+	speed_factor=weight
 	pass;
 func _on_visible_on_screen_notifier_2d_screen_exited():
 	core.visible=false;
