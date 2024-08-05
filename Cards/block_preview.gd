@@ -19,7 +19,7 @@ func set_block(block: Block, spawn_turrets: bool):
 			add_child(turret)
 
 func clear_preview():
-	$TileMap.clear_layer(GameboardConstants.BLOCK_LAYER)
+	$TileMap.clear_layer(GameboardConstants.MapLayer.BLOCK_LAYER)
 	for child in get_children():
 		if child is Turret:
 			child.queue_free()

@@ -33,7 +33,7 @@ func set_cell(tile: TileSelection.TileItem, map_position: Vector2, refresh_spawn
 	if tile == null: return
 	if not _is_in_editor_bounds(map_position): return
 	
-	var board_type = GameboardConstants.get_tile_type(board, GameboardConstants.BLOCK_LAYER, map_position)
+	var board_type = GameboardConstants.get_tile_type(board, GameboardConstants.MapLayer.BLOCK_LAYER, map_position)
 	var is_spawner_below = board_type != null and board_type == GameboardConstants.TileType.SPAWNER
 	var type = GameboardConstants.get_tile_type_by_id(board, tile.tile_id)
 	if is_spawner_below and type != GameboardConstants.TileType.SPAWNER: #If there is a spawner below, remove it (unless the holding piece is a spawner)
@@ -41,21 +41,21 @@ func set_cell(tile: TileSelection.TileItem, map_position: Vector2, refresh_spawn
 	
 	var dto = GameboardConstants.tile_to_dto(tile.tile_id)
 	match (dto.map_layer):
-		GameboardConstants.GROUND_LAYER:
+		GameboardConstants.MapLayer.GROUND_LAYER:
 			_set_board_cell(dto, map_position, refresh_spawner_paths)
 			
-		GameboardConstants.BUILD_LAYER:
+		GameboardConstants.MapLayer.BUILD_LAYER:
 			_set_board_cell(dto, map_position, refresh_spawner_paths)
-			_clear_board_cell(GameboardConstants.BLOCK_LAYER, map_position, refresh_spawner_paths)
+			_clear_board_cell(GameboardConstants.MapLayer.BLOCK_LAYER, map_position, refresh_spawner_paths)
 			
-		GameboardConstants.BLOCK_LAYER:
+		GameboardConstants.MapLayer.BLOCK_LAYER:
 			if type == GameboardConstants.TileType.SPAWNER:
 				if is_spawner_below: return #There is already a spawner below, ignore it
 				spawner_map_positions.append(map_position)
 				spawner_added.emit()
 
 			_set_board_cell(dto, map_position, refresh_spawner_paths)
-			_clear_board_cell(GameboardConstants.BUILD_LAYER, map_position, refresh_spawner_paths)
+			_clear_board_cell(GameboardConstants.MapLayer.BUILD_LAYER, map_position, refresh_spawner_paths)
 
 #If the tile is null, it will bucket clear it
 func bucket_fill(tile: TileSelection.TileItem, map_position: Vector2):
@@ -85,7 +85,7 @@ func bucket_fill(tile: TileSelection.TileItem, map_position: Vector2):
 				if not _is_in_editor_bounds(pos): continue
 				
 				#Check if there is a block layer tile, do not search in that case (unless the tile we wanna place is from the block layer)
-				if tile_layer != GameboardConstants.BLOCK_LAYER and board.get_cell_source_id(GameboardConstants.BLOCK_LAYER, pos) != -1:
+				if tile_layer != GameboardConstants.MapLayer.BLOCK_LAYER and board.get_cell_source_id(GameboardConstants.MapLayer.BLOCK_LAYER, pos) != -1:
 					continue
 				
 				var tile_id = board.get_cell_source_id(tile_layer, pos)
@@ -99,7 +99,7 @@ func bucket_fill(tile: TileSelection.TileItem, map_position: Vector2):
 	Spawner.refresh_all_paths()
 
 func clear_cell_layer(map_position: Vector2):
-	var board_type = GameboardConstants.get_tile_type(board, GameboardConstants.BLOCK_LAYER, map_position)
+	var board_type = GameboardConstants.get_tile_type(board, GameboardConstants.MapLayer.BLOCK_LAYER, map_position)
 	if board_type != null and board_type == GameboardConstants.TileType.SPAWNER: #There was a spawner below
 		_remove_spawner_at(map_position)
 	
@@ -109,12 +109,12 @@ func clear_cell_layer(map_position: Vector2):
 	_clear_board_cell(layer, map_position)
 
 func get_highest_used_layer(map_position: Vector2) -> int:
-	if not _is_cell_empty(GameboardConstants.BLOCK_LAYER, map_position):
-		return GameboardConstants.BLOCK_LAYER
-	elif not _is_cell_empty(GameboardConstants.BUILD_LAYER, map_position):
-		return GameboardConstants.BUILD_LAYER
-	elif not _is_cell_empty(GameboardConstants.GROUND_LAYER, map_position):
-		return GameboardConstants.GROUND_LAYER
+	if not _is_cell_empty(GameboardConstants.MapLayer.BLOCK_LAYER, map_position):
+		return GameboardConstants.MapLayer.BLOCK_LAYER
+	elif not _is_cell_empty(GameboardConstants.MapLayer.BUILD_LAYER, map_position):
+		return GameboardConstants.MapLayer.BUILD_LAYER
+	elif not _is_cell_empty(GameboardConstants.MapLayer.GROUND_LAYER, map_position):
+		return GameboardConstants.MapLayer.GROUND_LAYER
 	return -1
 
 func _is_cell_empty(layer: int, map_position: Vector2):
@@ -146,9 +146,9 @@ func _get_spawner_idx_at(map_position: Vector2) -> int:
 func save_board(monster_waves,map_name):
 	var entities:Array[BaseDTO] = []
 	
-	for pos in board.get_used_cells(GameboardConstants.GROUND_LAYER): entities.append(_get_entity(GameboardConstants.GROUND_LAYER, pos))
-	for pos in board.get_used_cells(GameboardConstants.BUILD_LAYER): entities.append(_get_entity(GameboardConstants.BUILD_LAYER, pos))
-	for pos in board.get_used_cells(GameboardConstants.BLOCK_LAYER): entities.append(_get_entity(GameboardConstants.BLOCK_LAYER, pos))
+	for pos in board.get_used_cells(GameboardConstants.MapLayer.GROUND_LAYER): entities.append(_get_entity(GameboardConstants.MapLayer.GROUND_LAYER, pos))
+	for pos in board.get_used_cells(GameboardConstants.MapLayer.BUILD_LAYER): entities.append(_get_entity(GameboardConstants.MapLayer.BUILD_LAYER, pos))
+	for pos in board.get_used_cells(GameboardConstants.MapLayer.BLOCK_LAYER): entities.append(_get_entity(GameboardConstants.MapLayer.BLOCK_LAYER, pos))
 	
 	var map_dto = MapDTO.new(entities, monster_waves, map_name)
 	map_dto.save(map_name)
