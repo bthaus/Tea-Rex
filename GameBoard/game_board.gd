@@ -206,7 +206,7 @@ func _action_finished(finished: bool):
 		done = Callable() # Reset callable
 
 func init_field(map_dto: MapDTO):
-	for entity in map_dto.entities:
+	for entity:EntityDTO in map_dto.entities:
 		entity.get_object().place_on_board($Board)
 	link_spawners_to_waves(map_dto)
 	

@@ -28,6 +28,6 @@ func remove_from_board():
 	$cell_fire.emitting=false
 	
 	fire_cell.remove()
-	super()
+	super(GameState.board)
 	GameState.gameState.recalculate_minion_paths()
 	pass;	
