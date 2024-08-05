@@ -24,10 +24,10 @@ func start_fire():
 	get_tree().create_timer(burning_time).timeout.connect(remove_from_board)
 	pass;
 
-func remove_from_board():
+func remove_from_board(map=GameState.board):
 	$cell_fire.emitting=false
 	
 	fire_cell.remove()
-	super(GameState.board)
+	super(map)
 	GameState.gameState.recalculate_minion_paths()
 	pass;	

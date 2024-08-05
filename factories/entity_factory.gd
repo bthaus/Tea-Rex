@@ -3,10 +3,12 @@ class_name EntityFactory
 
 static var instance=load("res://factories/entity_factory.tscn").instantiate()
 static func create(dto:EntityDTO):
-	var node= instance.get_node("Forest Entity").duplicate()
-	print(node.name)
-	node.map_layer=dto.map_layer
-	node.tile_id=dto.tile_id
+	var node
+	for n:BaseEntity in get_all():
+		if node.tile_id==dto.tile_id:
+			node=n.duplicate()
+			break;
+			
 	node.map_position=Vector2(dto.map_x,dto.map_y)
 	
 	return node

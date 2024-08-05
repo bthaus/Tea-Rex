@@ -13,14 +13,9 @@ collides_with_bullets = true
 processing = true
 
 [node name="ForestEntity" parent="." instance=ExtResource("3_2l8hi")]
-burning_time = null
-tile_id = null
 collides_with_bullets = true
 processing = null
-moving_types = null
-description = null
-map_layer = null
-immunities = null
+moving_types = Array[int]([1])
 
 [node name="Canyon" type="Sprite2D" parent="."]
 script = ExtResource("4_btsoo")
