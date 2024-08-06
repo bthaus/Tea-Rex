@@ -145,10 +145,10 @@ func check_mouse_cell_traversal(map_position: Vector2):
 func _draw_selected_block_preview(map_position: Vector2):
 	#Draw preview
 	if selected_block != null:
-		$Board.clear_layer(GameboardConstants.PREVIEW_LAYER)
+		$Board.clear_layer(GameboardConstants.MapLayer.PREVIEW_LAYER)
 		var can_place_block = false
 		if action == BoardAction.BULLDOZER:
-			block_handler.draw_block_with_tile_id(selected_block, map_position, GameboardConstants.LEGAL_PLACEMENT_TILE_ID, GameboardConstants.PREVIEW_LAYER)
+			block_handler.draw_block_with_tile_id(selected_block, map_position, GameboardConstants.LEGAL_PLACEMENT_TILE_ID, GameboardConstants.MapLayer.PREVIEW_LAYER)
 		elif action != BoardAction.NONE:
 			can_place_block = block_handler.can_place_block(selected_block, map_position,  gameState.spawners)
 		
@@ -168,7 +168,7 @@ func _draw_selected_block_preview(map_position: Vector2):
 		Spawner.update_damage_estimate()
 		#Draw actual block shape
 		var id = GameboardConstants.LEGAL_PLACEMENT_TILE_ID if can_place_block else GameboardConstants.ILLEGAL_PLACEMENT_TILE_ID
-		block_handler.draw_block_with_tile_id(selected_block, map_position, id, GameboardConstants.PREVIEW_LAYER)
+		block_handler.draw_block_with_tile_id(selected_block, map_position, id, GameboardConstants.MapLayer.PREVIEW_LAYER)
 
 func _place_block(block: Block, map_position: Vector2):
 	var piece = block_handler.get_piece_from_board(map_position)
@@ -199,7 +199,7 @@ func _action_finished(finished: bool):
 	moved_from_block = null
 	moved_from_position = Vector2.ZERO
 	action = BoardAction.NONE
-	$Board.clear_layer(GameboardConstants.PREVIEW_LAYER)
+	$Board.clear_layer(GameboardConstants.MapLayer.PREVIEW_LAYER)
 	Spawner.refresh_all_paths()
 	if not done.is_null():
 		done.call(finished)
@@ -285,10 +285,10 @@ func reset():
 		else: Explosion.pushCache(func(): )
 
 func show_outline(pos):
-	$Board.set_cell(GameboardConstants.PREVIEW_LAYER, $Board.local_to_map(pos), GameboardConstants.TURRET_RANGE_PREVIEW_TILE_ID, Vector2(0,0))
+	$Board.set_cell(GameboardConstants.MapLayer.PREVIEW_LAYER, $Board.local_to_map(pos), GameboardConstants.TURRET_RANGE_PREVIEW_TILE_ID, Vector2(0,0))
 
 func clear_range_outline():
-	$Board.clear_layer(GameboardConstants.PREVIEW_LAYER)
+	$Board.clear_layer(GameboardConstants.MapLayer.PREVIEW_LAYER)
 
 func register_blocking_color(movement_type:Monster.MonsterMovingType,color:Turret.Hue):
 	

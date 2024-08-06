@@ -18,7 +18,7 @@ func get_tile_id_from_block_piece(piece: Block.Piece) -> int:
 func draw_block(block: Block, map_position: Vector2):
 	for piece in block.pieces:
 		var piece_id = get_tile_id_from_block_piece(piece)
-		board.set_cell(GameboardConstants.BLOCK_LAYER, Vector2(piece.position.x + map_position.x, piece.position.y + map_position.y), piece_id, Vector2(0,0))
+		board.set_cell(GameboardConstants.MapLayer.BLOCK_LAYER, Vector2(piece.position.x + map_position.x, piece.position.y + map_position.y), piece_id, Vector2(0,0))
 
 #Draws a normalized block at a given map_position. Does NOT draw extensions as it may override stuff (preview)
 func draw_block_with_tile_id(block: Block, map_position: Vector2, id: int, layer: int):
@@ -27,10 +27,10 @@ func draw_block_with_tile_id(block: Block, map_position: Vector2, id: int, layer
 
 func remove_block_from_board(block: Block, map_position: Vector2):
 	for piece in block.pieces:
-		var type = GameboardConstants.get_tile_type(board, GameboardConstants.BLOCK_LAYER, Vector2(piece.position.x + map_position.x, piece.position.y + map_position.y))
+		var type = GameboardConstants.get_tile_type(board, GameboardConstants.MapLayer.BLOCK_LAYER, Vector2(piece.position.x + map_position.x, piece.position.y + map_position.y))
 		if type != null and type == GameboardConstants.TileType.WALL:
 			continue
-		board.set_cell(GameboardConstants.BLOCK_LAYER, Vector2(piece.position.x + map_position.x, piece.position.y + map_position.y), -1, Vector2(0,0))
+		board.set_cell(GameboardConstants.MapLayer.BLOCK_LAYER, Vector2(piece.position.x + map_position.x, piece.position.y + map_position.y), -1, Vector2(0,0))
 
 #If normalized, the coordinates of each piece will be based on map_position (=> (0,0))
 func get_block_from_board(map_position: Vector2, normalize: bool, search_diagonal: bool = false, ignore_level: bool = true) -> Block:
@@ -73,8 +73,8 @@ func get_piece_from_board(map_position: Vector2) -> Block.Piece:
 	if turret != null: #Turret on top, return data that is stored in it
 		return Block.Piece.new(map_position, turret.color, turret.level, turret.extension)
 	
-	var type = GameboardConstants.get_tile_type(board, GameboardConstants.BLOCK_LAYER, map_position)
-	var color = GameboardConstants.get_tile_color(board, GameboardConstants.BLOCK_LAYER, map_position)
+	var type = GameboardConstants.get_tile_type(board, GameboardConstants.MapLayer.BLOCK_LAYER, map_position)
+	var color = GameboardConstants.get_tile_color(board, GameboardConstants.MapLayer.BLOCK_LAYER, map_position)
 	if type != null and type == GameboardConstants.TileType.TURRET_BASE:
 		if color != null and color == GameboardConstants.TileColor.WHITE: #It is a white piece (no turret on top)
 			return Block.Piece.new(map_position, Turret.Hue.WHITE, 1, Turret.Extension.DEFAULT)
@@ -107,23 +107,23 @@ func can_place_block(block: Block, map_position: Vector2,  spawners) -> bool:
 		var board_pos = Vector2(piece.position.x + map_position.x, piece.position.y + map_position.y)
 		
 		#Check if there is ground
-		if board.get_cell_source_id(GameboardConstants.GROUND_LAYER, board_pos) == -1:
+		if board.get_cell_source_id(GameboardConstants.MapLayer.GROUND_LAYER, board_pos) == -1:
 			GameBoard.current_tutorial = TutorialHolder.tutNames.Outside
 			print("yo theat outside")
 			return false
 		
 		
 		#Check if there is a block place restriction
-		var build_type = GameboardConstants.get_tile_type(board, GameboardConstants.BUILD_LAYER, board_pos)
+		var build_type = GameboardConstants.get_tile_type(board, GameboardConstants.MapLayer.BUILD_LAYER, board_pos)
 		if build_type == GameboardConstants.TileType.BUILD: #There is a build restriction present
-			var build_color = GameboardConstants.get_tile_color(board, GameboardConstants.BUILD_LAYER, board_pos)
+			var build_color = GameboardConstants.get_tile_color(board, GameboardConstants.MapLayer.BUILD_LAYER, board_pos)
 			if build_color == GameboardConstants.TileColor.NONE: #No color allowed here
 				return false
 			if build_color != GameboardConstants.turret_color_to_tile_color(piece.color): #Wrong color
 				return false
 		
 		#Check if there is a tile of type wall
-		var board_type = GameboardConstants.get_tile_type(board, GameboardConstants.BLOCK_LAYER, board_pos)
+		var board_type = GameboardConstants.get_tile_type(board, GameboardConstants.MapLayer.BLOCK_LAYER, board_pos)
 		if board_type != null and board_type == GameboardConstants.TileType.WALL:
 			return false
 		
@@ -161,7 +161,7 @@ func can_place_block(block: Block, map_position: Vector2,  spawners) -> bool:
 	
 	#Check if a path would be valid
 	if first_piece == null: #We want to build something new (no upgrade)
-		draw_block_with_tile_id(block, map_position, GameboardConstants.BASE_PREVIEW_TILE_ID, GameboardConstants.BLOCK_LAYER) #Draw preview block for path
+		draw_block_with_tile_id(block, map_position, GameboardConstants.BASE_PREVIEW_TILE_ID, GameboardConstants.MapLayer.BLOCK_LAYER) #Draw preview block for path
 		Spawner.refresh_all_paths()
 		var can_all_reach = Spawner.can_all_reach_target()
 		remove_block_from_board(block, map_position) #Delete preview block again

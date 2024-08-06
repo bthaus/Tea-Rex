@@ -68,7 +68,7 @@ func _get_mouse_position_on_board() -> Vector2:
 
 func clear_mods():
 	item_handler.item_blocks.clear()
-	$Board.clear_layer(GameboardConstants.BLOCK_LAYER)
+	$Board.clear_layer(GameboardConstants.MapLayer.BLOCK_LAYER)
 
 func set_selected_item(item: ItemBlockDTO):
 	selected_item = item

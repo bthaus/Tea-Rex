@@ -7,13 +7,7 @@ const BOARD_WIDTH = 32
 const BOARD_HEIGHT = 32
 const TILE_SIZE = 62
 
-#LAYERS
-const GROUND_LAYER = 0
-const BUILD_LAYER = 1
-const BLOCK_LAYER = 2
-const PREVIEW_LAYER = 3
 
-enum MapLayer{GROUND_LAYER = 0,BUILD_LAYER = 1,BLOCK_LAYER = 2,PREVIEW_LAYER = 3}
 
 #HELPER
 const TURRET_RANGE_PREVIEW_TILE_ID = 0
@@ -39,6 +33,9 @@ const TURRET_BASE_MAGENTA_TILE_ID = 601
 
 #BUILD
 const BUILD_NONE_TILE_ID = 8
+
+#LAYERS
+enum MapLayer { GROUND_LAYER = 0, BUILD_LAYER = 1, BLOCK_LAYER = 2, PREVIEW_LAYER = 3 }
 
 #COLORS
 enum TileColor { NONE, RED, GREEN, BLUE, YELLOW, WHITE, MAGENTA };
@@ -71,22 +68,22 @@ static func turret_color_to_tile_color(color: Turret.Hue):
 static func tile_to_dto(tile_id: int) -> BaseDTO:
 	match (tile_id):
 		#GROUND
-		GROUND_TILE_ID: return TileDTO.new(GameboardConstants.GROUND_TILE_ID, GameboardConstants.GROUND_LAYER)
+		GROUND_TILE_ID: return TileDTO.new(GameboardConstants.GROUND_TILE_ID, GameboardConstants.MapLayer.GROUND_LAYER)
 		
 		#BUILD
-		BUILD_NONE_TILE_ID: return TileDTO.new(GameboardConstants.BUILD_NONE_TILE_ID, GameboardConstants.BUILD_LAYER)
+		BUILD_NONE_TILE_ID: return TileDTO.new(GameboardConstants.BUILD_NONE_TILE_ID, GameboardConstants.MapLayer.BUILD_LAYER)
 		
 		#ENTITIES
-		PLAYER_BASE_GREEN_TILE_ID: return PlayerBaseDTO.new(GameboardConstants.PLAYER_BASE_GREEN_TILE_ID, GameboardConstants.BLOCK_LAYER, GameboardConstants.TileColor.GREEN)
-		SPAWNER_GREEN_TILE_ID: return SpawnerDTO.new(GameboardConstants.SPAWNER_GREEN_TILE_ID, GameboardConstants.BLOCK_LAYER, -1, GameboardConstants.TileColor.GREEN)
-		WALL_TILE_ID: return TileDTO.new(GameboardConstants.WALL_TILE_ID, GameboardConstants.BLOCK_LAYER,1,1,true)
-		PORTAL_TILE_ID: return PortalDTO.new(GameboardConstants.PORTAL_TILE_ID, GameboardConstants.BLOCK_LAYER)
+		PLAYER_BASE_GREEN_TILE_ID: return PlayerBaseDTO.new(GameboardConstants.PLAYER_BASE_GREEN_TILE_ID, GameboardConstants.MapLayer.BLOCK_LAYER, GameboardConstants.TileColor.GREEN)
+		SPAWNER_GREEN_TILE_ID: return SpawnerDTO.new(GameboardConstants.SPAWNER_GREEN_TILE_ID, GameboardConstants.MapLayer.BLOCK_LAYER, -1, GameboardConstants.TileColor.GREEN)
+		WALL_TILE_ID: return TileDTO.new(GameboardConstants.WALL_TILE_ID, GameboardConstants.MapLayer.BLOCK_LAYER,1,1,true)
+		PORTAL_TILE_ID: return PortalDTO.new(GameboardConstants.PORTAL_TILE_ID, GameboardConstants.MapLayer.BLOCK_LAYER)
 		
-		TURRET_BASE_WHITE_TILE_ID: return TileDTO.new(GameboardConstants.TURRET_BASE_WHITE_TILE_ID, GameboardConstants.BLOCK_LAYER)
-		TURRET_BASE_BLUE_TILE_ID: return TileDTO.new(GameboardConstants.TURRET_BASE_BLUE_TILE_ID, GameboardConstants.BLOCK_LAYER)
-		TURRET_BASE_RED_TILE_ID: return TileDTO.new(GameboardConstants.TURRET_BASE_RED_TILE_ID, GameboardConstants.BLOCK_LAYER)
-		TURRET_BASE_GREEN_TILE_ID: return TileDTO.new(GameboardConstants.TURRET_BASE_GREEN_TILE_ID, GameboardConstants.BLOCK_LAYER)
-		TURRET_BASE_YELLOW_TILE_ID: return TileDTO.new(GameboardConstants.TURRET_BASE_YELLOW_TILE_ID, GameboardConstants.BLOCK_LAYER)
-		TURRET_BASE_MAGENTA_TILE_ID: return TileDTO.new(GameboardConstants.TURRET_BASE_MAGENTA_TILE_ID, GameboardConstants.BLOCK_LAYER)
+		TURRET_BASE_WHITE_TILE_ID: return TileDTO.new(GameboardConstants.TURRET_BASE_WHITE_TILE_ID, GameboardConstants.MapLayer.BLOCK_LAYER)
+		TURRET_BASE_BLUE_TILE_ID: return TileDTO.new(GameboardConstants.TURRET_BASE_BLUE_TILE_ID, GameboardConstants.MapLayer.BLOCK_LAYER)
+		TURRET_BASE_RED_TILE_ID: return TileDTO.new(GameboardConstants.TURRET_BASE_RED_TILE_ID, GameboardConstants.MapLayer.BLOCK_LAYER)
+		TURRET_BASE_GREEN_TILE_ID: return TileDTO.new(GameboardConstants.TURRET_BASE_GREEN_TILE_ID, GameboardConstants.MapLayer.BLOCK_LAYER)
+		TURRET_BASE_YELLOW_TILE_ID: return TileDTO.new(GameboardConstants.TURRET_BASE_YELLOW_TILE_ID, GameboardConstants.MapLayer.BLOCK_LAYER)
+		TURRET_BASE_MAGENTA_TILE_ID: return TileDTO.new(GameboardConstants.TURRET_BASE_MAGENTA_TILE_ID, GameboardConstants.MapLayer.BLOCK_LAYER)
 
 	return null
