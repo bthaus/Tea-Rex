@@ -25,10 +25,28 @@ func get_json():
 			values.append(d)
 	var json=JSON.stringify(values," ")	
 	return json
-	
+static func get_json_from_object(object):
+	var props=object.get_script().get_script_property_list() as Array
+	var values=[]
+	#cleanup of class descriptors
+	values.append(props.pop_front()["hint_string"])
+	var removal_arr=[]
+	for p in props:
+		if p["name"].contains(".gd"): removal_arr.append(p)
+	for p in removal_arr:
+		props.erase(p)
+	for p in props:
+			var val=object.get(p["name"])
+			val=_get_if_is_2D_array_of_dtos(val)	
+			val=_get_if_is_array_of_dtos(val)
+			val=_get_if_is_dto(val)
+			var d={p["name"]:val}
+			values.append(d)
+	var json=JSON.stringify(values," ")	
+	return json	
 func _init():
 	pass;	
-func _get_if_is_array_of_dtos(val):
+static func _get_if_is_array_of_dtos(val):
 	if val is Array and !val.is_empty() and val[0] is BaseDTO:
 				var arr= val
 				val=[] as Array
@@ -36,7 +54,7 @@ func _get_if_is_array_of_dtos(val):
 					val.append(i.get_json())
 	return val					
 
-func _get_if_is_2D_array_of_dtos(val):
+static func _get_if_is_2D_array_of_dtos(val):
 	if val is Array:
 				if !val.is_empty() and val[0] is Array and !val[0].is_empty() and val[0][0] is BaseDTO:
 					var arr= val
@@ -49,7 +67,7 @@ func _get_if_is_2D_array_of_dtos(val):
 						val.append(innerarr)
 	return val
 
-func _get_if_is_dto(val):
+static func _get_if_is_dto(val):
 	if val is BaseDTO:
 		val=val.get_json()
 	return val

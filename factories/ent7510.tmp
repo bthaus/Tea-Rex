@@ -20,7 +20,6 @@ script = ExtResource("1_bwspe")
 visible = false
 collides_with_bullets = true
 processing = true
-map_layer = 2
 
 [node name="Forest" parent="." instance=ExtResource("3_2l8hi")]
 visible = false
@@ -30,16 +29,7 @@ moving_types = Array[int]([1])
 [node name="Canyon" type="Sprite2D" parent="."]
 visible = false
 script = ExtResource("4_btsoo")
-tile_id = null
-collides_with_bullets = null
-processing = null
 moving_types = Array[int]([])
-description = null
-map_layer = null
-move_weight = null
-weight_excludes = null
-buildable = null
-immunities = null
 
 [node name="Tunnel" type="Sprite2D" parent="."]
 texture = ExtResource("5_ic4o0")
@@ -62,16 +52,8 @@ moving_types = Array[int]([])
 
 [node name="Street" type="Sprite2D" parent="."]
 script = ExtResource("4_btsoo")
-tile_id = null
-collides_with_bullets = null
-processing = null
-moving_types = null
-description = null
-map_layer = null
 move_weight = 0.75
-weight_excludes = null
 buildable = true
-immunities = null
 
 [node name="GlassShards" type="Sprite2D" parent="."]
 script = ExtResource("8_3l674")
