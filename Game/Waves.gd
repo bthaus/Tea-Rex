@@ -275,7 +275,7 @@ static func _register_portals(astar,movable_cells):
 	for portal in portals:
 		var id=astar.get_available_point_id()
 		astar.add_point(id,portal.map_position)
-		_current_grid[portal.map_position.x][portal.map_position.y]=id
+		_current_grid[portal.map_position.x][portal.map_position.y]=astar_id_weight_dto.new(id)
 		_connect_with_neigbours(movable_cells,id,portal.map_position.x,portal.map_position.y,astar)
 		
 	for portal in portals:
