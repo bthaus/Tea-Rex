@@ -378,12 +378,14 @@ func get_weight_from_cell(pos,monster_type:Monster.MonsterMovingType):
 		weight=1	
 	return weight
 	pass;	
-func is_buildable(glob)->bool:
+func is_buildable_global(glob)->bool:
 	var p=getMapPositionNormalised(glob)
 	for e:BaseEntity in map[p.y][p.x].entities:
 		if not e.buildable:
 			return false;
-	return true;			
+	return true;
+func is_buildable_map(map)->bool:
+	return is_buildable_global(getGlobalFromReference(map)	)			
 func isOccupiedCell(x, y):
 	for turret in Turret.turrets:
 		if not is_instance_valid(turret): continue
