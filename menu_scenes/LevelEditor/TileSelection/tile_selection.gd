@@ -8,14 +8,24 @@ class_name TileSelection
 @onready var build_container = $Build/BuildContainer
 @onready var block_container = $Block/BlockContainer
 
+var all_tile_items: Array[TileItem] = [
+	#SPECIAL ENTITIES
+	TileItem.new(GameboardConstants.PLAYER_BASE_GREEN_TILE_ID, GameboardConstants.MapLayer.BLOCK_LAYER, "Player Base"),
+	TileItem.new(GameboardConstants.SPAWNER_GREEN_TILE_ID, GameboardConstants.MapLayer.BLOCK_LAYER, "Spawner"),
+	TileItem.new(GameboardConstants.PORTAL_TILE_ID, GameboardConstants.MapLayer.BLOCK_LAYER, "Portal"),
+]
+
 signal tile_selected
 
 func _ready():
 	var nodes = EntityFactory.get_all()
 	for node in nodes:
 		var item = TileItem.new(node.tile_id, node.map_layer, node.name)
+		all_tile_items.append(item)
+	
+	for item in all_tile_items:
 		_add_tile_to_container(all_container, item)
-		match(node.map_layer):
+		match(item.map_layer):
 			GameboardConstants.MapLayer.GROUND_LAYER: _add_tile_to_container(ground_container, item)
 			GameboardConstants.MapLayer.BUILD_LAYER: _add_tile_to_container(build_container, item)
 			GameboardConstants.MapLayer.BLOCK_LAYER: _add_tile_to_container(block_container, item)
@@ -30,7 +40,7 @@ func _add_tile_to_container(container: GridContainer, tile_item: TileItem):
 
 func _on_tile_selected(sender, tile_item: TileItem):
 	for container in get_children():
-		for item in container.get_children():
+		for item in container.get_child(0).get_children():
 			item.set_selected(false)
 	sender.set_selected(true)
 	tile_selected.emit(tile_item)

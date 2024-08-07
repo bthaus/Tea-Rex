@@ -40,7 +40,7 @@ func set_cell(tile: TileSelection.TileItem, map_position: Vector2, refresh_spawn
 		_remove_spawner_at(map_position)
 	
 	var dto = GameboardConstants.tile_to_dto(tile.tile_id)
-	match (dto.map_layer):
+	match (tile.map_layer):
 		GameboardConstants.MapLayer.GROUND_LAYER:
 			_set_board_cell(dto, map_position, refresh_spawner_paths)
 			
@@ -66,7 +66,7 @@ func bucket_fill(tile: TileSelection.TileItem, map_position: Vector2):
 	if tile == null:
 		tile_layer = get_highest_used_layer(map_position)
 	else:
-		tile_layer = dto.map_layer
+		tile_layer = tile.map_layer
 	
 	var board_id = board.get_cell_source_id(tile_layer, map_position) #underlying tile
 	var visited = []
