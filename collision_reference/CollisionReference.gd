@@ -354,6 +354,7 @@ func register_entity_at_position(entitity:BaseEntity,glob):
 	map[pos.y][pos.x].entities.push_back(entitity)
 	_trigger_monsters_for_entity_at_pos(entitity,glob)
 	pass;	
+	
 func remove_entity_from_position(entity:BaseEntity,glob):
 	var pos=getMapPositionNormalised(glob)
 	if isOutOfBoundsVector(pos):return
@@ -377,7 +378,12 @@ func get_weight_from_cell(pos,monster_type:Monster.MonsterMovingType):
 		weight=1	
 	return weight
 	pass;	
-	
+func is_buildable(glob)->bool:
+	var p=getMapPositionNormalised(glob)
+	for e:BaseEntity in map[p.y][p.x].entities:
+		if not e.buildable:
+			return false;
+	return true;			
 func isOccupiedCell(x, y):
 	for turret in Turret.turrets:
 		if not is_instance_valid(turret): continue
