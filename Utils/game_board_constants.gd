@@ -65,25 +65,13 @@ static func turret_color_to_tile_color(color: Turret.Hue):
 	return TileColor.get(Turret.Hue.keys()[color])
 
 
-static func tile_to_dto(tile_id: int) -> BaseDTO:
+static func tile_to_dto(tile_id: int) -> EntityDTO:
 	match (tile_id):
-		#GROUND
-		GROUND_TILE_ID: return TileDTO.new(GameboardConstants.GROUND_TILE_ID, GameboardConstants.MapLayer.GROUND_LAYER)
+		#SPECIAL ENTITIES
+		PLAYER_BASE_GREEN_TILE_ID: return PlayerBaseDTO.new(PLAYER_BASE_GREEN_TILE_ID, MapLayer.BLOCK_LAYER, TileColor.GREEN)
+		SPAWNER_GREEN_TILE_ID: return SpawnerDTO.new(SPAWNER_GREEN_TILE_ID, MapLayer.BLOCK_LAYER, -1, TileColor.GREEN)
+		PORTAL_TILE_ID: return PortalDTO.new(PORTAL_TILE_ID)
 		
-		#BUILD
-		BUILD_NONE_TILE_ID: return TileDTO.new(GameboardConstants.BUILD_NONE_TILE_ID, GameboardConstants.MapLayer.BUILD_LAYER)
-		
-		#ENTITIES
-		PLAYER_BASE_GREEN_TILE_ID: return PlayerBaseDTO.new(GameboardConstants.PLAYER_BASE_GREEN_TILE_ID, GameboardConstants.MapLayer.BLOCK_LAYER, GameboardConstants.TileColor.GREEN)
-		SPAWNER_GREEN_TILE_ID: return SpawnerDTO.new(GameboardConstants.SPAWNER_GREEN_TILE_ID, GameboardConstants.MapLayer.BLOCK_LAYER, -1, GameboardConstants.TileColor.GREEN)
-		WALL_TILE_ID: return TileDTO.new(GameboardConstants.WALL_TILE_ID, GameboardConstants.MapLayer.BLOCK_LAYER,1,1,true)
-		PORTAL_TILE_ID: return PortalDTO.new(GameboardConstants.PORTAL_TILE_ID, GameboardConstants.MapLayer.BLOCK_LAYER)
-		
-		TURRET_BASE_WHITE_TILE_ID: return TileDTO.new(GameboardConstants.TURRET_BASE_WHITE_TILE_ID, GameboardConstants.MapLayer.BLOCK_LAYER)
-		TURRET_BASE_BLUE_TILE_ID: return TileDTO.new(GameboardConstants.TURRET_BASE_BLUE_TILE_ID, GameboardConstants.MapLayer.BLOCK_LAYER)
-		TURRET_BASE_RED_TILE_ID: return TileDTO.new(GameboardConstants.TURRET_BASE_RED_TILE_ID, GameboardConstants.MapLayer.BLOCK_LAYER)
-		TURRET_BASE_GREEN_TILE_ID: return TileDTO.new(GameboardConstants.TURRET_BASE_GREEN_TILE_ID, GameboardConstants.MapLayer.BLOCK_LAYER)
-		TURRET_BASE_YELLOW_TILE_ID: return TileDTO.new(GameboardConstants.TURRET_BASE_YELLOW_TILE_ID, GameboardConstants.MapLayer.BLOCK_LAYER)
-		TURRET_BASE_MAGENTA_TILE_ID: return TileDTO.new(GameboardConstants.TURRET_BASE_MAGENTA_TILE_ID, GameboardConstants.MapLayer.BLOCK_LAYER)
+		_: return EntityDTO.new(tile_id)
 
 	return null
