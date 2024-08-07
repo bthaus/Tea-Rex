@@ -1,7 +1,12 @@
 extends GameObject2D
 class_name EntityFactory
 
-static var instance=load("res://factories/entity_factory.tscn").instantiate()
+func _ready():
+	for n:BaseEntity in get_all():
+		n.print_data()
+	pass;
+
+static var instance=preload("res://factories/entity_factory.tscn").instantiate()
 static func create(dto:EntityDTO):
 	var node
 	
@@ -19,3 +24,4 @@ static func get_all():
 	var c =instance.get_children()
 	return c
 	pass;
+	
