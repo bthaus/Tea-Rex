@@ -4,30 +4,38 @@ class_name TileSelection
 @onready var tile_set = load("res://TileSets/game_board_tileset.tres")
 
 var _ground_tile_items: Array[TileItem] = [
-	TileItem.new(GameboardConstants.GROUND_TILE_ID, "Ground")
+	#TileItem.new(GameboardConstants.GROUND_TILE_ID, "Ground")
 ]
 
 var _build_tile_items: Array[TileItem] = [
-	TileItem.new(GameboardConstants.BUILD_NONE_TILE_ID, "Build None")
+	#TileItem.new(GameboardConstants.BUILD_NONE_TILE_ID, "Build None")
 ]
 
 var _block_tile_items: Array[TileItem] = [
-	TileItem.new(GameboardConstants.WALL_TILE_ID, "Wall"),
-	TileItem.new(GameboardConstants.PLAYER_BASE_GREEN_TILE_ID, "Green Base"),
-	TileItem.new(GameboardConstants.SPAWNER_GREEN_TILE_ID, "Green Spawner"),
-	TileItem.new(GameboardConstants.PORTAL_TILE_ID, "Portal"),
-	
-	TileItem.new(GameboardConstants.TURRET_BASE_WHITE_TILE_ID, "White Base"),
-	TileItem.new(GameboardConstants.TURRET_BASE_BLUE_TILE_ID, "Blue Base"),
-	TileItem.new(GameboardConstants.TURRET_BASE_GREEN_TILE_ID, "Green Base"),
-	TileItem.new(GameboardConstants.TURRET_BASE_RED_TILE_ID, "Red Base"),
-	TileItem.new(GameboardConstants.TURRET_BASE_YELLOW_TILE_ID, "Yellow Base"),
-	TileItem.new(GameboardConstants.TURRET_BASE_MAGENTA_TILE_ID, "Magenta Base"),
+	#TileItem.new(GameboardConstants.WALL_TILE_ID, "Wall"),
+	#TileItem.new(GameboardConstants.PLAYER_BASE_GREEN_TILE_ID, "Green Base"),
+	#TileItem.new(GameboardConstants.SPAWNER_GREEN_TILE_ID, "Green Spawner"),
+	#TileItem.new(GameboardConstants.PORTAL_TILE_ID, "Portal"),
+	#
+	#TileItem.new(GameboardConstants.TURRET_BASE_WHITE_TILE_ID, "White Base"),
+	#TileItem.new(GameboardConstants.TURRET_BASE_BLUE_TILE_ID, "Blue Base"),
+	#TileItem.new(GameboardConstants.TURRET_BASE_GREEN_TILE_ID, "Green Base"),
+	#TileItem.new(GameboardConstants.TURRET_BASE_RED_TILE_ID, "Red Base"),
+	#TileItem.new(GameboardConstants.TURRET_BASE_YELLOW_TILE_ID, "Yellow Base"),
+	#TileItem.new(GameboardConstants.TURRET_BASE_MAGENTA_TILE_ID, "Magenta Base"),
 ]
 
 signal tile_selected
 
 func _ready():
+	var nodes = EntityFactory.get_all()
+	for node in nodes:
+		print(str("name: ", node.name, "layer: ", node.map_layer))
+		match (node.map_layer):
+			GameboardConstants.MapLayer.GROUND_LAYER: _ground_tile_items.append(TileItem.new(node.tile_id, node.name))
+			GameboardConstants.MapLayer.BUILD_LAYER: _build_tile_items.append(TileItem.new(node.tile_id, node.name))
+			GameboardConstants.MapLayer.BLOCK_LAYER: _block_tile_items.append(TileItem.new(node.tile_id, node.name))
+	
 	var all_tile_items: Array[TileItem] = []
 	all_tile_items.append_array(_ground_tile_items)
 	all_tile_items.append_array(_build_tile_items)

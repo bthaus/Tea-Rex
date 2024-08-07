@@ -1,4 +1,5 @@
-[gd_scene load_steps=14 format=3 uid="uid://bismehfpdggum"]
+
+[gd_scene load_steps=16 format=3 uid="uid://bismehfpdggum"]
 
 [ext_resource type="Script" path="res://factories/entity_factory.gd" id="1_bwspe"]
 [ext_resource type="PackedScene" uid="uid://h5p4fp80ye04" path="res://GameBoard/Entities/volcano.tscn" id="1_q001u"]
@@ -13,6 +14,9 @@
 [ext_resource type="Script" path="res://factories/Cooldown Booster.gd" id="9_3iqe7"]
 [ext_resource type="Script" path="res://factories/High Grass.gd" id="9_duham"]
 [ext_resource type="Script" path="res://factories/Range Booster.gd" id="10_lvhmf"]
+[ext_resource type="Script" path="res://GameBoard/Entities/player_base.gd" id="13_q7toq"]
+[ext_resource type="Script" path="res://Game/Waves.gd" id="14_pfk05"]
+[ext_resource type="Script" path="res://GameBoard/Entities/portal_entity.gd" id="15_285jm"]
 
 [node name="EntityFactory" type="Node2D"]
 script = ExtResource("1_bwspe")
@@ -95,3 +99,35 @@ script = ExtResource("9_3iqe7")
 
 [node name="Range Booster" type="Sprite2D" parent="."]
 script = ExtResource("10_lvhmf")
+
+[node name="Ground" type="Sprite2D" parent="."]
+script = ExtResource("4_btsoo")
+tile_id = 4
+
+[node name="Wall" type="Sprite2D" parent="."]
+script = ExtResource("4_btsoo")
+tile_id = 7
+collides_with_bullets = true
+map_layer = 2
+
+[node name="Player Base" type="Sprite2D" parent="."]
+script = ExtResource("13_q7toq")
+tile_id = 5
+collides_with_bullets = true
+map_layer = 2
+
+[node name="Spawner" type="Sprite2D" parent="."]
+script = ExtResource("14_pfk05")
+tile_id = 6
+collides_with_bullets = true
+map_layer = 2
+
+[node name="Portal" type="Sprite2D" parent="."]
+script = ExtResource("15_285jm")
+tile_id = 9
+map_layer = 2
+
+[node name="Build None" type="Sprite2D" parent="."]
+script = ExtResource("4_btsoo")
+tile_id = 8
+map_layer = 1
