@@ -87,13 +87,15 @@ func _input(event):
 	
 	if event.is_action_pressed("scroll_up"):
 		if zooming_disabled: return
-		if zoom.x < MAX_ZOOM_IN:
-			zoom = Vector2(zoom.x + CAMERA_ZOOM, zoom.y + CAMERA_ZOOM)
+		if Input.is_action_pressed("control"):
+			if zoom.x < MAX_ZOOM_IN:
+				zoom = Vector2(zoom.x + CAMERA_ZOOM, zoom.y + CAMERA_ZOOM)
 
 	if event.is_action_pressed("scroll_down"):
 		if zooming_disabled: return
-		if zoom.x > MAX_ZOOM_OUT:
-			zoom = Vector2(zoom.x - CAMERA_ZOOM, zoom.y - CAMERA_ZOOM)
+		if Input.is_action_pressed("control"):
+			if zoom.x > MAX_ZOOM_OUT:
+				zoom = Vector2(zoom.x - CAMERA_ZOOM, zoom.y - CAMERA_ZOOM)
 
 var tween
 func move_to(position: Vector2, done: Callable):
