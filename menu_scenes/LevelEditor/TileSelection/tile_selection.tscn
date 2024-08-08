@@ -7,21 +7,34 @@ offset_right = 255.0
 offset_bottom = 376.0
 script = ExtResource("1_p0q8q")
 
-[node name="All" type="GridContainer" parent="."]
+[node name="All" type="ScrollContainer" parent="."]
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="AllContainer" type="GridContainer" parent="All"]
 layout_mode = 2
 columns = 2
 
-[node name="Ground" type="GridContainer" parent="."]
-visible = false
+[node name="Ground" type="ScrollContainer" parent="."]
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="GroundContainer" type="GridContainer" parent="Ground"]
 layout_mode = 2
 columns = 2
 
-[node name="Build" type="GridContainer" parent="."]
-visible = false
+[node name="Build" type="ScrollContainer" parent="."]
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="BuildContainer" type="GridContainer" parent="Build"]
 layout_mode = 2
 columns = 2
 
-[node name="Block" type="GridContainer" parent="."]
-visible = false
+[node name="Block" type="ScrollContainer" parent="."]
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="BlockContainer" type="GridContainer" parent="Block"]
 layout_mode = 2
 columns = 2

@@ -33,7 +33,7 @@ func _ready():
 			if m != null:m.queue_free())
 	
 
-static func create(tile_id: int, map_layer: int, map_position:Vector2, spawner_id: int, color: GameboardConstants.TileColor)-> Spawner:
+static func create(tile_id: int, map_layer: GameboardConstants.MapLayer, map_position:Vector2, spawner_id: int, color: GameboardConstants.TileColor)-> Spawner:
 	var s=load("res://GameBoard/Spawner.tscn").instantiate() as Spawner;
 	s.state=GameState.gameState;
 	s.color=color
