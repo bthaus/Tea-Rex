@@ -5,6 +5,7 @@ var screen_start_position
 
 var dragging = false
 var dragging_disabled = false
+var zooming_disabled = false
 var clicked = false
 signal dragging_camera
 const MAX_SHAKE=5
@@ -35,6 +36,9 @@ func isOffCamera(position):
 
 func disable_dragging(disable: bool):
 	dragging_disabled = disable
+
+func disable_zooming(disable: bool):
+	zooming_disabled = disable
 
 func _process(delta):
 	if shake_timer < duration:
@@ -82,10 +86,12 @@ func _input(event):
 					position = new_pos
 	
 	if event.is_action_pressed("scroll_up"):
+		if zooming_disabled: return
 		if zoom.x < MAX_ZOOM_IN:
 			zoom = Vector2(zoom.x + CAMERA_ZOOM, zoom.y + CAMERA_ZOOM)
 
 	if event.is_action_pressed("scroll_down"):
+		if zooming_disabled: return
 		if zoom.x > MAX_ZOOM_OUT:
 			zoom = Vector2(zoom.x - CAMERA_ZOOM, zoom.y - CAMERA_ZOOM)
 

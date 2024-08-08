@@ -14,6 +14,7 @@ class_name LevelEditor
 enum BuildMode { DEFAULT, DRAW, BUCKET_FILL }
 var _build_mode: BuildMode = BuildMode.DEFAULT
 
+var previous_mouse_position = Vector2(-1, -1)
 var previous_board_position = Vector2i(-1, -1)
 
 const default_stylebox = preload("res://Styles/default_button.tres")
@@ -41,6 +42,14 @@ func _ready():
 	_set_button_selected(draw_build_mode_button, false)
 	_set_button_selected(bucket_fill_build_mode_button, false)
 
+func _process(delta):
+	#Check if editor has focus
+	if _build_mode != BuildMode.DRAW:
+		if previous_mouse_position == get_global_mouse_position():
+			$Camera2D.disable_dragging(false)
+		else:
+			$Camera2D.disable_dragging(true)
+
 func create_editor_game_state(map_dto:MapDTO):
 	var state=load("res://Game/main_scene.tscn").instantiate()
 	state.set_script(load("res://Game/editor_gamestate.gd"))
@@ -67,8 +76,11 @@ func load_map(map_dto: MapDTO):
 	wave_settings.set_monster_waves(map_dto.waves)
 	map_name.text = map_dto.map_name
 
+
 #We can use unhandled input here, so that when clicking on a (hud) button the drawing wont trigger
 func _unhandled_input(event):
+	previous_mouse_position = get_global_mouse_position()
+	
 	if InputUtils.is_action_just_released(event, "left_click") and ignore_click: # Ignore the next click
 		ignore_click = false
 		return
