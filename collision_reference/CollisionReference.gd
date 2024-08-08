@@ -105,10 +105,10 @@ func initialise(g,map_dto):
 	bases.clear()
 	for i in range(GameboardConstants.BOARD_HEIGHT+12):
 		addRow(map)
-	for entity in map_dto.entities:
-		if map[normaliseY(entity.map_y)][normaliseX(entity.map_x)].collides_with_bullets:continue
-		map[normaliseY(entity.map_y)][normaliseX(entity.map_x)].collides_with_bullets=entity.collides_with_bullets	
-		
+	#for entity in map_dto.entities:
+		#if map[normaliseY(entity.map_y)][normaliseX(entity.map_x)].collides_with_bullets:continue
+		#map[normaliseY(entity.map_y)][normaliseX(entity.map_x)].collides_with_bullets=entity.collides_with_bullets	
+		#
 	for x in range(map.size()):
 		for y in range(map[x].size()):
 			map[y][x].pos=Vector2(x,y)		
