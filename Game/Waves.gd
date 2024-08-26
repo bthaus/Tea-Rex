@@ -329,11 +329,13 @@ static func _get_movable_cells_per_monster_type(map: TileMap, monstertype: Monst
 				
 			cells.append(arr)
 		var id=0
-		var previews=GameState.gameState.gameBoard.preview_turrets
 		var preview_pos_arr=[]
-		if previews!=null:
-			for p in previews:
-				preview_pos_arr.append(p.get_map())
+		if GameState.gameState.gameBoard!=null:	
+			var previews=GameState.gameState.gameBoard.preview_turrets
+			
+			if previews!=null:
+				for p in previews:
+					preview_pos_arr.append(p.get_map())
 		match(monstertype):
 			
 			Monster.MonsterMovingType.GROUND:
