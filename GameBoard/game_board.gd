@@ -10,7 +10,6 @@ enum BoardAction {NONE = 0, BUILD = 1, MOVE = 2, BULLDOZER = 3}
 var action: BoardAction = BoardAction.NONE
 var done: Callable
 
-var turret_holder = GameObjectHolder.new()
 var block_handler: BlockHandler
 
 static var current_tutorial = null
@@ -34,7 +33,7 @@ func _ready():
 	randomize()
 	$Board.tile_set.tile_size = Vector2(GameboardConstants.TILE_SIZE, GameboardConstants.TILE_SIZE)
 	
-	block_handler = BlockHandler.new($Board, turret_holder)
+	block_handler = BlockHandler.new($Board)
 	
 	delay_timer = Timer.new()
 	delay_timer.autostart = false
@@ -158,7 +157,7 @@ func _draw_selected_block_preview(map_position: Vector2):
 			var idx = 0
 			clear_range_outline()
 			for piece in selected_block.pieces:
-				var pos=$Board.map_to_local(Vector2(piece.position.x + map_position.x, piece.position.y + map_position.y))
+				var pos = $Board.map_to_local(map_position + piece.position)
 				preview_turrets[idx].position = pos
 				preview_turrets[idx].base.visible = can_place_block
 				preview_turrets[idx].base.showRangeOutline()
@@ -210,8 +209,6 @@ func init_field(map_dto: MapDTO):
 		entity.get_object().place_on_board($Board)
 	link_spawners_to_waves(map_dto)
 	
-	
-	
 func link_spawners_to_waves(map_dto):
 	for spawner in GameState.gameState.spawners:
 		for w in map_dto.waves:
@@ -225,20 +222,19 @@ func _spawn_turrets(block: Block, map_position: Vector2):
 	for piece in block.pieces:
 		if piece.color != Turret.Hue.WHITE:
 			var turret = Turret.create(piece.color, piece.level, piece.extension,true)
-			var pos = Vector2(map_position.x + piece.position.x, map_position.y + piece.position.y)
-			turret.global_position = $Board.map_to_local(pos)
+			turret.global_position = $Board.map_to_local(map_position + piece.position)
 			add_child(turret)
-			turret_holder.set_object_at(turret, pos)
+
 
 func _remove_turrets(block: Block, map_position: Vector2):
 	for piece in block.pieces:
-		var turret = turret_holder.pop_object_at(Vector2(map_position.x + piece.position.x, map_position.y + piece.position.y))
+		var turret = GameState.collisionReference.get_turret_from_board(map_position + piece.position)
 		if turret != null:
 			turret.queue_free()
 
 func _upgrade_turrets(block: Block, map_position: Vector2):
 	for piece in block.pieces:
-		var turret = turret_holder.get_object_at(Vector2(map_position.x + piece.position.x, map_position.y + piece.position.y))
+		var turret = GameState.collisionReference.get_turret_from_board(map_position + piece.position)
 		if turret != null:
 			if block.extension != null: turret.extension = block.extension
 			if not turret.is_max_level():

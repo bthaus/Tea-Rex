@@ -2,13 +2,9 @@ extends GameObject2D
 
 class_name BlockHandler
 var board: TileMap
-var gameState:GameState
-var turret_holder: GameObjectHolder
 
-func _init(board: TileMap, turret_holder: GameObjectHolder):
+func _init(board: TileMap):
 	self.board = board
-	self.gameState=GameState.gameState
-	self.turret_holder = turret_holder
 
 #Returns the tile id for a piece. Example: Blue tower with level 12 -> Blue has enum value 5 -> id = 512
 func get_tile_id_from_block_piece(piece: Block.Piece) -> int:
@@ -81,7 +77,7 @@ func get_block_from_board(map_position: Vector2, normalize: bool, search_diagona
 	
 #Note: Walls will be ignored as the information cannot be stored in a piece properly!
 func get_piece_from_board(map_position: Vector2) -> Block.Piece:
-	var turret = turret_holder.get_object_at(map_position)
+	var turret = GameState.collisionReference.get_turret_from_board(map_position)
 	if turret != null: #Turret on top, return data that is stored in it
 		return Block.Piece.new(map_position, turret.color, turret.level, turret.extension)
 	return null
@@ -118,7 +114,7 @@ func can_place_block(block: Block, map_position: Vector2,  spawners) -> bool:
 		#Check if there is something that is not a tower or a tower with the wrong color underneath
 		var board_entity = GameState.collisionReference.get_entity(GameboardConstants.MapLayer.BLOCK_LAYER, board_pos)
 		if board_entity != null:
-			var turret = turret_holder.get_object_at(board_pos)
+			var turret = GameState.collisionReference.get_turret_from_board(board_pos)
 			if turret == null: #A entity is on the block layer which is not a tower
 				return false
 			if turret.color != piece.color: #Underneath is a tower, but different color
@@ -146,7 +142,7 @@ func can_place_block(block: Block, map_position: Vector2,  spawners) -> bool:
 				GameBoard.current_tutorial = TutorialHolder.tutNames.ColorRestriction
 				return false
 			
-			if turret_holder.get_object_at(board_pos).is_max_level():
+			if GameState.collisionReference.get_turret_from_board(board_pos).is_max_level():
 				max_level_turret_count += 1
 				if max_level_turret_count == block.pieces.size(): #All turrets below are already at max level
 					GameBoard.current_tutorial = null
