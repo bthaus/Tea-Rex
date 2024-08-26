@@ -66,6 +66,7 @@ script = ExtResource("4_btsoo")
 tile_id = 20
 collides_with_bullets = null
 processing = null
+map_layer = 1
 move_weight = 0.75
 buildable = true
 immunities = null
