@@ -19,28 +19,30 @@ func draw_block(block: Block, map_position: Vector2):
 	for piece in block.pieces:
 		var piece_id = get_tile_id_from_block_piece(piece)
 		var entity = GameboardConstants.tile_to_dto(piece_id).get_object()
-		entity.map_position = Vector2(piece.position.x + map_position.x, piece.position.y + map_position.y)
-		entity.place_on_board(board)
+		if entity != null:
+			entity.map_position = map_position + piece.position
+			entity.place_on_board(board)
 
 #Draws a normalized block at a given map_position. Does NOT draw extensions as it may override stuff (preview)
 func draw_block_with_tile_id(block: Block, map_position: Vector2, id: int, layer: int):
 	for piece in block.pieces:
 		if layer != GameboardConstants.MapLayer.PREVIEW_LAYER:
 			var entity = GameboardConstants.tile_to_dto(id).get_object()
-			entity.map_position = Vector2(piece.position.x + map_position.x, piece.position.y + map_position.y)
-			entity.place_on_board(board)
+			if entity != null:
+				entity.map_position = map_position + piece.position
+				entity.place_on_board(board)
 		else:
-			board.set_cell(layer, Vector2(piece.position.x + map_position.x, piece.position.y + map_position.y), id, Vector2(0,0))
+			board.set_cell(layer, map_position + piece.position, id, Vector2(0,0))
 
 #Removes a block from the board
 func remove_block_from_board(block: Block, map_position: Vector2):
 	for piece in block.pieces:
-		var pos = Vector2(piece.position.x + map_position.x, piece.position.y + map_position.y)
+		var pos = map_position + piece.position
 		var entity = GameState.collisionReference.get_entity(GameboardConstants.MapLayer.BLOCK_LAYER, pos)
 		if entity != null:
 			GameState.collisionReference.remove_entity_from_position(entity, board.map_to_local(pos))
 			#entity.queue_free()
-		board.set_cell(GameboardConstants.MapLayer.BLOCK_LAYER, Vector2(piece.position.x + map_position.x, piece.position.y + map_position.y), -1, Vector2(0,0))
+		board.set_cell(GameboardConstants.MapLayer.BLOCK_LAYER, map_position + piece.position, -1, Vector2(0,0))
 
 #If normalized, the coordinates of each piece will be based on map_position (=> (0,0))
 func get_block_from_board(map_position: Vector2, normalize: bool, search_diagonal: bool = false, ignore_level: bool = true) -> Block:
@@ -98,7 +100,7 @@ func can_place_block(block: Block, map_position: Vector2,  spawners) -> bool:
 	if block.pieces.size() == 0: return true
 
 	#Get the level of the underlying piece on the board, if available (loop will take care if its the wrong color)
-	var first_piece = get_piece_from_board(Vector2(block.pieces[0].position.x + map_position.x, block.pieces[0].position.y + map_position.y))
+	var first_piece = get_piece_from_board(block.pieces[0].position + map_position)
 	var max_level_turret_count = 0
 	
 	var spawner_positions = []
@@ -106,7 +108,7 @@ func can_place_block(block: Block, map_position: Vector2,  spawners) -> bool:
 		spawner_positions.append(board.local_to_map(spawner.position))
 
 	for piece in block.pieces:
-		var board_pos = Vector2(piece.position.x + map_position.x, piece.position.y + map_position.y)
+		var board_pos = map_position + piece.position
 		
 		#Check if there is ground
 		if board.get_cell_source_id(GameboardConstants.MapLayer.GROUND_LAYER, board_pos) == -1:
