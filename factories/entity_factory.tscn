@@ -103,3 +103,38 @@ script = ExtResource("4_btsoo")
 tile_id = 7
 collides_with_bullets = true
 map_layer = 2
+
+[node name="Base Preview" type="Sprite2D" parent="."]
+script = ExtResource("4_btsoo")
+tile_id = 3
+map_layer = 2
+
+[node name="White Base" type="Sprite2D" parent="."]
+script = ExtResource("4_btsoo")
+tile_id = 101
+map_layer = 2
+
+[node name="Green Base" type="Sprite2D" parent="."]
+script = ExtResource("4_btsoo")
+tile_id = 201
+map_layer = 2
+
+[node name="Red Base" type="Sprite2D" parent="."]
+script = ExtResource("4_btsoo")
+tile_id = 301
+map_layer = 2
+
+[node name="Yellow Base" type="Sprite2D" parent="."]
+script = ExtResource("4_btsoo")
+tile_id = 401
+map_layer = 2
+
+[node name="Blue Base" type="Sprite2D" parent="."]
+script = ExtResource("4_btsoo")
+tile_id = 501
+map_layer = 2
+
+[node name="Magenta Base" type="Sprite2D" parent="."]
+script = ExtResource("4_btsoo")
+tile_id = 601
+map_layer = 2

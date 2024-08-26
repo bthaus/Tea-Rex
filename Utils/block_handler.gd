@@ -18,19 +18,29 @@ func get_tile_id_from_block_piece(piece: Block.Piece) -> int:
 func draw_block(block: Block, map_position: Vector2):
 	for piece in block.pieces:
 		var piece_id = get_tile_id_from_block_piece(piece)
-		board.set_cell(GameboardConstants.MapLayer.BLOCK_LAYER, Vector2(piece.position.x + map_position.x, piece.position.y + map_position.y), piece_id, Vector2(0,0))
+		var entity = GameboardConstants.tile_to_dto(piece_id).get_object()
+		entity.map_position = Vector2(piece.position.x + map_position.x, piece.position.y + map_position.y)
+		entity.place_on_board(board)
 
 #Draws a normalized block at a given map_position. Does NOT draw extensions as it may override stuff (preview)
 func draw_block_with_tile_id(block: Block, map_position: Vector2, id: int, layer: int):
 	for piece in block.pieces:
-		board.set_cell(layer, Vector2(piece.position.x + map_position.x, piece.position.y + map_position.y), id, Vector2(0,0))
+		if layer != GameboardConstants.MapLayer.PREVIEW_LAYER:
+			var entity = GameboardConstants.tile_to_dto(id).get_object()
+			entity.map_position = Vector2(piece.position.x + map_position.x, piece.position.y + map_position.y)
+			entity.place_on_board(board)
+		else:
+			board.set_cell(layer, Vector2(piece.position.x + map_position.x, piece.position.y + map_position.y), id, Vector2(0,0))
 
-#Removes a block from the board (with turrets only)
+#Removes a block from the board
 func remove_block_from_board(block: Block, map_position: Vector2):
 	for piece in block.pieces:
-		var turret = turret_holder.get_object_at(Vector2(piece.position.x + map_position.x, piece.position.y + map_position.y))
-		if turret != null:
-			board.set_cell(GameboardConstants.MapLayer.BLOCK_LAYER, Vector2(piece.position.x + map_position.x, piece.position.y + map_position.y), -1, Vector2(0,0))
+		var pos = Vector2(piece.position.x + map_position.x, piece.position.y + map_position.y)
+		var entity = GameState.collisionReference.get_entity(GameboardConstants.MapLayer.BLOCK_LAYER, pos)
+		if entity != null:
+			GameState.collisionReference.remove_entity_from_position(entity, board.map_to_local(pos))
+			#entity.queue_free()
+		board.set_cell(GameboardConstants.MapLayer.BLOCK_LAYER, Vector2(piece.position.x + map_position.x, piece.position.y + map_position.y), -1, Vector2(0,0))
 
 #If normalized, the coordinates of each piece will be based on map_position (=> (0,0))
 func get_block_from_board(map_position: Vector2, normalize: bool, search_diagonal: bool = false, ignore_level: bool = true) -> Block:
@@ -101,29 +111,36 @@ func can_place_block(block: Block, map_position: Vector2,  spawners) -> bool:
 		#Check if there is ground
 		if board.get_cell_source_id(GameboardConstants.MapLayer.GROUND_LAYER, board_pos) == -1:
 			GameBoard.current_tutorial = TutorialHolder.tutNames.Outside
-			print("yo theat outside")
 			return false
 		
+		#Check if there is something that is not a tower or a tower with the wrong color underneath
+		var board_entity = GameState.collisionReference.get_entity(GameboardConstants.MapLayer.BLOCK_LAYER, board_pos)
+		if board_entity != null:
+			var turret = turret_holder.get_object_at(board_pos)
+			if turret == null: #A entity is on the block layer which is not a tower
+				return false
+			if turret.color != piece.color: #Underneath is a tower, but different color
+				return false
 		
 		#Check if there is a block place restriction
 		var build_entity = GameState.collisionReference.get_entity(GameboardConstants.MapLayer.BUILD_LAYER, board_pos)
-		if build_entity != null and build_entity is BuildEntity: #There is a build restriction present
+		if build_entity != null and build_entity is Build: #There is a build restriction present
 			if build_entity.allowed_color == GameboardConstants.TileColor.NONE: #No color allowed here
 				return false
 			if build_entity.allowed_color != GameboardConstants.turret_color_to_tile_color(piece.color): #Wrong color
 				return false
 		
-		#Check underlying piece
-		var board_piece = get_piece_from_board(board_pos)
-		if (board_piece != null and first_piece == null) or (board_piece == null and first_piece != null): #Either no blocks below or all blocks!
+		#Check underlying turret
+		var board_turret = get_piece_from_board(board_pos)
+		if (board_turret != null and first_piece == null) or (board_turret == null and first_piece != null): #Either no blocks below or all blocks!
 			GameBoard.current_tutorial = null
 			return false
 		
-		if board_piece != null: #Tile exists at this position
-			if board_piece.color == Turret.Hue.WHITE: #You can NEVER place something on white
+		if board_turret != null: #Turret exists at this position
+			if board_turret.color == Turret.Hue.WHITE: #You can NEVER place something on white
 				GameBoard.current_tutorial = TutorialHolder.tutNames.ColorRestriction
 				return false
-			if board_piece.color != piece.color: #Wrong color	
+			if board_turret.color != piece.color: #Wrong color	
 				GameBoard.current_tutorial = TutorialHolder.tutNames.ColorRestriction
 				return false
 			

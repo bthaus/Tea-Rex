@@ -7,7 +7,7 @@ func set_block(block: Block, spawn_turrets: bool):
 	clear_preview()
 	if block_handler == null:
 		block_handler = BlockHandler.new($TileMap, GameObjectHolder.new())
-	block_handler.draw_block(block, Vector2(0,0))
+	#block_handler.draw_block(block, Vector2(0,0))
 	var turrets=[]
 	if spawn_turrets:
 		for piece in block.pieces:
