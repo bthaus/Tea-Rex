@@ -370,13 +370,17 @@ func get_entities_from_map(p):
 func get_weight_from_cell(pos,monster_type:Monster.MonsterMovingType):
 	var entities=get_entities_from_map(pos)
 	var weight=1000
-	for e in entities:
+	for e:BaseEntity in entities:
 		if !e.can_move(monster_type):continue;
 		var w=e.get_weight_from_type(monster_type)
+		if w !=1:
+			print("hi")	
 		if w<weight:
 			weight=w
 	if weight==1000:
 		weight=1	
+	if weight !=1:
+		print("hi")	
 	return weight
 	pass;	
 func is_buildable_global(glob)->bool:
