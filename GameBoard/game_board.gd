@@ -151,7 +151,7 @@ func _draw_selected_block_preview(map_position: Vector2):
 			block_handler.draw_block_with_tile_id(selected_block, map_position, GameboardConstants.LEGAL_PLACEMENT_TILE_ID, GameboardConstants.MapLayer.PREVIEW_LAYER)
 		elif action != BoardAction.NONE:
 			can_place_block = block_handler.can_place_block(selected_block, map_position,  gameState.spawners)
-		
+			
 		#Draw range preview first
 		if preview_turrets == null: _load_preview_turrets_from_selected_block()
 		if preview_turrets.size() == selected_block.pieces.size():
@@ -164,6 +164,7 @@ func _draw_selected_block_preview(map_position: Vector2):
 				preview_turrets[idx].base.showRangeOutline()
 				previous_preview_pos = pos;
 				idx += 1
+		Spawner.refresh_all_paths()	
 		#update estimated damage
 		Spawner.update_damage_estimate()
 		#Draw actual block shape

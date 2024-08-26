@@ -102,6 +102,7 @@ tile_id = 4
 script = ExtResource("4_btsoo")
 tile_id = 7
 collides_with_bullets = true
+moving_types = Array[int]([])
 map_layer = 2
 
 [node name="Build None" type="Sprite2D" parent="."]
