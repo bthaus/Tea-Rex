@@ -360,10 +360,16 @@ func remove_entity_from_position(entity:BaseEntity,glob):
 	var pos=getMapPositionNormalised(glob)
 	if isOutOfBoundsVector(pos):return
 	map[pos.y][pos.x].entities.erase(entity)		
-func get_entities(pos):
-	var p=getMapPositionNormalised(pos)
-	return map[p.y][p.x].entities
-	pass;	
+
+func get_entities(map_position: Vector2):
+	return map[map_position.y][map_position.x].entities
+
+func get_entity(layer: GameboardConstants.MapLayer, map_position: Vector2):
+	for entity in get_entities(map_position):
+		if entity.map_layer == layer:
+			return entity
+	return null
+
 func get_entities_from_map(p):
 	return map[p.y][p.x].entities
 		

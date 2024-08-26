@@ -12,19 +12,17 @@ signal spawner_removed
 func _init(board: TileMap):
 	self.board = board
 
-func _set_board_cell(dto: EntityDTO, map_position: Vector2, refresh_spawner_paths: bool = true):
-	dto.map_x = map_position.x
-	dto.map_y = map_position.y
-	dto.get_object().place_on_board(board)
+func _place_entity(entity: BaseEntity, refresh_spawner_paths: bool = true):
+	entity.place_on_board(board)
 	if refresh_spawner_paths:
 		Spawner.refresh_all_paths()
 
-func _clear_board_cell(layer: int, map_position: Vector2, refresh_spawner_paths: bool = true):
-	var entities = editor_game_state.collisionReference.get_entities(map_position)
-	for entity in entities:
-		if entity.map_layer == layer:
-			editor_game_state.collisionReference.remove_entity_from_position(entity, board.map_to_local(map_position))
-			entity.queue_free()
+func _clear_entity(layer: int, map_position: Vector2, refresh_spawner_paths: bool = true):
+	var entity = editor_game_state.collisionReference.get_entity(layer, map_position)
+	if entity != null:
+		editor_game_state.collisionReference.remove_entity_from_position(entity, board.map_to_local(map_position))
+		entity.queue_free()
+
 	board.set_cell(layer, map_position, -1, Vector2(0,0))
 	if refresh_spawner_paths:
 		Spawner.refresh_all_paths()
@@ -33,29 +31,30 @@ func set_cell(tile: TileSelection.TileItem, map_position: Vector2, refresh_spawn
 	if tile == null: return
 	if not _is_in_editor_bounds(map_position): return
 	
-	var board_type = GameboardConstants.get_tile_type(board, GameboardConstants.MapLayer.BLOCK_LAYER, map_position)
-	var is_spawner_below = board_type != null and board_type == GameboardConstants.TileType.SPAWNER
-	var type = GameboardConstants.get_tile_type_by_id(board, tile.tile_id)
-	if is_spawner_below and type != GameboardConstants.TileType.SPAWNER: #If there is a spawner below, remove it (unless the holding piece is a spawner)
+	var entity = GameboardConstants.tile_to_dto(tile.tile_id).get_object()
+	entity.map_position = map_position
+	
+	var below_entity = editor_game_state.collisionReference.get_entity(GameboardConstants.MapLayer.BLOCK_LAYER, map_position)
+	var is_spawner_below = below_entity != null and below_entity is Spawner
+	if is_spawner_below and not (entity is Spawner): #If there is a spawner below, remove it (unless the holding piece is a spawner)
 		_remove_spawner_at(map_position)
 	
-	var dto = GameboardConstants.tile_to_dto(tile.tile_id)
 	match (tile.map_layer):
 		GameboardConstants.MapLayer.GROUND_LAYER:
-			_set_board_cell(dto, map_position, refresh_spawner_paths)
+			_place_entity(entity, refresh_spawner_paths)
 			
 		GameboardConstants.MapLayer.BUILD_LAYER:
-			_set_board_cell(dto, map_position, refresh_spawner_paths)
-			_clear_board_cell(GameboardConstants.MapLayer.BLOCK_LAYER, map_position, refresh_spawner_paths)
+			_place_entity(entity, refresh_spawner_paths)
+			_clear_entity(GameboardConstants.MapLayer.BLOCK_LAYER, map_position, refresh_spawner_paths)
 			
 		GameboardConstants.MapLayer.BLOCK_LAYER:
-			if type == GameboardConstants.TileType.SPAWNER:
+			if entity is Spawner:
 				if is_spawner_below: return #There is already a spawner below, ignore it
 				spawner_map_positions.append(map_position)
 				spawner_added.emit()
 
-			_set_board_cell(dto, map_position, refresh_spawner_paths)
-			_clear_board_cell(GameboardConstants.MapLayer.BUILD_LAYER, map_position, refresh_spawner_paths)
+			_place_entity(entity, refresh_spawner_paths)
+			_clear_entity(GameboardConstants.MapLayer.BUILD_LAYER, map_position, refresh_spawner_paths)
 
 #If the tile is null, it will bucket clear it
 func bucket_fill(tile: TileSelection.TileItem, map_position: Vector2):
@@ -99,14 +98,14 @@ func bucket_fill(tile: TileSelection.TileItem, map_position: Vector2):
 	Spawner.refresh_all_paths()
 
 func clear_cell_layer(map_position: Vector2):
-	var board_type = GameboardConstants.get_tile_type(board, GameboardConstants.MapLayer.BLOCK_LAYER, map_position)
-	if board_type != null and board_type == GameboardConstants.TileType.SPAWNER: #There was a spawner below
+	var entity = editor_game_state.collisionReference.get_entity(GameboardConstants.MapLayer.BLOCK_LAYER, map_position)
+	if entity != null and entity is Spawner: #There was a spawner below
 		_remove_spawner_at(map_position)
 	
 	#Clear one layer at a time: Block -> Build -> GROUND
 	var layer = get_highest_used_layer(map_position)
 	if layer == -1: return
-	_clear_board_cell(layer, map_position)
+	_clear_entity(layer, map_position)
 
 func get_highest_used_layer(map_position: Vector2) -> int:
 	if not _is_cell_empty(GameboardConstants.MapLayer.BLOCK_LAYER, map_position):
