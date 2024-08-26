@@ -342,10 +342,7 @@ static func _get_movable_cells_per_monster_type(map: TileMap, monstertype: Monst
 				for pos in map.get_used_cells(GameboardConstants.MapLayer.GROUND_LAYER):
 					if preview_pos_arr.has(pos):continue
 					id=id+1;
-
-					if GameState.collisionReference.get_entity(GameboardConstants.MapLayer.GROUND_LAYER, pos) == null: #No tile at ground layer
-						continue
-
+					
 					if reference.can_move_type(pos,monstertype):
 						var weight=reference.get_weight_from_cell(pos,monstertype)
 						cells[pos.x][pos.y]=astar_id_weight_dto.new(id,weight)
