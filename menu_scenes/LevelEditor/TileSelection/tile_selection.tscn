@@ -16,6 +16,7 @@ layout_mode = 2
 columns = 2
 
 [node name="Ground" type="ScrollContainer" parent="."]
+visible = false
 layout_mode = 2
 horizontal_scroll_mode = 0
 
@@ -24,6 +25,7 @@ layout_mode = 2
 columns = 2
 
 [node name="Build" type="ScrollContainer" parent="."]
+visible = false
 layout_mode = 2
 horizontal_scroll_mode = 0
 
@@ -32,6 +34,7 @@ layout_mode = 2
 columns = 2
 
 [node name="Block" type="ScrollContainer" parent="."]
+visible = false
 layout_mode = 2
 horizontal_scroll_mode = 0
 

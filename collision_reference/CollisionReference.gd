@@ -338,6 +338,7 @@ func register_entity(entity:BaseEntity):
 func _trigger_monsters_for_entity_at_pos(entity,pos):
 	var monsters=get_monsters_at_pos(pos)
 	for m in monsters:
+		if !util.valid(m):continue
 		trigger_minion(getMapPositionNormalised(pos),m)
 	pass;	
 func remove_entity(entity:BaseEntity):
