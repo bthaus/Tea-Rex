@@ -361,11 +361,8 @@ func remove_entity_from_position(entity:BaseEntity,glob):
 	if isOutOfBoundsVector(pos):return
 	map[pos.y][pos.x].entities.erase(entity)		
 
-func get_entities(map_position: Vector2):
-	return map[map_position.y][map_position.x].entities
-
 func get_entity(layer: GameboardConstants.MapLayer, map_position: Vector2):
-	for entity in get_entities(map_position):
+	for entity in get_entities_from_map(map_position):
 		if entity.map_layer == layer:
 			return entity
 	return null

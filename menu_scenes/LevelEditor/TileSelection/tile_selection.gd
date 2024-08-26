@@ -13,6 +13,7 @@ var all_tile_items: Array[TileItem] = [
 	TileItem.new(GameboardConstants.PLAYER_BASE_GREEN_TILE_ID, GameboardConstants.MapLayer.BLOCK_LAYER, "Player Base"),
 	TileItem.new(GameboardConstants.SPAWNER_GREEN_TILE_ID, GameboardConstants.MapLayer.BLOCK_LAYER, "Spawner"),
 	TileItem.new(GameboardConstants.PORTAL_TILE_ID, GameboardConstants.MapLayer.BLOCK_LAYER, "Portal"),
+	TileItem.new(GameboardConstants.BUILD_NONE_TILE_ID, GameboardConstants.MapLayer.BUILD_LAYER, "Build None")
 ]
 
 signal tile_selected

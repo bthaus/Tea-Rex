@@ -103,8 +103,3 @@ script = ExtResource("4_btsoo")
 tile_id = 7
 collides_with_bullets = true
 map_layer = 2
-
-[node name="Build None" type="Sprite2D" parent="."]
-script = ExtResource("4_btsoo")
-tile_id = 8
-map_layer = 1

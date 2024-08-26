@@ -58,8 +58,6 @@ texture_region_size = Vector2i(64, 64)
 0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 0:0/0/physics_layer_0/angular_velocity = 0.0
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)
-0:0/0/custom_data_0 = "TURRET_BASE"
-0:0/0/custom_data_1 = "WHITE"
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_y8k2e"]
 texture = ExtResource("5_yufc0")
@@ -145,8 +143,6 @@ texture_region_size = Vector2i(64, 64)
 0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 0:0/0/physics_layer_0/angular_velocity = 0.0
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)
-0:0/0/custom_data_0 = "TURRET_BASE"
-0:0/0/custom_data_1 = "GREEN"
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_i6aeo"]
 texture = ExtResource("17_wu2bj")
@@ -169,7 +165,6 @@ texture_region_size = Vector2i(64, 64)
 0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 0:0/0/physics_layer_0/angular_velocity = 0.0
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)
-0:0/0/custom_data_0 = "PREVIEW"
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_puufv"]
 texture = ExtResource("7_edt4a")
@@ -178,8 +173,6 @@ texture_region_size = Vector2i(64, 64)
 0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 0:0/0/physics_layer_0/angular_velocity = 0.0
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)
-0:0/0/custom_data_0 = "TURRET_BASE"
-0:0/0/custom_data_1 = "RED"
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ipgf7"]
 texture = ExtResource("8_i42ux")
@@ -187,7 +180,6 @@ texture_region_size = Vector2i(64, 64)
 0:0/0 = 0
 0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 0:0/0/physics_layer_0/angular_velocity = 0.0
-0:0/0/custom_data_0 = "GROUND"
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7ekb4"]
 texture = ExtResource("9_k857m")
@@ -196,8 +188,6 @@ texture_region_size = Vector2i(64, 64)
 0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 0:0/0/physics_layer_0/angular_velocity = 0.0
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)
-0:0/0/custom_data_0 = "TURRET_BASE"
-0:0/0/custom_data_1 = "YELLOW"
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5ah4j"]
 texture = ExtResource("10_npnwj")
@@ -205,8 +195,6 @@ texture_region_size = Vector2i(64, 64)
 0:0/0 = 0
 0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 0:0/0/physics_layer_0/angular_velocity = 0.0
-0:0/0/custom_data_0 = "PLAYER_BASE"
-0:0/0/custom_data_1 = "GREEN"
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_j0kt8"]
 texture = ExtResource("11_lk4f0")
@@ -215,8 +203,6 @@ texture_region_size = Vector2i(64, 64)
 0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 0:0/0/physics_layer_0/angular_velocity = 0.0
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)
-0:0/0/custom_data_0 = "TURRET_BASE"
-0:0/0/custom_data_1 = "BLUE"
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_g3wiq"]
 texture = ExtResource("12_kh04h")
@@ -224,8 +210,6 @@ texture_region_size = Vector2i(64, 64)
 0:0/0 = 0
 0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 0:0/0/physics_layer_0/angular_velocity = 0.0
-0:0/0/custom_data_0 = "SPAWNER"
-0:0/0/custom_data_1 = "GREEN"
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_r4wxm"]
 texture = ExtResource("13_dyqu5")
@@ -233,8 +217,6 @@ texture_region_size = Vector2i(64, 64)
 0:0/0 = 0
 0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 0:0/0/physics_layer_0/angular_velocity = 0.0
-0:0/0/custom_data_0 = "TURRET_BASE"
-0:0/0/custom_data_1 = "MAGENTA"
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_dfys5"]
 texture = ExtResource("6_gkxlx")
@@ -243,7 +225,6 @@ texture_region_size = Vector2i(64, 64)
 0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 0:0/0/physics_layer_0/angular_velocity = 0.0
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)
-0:0/0/custom_data_0 = "WALL"
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5pff1"]
 texture = ExtResource("14_0jjdj")
@@ -251,8 +232,6 @@ texture_region_size = Vector2i(64, 64)
 0:0/0 = 0
 0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 0:0/0/physics_layer_0/angular_velocity = 0.0
-0:0/0/custom_data_0 = "BUILD"
-0:0/0/custom_data_1 = "NONE"
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qlrkx"]
 texture = ExtResource("15_qgvtj")
@@ -260,16 +239,11 @@ texture_region_size = Vector2i(64, 64)
 0:0/0 = 0
 0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 0:0/0/physics_layer_0/angular_velocity = 0.0
-0:0/0/custom_data_0 = "PORTAL"
 
 [resource]
 tile_size = Vector2i(64, 64)
 physics_layer_0/collision_layer = 7
 physics_layer_0/collision_mask = 7
-custom_data_layer_0/name = "type"
-custom_data_layer_0/type = 4
-custom_data_layer_1/name = "color"
-custom_data_layer_1/type = 4
 sources/501 = SubResource("TileSetAtlasSource_j0kt8")
 sources/301 = SubResource("TileSetAtlasSource_puufv")
 sources/201 = SubResource("TileSetAtlasSource_yoj8j")

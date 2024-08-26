@@ -25,12 +25,12 @@ func draw_block_with_tile_id(block: Block, map_position: Vector2, id: int, layer
 	for piece in block.pieces:
 		board.set_cell(layer, Vector2(piece.position.x + map_position.x, piece.position.y + map_position.y), id, Vector2(0,0))
 
+#Removes a block from the board (with turrets only)
 func remove_block_from_board(block: Block, map_position: Vector2):
 	for piece in block.pieces:
-		var type = GameboardConstants.get_tile_type(board, GameboardConstants.MapLayer.BLOCK_LAYER, Vector2(piece.position.x + map_position.x, piece.position.y + map_position.y))
-		if type != null and type == GameboardConstants.TileType.WALL:
-			continue
-		board.set_cell(GameboardConstants.MapLayer.BLOCK_LAYER, Vector2(piece.position.x + map_position.x, piece.position.y + map_position.y), -1, Vector2(0,0))
+		var turret = turret_holder.get_object_at(Vector2(piece.position.x + map_position.x, piece.position.y + map_position.y))
+		if turret != null:
+			board.set_cell(GameboardConstants.MapLayer.BLOCK_LAYER, Vector2(piece.position.x + map_position.x, piece.position.y + map_position.y), -1, Vector2(0,0))
 
 #If normalized, the coordinates of each piece will be based on map_position (=> (0,0))
 func get_block_from_board(map_position: Vector2, normalize: bool, search_diagonal: bool = false, ignore_level: bool = true) -> Block:
@@ -72,13 +72,6 @@ func get_piece_from_board(map_position: Vector2) -> Block.Piece:
 	var turret = turret_holder.get_object_at(map_position)
 	if turret != null: #Turret on top, return data that is stored in it
 		return Block.Piece.new(map_position, turret.color, turret.level, turret.extension)
-	
-	var type = GameboardConstants.get_tile_type(board, GameboardConstants.MapLayer.BLOCK_LAYER, map_position)
-	var color = GameboardConstants.get_tile_color(board, GameboardConstants.MapLayer.BLOCK_LAYER, map_position)
-	if type != null and type == GameboardConstants.TileType.TURRET_BASE:
-		if color != null and color == GameboardConstants.TileColor.WHITE: #It is a white piece (no turret on top)
-			return Block.Piece.new(map_position, Turret.Hue.WHITE, 1, Turret.Extension.DEFAULT)
-	
 	return null
 
 #Rotates all the pieces of a block from the origin point (0,0)
@@ -89,7 +82,6 @@ func rotate_block(block: Block):
 		piece.position.y *= -1 #Convert back
 		piece.position.x = round(piece.position.x) #Dont ask me, i hate it
 		piece.position.y = round(piece.position.y)
-
 
 #Again, checks based upon (0,0) map_position of block
 func can_place_block(block: Block, map_position: Vector2,  spawners) -> bool:
@@ -114,18 +106,12 @@ func can_place_block(block: Block, map_position: Vector2,  spawners) -> bool:
 		
 		
 		#Check if there is a block place restriction
-		var build_type = GameboardConstants.get_tile_type(board, GameboardConstants.MapLayer.BUILD_LAYER, board_pos)
-		if build_type == GameboardConstants.TileType.BUILD: #There is a build restriction present
-			var build_color = GameboardConstants.get_tile_color(board, GameboardConstants.MapLayer.BUILD_LAYER, board_pos)
-			if build_color == GameboardConstants.TileColor.NONE: #No color allowed here
+		var build_entity = GameState.collisionReference.get_entity(GameboardConstants.MapLayer.BUILD_LAYER, board_pos)
+		if build_entity != null and build_entity is BuildEntity: #There is a build restriction present
+			if build_entity.allowed_color == GameboardConstants.TileColor.NONE: #No color allowed here
 				return false
-			if build_color != GameboardConstants.turret_color_to_tile_color(piece.color): #Wrong color
+			if build_entity.allowed_color != GameboardConstants.turret_color_to_tile_color(piece.color): #Wrong color
 				return false
-		
-		#Check if there is a tile of type wall
-		var board_type = GameboardConstants.get_tile_type(board, GameboardConstants.MapLayer.BLOCK_LAYER, board_pos)
-		if board_type != null and board_type == GameboardConstants.TileType.WALL:
-			return false
 		
 		#Check underlying piece
 		var board_piece = get_piece_from_board(board_pos)
