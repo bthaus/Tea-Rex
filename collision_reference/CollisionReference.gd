@@ -369,6 +369,22 @@ func get_entity(layer: GameboardConstants.MapLayer, map_position: Vector2):
 
 func get_entities_from_map(p):
 	return map[p.y][p.x].entities
+
+func get_turret_from_map(p):
+	var t = map[p.y][p.x].turret
+	if util.valid(t):
+		return t
+	return null	
+	
+	
+
+func can_move_type(pos,monster_type:Monster.MonsterMovingType)->bool:
+	if get_turret_from_map(pos)!=null:return false
+	var entities=get_entities_from_map(pos)
+	for e:BaseEntity in entities:
+		if !e.can_move(monster_type): return false;
+	return true
+	
 		
 func get_weight_from_cell(pos,monster_type:Monster.MonsterMovingType):
 	var entities=get_entities_from_map(pos)

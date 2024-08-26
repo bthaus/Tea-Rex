@@ -329,15 +329,24 @@ static func _get_movable_cells_per_monster_type(map: TileMap, monstertype: Monst
 				
 			cells.append(arr)
 		var id=0
+		var preview_pos_arr=[]
+		if GameState.gameState.gameBoard!=null:	
+			var previews=GameState.gameState.gameBoard.preview_turrets
+			
+			if previews!=null:
+				for p in previews:
+					preview_pos_arr.append(p.get_map())
 		match(monstertype):
+			
 			Monster.MonsterMovingType.GROUND:
 				for pos in map.get_used_cells(GameboardConstants.MapLayer.GROUND_LAYER):
+					if preview_pos_arr.has(pos):continue
 					id=id+1;
+
 					if GameState.collisionReference.get_entity(GameboardConstants.MapLayer.GROUND_LAYER, pos) == null: #No tile at ground layer
 						continue
-					
-					var entity = GameState.collisionReference.get_entity(GameboardConstants.MapLayer.BLOCK_LAYER, pos)
-					if entity == null or entity is Portal: #Block layer is free or there is a portal
+
+					if reference.can_move_type(pos,monstertype):
 						var weight=reference.get_weight_from_cell(pos,monstertype)
 						cells[pos.x][pos.y]=astar_id_weight_dto.new(id,weight)
 					
