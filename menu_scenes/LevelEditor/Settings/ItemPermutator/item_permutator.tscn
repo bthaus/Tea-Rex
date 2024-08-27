@@ -28,3 +28,7 @@ layout_mode = 2
 
 [node name="ItemPermutatorItem4" parent="HBoxContainer" instance=ExtResource("2_0xe6v")]
 layout_mode = 2
+
+[node name="SelectedSprite" type="Sprite2D" parent="."]
+
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

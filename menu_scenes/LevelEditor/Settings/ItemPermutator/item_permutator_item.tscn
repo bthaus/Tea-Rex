@@ -5,6 +5,7 @@
 
 [node name="ItemPermutatorItem" type="Panel"]
 custom_minimum_size = Vector2(50, 50)
+mouse_filter = 1
 script = ExtResource("1_rjiad")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
