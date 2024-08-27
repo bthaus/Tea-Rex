@@ -87,6 +87,7 @@ func spawnEnemy(mo:Monster):
 	mo.reached_spawn.connect(monsterReachedSpawn)
 	mo.global_position=global_position
 	mo.spawner_color=color
+	mo.spawner=self
 	if paths==null:return
 	for dto in paths:
 		var satisfied=true;
@@ -166,11 +167,20 @@ static func get_new_path(monster:Monster):
 	var to=monster.path.back()
 	
 	var grid:grid_type_dto
-	for g in grids:
-		if g.type==monster.moving_type:
-			grid=g
+	
+	for dto in grids:
+		var satisfied=true;
+		for type in monster.core.movable_cells:
+			if !dto.type.has(type):
+				satisfied=false;
+				continue
+		if satisfied:
+			grid=dto
+			break;		
 	if grid==null:
-		print("wtf, type missmatch")
+		print("wtf, no grid found for these movement types:" )
+		for type in monster.core.movable_cells:
+			print(type)
 		return null
 	var from_id=GameState.board.local_to_map(from)
 	from_id=grid.get_point_id(from_id.x,from_id.y)

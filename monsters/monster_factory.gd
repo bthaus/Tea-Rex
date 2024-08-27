@@ -11,15 +11,14 @@ enum MonsterHP {Normal=100,Much=125,Very_Much=150,Little=75,Very_Little=50}
 enum MonsterDamage {Normal=5,Much=7,Very_Much=10,Little=3,Very_Little=1}
 enum MonsterCooldown {Normal=5,Much=7,Very_Much=10,Little=3,Very_Little=1}
 # Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
 
 static func createMonster(type:Monster.MonsterName):
 	#var searchstring=Monster.Monstertype.keys()[(type)]
-	var searchstring="MINION" #TODO replace with proper monster enum
+	var searchstring="NECROMANCER" #TODO replace with proper monster enum
 	var base= instance.get_node(searchstring).duplicate() as MonsterCore
 	base.speed=base.speed*instance.base_speed
 	base.hp=base.hp*instance.base_hp
 	base.damage=base.damage*instance.base_damage
+	base.name_id=type
 	return base
 	pass;

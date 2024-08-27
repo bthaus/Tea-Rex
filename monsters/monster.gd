@@ -10,6 +10,7 @@ var sizemult = 1;
 var maxHp;
 var monstertype:Monstertype
 var spawner_color
+var spawner
 signal status_changed
 var damage:
 	get:return core.damage
