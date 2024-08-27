@@ -81,6 +81,13 @@ script = ExtResource("9_duham")
 tile_id = 16
 move_weight = 1.3
 
+[node name="Clouds" type="Sprite2D" parent="."]
+script = ExtResource("9_duham")
+tile_id = 16
+moving_types = Array[int]([1])
+move_weight = 1.3
+weight_excludes = Array[int]([0])
+
 [node name="Damage Booster" type="Sprite2D" parent="."]
 script = ExtResource("8_jwewy")
 tile_id = 13
