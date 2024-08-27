@@ -4,7 +4,7 @@ class_name Monster;
 var moving_type: MonsterMovingType
 enum MonsterMovingType { GROUND, AIR, }
 enum Monstertype {REGULAR=0,BOSS=1}
-enum MonsterName {SWARM,TANK,MINION,PYTHON,PYRO,YETI,SNOWMAN}
+enum MonsterName {SWARM,TANK,MINION,PYTHON,PYRO,YETI,SNOWMAN,WIZARD}
 var monster_name:MonsterName
 var sizemult = 1;
 var maxHp;

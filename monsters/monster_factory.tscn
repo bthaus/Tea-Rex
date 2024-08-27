@@ -72,10 +72,35 @@ process_mode = 3
 sprite_frames = SubResource("SpriteFrames_xagal")
 animation = &"spawn"
 
+[node name="DRAGON" type="Node2D" parent="."]
+script = ExtResource("7_861mn")
+speed = 75
+hp = 150
+damage = 7
+movable_cells = Array[int]([1])
+
+[node name="Animation" type="AnimatedSprite2D" parent="DRAGON"]
+process_mode = 3
+sprite_frames = SubResource("SpriteFrames_xagal")
+animation = &"spawn"
+
+[node name="BAT" type="Node2D" parent="."]
+script = ExtResource("7_861mn")
+speed = 125
+hp = 75
+damage = 3
+movable_cells = Array[int]([1])
+
+[node name="Animation" type="AnimatedSprite2D" parent="BAT"]
+process_mode = 3
+sprite_frames = SubResource("SpriteFrames_xagal")
+animation = &"spawn"
+
 [node name="SWARM" type="Node2D" parent="."]
 script = ExtResource("7_861mn")
-hp = 0.5
-speed = 2.0
+speed = 125
+hp = 75
+damage = 3
 immunities = Array[int]([2])
 
 [node name="Animation" type="AnimatedSprite2D" parent="SWARM"]
@@ -85,9 +110,9 @@ animation = &"spawn"
 
 [node name="TANK" type="Node2D" parent="."]
 script = ExtResource("7_861mn")
-hp = 3.0
-damage = 2.0
-speed = 0.7
+speed = 75
+hp = 125
+damage = 7
 
 [node name="Animation" type="AnimatedSprite2D" parent="TANK"]
 process_mode = 3
@@ -122,10 +147,9 @@ animation = &"spawn"
 [node name="YETI" type="Node2D" parent="."]
 script = ExtResource("8_tkrlx")
 range = 3
-hp = 1.5
-damage = 1.5
-speed = 0.5
-special_cooldown = 3.0
+speed = 50
+hp = 125
+damage = 7
 
 [node name="Animation" type="AnimatedSprite2D" parent="YETI"]
 process_mode = 3
@@ -141,8 +165,7 @@ script = ExtResource("10_5a1du")
 [node name="WIZARD" type="Node2D" parent="."]
 script = ExtResource("11_gp0kc")
 range = 3
-speed = 0.7
-special_cooldown = 3.0
+speed = 75
 
 [node name="Animation" type="AnimatedSprite2D" parent="WIZARD"]
 process_mode = 3

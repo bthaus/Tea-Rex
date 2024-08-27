@@ -1,5 +1,5 @@
 extends ShooterMonster
-class_name YETI
+class_name YETIMONSTER
 func get_projectile():
 	return $Snowball
 

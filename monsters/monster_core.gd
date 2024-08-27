@@ -1,14 +1,16 @@
 extends GameObject2D
 class_name MonsterCore
 signal death_animation_done
-@export var hp:float = 1;
-@export var damage:float = 1;
-@export var speed:float = 1:
+@export var speed:MonsterFactory.MonsterSpeed = MonsterFactory.MonsterSpeed.Normal :
 	set(val):
 		speed=clamp(val,0,9999);
+@export var hp:MonsterFactory.MonsterHP =MonsterFactory.MonsterHP.Normal ;
+@export var damage:MonsterFactory.MonsterDamage = MonsterFactory.MonsterDamage.Normal;
+
+@export var special_cooldown:MonsterFactory.MonsterCooldown=MonsterFactory.MonsterCooldown.Normal		
 @export var type:Monster.Monstertype
 @export var movable_cells:Array[Monster.MonsterMovingType]=[Monster.MonsterMovingType.GROUND]
-@export var special_cooldown:float=0
+
 var holder:Monster
 var dodge_chance=0
 var died=false

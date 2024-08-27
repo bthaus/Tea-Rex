@@ -1,5 +1,5 @@
 extends ShooterMonster
-class_name WIZARD
+class_name WIZARDMONSTER
 
 func get_projectile():
 	return $Magic
