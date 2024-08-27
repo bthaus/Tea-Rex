@@ -389,7 +389,13 @@ static func _get_movable_cells_per_monster_type(map: TileMap, monstertypes: Arra
 				for y in range(0, GameboardConstants.BOARD_HEIGHT): #Just put every possible tile in the array
 					for x in range(0, GameboardConstants.BOARD_WIDTH):
 						id=id+1;
-						cells[x][y]=astar_id_weight_dto.new(id)
+						if reference.can_move_type(Vector2(x,y),monstertypes):
+							var lowest=1000
+							for monstertype in monstertypes:
+								var weight=reference.get_weight_from_cell(Vector2(x,y),monstertype)
+								if weight<lowest:
+									lowest=weight
+							cells[x][y]=astar_id_weight_dto.new(id,lowest)
 			else:
 				for pos in map.get_used_cells(GameboardConstants.MapLayer.GROUND_LAYER):
 					if preview_pos_arr.has(pos):continue
