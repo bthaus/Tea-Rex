@@ -16,7 +16,7 @@ var target: Monster
 var associate:TurretCore;
 var playerDied = false;
 var emitters=[]
-var damage_types:Array[GameplayConstants.DamageTypes]=[]
+@export var damage_types:Array[GameplayConstants.DamageTypes]=[GameplayConstants.DamageTypes.NORMAL]
 signal removed
 var ignore_next_enemy=false;
 static var gamestate: GameState;

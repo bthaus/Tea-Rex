@@ -12,7 +12,7 @@ func _ready():
 
 static func createMonster(type:Monster.MonsterName):
 	#var searchstring=Monster.Monstertype.keys()[(type)]
-	var searchstring="SNOWMAN" #TODO replace with proper monster enum
+	var searchstring="WIZARD" #TODO replace with proper monster enum
 	var base= instance.get_node(searchstring).duplicate() as MonsterCore
 	base.speed=base.speed*instance.base_speed
 	base.hp=base.hp*instance.base_hp

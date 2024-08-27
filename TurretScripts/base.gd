@@ -13,7 +13,9 @@ var cooldown_reduction_factor=1
 var direction: Vector2;
 
 var functional=true
-var action_speed=1
+var action_speed=1:
+	set(value):
+		action_speed=clamp(value,0,10)
 
 @export_range(0, 10) var speed: float = 1;
 @export_range(0, 10) var cooldown: float = 1;
@@ -183,6 +185,7 @@ func on_fly(projectile: Projectile):
 func on_target_lost():
 	
 	pass ;
+	
 func do(delta):
 	if not functional:return
 	delta*=action_speed

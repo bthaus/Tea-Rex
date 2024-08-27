@@ -1,5 +1,5 @@
 extends Projectile
-class_name SnowBall
+class_name MagicProjectile
 
 func hit_cell():
 	var pos=get_map()
@@ -7,7 +7,7 @@ func hit_cell():
 	var moornot=GameState.gameState.collisionReference.get_turret_from_global(get_global())
 	if moornot!=null:
 		last_hit_cell=pos
-		var debuff=FreezeTowerDebuff.new()
+		var debuff=StunTowerDebuff.new()
 		debuff.register(moornot)
 		remove()
 	pass;	

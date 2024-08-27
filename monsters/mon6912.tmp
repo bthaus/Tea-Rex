@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://bahtj4trsgn5q"]
+[gd_scene load_steps=15 format=3 uid="uid://bahtj4trsgn5q"]
 
 [ext_resource type="Script" path="res://monsters/monster_factory.gd" id="1_27eaf"]
 [ext_resource type="Texture2D" uid="uid://24e800rshnm" path="res://Assets/Monsters/monster_blue/1.png" id="2_fc3nv"]
@@ -11,7 +11,6 @@
 [ext_resource type="Texture2D" uid="uid://bwj5i4k0ocqx4" path="res://Assets/Effects/particles/circle_05.png" id="9_j4vht"]
 [ext_resource type="Script" path="res://monsters/Snowball.gd" id="10_5a1du"]
 [ext_resource type="Texture2D" uid="uid://bax7oix5hpm4e" path="res://Assets/Effects/particles/spark_05.png" id="11_fqj4h"]
-[ext_resource type="Script" path="res://monsters/WIZARD.gd" id="11_gp0kc"]
 [ext_resource type="Script" path="res://monsters/Snowman.gd" id="11_hnnj1"]
 [ext_resource type="Script" path="res://monsters/MagicProjectile.gd" id="12_svbms"]
 
@@ -119,13 +118,13 @@ process_mode = 3
 sprite_frames = SubResource("SpriteFrames_xagal")
 animation = &"spawn"
 
-[node name="YETI" type="Node2D" parent="."]
+[node name="YETI" type="Node2D" parent="." node_paths=PackedStringArray("ball")]
 script = ExtResource("8_tkrlx")
 range = 3
-hp = 1.5
-damage = 1.5
-speed = 0.5
+projectile_speed = 350
+ball = NodePath("Snowball")
 special_cooldown = 3.0
+immunities = Array[int]([2])
 
 [node name="Animation" type="AnimatedSprite2D" parent="YETI"]
 process_mode = 3
@@ -138,11 +137,13 @@ scale = Vector2(4.36765, 4.36765)
 texture = ExtResource("9_j4vht")
 script = ExtResource("10_5a1du")
 
-[node name="WIZARD" type="Node2D" parent="."]
-script = ExtResource("11_gp0kc")
+[node name="WIZARD" type="Node2D" parent="." node_paths=PackedStringArray("ball")]
+script = ExtResource("8_tkrlx")
 range = 3
-speed = 0.7
+projectile_speed = 350
+ball = NodePath("Magic")
 special_cooldown = 3.0
+immunities = Array[int]([2])
 
 [node name="Animation" type="AnimatedSprite2D" parent="WIZARD"]
 process_mode = 3
@@ -155,7 +156,7 @@ rotation = 3.14159
 scale = Vector2(0.133072, 0.133072)
 texture = ExtResource("11_fqj4h")
 script = ExtResource("12_svbms")
-damage_types = Array[int]([5])
+immunities = null
 
 [node name="SNOWMAN" type="Node2D" parent="."]
 script = ExtResource("11_hnnj1")
