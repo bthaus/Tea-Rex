@@ -105,10 +105,10 @@ func initialise(g,map_dto):
 	bases.clear()
 	for i in range(GameboardConstants.BOARD_HEIGHT+12):
 		addRow(map)
-	for entity in map_dto.entities:
-		if map[normaliseY(entity.map_y)][normaliseX(entity.map_x)].collides_with_bullets:continue
-		map[normaliseY(entity.map_y)][normaliseX(entity.map_x)].collides_with_bullets=entity.collides_with_bullets	
-		
+	#for entity in map_dto.entities:
+		#if map[normaliseY(entity.map_y)][normaliseX(entity.map_x)].collides_with_bullets:continue
+		#map[normaliseY(entity.map_y)][normaliseX(entity.map_x)].collides_with_bullets=entity.collides_with_bullets	
+		#
 	for x in range(map.size()):
 		for y in range(map[x].size()):
 			map[y][x].pos=Vector2(x,y)		
@@ -338,6 +338,7 @@ func register_entity(entity:BaseEntity):
 func _trigger_monsters_for_entity_at_pos(entity,pos):
 	var monsters=get_monsters_at_pos(pos)
 	for m in monsters:
+		if !util.valid(m):continue
 		trigger_minion(getMapPositionNormalised(pos),m)
 	pass;	
 func remove_entity(entity:BaseEntity):
@@ -354,30 +355,64 @@ func register_entity_at_position(entitity:BaseEntity,glob):
 	map[pos.y][pos.x].entities.push_back(entitity)
 	_trigger_monsters_for_entity_at_pos(entitity,glob)
 	pass;	
+	
 func remove_entity_from_position(entity:BaseEntity,glob):
 	var pos=getMapPositionNormalised(glob)
 	if isOutOfBoundsVector(pos):return
 	map[pos.y][pos.x].entities.erase(entity)		
-func get_entities(pos):
-	var p=getMapPositionNormalised(pos)
-	return map[p.y][p.x].entities
-	pass;	
+
+func get_entity(layer: GameboardConstants.MapLayer, map_position: Vector2):
+	for entity in get_entities_from_map(map_position):
+		if entity.map_layer == layer:
+			return entity
+	return null
+
 func get_entities_from_map(p):
 	return map[p.y][p.x].entities
+
+func get_turret_from_map(p):
+	var t = map[p.y][p.x].turret
+	if util.valid(t):
+		return t
+	return null	
+	
+	
+
+func can_move_type(pos,monster_type:Array[Monster.MonsterMovingType])->bool:
+	if get_turret_from_map(pos)!=null and !monster_type.has(Monster.MonsterMovingType.AIR):return false
+	var entities=get_entities_from_map(pos)
+	for e:BaseEntity in entities:
+		var can_move=false;
+		for type in monster_type:
+			if e.can_move(type): can_move=true;
+		if not can_move:return false	
+	return true
+	
 		
 func get_weight_from_cell(pos,monster_type:Monster.MonsterMovingType):
 	var entities=get_entities_from_map(pos)
 	var weight=1000
-	for e in entities:
+	for e:BaseEntity in entities:
 		if !e.can_move(monster_type):continue;
 		var w=e.get_weight_from_type(monster_type)
+		if w !=1:
+			print("hi")	
 		if w<weight:
 			weight=w
 	if weight==1000:
 		weight=1	
+	if weight !=1:
+		print("hi")	
 	return weight
 	pass;	
-	
+func is_buildable_global(glob)->bool:
+	var p=getMapPositionNormalised(glob)
+	for e:BaseEntity in map[p.y][p.x].entities:
+		if not e.buildable:
+			return false;
+	return true;
+func is_buildable_map(map)->bool:
+	return is_buildable_global(getGlobalFromReference(map)	)			
 func isOccupiedCell(x, y):
 	for turret in Turret.turrets:
 		if not is_instance_valid(turret): continue

@@ -2,14 +2,15 @@ extends GameObject2D
 class_name Monster;
 
 var moving_type: MonsterMovingType
-enum MonsterMovingType { GROUND, AIR, }
+enum MonsterMovingType { GROUND, AIR, LAVA}
 enum Monstertype {REGULAR=0,BOSS=1}
-enum MonsterName {SWARM,TANK,MINION,PYTHON,PYRO,YETI,SNOWMAN}
+enum MonsterName {SWARM=0,TANK=1,MINION=2,PYTHON=3,PYRO=4,YETI=5,SNOWMAN=6,WIZARD=7,BAT=8,NECROMANCER=9,DRAGON=10,VAMPIR=11}
 var monster_name:MonsterName
 var sizemult = 1;
 var maxHp;
 var monstertype:Monstertype
 var spawner_color
+var spawner
 signal status_changed
 var damage:
 	get:return core.damage
@@ -50,10 +51,10 @@ func _ready():
 	$Health.value = core.hp
 	GameState.gameState.player_died.connect(func(): free())
 	pass # Replace with function body.
-static func create(monster_name, target: Node2D, wave: int=1) -> Monster:
+static func create(monster_name, target: Node2D=null, wave: int=1) -> Monster:
 	var en = load("res://monsters/monster.tscn").instantiate() as Monster
 	en.core=MonsterFactory.createMonster(monster_name)
-	en.target = target;
+	
 	en.currentMinionPower = wave
 	en.monstertype=en.core.type
 	en.core.holder=en

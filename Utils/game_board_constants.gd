@@ -40,30 +40,8 @@ enum MapLayer { GROUND_LAYER = 0, BUILD_LAYER = 1, BLOCK_LAYER = 2, PREVIEW_LAYE
 #COLORS
 enum TileColor { NONE, RED, GREEN, BLUE, YELLOW, WHITE, MAGENTA };
 
-#TYPES
-enum TileType { WALL, GROUND, TURRET_BASE, SPAWNER, PLAYER_BASE, PREVIEW, BUILD, PORTAL }
-
-static func get_tile_type(board: TileMap, layer: int, map_position: Vector2):
-	var data = board.get_cell_tile_data(layer, map_position)
-	if data == null: return null
-	var type = TileType.get(data.get_custom_data("type").to_upper())
-	return type
-	
-static func get_tile_type_by_id(board: TileMap, id: int):
-	if id == -1: return null
-	var atlas: TileSetAtlasSource = board.tile_set.get_source(id)
-	var data = atlas.get_tile_data(Vector2(0,0), 0)
-	if data == null: return null
-	return TileType.get(data.get_custom_data("type").to_upper())
-	
-static func get_tile_color(board: TileMap, layer: int, map_position: Vector2):
-	var data = board.get_cell_tile_data(layer, map_position)
-	if data == null: return null
-	return TileColor.get(data.get_custom_data("color").to_upper())
-	
 static func turret_color_to_tile_color(color: Turret.Hue):
 	return TileColor.get(Turret.Hue.keys()[color])
-
 
 static func tile_to_dto(tile_id: int) -> EntityDTO:
 	match (tile_id):
@@ -71,6 +49,7 @@ static func tile_to_dto(tile_id: int) -> EntityDTO:
 		PLAYER_BASE_GREEN_TILE_ID: return PlayerBaseDTO.new(PLAYER_BASE_GREEN_TILE_ID, MapLayer.BLOCK_LAYER, TileColor.GREEN)
 		SPAWNER_GREEN_TILE_ID: return SpawnerDTO.new(SPAWNER_GREEN_TILE_ID, MapLayer.BLOCK_LAYER, -1, TileColor.GREEN)
 		PORTAL_TILE_ID: return PortalDTO.new(PORTAL_TILE_ID)
+		BUILD_NONE_TILE_ID: return BuildDTO.new(BUILD_NONE_TILE_ID, MapLayer.BUILD_LAYER, TileColor.NONE)
 		
 		_: return EntityDTO.new(tile_id)
 

@@ -229,18 +229,7 @@ func startBuildPhase():
 func startGame():
 	portals.clear()
 	spawners.clear()
-	var volcano=EntityDTO.new()
-	volcano.map_x=12
-	volcano.map_y=3
-	map_dto.entities.append(volcano)
-	volcano=EntityDTO.new()
-	volcano.map_x=11
-	volcano.map_y=3
-	map_dto.entities.append(volcano)
-	volcano=EntityDTO.new()
-	volcano.map_x=10
-	volcano.map_y=3
-	map_dto.entities.append(volcano)
+	
 	collisionReference.initialise(self,map_dto)
 	gameBoard=load("res://GameBoard/game_board.tscn").instantiate()
 	add_child(gameBoard)

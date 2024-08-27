@@ -1,11 +1,10 @@
-[gd_scene load_steps=13 format=3 uid="uid://bismehfpdggum"]
+[gd_scene load_steps=12 format=3 uid="uid://bismehfpdggum"]
 
 [ext_resource type="Script" path="res://factories/entity_factory.gd" id="1_bwspe"]
 [ext_resource type="PackedScene" uid="uid://h5p4fp80ye04" path="res://GameBoard/Entities/volcano.tscn" id="1_q001u"]
 [ext_resource type="PackedScene" uid="uid://dctbefilrhgdw" path="res://GameBoard/Entities/forest_entity.tscn" id="3_2l8hi"]
 [ext_resource type="Script" path="res://GameBoard/Entities/entity.gd" id="4_btsoo"]
 [ext_resource type="Script" path="res://GameBoard/Entities/Tunnel.gd" id="5_hkbjr"]
-[ext_resource type="Texture2D" uid="uid://b8n0busmwromw" path="res://icon.svg" id="5_ic4o0"]
 [ext_resource type="Script" path="res://factories/Barrel.gd" id="7_8yr0s"]
 [ext_resource type="Script" path="res://factories/GlassShards.gd" id="8_3l674"]
 [ext_resource type="Script" path="res://factories/Damage Booster.gd" id="8_jwewy"]
@@ -18,22 +17,24 @@ script = ExtResource("1_bwspe")
 
 [node name="Volcano" parent="." instance=ExtResource("1_q001u")]
 visible = false
+tile_id = 22
 collides_with_bullets = true
 processing = true
 map_layer = 2
 
 [node name="Forest" parent="." instance=ExtResource("3_2l8hi")]
 visible = false
+tile_id = 15
 collides_with_bullets = true
 moving_types = Array[int]([1])
 
 [node name="Canyon" type="Sprite2D" parent="."]
 visible = false
 script = ExtResource("4_btsoo")
-tile_id = null
+tile_id = 11
 collides_with_bullets = null
 processing = null
-moving_types = Array[int]([])
+moving_types = Array[int]([1])
 description = null
 map_layer = null
 move_weight = null
@@ -42,34 +43,31 @@ buildable = null
 immunities = null
 
 [node name="Tunnel" type="Sprite2D" parent="."]
-texture = ExtResource("5_ic4o0")
 script = ExtResource("5_hkbjr")
+tile_id = 21
 collides_with_bullets = true
 moving_types = Array[int]([0])
 
 [node name="ExplosiveBarrel" type="Sprite2D" parent="."]
-texture = ExtResource("5_ic4o0")
 script = ExtResource("7_8yr0s")
 explodes_with = Array[int]([3, 1, 6])
+tile_id = 14
 collides_with_bullets = true
 moving_types = Array[int]([])
 
 [node name="Barrel" type="Sprite2D" parent="."]
-texture = ExtResource("5_ic4o0")
 script = ExtResource("7_8yr0s")
+tile_id = 10
 collides_with_bullets = true
 moving_types = Array[int]([])
 
 [node name="Street" type="Sprite2D" parent="."]
 script = ExtResource("4_btsoo")
-tile_id = null
+tile_id = 20
 collides_with_bullets = null
 processing = null
-moving_types = null
-description = null
-map_layer = null
+map_layer = 1
 move_weight = 0.75
-weight_excludes = null
 buildable = true
 immunities = null
 
@@ -79,31 +77,77 @@ move_weight = 0.9
 buildable = true
 
 [node name="High Grass" type="Sprite2D" parent="."]
-texture = ExtResource("5_ic4o0")
 script = ExtResource("9_duham")
+tile_id = 16
 move_weight = 1.3
+
+[node name="Clouds" type="Sprite2D" parent="."]
+script = ExtResource("9_duham")
+tile_id = 16
+moving_types = Array[int]([1])
+move_weight = 1.3
+weight_excludes = Array[int]([0])
 
 [node name="Damage Booster" type="Sprite2D" parent="."]
 script = ExtResource("8_jwewy")
+tile_id = 13
 buildable = true
 
 [node name="Cooldown Booster" type="Sprite2D" parent="."]
 script = ExtResource("9_3iqe7")
+tile_id = 12
 
 [node name="Range Booster" type="Sprite2D" parent="."]
 script = ExtResource("10_lvhmf")
+tile_id = 18
 
 [node name="Ground" type="Sprite2D" parent="."]
 script = ExtResource("4_btsoo")
 tile_id = 4
 
+[node name="LAVA" type="Sprite2D" parent="."]
+script = ExtResource("4_btsoo")
+tile_id = 23
+moving_types = Array[int]([2, 1])
+
 [node name="Wall" type="Sprite2D" parent="."]
 script = ExtResource("4_btsoo")
 tile_id = 7
 collides_with_bullets = true
+moving_types = Array[int]([])
 map_layer = 2
 
-[node name="Build None" type="Sprite2D" parent="."]
+[node name="Base Preview" type="Sprite2D" parent="."]
 script = ExtResource("4_btsoo")
-tile_id = 8
-map_layer = 1
+tile_id = 3
+map_layer = 2
+
+[node name="White Base" type="Sprite2D" parent="."]
+script = ExtResource("4_btsoo")
+tile_id = 101
+map_layer = 2
+
+[node name="Green Base" type="Sprite2D" parent="."]
+script = ExtResource("4_btsoo")
+tile_id = 201
+map_layer = 2
+
+[node name="Red Base" type="Sprite2D" parent="."]
+script = ExtResource("4_btsoo")
+tile_id = 301
+map_layer = 2
+
+[node name="Yellow Base" type="Sprite2D" parent="."]
+script = ExtResource("4_btsoo")
+tile_id = 401
+map_layer = 2
+
+[node name="Blue Base" type="Sprite2D" parent="."]
+script = ExtResource("4_btsoo")
+tile_id = 501
+map_layer = 2
+
+[node name="Magenta Base" type="Sprite2D" parent="."]
+script = ExtResource("4_btsoo")
+tile_id = 601
+map_layer = 2

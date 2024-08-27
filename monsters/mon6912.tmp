@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://bahtj4trsgn5q"]
+[gd_scene load_steps=15 format=3 uid="uid://bahtj4trsgn5q"]
 
 [ext_resource type="Script" path="res://monsters/monster_factory.gd" id="1_27eaf"]
 [ext_resource type="Texture2D" uid="uid://24e800rshnm" path="res://Assets/Monsters/monster_blue/1.png" id="2_fc3nv"]
@@ -7,13 +7,10 @@
 [ext_resource type="Texture2D" uid="uid://3sd05eiwhlia" path="res://Assets/Monsters/monster_blue/4.png" id="5_8v2nd"]
 [ext_resource type="Texture2D" uid="uid://cu8h60d2lpm2c" path="res://Assets/Monsters/Monster.png" id="6_00h8v"]
 [ext_resource type="Script" path="res://monsters/monster_core.gd" id="7_861mn"]
-[ext_resource type="Script" path="res://monsters/NECROMANCERMonster.gd" id="8_qrsra"]
 [ext_resource type="Script" path="res://monsters/YETI.gd" id="8_tkrlx"]
-[ext_resource type="Script" path="res://monsters/vampir.gd" id="8_tqvmu"]
 [ext_resource type="Texture2D" uid="uid://bwj5i4k0ocqx4" path="res://Assets/Effects/particles/circle_05.png" id="9_j4vht"]
 [ext_resource type="Script" path="res://monsters/Snowball.gd" id="10_5a1du"]
 [ext_resource type="Texture2D" uid="uid://bax7oix5hpm4e" path="res://Assets/Effects/particles/spark_05.png" id="11_fqj4h"]
-[ext_resource type="Script" path="res://monsters/WIZARD.gd" id="11_gp0kc"]
 [ext_resource type="Script" path="res://monsters/Snowman.gd" id="11_hnnj1"]
 [ext_resource type="Script" path="res://monsters/MagicProjectile.gd" id="12_svbms"]
 
@@ -74,57 +71,10 @@ process_mode = 3
 sprite_frames = SubResource("SpriteFrames_xagal")
 animation = &"spawn"
 
-[node name="VAMPIR" type="Node2D" parent="."]
-script = ExtResource("8_tqvmu")
-speed = 50
-hp = 50
-special_cooldown = 1
-
-[node name="Animation" type="AnimatedSprite2D" parent="VAMPIR"]
-process_mode = 3
-sprite_frames = SubResource("SpriteFrames_xagal")
-animation = &"spawn"
-
-[node name="NECROMANCER" type="Node2D" parent="." node_paths=PackedStringArray("summon")]
-script = ExtResource("8_qrsra")
-summon = NodePath("../MINION")
-speed = 50
-special_cooldown = 1
-
-[node name="Animation" type="AnimatedSprite2D" parent="NECROMANCER"]
-process_mode = 3
-sprite_frames = SubResource("SpriteFrames_xagal")
-animation = &"spawn"
-
-[node name="DRAGON" type="Node2D" parent="."]
-script = ExtResource("7_861mn")
-speed = 75
-hp = 150
-damage = 7
-movable_cells = Array[int]([1])
-
-[node name="Animation" type="AnimatedSprite2D" parent="DRAGON"]
-process_mode = 3
-sprite_frames = SubResource("SpriteFrames_xagal")
-animation = &"spawn"
-
-[node name="BAT" type="Node2D" parent="."]
-script = ExtResource("7_861mn")
-speed = 125
-hp = 75
-damage = 3
-movable_cells = Array[int]([1])
-
-[node name="Animation" type="AnimatedSprite2D" parent="BAT"]
-process_mode = 3
-sprite_frames = SubResource("SpriteFrames_xagal")
-animation = &"spawn"
-
 [node name="SWARM" type="Node2D" parent="."]
 script = ExtResource("7_861mn")
-speed = 125
-hp = 75
-damage = 3
+hp = 0.5
+speed = 2.0
 immunities = Array[int]([2])
 
 [node name="Animation" type="AnimatedSprite2D" parent="SWARM"]
@@ -134,9 +84,9 @@ animation = &"spawn"
 
 [node name="TANK" type="Node2D" parent="."]
 script = ExtResource("7_861mn")
-speed = 75
-hp = 125
-damage = 7
+hp = 3.0
+damage = 2.0
+speed = 0.7
 
 [node name="Animation" type="AnimatedSprite2D" parent="TANK"]
 process_mode = 3
@@ -162,19 +112,19 @@ animation = &"spawn"
 
 [node name="PYRO" type="Node2D" parent="."]
 script = ExtResource("7_861mn")
-movable_cells = Array[int]([0, 2])
 
 [node name="Animation" type="AnimatedSprite2D" parent="PYRO"]
 process_mode = 3
 sprite_frames = SubResource("SpriteFrames_xagal")
 animation = &"spawn"
 
-[node name="YETI" type="Node2D" parent="."]
+[node name="YETI" type="Node2D" parent="." node_paths=PackedStringArray("ball")]
 script = ExtResource("8_tkrlx")
 range = 3
-speed = 50
-hp = 125
-damage = 7
+projectile_speed = 350
+ball = NodePath("Snowball")
+special_cooldown = 3.0
+immunities = Array[int]([2])
 
 [node name="Animation" type="AnimatedSprite2D" parent="YETI"]
 process_mode = 3
@@ -187,10 +137,13 @@ scale = Vector2(4.36765, 4.36765)
 texture = ExtResource("9_j4vht")
 script = ExtResource("10_5a1du")
 
-[node name="WIZARD" type="Node2D" parent="."]
-script = ExtResource("11_gp0kc")
+[node name="WIZARD" type="Node2D" parent="." node_paths=PackedStringArray("ball")]
+script = ExtResource("8_tkrlx")
 range = 3
-speed = 75
+projectile_speed = 350
+ball = NodePath("Magic")
+special_cooldown = 3.0
+immunities = Array[int]([2])
 
 [node name="Animation" type="AnimatedSprite2D" parent="WIZARD"]
 process_mode = 3
@@ -203,7 +156,7 @@ rotation = 3.14159
 scale = Vector2(0.133072, 0.133072)
 texture = ExtResource("11_fqj4h")
 script = ExtResource("12_svbms")
-damage_types = Array[int]([5])
+immunities = null
 
 [node name="SNOWMAN" type="Node2D" parent="."]
 script = ExtResource("11_hnnj1")

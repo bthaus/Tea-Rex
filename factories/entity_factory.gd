@@ -18,10 +18,9 @@ static func create(dto:EntityDTO):
 	node.map_position=Vector2(dto.map_x,dto.map_y)
 	node.visible=true
 	return node
-	pass;
-	
+
 static func get_all():
 	var c =instance.get_children()
 	return c
-	pass;
+
 	

@@ -1,19 +1,21 @@
 extends BaseEntity
 class_name SpielverderberEntity
-
+var no_places=[]
 func place_on_board(board: TileMap):
 	super(board)
 	var vecs=[]
+	
 	GameState.gameState.collisionReference.getNeighbours(get_global(),vecs)
 	for v in vecs:
-		GameState.collisionReference.register_entity_at_position(self,board.map_to_local(v))
-
+		var dto=EntityDTO.new(8,v.x,v.y)
+		var instance=EntityFactory.create(dto) 
+		instance.place_on_board(board)
+		no_places.push_back(instance)
+		
 	
 	pass;
 func remove_from_board(board:TileMap):
-	var vecs=[]
-	GameState.gameState.collisionReference.getNeighbours(get_global(),vecs)
-	for v in vecs:
-		GameState.collisionReference.remove_entity_from_position(self,board.map_to_local(v))
-
+	for p in no_places:
+		p.remove_from_board(board)
+	super(board)	
 	pass;
