@@ -10,6 +10,7 @@ var color: GameboardConstants.TileColor
 var waves=[]
 var waveMonsters=[]
 static var grids:Array[grid_type_dto]=[]
+static var all_movement_types:Array[Array]=[]
 var spawning_movement_types:Array[Array]=[]
 
 var closest_target:Node2D
@@ -88,8 +89,17 @@ func spawnEnemy(mo:Monster):
 	mo.spawner_color=color
 	if paths==null:return
 	for dto in paths:
-		if mo.moving_type==dto.type:
+		var satisfied=true;
+		for type in mo.core.movable_cells:
+			if !dto.type.has(type):
+				satisfied=false;
+				continue
+		if satisfied:
 			mo.path=dto.path
+			break;
+	if mo.path.is_empty():
+		print("monster without path")
+				
 	GameState.gameState.get_node("MinionHolder").add_child(mo)
 	
 
@@ -110,7 +120,26 @@ func initialise():
 					break;
 			if !match_found:
 				spawning_movement_types.append(m.core.movable_cells.duplicate())
-			m.queue_free()	
+			m.queue_free()
+	#iterate through all local types			
+	for types in spawning_movement_types:
+		var satisfied=false
+		#for each local typetuple, go trough all global typetuples	
+		for i_arr in all_movement_types:
+			var current_satisfied=true
+			#for each type of current local typetuple, check current global typetuple
+			for type in types:
+				if !i_arr.has(type):
+					#if a missmatch has been found, break and mark false
+					current_satisfied=false;
+					break;	
+			#if all types have been found in current tuple, mark true and break		
+			if current_satisfied:
+				satisfied=true
+				break	
+		#if no satisfactory tuple has been found, append current local tuple to global tuple		
+		if !satisfied:
+			all_movement_types.append(types)			
 	pass;	
 var _is_simulation=false;	
 func monsterReachedSpawn(monster:Monster):
@@ -219,10 +248,9 @@ static func _get_paths(map:TileMap,spawner):
 		if path.size()==0:
 			return null
 		var type=grid.type	
-		if type==Monster.MonsterMovingType.GROUND:
+		if type.has(Monster.MonsterMovingType.GROUND):
 			paths.append(path_color_type_dto.new(path,Color.WHITE,type))
 		else:	
-			print("readd drawing of flying minion path once we actually have some")	
 			paths.append(path_color_type_dto.new(path,Color.SKY_BLUE,type))
 	
 	return paths
@@ -243,7 +271,7 @@ static func _get_shortest_path_global(grid:grid_type_dto,spawner):
 	pass;	
 static func _set_grids():
 	grids.clear()
-	for type in Monster.MonsterMovingType.values():
+	for type in all_movement_types:
 		var astar=_get_astar_grid(GameState.gameState.board,type,GameState.gameState.spawners,GameState.gameState.targets)
 		grids.append(astar)
 	pass;	
@@ -254,7 +282,7 @@ static var _current_grid
 static func get_point_id(x, y):
 	return _current_grid[x][y].id
 	pass;	
-static func _get_astar_grid(map:TileMap,monstertype:Monster.MonsterMovingType,froms,tos):
+static func _get_astar_grid(map:TileMap,monstertype:Array[Monster.MonsterMovingType],froms,tos):
 	var movable_cells=_get_movable_cells_per_monster_type(map,monstertype)
 	var astar_grid=PortalStar.new()
 	astar_grid.reserve_space(GameboardConstants.BOARD_WIDTH * GameboardConstants.BOARD_HEIGHT)
@@ -338,7 +366,7 @@ static func _connect_with_neigbours(movable_cells,point_id,x,y,astar_grid):
 	pass;
 
 #returns an array of cells on which the given monster type can move.
-static func _get_movable_cells_per_monster_type(map: TileMap, monstertype: Monster.MonsterMovingType):
+static func _get_movable_cells_per_monster_type(map: TileMap, monstertypes: Array[Monster.MonsterMovingType]):
 		var reference=GameState.collisionReference
 		var cells: Array = []
 		for i in range(GameboardConstants.BOARD_HEIGHT):
@@ -355,22 +383,26 @@ static func _get_movable_cells_per_monster_type(map: TileMap, monstertype: Monst
 			if previews!=null:
 				for p in previews:
 					preview_pos_arr.append(p.get_map())
-		match(monstertype):
 			
-			Monster.MonsterMovingType.GROUND:
-				for pos in map.get_used_cells(GameboardConstants.MapLayer.GROUND_LAYER):
-					if preview_pos_arr.has(pos):continue
-					id=id+1;
-					
-					if reference.can_move_type(pos,monstertype):
-						var weight=reference.get_weight_from_cell(pos,monstertype)
-						cells[pos.x][pos.y]=astar_id_weight_dto.new(id,weight)
-					
-			Monster.MonsterMovingType.AIR:
+		
+			if monstertypes.has(Monster.MonsterMovingType.AIR):
 				for y in range(0, GameboardConstants.BOARD_HEIGHT): #Just put every possible tile in the array
 					for x in range(0, GameboardConstants.BOARD_WIDTH):
 						id=id+1;
 						cells[x][y]=astar_id_weight_dto.new(id)
+			else:
+				for pos in map.get_used_cells(GameboardConstants.MapLayer.GROUND_LAYER):
+					if preview_pos_arr.has(pos):continue
+					id=id+1;
+					
+					if reference.can_move_type(pos,monstertypes):
+						var lowest=1000
+						for monstertype in monstertypes:
+							var weight=reference.get_weight_from_cell(pos,monstertype)
+							if weight<lowest:
+								lowest=weight
+						cells[pos.x][pos.y]=astar_id_weight_dto.new(id,lowest)
+									
 		_current_grid=cells
 		return cells
 		

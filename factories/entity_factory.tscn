@@ -98,6 +98,11 @@ tile_id = 18
 script = ExtResource("4_btsoo")
 tile_id = 4
 
+[node name="LAVA" type="Sprite2D" parent="."]
+script = ExtResource("4_btsoo")
+tile_id = 23
+moving_types = Array[int]([2])
+
 [node name="Wall" type="Sprite2D" parent="."]
 script = ExtResource("4_btsoo")
 tile_id = 7

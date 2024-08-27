@@ -138,6 +138,7 @@ animation = &"spawn"
 
 [node name="PYRO" type="Node2D" parent="."]
 script = ExtResource("7_861mn")
+movable_cells = Array[int]([0, 2])
 
 [node name="Animation" type="AnimatedSprite2D" parent="PYRO"]
 process_mode = 3
