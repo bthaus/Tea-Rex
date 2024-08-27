@@ -6,7 +6,6 @@ var selected_item
 var selected_object
 
 func _ready():
-	
 	for item in $HBoxContainer.get_children():
 		item.queue_free()
 	
@@ -18,15 +17,41 @@ func _ready():
 		item.index = i
 		item.set_object(PermutationObject.new(i, textures[i]))
 		$HBoxContainer.add_child(item)
+		
+
+func set_objects(objects: Array[PermutationObject]):
+	for item in $HBoxContainer.get_children():
+		item.queue_free()
+	
+	var idx = 0
+	for object in objects:
+		var item = load("res://menu_scenes/LevelEditor/Settings/ItemPermutator/item_permutator_item.tscn").instantiate()
+		item.mouse_entered.connect(func(): focused_item = item)
+		item.mouse_exited.connect(func(): focused_item = null)
+		item.index = idx
+		item.set_object(object)
+		$HBoxContainer.add_child(item)
+		idx += 1
+
+func get_objects() -> Array[PermutationObject]:
+	var items = $HBoxContainer.get_children()
+	var objects: Array[PermutationObject] = []
+	for item in $HBoxContainer.get_children():
+		objects.append(item.get_object())
+	#objects.sort_custom(func(a, b): return a.index < b.index)
+	return objects
 
 func _input(event):
 	if focused_item == null and selected_item == null:
 		return
-		
+	
+	$SelectedSprite.position = get_local_mouse_position() + Vector2(10, 10)
+	
 	if InputUtils.is_action_just_pressed(event, "left_click"):
 		if selected_item == null:
 			selected_item = focused_item
 			#selected_object = selected_item.get_object()
+			$SelectedSprite.texture = selected_item.get_object().texture
 			selected_item.hide_object()
 		else:
 			_deselect_items()
@@ -60,12 +85,13 @@ func _deselect_items():
 	for item in $HBoxContainer.get_children():
 		item.show_object()
 	selected_item = null
+	$SelectedSprite.texture = null
 
 class PermutationObject:
-	var object
+	var value
 	var texture: Texture2D
-	func _init(object, texture: Texture2D):
-		self.object = object
+	func _init(value, texture: Texture2D):
+		self.value = value
 		self.texture = texture
 
 

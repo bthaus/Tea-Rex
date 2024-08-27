@@ -13,5 +13,5 @@ func show_object():
 func hide_object():
 	$Sprite2D.texture = null
 
-func get_object():
+func get_object() -> ItemPermutator.PermutationObject:
 	return _object
