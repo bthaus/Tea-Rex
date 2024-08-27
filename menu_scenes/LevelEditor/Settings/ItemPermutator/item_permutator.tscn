@@ -1,0 +1,30 @@
+[gd_scene load_steps=3 format=3 uid="uid://b0wxnmfknd8yg"]
+
+[ext_resource type="Script" path="res://menu_scenes/LevelEditor/Settings/ItemPermutator/item_permutator.gd" id="1_kok1e"]
+[ext_resource type="PackedScene" uid="uid://dq82pxor8quh6" path="res://menu_scenes/LevelEditor/Settings/ItemPermutator/item_permutator_item.tscn" id="2_0xe6v"]
+
+[node name="ItemPermutator" type="Panel"]
+offset_right = 500.0
+offset_bottom = 80.0
+script = ExtResource("1_kok1e")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 10.0
+offset_bottom = 60.0
+grow_horizontal = 2
+alignment = 1
+
+[node name="ItemPermutatorItem" parent="HBoxContainer" instance=ExtResource("2_0xe6v")]
+layout_mode = 2
+
+[node name="ItemPermutatorItem2" parent="HBoxContainer" instance=ExtResource("2_0xe6v")]
+layout_mode = 2
+
+[node name="ItemPermutatorItem3" parent="HBoxContainer" instance=ExtResource("2_0xe6v")]
+layout_mode = 2
+
+[node name="ItemPermutatorItem4" parent="HBoxContainer" instance=ExtResource("2_0xe6v")]
+layout_mode = 2
