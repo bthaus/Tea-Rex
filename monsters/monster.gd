@@ -50,10 +50,10 @@ func _ready():
 	$Health.value = core.hp
 	GameState.gameState.player_died.connect(func(): free())
 	pass # Replace with function body.
-static func create(monster_name, target: Node2D, wave: int=1) -> Monster:
+static func create(monster_name, target: Node2D=null, wave: int=1) -> Monster:
 	var en = load("res://monsters/monster.tscn").instantiate() as Monster
 	en.core=MonsterFactory.createMonster(monster_name)
-	en.target = target;
+	
 	en.currentMinionPower = wave
 	en.monstertype=en.core.type
 	en.core.holder=en

@@ -10,6 +10,8 @@ var color: GameboardConstants.TileColor
 var waves=[]
 var waveMonsters=[]
 static var grids:Array[grid_type_dto]=[]
+var spawning_movement_types:Array[Array]=[]
+
 var closest_target:Node2D
 var targets=[]
 var paths
@@ -23,8 +25,7 @@ var _astar_id
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	
-	
+					
 	state.start_build_phase.connect(func():
 		if state.spawners.find(self)==-1:queue_free()
 		)
@@ -93,6 +94,24 @@ func spawnEnemy(mo:Monster):
 	
 
 	pass;
+func initialise():
+	for dto in waves:
+		for monster in dto:
+			if monster.count==0:continue
+			var m=Monster.create(monster.monster_id)
+			var match_found=false
+			for types in spawning_movement_types:
+				var current_satisfied=true
+				for type in m.core.movable_cells:
+					if !types.has(type):
+						current_satisfied=false;
+				if current_satisfied: 
+					match_found=true
+					break;
+			if !match_found:
+				spawning_movement_types.append(m.core.movable_cells.duplicate())
+			m.queue_free()	
+	pass;	
 var _is_simulation=false;	
 func monsterReachedSpawn(monster:Monster):
 	numReachedSpawn=numReachedSpawn+1;

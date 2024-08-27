@@ -217,7 +217,10 @@ func link_spawners_to_waves(map_dto):
 			for v in w:
 				if v.spawner_id==spawner.spawner_id:
 					wave.append(v)
+					
 			spawner.waves.append(wave)
+		spawner.initialise()	
+			
 	pass;
 func _spawn_turrets(block: Block, map_position: Vector2):
 	for piece in block.pieces:
