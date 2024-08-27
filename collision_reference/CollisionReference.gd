@@ -379,7 +379,7 @@ func get_turret_from_map(p):
 	
 
 func can_move_type(pos,monster_type:Array[Monster.MonsterMovingType])->bool:
-	if get_turret_from_map(pos)!=null:return false
+	if get_turret_from_map(pos)!=null and !monster_type.has(Monster.MonsterMovingType.AIR):return false
 	var entities=get_entities_from_map(pos)
 	for e:BaseEntity in entities:
 		var can_move=false;
