@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://bahtj4trsgn5q"]
+[gd_scene load_steps=18 format=3 uid="uid://bahtj4trsgn5q"]
 
 [ext_resource type="Script" path="res://monsters/monster_factory.gd" id="1_27eaf"]
 [ext_resource type="Texture2D" uid="uid://24e800rshnm" path="res://Assets/Monsters/monster_blue/1.png" id="2_fc3nv"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" path="res://monsters/monster_core.gd" id="7_861mn"]
 [ext_resource type="Script" path="res://monsters/NECROMANCERMonster.gd" id="8_qrsra"]
 [ext_resource type="Script" path="res://monsters/YETI.gd" id="8_tkrlx"]
+[ext_resource type="Script" path="res://monsters/vampir.gd" id="8_tqvmu"]
 [ext_resource type="Texture2D" uid="uid://bwj5i4k0ocqx4" path="res://Assets/Effects/particles/circle_05.png" id="9_j4vht"]
 [ext_resource type="Script" path="res://monsters/Snowball.gd" id="10_5a1du"]
 [ext_resource type="Texture2D" uid="uid://bax7oix5hpm4e" path="res://Assets/Effects/particles/spark_05.png" id="11_fqj4h"]
@@ -69,6 +70,17 @@ script = ExtResource("1_27eaf")
 script = ExtResource("7_861mn")
 
 [node name="Animation" type="AnimatedSprite2D" parent="copy_this"]
+process_mode = 3
+sprite_frames = SubResource("SpriteFrames_xagal")
+animation = &"spawn"
+
+[node name="VAMPIR" type="Node2D" parent="."]
+script = ExtResource("8_tqvmu")
+speed = 50
+hp = 50
+special_cooldown = 1
+
+[node name="Animation" type="AnimatedSprite2D" parent="VAMPIR"]
 process_mode = 3
 sprite_frames = SubResource("SpriteFrames_xagal")
 animation = &"spawn"

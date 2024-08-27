@@ -10,6 +10,7 @@ var color: GameboardConstants.TileColor
 var waves=[]
 var waveMonsters=[]
 static var grids:Array[grid_type_dto]=[]
+static var invisible_grids:Array[grid_type_dto]=[]
 static var all_movement_types:Array[Array]=[]
 var spawning_movement_types:Array[Array]=[]
 
@@ -176,12 +177,22 @@ static func get_new_path(monster:Monster):
 				continue
 		if satisfied:
 			grid=dto
-			break;		
-	if grid==null:
-		print("wtf, no grid found for these movement types:" )
+			break;	
+			
+	for dto in invisible_grids:
+		var satisfied=true;
 		for type in monster.core.movable_cells:
-			print(type)
-		return null
+			if !dto.type.has(type):
+				satisfied=false;
+				continue
+		if satisfied:
+			grid=dto
+			break;	
+						
+	if grid==null:
+		grid=_get_astar_grid(GameState.board,monster.core.movable_cells,GameState.spawners,GameState.gameState.targets)
+		invisible_grids.append(grid)
+		
 	var from_id=GameState.board.local_to_map(from)
 	from_id=grid.get_point_id(from_id.x,from_id.y)
 	var path
