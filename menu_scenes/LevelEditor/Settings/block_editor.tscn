@@ -48,10 +48,21 @@ grow_horizontal = 2
 grow_vertical = 2
 text = "Left-click to place, Right-click to delete"
 
-[node name="CloseButton" type="Button" parent="."]
+[node name="CancelButton" type="Button" parent="."]
 layout_mode = 0
-offset_left = 429.0
-offset_top = 251.0
-offset_right = 479.0
-offset_bottom = 282.0
-text = "Close"
+offset_left = 23.0
+offset_top = 250.0
+offset_right = 83.0
+offset_bottom = 281.0
+text = "Cancel"
+
+[node name="SaveButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 421.0
+offset_top = 250.0
+offset_right = 481.0
+offset_bottom = 281.0
+text = "Save"
+
+[connection signal="pressed" from="CancelButton" to="." method="_on_cancel_button_pressed"]
+[connection signal="pressed" from="SaveButton" to="." method="_on_save_button_pressed"]
