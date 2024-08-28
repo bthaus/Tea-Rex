@@ -1,6 +1,7 @@
 extends Panel
 
 var _object: ItemPermutator.PermutationObject
+signal input_enabled
 
 func set_object(object: ItemPermutator.PermutationObject):
 	_object = object
@@ -17,7 +18,7 @@ func get_object() -> ItemPermutator.PermutationObject:
 
 
 func _on_edit_button_pressed():
-	pass # Replace with function body.
+	input_enabled.emit(false)
 
 
 func _on_delete_button_pressed():

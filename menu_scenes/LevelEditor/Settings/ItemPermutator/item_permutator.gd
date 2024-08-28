@@ -6,10 +6,10 @@ class_name ItemPermutator
 var focused_item
 var selected_item
 var selected_object
+var input_enabled = true
 
 func _ready():
-	for item in grid_container.get_children():
-		item.queue_free()
+	for item in grid_container.get_children(): item.queue_free()
 	
 	#var textures = [load("res://Assets/Monsters/Monster_BLUE.png"), load("res://Assets/Monsters/Monster_GREEN.png"), load("res://Assets/Monsters/Monster_RED.png"), load("res://Assets/Monsters/Monster_YELLOW.png")]
 	#set_sprite_objects([PermutationObject.new(1, textures[0]), PermutationObject.new(2, textures[1]), PermutationObject.new(3, textures[2]), PermutationObject.new(4, textures[3])])
@@ -22,17 +22,14 @@ func set_sprite_objects(objects: Array[PermutationObject]):
 	_set_objects("res://menu_scenes/LevelEditor/Settings/ItemPermutator/item_permutator_sprite_item.tscn", objects)
 
 func _set_objects(path, objects: Array[PermutationObject]):
-	for item in grid_container.get_children():
-		item.queue_free()
-	
-	var idx = 0
+	for item in grid_container.get_children(): item.queue_free()
 	for object in objects:
 		var item = load(path).instantiate()
 		item.mouse_entered.connect(func(): focused_item = item)
 		item.mouse_exited.connect(func(): focused_item = null)
+		item.input_enabled.connect(func(enabled: bool): input_enabled = enabled)
 		item.set_object(object)
 		grid_container.add_child(item)
-		idx += 1
 
 func get_objects() -> Array[PermutationObject]:
 	var items = grid_container.get_children()
@@ -43,7 +40,7 @@ func get_objects() -> Array[PermutationObject]:
 	return objects
 
 func _input(event):
-	if focused_item == null and selected_item == null:
+	if not input_enabled or (focused_item == null and selected_item == null):
 		return
 	
 	$SelectedNode.position = get_local_mouse_position() + Vector2(10, 10)
@@ -74,9 +71,7 @@ func _move_items():
 		if items[i] == selected_item: selected_item_index = i
 		if items[i] == focused_item: focused_item_index = i
 		
-	
 	var move_items_left = focused_item_index > selected_item_index
-	
 	#items.sort_custom(func(a, b): return a.index < b.index)
 	
 	var object = selected_item.get_object() #Store object before overriding

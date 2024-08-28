@@ -1,6 +1,7 @@
 extends Panel
 
 var _object: ItemPermutator.PermutationObject
+signal input_enabled
 
 func set_object(object: ItemPermutator.PermutationObject):
 	_object = object
