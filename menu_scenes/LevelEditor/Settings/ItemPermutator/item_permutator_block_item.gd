@@ -21,8 +21,8 @@ func open_editor():
 	var editor = load("res://menu_scenes/LevelEditor/Settings/block_editor.tscn").instantiate()
 	editor.set_block(_object.value)
 	editor.closed.connect(_on_editor_closed)
-	editor.position = Vector2(200, 200)
-	get_tree().root.add_child(editor)
+	editor.position = Vector2(200, 100)
+	get_node("/root/menu_root/LevelEditor/Camera2D/HUD/Settings").add_child(editor)
 	
 func _on_editor_closed(block: Block):
 	_object.value = block
