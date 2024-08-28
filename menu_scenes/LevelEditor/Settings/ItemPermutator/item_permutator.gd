@@ -53,6 +53,7 @@ func _set_selected_node():
 	for child in $SelectedNode.get_children(): child.queue_free()
 	var held_item = selected_item.duplicate()
 	held_item.scale = Vector2(0.75, 0.75)
+	held_item.enable_focus(false)
 	held_item.mouse_filter = MOUSE_FILTER_IGNORE #I HATE YOU FILTER, EAT SAND
 	$SelectedNode.add_child(held_item)
 

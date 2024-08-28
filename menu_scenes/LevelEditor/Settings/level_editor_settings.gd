@@ -8,24 +8,42 @@ class_name LevelEditorSettings
 func _ready():
 	#Init Block Permutator
 	randomize()
-	var block_objects: Array[ItemPermutator.PermutationObject] = []
+	var blocks: Array[Block] = []
 	for shape in Block.BlockShape.keys():
-		var block = BlockUtils.get_block_from_shape(Block.BlockShape.get(shape), Turret.Hue.WHITE)
-		block_objects.append(ItemPermutator.PermutationObject.new(block, null))
-	block_objects.shuffle()
-	block_permutator.set_objects("res://menu_scenes/LevelEditor/Settings/ItemPermutator/item_permutator_block_item.tscn", block_objects)
+		blocks.append(BlockUtils.get_block_from_shape(Block.BlockShape.get(shape), Turret.Hue.WHITE))
+	blocks.shuffle()
+	_set_block_permutator(blocks)
 	
 	#Init Color Permutator
 	randomize()
+	var colors: Array[Turret.Hue] = []
+	for hue in Turret.Hue.keys():
+		colors.append(Turret.Hue.get(hue))
+	colors.shuffle()
+	_set_color_permutator(colors)
+
+func _set_block_permutator(blocks: Array[Block]):
+	var block_objects: Array[ItemPermutator.PermutationObject] = []
+	for block in blocks:
+		block_objects.append(ItemPermutator.PermutationObject.new(block, null))
+	block_permutator.set_objects("res://menu_scenes/LevelEditor/Settings/ItemPermutator/item_permutator_block_item.tscn", block_objects)
+
+func _set_color_permutator(colors: Array[Turret.Hue]):
 	var color_objects: Array[ItemPermutator.PermutationObject] = []
-	for color in Turret.Hue.keys():
-		var c = Turret.Hue.get(color)
-		color_objects.append(ItemPermutator.PermutationObject.new(c, _color_to_texture(c)))
-	color_objects.shuffle()
+	for color in colors:
+		color_objects.append(ItemPermutator.PermutationObject.new(color, _color_to_texture(color)))
 	color_permutator.set_objects("res://menu_scenes/LevelEditor/Settings/ItemPermutator/item_permutator_sprite_item.tscn", color_objects)
 
-func load_settings():
-	pass
+func load_settings(map_dto: MapDTO):
+	var blocks: Array[Block] = []
+	for block in map_dto.block_cycle:
+		blocks.append(block.get_object())
+	_set_block_permutator(blocks)
+	
+	var colors: Array[Turret.Hue] = []
+	for color in map_dto.color_cycle:
+		colors.append(Turret.Hue.get(Turret.Hue.keys()[color-1]))
+	_set_color_permutator(colors)
 
 func _color_to_texture(color: Turret.Hue) -> Texture2D:
 	var id: int

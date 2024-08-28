@@ -73,7 +73,8 @@ func load_map(map_dto: MapDTO):
 	for entity in spawner_entities:
 		board_handler.spawner_map_positions[entity.spawner_id] = Vector2(entity.map_x, entity.map_y)
 		_on_spawner_added()
-		
+	
+	settings.load_settings(map_dto)
 	wave_settings.set_monster_waves(map_dto.waves)
 	map_name.text = map_dto.map_name
 
