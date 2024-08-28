@@ -5,8 +5,8 @@
 [node name="WaveSettings" type="Panel"]
 offset_left = 181.0
 offset_top = 128.0
-offset_right = 993.0
-offset_bottom = 526.0
+offset_right = 981.0
+offset_bottom = 528.0
 script = ExtResource("1_4lpow")
 
 [node name="SpawnerScrollContainer" type="ScrollContainer" parent="."]
@@ -22,10 +22,10 @@ layout_mode = 2
 
 [node name="CloseButton" type="Button" parent="."]
 layout_mode = 0
-offset_left = 710.0
-offset_top = 340.0
-offset_right = 795.0
-offset_bottom = 383.0
+offset_left = 694.0
+offset_top = 339.0
+offset_right = 779.0
+offset_bottom = 382.0
 text = "Close
 "
 

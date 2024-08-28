@@ -8,23 +8,10 @@ var selected_item
 var selected_object
 var input_enabled = true
 
-func _ready():
-	for item in grid_container.get_children(): item.queue_free()
-	
-	#var textures = [load("res://Assets/Monsters/Monster_BLUE.png"), load("res://Assets/Monsters/Monster_GREEN.png"), load("res://Assets/Monsters/Monster_RED.png"), load("res://Assets/Monsters/Monster_YELLOW.png")]
-	#set_sprite_objects([PermutationObject.new(1, textures[0]), PermutationObject.new(2, textures[1]), PermutationObject.new(3, textures[2]), PermutationObject.new(4, textures[3])])
-	set_block_objects([PermutationObject.new(BlockUtils.get_block_from_shape(Block.BlockShape.L, Turret.Hue.BLUE), null), PermutationObject.new(BlockUtils.get_block_from_shape(Block.BlockShape.J, Turret.Hue.RED), null), PermutationObject.new(BlockUtils.get_block_from_shape(Block.BlockShape.Z, Turret.Hue.YELLOW), null), PermutationObject.new(BlockUtils.get_block_from_shape(Block.BlockShape.CROSS, Turret.Hue.GREEN), null)])
-
-func set_block_objects(objects: Array[PermutationObject]):
-	_set_objects("res://menu_scenes/LevelEditor/Settings/ItemPermutator/item_permutator_block_item.tscn", objects)
-
-func set_sprite_objects(objects: Array[PermutationObject]):
-	_set_objects("res://menu_scenes/LevelEditor/Settings/ItemPermutator/item_permutator_sprite_item.tscn", objects)
-
-func _set_objects(path, objects: Array[PermutationObject]):
+func set_objects(scene_path, objects: Array[PermutationObject]):
 	for item in grid_container.get_children(): item.queue_free()
 	for object in objects:
-		var item = load(path).instantiate()
+		var item = load(scene_path).instantiate()
 		item.mouse_entered.connect(func(): focused_item = item)
 		item.mouse_exited.connect(func(): focused_item = null)
 		item.input_enabled.connect(func(enabled: bool): input_enabled = enabled)
