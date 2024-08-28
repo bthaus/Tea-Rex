@@ -54,3 +54,6 @@ static func tile_to_dto(tile_id: int) -> EntityDTO:
 		_: return EntityDTO.new(tile_id)
 
 	return null
+
+static func local_to_map_on_scaled_board(board: TileMap, local_position: Vector2) -> Vector2:
+	return board.local_to_map((local_position - board.position) / board.scale)

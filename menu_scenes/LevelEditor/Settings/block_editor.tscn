@@ -1,0 +1,57 @@
+[gd_scene load_steps=3 format=3 uid="uid://cfri5gx571j6m"]
+
+[ext_resource type="TileSet" uid="uid://dcf0fhqgihare" path="res://TileSets/game_board_tileset.tres" id="1_b2j0o"]
+[ext_resource type="Script" path="res://menu_scenes/LevelEditor/Settings/block_editor.gd" id="1_tiset"]
+
+[node name="BlockEditor" type="Panel"]
+offset_right = 500.0
+offset_bottom = 300.0
+script = ExtResource("1_tiset")
+
+[node name="Board" type="TileMap" parent="."]
+position = Vector2(230, 160)
+scale = Vector2(0.5, 0.5)
+tile_set = ExtResource("1_b2j0o")
+format = 2
+layer_0/name = "ground_layer"
+layer_0/tile_data = PackedInt32Array(0, 4, 0, -65536, 4, 0, -1, 4, 0, 65535, 4, 0, -131072, 4, 0, 65536, 4, 0, 131072, 4, 0, 131071, 4, 0, 196607, 4, 0, 131070, 4, 0, 196606, 4, 0, 65534, 4, 0, -2, 4, 0, -65538, 4, 0, -65537, 4, 0, -131071, 4, 0, -131070, 4, 0, -65534, 4, 0, -65535, 4, 0, 1, 4, 0, 2, 4, 0, 65537, 4, 0, 65538, 4, 0, 131073, 4, 0, 131074, 4, 0)
+layer_1/name = "build_layer"
+layer_1/tile_data = PackedInt32Array()
+layer_2/name = "block_layer"
+layer_2/tile_data = PackedInt32Array()
+
+[node name="Title" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -46.5
+offset_top = 7.0
+offset_right = 46.5
+offset_bottom = 30.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 25
+text = "Block Editor"
+
+[node name="Description" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -147.5
+offset_top = -99.5
+offset_right = 147.5
+offset_bottom = -76.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Left-click to place, Right-click to delete"
+
+[node name="CloseButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 429.0
+offset_top = 251.0
+offset_right = 479.0
+offset_bottom = 282.0
+text = "Close"

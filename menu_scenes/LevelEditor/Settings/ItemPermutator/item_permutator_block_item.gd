@@ -20,6 +20,5 @@ func get_object() -> ItemPermutator.PermutationObject:
 func _on_edit_button_pressed():
 	input_enabled.emit(false)
 
-
 func _on_delete_button_pressed():
 	queue_free()
