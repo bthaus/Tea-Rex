@@ -9,9 +9,6 @@ var selected_item
 var selected_object
 var input_enabled = true
 
-func _ready():
-	$Title.text = title
-
 func set_objects(scene_path, objects: Array[PermutationObject]):
 	for item in grid_container.get_children(): item.queue_free()
 	for object in objects:
@@ -33,17 +30,14 @@ func get_objects() -> Array[PermutationObject]:
 func _input(event):
 	if not input_enabled or (focused_item == null and selected_item == null):
 		return
-	
-	$SelectedNode.position = get_local_mouse_position() + Vector2(10, 10)
+		
+	$SelectedNode.position = get_local_mouse_position() - Vector2(20, 20)
 	
 	if InputUtils.is_action_just_pressed(event, "left_click"):
 		if selected_item == null:
 			selected_item = focused_item
-
-			for child in $SelectedNode.get_children(): child.queue_free()
-			$SelectedNode.add_child(selected_item.duplicate())
+			_set_selected_node()
 			for item in grid_container.get_children(): item.enable_focus(false)
-			
 			selected_item.hide_object()
 		else:
 			_deselect_items()
@@ -54,6 +48,13 @@ func _input(event):
 			_move_items()
 			selected_item = focused_item
 			selected_item.hide_object()
+
+func _set_selected_node():
+	for child in $SelectedNode.get_children(): child.queue_free()
+	var held_item = selected_item.duplicate()
+	held_item.scale = Vector2(0.75, 0.75)
+	held_item.mouse_filter = MOUSE_FILTER_IGNORE #I HATE YOU FILTER, EAT SAND
+	$SelectedNode.add_child(held_item)
 
 func _move_items():
 	var items = grid_container.get_children()

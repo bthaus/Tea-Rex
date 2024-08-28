@@ -3,6 +3,7 @@ class_name LevelEditorSettings
 
 @onready var block_permutator = $ScrollContainer/VBoxContainer/BlockPermutator
 @onready var color_permutator = $ScrollContainer/VBoxContainer/ColorPermutator
+@onready var tile_set = load("res://TileSets/game_board_tileset.tres")
 
 func _ready():
 	#Init Block Permutator
@@ -18,9 +19,25 @@ func _ready():
 	randomize()
 	var color_objects: Array[ItemPermutator.PermutationObject] = []
 	for color in Turret.Hue.keys():
-		color_objects.append(ItemPermutator.PermutationObject.new(Turret.Hue.get(color), null))
+		var c = Turret.Hue.get(color)
+		color_objects.append(ItemPermutator.PermutationObject.new(c, _color_to_texture(c)))
 	color_objects.shuffle()
 	color_permutator.set_objects("res://menu_scenes/LevelEditor/Settings/ItemPermutator/item_permutator_sprite_item.tscn", color_objects)
+
+func load_settings():
+	pass
+
+func _color_to_texture(color: Turret.Hue) -> Texture2D:
+	var id: int
+	match (color):
+		Turret.Hue.WHITE: id = 101
+		Turret.Hue.GREEN: id = 201
+		Turret.Hue.RED: id = 301
+		Turret.Hue.YELLOW: id = 401
+		Turret.Hue.BLUE: id = 501
+		Turret.Hue.MAGENTA: id = 601
+	var atlas: TileSetAtlasSource = tile_set.get_source(id)
+	return atlas.texture
 
 func _on_close_button_pressed():
 	hide()

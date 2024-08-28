@@ -3,8 +3,11 @@
 [ext_resource type="Script" path="res://menu_scenes/LevelEditor/Settings/ItemPermutator/item_permutator_sprite_item.gd" id="1_rjiad"]
 
 [node name="ItemPermutatorSpriteItem" type="Panel"]
+clip_contents = true
 custom_minimum_size = Vector2(50, 50)
 mouse_filter = 1
 script = ExtResource("1_rjiad")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(25, 25)
+scale = Vector2(0.76, 0.76)

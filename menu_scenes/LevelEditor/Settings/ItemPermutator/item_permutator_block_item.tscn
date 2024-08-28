@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://b5vg0xq00ba77" path="res://Cards/block_preview.tscn" id="2_h0q5i"]
 
 [node name="ItemPermutatorBlockItem" type="Panel"]
+clip_contents = true
 custom_minimum_size = Vector2(60, 80)
 mouse_filter = 1
 script = ExtResource("1_qdke3")
