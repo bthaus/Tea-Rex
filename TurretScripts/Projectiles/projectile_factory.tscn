@@ -182,6 +182,7 @@ script = ExtResource("12_7mdqh")
 damage_types = Array[int]([3])
 
 [node name="red_projectile" type="Node2D" parent="."]
+visible = false
 z_index = 2
 z_as_relative = false
 scale = Vector2(0.121094, 0.121094)
@@ -194,12 +195,12 @@ scale = Vector2(0.515, 0.515)
 texture = ExtResource("15_oupr7")
 
 [node name="magenta_projectile" type="Node2D" parent="."]
-visible = false
 script = ExtResource("15_6s2gk")
 damage_types = Array[int]([5])
 
 [node name="hit" type="GPUParticles2D" parent="magenta_projectile"]
 z_index = 51
+amount = 10
 process_material = SubResource("ParticleProcessMaterial_i4h20")
 texture = ExtResource("16_w8utr")
 randomness = 1.0

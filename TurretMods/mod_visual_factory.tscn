@@ -173,11 +173,13 @@ explosiveness = 1.0
 visibility_rect = Rect2(0, 0, 4000, 4000)
 
 [node name="burning_projectile" type="Node2D" parent="."]
+visible = false
 z_index = 50
 position = Vector2(-2, 2)
 script = ExtResource("2_weiop")
 
 [node name="idle" type="GPUParticles2D" parent="burning_projectile"]
+visible = false
 modulate = Color(5, 1, 1, 1)
 z_index = 10
 amount = 10
@@ -193,7 +195,7 @@ script = ExtResource("3_g73qt")
 [node name="shiny" type="CPUParticles2D" parent="burning_projectile/on_projectile"]
 process_mode = 3
 modulate = Color(2, 2, 2, 1)
-position = Vector2(4, -3)
+position = Vector2(2, -1)
 emitting = false
 amount = 20
 randomness = 1.0
