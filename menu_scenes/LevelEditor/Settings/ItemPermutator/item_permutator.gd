@@ -11,11 +11,12 @@ func _ready():
 	for item in grid_container.get_children():
 		item.queue_free()
 	
-	var textures = [load("res://Assets/Monsters/Monster_BLUE.png"), load("res://Assets/Monsters/Monster_GREEN.png"), load("res://Assets/Monsters/Monster_RED.png"), load("res://Assets/Monsters/Monster_YELLOW.png")]
-	set_sprite_objects([PermutationObject.new(1, textures[0]), PermutationObject.new(2, textures[1]), PermutationObject.new(3, textures[2]), PermutationObject.new(4, textures[3])])
+	#var textures = [load("res://Assets/Monsters/Monster_BLUE.png"), load("res://Assets/Monsters/Monster_GREEN.png"), load("res://Assets/Monsters/Monster_RED.png"), load("res://Assets/Monsters/Monster_YELLOW.png")]
+	#set_sprite_objects([PermutationObject.new(1, textures[0]), PermutationObject.new(2, textures[1]), PermutationObject.new(3, textures[2]), PermutationObject.new(4, textures[3])])
+	set_block_objects([PermutationObject.new(BlockUtils.get_block_from_shape(Block.BlockShape.L, Turret.Hue.BLUE), null), PermutationObject.new(BlockUtils.get_block_from_shape(Block.BlockShape.J, Turret.Hue.RED), null), PermutationObject.new(BlockUtils.get_block_from_shape(Block.BlockShape.Z, Turret.Hue.YELLOW), null), PermutationObject.new(BlockUtils.get_block_from_shape(Block.BlockShape.CROSS, Turret.Hue.GREEN), null)])
 
 func set_block_objects(objects: Array[PermutationObject]):
-	pass#_set_objects()
+	_set_objects("res://menu_scenes/LevelEditor/Settings/ItemPermutator/item_permutator_block_item.tscn", objects)
 
 func set_sprite_objects(objects: Array[PermutationObject]):
 	_set_objects("res://menu_scenes/LevelEditor/Settings/ItemPermutator/item_permutator_sprite_item.tscn", objects)
@@ -29,7 +30,6 @@ func _set_objects(path, objects: Array[PermutationObject]):
 		var item = load(path).instantiate()
 		item.mouse_entered.connect(func(): focused_item = item)
 		item.mouse_exited.connect(func(): focused_item = null)
-		item.index = idx
 		item.set_object(object)
 		grid_container.add_child(item)
 		idx += 1
@@ -67,19 +67,30 @@ func _input(event):
 			selected_item.hide_object()
 
 func _move_items():
-	var move_items_left = focused_item.index > selected_item.index
 	var items = grid_container.get_children()
+	var selected_item_index: int
+	var focused_item_index: int
+	for i in items.size():
+		if items[i] == selected_item: selected_item_index = i
+		if items[i] == focused_item: focused_item_index = i
+		
+	
+	var move_items_left = focused_item_index > selected_item_index
+	
 	#items.sort_custom(func(a, b): return a.index < b.index)
 	
 	var object = selected_item.get_object() #Store object before overriding
 	if move_items_left: #Move items to the left
-		for i in range(selected_item.index, focused_item.index):
+		for i in range(selected_item_index, focused_item_index):
 			items[i].set_object(items[i+1].get_object())
+			items[i].show_object()
 	else: #Move items to the right
-		for i in range(selected_item.index, focused_item.index, -1):
+		for i in range(selected_item_index, focused_item_index, -1):
 			items[i].set_object(items[i-1].get_object())
+			items[i].show_object()
 	
 	focused_item.set_object(object)
+	focused_item.show_object()
 
 func _on_mouse_exited():
 	_deselect_items()
@@ -96,5 +107,3 @@ class PermutationObject:
 	func _init(value, node):
 		self.value = value
 		self.node = node
-
-

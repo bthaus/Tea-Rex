@@ -1,0 +1,31 @@
+[gd_scene load_steps=3 format=3 uid="uid://bs7wkvqfrdagp"]
+
+[ext_resource type="Script" path="res://menu_scenes/LevelEditor/Settings/ItemPermutator/item_permutator_block_item.gd" id="1_qdke3"]
+[ext_resource type="PackedScene" uid="uid://b5vg0xq00ba77" path="res://Cards/block_preview.tscn" id="2_h0q5i"]
+
+[node name="ItemPermutatorBlockItem" type="Panel"]
+custom_minimum_size = Vector2(60, 80)
+mouse_filter = 1
+script = ExtResource("1_qdke3")
+
+[node name="Content" type="Node2D" parent="."]
+
+[node name="BlockPreview" parent="Content" instance=ExtResource("2_h0q5i")]
+position = Vector2(25, 45)
+scale = Vector2(0.15, 0.15)
+
+[node name="EditButton" type="Button" parent="Content"]
+offset_right = 23.0
+offset_bottom = 20.0
+theme_override_font_sizes/font_size = 8
+text = "Edit"
+
+[node name="DeleteButton" type="Button" parent="Content"]
+offset_left = 37.0
+offset_right = 60.0
+offset_bottom = 20.0
+theme_override_font_sizes/font_size = 8
+text = "Del"
+
+[connection signal="pressed" from="Content/EditButton" to="." method="_on_edit_button_pressed"]
+[connection signal="pressed" from="Content/DeleteButton" to="." method="_on_delete_button_pressed"]
