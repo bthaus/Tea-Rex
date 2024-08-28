@@ -73,7 +73,6 @@ func doSpawnLogic():
 	var count = 0;
 	for mo in waveMonsters:
 		count = count + 1
-		if !util.valid(mo):continue
 		spawnEnemy(mo)
 		#if count % 5 == 0: #Every 5th monster longer break
 			#delay = delay + 3
