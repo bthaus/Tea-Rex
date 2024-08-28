@@ -4,7 +4,6 @@ extends Panel
 @onready var color_permutator = $ScrollContainer/VBoxContainer/ColorPermutator
 
 func _ready():
-	
 	#Init Block Permutator
 	randomize()
 	var block_objects: Array[ItemPermutator.PermutationObject] = []

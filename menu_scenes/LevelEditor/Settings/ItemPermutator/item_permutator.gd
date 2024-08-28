@@ -38,6 +38,7 @@ func _input(event):
 
 			for child in $SelectedNode.get_children(): child.queue_free()
 			$SelectedNode.add_child(selected_item.duplicate())
+			for item in grid_container.get_children(): item.enable_focus(false)
 			
 			selected_item.hide_object()
 		else:
@@ -82,6 +83,7 @@ func _deselect_items():
 		item.show_object()
 	selected_item = null
 	for child in $SelectedNode.get_children(): child.queue_free()
+	for item in grid_container.get_children(): item.enable_focus(true)
 
 class PermutationObject:
 	var value #Any value that will be assigned to this object

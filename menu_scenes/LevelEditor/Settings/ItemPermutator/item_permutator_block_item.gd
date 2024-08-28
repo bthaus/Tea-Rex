@@ -28,6 +28,11 @@ func _on_editor_closed(block: Block):
 	_object.value = block
 	set_object(_object)
 	input_enabled.emit(true)
+	
+func enable_focus(enable: bool):
+	var filter = MOUSE_FILTER_STOP if enable else MOUSE_FILTER_IGNORE
+	$Content/EditButton.mouse_filter = filter
+	$Content/DeleteButton.mouse_filter = filter
 
 func _on_edit_button_pressed():
 	open_editor()
