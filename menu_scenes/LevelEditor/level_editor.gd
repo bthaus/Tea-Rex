@@ -1,6 +1,7 @@
 extends GameObject2D
 class_name LevelEditor
 
+@onready var settings = $Camera2D/HUD/Settings
 @onready var wave_settings = $Camera2D/HUD/WaveSettings
 
 @onready var default_build_mode_button = $Camera2D/HUD/BuildModes/DefaultBuildModeButton
@@ -161,7 +162,11 @@ func _on_bucket_fill_build_mode_button_pressed():
 
 func _on_save_button_pressed():
 	var monster_waves = wave_settings.get_monster_waves()
-	board_handler.save_board(monster_waves, map_name.text)
+	var settings = settings.get_setting_properties()
+	board_handler.save_board(monster_waves, settings, map_name.text)
+	
+func _on_settings_button_pressed():
+	settings.show()
 
 func _on_wave_settings_button_pressed():
 	wave_settings.show()

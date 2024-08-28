@@ -2,11 +2,15 @@ extends Panel
 class_name ItemPermutator
 
 @onready var grid_container = $ScrollContainer/GridContainer
+@export var title: String
 
 var focused_item
 var selected_item
 var selected_object
 var input_enabled = true
+
+func _ready():
+	$Title.text = title
 
 func set_objects(scene_path, objects: Array[PermutationObject]):
 	for item in grid_container.get_children(): item.queue_free()

@@ -142,14 +142,14 @@ func _get_spawner_idx_at(map_position: Vector2) -> int:
 			return i
 	return -1
 
-func save_board(monster_waves,map_name):
+func save_board(monster_waves, setting_properties: LevelEditorSettings.Properties, map_name: String):
 	var entities:Array[BaseDTO] = []
 	
 	for pos in board.get_used_cells(GameboardConstants.MapLayer.GROUND_LAYER): entities.append(_get_entity(GameboardConstants.MapLayer.GROUND_LAYER, pos))
 	for pos in board.get_used_cells(GameboardConstants.MapLayer.BUILD_LAYER): entities.append(_get_entity(GameboardConstants.MapLayer.BUILD_LAYER, pos))
 	for pos in board.get_used_cells(GameboardConstants.MapLayer.BLOCK_LAYER): entities.append(_get_entity(GameboardConstants.MapLayer.BLOCK_LAYER, pos))
 	
-	var map_dto = MapDTO.new(entities, monster_waves, map_name)
+	var map_dto = MapDTO.new(entities, monster_waves, setting_properties.block_cycle, setting_properties.color_cycle, map_name)
 	map_dto.save(map_name)
 
 func _get_entity(layer: int, map_position: Vector2):

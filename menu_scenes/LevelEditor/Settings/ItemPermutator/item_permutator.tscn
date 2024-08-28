@@ -1,20 +1,19 @@
-[gd_scene load_steps=3 format=3 uid="uid://b0wxnmfknd8yg"]
+[gd_scene load_steps=2 format=3 uid="uid://b0wxnmfknd8yg"]
 
 [ext_resource type="Script" path="res://menu_scenes/LevelEditor/Settings/ItemPermutator/item_permutator.gd" id="1_kok1e"]
-[ext_resource type="PackedScene" uid="uid://dq82pxor8quh6" path="res://menu_scenes/LevelEditor/Settings/ItemPermutator/item_permutator_sprite_item.tscn" id="2_0xe6v"]
 
 [node name="ItemPermutator" type="Panel"]
 clip_contents = true
-custom_minimum_size = Vector2(500, 80)
+custom_minimum_size = Vector2(500, 135)
 offset_right = 500.0
-offset_bottom = 80.0
+offset_bottom = 135.0
 script = ExtResource("1_kok1e")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
 layout_mode = 0
-offset_top = 10.0
+offset_top = 43.0
 offset_right = 500.0
-offset_bottom = 210.0
+offset_bottom = 243.0
 
 [node name="GridContainer" type="GridContainer" parent="ScrollContainer"]
 layout_mode = 2
@@ -23,24 +22,18 @@ theme_override_constants/h_separation = 15
 theme_override_constants/v_separation = 15
 columns = 6
 
-[node name="ItemPermutatorItem" parent="ScrollContainer/GridContainer" instance=ExtResource("2_0xe6v")]
-layout_mode = 2
-
-[node name="ItemPermutatorItem2" parent="ScrollContainer/GridContainer" instance=ExtResource("2_0xe6v")]
-layout_mode = 2
-
-[node name="ItemPermutatorItem3" parent="ScrollContainer/GridContainer" instance=ExtResource("2_0xe6v")]
-layout_mode = 2
-
-[node name="ItemPermutatorItem4" parent="ScrollContainer/GridContainer" instance=ExtResource("2_0xe6v")]
-layout_mode = 2
-
-[node name="ItemPermutatorItem5" parent="ScrollContainer/GridContainer" instance=ExtResource("2_0xe6v")]
-layout_mode = 2
-
-[node name="ItemPermutatorItem6" parent="ScrollContainer/GridContainer" instance=ExtResource("2_0xe6v")]
-layout_mode = 2
-
 [node name="SelectedNode" type="Node2D" parent="."]
+
+[node name="Title" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_top = 8.0
+offset_right = 20.0
+offset_bottom = 31.0
+grow_horizontal = 2
+text = "Title"
 
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
