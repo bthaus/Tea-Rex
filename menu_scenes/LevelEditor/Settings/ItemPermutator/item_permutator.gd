@@ -1,42 +1,43 @@
 extends Panel
 class_name ItemPermutator
 
+@onready var grid_container = $ScrollContainer/GridContainer
+
 var focused_item
 var selected_item
 var selected_object
 
 func _ready():
-	for item in $HBoxContainer.get_children():
+	for item in grid_container.get_children():
 		item.queue_free()
 	
 	var textures = [load("res://Assets/Monsters/Monster_BLUE.png"), load("res://Assets/Monsters/Monster_GREEN.png"), load("res://Assets/Monsters/Monster_RED.png"), load("res://Assets/Monsters/Monster_YELLOW.png")]
-	for i in 4:
-		var item = load("res://menu_scenes/LevelEditor/Settings/ItemPermutator/item_permutator_item.tscn").instantiate()
-		item.mouse_entered.connect(func(): focused_item = item)
-		item.mouse_exited.connect(func(): focused_item = null)
-		item.index = i
-		item.set_object(PermutationObject.new(i, textures[i]))
-		$HBoxContainer.add_child(item)
-		
+	set_sprite_objects([PermutationObject.new(1, textures[0]), PermutationObject.new(2, textures[1]), PermutationObject.new(3, textures[2]), PermutationObject.new(4, textures[3])])
 
-func set_objects(objects: Array[PermutationObject]):
-	for item in $HBoxContainer.get_children():
+func set_block_objects(objects: Array[PermutationObject]):
+	pass#_set_objects()
+
+func set_sprite_objects(objects: Array[PermutationObject]):
+	_set_objects("res://menu_scenes/LevelEditor/Settings/ItemPermutator/item_permutator_sprite_item.tscn", objects)
+
+func _set_objects(path, objects: Array[PermutationObject]):
+	for item in grid_container.get_children():
 		item.queue_free()
 	
 	var idx = 0
 	for object in objects:
-		var item = load("res://menu_scenes/LevelEditor/Settings/ItemPermutator/item_permutator_item.tscn").instantiate()
+		var item = load(path).instantiate()
 		item.mouse_entered.connect(func(): focused_item = item)
 		item.mouse_exited.connect(func(): focused_item = null)
 		item.index = idx
 		item.set_object(object)
-		$HBoxContainer.add_child(item)
+		grid_container.add_child(item)
 		idx += 1
 
 func get_objects() -> Array[PermutationObject]:
-	var items = $HBoxContainer.get_children()
+	var items = grid_container.get_children()
 	var objects: Array[PermutationObject] = []
-	for item in $HBoxContainer.get_children():
+	for item in grid_container.get_children():
 		objects.append(item.get_object())
 	#objects.sort_custom(func(a, b): return a.index < b.index)
 	return objects
@@ -45,13 +46,15 @@ func _input(event):
 	if focused_item == null and selected_item == null:
 		return
 	
-	$SelectedSprite.position = get_local_mouse_position() + Vector2(10, 10)
+	$SelectedNode.position = get_local_mouse_position() + Vector2(10, 10)
 	
 	if InputUtils.is_action_just_pressed(event, "left_click"):
 		if selected_item == null:
 			selected_item = focused_item
-			#selected_object = selected_item.get_object()
-			$SelectedSprite.texture = selected_item.get_object().texture
+
+			for child in $SelectedNode.get_children(): child.queue_free()
+			$SelectedNode.add_child(selected_item.duplicate())
+			
 			selected_item.hide_object()
 		else:
 			_deselect_items()
@@ -65,7 +68,7 @@ func _input(event):
 
 func _move_items():
 	var move_items_left = focused_item.index > selected_item.index
-	var items = $HBoxContainer.get_children()
+	var items = grid_container.get_children()
 	#items.sort_custom(func(a, b): return a.index < b.index)
 	
 	var object = selected_item.get_object() #Store object before overriding
@@ -82,16 +85,16 @@ func _on_mouse_exited():
 	_deselect_items()
 
 func _deselect_items():
-	for item in $HBoxContainer.get_children():
+	for item in grid_container.get_children():
 		item.show_object()
 	selected_item = null
-	$SelectedSprite.texture = null
+	for child in $SelectedNode.get_children(): child.queue_free()
 
 class PermutationObject:
-	var value
-	var texture: Texture2D
-	func _init(value, texture: Texture2D):
+	var value #Any value that will be assigned to this object
+	var node #Any node that might be used for display
+	func _init(value, node):
 		self.value = value
-		self.texture = texture
+		self.node = node
 
 

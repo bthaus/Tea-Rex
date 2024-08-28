@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://dq82pxor8quh6"]
+
+[ext_resource type="Script" path="res://menu_scenes/LevelEditor/Settings/ItemPermutator/item_permutator_sprite_item.gd" id="1_rjiad"]
+
+[node name="ItemPermutatorSpriteItem" type="Panel"]
+custom_minimum_size = Vector2(50, 50)
+mouse_filter = 1
+script = ExtResource("1_rjiad")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
