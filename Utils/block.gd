@@ -2,7 +2,7 @@ extends GameObjectCounted
 
 class_name Block
 
-enum BlockShape {O = 1, I = 2, S = 3, Z = 4, L = 5, J = 6, T = 7, TINY = 8, SMALL = 9, ARROW = 10, CROSS = 11}
+enum BlockShape {TINY = 1, SMALL = 2, ARROW = 3, O = 4, I = 5, S = 6, Z = 7, L = 8, J = 9, T = 10, C = 11, CROSS = 12}
 
 var pieces: Array
 var shape;

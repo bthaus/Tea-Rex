@@ -60,6 +60,7 @@ func _color_to_texture(color: Turret.Hue) -> Texture2D:
 
 func _on_add_block_button_pressed():
 	var block_selector = load("res://menu_scenes/LevelEditor/Settings/BlockSelector/block_selector.tscn").instantiate()
+	block_selector.position = Vector2(150,100)
 	block_selector.block_selected.connect(_on_new_block_selected)
 	block_selector.custom_selected.connect(_on_custom_block_selected)
 	add_child(block_selector)

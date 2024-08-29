@@ -16,6 +16,12 @@ static func get_block_from_shape(block_shape: Block.BlockShape, color: Turret.Hu
 static func get_positions_from_block_shape(block_shape: Block.BlockShape) -> PackedVector2Array:
 	var positions: PackedVector2Array = []
 	match block_shape:
+		Block.BlockShape.TINY:
+			positions = [Vector2(0,0)]
+		Block.BlockShape.SMALL:
+			positions = [Vector2(0,0), Vector2(0,-1)]
+		Block.BlockShape.ARROW:
+			positions = [Vector2(0,0), Vector2(-1,0), Vector2(0,1)]
 		Block.BlockShape.O:
 			positions = [Vector2(0,0), Vector2(-1,0), Vector2(-1,-1), Vector2(0,-1)]
 		Block.BlockShape.I:
@@ -30,12 +36,8 @@ static func get_positions_from_block_shape(block_shape: Block.BlockShape) -> Pac
 			positions = [Vector2(0,0), Vector2(0,1), Vector2(0,-1), Vector2(-1,1)]
 		Block.BlockShape.T:
 			positions = [Vector2(0,0), Vector2(-1,0), Vector2(1,0), Vector2(0,1)]
-		Block.BlockShape.TINY:
-			positions = [Vector2(0,0)]
-		Block.BlockShape.SMALL:
-			positions = [Vector2(0,0), Vector2(0,-1)]
-		Block.BlockShape.ARROW:
-			positions = [Vector2(0,0), Vector2(-1,0), Vector2(0,1)]
+		Block.BlockShape.C:
+			positions = [Vector2(0,0), Vector2(0,-1), Vector2(1,-1), Vector2(0,1), Vector2(1,1)]
 		Block.BlockShape.CROSS:
 			positions = [Vector2(0,0), Vector2(0,-1), Vector2(1,0), Vector2(0,1), Vector2(-1,0)]
 	
