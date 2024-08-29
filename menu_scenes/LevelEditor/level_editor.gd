@@ -124,13 +124,16 @@ func _on_tile_selected(tile: TileSelection.TileItem):
 func _on_spawner_added():
 	wave_settings.add_spawner_setting()
 	_update_spawner_labels()
+	_update_spawner_entities()
 
 func _on_spawner_removed(id: int):
 	wave_settings.remove_spawner_setting(id)
 	_update_spawner_labels()
+	_update_spawner_entities()
+	
 func _on_base_removed(base):
 	GameState.gameState.targets.erase(base)
-	pass;	
+
 func _update_spawner_labels():
 	#this was the method that got lost somehow
 	var spawner_map_positions = board_handler.spawner_map_positions
@@ -142,6 +145,13 @@ func _update_spawner_labels():
 		label.add_theme_font_size_override("font_size", 30)
 		label.resized.connect(func(): label.position = $Board.map_to_local(spawner_map_positions[i]) - label.get_rect().size / 2) #Wait until text is set
 		$SpawnerLabels.add_child(label)
+
+func _update_spawner_entities():
+	var positions = board_handler.spawner_map_positions
+	for i in positions.size():
+		for spawner in editor_game_state.spawners:
+			if spawner.map_position == positions[i]:
+				spawner.spawner_id = i
 
 func _on_default_build_mode_button_pressed():
 	_build_mode = BuildMode.DEFAULT
