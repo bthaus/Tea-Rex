@@ -57,9 +57,13 @@ func set_cell(tile: TileSelection.TileItem, map_position: Vector2, refresh_spawn
 			if entity is Spawner:
 				if is_spawner_below: return #There is already a spawner below, ignore it
 				spawner_map_positions.append(map_position)
+				_place_entity(entity, refresh_spawner_paths)
+				_clear_entity(GameboardConstants.MapLayer.BUILD_LAYER, map_position, refresh_spawner_paths)
 				spawner_added.emit()
+				return
 			if entity is PlayerBase:
 				base_added.emit()
+			
 			_place_entity(entity, refresh_spawner_paths)
 			_clear_entity(GameboardConstants.MapLayer.BUILD_LAYER, map_position, refresh_spawner_paths)
 
