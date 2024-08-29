@@ -44,11 +44,17 @@ static func getStringFromEnumExtension(type:Turret.Extension):
 
 
 static func getRandomBlock(lvl,gamestate):
-	var rng=RandomNumberGenerator.new()
-	var color=GameState.gameState.unlockedColors.pick_random()	
-	var extension=Turret.Extension.DEFAULT
-	var block=getEvaluatedShape(0)
-	return BlockUtils.get_block_from_shape(block,color,lvl,extension)
+	gamestate.color_index+=1
+	gamestate.block_index+=1
+	var color=gamestate.color_cycle[gamestate.color_index]
+	var block=gamestate.block_cycle[gamestate.block_index]
+	var pieces=[]
+	for piece in block.pieces:
+		var p=Block.Piece.new(piece.position,color,piece.level)
+		pieces.append(p)
+	var b = Block.new(pieces)
+	b.color=color
+	return b
 
 
 

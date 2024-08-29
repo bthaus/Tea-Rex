@@ -6,6 +6,16 @@ class_name GameState;
 @onready var ui:UI=$CanvasLayer/UI
 @export var cam: Camera2D;
 
+var block_cycle=[]
+var block_index=0:
+	set(value):
+		block_index=value%block_cycle.size()
+
+var color_cycle=[]
+var color_index=0:
+	set(value):
+		color_index=value%color_cycle.size()
+
 enum GamePhase {BATTLE=1,BUILD=2,BOTH=3};
 var current_expected_damage=0:
 	set(value):
@@ -88,6 +98,14 @@ func _ready():
 	bulletHolder = $BulletHolder
 	Engine.max_fps=60
 	target = $Base
+	for block_dto in map_dto.block_cycle:
+		block_cycle.append(block_dto.get_object())
+		
+	for color in map_dto.color_cycle:
+		
+		if unlockedColors.has(color as Turret.Hue):
+			color_cycle.append(color)
+		
 	$selection.selected.connect(target_minions)
 	startGame()
 	pass # Replace with function body.
