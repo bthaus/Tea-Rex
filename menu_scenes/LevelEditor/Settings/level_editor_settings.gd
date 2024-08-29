@@ -69,11 +69,11 @@ func _on_add_block_button_pressed():
 	
 func _on_new_block_selected(block: Block):
 	var object = ItemPermutator.PermutationObject.new(block, null)
-	block_permutator.add_object("res://menu_scenes/LevelEditor/Settings/ItemPermutator/item_permutator_block_item.tscn", object)
+	block_permutator.append_object("res://menu_scenes/LevelEditor/Settings/ItemPermutator/item_permutator_block_item.tscn", object)
 
 func _on_custom_block_selected():
 	var object = ItemPermutator.PermutationObject.new(Block.new([]), null)
-	block_permutator.add_object("res://menu_scenes/LevelEditor/Settings/ItemPermutator/item_permutator_block_item.tscn", object)
+	block_permutator.append_object("res://menu_scenes/LevelEditor/Settings/ItemPermutator/item_permutator_block_item.tscn", object)
 	var item = block_permutator.get_item_node(block_permutator.get_objects().size()-1)
 	item.open_editor()
 

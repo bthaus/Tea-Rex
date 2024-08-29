@@ -13,16 +13,31 @@ func set_title(text: String):
 
 func set_objects(scene_path, objects: Array[PermutationObject]):
 	for item in grid_container.get_children(): item.queue_free()
-	for object in objects:
-		add_object(scene_path, object)
+	for obj in objects:
+		append_object(scene_path, obj)
 		
-func add_object(scene_path, object: PermutationObject):
+func append_object(scene_path, object: PermutationObject):
 	var item = load(scene_path).instantiate()
 	item.mouse_entered.connect(func(): focused_item = item)
 	item.mouse_exited.connect(func(): focused_item = null)
 	item.input_enabled.connect(func(enabled: bool): input_enabled = enabled)
+	item.duplicated.connect(_on_item_duplicated)
 	item.set_object(object)
 	grid_container.add_child(item)
+	return item
+
+func insert_object_at(scene_path, object: PermutationObject, index: int):
+	var item = append_object(scene_path, object)
+	grid_container.move_child(item, index)
+
+
+func _on_item_duplicated(sender):
+	var items = grid_container.get_children()
+	for i in items.size():
+		if items[i] == sender:
+			var object = PermutationObject.new(sender.get_object().value, sender.get_object().node)
+			insert_object_at(sender.scene_file_path, object, i+1)
+			return
 
 func get_objects() -> Array[PermutationObject]:
 	var objects: Array[PermutationObject] = []

@@ -4,7 +4,7 @@
 
 [node name="ItemPermutator" type="Panel"]
 clip_contents = true
-custom_minimum_size = Vector2(500, 135)
+custom_minimum_size = Vector2(525, 135)
 offset_right = 500.0
 offset_bottom = 135.0
 script = ExtResource("1_kok1e")
@@ -12,14 +12,14 @@ script = ExtResource("1_kok1e")
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
 layout_mode = 0
 offset_top = 43.0
-offset_right = 500.0
+offset_right = 525.0
 offset_bottom = 243.0
 
 [node name="GridContainer" type="GridContainer" parent="ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 6
-theme_override_constants/h_separation = 15
-theme_override_constants/v_separation = 15
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 10
 columns = 6
 
 [node name="SelectedNode" type="Node2D" parent="."]

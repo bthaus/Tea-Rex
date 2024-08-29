@@ -22,7 +22,7 @@ layout_mode = 2
 size_flags_horizontal = 6
 
 [node name="BlockPermutator" parent="ScrollContainer/VBoxContainer" instance=ExtResource("1_fudny")]
-custom_minimum_size = Vector2(500, 250)
+custom_minimum_size = Vector2(525, 250)
 layout_mode = 2
 
 [node name="AddBlockButton" type="Button" parent="ScrollContainer/VBoxContainer/BlockPermutator"]

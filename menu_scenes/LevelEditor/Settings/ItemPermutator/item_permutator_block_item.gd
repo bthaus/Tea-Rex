@@ -2,6 +2,7 @@ extends Panel
 
 var _object: ItemPermutator.PermutationObject
 signal input_enabled
+signal duplicated
 
 func set_object(object: ItemPermutator.PermutationObject):
 	_object = object
@@ -32,10 +33,14 @@ func _on_editor_closed(block: Block):
 func enable_focus(enable: bool):
 	var filter = MOUSE_FILTER_STOP if enable else MOUSE_FILTER_IGNORE
 	$Content/EditButton.mouse_filter = filter
+	$Content/DuplicateButton.mouse_filter = filter
 	$Content/DeleteButton.mouse_filter = filter
 
 func _on_edit_button_pressed():
 	open_editor()
+
+func _on_duplicate_button_pressed():
+	duplicated.emit(self)
 
 func _on_delete_button_pressed():
 	queue_free()
