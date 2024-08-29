@@ -65,11 +65,8 @@ func _on_add_block_button_pressed():
 	add_child(block_selector)
 	
 func _on_new_block_selected(block: Block):
-	var objects = block_permutator.get_objects()
-	var blocks: Array[Block] = []
-	for obj in objects: blocks.append(obj.value)
-	blocks.append(block)
-	_set_block_permutator(blocks)
+	var object = ItemPermutator.PermutationObject.new(block, null)
+	block_permutator.add_object("res://menu_scenes/LevelEditor/Settings/ItemPermutator/item_permutator_block_item.tscn", object)
 
 func _on_custom_block_selected():
 	pass

@@ -12,12 +12,15 @@ var input_enabled = true
 func set_objects(scene_path, objects: Array[PermutationObject]):
 	for item in grid_container.get_children(): item.queue_free()
 	for object in objects:
-		var item = load(scene_path).instantiate()
-		item.mouse_entered.connect(func(): focused_item = item)
-		item.mouse_exited.connect(func(): focused_item = null)
-		item.input_enabled.connect(func(enabled: bool): input_enabled = enabled)
-		item.set_object(object)
-		grid_container.add_child(item)
+		add_object(scene_path, object)
+		
+func add_object(scene_path, object: PermutationObject):
+	var item = load(scene_path).instantiate()
+	item.mouse_entered.connect(func(): focused_item = item)
+	item.mouse_exited.connect(func(): focused_item = null)
+	item.input_enabled.connect(func(enabled: bool): input_enabled = enabled)
+	item.set_object(object)
+	grid_container.add_child(item)
 
 func get_objects() -> Array[PermutationObject]:
 	var items = grid_container.get_children()
