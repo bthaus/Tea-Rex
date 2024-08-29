@@ -23,12 +23,14 @@ func add_object(scene_path, object: PermutationObject):
 	grid_container.add_child(item)
 
 func get_objects() -> Array[PermutationObject]:
-	var items = grid_container.get_children()
 	var objects: Array[PermutationObject] = []
 	for item in grid_container.get_children():
 		objects.append(item.get_object())
 	#objects.sort_custom(func(a, b): return a.index < b.index)
 	return objects
+
+func get_item_node(index: int):
+	return grid_container.get_child(index)
 
 func _input(event):
 	if not input_enabled or (focused_item == null and selected_item == null):
