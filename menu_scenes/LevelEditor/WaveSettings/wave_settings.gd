@@ -27,7 +27,7 @@ func remove_spawner_setting(spawner_id: int):
 			child.set_spawner_id(child.get_spawner_id() - 1)
 	
 	_spawner_settings_count -= 1
-	_update_items(_current_wave)
+	_update_items_to_wave(_current_wave)
 
 func add_spawner_setting():
 	var item = load("res://menu_scenes/LevelEditor/WaveSettings/spawner_settings_item.tscn").instantiate()
@@ -37,11 +37,14 @@ func add_spawner_setting():
 	item.copy.connect(_on_spawner_copy)
 	item.paste.connect(_on_spawner_paste)
 	_spawner_settings_count += 1
-	_update_items(_current_wave)
+	_update_items_to_wave(_current_wave)
 
-func _update_items(wave: int):
+func _update_items_to_wave(wave: int):
 	for item in spawner_item_container.get_children():
 		item.update_items(wave)
+
+func update_items():
+	_update_items_to_wave(_current_wave)
 
 func _set_number_of_waves(amount: int):
 	for item in spawner_item_container.get_children():
@@ -133,7 +136,7 @@ func _on_previous_wave_button_pressed():
 
 func _set_current_wave(wave: int):
 	$WaveLabel.text = str("Wave: ", wave+1)
-	_update_items(wave)
+	_update_items_to_wave(wave)
 
 
 func _on_wave_number_set_button_pressed():
@@ -176,7 +179,6 @@ func _on_close_button_pressed():
 	var waves=get_monster_waves()
 	
 	for spawner in GameState.gameState.spawners:
-		print(spawner.spawner_id)
 		spawner.waves.clear()
 		for w in waves:
 			var wave=[]
