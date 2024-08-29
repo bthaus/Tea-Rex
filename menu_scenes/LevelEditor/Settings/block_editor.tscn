@@ -1,11 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://cfri5gx571j6m"]
+[gd_scene load_steps=4 format=3 uid="uid://cfri5gx571j6m"]
 
 [ext_resource type="TileSet" uid="uid://dcf0fhqgihare" path="res://TileSets/game_board_tileset.tres" id="1_b2j0o"]
+[ext_resource type="StyleBox" uid="uid://b0qhmxvb2s50r" path="res://Styles/default_button.tres" id="1_ctwwr"]
 [ext_resource type="Script" path="res://menu_scenes/LevelEditor/Settings/block_editor.gd" id="1_tiset"]
 
 [node name="BlockEditor" type="Panel"]
 offset_right = 500.0
 offset_bottom = 300.0
+theme_override_styles/panel = ExtResource("1_ctwwr")
 script = ExtResource("1_tiset")
 
 [node name="Board" type="TileMap" parent="."]

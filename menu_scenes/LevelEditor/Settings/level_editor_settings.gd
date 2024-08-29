@@ -6,6 +6,8 @@ class_name LevelEditorSettings
 @onready var tile_set = load("res://TileSets/game_board_tileset.tres")
 
 func _ready():
+	block_permutator.set_title("Block Shape Cycle")
+	color_permutator.set_title("Color Cycle")
 	#Init Block Permutator
 	randomize()
 	var blocks: Array[Block] = []

@@ -1,12 +1,14 @@
-[gd_scene load_steps=2 format=3 uid="uid://bq3cptvw55c8"]
+[gd_scene load_steps=3 format=3 uid="uid://bq3cptvw55c8"]
 
 [ext_resource type="Script" path="res://menu_scenes/LevelEditor/WaveSettings/wave_settings.gd" id="1_4lpow"]
+[ext_resource type="StyleBox" uid="uid://b0qhmxvb2s50r" path="res://Styles/default_button.tres" id="1_gp2ll"]
 
 [node name="WaveSettings" type="Panel"]
 offset_left = 181.0
 offset_top = 128.0
 offset_right = 981.0
 offset_bottom = 528.0
+theme_override_styles/panel = ExtResource("1_gp2ll")
 script = ExtResource("1_4lpow")
 
 [node name="SpawnerScrollContainer" type="ScrollContainer" parent="."]
