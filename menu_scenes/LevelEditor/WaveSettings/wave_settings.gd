@@ -172,4 +172,20 @@ func _show_wave_number_info_text(text: String, success: bool):
 	wave_number_info_label.visible = true
 
 func _on_close_button_pressed():
+	var spawners=GameState.spawners
+	var waves=get_monster_waves()
+	
+	for spawner in GameState.gameState.spawners:
+		print(spawner.spawner_id)
+		spawner.waves.clear()
+		for w in waves:
+			var wave=[]
+			for v in w:
+				if v.spawner_id==spawner.spawner_id:
+					wave.append(v)
+					
+			spawner.waves.append(wave)
+		spawner.initialise()
+	Spawner.refresh_all_paths()
+	
 	hide()

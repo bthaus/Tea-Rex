@@ -73,6 +73,7 @@ func doSpawnLogic():
 	var count = 0;
 	for mo in waveMonsters:
 		count = count + 1
+		if !util.valid(mo):continue
 		spawnEnemy(mo)
 		#if count % 5 == 0: #Every 5th monster longer break
 			#delay = delay + 3
@@ -107,6 +108,7 @@ func spawnEnemy(mo:Monster):
 
 	pass;
 func initialise():
+	spawning_movement_types.clear()
 	for dto in waves:
 		for monster in dto:
 			if monster.count==0:continue
@@ -265,6 +267,20 @@ static func _get_paths(map:TileMap,spawner):
 		for s in grid.spawner_ids:
 			if s.spawner==spawner:
 				spawner_temp=s.astar_id
+		
+		var satisfied=false
+		for types in spawner.spawning_movement_types:
+			satisfied=true
+			for type in types:
+				if not grid.type.has(type):
+					satisfied=false
+					continue
+			if satisfied:
+				break
+		if not satisfied:
+			return null				
+		
+				
 		var path=_get_shortest_path_global(grid,spawner_temp)
 		if path.size()==0:
 			return null
@@ -406,30 +422,30 @@ static func _get_movable_cells_per_monster_type(map: TileMap, monstertypes: Arra
 					preview_pos_arr.append(p.get_map())
 			
 		
-			if monstertypes.has(Monster.MonsterMovingType.AIR):
-				for y in range(0, GameboardConstants.BOARD_HEIGHT): #Just put every possible tile in the array
-					for x in range(0, GameboardConstants.BOARD_WIDTH):
-						id=id+1;
-						if reference.can_move_type(Vector2(x,y),monstertypes):
-							var lowest=1000
-							for monstertype in monstertypes:
-								var weight=reference.get_weight_from_cell(Vector2(x,y),monstertype)
-								if weight<lowest:
-									lowest=weight
-							cells[x][y]=astar_id_weight_dto.new(id,lowest)
-			else:
-				for pos in map.get_used_cells(GameboardConstants.MapLayer.GROUND_LAYER):
-					if preview_pos_arr.has(pos):continue
+		if monstertypes.has(Monster.MonsterMovingType.AIR):
+			for y in range(0, GameboardConstants.BOARD_HEIGHT): #Just put every possible tile in the array
+				for x in range(0, GameboardConstants.BOARD_WIDTH):
 					id=id+1;
-					
-					if reference.can_move_type(pos,monstertypes):
+					if reference.can_move_type(Vector2(x,y),monstertypes):
 						var lowest=1000
 						for monstertype in monstertypes:
-							var weight=reference.get_weight_from_cell(pos,monstertype)
+							var weight=reference.get_weight_from_cell(Vector2(x,y),monstertype)
 							if weight<lowest:
 								lowest=weight
-						cells[pos.x][pos.y]=astar_id_weight_dto.new(id,lowest)
-									
+						cells[x][y]=astar_id_weight_dto.new(id,lowest)
+		else:
+			for pos in map.get_used_cells(GameboardConstants.MapLayer.GROUND_LAYER):
+				if preview_pos_arr.has(pos):continue
+				id=id+1;
+				
+				if reference.can_move_type(pos,monstertypes):
+					var lowest=1000
+					for monstertype in monstertypes:
+						var weight=reference.get_weight_from_cell(pos,monstertype)
+						if weight<lowest:
+							lowest=weight
+					cells[pos.x][pos.y]=astar_id_weight_dto.new(id,lowest)
+								
 		_current_grid=cells
 		return cells
 		

@@ -9,6 +9,9 @@ var spawner_map_positions: PackedVector2Array = [] #Holds all the spawners on th
 signal spawner_added
 signal spawner_removed
 
+signal base_added
+signal base_removed(base)
+
 func _init(board: TileMap):
 	self.board = board
 
@@ -21,7 +24,10 @@ func _clear_entity(layer: int, map_position: Vector2, refresh_spawner_paths: boo
 	var entity = editor_game_state.collisionReference.get_entity(layer, map_position)
 	if entity != null:
 		editor_game_state.collisionReference.remove_entity_from_position(entity, board.map_to_local(map_position))
+		if entity is PlayerBase:
+			base_removed.emit(entity)
 		entity.queue_free()
+		
 
 	board.set_cell(layer, map_position, -1, Vector2(0,0))
 	if refresh_spawner_paths:
@@ -52,7 +58,8 @@ func set_cell(tile: TileSelection.TileItem, map_position: Vector2, refresh_spawn
 				if is_spawner_below: return #There is already a spawner below, ignore it
 				spawner_map_positions.append(map_position)
 				spawner_added.emit()
-
+			if entity is PlayerBase:
+				base_added.emit()
 			_place_entity(entity, refresh_spawner_paths)
 			_clear_entity(GameboardConstants.MapLayer.BUILD_LAYER, map_position, refresh_spawner_paths)
 

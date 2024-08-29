@@ -34,6 +34,7 @@ func _ready():
 	board_handler = LevelEditorBoardHandler.new($Board)
 	board_handler.spawner_added.connect(_on_spawner_added)
 	board_handler.spawner_removed.connect(_on_spawner_removed)
+	board_handler.base_removed.connect(_on_base_removed)
 	create_editor_game_state(MapDTO.new())
 	
 	$Camera2D.dragging_camera.connect(dragging_camera)
@@ -127,7 +128,9 @@ func _on_spawner_added():
 func _on_spawner_removed(id: int):
 	wave_settings.remove_spawner_setting(id)
 	_update_spawner_labels()
-	
+func _on_base_removed(base):
+	GameState.gameState.targets.erase(base)
+	pass;	
 func _update_spawner_labels():
 	#this was the method that got lost somehow
 	var spawner_map_positions = board_handler.spawner_map_positions
