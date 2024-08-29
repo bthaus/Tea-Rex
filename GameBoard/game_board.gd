@@ -211,6 +211,9 @@ func init_field(map_dto: MapDTO):
 	link_spawners_to_waves(map_dto)
 	
 func link_spawners_to_waves(map_dto):
+	Spawner.all_movement_types.clear()
+	Spawner.grids.clear()
+	Spawner.invisible_grids.clear()
 	for spawner in GameState.gameState.spawners:
 		for w in map_dto.waves:
 			var wave=[]
