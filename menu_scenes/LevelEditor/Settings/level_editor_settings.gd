@@ -56,6 +56,23 @@ func _color_to_texture(color: Turret.Hue) -> Texture2D:
 		Turret.Hue.MAGENTA: id = 601
 	var atlas: TileSetAtlasSource = tile_set.get_source(id)
 	return atlas.texture
+	
+
+func _on_add_block_button_pressed():
+	var block_selector = load("res://menu_scenes/LevelEditor/Settings/BlockSelector/block_selector.tscn").instantiate()
+	block_selector.block_selected.connect(_on_new_block_selected)
+	block_selector.custom_selected.connect(_on_custom_block_selected)
+	add_child(block_selector)
+	
+func _on_new_block_selected(block: Block):
+	var objects = block_permutator.get_objects()
+	var blocks: Array[Block] = []
+	for obj in objects: blocks.append(obj.value)
+	blocks.append(block)
+	_set_block_permutator(blocks)
+
+func _on_custom_block_selected():
+	pass
 
 func _on_close_button_pressed():
 	hide()
