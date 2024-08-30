@@ -2,8 +2,8 @@ extends ProductionBaseMod
 class_name MineProductionMod
 
 func get_timeout():
-	return 5
+	return 3
 	pass;
-func get_instance():
+func instantiate_produce():
 	return load("res://TurretMods/production_mods/mod_produce/MineModProduce.tscn").instantiate()
 

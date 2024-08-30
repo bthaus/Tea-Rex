@@ -70,7 +70,8 @@ func do_all(tasks: Array[Callable]):
 func _ready():
 	coreFactory=TurretCoreFactory.get_instance()
 	do_all(on_built)
-	
+	for mod in base.turret_mods:
+		mod.on_turret_build(base)
 	if placed:
 		turrets.append(self)
 	else:

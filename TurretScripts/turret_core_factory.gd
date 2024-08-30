@@ -38,7 +38,7 @@ static func add_mods_to_core(core:TurretCore):
 	for item:ItemBlockDTO in mod_containers[core.type]:
 		var mod=util.copy_object_shallow(item.turret_mod)
 		core.turret_mods.push_back(mod)
-		mod.on_turret_build(core)
+		
 	pass;		
 static func get_instance()-> TurretCoreFactory:
 	if instance==null:

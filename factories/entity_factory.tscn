@@ -105,6 +105,7 @@ tile_id = 18
 [node name="Ground" type="Sprite2D" parent="."]
 script = ExtResource("4_btsoo")
 tile_id = 4
+buildable = true
 
 [node name="LAVA" type="Sprite2D" parent="."]
 script = ExtResource("4_btsoo")
