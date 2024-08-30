@@ -27,6 +27,9 @@ static func is_str_valid_positive_int(str: String) -> bool:
 		return false
 	return true
 
+static func format_name_string(text: String) -> String:
+	return text[0].to_upper() + text.to_lower().substr(1, -1)
+
 static func getStringFromEnum(type:Turret.Hue):
 	return Turret.Hue.keys()[(type)-1];
 static func getStringFromEnumLowercase(type:Turret.Hue):

@@ -1,11 +1,12 @@
 extends Panel
 
-var _monster_id
+var _monster_id: int
 var _monster_amount = [0]
 var _wave = 0
 
-func set_monster_id(id: int):
-	_monster_id = id
+func set_monster(monster: Monster.MonsterName):
+	_monster_id = monster
+	$NameLabel.text = util.format_name_string(Monster.MonsterName.keys()[monster])
 	
 func get_monster_id() -> int:
 	return _monster_id

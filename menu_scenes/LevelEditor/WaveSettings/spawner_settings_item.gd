@@ -18,10 +18,11 @@ func set_spawner_id(id: int):
 	$SpawnerId.text = str(id + 1)
 	
 func _ready():
-	for i in 8: #Replace with actual number of minions
+	var monster_names = Monster.MonsterName.keys()
+	for i in monster_names.size():
 		var item = load("res://menu_scenes/LevelEditor/WaveSettings/monster_setting_item.tscn").instantiate()
 		monster_item_container.add_child(item)
-		item.set_monster_id(i)
+		item.set_monster(Monster.MonsterName.get(monster_names[i]))
 		
 func update_items(wave: int):
 	_current_wave = wave

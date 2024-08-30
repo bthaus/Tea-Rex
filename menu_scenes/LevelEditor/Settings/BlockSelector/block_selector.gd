@@ -7,7 +7,7 @@ signal custom_selected
 func _ready():
 	for shape in Block.BlockShape.keys():
 		var block = BlockUtils.get_block_from_shape(Block.BlockShape.get(shape), Turret.Hue.WHITE)
-		var title = shape[0] + shape.to_lower().substr(1, -1)
+		var title = util.format_name_string(shape)
 		var item = load("res://menu_scenes/LevelEditor/Settings/BlockSelector/block_selector_item.tscn").instantiate()
 		item.set_block(block)
 		item.set_title(title)
