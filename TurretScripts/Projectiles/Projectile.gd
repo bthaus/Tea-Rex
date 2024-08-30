@@ -12,8 +12,8 @@ var penetrations;
 var oneshotoriginal;
 var pool;
 var speed;
-var target: Monster
-var associate:TurretCore;
+var target
+var associate;
 var playerDied = false;
 var emitters=[]
 @export var damage_types:Array[GameplayConstants.DamageTypes]=[GameplayConstants.DamageTypes.NORMAL]

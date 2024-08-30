@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://bismehfpdggum"]
+[gd_scene load_steps=13 format=3 uid="uid://bismehfpdggum"]
 
 [ext_resource type="Script" path="res://factories/entity_factory.gd" id="1_bwspe"]
 [ext_resource type="PackedScene" uid="uid://h5p4fp80ye04" path="res://GameBoard/Entities/volcano.tscn" id="1_q001u"]
@@ -11,6 +11,7 @@
 [ext_resource type="Script" path="res://factories/Cooldown Booster.gd" id="9_3iqe7"]
 [ext_resource type="Script" path="res://factories/High Grass.gd" id="9_duham"]
 [ext_resource type="Script" path="res://factories/Range Booster.gd" id="10_lvhmf"]
+[ext_resource type="Script" path="res://factories/Laser.gd" id="12_1mkn3"]
 
 [node name="EntityFactory" type="Node2D"]
 script = ExtResource("1_bwspe")
@@ -151,3 +152,10 @@ map_layer = 2
 script = ExtResource("4_btsoo")
 tile_id = 601
 map_layer = 2
+
+[node name="Laser" type="Node2D" parent="."]
+script = ExtResource("12_1mkn3")
+shoot_max_time = 3.0
+tile_id = 17
+processing = true
+moving_types = Array[int]([])
