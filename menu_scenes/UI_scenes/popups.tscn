@@ -1,0 +1,20 @@
+[gd_scene load_steps=2 format=3 uid="uid://bgefladhq2k20"]
+
+[ext_resource type="Script" path="res://menu_scenes/UI_scenes/popups.gd" id="1_g4lyt"]
+
+[node name="Popups" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_g4lyt")
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="PopupPanel" type="PopupPanel" parent="UI"]
+size = Vector2i(150, 200)
+visible = true
+
+[node name="Container" type="VBoxContainer" parent="UI/PopupPanel"]
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 146.0
+offset_bottom = 196.0

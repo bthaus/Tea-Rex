@@ -19,6 +19,10 @@ boot_splash/fullsize=false
 config/icon="res://Assets/iconpng.png"
 boot_splash/minimum_display_time=1000
 
+[autoload]
+
+Popups="*res://menu_scenes/UI_scenes/popups.tscn"
+
 [display]
 
 window/stretch/mode="canvas_items"
