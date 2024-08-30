@@ -4,7 +4,8 @@ class_name Monster;
 var moving_type: MonsterMovingType
 enum MonsterMovingType { GROUND, AIR, LAVA}
 enum Monstertype {REGULAR=0,BOSS=1}
-enum MonsterName {SWARM=0,TANK=1,MINION=2,PYTHON=3,PYRO=4,YETI=5,SNOWMAN=6,WIZARD=7,BAT=8,NECROMANCER=9,DRAGON=10,VAMPIR=11}
+enum MonsterName {SWARM=0,TANK=1,MINION=2,PYTHON=3,PYRO=4,YETI=5,SNOWMAN=6,WIZARD=7,BAT=8,NECROMANCER=9,DRAGON=10,VAMPIR=11,
+BOOSTER=12,HEALER=13, MAIN_ATTRACTION=14}
 var monster_name:MonsterName
 var sizemult = 1;
 var maxHp;
@@ -75,7 +76,9 @@ func hit(color: Turret.Hue, damage, type="default", noise=true):
 		return true;
 	return false;
 
-
+func add_health(amount):
+	hp+=amount
+	pass;
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 
 func refresh_path():

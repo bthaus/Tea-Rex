@@ -446,6 +446,11 @@ func get_covering_turrets_from_path(path):
 		turrets.append_array(map[pos.y][pos.x].covering_turrets)
 	return turrets	
 	pass;
+func get_covering_turrets_from_position(global):
+	var pos=getMapPositionNormalised(global)
+	if isOutOfBoundsVector(pos):return
+	return map[pos.y][pos.x].covering_turrets
+		
 class Holder:
 	var turret
 	var ms = []

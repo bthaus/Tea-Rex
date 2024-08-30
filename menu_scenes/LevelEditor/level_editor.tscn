@@ -1,9 +1,9 @@
 [gd_scene load_steps=12 format=3 uid="uid://ceo4ed4nntj6h"]
 
 [ext_resource type="Script" path="res://menu_scenes/LevelEditor/level_editor.gd" id="1_nibhe"]
-[ext_resource type="Texture2D" uid="uid://btp3q1rq0vmmt" path="res://Assets/Tiles/Ground/ground.png" id="2_exj2q"]
+[ext_resource type="Texture2D" uid="uid://s280x8h2kdey" path="res://Assets/Tiles/Ground/ground.png" id="2_exj2q"]
 [ext_resource type="TileSet" uid="uid://dcf0fhqgihare" path="res://TileSets/game_board_tileset.tres" id="2_itsd3"]
-[ext_resource type="Texture2D" uid="uid://swj5q2lje25d" path="res://Assets/Tiles/wall.png" id="3_cchrl"]
+[ext_resource type="Texture2D" uid="uid://dakoa0g1e3ub6" path="res://Assets/Tiles/wall.png" id="3_cchrl"]
 [ext_resource type="Script" path="res://Utils/board_camera.gd" id="4_0cb1y"]
 [ext_resource type="PackedScene" uid="uid://bq3cptvw55c8" path="res://menu_scenes/LevelEditor/WaveSettings/wave_settings.tscn" id="4_3dmyq"]
 [ext_resource type="PackedScene" uid="uid://cpal4oo6lrf4t" path="res://menu_scenes/LevelEditor/TileSelection/tile_selection.tscn" id="6_mdk6g"]

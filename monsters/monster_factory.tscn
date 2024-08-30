@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://bahtj4trsgn5q"]
+[gd_scene load_steps=36 format=3 uid="uid://bahtj4trsgn5q"]
 
 [ext_resource type="Script" path="res://monsters/monster_factory.gd" id="1_27eaf"]
 [ext_resource type="Texture2D" uid="uid://24e800rshnm" path="res://Assets/Monsters/monster_blue/1.png" id="2_fc3nv"]
@@ -7,6 +7,9 @@
 [ext_resource type="Texture2D" uid="uid://3sd05eiwhlia" path="res://Assets/Monsters/monster_blue/4.png" id="5_8v2nd"]
 [ext_resource type="Texture2D" uid="uid://cu8h60d2lpm2c" path="res://Assets/Monsters/Monster.png" id="6_00h8v"]
 [ext_resource type="Script" path="res://monsters/monster_core.gd" id="7_861mn"]
+[ext_resource type="Script" path="res://monsters/HEALER.gd" id="8_2flg5"]
+[ext_resource type="Script" path="res://monsters/MAIN_ATTRACTION.gd" id="8_2oqug"]
+[ext_resource type="Script" path="res://monsters/Booster.gd" id="8_ae4kb"]
 [ext_resource type="Script" path="res://monsters/NECROMANCERMonster.gd" id="8_qrsra"]
 [ext_resource type="Script" path="res://monsters/YETI.gd" id="8_tkrlx"]
 [ext_resource type="Script" path="res://monsters/vampir.gd" id="8_tqvmu"]
@@ -36,7 +39,745 @@ animations = [{
 "name": &"die",
 "speed": 5.0
 }, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_00h8v")
+}],
+"loop": true,
+"name": &"hit",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_00h8v")
+}],
+"loop": true,
+"name": &"move",
+"speed": 5.0
+}, {
 "frames": [],
+"loop": true,
+"name": &"shoot",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_00h8v")
+}],
+"loop": true,
+"name": &"spawn",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_fdnu4"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_fc3nv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_jq1fj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_l7yhc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_8v2nd")
+}],
+"loop": false,
+"name": &"die",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_00h8v")
+}],
+"loop": true,
+"name": &"hit",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_00h8v")
+}],
+"loop": true,
+"name": &"move",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"shoot",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_00h8v")
+}],
+"loop": true,
+"name": &"spawn",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_j7h6p"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_fc3nv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_jq1fj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_l7yhc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_8v2nd")
+}],
+"loop": false,
+"name": &"die",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_00h8v")
+}],
+"loop": true,
+"name": &"hit",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_00h8v")
+}],
+"loop": true,
+"name": &"move",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"shoot",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_00h8v")
+}],
+"loop": true,
+"name": &"spawn",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_tdocd"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_fc3nv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_jq1fj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_l7yhc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_8v2nd")
+}],
+"loop": false,
+"name": &"die",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_00h8v")
+}],
+"loop": true,
+"name": &"hit",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_00h8v")
+}],
+"loop": true,
+"name": &"move",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"shoot",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_00h8v")
+}],
+"loop": true,
+"name": &"spawn",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6dpn0"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_fc3nv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_jq1fj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_l7yhc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_8v2nd")
+}],
+"loop": false,
+"name": &"die",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_00h8v")
+}],
+"loop": true,
+"name": &"hit",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_00h8v")
+}],
+"loop": true,
+"name": &"move",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"shoot",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_00h8v")
+}],
+"loop": true,
+"name": &"spawn",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_b5cqt"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_fc3nv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_jq1fj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_l7yhc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_8v2nd")
+}],
+"loop": false,
+"name": &"die",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_00h8v")
+}],
+"loop": true,
+"name": &"hit",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_00h8v")
+}],
+"loop": true,
+"name": &"move",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"shoot",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_00h8v")
+}],
+"loop": true,
+"name": &"spawn",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_rysxa"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_fc3nv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_jq1fj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_l7yhc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_8v2nd")
+}],
+"loop": false,
+"name": &"die",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_00h8v")
+}],
+"loop": true,
+"name": &"hit",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_00h8v")
+}],
+"loop": true,
+"name": &"move",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"shoot",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_00h8v")
+}],
+"loop": true,
+"name": &"spawn",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_o3qp7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_fc3nv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_jq1fj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_l7yhc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_8v2nd")
+}],
+"loop": false,
+"name": &"die",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_00h8v")
+}],
+"loop": true,
+"name": &"hit",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_00h8v")
+}],
+"loop": true,
+"name": &"move",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"shoot",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_00h8v")
+}],
+"loop": true,
+"name": &"spawn",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_duen0"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_fc3nv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_jq1fj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_l7yhc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_8v2nd")
+}],
+"loop": false,
+"name": &"die",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_00h8v")
+}],
+"loop": true,
+"name": &"hit",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_00h8v")
+}],
+"loop": true,
+"name": &"move",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"shoot",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_00h8v")
+}],
+"loop": true,
+"name": &"spawn",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_kreev"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_fc3nv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_jq1fj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_l7yhc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_8v2nd")
+}],
+"loop": false,
+"name": &"die",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_00h8v")
+}],
+"loop": true,
+"name": &"hit",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_00h8v")
+}],
+"loop": true,
+"name": &"move",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"shoot",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_00h8v")
+}],
+"loop": true,
+"name": &"spawn",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4rf0c"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_fc3nv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_jq1fj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_l7yhc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_8v2nd")
+}],
+"loop": false,
+"name": &"die",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_00h8v")
+}],
+"loop": true,
+"name": &"hit",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_00h8v")
+}],
+"loop": true,
+"name": &"move",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"shoot",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_00h8v")
+}],
+"loop": true,
+"name": &"spawn",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jetwm"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_fc3nv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_jq1fj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_l7yhc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_8v2nd")
+}],
+"loop": false,
+"name": &"die",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_00h8v")
+}],
+"loop": true,
+"name": &"hit",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_00h8v")
+}],
+"loop": true,
+"name": &"move",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"shoot",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_00h8v")
+}],
+"loop": true,
+"name": &"spawn",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_l3hqq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_fc3nv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_jq1fj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_l7yhc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_8v2nd")
+}],
+"loop": false,
+"name": &"die",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_00h8v")
+}],
+"loop": true,
+"name": &"hit",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_00h8v")
+}],
+"loop": true,
+"name": &"move",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"shoot",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_00h8v")
+}],
+"loop": true,
+"name": &"spawn",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_iuqj2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_fc3nv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_jq1fj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_l7yhc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_8v2nd")
+}],
+"loop": false,
+"name": &"die",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_00h8v")
+}],
+"loop": true,
+"name": &"hit",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_00h8v")
+}],
+"loop": true,
+"name": &"move",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"shoot",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_00h8v")
+}],
+"loop": true,
+"name": &"spawn",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_qgrrk"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_fc3nv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_jq1fj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_l7yhc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_8v2nd")
+}],
+"loop": false,
+"name": &"die",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_00h8v")
+}],
+"loop": true,
+"name": &"hit",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_00h8v")
+}],
+"loop": true,
+"name": &"move",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"shoot",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_00h8v")
+}],
+"loop": true,
+"name": &"spawn",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_80egn"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_fc3nv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_jq1fj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_l7yhc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_8v2nd")
+}],
+"loop": false,
+"name": &"die",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_00h8v")
+}],
 "loop": true,
 "name": &"hit",
 "speed": 5.0
@@ -74,16 +815,44 @@ process_mode = 3
 sprite_frames = SubResource("SpriteFrames_xagal")
 animation = &"spawn"
 
+[node name="MAIN_ATTRACTION" type="Node2D" parent="."]
+script = ExtResource("8_2oqug")
+speed = 75
+hp = 150
+
+[node name="Animation" type="AnimatedSprite2D" parent="MAIN_ATTRACTION"]
+process_mode = 3
+sprite_frames = SubResource("SpriteFrames_fdnu4")
+animation = &"spawn"
+
+[node name="HEALER" type="Node2D" parent="."]
+script = ExtResource("8_2flg5")
+speed = 50
+hp = 75
+
+[node name="Animation" type="AnimatedSprite2D" parent="HEALER"]
+process_mode = 3
+sprite_frames = SubResource("SpriteFrames_j7h6p")
+animation = &"spawn"
+
+[node name="BOOSTER" type="Node2D" parent="."]
+script = ExtResource("8_ae4kb")
+special_cooldown = 1
+
+[node name="Animation" type="AnimatedSprite2D" parent="BOOSTER"]
+process_mode = 3
+sprite_frames = SubResource("SpriteFrames_tdocd")
+animation = &"spawn"
+
 [node name="VAMPIR" type="Node2D" parent="."]
 script = ExtResource("8_tqvmu")
 speed = 50
 hp = 50
-special_cooldown = 1
 
 [node name="Animation" type="AnimatedSprite2D" parent="VAMPIR"]
 process_mode = 3
-sprite_frames = SubResource("SpriteFrames_xagal")
-animation = &"spawn"
+sprite_frames = SubResource("SpriteFrames_6dpn0")
+animation = &"hit"
 
 [node name="NECROMANCER" type="Node2D" parent="." node_paths=PackedStringArray("summon")]
 script = ExtResource("8_qrsra")
@@ -93,7 +862,7 @@ special_cooldown = 1
 
 [node name="Animation" type="AnimatedSprite2D" parent="NECROMANCER"]
 process_mode = 3
-sprite_frames = SubResource("SpriteFrames_xagal")
+sprite_frames = SubResource("SpriteFrames_b5cqt")
 animation = &"spawn"
 
 [node name="DRAGON" type="Node2D" parent="."]
@@ -105,8 +874,8 @@ movable_cells = Array[int]([1])
 
 [node name="Animation" type="AnimatedSprite2D" parent="DRAGON"]
 process_mode = 3
-sprite_frames = SubResource("SpriteFrames_xagal")
-animation = &"spawn"
+sprite_frames = SubResource("SpriteFrames_rysxa")
+animation = &"hit"
 
 [node name="BAT" type="Node2D" parent="."]
 script = ExtResource("7_861mn")
@@ -117,7 +886,7 @@ movable_cells = Array[int]([1])
 
 [node name="Animation" type="AnimatedSprite2D" parent="BAT"]
 process_mode = 3
-sprite_frames = SubResource("SpriteFrames_xagal")
+sprite_frames = SubResource("SpriteFrames_o3qp7")
 animation = &"spawn"
 
 [node name="SWARM" type="Node2D" parent="."]
@@ -129,7 +898,7 @@ immunities = Array[int]([2])
 
 [node name="Animation" type="AnimatedSprite2D" parent="SWARM"]
 process_mode = 3
-sprite_frames = SubResource("SpriteFrames_xagal")
+sprite_frames = SubResource("SpriteFrames_duen0")
 animation = &"spawn"
 
 [node name="TANK" type="Node2D" parent="."]
@@ -140,15 +909,16 @@ damage = 7
 
 [node name="Animation" type="AnimatedSprite2D" parent="TANK"]
 process_mode = 3
-sprite_frames = SubResource("SpriteFrames_xagal")
+sprite_frames = SubResource("SpriteFrames_kreev")
 animation = &"spawn"
 
 [node name="MINION" type="Node2D" parent="."]
 script = ExtResource("7_861mn")
+speed = 50
 
 [node name="Animation" type="AnimatedSprite2D" parent="MINION"]
 process_mode = 3
-sprite_frames = SubResource("SpriteFrames_xagal")
+sprite_frames = SubResource("SpriteFrames_4rf0c")
 animation = &"spawn"
 
 [node name="PYTHON" type="Node2D" parent="."]
@@ -157,7 +927,7 @@ immunities = Array[int]([3])
 
 [node name="Animation" type="AnimatedSprite2D" parent="PYTHON"]
 process_mode = 3
-sprite_frames = SubResource("SpriteFrames_xagal")
+sprite_frames = SubResource("SpriteFrames_jetwm")
 animation = &"spawn"
 
 [node name="PYRO" type="Node2D" parent="."]
@@ -166,7 +936,7 @@ movable_cells = Array[int]([0, 2])
 
 [node name="Animation" type="AnimatedSprite2D" parent="PYRO"]
 process_mode = 3
-sprite_frames = SubResource("SpriteFrames_xagal")
+sprite_frames = SubResource("SpriteFrames_l3hqq")
 animation = &"spawn"
 
 [node name="YETI" type="Node2D" parent="."]
@@ -178,7 +948,7 @@ damage = 7
 
 [node name="Animation" type="AnimatedSprite2D" parent="YETI"]
 process_mode = 3
-sprite_frames = SubResource("SpriteFrames_xagal")
+sprite_frames = SubResource("SpriteFrames_iuqj2")
 animation = &"shoot"
 
 [node name="Snowball" type="Sprite2D" parent="YETI"]
@@ -194,7 +964,7 @@ speed = 75
 
 [node name="Animation" type="AnimatedSprite2D" parent="WIZARD"]
 process_mode = 3
-sprite_frames = SubResource("SpriteFrames_xagal")
+sprite_frames = SubResource("SpriteFrames_qgrrk")
 animation = &"shoot"
 
 [node name="Magic" type="Sprite2D" parent="WIZARD"]
@@ -210,5 +980,5 @@ script = ExtResource("11_hnnj1")
 
 [node name="Animation" type="AnimatedSprite2D" parent="SNOWMAN"]
 process_mode = 3
-sprite_frames = SubResource("SpriteFrames_xagal")
+sprite_frames = SubResource("SpriteFrames_80egn")
 animation = &"shoot"

@@ -108,9 +108,7 @@ func getReferences(cells):
 	pass ;
 func setUpTower(holder):
 	self.holder = holder
-	turret_mods.append(FireAmmunitionMod.new())
-	turret_mods.append(GhostProjectileMod.new())
-	turret_mods.append(WallhackMod.new())
+	
 	minions = GameState.gameState.minions
 	setLevel(stacks)
 	trueRangeSquared = turretRange * GameboardConstants.TILE_SIZE + GameboardConstants.TILE_SIZE
@@ -274,7 +272,10 @@ func getTarget():
 #endregion
 	pass ;
 func target_override(monster:Monster):
-	on_target_lost()
+	if target!=null:
+		if target.core is MainAttraction:
+			return
+		on_target_lost()
 	target=monster
 	on_target_found(target)
 	checkTarget()
