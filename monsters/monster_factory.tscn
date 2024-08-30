@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://bahtj4trsgn5q"]
+[gd_scene load_steps=36 format=3 uid="uid://bahtj4trsgn5q"]
 
 [ext_resource type="Script" path="res://monsters/monster_factory.gd" id="1_27eaf"]
 [ext_resource type="Texture2D" uid="uid://24e800rshnm" path="res://Assets/Monsters/monster_blue/1.png" id="2_fc3nv"]
@@ -7,6 +7,8 @@
 [ext_resource type="Texture2D" uid="uid://3sd05eiwhlia" path="res://Assets/Monsters/monster_blue/4.png" id="5_8v2nd"]
 [ext_resource type="Texture2D" uid="uid://cu8h60d2lpm2c" path="res://Assets/Monsters/Monster.png" id="6_00h8v"]
 [ext_resource type="Script" path="res://monsters/monster_core.gd" id="7_861mn"]
+[ext_resource type="Script" path="res://monsters/HEALER.gd" id="8_2flg5"]
+[ext_resource type="Script" path="res://monsters/MAIN_ATTRACTION.gd" id="8_2oqug"]
 [ext_resource type="Script" path="res://monsters/Booster.gd" id="8_ae4kb"]
 [ext_resource type="Script" path="res://monsters/NECROMANCERMonster.gd" id="8_qrsra"]
 [ext_resource type="Script" path="res://monsters/YETI.gd" id="8_tkrlx"]
@@ -19,6 +21,104 @@
 [ext_resource type="Script" path="res://monsters/MagicProjectile.gd" id="12_svbms"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_xagal"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_fc3nv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_jq1fj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_l7yhc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_8v2nd")
+}],
+"loop": false,
+"name": &"die",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_00h8v")
+}],
+"loop": true,
+"name": &"hit",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_00h8v")
+}],
+"loop": true,
+"name": &"move",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"shoot",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_00h8v")
+}],
+"loop": true,
+"name": &"spawn",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_fdnu4"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_fc3nv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_jq1fj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_l7yhc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_8v2nd")
+}],
+"loop": false,
+"name": &"die",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_00h8v")
+}],
+"loop": true,
+"name": &"hit",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_00h8v")
+}],
+"loop": true,
+"name": &"move",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"shoot",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_00h8v")
+}],
+"loop": true,
+"name": &"spawn",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_j7h6p"]
 animations = [{
 "frames": [{
 "duration": 1.0,
@@ -713,6 +813,26 @@ script = ExtResource("7_861mn")
 [node name="Animation" type="AnimatedSprite2D" parent="copy_this"]
 process_mode = 3
 sprite_frames = SubResource("SpriteFrames_xagal")
+animation = &"spawn"
+
+[node name="MAIN_ATTRACTION" type="Node2D" parent="."]
+script = ExtResource("8_2oqug")
+speed = 75
+hp = 150
+
+[node name="Animation" type="AnimatedSprite2D" parent="MAIN_ATTRACTION"]
+process_mode = 3
+sprite_frames = SubResource("SpriteFrames_fdnu4")
+animation = &"spawn"
+
+[node name="HEALER" type="Node2D" parent="."]
+script = ExtResource("8_2flg5")
+speed = 50
+hp = 75
+
+[node name="Animation" type="AnimatedSprite2D" parent="HEALER"]
+process_mode = 3
+sprite_frames = SubResource("SpriteFrames_j7h6p")
 animation = &"spawn"
 
 [node name="BOOSTER" type="Node2D" parent="."]

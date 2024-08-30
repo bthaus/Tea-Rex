@@ -272,7 +272,10 @@ func getTarget():
 #endregion
 	pass ;
 func target_override(monster:Monster):
-	on_target_lost()
+	if target!=null:
+		if target.core is MainAttraction:
+			return
+		on_target_lost()
 	target=monster
 	on_target_found(target)
 	checkTarget()
