@@ -77,6 +77,7 @@ func load_map(map_dto: MapDTO):
 	
 	settings.load_settings(map_dto)
 	wave_settings.set_monster_waves(map_dto.waves)
+	wave_settings.update_spawner_waves()
 	wave_settings.update_items()
 	map_name.text = map_dto.map_name
 
