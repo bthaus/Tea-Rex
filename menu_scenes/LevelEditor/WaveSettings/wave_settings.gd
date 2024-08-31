@@ -183,14 +183,13 @@ func _show_wave_number_info_text(text: String, success: bool):
 	wave_number_info_label.visible = true
 
 func update_spawner_waves():
-	var spawners=GameState.spawners
-	var waves=get_monster_waves()
+	var waves = get_monster_waves()
 	for spawner in GameState.gameState.spawners:
 		spawner.waves.clear()
 		for w in waves:
-			var wave=[]
+			var wave = []
 			for v in w:
-				if v.spawner_id==spawner.spawner_id:
+				if v.spawner_id == spawner.spawner_id:
 					wave.append(v)
 		
 			spawner.waves.append(wave)
