@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://bpvwajfjcpbg0"]
+
+[ext_resource type="Texture2D" uid="uid://bi7x05oy4sxj4" path="res://Assets/Tiles/Lava.png" id="1_vk5a0"]
+[ext_resource type="Script" path="res://TurretMods/production_mods/mod_produce/ChainModProduce.gd" id="2_yshn0"]
+
+[node name="TrapdoorModProduce" type="Sprite2D"]
+texture = ExtResource("1_vk5a0")
+script = ExtResource("2_yshn0")
