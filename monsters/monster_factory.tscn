@@ -873,7 +873,6 @@ animation = &"move"
 script = ExtResource("8_qrsra")
 summon = NodePath("../MINION")
 speed = 50
-special_cooldown = 1
 
 [node name="Animation" type="AnimatedSprite2D" parent="NECROMANCER"]
 process_mode = 3
