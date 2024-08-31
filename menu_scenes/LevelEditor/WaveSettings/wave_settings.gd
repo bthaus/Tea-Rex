@@ -4,7 +4,7 @@ extends Panel
 @onready var wave_number_edit = $WaveNumber/WaveNumberEdit
 @onready var wave_number_info_label = $WaveNumber/WaveNumberInfoLabel
 
-var _spawner_settings_count: int
+var _spawner_settings_count = 0
 var _current_wave = 0
 var _number_of_waves: int
 
@@ -13,6 +13,7 @@ var _copied_wave = null
 
 func _ready():
 	_number_of_waves = wave_number_edit.text as int
+	_update_ui()
 
 func remove_spawner_setting(spawner_id: int):
 	#Remove the spawner with the id
@@ -28,6 +29,7 @@ func remove_spawner_setting(spawner_id: int):
 	
 	_spawner_settings_count -= 1
 	_update_items_to_wave(_current_wave)
+	_update_ui()
 
 func add_spawner_setting():
 	var item = load("res://menu_scenes/LevelEditor/WaveSettings/spawner_settings_item.tscn").instantiate()
@@ -38,6 +40,7 @@ func add_spawner_setting():
 	item.paste.connect(_on_spawner_paste)
 	_spawner_settings_count += 1
 	_update_items_to_wave(_current_wave)
+	_update_ui()
 
 func _update_items_to_wave(wave: int):
 	for item in spawner_item_container.get_children():
@@ -85,6 +88,12 @@ func _on_paste_button_pressed():
 	for i in _copied_wave.size():
 		spawner[i].set_monsters_count_for_wave(_current_wave, _copied_wave[i])
 		
+
+func _update_ui():
+	var spawners_exist = _spawner_settings_count > 0
+	$NoSpawnerLabel.visible = not spawners_exist
+	$CopyButton.visible = spawners_exist
+	$PasteButton.visible = spawners_exist
 
 #Takes this format
 #   ---> MonsterWaveDTO of all spawners
@@ -137,7 +146,6 @@ func _on_previous_wave_button_pressed():
 func _set_current_wave(wave: int):
 	$WaveLabel.text = str("Wave: ", wave+1)
 	_update_items_to_wave(wave)
-
 
 func _on_wave_number_set_button_pressed():
 	wave_number_info_label.visible = false
