@@ -19,7 +19,9 @@ var died=false
 func change_status_effect():
 	holder.status_changed.emit()
 	pass;
-
+func _ready():
+	$Animation.animation_finished.connect(func():
+		$Animation.play("move"))
 func on_move():
 	
 	pass;
@@ -35,7 +37,7 @@ func on_cell_traversal():
 	
 	pass;
 func on_hit():
-	$Animation.play("hit")
+	#$Animation.play("hit")
 	pass;
 
 func do(delta):

@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://bahtj4trsgn5q"]
+[gd_scene load_steps=51 format=3 uid="uid://bahtj4trsgn5q"]
 
 [ext_resource type="Script" path="res://monsters/monster_factory.gd" id="1_27eaf"]
 [ext_resource type="Texture2D" uid="uid://24e800rshnm" path="res://Assets/Monsters/monster_blue/1.png" id="2_fc3nv"]
@@ -13,12 +13,27 @@
 [ext_resource type="Script" path="res://monsters/NECROMANCERMonster.gd" id="8_qrsra"]
 [ext_resource type="Script" path="res://monsters/YETI.gd" id="8_tkrlx"]
 [ext_resource type="Script" path="res://monsters/vampir.gd" id="8_tqvmu"]
+[ext_resource type="Texture2D" uid="uid://bjn6eifhtcgqa" path="res://Assets/Monsters/temp_monsters/main attraction.png" id="9_bapn3"]
 [ext_resource type="Texture2D" uid="uid://bwj5i4k0ocqx4" path="res://Assets/Effects/particles/circle_05.png" id="9_j4vht"]
 [ext_resource type="Script" path="res://monsters/Snowball.gd" id="10_5a1du"]
 [ext_resource type="Texture2D" uid="uid://bax7oix5hpm4e" path="res://Assets/Effects/particles/spark_05.png" id="11_fqj4h"]
 [ext_resource type="Script" path="res://monsters/WIZARD.gd" id="11_gp0kc"]
 [ext_resource type="Script" path="res://monsters/Snowman.gd" id="11_hnnj1"]
+[ext_resource type="Texture2D" uid="uid://b4gkjq2mhsxen" path="res://Assets/Monsters/temp_monsters/healer.png" id="11_qqvfv"]
 [ext_resource type="Script" path="res://monsters/MagicProjectile.gd" id="12_svbms"]
+[ext_resource type="Texture2D" uid="uid://csd0uqdvu1sns" path="res://Assets/Monsters/temp_monsters/Booste3r.png" id="13_81uip"]
+[ext_resource type="Texture2D" uid="uid://bl63oepw6uspm" path="res://Assets/Monsters/temp_monsters/vampir.png" id="15_agkbr"]
+[ext_resource type="Texture2D" uid="uid://d1rxtsfllhmdk" path="res://Assets/Monsters/temp_monsters/necromancer.png" id="17_46coq"]
+[ext_resource type="Texture2D" uid="uid://b53dg755h78dh" path="res://Assets/Monsters/temp_monsters/dragon.png" id="18_6ovv7"]
+[ext_resource type="Texture2D" uid="uid://buc01xeo8fp0u" path="res://Assets/Monsters/temp_monsters/bat.png" id="19_4jet3"]
+[ext_resource type="Texture2D" uid="uid://b4cbek1nko17a" path="res://Assets/Monsters/temp_monsters/swarm.png" id="20_r60a3"]
+[ext_resource type="Texture2D" uid="uid://tr4mpj5f8wb2" path="res://Assets/Monsters/temp_monsters/tank.png" id="21_anc7l"]
+[ext_resource type="Texture2D" uid="uid://c1s1tcy6mi0bw" path="res://Assets/Monsters/temp_monsters/minion.png" id="22_tn3ci"]
+[ext_resource type="Texture2D" uid="uid://dt56r1ryda27n" path="res://Assets/Monsters/temp_monsters/python.png" id="23_s1hg2"]
+[ext_resource type="Texture2D" uid="uid://cw3t4agj1fml5" path="res://Assets/Monsters/temp_monsters/pyro.png" id="24_w3b3f"]
+[ext_resource type="Texture2D" uid="uid://j6m0e2dtp4vh" path="res://Assets/Monsters/temp_monsters/yeti.png" id="26_4o88n"]
+[ext_resource type="Texture2D" uid="uid://cypxxx8sh5v1a" path="res://Assets/Monsters/temp_monsters/wizard.png" id="30_jn07r"]
+[ext_resource type="Texture2D" uid="uid://crxqle7kdct8t" path="res://Assets/Monsters/temp_monsters/snowman.png" id="34_0400b"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_xagal"]
 animations = [{
@@ -98,7 +113,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("6_00h8v")
+"texture": ExtResource("9_bapn3")
 }],
 "loop": true,
 "name": &"move",
@@ -147,7 +162,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("6_00h8v")
+"texture": ExtResource("11_qqvfv")
 }],
 "loop": true,
 "name": &"move",
@@ -196,7 +211,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("6_00h8v")
+"texture": ExtResource("13_81uip")
 }],
 "loop": true,
 "name": &"move",
@@ -209,7 +224,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("6_00h8v")
+"texture": ExtResource("13_81uip")
 }],
 "loop": true,
 "name": &"spawn",
@@ -237,7 +252,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("6_00h8v")
+"texture": ExtResource("15_agkbr")
 }],
 "loop": true,
 "name": &"hit",
@@ -245,7 +260,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("6_00h8v")
+"texture": ExtResource("15_agkbr")
 }],
 "loop": true,
 "name": &"move",
@@ -294,7 +309,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("6_00h8v")
+"texture": ExtResource("17_46coq")
 }],
 "loop": true,
 "name": &"move",
@@ -307,7 +322,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("6_00h8v")
+"texture": ExtResource("17_46coq")
 }],
 "loop": true,
 "name": &"spawn",
@@ -335,7 +350,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("6_00h8v")
+"texture": ExtResource("18_6ovv7")
 }],
 "loop": true,
 "name": &"hit",
@@ -343,7 +358,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("6_00h8v")
+"texture": ExtResource("18_6ovv7")
 }],
 "loop": true,
 "name": &"move",
@@ -392,7 +407,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("6_00h8v")
+"texture": ExtResource("19_4jet3")
 }],
 "loop": true,
 "name": &"move",
@@ -405,7 +420,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("6_00h8v")
+"texture": ExtResource("19_4jet3")
 }],
 "loop": true,
 "name": &"spawn",
@@ -441,7 +456,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("6_00h8v")
+"texture": ExtResource("20_r60a3")
 }],
 "loop": true,
 "name": &"move",
@@ -454,7 +469,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("6_00h8v")
+"texture": ExtResource("20_r60a3")
 }],
 "loop": true,
 "name": &"spawn",
@@ -490,7 +505,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("6_00h8v")
+"texture": ExtResource("21_anc7l")
 }],
 "loop": true,
 "name": &"move",
@@ -503,7 +518,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("6_00h8v")
+"texture": ExtResource("21_anc7l")
 }],
 "loop": true,
 "name": &"spawn",
@@ -539,7 +554,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("6_00h8v")
+"texture": ExtResource("22_tn3ci")
 }],
 "loop": true,
 "name": &"move",
@@ -552,7 +567,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("6_00h8v")
+"texture": ExtResource("22_tn3ci")
 }],
 "loop": true,
 "name": &"spawn",
@@ -588,7 +603,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("6_00h8v")
+"texture": ExtResource("23_s1hg2")
 }],
 "loop": true,
 "name": &"move",
@@ -601,7 +616,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("6_00h8v")
+"texture": ExtResource("23_s1hg2")
 }],
 "loop": true,
 "name": &"spawn",
@@ -637,7 +652,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("6_00h8v")
+"texture": ExtResource("24_w3b3f")
 }],
 "loop": true,
 "name": &"move",
@@ -650,7 +665,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("6_00h8v")
+"texture": ExtResource("24_w3b3f")
 }],
 "loop": true,
 "name": &"spawn",
@@ -686,7 +701,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("6_00h8v")
+"texture": ExtResource("26_4o88n")
 }],
 "loop": true,
 "name": &"move",
@@ -735,7 +750,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("6_00h8v")
+"texture": ExtResource("30_jn07r")
 }],
 "loop": true,
 "name": &"move",
@@ -784,7 +799,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("6_00h8v")
+"texture": ExtResource("34_0400b")
 }],
 "loop": true,
 "name": &"move",
@@ -823,7 +838,7 @@ hp = 150
 [node name="Animation" type="AnimatedSprite2D" parent="MAIN_ATTRACTION"]
 process_mode = 3
 sprite_frames = SubResource("SpriteFrames_fdnu4")
-animation = &"spawn"
+animation = &"move"
 
 [node name="HEALER" type="Node2D" parent="."]
 script = ExtResource("8_2flg5")
@@ -833,7 +848,7 @@ hp = 75
 [node name="Animation" type="AnimatedSprite2D" parent="HEALER"]
 process_mode = 3
 sprite_frames = SubResource("SpriteFrames_j7h6p")
-animation = &"spawn"
+animation = &"move"
 
 [node name="BOOSTER" type="Node2D" parent="."]
 script = ExtResource("8_ae4kb")
@@ -842,7 +857,7 @@ special_cooldown = 1
 [node name="Animation" type="AnimatedSprite2D" parent="BOOSTER"]
 process_mode = 3
 sprite_frames = SubResource("SpriteFrames_tdocd")
-animation = &"spawn"
+animation = &"move"
 
 [node name="VAMPIR" type="Node2D" parent="."]
 script = ExtResource("8_tqvmu")
@@ -852,7 +867,7 @@ hp = 50
 [node name="Animation" type="AnimatedSprite2D" parent="VAMPIR"]
 process_mode = 3
 sprite_frames = SubResource("SpriteFrames_6dpn0")
-animation = &"hit"
+animation = &"move"
 
 [node name="NECROMANCER" type="Node2D" parent="." node_paths=PackedStringArray("summon")]
 script = ExtResource("8_qrsra")
@@ -863,7 +878,7 @@ special_cooldown = 1
 [node name="Animation" type="AnimatedSprite2D" parent="NECROMANCER"]
 process_mode = 3
 sprite_frames = SubResource("SpriteFrames_b5cqt")
-animation = &"spawn"
+animation = &"move"
 
 [node name="DRAGON" type="Node2D" parent="."]
 script = ExtResource("7_861mn")
@@ -875,7 +890,7 @@ movable_cells = Array[int]([1])
 [node name="Animation" type="AnimatedSprite2D" parent="DRAGON"]
 process_mode = 3
 sprite_frames = SubResource("SpriteFrames_rysxa")
-animation = &"hit"
+animation = &"move"
 
 [node name="BAT" type="Node2D" parent="."]
 script = ExtResource("7_861mn")
@@ -887,7 +902,7 @@ movable_cells = Array[int]([1])
 [node name="Animation" type="AnimatedSprite2D" parent="BAT"]
 process_mode = 3
 sprite_frames = SubResource("SpriteFrames_o3qp7")
-animation = &"spawn"
+animation = &"move"
 
 [node name="SWARM" type="Node2D" parent="."]
 script = ExtResource("7_861mn")
@@ -899,7 +914,7 @@ immunities = Array[int]([2])
 [node name="Animation" type="AnimatedSprite2D" parent="SWARM"]
 process_mode = 3
 sprite_frames = SubResource("SpriteFrames_duen0")
-animation = &"spawn"
+animation = &"move"
 
 [node name="TANK" type="Node2D" parent="."]
 script = ExtResource("7_861mn")
@@ -910,7 +925,7 @@ damage = 7
 [node name="Animation" type="AnimatedSprite2D" parent="TANK"]
 process_mode = 3
 sprite_frames = SubResource("SpriteFrames_kreev")
-animation = &"spawn"
+animation = &"move"
 
 [node name="MINION" type="Node2D" parent="."]
 script = ExtResource("7_861mn")
@@ -919,7 +934,7 @@ speed = 50
 [node name="Animation" type="AnimatedSprite2D" parent="MINION"]
 process_mode = 3
 sprite_frames = SubResource("SpriteFrames_4rf0c")
-animation = &"spawn"
+animation = &"move"
 
 [node name="PYTHON" type="Node2D" parent="."]
 script = ExtResource("7_861mn")
@@ -928,7 +943,7 @@ immunities = Array[int]([3])
 [node name="Animation" type="AnimatedSprite2D" parent="PYTHON"]
 process_mode = 3
 sprite_frames = SubResource("SpriteFrames_jetwm")
-animation = &"spawn"
+animation = &"move"
 
 [node name="PYRO" type="Node2D" parent="."]
 script = ExtResource("7_861mn")
@@ -937,7 +952,7 @@ movable_cells = Array[int]([0, 2])
 [node name="Animation" type="AnimatedSprite2D" parent="PYRO"]
 process_mode = 3
 sprite_frames = SubResource("SpriteFrames_l3hqq")
-animation = &"spawn"
+animation = &"move"
 
 [node name="YETI" type="Node2D" parent="."]
 script = ExtResource("8_tkrlx")
@@ -949,7 +964,7 @@ damage = 7
 [node name="Animation" type="AnimatedSprite2D" parent="YETI"]
 process_mode = 3
 sprite_frames = SubResource("SpriteFrames_iuqj2")
-animation = &"shoot"
+animation = &"move"
 
 [node name="Snowball" type="Sprite2D" parent="YETI"]
 position = Vector2(2.85294, 0.125)
@@ -965,7 +980,7 @@ speed = 75
 [node name="Animation" type="AnimatedSprite2D" parent="WIZARD"]
 process_mode = 3
 sprite_frames = SubResource("SpriteFrames_qgrrk")
-animation = &"shoot"
+animation = &"move"
 
 [node name="Magic" type="Sprite2D" parent="WIZARD"]
 position = Vector2(-4, -34)
@@ -981,4 +996,4 @@ script = ExtResource("11_hnnj1")
 [node name="Animation" type="AnimatedSprite2D" parent="SNOWMAN"]
 process_mode = 3
 sprite_frames = SubResource("SpriteFrames_80egn")
-animation = &"shoot"
+animation = &"move"
