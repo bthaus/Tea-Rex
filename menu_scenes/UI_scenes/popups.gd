@@ -1,7 +1,8 @@
 extends Control
 
 @onready var popup_panel = $UI/PopupPanel
-@onready var container = $UI/PopupPanel/Container
+@onready var container = $UI/PopupPanel/MarginContainer/Container
+
 var max_width: float = 500.0
 
 func show_popup(sender, content: PopupContent):
