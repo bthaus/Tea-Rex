@@ -3,7 +3,7 @@ class_name Simulation
 
 var gameState:GameState
 
-var mods=[[MineProductionMod]]
+var mods=[[TrapdoorMod]]
 #enum Hue {WHITE=1, GREEN=2, RED=3, YELLOW=4, BLUE=5, MAGENTA=6};
 
 var color_index=6
