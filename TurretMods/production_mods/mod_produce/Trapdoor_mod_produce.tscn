@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://bhpdpeo83r2ut"]
+
+[ext_resource type="Texture2D" uid="uid://dltfxe2mf4q2v" path="res://Assets/Tiles/legal_placement.png" id="1_koo6e"]
+[ext_resource type="Script" path="res://TurretMods/production_mods/mod_produce/Trapdoor_mod_produce.gd" id="2_6vf3r"]
+
+[node name="TrapdoorModProduce" type="Sprite2D"]
+texture = ExtResource("1_koo6e")
+script = ExtResource("2_6vf3r")

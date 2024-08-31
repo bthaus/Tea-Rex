@@ -81,9 +81,10 @@ static var turret_mods = {
 	WallhackMod:d(tiny,base, ItemBlockConstants.WHITE_TILE_ID),
 	StackIncreaseMod:d(o,base, ItemBlockConstants.WHITE_TILE_ID),
 	
-	MineProductionMod:d(0,prod),
-	FlyingMineProductionMod:d(0,prod),
-	ChainProductionMod:d(0,prod)
+	MineProductionMod:d(o,prod),
+	FlyingMineProductionMod:d(o,prod),
+	ChainProductionMod:d(o,prod),
+	TrapdoorProductionMod:d(o,prod)
 	
 	
 	
