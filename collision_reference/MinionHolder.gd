@@ -18,9 +18,9 @@ func do(delta):
 		var pos=board.local_to_map(m.global_position)
 		
 		if pos.x!=m.oldpos.x||pos.y!=m.oldpos.y:
-			if m==null:continue
+			if !util.valid(m):continue
 			reference.setMinion(m.oldpos.x,m.oldpos.y,pos.x,pos.y,m)
-			if m==null:continue
+			if !util.valid(m):continue
 			m.cell_traversed()
 			if GameState.gameState.deathscalling:return;
 			

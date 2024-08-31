@@ -79,7 +79,14 @@ static var turret_mods = {
 	AirAttackMod:d(s,base, ItemBlockConstants.WHITE_TILE_ID),
 	AirAndGroundAttackMod:d(cross,base, ItemBlockConstants.WHITE_TILE_ID),
 	WallhackMod:d(tiny,base, ItemBlockConstants.WHITE_TILE_ID),
-	StackIncreaseMod:d(o,base, ItemBlockConstants.WHITE_TILE_ID)
+	StackIncreaseMod:d(o,base, ItemBlockConstants.WHITE_TILE_ID),
+	
+	MineProductionMod:d(o,prod),
+	FlyingMineProductionMod:d(o,prod),
+	ChainProductionMod:d(o,prod),
+	TrapdoorProductionMod:d(o,prod)
+	
+	
 	
 	
 }
@@ -89,7 +96,7 @@ static func register_mods_for_sim():
 		if !TurretBaseMod.implemented_mods.has(type):TurretBaseMod.implemented_mods[type]=[]
 		TurretBaseMod.implemented_mods[type].append(mod)
 	pass;
-static func d(shape, type, tile_id,damage_type=norm):
+static func d(shape, type, tile_id=ItemBlockConstants.WHITE_TILE_ID,damage_type=norm):
 	return data.new(shape, type, tile_id,damage_type)
 class data:
 	var shape:Block.BlockShape

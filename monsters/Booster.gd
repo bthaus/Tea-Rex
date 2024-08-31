@@ -8,6 +8,7 @@ func do_special():
 	var ms=GameState.collisionReference.getMinionsAroundPosition(global_position)
 	ms.erase(holder)
 	for m in ms:
+		if !util.valid(m):continue
 		var boost=SpeedBuff.new(speed_buff,refresh_rate)
 		boost.register(m)
 	pass;

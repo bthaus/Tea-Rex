@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://dys333upjal6a"]
+
+[ext_resource type="Texture2D" uid="uid://b8hwqggah6lmc" path="res://Assets/Effects/Cryo_Explosion/c1.png" id="1_8rsxb"]
+[ext_resource type="Script" path="res://TurretMods/production_mods/mod_produce/FlyingMineModProduce.gd" id="2_acl5n"]
+
+[node name="MineModProduce" type="Sprite2D"]
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("1_8rsxb")
+script = ExtResource("2_acl5n")
+processing = true

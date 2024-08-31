@@ -74,7 +74,7 @@ func doSpawnLogic():
 	for mo in waveMonsters:
 		count = count + 1
 		if !util.valid(mo):continue
-		spawnEnemy(mo)
+		#spawnEnemy(mo)
 		get_tree().create_timer(0.5*count*rnd.randf_range(0.0,1.5)).timeout.connect(spawnEnemy.bind(mo))
 		#if count % 5 == 0: #Every 5th monster longer break
 			#delay = delay + 3

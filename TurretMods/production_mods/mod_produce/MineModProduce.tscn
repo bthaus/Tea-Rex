@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://bas4heyb7v64a"]
+
+[ext_resource type="Script" path="res://TurretMods/production_mods/mod_produce/MineModProduce.gd" id="1_74g2g"]
+[ext_resource type="Texture2D" uid="uid://jobgij4i5sxe" path="res://Assets/Effects/Explosion_1/e1.png" id="1_yun7i"]
+
+[node name="MineModProduce" type="Sprite2D"]
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("1_yun7i")
+script = ExtResource("1_74g2g")
+processing = true
+buildable = true
