@@ -12,10 +12,10 @@ func show_popup(sender, content: PopupContent):
 		container.remove_child(item)
 		item.queue_free()
 	
-	for c in content.content:
-		if c is RichTextLabel:
-			popup_panel.get_child(0).add_child(c)
-			_resize_label(c)
+	for item in content.content:
+		container.add_child(item)
+		if item is RichTextLabel:
+			_resize_label(item)
 	
 	popup_panel.size = Vector2i.ZERO
 	var rect = Rect2(Vector2i(sender.global_position), Vector2(sender.size))
@@ -36,6 +36,7 @@ func hide_popup():
 func _resize_label(label: RichTextLabel):
 	var font = label.get_theme_font("normal_font")
 	var font_size = label.get_theme_font_size("normal_font_size")
+	var alignment = label
 	var text_size = font.get_multiline_string_size(label.get_parsed_text(), HORIZONTAL_ALIGNMENT_LEFT, -1, font_size)
 	label.custom_minimum_size = text_size
 	
@@ -50,11 +51,29 @@ class PopupContent:
 	var content: Array = []
 	
 	func append_title(bbcode: String):
+		var text = "[center]%s[/center]" % bbcode
+		var label = _create_label(text, 25)
+		content.append(label)
+	
+	func append_description(bbcode: String):
+		var label = _create_label(bbcode, 16)
+		content.append(label)
+		
+	func append_image(texture: Texture2D, size: Vector2):
+		var rect = TextureRect.new()
+		rect.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		rect.custom_minimum_size = size
+		rect.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+		rect.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+		rect.texture = texture
+		content.append(rect)
+	
+	func _create_label(bbcode: String, font_size: int) -> RichTextLabel:
 		var label = RichTextLabel.new()
 		label.bbcode_enabled = true
-		_set_font_size(label, 25)
+		_set_font_size(label, font_size)
 		label.append_text(bbcode)
-		content.append(label)
+		return label
 	
 	func _set_font_size(label: RichTextLabel, font_size: int):
 		label.add_theme_font_size_override("normal_font_size", font_size)
