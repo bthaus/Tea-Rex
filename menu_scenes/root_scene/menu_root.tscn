@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://cecdgnsa5465"]
+[gd_scene load_steps=3 format=3 uid="uid://cecdgnsa5465"]
 
 [ext_resource type="Script" path="res://menu_scenes/root_scene/menu_root.gd" id="1_y0cw5"]
+[ext_resource type="Script" path="res://UtilScenes/Animations/hover_scale_animation.gd" id="2_r7vym"]
 
 [node name="menu_root" type="Node2D"]
 script = ExtResource("1_y0cw5")
@@ -25,12 +26,18 @@ offset_right = 650.0
 offset_bottom = 202.0
 text = "start game"
 
+[node name="HoverScaleAnimation" type="Node" parent="start_page/start_game"]
+script = ExtResource("2_r7vym")
+
 [node name="settings" type="Button" parent="start_page"]
 offset_left = 412.0
 offset_top = 281.0
 offset_right = 653.0
 offset_bottom = 388.0
 text = "settings"
+
+[node name="HoverScaleAnimation" type="Node" parent="start_page/settings"]
+script = ExtResource("2_r7vym")
 
 [node name="exit_game" type="Button" parent="start_page"]
 offset_left = 413.0
@@ -40,12 +47,18 @@ offset_bottom = 537.0
 text = "exit game
 "
 
+[node name="HoverScaleAnimation" type="Node" parent="start_page/exit_game"]
+script = ExtResource("2_r7vym")
+
 [node name="level_editor" type="Button" parent="start_page"]
 offset_left = 142.0
 offset_top = 284.0
 offset_right = 323.0
 offset_bottom = 397.0
 text = "level editor"
+
+[node name="HoverScaleAnimation" type="Node" parent="start_page/level_editor"]
+script = ExtResource("2_r7vym")
 
 [node name="delete_all_maps" type="Button" parent="start_page"]
 offset_left = 948.0
@@ -55,12 +68,18 @@ offset_bottom = 346.0
 text = "Delete all maps
 "
 
+[node name="HoverScaleAnimation" type="Node" parent="start_page/delete_all_maps"]
+script = ExtResource("2_r7vym")
+
 [node name="delete_all_accounts" type="Button" parent="start_page"]
 offset_left = 942.0
 offset_top = 260.0
 offset_right = 1093.0
 offset_bottom = 291.0
 text = "Delete all accounts"
+
+[node name="HoverScaleAnimation" type="Node" parent="start_page/delete_all_accounts"]
+script = ExtResource("2_r7vym")
 
 [node name="chapter_editor" type="Button" parent="start_page"]
 offset_left = 146.0
@@ -69,6 +88,9 @@ offset_right = 331.0
 offset_bottom = 510.0
 text = "Chapter editor
 "
+
+[node name="HoverScaleAnimation" type="Node" parent="start_page/chapter_editor"]
+script = ExtResource("2_r7vym")
 
 [connection signal="pressed" from="CanvasLayer/back" to="." method="_on_back_pressed"]
 [connection signal="pressed" from="start_page/start_game" to="." method="_on_start_game_pressed"]
