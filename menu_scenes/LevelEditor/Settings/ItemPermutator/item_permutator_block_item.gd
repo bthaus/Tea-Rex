@@ -1,6 +1,7 @@
 extends Panel
 
 var _object: ItemPermutator.PermutationObject
+var _parent: Control
 signal input_enabled
 signal duplicated
 
@@ -23,7 +24,8 @@ func open_editor():
 	editor.set_block(_object.value)
 	editor.closed.connect(_on_editor_closed)
 	editor.position = Vector2(200, 100)
-	get_node("/root/menu_root/LevelEditor/Camera2D/HUD/Settings").add_child(editor)
+	_parent.add_child(editor)
+	editor.open()
 	
 func _on_editor_closed(block: Block):
 	_object.value = block
@@ -35,6 +37,9 @@ func enable_focus(enable: bool):
 	$Content/EditButton.mouse_filter = filter
 	$Content/DuplicateButton.mouse_filter = filter
 	$Content/DeleteButton.mouse_filter = filter
+
+func set_parent(parent: Control):
+	_parent = parent
 
 func _on_edit_button_pressed():
 	open_editor()

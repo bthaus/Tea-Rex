@@ -196,6 +196,9 @@ func update_spawner_waves():
 		spawner.initialise()
 	Spawner.refresh_all_paths()
 
+func open():
+	$OpenCloseScaleAnimation.open()
+
 func _on_close_button_pressed():
 	update_spawner_waves()
-	hide()
+	$OpenCloseScaleAnimation.close(hide)

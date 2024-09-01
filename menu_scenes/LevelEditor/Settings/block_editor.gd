@@ -4,6 +4,9 @@ var previous_board_position = Vector2(-1, -1)
 var block: Block
 signal closed
 
+func _ready():
+	hide()
+
 func set_block(block: Block):
 	self.block = block
 	for piece in block.pieces:
@@ -26,14 +29,16 @@ func _input(event):
 		elif Input.is_action_pressed("right_click"):
 			$Board.set_cell(GameboardConstants.MapLayer.BLOCK_LAYER, board_pos, -1, Vector2(0,0))
 
+func open():
+	$OpenCloseScaleAnimation.open()
 
 func _on_cancel_button_pressed():
 	closed.emit(block)
-	queue_free()
+	$OpenCloseScaleAnimation.close(func(): queue_free)
 
 func _on_save_button_pressed():
 	var pieces: Array[Block.Piece] = []
 	for pos in $Board.get_used_cells(GameboardConstants.MapLayer.BLOCK_LAYER):
 		pieces.append(Block.Piece.new(pos, Turret.Hue.WHITE, 1))
 	closed.emit(Block.new(pieces))
-	queue_free()
+	$OpenCloseScaleAnimation.close(func(): queue_free)

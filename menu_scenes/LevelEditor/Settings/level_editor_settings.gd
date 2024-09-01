@@ -8,6 +8,10 @@ class_name LevelEditorSettings
 func _ready():
 	block_permutator.set_title("Block Shape Cycle")
 	color_permutator.set_title("Color Cycle")
+	
+	$BlockSelector.block_selected.connect(_on_new_block_selected)
+	$BlockSelector.custom_selected.connect(_on_custom_block_selected)
+	
 	#Init Block Permutator
 	randomize()
 	var blocks: Array[Block] = []
@@ -58,14 +62,9 @@ func _color_to_texture(color: Turret.Hue) -> Texture2D:
 		Turret.Hue.MAGENTA: id = 601
 	var atlas: TileSetAtlasSource = tile_set.get_source(id)
 	return atlas.texture
-	
 
 func _on_add_block_button_pressed():
-	var block_selector = load("res://menu_scenes/LevelEditor/Settings/BlockSelector/block_selector.tscn").instantiate()
-	block_selector.position = Vector2(150,100)
-	block_selector.block_selected.connect(_on_new_block_selected)
-	block_selector.custom_selected.connect(_on_custom_block_selected)
-	add_child(block_selector)
+	$BlockSelector.open()
 	
 func _on_new_block_selected(block: Block):
 	var object = ItemPermutator.PermutationObject.new(block, null)
@@ -81,7 +80,7 @@ func open():
 	$OpenCloseScaleAnimation.open()
 
 func _on_close_button_pressed():
-	$OpenCloseScaleAnimation.close()
+	$OpenCloseScaleAnimation.close(hide)
 
 func get_setting_properties() -> Properties:
 	var settings = Properties.new()

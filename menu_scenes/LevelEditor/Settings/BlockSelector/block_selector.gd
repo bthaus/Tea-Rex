@@ -14,14 +14,16 @@ func _ready():
 		item.clicked.connect(_on_block_selected)
 		grid_container.add_child(item)
 
+func open():
+	$OpenCloseScaleAnimation.open()
 
 func _on_block_selected(block: Block):
 	block_selected.emit(block)
-	queue_free()
+	$OpenCloseScaleAnimation.close(hide)
 
 func _on_custom_button_pressed():
 	custom_selected.emit()
-	queue_free()
+	$OpenCloseScaleAnimation.close(hide)
 
 func _on_cancel_button_pressed():
-	queue_free()
+	$OpenCloseScaleAnimation.close(hide)

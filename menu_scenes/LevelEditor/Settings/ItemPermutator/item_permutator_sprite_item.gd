@@ -1,6 +1,7 @@
 extends Panel
 
 var _object: ItemPermutator.PermutationObject
+var _parent: Control
 signal input_enabled
 signal duplicated
 
@@ -16,6 +17,9 @@ func hide_object():
 	
 func enable_focus(enable: bool):
 	pass
+
+func set_parent(parent: Control):
+	_parent = parent
 
 func get_object() -> ItemPermutator.PermutationObject:
 	return _object

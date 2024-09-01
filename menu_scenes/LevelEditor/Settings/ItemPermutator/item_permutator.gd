@@ -2,6 +2,7 @@ extends Panel
 class_name ItemPermutator
 
 @onready var grid_container = $ScrollContainer/GridContainer
+@export var parent: Control
 
 var focused_item
 var selected_item
@@ -22,6 +23,7 @@ func append_object(scene_path, object: PermutationObject):
 	item.mouse_exited.connect(func(): focused_item = null)
 	item.input_enabled.connect(func(enabled: bool): input_enabled = enabled)
 	item.duplicated.connect(_on_item_duplicated)
+	item.set_parent(parent)
 	item.set_object(object)
 	grid_container.add_child(item)
 	return item

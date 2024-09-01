@@ -17,9 +17,9 @@ func open():
 	target.show()
 	_add_tween("scale", Vector2(1, 1), time, opening_transition_type, Tween.EASE_OUT)
 
-func close():
+func close(callback: Callable):
 	var tween = _add_tween("scale", Vector2(0, 0), time, closing_transition_type, Tween.EASE_IN)
-	tween.tween_callback(func(): target.hide())
+	tween.tween_callback(func(): callback.call())
 
 func _setup():
 	#Take center of target

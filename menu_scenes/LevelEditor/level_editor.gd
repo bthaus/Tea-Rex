@@ -185,7 +185,7 @@ func _on_settings_button_pressed():
 	settings.open()
 
 func _on_wave_settings_button_pressed():
-	wave_settings.show()
+	wave_settings.open()
 
 func _set_background():
 	#Set wall frame
