@@ -5,7 +5,7 @@ var base_reload_time=5
 var timer=Timer.new()
 
 func get_timeout():
-	return base_reload_time
+	return base_reload_time/level
 func get_type():
 	return FreezeTowerDebuff
 func get_max_stacks():
