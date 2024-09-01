@@ -2,6 +2,7 @@ extends BaseDTO
 class_name MapDTO
 
 var entities: Array[BaseDTO]
+
 var waves
 #TODO: change that to an actual number
 var number_of_waves: int = 2
@@ -9,6 +10,8 @@ var map_name: String = ""
 var battle_slots: BattleSlotDTO
 var block_cycle: Array[BaseDTO]
 var color_cycle: Array
+
+var _reduced_entities=""
 
 func _init(entities: Array[BaseDTO] = [], waves = [], block_cycle: Array[BaseDTO] = [], color_cycle: Array = [], mapname = ""):
 	self.entities = entities
@@ -18,9 +21,28 @@ func _init(entities: Array[BaseDTO] = [], waves = [], block_cycle: Array[BaseDTO
 	self.map_name=mapname
 
 func restore(dest,acc="",dir="maps"):
-	return super.restore("map_"+dest,"",dir+"/"+dest)
+	super.restore("map_"+dest,"",dir+"/"+dest)
+	var packed=_reduced_entities.split("-")
+	for p in packed:
+		if p.count("_",0)!=2:continue
+		var t=p.split("_")
+		
+		entities.append(EntityDTO.new(int(t[0]),int(t[1]),int(t[2])))
 		
 func save(dest,acc="",dir="maps"):
 	MapNameDTO.add_map_name(dest)
+	var keep_arr=[] as Array[BaseDTO]
+	for e in entities:
+		if e is PortalDTO:
+			keep_arr.append(e)
+			continue
+		if e is SpawnerDTO:
+			keep_arr.append(e)
+			continue
+		if e is PlayerBaseDTO:
+			keep_arr.append(e)
+			continue
+		_reduced_entities+=(str(e.tile_id)+"_"+str(e.map_x)+"_"+str(e.map_y)+"-")
+	entities=keep_arr
 	return super.save("map_"+dest,"",dir+"/"+dest)
 		

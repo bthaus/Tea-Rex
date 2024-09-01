@@ -17,6 +17,7 @@ func _ready():
 	
 	instance=self
 	gameState=load("res://Game/main_scene.tscn").instantiate()
+	var test=PortalDTO.new()
 	
 	var map=MapDTO.new()
 	map.restore("sim_debug")
