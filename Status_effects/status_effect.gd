@@ -32,17 +32,24 @@ func register(affected:GameObject2D):
 	if affected is Monster:
 		affected=affected.core
 	if !util.valid(affected):return
-	if !affected.status_effects.has(type):affected.status_effects[type]=get_container()
+	
 	self.affected=affected
 	self.effectiveness=affected.get_status_effect_effectiveness(get_name())
+	register_container(affected,type)
+	
 	last_tick_time=Time.get_ticks_msec()
 	affected.status_effects[type].add_status_effect(self)
+	affected.status_effect_registered(self)
 	pass;
-	
+func register_container(object,t):
+	if !object.status_effects.has(t):object.status_effects[t]=get_container()	
+	pass
 func refresh():
 	lifetime=GameplayConstants.DEBUFF_STANDART_LIFETIME*1000-1
 	pass;	
 var last_tick_time=0	
+
+
 func on_tick(delta):
 	#seperate custom deltatime for lifetime calculation, and regular delta for damage calculation
 	var deltatime=Time.get_ticks_msec()-last_tick_time
@@ -74,6 +81,7 @@ func remove():
 
 class status_effect_container:
 	var status_effects=[]
+	var immunity_stacks=0
 	var strongest_status_effect:StatusEffect:
 		set(val):
 			if strongest_status_effect!=val:
@@ -111,8 +119,18 @@ class status_effect_container:
 	func remove_visual():
 		if !util.valid(visual):return
 		visual.queue_free()
-		pass;		
+		pass;
+	func add_immunity_stack():
+		immunity_stacks+=1
+		if !status_effects.is_empty():
+			status_effects.clear()
+			remove_status_effect(strongest_status_effect,1);
+			immunity_stacks-=1
+		pass;			
 	func add_status_effect(d:StatusEffect):
+		if immunity_stacks>0:
+			immunity_stacks-=1
+			return
 		if strongest_status_effect!=null and strongest_status_effect.get_str()==d.get_str():
 			strongest_status_effect.refresh()
 			return
