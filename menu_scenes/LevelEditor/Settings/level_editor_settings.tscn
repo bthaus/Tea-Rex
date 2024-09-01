@@ -1,14 +1,18 @@
-[gd_scene load_steps=4 format=3 uid="uid://cpwwc5ods0k2t"]
+[gd_scene load_steps=5 format=3 uid="uid://cpwwc5ods0k2t"]
 
 [ext_resource type="PackedScene" uid="uid://b0wxnmfknd8yg" path="res://menu_scenes/LevelEditor/Settings/ItemPermutator/item_permutator.tscn" id="1_fudny"]
 [ext_resource type="Script" path="res://menu_scenes/LevelEditor/Settings/level_editor_settings.gd" id="1_n3gl6"]
 [ext_resource type="StyleBox" uid="uid://b0qhmxvb2s50r" path="res://Styles/default_button.tres" id="1_nfgmx"]
+[ext_resource type="Script" path="res://UtilScenes/Animations/open_close_scale_animation.gd" id="3_5scue"]
 
 [node name="LevelEditorSettings" type="Panel"]
 offset_right = 800.0
 offset_bottom = 500.0
 theme_override_styles/panel = ExtResource("1_nfgmx")
 script = ExtResource("1_n3gl6")
+
+[node name="OpenCloseScaleAnimation" type="Node" parent="."]
+script = ExtResource("3_5scue")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
 layout_mode = 0

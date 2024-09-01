@@ -77,8 +77,11 @@ func _on_custom_block_selected():
 	var item = block_permutator.get_item_node(block_permutator.get_objects().size()-1)
 	item.open_editor()
 
+func open():
+	$OpenCloseScaleAnimation.open()
+
 func _on_close_button_pressed():
-	hide()
+	$OpenCloseScaleAnimation.close()
 
 func get_setting_properties() -> Properties:
 	var settings = Properties.new()

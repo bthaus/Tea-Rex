@@ -182,7 +182,7 @@ func _on_save_button_pressed():
 	board_handler.save_board(monster_waves, settings, map_name.text)
 	
 func _on_settings_button_pressed():
-	settings.show()
+	settings.open()
 
 func _on_wave_settings_button_pressed():
 	wave_settings.show()
