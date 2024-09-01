@@ -1,14 +1,15 @@
 extends Panel
 
 var previous_board_position = Vector2(-1, -1)
-var block: Block
-signal closed
+var block: Block = Block.new([])
+signal saved
 
 func _ready():
 	hide()
 
 func set_block(block: Block):
 	self.block = block
+	$Board.clear_layer(GameboardConstants.MapLayer.BLOCK_LAYER)
 	for piece in block.pieces:
 		$Board.set_cell(GameboardConstants.MapLayer.BLOCK_LAYER, piece.position, GameboardConstants.WALL_TILE_ID, Vector2(0,0))
 
@@ -31,14 +32,16 @@ func _input(event):
 
 func open():
 	$OpenCloseScaleAnimation.open()
+	
+func close():
+	$OpenCloseScaleAnimation.close(func(): queue_free)
 
 func _on_cancel_button_pressed():
-	closed.emit(block)
-	$OpenCloseScaleAnimation.close(func(): queue_free)
+	close()
 
 func _on_save_button_pressed():
 	var pieces: Array[Block.Piece] = []
 	for pos in $Board.get_used_cells(GameboardConstants.MapLayer.BLOCK_LAYER):
 		pieces.append(Block.Piece.new(pos, Turret.Hue.WHITE, 1))
-	closed.emit(Block.new(pieces))
-	$OpenCloseScaleAnimation.close(func(): queue_free)
+	saved.emit(Block.new(pieces))
+	close()

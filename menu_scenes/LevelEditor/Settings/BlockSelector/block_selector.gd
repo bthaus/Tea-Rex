@@ -17,13 +17,15 @@ func _ready():
 func open():
 	$OpenCloseScaleAnimation.open()
 
+func close():
+	$OpenCloseScaleAnimation.close(hide)
+
 func _on_block_selected(block: Block):
 	block_selected.emit(block)
-	$OpenCloseScaleAnimation.close(hide)
+	close()
 
 func _on_custom_button_pressed():
 	custom_selected.emit()
-	$OpenCloseScaleAnimation.close(hide)
 
 func _on_cancel_button_pressed():
-	$OpenCloseScaleAnimation.close(hide)
+	close()

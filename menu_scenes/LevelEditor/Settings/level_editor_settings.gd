@@ -11,6 +11,7 @@ func _ready():
 	
 	$BlockSelector.block_selected.connect(_on_new_block_selected)
 	$BlockSelector.custom_selected.connect(_on_custom_block_selected)
+	$BlockEditor.saved.connect(_on_block_editor_saved)
 	
 	#Init Block Permutator
 	randomize()
@@ -71,10 +72,13 @@ func _on_new_block_selected(block: Block):
 	block_permutator.append_object("res://menu_scenes/LevelEditor/Settings/ItemPermutator/item_permutator_block_item.tscn", object)
 
 func _on_custom_block_selected():
-	var object = ItemPermutator.PermutationObject.new(Block.new([]), null)
+	$BlockEditor.set_block(Block.new([]))
+	$BlockEditor.open()
+
+func _on_block_editor_saved(block: Block):
+	var object = ItemPermutator.PermutationObject.new(block, null)
 	block_permutator.append_object("res://menu_scenes/LevelEditor/Settings/ItemPermutator/item_permutator_block_item.tscn", object)
-	var item = block_permutator.get_item_node(block_permutator.get_objects().size()-1)
-	item.open_editor()
+	$BlockSelector.close()
 
 func open():
 	$OpenCloseScaleAnimation.open()

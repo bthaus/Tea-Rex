@@ -22,12 +22,12 @@ func open_editor():
 	input_enabled.emit(false)
 	var editor = load("res://menu_scenes/LevelEditor/Settings/block_editor.tscn").instantiate()
 	editor.set_block(_object.value)
-	editor.closed.connect(_on_editor_closed)
+	editor.saved.connect(_on_editor_saved)
 	editor.position = Vector2(200, 100)
 	_parent.add_child(editor)
 	editor.open()
 	
-func _on_editor_closed(block: Block):
+func _on_editor_saved(block: Block):
 	_object.value = block
 	set_object(_object)
 	input_enabled.emit(true)
