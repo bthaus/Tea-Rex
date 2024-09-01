@@ -17,4 +17,13 @@ func _init(tile_id: int = 0, map_layer: GameboardConstants.MapLayer = GameboardC
 func get_object():
 	return Portal.new(tile_id,map_layer, Vector2(map_x,map_y), group_id, entry)
 	
-
+func get_compact_string():
+	var s=super()
+	s=s.replace("-","_")
+	s+=str(entry)+"_"+str(group_id)+"_"+str(map_layer)+"-"
+	return s
+static func parse_compact_string(s):
+	var p=s.split("_")
+	var dto=PortalDTO.new(int(p[0]),int(p[5]),int(p[1]),int(p[2]),false,int(p[4]),int(p[3]))
+	return dto
+	pass;	
