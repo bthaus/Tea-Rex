@@ -12,6 +12,7 @@ var block_cycle: Array[BaseDTO]
 var color_cycle: Array
 
 var _reduced_entities=""
+var _reduced_waves=""
 
 func _init(entities: Array[BaseDTO] = [], waves = [], block_cycle: Array[BaseDTO] = [], color_cycle: Array = [], mapname = ""):
 	self.entities = entities
@@ -28,6 +29,17 @@ func restore(dest,acc="",dir="maps"):
 		var t=p.split("_")
 		
 		entities.append(EntityDTO.new(int(t[0]),int(t[1]),int(t[2])))
+	var ws=_reduced_waves.split("&&")	
+	for w in ws:
+		var monsters=w.split("-")
+		var wave_dtos=[]
+		for m in monsters:
+			if m.count("_",0)!=2:continue
+			var ma=m.split("_")
+			wave_dtos.append(MonsterWaveDTO.new(int(ma[0]),int(ma[1]),int(ma[2])))
+		if wave_dtos.is_empty():continue
+		waves.append(wave_dtos)	
+		
 		
 func save(dest,acc="",dir="maps"):
 	MapNameDTO.add_map_name(dest)
@@ -44,5 +56,10 @@ func save(dest,acc="",dir="maps"):
 			continue
 		_reduced_entities+=(str(e.tile_id)+"_"+str(e.map_x)+"_"+str(e.map_y)+"-")
 	entities=keep_arr
+	for wave in waves:
+		for m in wave:
+			_reduced_waves+=str(m.spawner_id)+"_"+str(m.monster_id)+"_"+str(m.count)+"-"
+		_reduced_waves+="&&"
+	waves.clear()		
 	return super.save("map_"+dest,"",dir+"/"+dest)
 		
