@@ -39,11 +39,11 @@ func _process(delta):
 	$Board.clear_layer(ItemBlockConstants.PREVIEW_LAYER)
 	var board_pos = GameboardConstants.local_to_map_on_scaled_board($Board, get_local_mouse_position())
 	if board_pos.x < 0 or board_pos.x > 4 or board_pos.y < 0 or board_pos.y > 4:
-		if is_focused: focused.emit(false) #Focus now lost
+		if is_focused: focused.emit(null) #Focus now lost
 		is_focused = false
 		return
 	
-	if not is_focused: focused.emit(true) #Focus now gained
+	if not is_focused: focused.emit(self) #Focus now gained
 	is_focused = true
 	
 	if selected_item == null: return

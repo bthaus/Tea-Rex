@@ -4,7 +4,7 @@ var map: MapDTO
 var item_handler: ItemBlockSelectorHandler
 var selected_item: ItemBlockDTO
 var item_origin: ItemOrigin
-var has_focus = true
+var focused_container
 var selected_containers: Array[TurretModContainerDTO] = []
 var _sandbox_mode = false
 
@@ -30,12 +30,12 @@ func set_map(map: MapDTO):
 	self.map = map
 	_update_battle_slot_amount_label()
 
-func _on_container_focus_changed(container_focused: bool):
+func _on_container_focus_changed(sender):
 	$Board.clear_layer(ItemBlockConstants.BLOCK_LAYER)
-	if not container_focused:
+	if sender == null:
 		item_handler.draw_item_block(selected_item, Vector2(0,0), ItemBlockConstants.BLOCK_LAYER)
 	
-	has_focus = not container_focused
+	focused_container = sender
 
 func _set_selected_item(item_block: ItemBlockDTO):
 	selected_item = item_block
@@ -59,6 +59,11 @@ func _on_container_selected(sender, selected: bool):
 	_update_battle_slot_amount_label()
 
 func _on_item_selected(item_block: ItemBlockDTO):
+	if selected_item != null: #We have already an item in our hand
+		#if item_origin != null: item_origin.restore_item_block() #The item was previously in a container, restore it
+		
+		pass
+		
 	_set_selected_item(item_block)
 	_draw_item_block_hand(selected_item)
 	item_origin = null
@@ -78,11 +83,11 @@ func _input(event):
 	
 	if event.is_action_released("right_click"):
 		item_handler.rotate_item(selected_item)
-		if has_focus:
+		if focused_container == null: #No container has currently the focus
 			_draw_item_block_hand(selected_item)
 			
 	if event.is_action_released("interrupt"):
-		if item_origin == null: #No origin yet, place mod back to selector
+		if item_origin == null: #No origin yet, place mod back to selector TODO!
 			pass
 		else: #Restore item block in container
 			item_origin.restore_item_block()
@@ -90,7 +95,6 @@ func _input(event):
 		_draw_item_block_hand(null)
 		_set_selected_item(null)
 		item_origin = null
-		
 	
 func _draw_item_block_hand(item_block: ItemBlockDTO):
 	$Board.clear_layer(ItemBlockConstants.BLOCK_LAYER)
