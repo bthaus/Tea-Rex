@@ -1,13 +1,17 @@
 extends Control
 
-@onready var popup_panel = $UI/PopupPanel
-@onready var container = $UI/PopupPanel/MarginContainer/Container
+@onready var panel = $UI/Panel
+@onready var container = $UI/Panel/MarginContainer/Container
+@onready var animation = $UI/Panel/OpenCloseScaleAnimation
 
 var max_width: float = 500.0
+var is_opening = true
 
 func show_popup(sender, content: PopupContent):
 	if content == null:
 		return
+	
+	is_opening = true
 	
 	for item in container.get_children():
 		container.remove_child(item)
@@ -18,7 +22,7 @@ func show_popup(sender, content: PopupContent):
 		if item is RichTextLabel:
 			_resize_label(item)
 	
-	popup_panel.size = Vector2i.ZERO
+	panel.size = Vector2i.ZERO
 	var rect = Rect2(Vector2i(sender.global_position), Vector2(sender.size))
 	var mouse_pos = get_viewport().get_mouse_position()
 	var correction
@@ -27,12 +31,18 @@ func show_popup(sender, content: PopupContent):
 	if mouse_pos.x <= get_viewport_rect().size.x/2:
 		correction = Vector2(rect.size.x + padding, 0)
 	else:
-		correction = -Vector2(popup_panel.size.x + padding, 0)
+		correction = -Vector2(panel.size.x + padding, 0)
  
-	popup_panel.popup(Rect2i(rect.position + correction, popup_panel.size))
+	panel.position = rect.position + correction
+	animation.setup()
+	animation.open()
 
 func hide_popup():
-	popup_panel.hide()
+	is_opening = false
+	animation.close(func():
+		if not is_opening: #Another component wants to open it, dont hide in that case
+			panel.hide()
+		)
 	
 func _resize_label(label: RichTextLabel):
 	var font = label.get_theme_font("normal_font")
@@ -40,14 +50,7 @@ func _resize_label(label: RichTextLabel):
 	var alignment = label
 	var text_size = font.get_multiline_string_size(label.get_parsed_text(), HORIZONTAL_ALIGNMENT_LEFT, -1, font_size)
 	label.custom_minimum_size = text_size
-	
-#func _resize(label: RichTextLabel):
-	#while label.get_visible_line_count() < label.get_line_count():
-		#label.custom_minimum_size.y += 10
-		#await get_tree().process_frame
-		#var t = label.get_theme_font("normal_font")
-		#t.get_multiline_string_size(label.text)
-		
+
 class PopupContent:
 	var content: Array = []
 	

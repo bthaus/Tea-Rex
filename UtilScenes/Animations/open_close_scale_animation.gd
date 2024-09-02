@@ -10,7 +10,7 @@ var default_scale: Vector2
 
 func _ready():
 	target = get_parent()
-	call_deferred("_setup")
+	call_deferred("setup")
 	
 func open():
 	target.scale = Vector2(0, 0)
@@ -21,7 +21,7 @@ func close(callback: Callable):
 	var tween = _add_tween("scale", Vector2(0, 0), time, closing_transition_type, Tween.EASE_IN)
 	tween.tween_callback(func(): callback.call())
 
-func _setup():
+func setup():
 	#Take center of target
 	target.pivot_offset = target.size / 2
 	default_scale = target.scale
