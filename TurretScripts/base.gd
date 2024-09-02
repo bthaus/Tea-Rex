@@ -93,6 +93,7 @@ func add_damage_type(damage_type:GameplayConstants.DamageTypes):
 	damage_types.append(damage_type)
 	pass;
 func setupCollision(clearing):
+	if GameState.gameState==null:return
 	if collisionReference == null:
 		collisionReference = GameState.gameState.collisionReference
 
@@ -109,13 +110,13 @@ func getReferences(cells):
 func setUpTower(holder):
 	self.holder = holder
 	
-	minions = GameState.gameState.minions
+	if placed: minions = GameState.gameState.minions
 	setLevel(stacks)
 	trueRangeSquared = turretRange * GameboardConstants.TILE_SIZE + GameboardConstants.TILE_SIZE
 	trueRangeSquared = trueRangeSquared * trueRangeSquared;
 	
-	if ref_proj == null: ref_proj = Projectile.create(type, damage * damagefactor, speed * speedfactor, self, extension, penetrations);
-	ref_proj.visible = false;
+	if ref_proj == null and placed: ref_proj = Projectile.create(type, damage * damagefactor, speed * speedfactor, self, extension, penetrations);
+	if ref_proj!=null: ref_proj.visible = false;
 
 	for mod in turret_mods:
 		mod.initialise(self)
@@ -130,14 +131,7 @@ func on_destroy():
 		mod.remove()
 	pass;	
 func after_built():
-	#var to_remove = []
-	#for mod in turret_mods:
-		#if TurretBaseMod.color_blocks[TurretBaseMod.ModType.keys()[mod.type]].has(type):
-			#to_remove.append(mod)
-	#for mod in to_remove:
-		#turret_mods.erase(mod)
-		#mod.remove()
-		#
+	
 	pass ;
 func reduceCooldown(delta):
 

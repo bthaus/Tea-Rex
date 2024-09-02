@@ -15,8 +15,9 @@ static func getBase(color:Turret.Hue,extension:Turret.Extension)->TurretCore:
 	
 	var searchstring=util.getStringFromEnum(color)+util.getStringFromEnumExtension(extension)+"_base"
 	var base=instance.get_node(searchstring).duplicate() as TurretCore
-	add_mods_to_core(base)
 	base.type=color
+	add_mods_to_core(base)
+	
 	base.extension=extension
 	base.visible=true
 	base.damage=base.damage*instance.base_damage

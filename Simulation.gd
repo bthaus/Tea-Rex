@@ -14,7 +14,8 @@ var results=""
 static var instance
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	
+	var turret=Turret.create(Turret.Hue.RED,1,Turret.Extension.DEFAULT,false,[])	
+	add_child(turret)
 	instance=self
 	gameState=load("res://Game/main_scene.tscn").instantiate()
 	var test=PortalDTO.new()

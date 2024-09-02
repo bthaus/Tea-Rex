@@ -47,15 +47,6 @@ func save(dest,acc="",dir="maps"):
 	MapNameDTO.add_map_name(dest)
 	var keep_arr=[] as Array[BaseDTO]
 	for e in entities:
-		#if e is PortalDTO:
-			#keep_arr.append(e)
-			#continue
-		#if e is SpawnerDTO:
-			#keep_arr.append(e)
-			#continue
-		#if e is PlayerBaseDTO:
-			#keep_arr.append(e)
-			#continue
 		_reduced_entities+=e.get_compact_string()
 	entities=keep_arr
 	for wave in waves:
