@@ -26,6 +26,18 @@ func has_effect(name:StatusEffect.Name):
 			return true
 	return false;		
 	pass;
+func status_effect_registered(effect:StatusEffect):
+	pass;	
+func add_immunity_stack(status_effect):
+	var instance=status_effect.new()
+	instance.register_container(self,instance.type)
+	status_effects[instance.type].add_immunity_stack()
+	pass;
+func get_immunity_stacks(status_effect):
+	var instance=status_effect.new()
+	instance.register_container(self,instance.type)
+	return status_effects[instance.type].immunity_stacks
+			
 func get_global():
 	return global_position
 	pass;

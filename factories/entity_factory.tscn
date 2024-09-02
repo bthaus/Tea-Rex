@@ -33,15 +33,7 @@ moving_types = Array[int]([1])
 visible = false
 script = ExtResource("4_p1llm")
 tile_id = 11
-collides_with_bullets = null
-processing = null
 moving_types = Array[int]([1])
-description = null
-map_layer = null
-move_weight = null
-weight_excludes = null
-buildable = null
-immunities = null
 
 [node name="Tunnel" type="Sprite2D" parent="."]
 script = ExtResource("5_bwwec")
@@ -65,12 +57,9 @@ moving_types = Array[int]([])
 [node name="Street" type="Sprite2D" parent="."]
 script = ExtResource("4_p1llm")
 tile_id = 20
-collides_with_bullets = null
-processing = null
 map_layer = 1
 move_weight = 0.75
 buildable = true
-immunities = null
 
 [node name="GlassShards" type="Sprite2D" parent="."]
 script = ExtResource("7_u5q83")

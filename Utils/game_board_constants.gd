@@ -38,7 +38,7 @@ const BUILD_NONE_TILE_ID = 8
 enum MapLayer { GROUND_LAYER = 0, BUILD_LAYER = 1, BLOCK_LAYER = 2, PREVIEW_LAYER = 3 }
 
 #COLORS
-enum TileColor { NONE, RED, GREEN, BLUE, YELLOW, WHITE, MAGENTA };
+enum TileColor { NONE=0, RED=1, GREEN=2, BLUE=3, YELLOW=4, WHITE=5, MAGENTA=6 };
 
 static func turret_color_to_tile_color(color: Turret.Hue):
 	return TileColor.get(Turret.Hue.keys()[color])

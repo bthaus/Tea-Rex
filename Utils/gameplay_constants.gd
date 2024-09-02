@@ -84,7 +84,10 @@ static var turret_mods = {
 	MineProductionMod:d(o,prod),
 	FlyingMineProductionMod:d(o,prod),
 	ChainProductionMod:d(o,prod),
-	TrapdoorProductionMod:d(o,prod)
+	TrapdoorProductionMod:d(o,prod),
+	
+	FrostHullMod:d(o,hull),
+	StunHullMod:d(o,hull),
 	
 	
 	

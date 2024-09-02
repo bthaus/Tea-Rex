@@ -3,7 +3,7 @@ class_name Simulation
 
 var gameState:GameState
 
-var mods=[[TrapdoorProductionMod]]
+var mods=[[FrostHullMod]]
 #enum Hue {WHITE=1, GREEN=2, RED=3, YELLOW=4, BLUE=5, MAGENTA=6};
 
 var color_index=6
@@ -17,6 +17,7 @@ func _ready():
 	
 	instance=self
 	gameState=load("res://Game/main_scene.tscn").instantiate()
+	var test=PortalDTO.new()
 	
 	var map=MapDTO.new()
 	map.restore("sim_debug")
