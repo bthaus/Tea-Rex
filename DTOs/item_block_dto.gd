@@ -16,6 +16,9 @@ func _init(color: Turret.Hue = Turret.Hue.BLUE, block_shape: Block.BlockShape = 
 	self.rotation = rotation
 	self.map_position = map_position
 	
+func clone():
+	return ItemBlockDTO.new(color, block_shape, tile_id, rotation, map_position)
+	
 func get_json():
 	if turret_mod==null: return super()
 	var props=turret_mod.get_script_property_list() as Array

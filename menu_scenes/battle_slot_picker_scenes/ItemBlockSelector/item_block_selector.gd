@@ -3,6 +3,7 @@ extends Panel
 var map: MapDTO
 var item_handler: ItemBlockSelectorHandler
 var selected_item: ItemBlockDTO
+var item_origin: ItemOrigin
 var has_focus = true
 var selected_containers: Array[TurretModContainerDTO] = []
 var _sandbox_mode = false
@@ -36,6 +37,11 @@ func _on_container_focus_changed(container_focused: bool):
 	
 	has_focus = not container_focused
 
+func _set_selected_item(item_block: ItemBlockDTO):
+	selected_item = item_block
+	for container in $TurretModGridContainer.get_children():
+		container.set_selected_item(item_block)
+
 func _on_container_selected(sender, selected: bool):
 	if selected:
 		if selected_containers.size() < map.battle_slots.amount:
@@ -53,34 +59,53 @@ func _on_container_selected(sender, selected: bool):
 	_update_battle_slot_amount_label()
 
 func _on_item_selected(item_block: ItemBlockDTO):
-	selected_item = item_block
+	_set_selected_item(item_block)
 	_draw_item_block_hand(selected_item)
-	for container in $TurretModGridContainer.get_children():
-		container.set_selected_item(item_block)
+	item_origin = null
 
 func _on_item_placed():
 	$Board.clear_layer(ItemBlockConstants.BLOCK_LAYER)
-	selected_item = null
-	for container in $TurretModGridContainer.get_children():
-		container.set_selected_item(null)
+	_set_selected_item(null)
+	item_origin = null
 
-func _on_item_picked_up(item_block: ItemBlockDTO):
-	selected_item = item_block
-	for container in $TurretModGridContainer.get_children():
-		container.set_selected_item(item_block)
-
+func _on_item_picked_up(sender, map_position: Vector2, item_block: ItemBlockDTO):
+	_set_selected_item(item_block)
+	item_origin = ItemOrigin.new(sender, item_block.clone())
 
 func _input(event):
+	$Board.position = get_global_mouse_position()
+	if selected_item == null: return
+	
 	if event.is_action_released("right_click"):
 		item_handler.rotate_item(selected_item)
 		if has_focus:
 			_draw_item_block_hand(selected_item)
+			
+	if event.is_action_released("interrupt"):
+		if item_origin == null: #No origin yet, place mod back to selector
+			pass
+		else: #Restore item block in container
+			item_origin.restore_item_block()
 		
-	$Board.position = get_global_mouse_position()
-
+		_draw_item_block_hand(null)
+		_set_selected_item(null)
+		item_origin = null
+		
+	
 func _draw_item_block_hand(item_block: ItemBlockDTO):
 	$Board.clear_layer(ItemBlockConstants.BLOCK_LAYER)
-	item_handler.draw_item_block(item_block, Vector2(0,0), ItemBlockConstants.BLOCK_LAYER)
+	if item_block != null:
+		item_handler.draw_item_block(item_block, Vector2(0,0), ItemBlockConstants.BLOCK_LAYER)
 
 func _update_battle_slot_amount_label():
 	$BattleSlotsAmountLabel.text = str("Slots selected: ", selected_containers.size(), "/", map.battle_slots.amount)
+
+class ItemOrigin:
+	var container
+	var item_block: ItemBlockDTO
+	func _init(container, item_block: ItemBlockDTO):
+		self.container = container
+		self.item_block = item_block
+	
+	func restore_item_block():
+		container.place_item(item_block)

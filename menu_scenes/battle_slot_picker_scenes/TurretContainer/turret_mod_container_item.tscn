@@ -15,7 +15,7 @@ corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 
 [node name="TurretModContainerItem" type="Panel"]
-custom_minimum_size = Vector2(130, 150)
+custom_minimum_size = Vector2(130, 175)
 offset_right = 130.0
 offset_bottom = 150.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_d3i5i")
@@ -23,7 +23,7 @@ script = ExtResource("1_7tde1")
 color = 3
 
 [node name="Board" type="TileMap" parent="."]
-position = Vector2(17, 43)
+position = Vector2(17, 20)
 scale = Vector2(0.3, 0.3)
 tile_set = ExtResource("2_s82w2")
 format = 2
@@ -45,5 +45,8 @@ theme_override_styles/hover = ExtResource("3_xsutb")
 theme_override_styles/pressed = ExtResource("3_xsutb")
 theme_override_styles/disabled = ExtResource("3_xsutb")
 theme_override_styles/focus = ExtResource("3_xsutb")
+
+[node name="TurretPosition" type="Node2D" parent="."]
+position = Vector2(62, 142)
 
 [connection signal="pressed" from="SelectedButton" to="." method="_on_selected_button_pressed"]

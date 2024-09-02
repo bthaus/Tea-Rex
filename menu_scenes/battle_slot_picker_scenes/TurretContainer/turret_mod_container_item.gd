@@ -28,6 +28,11 @@ func _ready():
 	
 	item_handler = ItemBlockSelectorHandler.new($Board, mods)
 	style_box.set("border_color", _get_color_from_turret_color(color))
+
+	#var turret = Turret.create(color, 1)
+	#turret.position = $TurretPosition.position
+	#add_child(turret)
+	
 	add_theme_stylebox_override("panel", style_box)
 
 func _process(delta):
@@ -60,7 +65,10 @@ func _input(event):
 			var item = item_handler.get_item_block_at(board_pos)
 			if item != null:
 				item_handler.remove_item_block(item)
-				picked_up.emit(item)
+				picked_up.emit(self, item.map_position, item)
+
+func place_item(item: ItemBlockDTO):
+	item_handler.place_item_block(item, item.map_position)
 
 func clear_mods():
 	item_handler.item_blocks.clear()

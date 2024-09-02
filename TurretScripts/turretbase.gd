@@ -28,7 +28,7 @@ var on_battle_phase_started: Array[Callable] = []
 
 static func create(color: Turret.Hue, lvl: int, type: Turret.Extension=Turret.Extension.DEFAULT,placed=false,mods=[]) -> Turret:
 	var turret = load("res://TurretScripts/turretbase.tscn").instantiate() as Turret;
-	if turret.collisionReference == null:
+	if turret.collisionReference == null and placed:
 		turret.collisionReference = GameState.gameState.collisionReference
 	turret.mods=mods
 	turret.color = color;
