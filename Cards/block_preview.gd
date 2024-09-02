@@ -9,8 +9,8 @@ func set_block(block: Block, spawn_turrets: bool):
 	var turrets=[]
 	if spawn_turrets:
 		for piece in block.pieces:
-			if piece.color == Turret.Hue.WHITE:
-				continue
+			#if piece.color == Turret.Hue.WHITE:
+			#	continue
 			var turret = Turret.create(piece.color, piece.level, piece.extension)
 			turret.position = $TileMap.map_to_local(Vector2(piece.position.x, piece.position.y))
 			turret.placed=false;

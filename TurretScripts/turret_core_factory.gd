@@ -37,6 +37,7 @@ static func register_mod_containers(dots):
 static func add_mods_to_core(core:TurretCore):
 	if mod_containers.is_empty():return
 	for item:ItemBlockDTO in mod_containers[core.type]:
+		if item.turret_mod==null:continue
 		var mod=util.copy_object_shallow(item.turret_mod)
 		core.turret_mods.push_back(mod)
 		

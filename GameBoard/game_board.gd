@@ -227,10 +227,10 @@ func link_spawners_to_waves(map_dto):
 	pass;
 func _spawn_turrets(block: Block, map_position: Vector2):
 	for piece in block.pieces:
-		if piece.color != Turret.Hue.WHITE:
-			var turret = Turret.create(piece.color, piece.level, piece.extension,true)
-			turret.global_position = $Board.map_to_local(map_position + piece.position)
-			add_child(turret)
+		#if piece.color != Turret.Hue.WHITE:
+		var turret = Turret.create(piece.color, piece.level, piece.extension,true)
+		turret.global_position = $Board.map_to_local(map_position + piece.position)
+		add_child(turret)
 
 
 func _remove_turrets(block: Block, map_position: Vector2):
@@ -250,10 +250,10 @@ func _upgrade_turrets(block: Block, map_position: Vector2):
 func _load_preview_turrets_from_selected_block():
 	preview_turrets = []
 	for piece in selected_block.pieces:
-		if piece.color != Turret.Hue.WHITE:
-			var turret = Turret.create(piece.color, piece.level, piece.extension)
-			add_child(turret)
-			preview_turrets.append(turret)
+		#if piece.color != Turret.Hue.WHITE:
+		var turret = Turret.create(piece.color, piece.level, piece.extension)
+		add_child(turret)
+		preview_turrets.append(turret)
 
 
 func reset():
