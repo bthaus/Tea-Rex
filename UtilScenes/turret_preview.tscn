@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://bef8csfl16s3y"]
+
+[ext_resource type="TileSet" uid="uid://dcf0fhqgihare" path="res://TileSets/game_board_tileset.tres" id="1_1sarf"]
+[ext_resource type="Script" path="res://UtilScenes/turret_preview.gd" id="2_x43r0"]
+
+[node name="TurretPreview" type="TileMap"]
+tile_set = ExtResource("1_1sarf")
+format = 2
+script = ExtResource("2_x43r0")

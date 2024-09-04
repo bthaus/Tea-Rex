@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://dhta83lpekmrd"]
+[gd_scene load_steps=6 format=3 uid="uid://dhta83lpekmrd"]
 
 [ext_resource type="Script" path="res://menu_scenes/battle_slot_picker_scenes/ItemBlockSelector/item_block_selector.gd" id="1_ekup2"]
 [ext_resource type="PackedScene" uid="uid://cagcvoxx1smh4" path="res://menu_scenes/battle_slot_picker_scenes/TurretContainer/turret_mod_container_item.tscn" id="3_84gyh"]
 [ext_resource type="TileSet" uid="uid://cgyibnoibofru" path="res://TileSets/item_block_tileset.tres" id="3_a0p0s"]
+[ext_resource type="PackedScene" uid="uid://bef8csfl16s3y" path="res://UtilScenes/turret_preview.tscn" id="4_icm2f"]
 [ext_resource type="PackedScene" uid="uid://bv34txjrodcmi" path="res://menu_scenes/battle_slot_picker_scenes/ItemBlockSelector/item_block_selector_container.tscn" id="4_jc33w"]
 
 [node name="ItemBlockSelector" type="Panel"]
@@ -12,14 +13,21 @@ mouse_filter = 2
 script = ExtResource("1_ekup2")
 
 [node name="TurretModGridContainer" type="GridContainer" parent="."]
-layout_mode = 2
-offset_left = 58.0
-offset_top = 73.0
-offset_right = 528.0
-offset_bottom = 398.0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -210.0
+offset_top = -216.0
+offset_right = 210.0
+offset_bottom = 79.0
+grow_horizontal = 2
+grow_vertical = 2
 size_flags_horizontal = 6
-theme_override_constants/h_separation = 25
-theme_override_constants/v_separation = 25
+theme_override_constants/h_separation = 20
+theme_override_constants/v_separation = 20
 columns = 3
 
 [node name="ModContainerItemBlue" parent="TurretModGridContainer" instance=ExtResource("3_84gyh")]
@@ -46,7 +54,7 @@ layout_mode = 2
 color = 6
 
 [node name="ItemBlockSelectorContainer" parent="." instance=ExtResource("4_jc33w")]
-position = Vector2(48, 427)
+position = Vector2(54, 434)
 
 [node name="BattleSlotsAmountLabel" type="Label" parent="."]
 layout_mode = 0
@@ -55,6 +63,8 @@ offset_bottom = 49.0
 text = "Slots Selected: ?/?"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="TurretPreview" parent="." instance=ExtResource("4_icm2f")]
 
 [node name="Board" type="TileMap" parent="."]
 scale = Vector2(0.25, 0.25)

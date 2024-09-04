@@ -53,7 +53,10 @@ func _select_tab(tab: Button):
 	_update_container_items()
 
 func _update_container_items():
-	for child in item_container.get_children(): child.queue_free()
+	var children = item_container.get_children()
+	for child in children:
+		item_container.remove_child(child)
+		child.queue_free()
 	var items = []
 	
 	if _sandbox_mode:

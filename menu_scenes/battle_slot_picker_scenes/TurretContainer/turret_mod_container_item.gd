@@ -12,6 +12,9 @@ var is_focused = false
 var container_selected = false
 var container
 
+const WIDTH = 6
+const HEIGHT = 6
+
 signal placed
 signal picked_up
 signal focused
@@ -28,17 +31,12 @@ func _ready():
 	
 	item_handler = ItemBlockSelectorHandler.new($Board, mods)
 	style_box.set("border_color", _get_color_from_turret_color(color))
-
-	#var turret = Turret.create(color, 1)
-	#turret.position = $TurretPosition.position
-	#add_child(turret)
-	
 	add_theme_stylebox_override("panel", style_box)
 
 func _process(delta):
 	$Board.clear_layer(ItemBlockConstants.PREVIEW_LAYER)
 	var board_pos = GameboardConstants.local_to_map_on_scaled_board($Board, get_local_mouse_position())
-	if board_pos.x < 0 or board_pos.x > 4 or board_pos.y < 0 or board_pos.y > 4:
+	if board_pos.x < 0 or board_pos.x > WIDTH-1 or board_pos.y < 0 or board_pos.y > HEIGHT-1:
 		if is_focused: focused.emit(null) #Focus now lost
 		is_focused = false
 		return
