@@ -6,4 +6,5 @@
 [node name="TurretPreview" type="TileMap"]
 tile_set = ExtResource("1_1sarf")
 format = 2
+layer_0/tile_data = PackedInt32Array(0, 1, 0, 1, 1, 0, 65537, 1, 0, 65536, 1, 0)
 script = ExtResource("2_x43r0")

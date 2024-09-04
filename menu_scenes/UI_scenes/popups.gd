@@ -8,6 +8,20 @@ var max_width: float = 500.0
 var is_opening = true
 
 func show_popup(sender, content: PopupContent):
+	var rect = Rect2(Vector2i(sender.global_position), Vector2(sender.size))
+	var mouse_pos = get_viewport().get_mouse_position()
+	var correction
+	var padding = 4
+	
+	panel.size = Vector2i.ZERO
+	if mouse_pos.x <= get_viewport_rect().size.x/2:
+		correction = Vector2(rect.size.x + padding, 0)
+	else:
+		correction = -Vector2(panel.size.x + padding, 0)
+	
+	show_popup_at(rect.position + correction, content)
+
+func show_popup_at(position: Vector2, content: PopupContent):
 	if content == null:
 		return
 	
@@ -23,17 +37,7 @@ func show_popup(sender, content: PopupContent):
 			_resize_label(item)
 	
 	panel.size = Vector2i.ZERO
-	var rect = Rect2(Vector2i(sender.global_position), Vector2(sender.size))
-	var mouse_pos = get_viewport().get_mouse_position()
-	var correction
-	var padding = 4
- 
-	if mouse_pos.x <= get_viewport_rect().size.x/2:
-		correction = Vector2(rect.size.x + padding, 0)
-	else:
-		correction = -Vector2(panel.size.x + padding, 0)
- 
-	panel.position = rect.position + correction
+	panel.position = position
 	animation.setup()
 	animation.open()
 
@@ -71,6 +75,13 @@ class PopupContent:
 		rect.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 		rect.texture = texture
 		content.append(rect)
+	
+	func append_scene(scene, size: Vector2):
+		var panel = Panel.new()
+		panel.custom_minimum_size = size
+		panel.add_theme_stylebox_override("panel", StyleBoxEmpty.new())
+		panel.add_child(scene)
+		content.append(panel)
 	
 	func _create_label(bbcode: String, font_size: int) -> RichTextLabel:
 		var label = RichTextLabel.new()
