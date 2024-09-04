@@ -8,6 +8,10 @@ script = ExtResource("1_dtjat")
 
 [node name="BlockSelector" parent="." instance=ExtResource("2_ug7ge")]
 custom_minimum_size = Vector2(600, 550)
+offset_left = -4.0
+offset_top = -4.0
+offset_right = 596.0
+offset_bottom = 644.0
 
 [node name="Button" type="Button" parent="."]
 offset_left = 712.0
@@ -19,4 +23,10 @@ text = "do picker"
 [node name="battle_slot_position" type="Node2D" parent="."]
 position = Vector2(638, 143)
 
+[node name="preview_holder" type="Polygon2D" parent="."]
+clip_children = 1
+position = Vector2(257, 1)
+polygon = PackedVector2Array(691, 68, 697, 338, 1001, 338, 1007, 100)
+
+[connection signal="tree_entered" from="." to="." method="_on_tree_entered"]
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

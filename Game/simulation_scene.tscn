@@ -1,0 +1,47 @@
+[gd_scene load_steps=7 format=3 uid="uid://bqvcbou32nsob"]
+
+[ext_resource type="Script" path="res://Game/simulation_scene.gd" id="1_51dtw"]
+[ext_resource type="Script" path="res://collision_reference/MinionHolder.gd" id="9_k3jj6"]
+[ext_resource type="Script" path="res://collision_reference/BulletHolder.gd" id="10_0himr"]
+[ext_resource type="Script" path="res://Game/EntityHolder.gd" id="11_3f1ps"]
+[ext_resource type="PackedScene" uid="uid://buxrixa70ofmb" path="res://Utils/selection.tscn" id="12_cfgfw"]
+
+[sub_resource type="Environment" id="Environment_83ue6"]
+background_mode = 3
+ambient_light_color = Color(0.552642, 0.483134, 0.873833, 1)
+tonemap_white = 1.67
+glow_normalized = true
+glow_intensity = 4.63
+glow_strength = 0.94
+glow_bloom = 0.29
+glow_blend_mode = 0
+fog_light_energy = 5.04
+adjustment_brightness = 1.08
+adjustment_contrast = 1.1
+adjustment_saturation = 1.34
+
+[node name="MainScene" type="Node2D"]
+script = ExtResource("1_51dtw")
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+visible = false
+color = Color(0.309804, 0.309804, 0.309804, 1)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_83ue6")
+
+[node name="MinionHolder" type="Node2D" parent="."]
+script = ExtResource("9_k3jj6")
+
+[node name="BulletHolder" type="Node2D" parent="."]
+z_index = 2
+position = Vector2(395.634, 295.367)
+script = ExtResource("10_0himr")
+
+[node name="EntityHolder" type="Node2D" parent="."]
+script = ExtResource("11_3f1ps")
+
+[node name="selection" parent="." instance=ExtResource("12_cfgfw")]
+visible = false
+
+[connection signal="tree_exited" from="." to="." method="_on_tree_exited"]
