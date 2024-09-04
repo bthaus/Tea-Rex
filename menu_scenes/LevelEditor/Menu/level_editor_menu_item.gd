@@ -15,6 +15,6 @@ func _on_edit_button_pressed():
 
 func _on_play_button_pressed():
 	var picker = MainMenu.get_scene_instance(MainMenu.BATTLE_SLOT_PICKER_PATH)
-	picker.map_name=name
+	picker.map_name = map_name
 	MainMenu.change_content(picker)
 	picker.enable_sandbox_mode()
