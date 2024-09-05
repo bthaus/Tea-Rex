@@ -23,7 +23,7 @@ func enable_sandbox_mode():
 	$BlockSelector.enable_sandbox_mode()
 
 
-func _on_button_pressed():
+func _on_start_button_pressed():
 	var game_state = MainMenu.get_scene_instance(MainMenu.GAME_STATE_PATH)
 	game_state.map_dto = map
 	game_state.register_battle_slot_containers($BlockSelector.selected_containers)

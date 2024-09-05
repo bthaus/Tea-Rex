@@ -1,4 +1,4 @@
-extends Panel
+extends Node2D
 
 var map: MapDTO
 var item_handler: ItemBlockSelectorHandler
