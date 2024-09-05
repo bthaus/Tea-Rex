@@ -1,8 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://cagcvoxx1smh4"]
+[gd_scene load_steps=7 format=3 uid="uid://cagcvoxx1smh4"]
 
 [ext_resource type="Script" path="res://menu_scenes/battle_slot_picker_scenes/TurretContainer/turret_mod_container_item.gd" id="1_7tde1"]
+[ext_resource type="Script" path="res://UtilScenes/Animations/hover_scale_animation.gd" id="2_7vri3"]
 [ext_resource type="TileSet" uid="uid://cgyibnoibofru" path="res://TileSets/item_block_tileset.tres" id="2_s82w2"]
 [ext_resource type="StyleBox" uid="uid://d11xp0mrjgqnh" path="res://Styles/unchecked_button.tres" id="3_xsutb"]
+[ext_resource type="Texture2D" uid="uid://b5k8umt4kec2f" path="res://Assets/Turrets/Bases/BLUE_base.png" id="5_jhmmp"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d3i5i"]
 border_width_left = 5
@@ -15,16 +17,19 @@ corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 
 [node name="TurretModContainerItem" type="Panel"]
-custom_minimum_size = Vector2(150, 150)
+custom_minimum_size = Vector2(130, 150)
 offset_right = 130.0
 offset_bottom = 130.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_d3i5i")
 script = ExtResource("1_7tde1")
 color = 3
 
+[node name="HoverScaleAnimation" type="Node" parent="."]
+script = ExtResource("2_7vri3")
+
 [node name="Board" type="TileMap" parent="."]
-position = Vector2(17, 20)
-scale = Vector2(0.3, 0.3)
+position = Vector2(17, 41)
+scale = Vector2(0.25, 0.25)
 tile_set = ExtResource("2_s82w2")
 format = 2
 layer_0/name = "ground_layer"
@@ -36,17 +41,20 @@ layer_2/tile_data = PackedInt32Array()
 
 [node name="SelectedButton" type="Button" parent="."]
 layout_mode = 0
-offset_left = -12.0
+offset_left = -10.0
 offset_top = -10.0
-offset_right = 18.0
+offset_right = 20.0
 offset_bottom = 20.0
+mouse_filter = 1
 theme_override_styles/normal = ExtResource("3_xsutb")
 theme_override_styles/hover = ExtResource("3_xsutb")
 theme_override_styles/pressed = ExtResource("3_xsutb")
 theme_override_styles/disabled = ExtResource("3_xsutb")
 theme_override_styles/focus = ExtResource("3_xsutb")
 
-[node name="TurretPosition" type="Node2D" parent="."]
-position = Vector2(62, 142)
+[node name="TurretSprite" type="Sprite2D" parent="."]
+position = Vector2(65, 22)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("5_jhmmp")
 
 [connection signal="pressed" from="SelectedButton" to="." method="_on_selected_button_pressed"]

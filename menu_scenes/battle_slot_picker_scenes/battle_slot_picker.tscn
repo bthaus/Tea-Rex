@@ -19,4 +19,13 @@ text = "do picker"
 [node name="battle_slot_position" type="Node2D" parent="."]
 position = Vector2(638, 143)
 
+[node name="Title" type="Label" parent="."]
+offset_top = 18.0
+offset_right = 1153.0
+offset_bottom = 53.0
+theme_override_font_sizes/font_size = 25
+text = "Battle Slot Picker"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
