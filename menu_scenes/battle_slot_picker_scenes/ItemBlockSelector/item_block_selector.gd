@@ -1,4 +1,4 @@
-extends Panel
+extends Node2D
 
 var map: MapDTO
 var item_handler: ItemBlockSelectorHandler
@@ -31,9 +31,9 @@ func set_map(map: MapDTO):
 	_update_battle_slot_amount_label()
 
 func _on_container_focus_changed(sender):
-	$Board.clear_layer(ItemBlockConstants.BLOCK_LAYER)
+	$Board.clear_layer(ItemBlockConstants.MapLayer.BLOCK_LAYER)
 	if sender == null:
-		item_handler.draw_item_block(selected_item, Vector2(0,0), ItemBlockConstants.BLOCK_LAYER)
+		item_handler.draw_item_block(selected_item, Vector2(0,0), ItemBlockConstants.MapLayer.BLOCK_LAYER)
 	
 	focused_container = sender
 
@@ -69,7 +69,7 @@ func _on_item_selected(item_block: ItemBlockDTO):
 	item_origin = null
 
 func _on_item_placed():
-	$Board.clear_layer(ItemBlockConstants.BLOCK_LAYER)
+	$Board.clear_layer(ItemBlockConstants.MapLayer.BLOCK_LAYER)
 	_set_selected_item(null)
 	item_origin = null
 
@@ -97,9 +97,9 @@ func _input(event):
 		item_origin = null
 	
 func _draw_item_block_hand(item_block: ItemBlockDTO):
-	$Board.clear_layer(ItemBlockConstants.BLOCK_LAYER)
+	$Board.clear_layer(ItemBlockConstants.MapLayer.BLOCK_LAYER)
 	if item_block != null:
-		item_handler.draw_item_block(item_block, Vector2(0,0), ItemBlockConstants.BLOCK_LAYER)
+		item_handler.draw_item_block(item_block, Vector2(0,0), ItemBlockConstants.MapLayer.BLOCK_LAYER)
 
 func _update_battle_slot_amount_label():
 	$BattleSlotsAmountLabel.text = str("Slots selected: ", selected_containers.size(), "/", map.battle_slots.amount)

@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://do8crlwyywy23"]
 
 [ext_resource type="Script" path="res://menu_scenes/battle_slot_picker_scenes/ItemBlockSelector/item_block_selector_item.gd" id="1_jwsf8"]
-[ext_resource type="Texture2D" uid="uid://b8n0busmwromw" path="res://icon.svg" id="2_flw8f"]
+[ext_resource type="TileSet" uid="uid://cgyibnoibofru" path="res://TileSets/item_block_tileset.tres" id="4_pyfiv"]
 
 [node name="ItemBlockSelectorItem" type="Button"]
 custom_minimum_size = Vector2(60, 90)
@@ -9,9 +9,15 @@ offset_right = 50.0
 offset_bottom = 50.0
 script = ExtResource("1_jwsf8")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(30, 44)
-scale = Vector2(0.37207, 0.384683)
-texture = ExtResource("2_flw8f")
+[node name="TileMap" type="TileMap" parent="."]
+position = Vector2(26, 40)
+scale = Vector2(0.15, 0.15)
+tile_set = ExtResource("4_pyfiv")
+format = 2
+layer_0/name = "ground_layer"
+layer_1/name = "block_layer"
+layer_1/tile_data = PackedInt32Array()
+layer_2/name = "preview_layer"
+layer_2/tile_data = PackedInt32Array()
 
 [connection signal="pressed" from="." to="." method="_on_pressed"]
