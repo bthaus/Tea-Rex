@@ -25,8 +25,14 @@ text = "Battle Slot Picker"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+
 [node name="MapPreview" parent="." instance=ExtResource("3_g45wr")]
 position = Vector2(672, 86)
 scale = Vector2(0.15, 0.15)
 
+
+[node name="preview_holder" type="Node2D" parent="."]
+
+[connection signal="tree_entered" from="." to="." method="_on_tree_entered"]
+[connection signal="tree_exited" from="." to="." method="_on_tree_exited"]
 [connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]

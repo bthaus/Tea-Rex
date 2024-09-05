@@ -311,7 +311,7 @@ func is_out_of_range(t):
 		return true
 	if not t.is_targettable():
 		return true;	
-	var start=global_position
+	var start=t.global_position
 	if !ref_proj.ghost_projectile:
 		while start!=global_position:
 			start=start.move_toward(global_position,10)

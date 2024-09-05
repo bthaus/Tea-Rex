@@ -26,6 +26,7 @@ func on_move():
 	
 	pass;
 func on_death():
+	holder.monster_died.emit()
 	$Animation.play("die")
 	$Animation.animation_finished.connect(func():death_animation_done.emit())
 	pass;

@@ -41,7 +41,7 @@ func _ready():
 	delay_timer.wait_time = GameplayConstants.CARD_PLACEMENT_DELAY
 	delay_timer.timeout.connect(func(): is_delayed=false)
 	add_child(delay_timer)
-	gameState.getCamera().dragging_camera.connect(dragging_camera)
+	if util.valid(gameState.getCamera()):gameState.getCamera().dragging_camera.connect(dragging_camera)
 	
 func start_bulldozer(done: Callable, size_x: int, size_y: int):
 	util.p("Bulldozering stuff now...", "Jojo")
