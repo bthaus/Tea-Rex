@@ -8,7 +8,7 @@ func _init(board: TileMap, item_blocks):
 	self.board = board
 	self.item_blocks = item_blocks
 	for item in item_blocks:
-		draw_item_block(item, item.map_position, ItemBlockConstants.BLOCK_LAYER)
+		draw_item_block(item, item.map_position, ItemBlockConstants.MapLayer.BLOCK_LAYER)
 
 #Simply draws an item block on the board
 func draw_item_block(item_block: ItemBlockDTO, map_position: Vector2, layer: int):
@@ -28,7 +28,7 @@ func draw_item_block_with_id(item_block: ItemBlockDTO, tile_id: int, map_positio
 func place_item_block(item_block: ItemBlockDTO, map_position: Vector2):
 	if item_block == null: return
 	if not can_place_item_block(item_block, map_position): return
-	draw_item_block(item_block, map_position, ItemBlockConstants.BLOCK_LAYER)
+	draw_item_block(item_block, map_position, ItemBlockConstants.MapLayer.BLOCK_LAYER)
 	item_block.map_position = map_position
 	item_blocks.append(item_block)
 
@@ -52,7 +52,7 @@ func remove_item_block(item_block: ItemBlockDTO):
 	if idx == -1: return
 	var positions = get_item_block_positions(item_block)
 	for pos in positions:
-		board.set_cell(ItemBlockConstants.BLOCK_LAYER, item_block.map_position + pos, -1, Vector2(0, 0))
+		board.set_cell(ItemBlockConstants.MapLayer.BLOCK_LAYER, item_block.map_position + pos, -1, Vector2(0, 0))
 		
 	item_blocks.remove_at(idx)
 
@@ -82,11 +82,11 @@ func can_place_item_block(item_block: ItemBlockDTO, map_position: Vector2) -> bo
 		var board_pos = map_position + pos
 		
 		#No ground present
-		if board.get_cell_source_id(ItemBlockConstants.GROUND_LAYER, board_pos) == -1:
+		if board.get_cell_source_id(ItemBlockConstants.MapLayer.GROUND_LAYER, board_pos) == -1:
 			return false
 		
 		#Block is already present
-		if board.get_cell_source_id(ItemBlockConstants.BLOCK_LAYER, board_pos) != -1:
+		if board.get_cell_source_id(ItemBlockConstants.MapLayer.BLOCK_LAYER, board_pos) != -1:
 			return false
 		
 		#If the piece is white and we passed until here, continue
@@ -97,7 +97,7 @@ func can_place_item_block(item_block: ItemBlockDTO, map_position: Vector2) -> bo
 		for row in range(-1,2):
 			for col in range(-1,2):
 				var cell_pos = Vector2(board_pos.x+col, board_pos.y+row)
-				var neighbour_color = ItemBlockConstants.get_color_from_tile(board, ItemBlockConstants.BLOCK_LAYER, cell_pos)
+				var neighbour_color = ItemBlockConstants.get_color_from_tile(board, ItemBlockConstants.MapLayer.BLOCK_LAYER, cell_pos)
 				if neighbour_color == null or neighbour_color == Turret.Hue.WHITE: #Checking surrounding pieces is only for colored blocks neccessary
 					continue 
 				

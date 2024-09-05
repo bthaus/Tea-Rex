@@ -1,9 +1,7 @@
 extends Node
 class_name ItemBlockConstants
 
-const GROUND_LAYER = 0
-const BLOCK_LAYER = 1
-const PREVIEW_LAYER = 2
+enum MapLayer {GROUND_LAYER = 0, BLOCK_LAYER = 1, PREVIEW_LAYER = 2}
 
 const GROUND_TILE_ID = 0
 
