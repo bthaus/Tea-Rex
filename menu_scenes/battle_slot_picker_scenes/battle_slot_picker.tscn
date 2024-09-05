@@ -7,7 +7,6 @@
 script = ExtResource("1_dtjat")
 
 [node name="BlockSelector" parent="." instance=ExtResource("2_ug7ge")]
-custom_minimum_size = Vector2(600, 550)
 
 [node name="StartButton" type="Button" parent="."]
 offset_left = 966.0
@@ -15,9 +14,6 @@ offset_top = 530.0
 offset_right = 1118.0
 offset_bottom = 613.0
 text = "Start"
-
-[node name="battle_slot_position" type="Node2D" parent="."]
-position = Vector2(638, 143)
 
 [node name="Title" type="Label" parent="."]
 offset_top = 18.0

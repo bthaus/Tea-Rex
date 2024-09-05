@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://dhta83lpekmrd"]
 
 [ext_resource type="Script" path="res://menu_scenes/battle_slot_picker_scenes/ItemBlockSelector/item_block_selector.gd" id="1_ekup2"]
-[ext_resource type="PackedScene" uid="uid://cagcvoxx1smh4" path="res://menu_scenes/battle_slot_picker_scenes/TurretContainer/turret_mod_container_item.tscn" id="3_84gyh"]
+[ext_resource type="PackedScene" uid="uid://cagcvoxx1smh4" path="res://menu_scenes/battle_slot_picker_scenes/ItemBlockSelector/TurretContainer/turret_mod_container_item.tscn" id="2_vu3vo"]
 [ext_resource type="TileSet" uid="uid://cgyibnoibofru" path="res://TileSets/item_block_tileset.tres" id="3_a0p0s"]
 [ext_resource type="PackedScene" uid="uid://bv34txjrodcmi" path="res://menu_scenes/battle_slot_picker_scenes/ItemBlockSelector/item_block_selector_container.tscn" id="4_jc33w"]
 
@@ -25,26 +25,26 @@ theme_override_constants/h_separation = 20
 theme_override_constants/v_separation = 20
 columns = 3
 
-[node name="ModContainerItemBlue" parent="TurretModGridContainer" instance=ExtResource("3_84gyh")]
+[node name="ModContainerItemBlue" parent="TurretModGridContainer" instance=ExtResource("2_vu3vo")]
 layout_mode = 2
 color = 5
 
-[node name="ModContainerItemRed" parent="TurretModGridContainer" instance=ExtResource("3_84gyh")]
+[node name="ModContainerItemRed" parent="TurretModGridContainer" instance=ExtResource("2_vu3vo")]
 layout_mode = 2
 
-[node name="ModContainerItemGreen" parent="TurretModGridContainer" instance=ExtResource("3_84gyh")]
+[node name="ModContainerItemGreen" parent="TurretModGridContainer" instance=ExtResource("2_vu3vo")]
 layout_mode = 2
 color = 2
 
-[node name="ModContainerItemYellow" parent="TurretModGridContainer" instance=ExtResource("3_84gyh")]
+[node name="ModContainerItemYellow" parent="TurretModGridContainer" instance=ExtResource("2_vu3vo")]
 layout_mode = 2
 color = 4
 
-[node name="ModContainerItemWhite" parent="TurretModGridContainer" instance=ExtResource("3_84gyh")]
+[node name="ModContainerItemWhite" parent="TurretModGridContainer" instance=ExtResource("2_vu3vo")]
 layout_mode = 2
 color = 1
 
-[node name="ModContainerItemMagenta" parent="TurretModGridContainer" instance=ExtResource("3_84gyh")]
+[node name="ModContainerItemMagenta" parent="TurretModGridContainer" instance=ExtResource("2_vu3vo")]
 layout_mode = 2
 color = 6
 
