@@ -3,6 +3,9 @@ extends Button
 var _item_block: ItemBlockDTO
 signal clicked
 
+func _ready():
+	$TileMap.tile_set.tile_size = Vector2(GameboardConstants.TILE_SIZE, GameboardConstants.TILE_SIZE)
+
 func set_item(item_block: ItemBlockDTO):
 	var block = BlockUtils.get_block_from_shape(item_block.block_shape, Turret.Hue.WHITE)
 	$TileMap.clear_layer(ItemBlockConstants.MapLayer.BLOCK_LAYER)

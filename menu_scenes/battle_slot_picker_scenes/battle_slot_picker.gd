@@ -13,6 +13,7 @@ func _ready():
 	map.battle_slots.amount = 3
 	
 	$BlockSelector.set_map(map)
+	$MapPreview.set_map(map)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

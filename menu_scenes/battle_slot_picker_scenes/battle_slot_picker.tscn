@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://wxxetrhi2blb"]
+[gd_scene load_steps=4 format=3 uid="uid://wxxetrhi2blb"]
 
 [ext_resource type="Script" path="res://menu_scenes/battle_slot_picker_scenes/battle_slot_picker.gd" id="1_dtjat"]
 [ext_resource type="PackedScene" uid="uid://dhta83lpekmrd" path="res://menu_scenes/battle_slot_picker_scenes/ItemBlockSelector/item_block_selector.tscn" id="2_ug7ge"]
+[ext_resource type="PackedScene" uid="uid://ocda6wj7wys8" path="res://menu_scenes/battle_slot_picker_scenes/MapPreview/map_preview.tscn" id="3_g45wr"]
 
 [node name="battle_slot_picker" type="Node2D"]
 script = ExtResource("1_dtjat")
@@ -23,5 +24,9 @@ theme_override_font_sizes/font_size = 25
 text = "Battle Slot Picker"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="MapPreview" parent="." instance=ExtResource("3_g45wr")]
+position = Vector2(672, 86)
+scale = Vector2(0.15, 0.15)
 
 [connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]
