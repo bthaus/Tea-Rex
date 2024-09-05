@@ -25,7 +25,7 @@ position = Vector2(638, 143)
 
 [node name="preview_holder" type="Polygon2D" parent="."]
 clip_children = 1
-position = Vector2(257, 1)
+position = Vector2(20, 8)
 polygon = PackedVector2Array(691, 68, 697, 338, 1001, 338, 1007, 100)
 
 [connection signal="tree_entered" from="." to="." method="_on_tree_entered"]
