@@ -27,4 +27,5 @@ vertical_alignment = 1
 [node name="preview_holder" type="Node2D" parent="."]
 
 [connection signal="tree_entered" from="." to="." method="_on_tree_entered"]
+[connection signal="tree_exited" from="." to="." method="_on_tree_exited"]
 [connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]

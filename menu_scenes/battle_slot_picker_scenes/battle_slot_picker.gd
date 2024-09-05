@@ -37,3 +37,8 @@ func _on_tree_entered():
 	preview.auto_start=false
 	preview.turret_position=preview_map_turret_position
 	$preview_holder.add_child(preview)
+
+
+func _on_tree_exited():
+	util.erase(preview)
+	pass # Replace with function body.
