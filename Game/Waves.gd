@@ -240,9 +240,9 @@ func get_average_path_damage():
 	if paths==null: return 0
 	for path in paths:
 		var turrets=GameState.gameState.collisionReference.get_covering_turrets_from_path(path.path)
-		for turret in turrets:
-			if turret.base.targetable_enemy_types.has(path.type):
-				total_damage+=turret.base.get_average_damage()
+		#for turret in turrets:
+			#if turret.base.targetable_enemy_types.has(path.type):
+				##total_damage+=turret.base.get_average_damage()
 	return total_damage			
 	pass;		
 static func can_all_reach_target(redo_grids=true):

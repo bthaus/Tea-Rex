@@ -141,6 +141,7 @@ func _draw():
 	pass;
 		
 func _process(delta):
+	print(spawners.size())
 	for i in range(game_speed):
 		for turret in Turret.turrets:
 			if is_instance_valid(turret): turret.do(delta/game_speed);
@@ -181,12 +182,14 @@ func unregister_entity(entity:BaseEntity):
 		
 	pass;	
 func startBattlePhase():
+	print(spawners.size())
 	for turret in Turret.turrets:
 		turret.clear_path()
 	for s in spawners:
 		for path in s.paths:
 			for cell in path.path:
 				collisionReference.register_path_cell_in_turrets(cell)
+				
 	GameState.game_speed=GameState.restore_speed
 	toggleSpeed(0)
 	Spawner.numMonstersActive = 0;
@@ -295,6 +298,7 @@ func startGame():
 	updateUI()
 	Spawner.refresh_all_paths()
 	queue_redraw()	
+	print(spawners.size())
 	#board.global_rotation_degrees=45
 	pass # Replace with function body.
 

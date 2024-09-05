@@ -26,7 +26,7 @@ func enable_sandbox_mode():
 var preview_map_name="preview_map"
 var preview_map_turret_position=Vector2(9,6)
 func _on_start_button_pressed():
-	preview.queue_free()
+	preview.free()
 	var game_state = MainMenu.get_scene_instance(MainMenu.GAME_STATE_PATH)
 	game_state.map_dto = map
 	game_state.register_battle_slot_containers($BlockSelector.selected_containers)
