@@ -24,4 +24,7 @@ text = "Battle Slot Picker"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="preview_holder" type="Node2D" parent="."]
+
+[connection signal="tree_entered" from="." to="." method="_on_tree_entered"]
 [connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]

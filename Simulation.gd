@@ -28,9 +28,9 @@ func _ready():
 	for s in gameState.spawners:
 		s._is_simulation=true
 	gameState.game_speed
-	gameState.start_build_phase.connect(_next_test)
+	#gameState.start_build_phase.connect(_next_test)
+	spawn_monster()
 	if auto_start:
-		spawn_monster()
 		_setup_mods()
 		_next_test()
 	pass # Replace with function body.
@@ -125,7 +125,7 @@ func _process(delta):
 	pass
 func spawn_monster():
 	var mo=Monster.create(Monster.MonsterName.MINION)
+	mo.simulation=self
 	mo.monster_died.connect(spawn_monster)
-	mo.reached_spawn.connect(spawn_monster)
 	gameState.spawners[0].spawnEnemy(mo)
 	pass

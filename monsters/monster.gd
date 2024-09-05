@@ -13,6 +13,7 @@ var maxHp;
 var monstertype:Monstertype
 var spawner_color
 var spawner
+var simulation:Simulation
 signal status_changed
 var damage:
 	get:return core.damage
@@ -62,6 +63,12 @@ static func create(monster_name, target: Node2D=null, wave: int=1) -> Monster:
 	en.core.holder=en
 	
 	return en
+func hit_spawn():
+	reached_spawn.emit(self)
+	#for some reason the signal doesnt reach the simulation. this is a workaround
+	if util.valid(simulation):
+		simulation.spawn_monster()
+	pass;	
 func is_targettable():
 	if core.has_effect(StatusEffect.Name.HIDDEN):return false
 	if core.died:return false

@@ -314,7 +314,7 @@ func hit_base(m):
 		
 		changeHealth( - m.damage)
 		if m == null or not is_instance_valid(m): return
-		m.reached_spawn.emit(m)
+		m.hit_spawn()
 		m.queue_free()
 		
 	pass # Replace with function body.
