@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://cmo60xvnyw41u"]
+
+[ext_resource type="Script" path="res://menu_scenes/LevelSelection/level_selection_item.gd" id="1_ads0v"]
+
+[node name="LevelSelectionItem" type="Button"]
+offset_right = 15.0
+offset_bottom = 21.0
+script = ExtResource("1_ads0v")
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]
