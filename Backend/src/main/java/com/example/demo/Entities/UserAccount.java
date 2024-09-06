@@ -1,13 +1,12 @@
-package com.example.demo;
+package com.example.demo.Entities;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.Set;
 
 
 @Data
@@ -17,7 +16,7 @@ public class UserAccount {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private int user_id;
     private String name;
     private String email;
 
@@ -26,9 +25,21 @@ public class UserAccount {
             @JsonProperty("id") int id,
             @JsonProperty("name") String name,
             @JsonProperty("email") String email) {
-        this.id = id;
+        this.user_id = id;
         this.name = name;
         this.email = email;
     }
-    // Constructors, Getters, Setters
+
+    @OneToMany
+    @JoinColumn(name="map_id")
+    private Set<Map> maps;
+
+    @OneToMany
+    @JoinColumn(name="comment_id")
+    private Set<Comment> comments;
+
+    @OneToMany
+    @JoinColumn(name="rating_id")
+    private Set<Rating> ratings;
+
 }

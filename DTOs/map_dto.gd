@@ -10,6 +10,7 @@ var map_name: String = ""
 var battle_slots: BattleSlotDTO
 var block_cycle: Array[BaseDTO]
 var color_cycle: Array
+var description:String="This is a map."
 
 var _reduced_entities=""
 var _reduced_waves=""

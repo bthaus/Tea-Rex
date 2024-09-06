@@ -1,5 +1,7 @@
-package com.example.demo;
+package com.example.demo.utils;
 
+import com.example.demo.Entities.UserAccount;
+import com.example.demo.Repositories.UserRepository;
 import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Component;
 

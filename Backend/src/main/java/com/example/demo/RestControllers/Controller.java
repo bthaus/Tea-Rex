@@ -1,6 +1,8 @@
-package com.example.demo;
+package com.example.demo.RestControllers;
 
 
+import com.example.demo.Repositories.UserRepository;
+import com.example.demo.Entities.UserAccount;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
