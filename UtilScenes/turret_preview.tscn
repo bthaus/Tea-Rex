@@ -1,10 +1,23 @@
-[gd_scene load_steps=3 format=3 uid="uid://bef8csfl16s3y"]
+[gd_scene load_steps=3 format=3 uid="uid://b5vw3076ql3cj"]
 
 [ext_resource type="TileSet" uid="uid://dcf0fhqgihare" path="res://TileSets/game_board_tileset.tres" id="1_1sarf"]
-[ext_resource type="Script" path="res://UtilScenes/turret_preview.gd" id="2_x43r0"]
+
+[sub_resource type="GDScript" id="GDScript_n3twr"]
+script/source = "extends TileMap
+
+
+func get_turret_base_tile_id(color: Turret.Hue, level: int):
+	return color * 100 + level
+
+func set_turret(turret: Turret):
+	var map_position = Vector2(0, 4)
+	set_cell(GameboardConstants.MapLayer.BLOCK_LAYER, map_position, get_turret_base_tile_id(turret.color, turret.level), Vector2(0, 0))
+	turret.global_position = map_to_local(Vector2(0, 0))
+	add_child(turret)
+"
 
 [node name="TurretPreview" type="TileMap"]
 tile_set = ExtResource("1_1sarf")
 format = 2
 layer_0/tile_data = PackedInt32Array(0, 1, 0, 1, 1, 0, 65537, 1, 0, 65536, 1, 0)
-script = ExtResource("2_x43r0")
+script = SubResource("GDScript_n3twr")
