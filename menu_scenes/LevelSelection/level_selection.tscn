@@ -1,6 +1,67 @@
-[gd_scene load_steps=2 format=3 uid="uid://cav451lwmjfkq"]
+[gd_scene load_steps=4 format=3 uid="uid://cav451lwmjfkq"]
 
 [ext_resource type="Script" path="res://menu_scenes/LevelSelection/level_selection.gd" id="1_4gnyc"]
+[ext_resource type="StyleBox" uid="uid://b0qhmxvb2s50r" path="res://Styles/default_button.tres" id="2_2sfqi"]
+[ext_resource type="PackedScene" uid="uid://cmo60xvnyw41u" path="res://menu_scenes/LevelSelection/level_selection_item.tscn" id="2_jrjd7"]
 
 [node name="LevelSelection" type="Node2D"]
 script = ExtResource("1_4gnyc")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+offset_left = 222.0
+offset_top = 129.0
+offset_right = 550.0
+offset_bottom = 534.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/panel = ExtResource("2_2sfqi")
+horizontal_scroll_mode = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="ScrollContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_right = 25
+
+[node name="LevelRowsContainer" type="VBoxContainer" parent="ScrollContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 75
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer/MarginContainer/LevelRowsContainer"]
+layout_mode = 2
+theme_override_constants/separation = 75
+
+[node name="LevelSelectionItem" parent="ScrollContainer/MarginContainer/LevelRowsContainer/HBoxContainer" instance=ExtResource("2_jrjd7")]
+layout_mode = 2
+
+[node name="LevelSelectionItem2" parent="ScrollContainer/MarginContainer/LevelRowsContainer/HBoxContainer" instance=ExtResource("2_jrjd7")]
+layout_mode = 2
+
+[node name="LevelSelectionItem3" parent="ScrollContainer/MarginContainer/LevelRowsContainer/HBoxContainer" instance=ExtResource("2_jrjd7")]
+layout_mode = 2
+
+[node name="LevelSelectionItem4" parent="ScrollContainer/MarginContainer/LevelRowsContainer/HBoxContainer" instance=ExtResource("2_jrjd7")]
+layout_mode = 2
+
+[node name="LevelSelectionItem5" parent="ScrollContainer/MarginContainer/LevelRowsContainer/HBoxContainer" instance=ExtResource("2_jrjd7")]
+layout_mode = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="ScrollContainer/MarginContainer/LevelRowsContainer"]
+layout_mode = 2
+theme_override_constants/separation = 75
+alignment = 2
+
+[node name="LevelSelectionItem" parent="ScrollContainer/MarginContainer/LevelRowsContainer/HBoxContainer2" instance=ExtResource("2_jrjd7")]
+layout_mode = 2
+
+[node name="LevelSelectionItem2" parent="ScrollContainer/MarginContainer/LevelRowsContainer/HBoxContainer2" instance=ExtResource("2_jrjd7")]
+layout_mode = 2
+
+[node name="LevelSelectionItem3" parent="ScrollContainer/MarginContainer/LevelRowsContainer/HBoxContainer2" instance=ExtResource("2_jrjd7")]
+layout_mode = 2
+
+[node name="LevelSelectionItem4" parent="ScrollContainer/MarginContainer/LevelRowsContainer/HBoxContainer2" instance=ExtResource("2_jrjd7")]
+layout_mode = 2
+
+[node name="LevelSelectionItem5" parent="ScrollContainer/MarginContainer/LevelRowsContainer/HBoxContainer2" instance=ExtResource("2_jrjd7")]
+layout_mode = 2

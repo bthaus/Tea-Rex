@@ -3,6 +3,7 @@
 [ext_resource type="Script" path="res://menu_scenes/LevelSelection/level_selection_item.gd" id="1_ads0v"]
 
 [node name="LevelSelectionItem" type="Button"]
+custom_minimum_size = Vector2(50, 80)
 offset_right = 15.0
 offset_bottom = 21.0
 script = ExtResource("1_ads0v")
