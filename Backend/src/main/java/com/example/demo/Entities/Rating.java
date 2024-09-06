@@ -19,7 +19,7 @@ public class Rating {
 
     @OneToOne
     @JoinColumn(name = "map_id")  // Foreign key column in the order table
-    private Map map;
+    private GameMap gameMap;
 
 
 }

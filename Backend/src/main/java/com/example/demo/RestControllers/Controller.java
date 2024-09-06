@@ -1,21 +1,24 @@
 package com.example.demo.RestControllers;
 
 
+import com.example.demo.DTOs.MapDTO;
+import com.example.demo.Entities.GameMap;
 import com.example.demo.Repositories.UserRepository;
 import com.example.demo.Entities.UserAccount;
+import com.example.demo.Services.DBService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 @AllArgsConstructor
 @RestController
 public class Controller {
 
     ObjectMapper objectMapper;
     UserRepository userRepository;
+    DBService dbService;
+
     @GetMapping("/hello")
     String hello() {
         System.out.println("connected!");
@@ -52,5 +55,22 @@ public class Controller {
     String post_map(@RequestBody String map) {
         System.out.println(map);
         return "received";
+    }
+
+
+    @PostMapping("/add_map")
+    String add_map(@RequestBody String map) throws JsonProcessingException {
+        System.out.println(map);
+        MapDTO mapDTO;
+        mapDTO=objectMapper.readValue(map, MapDTO.class);
+        var response= dbService.add_map(mapDTO);
+        System.out.println(response);
+        return response;
+    }
+    @GetMapping("/get_map/{map_id}")
+    MapDTO get_map(@PathVariable String map_id) {
+        MapDTO dto=dbService.get_map(map_id);
+        System.out.println(dto.getName()+" requested");
+        return dto;
     }
 }

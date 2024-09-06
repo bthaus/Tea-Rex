@@ -32,7 +32,7 @@ public class UserAccount {
 
     @OneToMany
     @JoinColumn(name="map_id")
-    private Set<Map> maps;
+    private Set<GameMap> gameMaps;
 
     @OneToMany
     @JoinColumn(name="comment_id")

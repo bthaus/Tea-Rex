@@ -10,17 +10,23 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor  // No-args constructor
 public class MapDTO {
     String name;
-    String map_data;
+    String reduced_entities;
+    String reduced_shapes;
+    String reduced_waves;
     String user_id;
 
 
     @JsonCreator
     public MapDTO(
             @JsonProperty("name") String name,
-            @JsonProperty("map_data") String map_data,
+            @JsonProperty("reduced_entities") String reduced_entities,
+            @JsonProperty("reduced_shapes") String reduced_shapes,
+            @JsonProperty("reduced_waves") String reduced_waves,
             @JsonProperty("user_id") String user_id){
         this.user_id = user_id;
         this.name = name;
-        this.map_data = map_data;
+        this.reduced_entities = reduced_entities;
+        this.reduced_shapes = reduced_shapes;
+        this.reduced_waves = reduced_waves;
     }
 }
