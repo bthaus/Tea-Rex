@@ -1,7 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://cav451lwmjfkq"]
+[gd_scene load_steps=3 format=3 uid="uid://cav451lwmjfkq"]
 
 [ext_resource type="Script" path="res://menu_scenes/LevelSelection/level_selection.gd" id="1_4gnyc"]
-[ext_resource type="StyleBox" uid="uid://b0qhmxvb2s50r" path="res://Styles/default_button.tres" id="2_2sfqi"]
 [ext_resource type="PackedScene" uid="uid://cmo60xvnyw41u" path="res://menu_scenes/LevelSelection/level_selection_item.tscn" id="2_jrjd7"]
 
 [node name="LevelSelection" type="Node2D"]
@@ -15,7 +14,6 @@ offset_right = 550.0
 offset_bottom = 534.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
-theme_override_styles/panel = ExtResource("2_2sfqi")
 horizontal_scroll_mode = 0
 
 [node name="MarginContainer" type="MarginContainer" parent="ScrollContainer"]
