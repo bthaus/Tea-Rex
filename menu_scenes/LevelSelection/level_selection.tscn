@@ -8,6 +8,7 @@
 script = ExtResource("1_4gnyc")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
+z_index = -1
 offset_left = 222.0
 offset_top = 129.0
 offset_right = 550.0
