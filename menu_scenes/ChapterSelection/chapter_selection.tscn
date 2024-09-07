@@ -48,3 +48,24 @@ curve = SubResource("Curve2D_srcrt")
 
 [node name="Path2D2" type="Path2D" parent="."]
 curve = SubResource("Curve2D_ftixr")
+
+[node name="Label" type="Label" parent="."]
+offset_left = 5.0
+offset_top = 53.0
+offset_right = 63.0
+offset_bottom = 76.0
+text = "custom"
+
+[node name="Label2" type="Label" parent="."]
+offset_left = 153.0
+offset_top = 88.0
+offset_right = 211.0
+offset_bottom = 111.0
+text = "forrest"
+
+[node name="Label3" type="Label" parent="."]
+offset_left = 338.0
+offset_top = 196.0
+offset_right = 396.0
+offset_bottom = 219.0
+text = "vulcano"

@@ -15,7 +15,7 @@ func set_up(game_state):
 	var progress=account.get_map_progress_dto_by_name(game_state.map_dto.map_name)
 	progress.stars_unlocked=3
 	account.save()
-	pass;
+
 func _on_continue_pressed():
-	MainMenu.change_content(MainMenu.get_scene_instance(MainMenu.LEVEL_SELECT_PATH))
-	pass # Replace with function body.
+	MainMenu.change_content(MainMenu.get_scene_instance(MainMenu.LEVEL_SELECTION_PATH))
+

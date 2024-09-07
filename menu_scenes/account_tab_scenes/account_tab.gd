@@ -54,7 +54,7 @@ func selectAcc(name):
 	pass;
 	
 func continue_to_select():
-	var level_select = MainMenu.get_scene_instance(MainMenu.LEVEL_SELECT_PATH)
+	var level_select = MainMenu.get_scene_instance(MainMenu.CHAPTER_SELECTION_PATH)
 	MainMenu.change_content(level_select)
 
 func saveNewAcc(name):

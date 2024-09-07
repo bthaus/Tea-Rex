@@ -2,7 +2,8 @@ extends GameObject2D
 class_name MainMenu
 
 const GAME_STATE_PATH = "res://Game/main_scene.tscn"
-const LEVEL_SELECT_PATH = "res://menu_scenes/level_selector_scenes/level_selector.tscn"
+const CHAPTER_SELECTION_PATH = "res://menu_scenes/ChapterSelection/chapter_selection.tscn"
+const LEVEL_SELECTION_PATH = "res://menu_scenes/LevelSelection/level_selection.tscn"
 const BATTLE_SLOT_PICKER_PATH = "res://menu_scenes/battle_slot_picker_scenes/battle_slot_picker.tscn"
 const ACCOUNTS_PATH = "res://menu_scenes/account_tab_scenes/accounts_tab.tscn"
 const LEVEL_EDITOR_MENU_PATH = "res://menu_scenes/LevelEditor/Menu/level_editor_menu.tscn"

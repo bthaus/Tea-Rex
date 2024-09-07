@@ -16,17 +16,17 @@ var new_level_unlocked: bool = false
 
 func _ready():
 	level_rows_container.add_theme_constant_override("separation", ITEM_SEPERATION)
-	set_levels("")
 
 func set_levels(chapter_name: String):
+	level_rows_container.add_theme_constant_override("separation", ITEM_SEPERATION)
 	for child in level_rows_container.get_children():
 		level_rows_container.remove_child(child)
 		child.queue_free()
 	
-	#var chapters=MapChapterDTO.new()
-	#chapters.restore()
-	#var level_names = chapters.get_mapnames_from_chapter(chapter_name)
-	level_names = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14"]
+	var chapters=MapChapterDTO.new()
+	chapters.restore()
+	level_names = chapters.get_mapnames_from_chapter(chapter_name)
+	
 	var idx = 0
 	var row = -1
 	for level in level_names:
@@ -44,8 +44,7 @@ func set_levels(chapter_name: String):
 			level_rows_container.get_child(row).move_child(item, 0) #Reverse order for odd-numbered rows
 		idx += 1
 	
-	await get_tree().process_frame
-	set_path()
+	call_deferred("set_path")
 
 func set_path():
 	var paths = get_level_paths()
