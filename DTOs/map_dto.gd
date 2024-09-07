@@ -10,6 +10,7 @@ var map_name: String = ""
 var battle_slots: BattleSlotDTO
 var block_cycle: Array[BaseDTO]
 var color_cycle: Array
+var description:String="This is a map."
 
 var _reduced_entities=""
 var _reduced_waves=""
@@ -42,20 +43,27 @@ func restore(dest,acc="",dir="maps"):
 		if wave_dtos.is_empty():continue
 		waves.append(wave_dtos)	
 	block_cycle=BlockCycleEntryDTO.cycles_from_string(_reduced_shapes)	
-		
-func save(dest,acc="",dir="maps"):
-	MapNameDTO.add_map_name(dest)
-	var keep_arr=[] as Array[BaseDTO]
+func reduce():
+	_reduced_entities=""
+	_reduced_waves=""
+	_reduced_shapes=""
 	for e in entities:
 		_reduced_entities+=e.get_compact_string()
-	entities=keep_arr
+	
 	for wave in waves:
 		for m in wave:
 			_reduced_waves+=str(m.spawner_id)+"_"+str(m.monster_id)+"_"+str(m.count)+"-"
 		_reduced_waves+="&&"
-	waves.clear()	
+	
 	for block in block_cycle:
 		_reduced_shapes+=block.get_compact_string()
+	
+	pass;		
+func save(dest,acc="",dir="maps"):
+	MapNameDTO.add_map_name(dest)
+	reduce()
+	waves.clear()	
 	block_cycle.clear()	
+	entities.clear()
 	return super.save("map_"+dest,"",dir+"/"+dest)
 		
