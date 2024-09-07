@@ -1,9 +1,15 @@
 extends Node2D
 
 @onready var level_rows_container = $ScrollContainer/MarginContainer/LevelRowsContainer
+
+var level_names: Array
 const LEVEL_COLUMNS = 6
 const ITEM_SEPERATION = 75
-var level_names: Array
+
+const PATH_DASHES = 3
+const PATH_SPACE = 15
+const PATH_WIDTH = 8
+const PATH_OFFSET = 10
 
 func _ready():
 	level_rows_container.add_theme_constant_override("separation", ITEM_SEPERATION)
@@ -11,7 +17,7 @@ func _ready():
 	await get_tree().process_frame
 	var paths = get_paths()
 	for path in paths:
-		draw_path(path, 3, 20, 10)
+		draw_path(path, PATH_DASHES, PATH_SPACE, PATH_WIDTH)
 
 func set_levels(chapter_name: String):
 	
@@ -35,8 +41,6 @@ func set_levels(chapter_name: String):
 		
 		var item = load("res://menu_scenes/LevelSelection/level_selection_item.tscn").instantiate()
 		item.set_level(level)
-		if idx >= 10:
-			item.unlocked = false
 		level_rows_container.get_child(row).add_child(item)
 		if row % 2 == 1:
 			level_rows_container.get_child(row).move_child(item, 0) #Reverse order for odd-numbered rows
@@ -58,14 +62,27 @@ func get_paths() -> Array[Path]:
 				return path_points
 			
 			var next_item
-			if col < items.size() - 1:
+			var item_path_offset #Offset based on middle point of the item
+			var next_item_path_offset
+			if col < items.size() - 1: #Both items are in the same row
 				next_item = items[col + 1]
-			else:
+				if row % 2 == 0: #Left to right arrangement
+					item_path_offset = Vector2(item.size.x/2 + PATH_OFFSET, 0)
+					next_item_path_offset = Vector2(-(next_item.size.x/2 + PATH_OFFSET), 0)
+				else:
+					item_path_offset = Vector2(-(item.size.x/2 + PATH_OFFSET), 0)
+					next_item_path_offset = Vector2(next_item.size.x/2 + PATH_OFFSET, 0)
+			else: #New row switch
 				var cont = level_rows_container.get_child(row+1)
 				if (row + 1) % 2 == 0: next_item = cont.get_child(0) #First item
 				else: next_item = cont.get_child(cont.get_child_count()-1) #Last item
-			
-			path_points.append(Path.new(item.global_position + item.size/2, next_item.global_position + next_item.size/2))
+				
+				item_path_offset = Vector2(0, item.size.y/2 + PATH_OFFSET)
+				next_item_path_offset = Vector2(0, -(next_item.size.y/2 + PATH_OFFSET))
+
+			var item_path_pos = Vector2(item.global_position + item.size/2) + item_path_offset
+			var next_item_path_pos = Vector2(next_item.global_position + next_item.size/2) + next_item_path_offset
+			path_points.append(Path.new(item_path_pos, next_item_path_pos))
 			col += 1
 			
 		row += 1
