@@ -62,10 +62,32 @@ func _process(delta):
 		
 		_previous_progress = _path_follow.progress_ratio
 
+func set_character_to_chapter(chapter_name: String):
+	var point = null
+	for child in get_children():
+		if child is ChapterPoint and child.chapter_name == chapter_name:
+			point = child
+			break
+	if point == null:
+		util.p(str("No chapter with name ", chapter_name, " found!"), "ChapterSelection")
+		return
+	
+	_current_point.next_point_path.get_child(0).remove_child(character)
+	_current_point = point
+	_move_to_point = point
+	
+	if point.index > 0: #Not the starting point, add character to previous path follow
+		var previous_point = _get_chapter_point_with_index(point.index - 1)
+		_path_follow = previous_point.next_point_path.get_child(0)
+		_path_follow.add_child(character)
+		_path_follow.progress_ratio = 1
+	else:
+		point.next_point_path.get_child(0).add_child(character)
+
 
 func _on_chapter_point_clicked(sender: ChapterPoint):
 	if _move_to_point == sender: #TODO: SWITCH TO SCENE
-		print("switch")
+		print(sender.chapter_name)
 
 	if _is_moving:
 		if sender.index > _move_to_point.index:

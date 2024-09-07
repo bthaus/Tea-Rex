@@ -5,15 +5,15 @@
 
 [sub_resource type="Curve2D" id="Curve2D_srcrt"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 27, 29, -42.1399, 68.3603, 42.1399, -68.3603, 111, 58, 0, 0, 0, 0, 179, 71)
+"points": PackedVector2Array(0, 0, 0, 0, 27, 29, -42.7699, 64.5805, 42.7699, -64.5805, 111, 58, 0, 0, 0, 0, 179, 71)
 }
 point_count = 3
 
 [sub_resource type="Curve2D" id="Curve2D_ftixr"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 179, 71, 0, 0, 0, 0, 365, 180)
+"points": PackedVector2Array(0, 0, 0, 0, 179, 71, -20.7887, -50.3969, 20.7887, 50.3969, 266, 123, 0, 0, 0, 0, 365, 181)
 }
-point_count = 2
+point_count = 3
 
 [node name="ChapterSelection" type="Node2D"]
 script = ExtResource("1_vdyvk")
@@ -24,6 +24,7 @@ offset_top = 7.0
 offset_right = 51.0
 offset_bottom = 52.0
 next_point_path = NodePath("../Path2D")
+chapter_name = "custom"
 
 [node name="ChapterPoint2" parent="." node_paths=PackedStringArray("next_point_path") instance=ExtResource("1_oqt2r")]
 offset_left = 162.0
@@ -32,6 +33,7 @@ offset_right = 197.0
 offset_bottom = 88.0
 index = 1
 next_point_path = NodePath("../Path2D2")
+chapter_name = "forrest"
 
 [node name="ChapterPoint3" parent="." instance=ExtResource("1_oqt2r")]
 offset_left = 350.0
@@ -39,6 +41,7 @@ offset_top = 165.0
 offset_right = 385.0
 offset_bottom = 198.0
 index = 2
+chapter_name = "vulcano"
 
 [node name="Path2D" type="Path2D" parent="."]
 curve = SubResource("Curve2D_srcrt")
