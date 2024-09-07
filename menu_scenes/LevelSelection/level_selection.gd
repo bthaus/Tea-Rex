@@ -7,20 +7,18 @@ const LEVEL_COLUMNS = 6
 const ITEM_SEPERATION = 75
 
 const PATH_DASHES = 3
-const PATH_SPACE = 15
+const PATH_SPACE = 20
 const PATH_WIDTH = 8
-const PATH_OFFSET = 10
+const PATH_OFFSET = 15
+var path_color: Color = Color.WHITE
+
+var new_level_unlocked: bool = false
 
 func _ready():
 	level_rows_container.add_theme_constant_override("separation", ITEM_SEPERATION)
 	set_levels("")
-	await get_tree().process_frame
-	var paths = get_paths()
-	for path in paths:
-		draw_path(path, PATH_DASHES, PATH_SPACE, PATH_WIDTH)
 
 func set_levels(chapter_name: String):
-	
 	for child in level_rows_container.get_children():
 		level_rows_container.remove_child(child)
 		child.queue_free()
@@ -45,8 +43,32 @@ func set_levels(chapter_name: String):
 		if row % 2 == 1:
 			level_rows_container.get_child(row).move_child(item, 0) #Reverse order for odd-numbered rows
 		idx += 1
+	
+	await get_tree().process_frame
+	set_path()
 
-func get_paths() -> Array[Path]:
+func set_path():
+	var paths = get_level_paths()
+	var idx = 0
+	for path in paths:
+		var lines = get_lines_from_path(path, PATH_DASHES, PATH_SPACE, PATH_WIDTH, path_color)
+		if new_level_unlocked and idx + 1 == paths.size(): #Last element, and it got just unlocked
+			var delay = 1
+			for line in lines:
+				line.modulate.a = 0
+				get_tree().create_timer(delay).timeout.connect(func():
+					get_tree().create_tween().tween_property(line, "modulate:a", 1, 1)
+					)
+				delay += 1
+				add_child(line)
+		else: #Draw paths normally
+			for line in lines:
+				add_child(line)
+				
+		idx += 1
+
+
+func get_level_paths() -> Array[Path]:
 	var row = 0
 	var idx = 0
 	var path_points: Array[Path] = []
@@ -89,7 +111,8 @@ func get_paths() -> Array[Path]:
 	return path_points
 
 #https://math.stackexchange.com/questions/175896/finding-a-point-along-a-line-a-certain-distance-away-from-another-point
-func draw_path(path: Path, number_of_dashes: int, space: int, width: int = 5.0):
+func get_lines_from_path(path: Path, number_of_dashes: int, space: int, width: int = 5.0, color: Color = Color.WHITE) -> Array[Line2D]:
+	var lines: Array[Line2D] = []
 	var path_length = sqrt(pow(path.to.x - path.from.x, 2) + pow(path.to.y - path.from.y, 2))
 	var dash_length = (path_length - ((number_of_dashes - 1) * space)) / number_of_dashes
 	
@@ -105,12 +128,15 @@ func draw_path(path: Path, number_of_dashes: int, space: int, width: int = 5.0):
 		line.begin_cap_mode = Line2D.LINE_CAP_ROUND
 		line.end_cap_mode = Line2D.LINE_CAP_ROUND
 		line.width = width
-		add_child(line)
+		line.default_color = color
+		lines.append(line)
 		
 		total_distance += space #Add the space
 		t = total_distance/path_length #distance ratio
 		previous_point = Vector2((1-t)*path.from.x + t*path.to.x, (1-t)*path.from.y + t*path.to.y)
 		total_distance += dash_length #Add the next dash distance
+	
+	return lines
 
 class Path:
 	var from: Vector2
