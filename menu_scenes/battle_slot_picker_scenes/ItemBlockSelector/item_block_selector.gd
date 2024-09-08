@@ -106,14 +106,15 @@ func _update_battle_slot_amount_label():
 	$BattleSlotsAmountLabel.text = str("Slots selected: ", selected_containers.size(), "/", map.battle_slots.amount)
 
 func _on_tree_entered():
+	
 	preview = load("res://menu_scenes/turret_preview/Turret_preview_scene.tscn").instantiate() as Simulation
 	preview.map_name = "preview_map"
-	preview.auto_start = false
-	preview.scale = Vector2(0.5, 0.5)
-	preview.position = Vector2(50,200)
-	preview.turret_position = Vector2(0, 2)
+	#preview.auto_start = false
+	#preview.scale = Vector2(0.5, 0.5)
+	
+	#preview.turret_position = Vector2(0, 2)
 	$TurretPreview.add_child(preview)
-
+	
 func _on_tree_exited():
 	util.erase(preview)
 

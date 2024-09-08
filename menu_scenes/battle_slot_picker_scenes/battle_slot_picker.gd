@@ -15,6 +15,7 @@ func _ready():
 	
 	$BlockSelector.set_map(map)
 	$MapPreview.set_map(map)
+	
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
