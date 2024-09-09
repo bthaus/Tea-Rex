@@ -216,7 +216,7 @@ func refresh_path(redo_grids=true):
 	if redo_grids:
 		_set_grids()
 		
-	paths= _get_paths(state.board,self)
+	paths= get_paths(state.board,self)
 	$drawpoint.paths=paths
 	$drawpoint.queue_redraw()
 	pass;	
@@ -254,12 +254,12 @@ static func can_all_reach_target(redo_grids=true):
 	return true;
 	pass;	
 func can_reach_target():
-	var paths=_get_paths(state.board,self)
+	var paths=get_paths(state.board,self)
 	if paths==null:
 		print("no reach")
 		return false
 	return true	
-static func _get_paths(map:TileMap,spawner):
+static func get_paths(map:TileMap,spawner):
 	var paths=[]
 	if grids.is_empty():
 		_set_grids()

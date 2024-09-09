@@ -2,38 +2,31 @@
 
 [ext_resource type="Script" path="res://menu_scenes/battle_slot_picker_scenes/battle_slot_picker.gd" id="1_dtjat"]
 [ext_resource type="PackedScene" uid="uid://dhta83lpekmrd" path="res://menu_scenes/battle_slot_picker_scenes/ItemBlockSelector/item_block_selector.tscn" id="2_ug7ge"]
-[ext_resource type="PackedScene" uid="uid://ocda6wj7wys8" path="res://menu_scenes/battle_slot_picker_scenes/MapPreview/map_preview.tscn" id="3_g45wr"]
+[ext_resource type="PackedScene" uid="uid://ocda6wj7wys8" path="res://menu_scenes/battle_slot_picker_scenes/MapPreview/map_preview.tscn" id="3_34lw5"]
 
 [node name="battle_slot_picker" type="Node2D"]
-position = Vector2(17, -5)
-scale = Vector2(2, 2)
 script = ExtResource("1_dtjat")
 
 [node name="BlockSelector" parent="." instance=ExtResource("2_ug7ge")]
 
+[node name="MapPreview" parent="." instance=ExtResource("3_34lw5")]
+position = Vector2(651, 88)
+
 [node name="StartButton" type="Button" parent="."]
-offset_left = 397.5
-offset_top = 322.0
-offset_right = 549.5
-offset_bottom = 405.0
+offset_left = 1020.0
+offset_top = 565.0
+offset_right = 1135.0
+offset_bottom = 627.0
 text = "Start"
 
 [node name="Title" type="Label" parent="."]
-offset_left = -568.5
-offset_top = -190.0
-offset_right = 584.5
-offset_bottom = -155.0
+offset_left = 1.0
+offset_top = 15.0
+offset_right = 1154.0
+offset_bottom = 50.0
 theme_override_font_sizes/font_size = 25
 text = "Battle Slot Picker"
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[node name="MapPreview" parent="." instance=ExtResource("3_g45wr")]
-position = Vector2(103.5, -122)
-scale = Vector2(0.15, 0.15)
-
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(50, 103)
-zoom = Vector2(0.5, 0.5)
 
 [connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]
