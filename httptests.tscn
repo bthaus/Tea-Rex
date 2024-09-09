@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://8ukwvbrak501"]
+[gd_scene load_steps=3 format=3 uid="uid://d2gjht7bya6e2"]
 
 [ext_resource type="Script" path="res://HTTPRequest.gd" id="1_40jhb"]
 [ext_resource type="Script" path="res://Utils/ServerDtos.gd" id="1_so88q"]

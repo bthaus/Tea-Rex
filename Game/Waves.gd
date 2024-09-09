@@ -85,9 +85,9 @@ func doSpawnLogic():
 	pass;
 	
 func spawnEnemy(mo:Monster):
-	if not _is_simulation:
-		mo.monster_died.connect(monsterDied)
-		mo.reached_spawn.connect(monsterReachedSpawn)
+
+	mo.monster_died.connect(monsterDied)
+	mo.reached_spawn.connect(monsterReachedSpawn)
 	mo.global_position=global_position
 	mo.spawner_color=color
 	mo.spawner=self

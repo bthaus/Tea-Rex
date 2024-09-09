@@ -146,7 +146,6 @@ func move(delta):
 func check_collision():
 	if ghost_projectile:
 		return
-	if !util.valid(origin):remove()	
 	var start=origin.global_position
 	while start!=global_position:
 		start=start.move_toward(global_position,10)
