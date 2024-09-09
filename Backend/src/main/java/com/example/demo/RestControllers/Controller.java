@@ -1,15 +1,23 @@
 package com.example.demo.RestControllers;
 
 
+import com.example.demo.DTOs.CommentDTO;
 import com.example.demo.DTOs.MapDTO;
+import com.example.demo.Entities.Comment;
 import com.example.demo.Entities.GameMap;
 import com.example.demo.Repositories.UserRepository;
 import com.example.demo.Entities.UserAccount;
 import com.example.demo.Services.DBService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
+
 import org.springframework.web.bind.annotation.*;
+
+import java.util.LinkedList;
+import java.util.Set;
+
 
 @AllArgsConstructor
 @RestController
@@ -51,12 +59,32 @@ public class Controller {
         return "received";
     }
 
-    @PostMapping("/post_map")
-    String post_map(@RequestBody String map) {
-        System.out.println(map);
-        return "received";
-    }
 
+    @PostMapping("add_comment")
+    String add_comment(@RequestBody String comment) throws JsonProcessingException {
+        System.out.println(comment);
+        CommentDTO commentDTO;
+        commentDTO=objectMapper.readValue(comment, CommentDTO.class);
+        String resonse=dbService.addComment(commentDTO);
+        System.out.println(resonse);
+        return resonse;
+    }
+    @Transactional
+    @GetMapping("get_comments_from_map/{map_name}")
+    CommentDTO[] get_comments_from_map(@PathVariable String map_name)
+    {
+        GameMap map=dbService.get_map(map_name);
+
+        Set<Comment> comments= map.getComments();
+        System.out.println(comments.size() +" comments from map: "+map.getName()+" requested");
+        LinkedList<CommentDTO> list=new LinkedList<>();
+        for (Comment c:comments){
+            list.add(objectMapper.convertValue(c, CommentDTO.class));
+    }
+        return list.toArray(new CommentDTO[list.size()]);
+
+
+    }
 
     @PostMapping("/add_map")
     String add_map(@RequestBody String map) throws JsonProcessingException {
@@ -67,9 +95,10 @@ public class Controller {
         System.out.println(response);
         return response;
     }
-    @GetMapping("/get_map/{map_id}")
-    MapDTO get_map(@PathVariable String map_id) {
-        MapDTO dto=dbService.get_map(map_id);
+    @GetMapping("/get_map/{map_name}")
+    MapDTO get_map(@PathVariable String map_name) {
+        GameMap map=dbService.get_map(map_name);
+        MapDTO dto=map.getDto();
         System.out.println(dto.getName()+" requested");
         return dto;
     }

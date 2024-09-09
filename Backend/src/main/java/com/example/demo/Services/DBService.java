@@ -5,6 +5,7 @@ import com.example.demo.DTOs.CommentDTO;
 import com.example.demo.DTOs.MapDTO;
 import com.example.demo.DTOs.RatingDTO;
 import com.example.demo.DTOs.UserDTO;
+import com.example.demo.Entities.Comment;
 import com.example.demo.Entities.GameMap;
 import com.example.demo.Entities.UserAccount;
 import com.example.demo.Repositories.CommentRepository;
@@ -39,7 +40,18 @@ public class DBService {
         return String.valueOf(current.getMap_id());
     }
     public String addComment(CommentDTO commentDTO){
-
+        UserAccount user=userRepository.findById(Integer.parseInt(commentDTO.getUser_id()));
+        if (user==null){
+            return "User not found";
+        }
+        GameMap current=mapRepository.findByName(commentDTO.getMap_name());
+        if (current==null){
+            return "Map doesnt exist";
+        }
+        Comment comment=new Comment(commentDTO.getComment(),user,current);
+        //commentRepository.save(comment);
+        current.getComments().add(comment);
+        mapRepository.save(current);
         return "Success";
     }
 
@@ -52,12 +64,12 @@ public class DBService {
         return "Success";
     }
 
-    public MapDTO get_map(String id){
-        Optional<GameMap> map = mapRepository.findById(Integer.parseInt(id));
-        if (map.isEmpty()){
+    public GameMap get_map(String map_name){
+        GameMap map = mapRepository.findByName(map_name);
+        if (map==null){
             throw new IllegalArgumentException("Map not found");
         }
-        return map.get().getDto();
+        return map;
     }
 
 
