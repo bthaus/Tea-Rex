@@ -1,14 +1,12 @@
 extends Panel
 class_name LevelEditorSettings
 
+@onready var battle_slots = $ScrollContainer/VBoxContainer/BattleSlotsSettings
 @onready var block_permutator = $ScrollContainer/VBoxContainer/BlockPermutator
 @onready var color_permutator = $ScrollContainer/VBoxContainer/ColorPermutator
 @onready var tile_set = load("res://TileSets/game_board_tileset.tres")
 
 func _ready():
-	block_permutator.set_title("Block Shape Cycle")
-	color_permutator.set_title("Color Cycle")
-	
 	$BlockSelector.block_selected.connect(_on_new_block_selected)
 	$BlockSelector.custom_selected.connect(_on_custom_block_selected)
 	$BlockEditor.saved.connect(_on_block_editor_saved)
@@ -42,6 +40,7 @@ func _set_color_permutator(colors: Array[Turret.Hue]):
 	color_permutator.set_objects("res://menu_scenes/LevelEditor/Settings/ItemPermutator/item_permutator_sprite_item.tscn", color_objects)
 
 func load_settings(map_dto: MapDTO):
+	battle_slots.load_settings(map_dto.battle_slots)
 	var blocks: Array[Block] = []
 	for block in map_dto.block_cycle:
 		blocks.append(block.get_object())
@@ -88,6 +87,7 @@ func _on_close_button_pressed():
 
 func get_setting_properties() -> Properties:
 	var settings = Properties.new()
+	settings.battle_slots_amount = battle_slots.get_amount()
 	settings.block_cycle = get_block_cycle()
 	settings.color_cycle = get_color_cycle()
 	return settings
@@ -110,5 +110,6 @@ func get_color_cycle() -> Array:
 	return color_cycle
 
 class Properties:
+	var battle_slots_amount: int
 	var block_cycle: Array
 	var color_cycle: Array

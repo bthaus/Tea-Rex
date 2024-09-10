@@ -160,7 +160,9 @@ func save_board(monster_waves, setting_properties: LevelEditorSettings.Propertie
 	for pos in board.get_used_cells(GameboardConstants.MapLayer.BUILD_LAYER): entities.append(_get_entity(GameboardConstants.MapLayer.BUILD_LAYER, pos))
 	for pos in board.get_used_cells(GameboardConstants.MapLayer.BLOCK_LAYER): entities.append(_get_entity(GameboardConstants.MapLayer.BLOCK_LAYER, pos))
 	
-	var map_dto = MapDTO.new(entities, monster_waves, setting_properties.block_cycle, setting_properties.color_cycle, map_name)
+	var battle_slot_dto = BattleSlotDTO.new()
+	battle_slot_dto.amount = setting_properties.battle_slots_amount
+	var map_dto = MapDTO.new(entities, monster_waves, setting_properties.block_cycle, setting_properties.color_cycle, battle_slot_dto, map_name)
 	map_dto.save(map_name)
 
 func _get_entity(layer: int, map_position: Vector2):

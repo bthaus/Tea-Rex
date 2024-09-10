@@ -13,10 +13,6 @@ func _ready():
 	map_dto.restore(map_name)
 	map=map_dto
 	
-	#DELETE DELETE DELETE
-	map.battle_slots = BattleSlotDTO.new()
-	map.battle_slots.amount = 3
-	
 	$BlockSelector.set_map(map)
 	camera.max_zoom_in = 2
 	camera.max_zoom_out = 0.2

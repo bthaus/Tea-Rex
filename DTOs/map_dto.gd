@@ -16,11 +16,12 @@ var _reduced_entities=""
 var _reduced_waves=""
 var _reduced_shapes=""
 
-func _init(entities: Array[BaseDTO] = [], waves = [], block_cycle: Array[BaseDTO] = [], color_cycle: Array = [], mapname = ""):
+func _init(entities: Array[BaseDTO] = [], waves = [], block_cycle: Array[BaseDTO] = [], color_cycle: Array = [], battle_slots: BattleSlotDTO = null, mapname = ""):
 	self.entities = entities
 	self.waves = waves
 	self.block_cycle = block_cycle
 	self.color_cycle = color_cycle
+	self.battle_slots = battle_slots
 	self.map_name=mapname
 
 func restore(dest,acc="",dir="maps"):
