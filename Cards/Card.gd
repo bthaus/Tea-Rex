@@ -107,21 +107,7 @@ static func create(gameState:GameState,card=-1):
 		c.get_node("Button").icon=ic	#use this to change color/text of card
 		c.preview=load("res://Cards/block_preview.tscn").instantiate()
 		c.preview.set_block(c.card.block, true)
-		#Just hardcoded for centering blocks
-		match(c.card.block.shape):
-			Block.BlockShape.O: 
-				c.preview.position=Vector2(60,110)
-			Block.BlockShape.I:
-				c.preview.position=Vector2(50,110)
-			Block.BlockShape.SMALL:
-				c.preview.position=Vector2(50,110)
-			Block.BlockShape.S:
-				c.preview.position=Vector2(50,110)
-			Block.BlockShape.Z:
-				c.preview.position=Vector2(50,110)
-			_:
-				c.preview.position=Vector2(50,100)
-
+		c.preview.position=Vector2(50,100)
 		c.preview.scale=Vector2(0.3,0.3)
 		btn.add_child(c.preview)
 	
