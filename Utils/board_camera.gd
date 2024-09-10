@@ -12,8 +12,8 @@ const MAX_SHAKE=5
 const CAMERA_ZOOM = 0.1
 const SCROLL_SPEED = 100
 const MIN_RECOGNIZABLE_DRAG_DISTANCE = 10
-const MAX_ZOOM_OUT = 0.45
-const MAX_ZOOM_IN = 2
+var max_zoom_out = 0.45
+var max_zoom_in = 2
 const VIEW_RANGE_TOLERANCE = 200
 var lastpos=0
 
@@ -88,13 +88,13 @@ func _input(event):
 	if event.is_action_pressed("scroll_up"):
 		if zooming_disabled: return
 		if Input.is_action_pressed("control"):
-			if zoom.x < MAX_ZOOM_IN:
+			if zoom.x < max_zoom_in:
 				zoom = Vector2(zoom.x + CAMERA_ZOOM, zoom.y + CAMERA_ZOOM)
 
 	if event.is_action_pressed("scroll_down"):
 		if zooming_disabled: return
 		if Input.is_action_pressed("control"):
-			if zoom.x > MAX_ZOOM_OUT:
+			if zoom.x > max_zoom_out:
 				zoom = Vector2(zoom.x - CAMERA_ZOOM, zoom.y - CAMERA_ZOOM)
 
 var tween

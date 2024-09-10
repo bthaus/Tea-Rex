@@ -2,7 +2,7 @@ extends Node2D
 
 var gamestate: GameState
 var board_paths = []
-var final_scale = Vector2(0.25, 0.25)
+var final_scale = Vector2(1, 1)
 
 func _ready():
 	$Board.tile_set.tile_size = Vector2(GameboardConstants.TILE_SIZE, GameboardConstants.TILE_SIZE)

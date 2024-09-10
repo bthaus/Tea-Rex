@@ -1,16 +1,15 @@
-[gd_scene load_steps=4 format=3 uid="uid://wxxetrhi2blb"]
+[gd_scene load_steps=5 format=3 uid="uid://wxxetrhi2blb"]
 
 [ext_resource type="Script" path="res://menu_scenes/battle_slot_picker_scenes/battle_slot_picker.gd" id="1_dtjat"]
 [ext_resource type="PackedScene" uid="uid://dhta83lpekmrd" path="res://menu_scenes/battle_slot_picker_scenes/ItemBlockSelector/item_block_selector.tscn" id="2_ug7ge"]
 [ext_resource type="PackedScene" uid="uid://ocda6wj7wys8" path="res://menu_scenes/battle_slot_picker_scenes/MapPreview/map_preview.tscn" id="3_34lw5"]
+[ext_resource type="Script" path="res://Utils/board_camera.gd" id="3_aplah"]
 
 [node name="battle_slot_picker" type="Node2D"]
 script = ExtResource("1_dtjat")
 
 [node name="BlockSelector" parent="." instance=ExtResource("2_ug7ge")]
-
-[node name="MapPreview" parent="." instance=ExtResource("3_34lw5")]
-position = Vector2(651, 88)
+position = Vector2(2, 44)
 
 [node name="StartButton" type="Button" parent="."]
 offset_left = 1020.0
@@ -28,5 +27,39 @@ theme_override_font_sizes/font_size = 25
 text = "Battle Slot Picker"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="PreviewTitle" type="Label" parent="."]
+offset_left = 690.0
+offset_top = 74.0
+offset_right = 966.0
+offset_bottom = 97.0
+text = "Preview"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Panel" type="Panel" parent="."]
+offset_left = 676.0
+offset_top = 113.0
+offset_right = 986.0
+offset_bottom = 423.0
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="Panel"]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 3.0
+offset_right = 305.0
+offset_bottom = 303.0
+
+[node name="SubViewport" type="SubViewport" parent="Panel/SubViewportContainer"]
+handle_input_locally = false
+size = Vector2i(300, 300)
+render_target_update_mode = 4
+
+[node name="MapPreview" parent="Panel/SubViewportContainer/SubViewport" instance=ExtResource("3_34lw5")]
+
+[node name="Camera2D" type="Camera2D" parent="Panel/SubViewportContainer/SubViewport"]
+position = Vector2(500, 500)
+zoom = Vector2(0.25, 0.25)
+script = ExtResource("3_aplah")
 
 [connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]

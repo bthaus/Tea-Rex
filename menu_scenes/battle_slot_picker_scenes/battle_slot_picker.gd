@@ -3,6 +3,10 @@ class_name BattleSlotPicker
 var map_name
 var map
 
+@onready var camera = $Panel/SubViewportContainer/SubViewport/Camera2D
+@onready var map_preview = $Panel/SubViewportContainer/SubViewport/MapPreview
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	var map_dto=MapDTO.new()
@@ -14,13 +18,9 @@ func _ready():
 	map.battle_slots.amount = 3
 	
 	$BlockSelector.set_map(map)
-	$MapPreview.set_map(map)
-	
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
+	camera.max_zoom_in = 2
+	camera.max_zoom_out = 0.2
+	map_preview.set_map(map)
 
 func enable_sandbox_mode():
 	$BlockSelector.enable_sandbox_mode()
