@@ -164,6 +164,8 @@ func _draw_selected_block_preview(map_position: Vector2):
 				previous_preview_pos = pos;
 				idx += 1
 		Spawner.refresh_all_paths()	
+		if action != BoardAction.NONE:
+			can_place_block = block_handler.can_place_block(selected_block, map_position,  gameState.spawners)
 		#update estimated damage
 		Spawner.update_damage_estimate()
 		#Draw actual block shape
