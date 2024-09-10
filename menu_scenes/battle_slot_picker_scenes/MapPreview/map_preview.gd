@@ -19,7 +19,7 @@ func set_map(map_dto: MapDTO):
 	#Then, we scale everything down, and gather the new points using the previously saved points -> map to local.
 	board_paths = []
 	for spawner in gamestate.spawners:
-		for path in Spawner.get_paths($Board, spawner):
+		for path in spawner.paths:
 			var positions = []
 			for path_pos in path.path:
 				positions.append($Board.local_to_map(path_pos))
