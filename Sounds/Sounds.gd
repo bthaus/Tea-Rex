@@ -41,7 +41,7 @@ static func playFromCamera(gamestate, sound, oneshot=true, callback=func(): ):
 	var a = AudioStreamPlayer2D.new()
 	a.volume_db = a.volume_db - 5
 	a.stream = sound
-	
+	if !util.valid(gamestate.getCamera()):return
 	gamestate.getCamera().add_child(a)
 	a.play()
 	a.finished.connect(callback)

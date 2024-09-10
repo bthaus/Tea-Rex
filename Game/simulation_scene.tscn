@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://dw17fe5wj6u8x"]
+[gd_scene load_steps=7 format=3 uid="uid://ddudk5js101e0"]
 
 [ext_resource type="Script" path="res://Game/simulation_scene.gd" id="1_51dtw"]
 [ext_resource type="Script" path="res://collision_reference/MinionHolder.gd" id="9_k3jj6"]

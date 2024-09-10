@@ -48,10 +48,12 @@ public class DBService {
         if (current==null){
             return "Map doesnt exist";
         }
-        Comment comment=new Comment(commentDTO.getComment(),user,current);
-        //commentRepository.save(comment);
+        Comment comment=new Comment(commentDTO.getComment());
+        commentRepository.save(comment);
         current.getComments().add(comment);
         mapRepository.save(current);
+        user.getComments().add(comment);
+        userRepository.save(user);
         return "Success";
     }
 

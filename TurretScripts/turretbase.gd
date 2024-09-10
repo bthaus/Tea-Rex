@@ -46,8 +46,9 @@ static var inhandTurrets = []
 func _on_destroy():
 	if not is_instance_valid(self):return;
 	if is_instance_valid(base.ref_proj):base.ref_proj.queue_free()
-	if is_instance_valid(GameState.gameState.gameBoard): 
-		GameState.gameState.gameBoard.clear_range_outline()
+	if util.valid(GameState.gameState):
+		if is_instance_valid(GameState.gameState.gameBoard): 
+			GameState.gameState.gameBoard.clear_range_outline()
 	if GameState.board!=null:	
 		collisionReference.unregister_turret(self,placed)
 
@@ -256,7 +257,7 @@ func on_moved():
 
 func on_unhover():
 	show_box=false;
-	GameState.gameState.ui.hideDescription()
+	#GameState.gameState.ui.hideDescription()
 	detectorvisible = false;
 	GameState.gameState.hideCount()
 	GameState.gameState.gameBoard.clear_range_outline()
