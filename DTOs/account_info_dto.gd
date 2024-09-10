@@ -8,6 +8,7 @@ var unlocked_colors#:Array[Turret.Hue]
 var unlocked_turret_mods#: Array[ItemBlockDTO]
 #array of blueprintsDTOs 
 var blueprints
+var id=1;
 
 var turret_mod_containers#: Array[TurretModContainerDTO]
 

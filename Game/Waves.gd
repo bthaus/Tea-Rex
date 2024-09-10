@@ -85,9 +85,9 @@ func doSpawnLogic():
 	pass;
 	
 func spawnEnemy(mo:Monster):
-	if not _is_simulation:
-		mo.monster_died.connect(monsterDied)
-		mo.reached_spawn.connect(monsterReachedSpawn)
+
+	mo.monster_died.connect(monsterDied)
+	mo.reached_spawn.connect(monsterReachedSpawn)
 	mo.global_position=global_position
 	mo.spawner_color=color
 	mo.spawner=self
@@ -279,7 +279,7 @@ static func get_paths(map:TileMap,spawner):
 			if satisfied:
 				break
 		if not satisfied:
-			return null				
+			continue			
 		
 				
 		var path=_get_shortest_path_global(grid,spawner_temp)
@@ -290,7 +290,7 @@ static func get_paths(map:TileMap,spawner):
 			paths.append(path_color_type_dto.new(path,Color.WHITE,type))
 		else:	
 			paths.append(path_color_type_dto.new(path,Color.SKY_BLUE,type))
-	
+	if paths.is_empty():return null
 	return paths
 static func _get_shortest_path_global(grid:grid_type_dto,spawner):
 	var path=[]

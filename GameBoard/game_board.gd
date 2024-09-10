@@ -41,7 +41,7 @@ func _ready():
 	delay_timer.wait_time = GameplayConstants.CARD_PLACEMENT_DELAY
 	delay_timer.timeout.connect(func(): is_delayed=false)
 	add_child(delay_timer)
-	if util.valid(gameState.getCamera()):gameState.getCamera().dragging_camera.connect(dragging_camera)
+	gameState.getCamera().dragging_camera.connect(dragging_camera)
 	
 func start_bulldozer(done: Callable, size_x: int, size_y: int):
 	util.p("Bulldozering stuff now...", "Jojo")
@@ -164,6 +164,8 @@ func _draw_selected_block_preview(map_position: Vector2):
 				previous_preview_pos = pos;
 				idx += 1
 		Spawner.refresh_all_paths()	
+		if action != BoardAction.NONE:
+			can_place_block = block_handler.can_place_block(selected_block, map_position,  gameState.spawners)
 		#update estimated damage
 		Spawner.update_damage_estimate()
 		#Draw actual block shape

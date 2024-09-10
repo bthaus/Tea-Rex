@@ -3,7 +3,7 @@ class_name GameState;
 
 @export var gameBoard: GameBoard;
 @export var hand: Node2D
-@onready var ui
+@onready var ui:UI=$CanvasLayer/UI
 @export var cam: Camera2D;
 
 var block_cycle=[]
@@ -88,11 +88,15 @@ func apply_mods_before_start():
 	pass;
 
 func _ready():
+	monsters=$MinionHolder
+	gameState = self;
 	ui=$CanvasLayer/UI
 	hand=ui.hand
-	gameState = self;
 	ui.initialise()
-	$selection.selected.connect(target_minions)
+	game_speed=1;
+	toggleSpeed(0)
+	bulletHolder = $BulletHolder
+	Engine.max_fps=60
 	target = $Base
 	for block_dto in map_dto.block_cycle:
 		block_cycle.append(block_dto.get_object())
@@ -101,15 +105,8 @@ func _ready():
 		
 		if unlockedColors.has(color as Turret.Hue):
 			color_cycle.append(color)
-	cam=$Camera2D	
-	cam.move_to(Vector2(500, 500), func(): print("done"))
-	TutorialHolder.showTutorial(TutorialHolder.tutNames.Starting, self, func():
-		TutorialHolder.showTutorial(TutorialHolder.tutNames.RotateBlock, self, func():
-			TutorialHolder.showTutorial(TutorialHolder.tutNames.Controls, self)
-			)
-		)
 		
-	hand.visible = true;	
+	$selection.selected.connect(target_minions)
 	startGame()
 	pass # Replace with function body.
 func target_minions(cells):
@@ -248,30 +245,9 @@ func startBuildPhase():
 	updateUI()
 	
 	pass ;
-func _notification(what):
-	if (what == NOTIFICATION_PREDELETE):
-		if util.valid(monsters):
-			for child in monsters.get_children():
-				util.erase(child)
-		portals.clear()
-		spawners.clear()
-		targets.clear()
-		for child in Turret.turrets:
-			util.erase(child)
-		
-	
-		
-		
+
 
 func startGame():
-	monsters=$MinionHolder
-	gameState = self;
-	
-	game_speed=1;
-	toggleSpeed(0)
-	bulletHolder = $BulletHolder
-	Engine.max_fps=60
-	
 	portals.clear()
 	spawners.clear()
 	
@@ -294,9 +270,20 @@ func startGame():
 	for target in targets:
 		collisionReference.registerBase(target)
 	
+	cam=$Camera2D	
+	cam.move_to(Vector2(500, 500), func(): print("done"))
+	TutorialHolder.showTutorial(TutorialHolder.tutNames.Starting, self, func():
+		TutorialHolder.showTutorial(TutorialHolder.tutNames.RotateBlock, self, func():
+			TutorialHolder.showTutorial(TutorialHolder.tutNames.Controls, self)
+			)
+		)
+		
+	hand.visible = true;
+	target = $Base
 	drawCards(maxCards)
 	updateUI()
-	Spawner.refresh_all_paths()
+	for s in spawners:
+		s.refresh_path()
 	queue_redraw()	
 	print(spawners.size())
 	#board.global_rotation_degrees=45
@@ -349,7 +336,6 @@ func upRedraws():
 	pass ;
 	
 func updateUI():
-	if !util.valid(ui):return
 	ui.updateUI();
 	pass ;
 	
@@ -403,7 +389,6 @@ func getCamera():
 	return $Camera2D
 	
 func drawCards(amount):
-	if !util.valid(hand):return
 	for n in range(amount):
 		get_tree().create_timer((n as float) / 3).timeout.connect(hand.drawCard)
 	pass ;

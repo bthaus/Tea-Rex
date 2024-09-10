@@ -14,7 +14,7 @@ public class GameMap {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int map_id;
-
+    @Column(name = "unique_name", unique = true, nullable = false)
     private String name;
     private String description;
     @Lob
@@ -45,7 +45,7 @@ public class GameMap {
     @JoinColumn(name = "rating_id")  // Foreign key column in the order table
     private Set<Rating> ratings;
 
-    @OneToMany
+    @OneToMany (fetch = FetchType.EAGER)
     @JoinColumn(name = "comment_id")
     private Set<Comment> comments;
 

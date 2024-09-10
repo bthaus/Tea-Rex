@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://3oc2ak1sdueb"]
-
-[ext_resource type="Script" path="res://Simulation.gd" id="1_1jlmd"]
-
-[node name="turret_preview_scene" type="Node2D"]
-script = ExtResource("1_1jlmd")
