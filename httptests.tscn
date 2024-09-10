@@ -1,9 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://d2gjht7bya6e2"]
+[gd_scene load_steps=3 format=3 uid="uid://bfpovp0flr0lq"]
 
 [ext_resource type="Script" path="res://HTTPRequest.gd" id="1_40jhb"]
 [ext_resource type="Script" path="res://Utils/ServerDtos.gd" id="1_so88q"]
 
 [node name="httptests" type="Node2D"]
+visible = false
 script = ExtResource("1_so88q")
 
 [node name="HTTPRequest" type="HTTPRequest" parent="."]

@@ -50,8 +50,8 @@ func send():
 	#var map=MapDTO.new()
 	#map.restore("sim_debug")
 	#send_map(map)
-	#send_comment("geile map","sim_debug")
-	get_comments("sim_debug")
+	send_comment("geile map","sim_debug")
+	#get_comments("sim_debug")
 	pass;
 
 func POST(route,data_dic):

@@ -17,19 +17,11 @@ public class Comment {
     private Long comment_id;
 
     private String comment;
-    @ManyToOne
-    @JoinColumn(name = "user_id")  // Foreign key column in the order table
-    private UserAccount user;
 
-    @ManyToOne
-    @JoinColumn(name = "map_id")  // Foreign key column in the order table
-    private GameMap gameMap;
-
-
-    public Comment(String comment, UserAccount user, GameMap current) {
+    public Comment(String comment) {
         this.comment = comment;
-        this.user = user;
-        this.gameMap = current;
+
+
     }
 
 }
