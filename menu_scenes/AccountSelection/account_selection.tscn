@@ -1,0 +1,33 @@
+[gd_scene load_steps=3 format=3 uid="uid://dkiinb5i15elx"]
+
+[ext_resource type="PackedScene" uid="uid://lrwfptv7fypd" path="res://menu_scenes/AccountSelection/account_selection_item.tscn" id="1_8oec6"]
+[ext_resource type="Script" path="res://menu_scenes/AccountSelection/account_selection.gd" id="1_8w4fk"]
+
+[node name="AccountSelection" type="Node2D"]
+script = ExtResource("1_8w4fk")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+offset_left = 196.0
+offset_top = 197.0
+offset_right = 1008.0
+offset_bottom = 518.0
+size_flags_horizontal = 4
+horizontal_scroll_mode = 0
+
+[node name="AccountsContainer" type="GridContainer" parent="ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+columns = 2
+
+[node name="AccountSelectionItem" parent="ScrollContainer/AccountsContainer" instance=ExtResource("1_8oec6")]
+layout_mode = 2
+
+[node name="AccountSelectionItem2" parent="ScrollContainer/AccountsContainer" instance=ExtResource("1_8oec6")]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="."]
+offset_right = 1152.0
+offset_bottom = 50.0
+text = "Select an Account"
+horizontal_alignment = 1
+vertical_alignment = 1

@@ -9,6 +9,8 @@ const MIN_NUMBER_OF_WAVES = 1
 const MAX_NUMBER_OF_WAVES = 100
 const MAX_NUMBER_OF_MONSTERS_PER_TYPE = 50
 
+const NUMBER_OF_ACCOUNTS = 6
+
 const DEBUFF_STANDART_LIFETIME = 3
 
 const green_explosion_range = 0.5;
