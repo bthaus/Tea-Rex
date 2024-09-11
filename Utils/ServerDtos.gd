@@ -34,4 +34,3 @@ static func hash_password(password: String) -> String:
 	hash.start(HashingContext.HASH_SHA256)
 	hash.update(password.to_utf8_buffer())
 	return hash.finish().hex_encode()		
-
