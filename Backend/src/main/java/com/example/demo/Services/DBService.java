@@ -10,6 +10,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseCookie;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -127,5 +128,13 @@ public class DBService {
             throw new IllegalArgumentException("User not found");
         }
         return account.get();
+    }
+    public String[] getMapNames(){
+      List<GameMap>maps= mapRepository.findAll();
+      String[]arr=new String[maps.size()];
+      for (int i=0;i<maps.size();i++){
+          arr[i]=maps.get(i).getName();
+      }
+      return arr;
     }
 }

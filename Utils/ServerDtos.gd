@@ -35,3 +35,7 @@ static func hash_password(password: String) -> String:
 	hash.update(password.to_utf8_buffer())
 	return hash.finish().hex_encode()		
 
+
+
+func _on_getmaps_pressed():
+	pass # Replace with function body.

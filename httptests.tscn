@@ -67,6 +67,13 @@ offset_right = 582.0
 offset_bottom = -43.0
 text = "add acc"
 
+[node name="getmaps" type="Button" parent="."]
+offset_left = 422.0
+offset_top = 21.0
+offset_right = 489.0
+offset_bottom = 52.0
+text = "add acc"
+
 [connection signal="pressed" from="sen" to="HTTPRequest" method="_on_sen_pressed"]
 [connection signal="pressed" from="get" to="HTTPRequest" method="_on_get_pressed"]
 [connection signal="pressed" from="map" to="HTTPRequest" method="_on_map_pressed"]
@@ -75,3 +82,4 @@ text = "add acc"
 [connection signal="pressed" from="Button2" to="HTTPRequest" method="_on_button_2_pressed"]
 [connection signal="pressed" from="get_rating" to="HTTPRequest" method="_on_get_rating_pressed"]
 [connection signal="pressed" from="addacc" to="HTTPRequest" method="_on_addacc_pressed"]
+[connection signal="pressed" from="getmaps" to="HTTPRequest" method="_on_getmaps_pressed"]

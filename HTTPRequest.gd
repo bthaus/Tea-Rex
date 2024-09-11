@@ -1,5 +1,6 @@
 extends HTTPRequest
-const server_base_route="http://localhost:8080/"
+const server_base_route="https://rgba-latest.onrender.com/"
+#const server_base_route="http://localhost:8080/"
 const public_key="-----BEGIN PUBLIC KEY-----
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAwsx2ZQWdfQoNmqjfjkjK
 ucTmFY5F+vdieEFMFcwGjZWA/l7tXb+gVtVNA0BDi6wwv+FBjup/HObV5K5Ky1H1
@@ -123,4 +124,9 @@ func register_user(username,password,email):
 	POST("register_acc",data)
 func _on_addacc_pressed():
 	register_user(MainMenu.account_dto.account_name,"bodopw","bwuest@gmx.at"+str(randi_range(10,1111322)))
+	pass # Replace with function body.
+
+
+func _on_getmaps_pressed():
+	GET("get_map_names")
 	pass # Replace with function body.

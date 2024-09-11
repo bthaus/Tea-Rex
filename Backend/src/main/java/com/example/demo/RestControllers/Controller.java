@@ -18,6 +18,7 @@ import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Set;
 
 
@@ -137,6 +138,10 @@ public class Controller {
         }
         return sum/counter;
     }
+    @GetMapping("get_map_names")
+    public String[] get_maps(){
+    return dbService.getMapNames();
+    }
     @PostMapping("validated/add_map")
     String add_map(@RequestBody String map,@CookieValue(name = "token", defaultValue = "no.to.ken")String token) throws JsonProcessingException {
         UserAccount user=dbService.getUserFromToken(token);
@@ -155,3 +160,4 @@ public class Controller {
         return map;
     }
 }
+
