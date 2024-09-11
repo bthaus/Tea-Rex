@@ -18,8 +18,8 @@ public class UserDataInitializer {
     public void init() {
         // Check if the data already exists
         if (userRepository.count() == 0) {
-            userRepository.save(new UserAccount(1, "JohnDoe", "john.doe@example.com"));
-            userRepository.save(new UserAccount(2, "JaneSmith", "jane.smith@example.com"));
+            userRepository.save(new UserAccount( "JohnDoe","johniscool", "john.doe@example.com"));
+
         }
     }
 }

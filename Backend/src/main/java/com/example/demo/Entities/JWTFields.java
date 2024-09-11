@@ -13,8 +13,10 @@ import lombok.extern.jackson.Jacksonized;
 @AllArgsConstructor
 @SuperBuilder
 @Jacksonized
-@NoArgsConstructor
+
 public class JWTFields {
-    private String type;
+    public JWTFields(String who){
+
+    }
 
 }

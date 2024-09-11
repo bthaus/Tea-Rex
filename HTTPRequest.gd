@@ -10,8 +10,30 @@ RId3M1iJcfdLPR99dGDVhR5i6P2SdpHEmdp8NfoBGkaR7vIs9LLHVigWiQCCBEEx
 CQIDAQAB
 -----END PUBLIC KEY-----
 "
+var token=""
+func _on_request_completed(result, response_code, headers, body):
+	#request("http://localhost:8080/hello")
+	check_for_token(headers)
+	var json = body.get_string_from_utf8()
+	var data=JSON.parse_string(json)
+	print(json)
+
+func check_for_token(headers):
+	
+	for s:String in headers:
+		if s.contains("token"):
+			token=s.substr(s.find("=")+1)
+			var dto=MainMenu.get_account_dto()
+			dto._active_token=token
+			dto.save()
+	pass;
+func get_headers():
+	var tokencookie="token="+token
+	return  ["Content-Type: application/json","Cookie: "+tokencookie]
 func _ready():
 	request_completed.connect(_on_request_completed)
+	MainMenu.account_dto=AccountInfoDTO.new()
+	MainMenu.account_dto.account_name="JohnDoe"+str(randi_range(0,100000))
 	send()
 	#request("http://localhost:8080/hello")
 	
@@ -25,63 +47,33 @@ func encrypt(s:String)->PackedByteArray:
 	pass;	
 func send():
 	
-	#var dto=ServerDTOs.get_map_dto(map,1)
-	#var crypto=Crypto.new()
-	#var key=CryptoKey.new()
-	#key.load_from_string(public_key)
-	#var json = JSON.stringify(dto)
-	#var u=encrypt("aasdasdfasdf")
-	#
-	#var json=JSON.stringify({"id"=1,
-	##"name"="Bodo",
-	##"email"="bweust"})
-#	var json=JSON.stringify(dto)
-	#var headers = ["Content-Type: application/json"]
-#	request("https://localhost:443/add_map", headers, HTTPClient.METHOD_POST, json)
-	#var client_trusted_cas = load("res://secrets/Neuer Ordner/ca_bundle.crt")
-	#var client_tls_options = TLSOptions.client(client_trusted_cas)
-	#set_tls_options(TLSOptions.client_unsafe())
-	#set_tls_options(client_tls_options)
-	#var data="mypassword"
-	#var signature = crypto.sign(HashingContext.HASH_SHA256, data.sha256_buffer(), key)
-	#print(signature)
-	#var second_signature=crypto.sign(HashingContext.HASH_SHA256, data.sha256_buffer(), key)
-	#print(signature==second_signature)
-
-	#
+	
 	pass;
 
 func POST(route,data_dic):
-	var headers = ["Content-Type: application/json"]
+	
 	var json=JSON.stringify(data_dic)
-	request(server_base_route+route, headers, HTTPClient.METHOD_POST, json)
+	request(server_base_route+route, get_headers(), HTTPClient.METHOD_POST, json)
 	pass;
 func GET(route):
-	var headers = ["Content-Type: application/json"]
-	request(server_base_route+route)
+	request(server_base_route+route,get_headers())
 	pass;	
 func send_map(map_dto:MapDTO):
-	var id=MainMenu.get_account_dto().id
-	var dto=ServerDTOs.get_map_dto(map_dto,"JohnDoe")
-	POST("add_map",dto)
+	var id=MainMenu.get_account_dto().account_name
+	var dto=ServerDTOs.get_map_dto(map_dto,id)
+	POST("validated/add_map",dto)
 	pass;	
 func get_map(map_name:String):
 	GET("get_map/"+map_name)
 	pass;	
 func send_comment(comment:String,mapname:String):
-	var id=MainMenu.get_account_dto().id
-	var dto=ServerDTOs.get_comment_dto(comment,"JohnDoe",mapname)
-	POST("add_comment",dto)
+	var id=MainMenu.get_account_dto().account_name
+	var dto=ServerDTOs.get_comment_dto(comment,id,mapname)
+	POST("validated/add_comment",dto)
 	pass;	
 func get_comments(mapname:String):
 	GET("get_comments_from_map/"+mapname)
 	pass;	
-func _on_request_completed(result, response_code, headers, body):
-	#request("http://localhost:8080/hello")
-	var json = body.get_string_from_utf8()
-	var data=JSON.parse_string(json)
-	print(json)
-
 
 func _on_sen_pressed():
 	send_comment("geile map","sim_debug")
@@ -114,7 +106,7 @@ func _on_get_maps_from_user_pressed():
 
 func add_rating_to_map(rating:int,map_name:String,user_name:String):
 	var dto=ServerDTOs.get_rating_dto(map_name,user_name,rating);
-	POST("add_rating_to_map",dto)
+	POST("validated/add_rating_to_map",dto)
 func get_rating_from_map(map_name:String):
 	GET("get_rating_from_map/"+map_name)	
 func _on_button_2_pressed():
@@ -124,4 +116,11 @@ func _on_button_2_pressed():
 
 func _on_get_rating_pressed():
 	get_rating_from_map("sim_debug")
+	pass # Replace with function body.
+
+func register_user(username,password,email):
+	var data=ServerDTOs.get_account_dto(username,password,email)
+	POST("register_acc",data)
+func _on_addacc_pressed():
+	register_user(MainMenu.account_dto.account_name,"bodopw","bwuest@gmx.at"+str(randi_range(10,1111322)))
 	pass # Replace with function body.

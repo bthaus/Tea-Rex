@@ -7,16 +7,17 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseCookie;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 import java.util.function.Function;
-
+@Service
 public class JWTService {
 
     @Value("${jwt.secret}")
     private String secret;
-    public static final long JWT_TOKEN_VALIDITY = 5 * 60 * 60;
+    public static final long JWT_TOKEN_VALIDITY = 5 * 60 * 60 * 24;//60 seconds* 60 minutes * 24 hours * 5 days
 
     //while creating the token -
     //1. Define  claims of the token, like Issuer, Expiration, Subject, and the ID
@@ -24,11 +25,18 @@ public class JWTService {
     //3. According to JWS Compact Serialization(https://tools.ietf.org/html/draft-ietf-jose-json-web-signature-41#section-3.1)
     //   compaction of the JWT to a URL-safe string
     String doGenerateToken(Map<String, Object> claims, String subject, JWTFields fields) {
+        return Jwts.builder()
+                .setClaims(claims)
+                .claim("fields", fields)
+                .setSubject(subject)
+                .setIssuedAt(new Date(System.currentTimeMillis()))
+                .setExpiration(new Date(System.currentTimeMillis() + 1000 * JWT_TOKEN_VALIDITY))
+                .signWith(SignatureAlgorithm.HS512, Base64.getEncoder().encodeToString(secret.getBytes())) // Base64 encoded secret
+                .compact();
 
-
-        return Jwts.builder().setClaims(claims).claim("fields", fields).setSubject(subject).setIssuedAt(new Date(System.currentTimeMillis()))
+        /*return Jwts.builder().setClaims(claims).claim("fields", fields).setSubject(subject).setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + 1000*JWT_TOKEN_VALIDITY))
-                .signWith(SignatureAlgorithm.HS512, Base64.getEncoder().encodeToString(secret.getBytes())).compact();
+                .signWith(SignatureAlgorithm.HS512, Base64.getEncoder().encodeToString(secret.getBytes())).compact();*/
     }
 
     public String generateToken(Long id, JWTFields type) {
@@ -66,8 +74,8 @@ public class JWTService {
 
     public JWTFields getFieldsFromToken(String token) {
         Claims claims = getAllClaimsFromToken(token);
-        LinkedHashMap o = claims.get("fields", LinkedHashMap.class);
-        return new JWTFields((String) o.get("type"));
+      // LinkedHashMap o = claims.get("fields", LinkedHashMap.class);
+        return new JWTFields();
     }
 
     //retrieve username from jwt token
@@ -96,14 +104,13 @@ public class JWTService {
     private final int AUTHENTICATION_TIME = 10 * 60;
     private final int TOOL_UPDATE_TIME = 10 * 60;
     private final int ENTRY_TIME = 60 * 60 * 24 * 7;
-    public ResponseCookie getTokenCookie(String id, String type) {
+    public ResponseCookie getTokenCookie(String id) {
         long lifetime = JWT_TOKEN_VALIDITY*1000;
 
-        ResponseCookie cookie = ResponseCookie.from("token", generateToken(id, new JWTFields(type)))
+        return ResponseCookie.from("token", generateToken(id, new JWTFields()))
                 .maxAge(lifetime)
                 .path("/")
                 .build();
-        return cookie;
     }
 
 

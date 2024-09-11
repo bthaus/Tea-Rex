@@ -17,7 +17,7 @@ public class UserAccount {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int user_id;
+    private long user_id;
 
     private String pw;
     private String token;
@@ -30,12 +30,12 @@ public class UserAccount {
 
     @JsonCreator
     public UserAccount(
-            @JsonProperty("id") int id,
-            @JsonProperty("name") String name,
+            @JsonProperty("user_name") String name,
+            @JsonProperty("password")String password,
             @JsonProperty("email") String email) {
-        this.user_id = id;
         this.name = name;
         this.email = email;
+        this.pw = password;
     }
 
     @OneToMany(cascade = CascadeType.PERSIST)

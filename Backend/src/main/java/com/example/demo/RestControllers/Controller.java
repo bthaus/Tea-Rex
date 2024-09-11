@@ -8,11 +8,17 @@ import com.example.demo.Entities.Rating;
 import com.example.demo.Repositories.UserRepository;
 import com.example.demo.Entities.UserAccount;
 import com.example.demo.Services.DBService;
+import com.example.demo.Services.JWTService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 
+import org.h2.engine.User;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseCookie;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Set;
@@ -25,6 +31,8 @@ public class Controller {
     ObjectMapper objectMapper;
     UserRepository userRepository;
     DBService dbService;
+    JWTService jwtService;
+
 
     @GetMapping("/hello")
     String hello() {
@@ -45,24 +53,24 @@ public class Controller {
     }
 
 
-    @PostMapping("/post_user_dictionary")
-    String post_user(@RequestBody String user) {
+    @PostMapping("/register_acc")
+    ResponseEntity<String> post_user(@RequestBody String user) throws JsonProcessingException {
         System.out.println(user);
-        UserAccount u;
-        try {
-           u=objectMapper.readValue(user, UserAccount.class);
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
-        }
-        userRepository.save(u);
-        return "received";
+        UserAccount u=objectMapper.readValue(user, UserAccount.class);
+        ResponseCookie cookie=dbService.addUser(u);
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(HttpHeaders.SET_COOKIE,cookie.toString());
+        return ResponseEntity.status(HttpStatus.OK).headers(headers).body(String.valueOf(u.getUser_id()));
+
     }
 
 
-    @PostMapping("add_comment")
-    String add_comment(@RequestBody String comment) throws JsonProcessingException {
+    @PostMapping("validated/add_comment")
+    String add_comment(@RequestBody String comment,@CookieValue(name = "token", defaultValue = "no.to.ken")String token) throws JsonProcessingException {
         System.out.println(comment);
+        UserAccount user=dbService.getUserFromToken(token);
         Comment c=objectMapper.readValue(comment, Comment.class);
+        c.setUser_name(user.getName());
         String resonse=dbService.addComment(c);
         System.out.println(resonse);
         return resonse;
@@ -88,7 +96,7 @@ public class Controller {
 
 
     }
-    @PostMapping("add_rating_to_map")
+    @PostMapping("validated/add_rating_to_map")
     String add_rating_to_map(@RequestBody String rating) throws JsonProcessingException {
 
         Rating r=objectMapper.readValue(rating, Rating.class);
@@ -109,11 +117,13 @@ public class Controller {
         }
         return sum/counter;
     }
-    @PostMapping("/add_map")
-    String add_map(@RequestBody String map) throws JsonProcessingException {
+    @PostMapping("validated/add_map")
+    String add_map(@RequestBody String map,@CookieValue(name = "token", defaultValue = "no.to.ken")String token) throws JsonProcessingException {
+        UserAccount user=dbService.getUserFromToken(token);
         System.out.println(map);
         GameMap gameMap;
         gameMap=objectMapper.readValue(map, GameMap.class);
+        gameMap.setUser_name(user.getName());
         var response= dbService.add_map(gameMap);
         System.out.println(response);
         return response;
