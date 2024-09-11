@@ -1,0 +1,72 @@
+[gd_scene load_steps=2 format=3 uid="uid://mw4gtrxl3rlv"]
+
+[ext_resource type="Script" path="res://menu_scenes/LevelEditor/Settings/battle_slots_settings.gd" id="1_q1q5h"]
+
+[node name="BattleSlotsSettings" type="Panel"]
+custom_minimum_size = Vector2(0, 100)
+offset_right = 500.0
+offset_bottom = 100.0
+script = ExtResource("1_q1q5h")
+
+[node name="AmountDecreaseButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 6.5
+offset_top = -2.0
+offset_right = 31.5
+offset_bottom = 28.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 10
+text = "<"
+
+[node name="AmountIncreaseButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 80.5
+offset_top = -2.0
+offset_right = 105.5
+offset_bottom = 28.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 10
+text = ">"
+
+[node name="AmountEdit" type="LineEdit" parent="."]
+clip_contents = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 35.5
+offset_top = -2.0
+offset_right = 76.5
+offset_bottom = 28.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/minimum_character_width = 0
+theme_override_font_sizes/font_size = 15
+text = "3"
+alignment = 1
+
+[node name="AmountLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = 163.0
+offset_top = 51.0
+offset_right = 234.0
+offset_bottom = 74.0
+text = "Slots:"
+
+[connection signal="pressed" from="AmountDecreaseButton" to="." method="_on_amount_decrease_button_pressed"]
+[connection signal="pressed" from="AmountIncreaseButton" to="." method="_on_amount_increase_button_pressed"]
+[connection signal="focus_exited" from="AmountEdit" to="." method="_on_amount_edit_focus_exited"]

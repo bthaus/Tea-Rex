@@ -3,8 +3,8 @@ extends GameObjectCounted
 class_name GameboardConstants
 
 #BOARD PROPERTIES
-const BOARD_WIDTH = 32
-const BOARD_HEIGHT = 32
+const BOARD_WIDTH = 16
+const BOARD_HEIGHT = 16
 const TILE_SIZE = 62
 
 

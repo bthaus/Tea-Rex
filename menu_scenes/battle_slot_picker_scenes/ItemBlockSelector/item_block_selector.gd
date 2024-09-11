@@ -8,8 +8,6 @@ var focused_container
 var selected_containers: Array[TurretModContainerDTO] = []
 var _sandbox_mode = false
 
-var preview
-
 func _ready():
 	item_handler = ItemBlockSelectorHandler.new($Board, [])
 
@@ -104,7 +102,6 @@ func _draw_item_block_hand(item_block: ItemBlockDTO):
 
 func _update_battle_slot_amount_label():
 	$BattleSlotsAmountLabel.text = str("Slots selected: ", selected_containers.size(), "/", map.battle_slots.amount)
-
 
 class ItemOrigin:
 	var container
