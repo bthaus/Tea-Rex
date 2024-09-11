@@ -14,6 +14,6 @@ func set_level(map_name: String):
 	#$map_preview.text=map_name
 
 func _on_pressed():
-	var picker = MainMenu.get_scene_instance(MainMenu.BATTLE_SLOT_PICKER_PATH)
+	var picker = SceneChanger.get_scene_instance(SceneChanger.BATTLE_SLOT_PICKER_PATH)
 	picker.map_name = _map_name
-	MainMenu.change_content(picker)
+	SceneChanger.change_scene(picker)

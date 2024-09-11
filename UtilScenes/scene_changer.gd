@@ -21,11 +21,7 @@ func get_scene_instance(scene_path: String):
 	return load(scene_path).instantiate()
 	
 func change_scene(scene):
-	call_deferred("_deferred_change_scene", scene)
-	
-func _deferred_change_scene(scene):
-	current_scene.free()
+	current_scene.queue_free()
 	current_scene = scene
 	get_tree().root.add_child(current_scene)
 	get_tree().current_scene = current_scene
-	

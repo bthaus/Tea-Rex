@@ -25,9 +25,9 @@ func _on_new_level_button_pressed():
 	$NewLevel.show()
 
 func _on_create_button_pressed():
-	var level_editor = MainMenu.get_scene_instance(MainMenu.LEVEL_EDITOR_PATH)
+	var level_editor = SceneChanger.get_scene_instance(SceneChanger.LEVEL_EDITOR_PATH)
 	level_editor.map_name = level_name.text
-	MainMenu.change_content(level_editor)
+	SceneChanger.change_scene(level_editor)
 
 func _on_cancel_button_pressed():
 	$NewLevel.hide()
