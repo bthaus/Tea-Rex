@@ -33,7 +33,7 @@
 		#$Effect.apply_scale(Vector2(range, range));
 		##$Effect/EnemyDetector.apply_scale(Vector2(range, range))
 	#
-	#$EffectSound.stream = load("res://Sounds/Soundeffects/" + Stats.getStringFromSpecialCardEnum(cardName) + "_sound.wav");
+	#$EffectSound.stream = load("res://Assets/Sounds/Soundeffects/" + Stats.getStringFromSpecialCardEnum(cardName) + "_sound.wav");
 	#pass # Replace with function body.
 ##just pass the method name, like "card.select(cast)". first parameter is a boolean. true for successfully played card, false for not played card
 #static var rando = [

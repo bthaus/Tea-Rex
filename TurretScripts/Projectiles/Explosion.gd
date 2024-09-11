@@ -61,7 +61,7 @@ func playSound():
 			sound = AudioStreamPlayer2D.new()
 			add_child(sound)
 			sound.stream = Sounds.explosionSounds.pick_random().duplicate()
-			#sound.stream = load("res://Sounds/Soundeffects/FIREBALL_sound.wav")
+			#sound.stream = load("res://Assets/Sounds/Soundeffects/FIREBALL_sound.wav")
 		#sound.stop()
 		
 		if sound.get_parent()==null:

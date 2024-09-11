@@ -134,7 +134,7 @@ func setUpTower():
 	base.setUpTower(self)
 	collisionReference.register_turret(self,placed)
 	$LVL.text = str(level)
-	$AudioStreamPlayer2D.stream = load("res://Sounds/Soundeffects/" + util.getStringFromEnum(color) + util.getStringFromEnumExtension(extension) + "_shot.wav")
+	$AudioStreamPlayer2D.stream = load("res://Assets/Sounds/Soundeffects/" + util.getStringFromEnum(color) + util.getStringFromEnumExtension(extension) + "_shot.wav")
 	#var tiletex=load("res://Assets/Tiles/tile_" + util.getStringFromEnumLowercase(color) + ".png")
 	#if tiletex!=null:
 		#$Tile.modulate=Color(1,1,1)
