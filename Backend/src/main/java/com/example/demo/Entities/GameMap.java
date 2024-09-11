@@ -1,6 +1,9 @@
 package com.example.demo.Entities;
 
 import com.example.demo.DTOs.MapDTO;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,7 +17,7 @@ public class GameMap {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int map_id;
-    @Column(name = "unique_name", unique = true, nullable = false)
+    @Column(unique = true)
     private String name;
     private String description;
     @Lob
@@ -29,24 +32,28 @@ public class GameMap {
 
     private String reduced_waves;
 
-    public GameMap(UserAccount user, String name, String reduced_entities,String reduced_waves ,String reduced_shapes){
-        this.name=name;
-        this.reduced_entities=reduced_entities;
-        this.reduced_waves=reduced_waves;
-        this.reduced_shapes=reduced_shapes;
-        this.user=user;
+    private String user_name;
+
+    @JsonCreator
+    public GameMap(
+            @JsonProperty("name") String name,
+            @JsonProperty("reduced_entities") String reduced_entities,
+            @JsonProperty("reduced_shapes") String reduced_shapes,
+            @JsonProperty("reduced_waves") String reduced_waves,
+            @JsonProperty("user_name") String user_name){
+        this.user_name = user_name;
+        this.name = name;
+        this.reduced_entities = reduced_entities;
+        this.reduced_shapes = reduced_shapes;
+        this.reduced_waves = reduced_waves;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")  // Foreign key column in the order table
-    private UserAccount user;
-
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "rating_id")  // Foreign key column in the order table
     private Set<Rating> ratings;
 
-    @OneToMany (fetch = FetchType.EAGER)
-    @JoinColumn(name = "comment_id")
+    @OneToMany(cascade = CascadeType.PERSIST)
+    @JsonIgnore  // Avoid infinite recursion
     private Set<Comment> comments;
 
     public MapDTO getDto(){
@@ -55,7 +62,7 @@ public class GameMap {
         mapDTO.setReduced_shapes(reduced_shapes);
         mapDTO.setReduced_entities(reduced_entities);
         mapDTO.setReduced_waves(reduced_waves);
-        mapDTO.setUser_id(String.valueOf(user.getUser_id()));
+        mapDTO.setUser_name(user_name);
         return mapDTO;
     }
 

@@ -1,6 +1,7 @@
 package com.example.demo.Entities;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -17,7 +18,11 @@ public class UserAccount {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int user_id;
+
+    @Column(unique = true)
     private String name;
+
+    @Column(unique = true)
     private String email;
 
     @JsonCreator
@@ -30,12 +35,12 @@ public class UserAccount {
         this.email = email;
     }
 
-    @OneToMany
-    @JoinColumn(name="map_id")
+    @OneToMany(cascade = CascadeType.PERSIST)
+    @JsonIgnore  // Avoid infinite recursion
     private Set<GameMap> gameMaps;
 
-    @OneToMany
-    @JoinColumn(name="comment_id")
+    @OneToMany(cascade = CascadeType.PERSIST)
+    @JsonIgnore  // Avoid infinite recursion
     private Set<Comment> comments;
 
     @OneToMany

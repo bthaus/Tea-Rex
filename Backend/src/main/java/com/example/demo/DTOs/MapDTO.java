@@ -13,7 +13,7 @@ public class MapDTO {
     String reduced_entities;
     String reduced_shapes;
     String reduced_waves;
-    String user_id;
+    String user_name;
 
 
     @JsonCreator
@@ -22,8 +22,8 @@ public class MapDTO {
             @JsonProperty("reduced_entities") String reduced_entities,
             @JsonProperty("reduced_shapes") String reduced_shapes,
             @JsonProperty("reduced_waves") String reduced_waves,
-            @JsonProperty("user_id") String user_id){
-        this.user_id = user_id;
+            @JsonProperty("user_name") String user_name){
+        this.user_name = user_name;
         this.name = name;
         this.reduced_entities = reduced_entities;
         this.reduced_shapes = reduced_shapes;

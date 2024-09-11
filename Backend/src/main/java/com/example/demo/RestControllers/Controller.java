@@ -1,7 +1,6 @@
 package com.example.demo.RestControllers;
 
 
-import com.example.demo.DTOs.CommentDTO;
 import com.example.demo.DTOs.MapDTO;
 import com.example.demo.Entities.Comment;
 import com.example.demo.Entities.GameMap;
@@ -15,7 +14,6 @@ import lombok.AllArgsConstructor;
 
 import org.springframework.web.bind.annotation.*;
 
-import java.util.LinkedList;
 import java.util.Set;
 
 
@@ -63,25 +61,21 @@ public class Controller {
     @PostMapping("add_comment")
     String add_comment(@RequestBody String comment) throws JsonProcessingException {
         System.out.println(comment);
-        CommentDTO commentDTO;
-        commentDTO=objectMapper.readValue(comment, CommentDTO.class);
-        String resonse=dbService.addComment(commentDTO);
+        Comment c=objectMapper.readValue(comment, Comment.class);
+        String resonse=dbService.addComment(c);
         System.out.println(resonse);
         return resonse;
     }
     @Transactional
     @GetMapping("get_comments_from_map/{map_name}")
-    CommentDTO[] get_comments_from_map(@PathVariable String map_name)
+    Set<Comment> get_comments_from_map(@PathVariable String map_name)
     {
         GameMap map=dbService.get_map(map_name);
 
         Set<Comment> comments= map.getComments();
         System.out.println(comments.size() +" comments from map: "+map.getName()+" requested");
-        LinkedList<CommentDTO> list=new LinkedList<>();
-        for (Comment c:comments){
-            list.add(objectMapper.convertValue(c, CommentDTO.class));
-    }
-        return list.toArray(new CommentDTO[list.size()]);
+
+        return comments;
 
 
     }
@@ -89,9 +83,9 @@ public class Controller {
     @PostMapping("/add_map")
     String add_map(@RequestBody String map) throws JsonProcessingException {
         System.out.println(map);
-        MapDTO mapDTO;
-        mapDTO=objectMapper.readValue(map, MapDTO.class);
-        var response= dbService.add_map(mapDTO);
+        GameMap gameMap;
+        gameMap=objectMapper.readValue(map, GameMap.class);
+        var response= dbService.add_map(gameMap);
         System.out.println(response);
         return response;
     }

@@ -1,9 +1,8 @@
 package com.example.demo.Services;
 
 
-import com.example.demo.DTOs.CommentDTO;
 import com.example.demo.DTOs.MapDTO;
-import com.example.demo.DTOs.RatingDTO;
+
 import com.example.demo.DTOs.UserDTO;
 import com.example.demo.Entities.Comment;
 import com.example.demo.Entities.GameMap;
@@ -12,10 +11,9 @@ import com.example.demo.Repositories.CommentRepository;
 import com.example.demo.Repositories.MapRepository;
 import com.example.demo.Repositories.RatingRepository;
 import com.example.demo.Repositories.UserRepository;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -26,41 +24,43 @@ public class DBService {
     private RatingRepository ratingRepository;
     private UserRepository userRepository;
 
-    public String add_map(MapDTO mapDTO){
-        UserAccount user=userRepository.findById(Integer.parseInt(mapDTO.getUser_id()));
+    public String add_map(GameMap gameMap){
+        UserAccount user=userRepository.findByName(gameMap.getUser_name());
         if (user==null){
             return "User not found";
         }
-        GameMap current=mapRepository.findByName(mapDTO.getName());
+        GameMap current=mapRepository.findByName(gameMap.getName());
         if (current!=null){
             return "Map already exists";
         }
-        current=new GameMap(user,mapDTO.getName(),mapDTO.getReduced_entities(),mapDTO.getReduced_waves(),mapDTO.getReduced_shapes());
-        mapRepository.save(current);
-        return String.valueOf(current.getMap_id());
+
+        mapRepository.save(gameMap);
+        user.getGameMaps().add(gameMap);
+        userRepository.save(user);
+        return String.valueOf(gameMap.getMap_id());
     }
-    public String addComment(CommentDTO commentDTO){
-        UserAccount user=userRepository.findById(Integer.parseInt(commentDTO.getUser_id()));
+    @Transactional
+    public String addComment(Comment comment){
+        UserAccount user=userRepository.findByName(comment.getUser_name());
         if (user==null){
             return "User not found";
         }
-        GameMap current=mapRepository.findByName(commentDTO.getMap_name());
+        GameMap current=mapRepository.findByName(comment.getMap_name());
         if (current==null){
             return "Map doesnt exist";
         }
-        Comment comment=new Comment(commentDTO.getComment());
-        commentRepository.save(comment);
+
         current.getComments().add(comment);
-        mapRepository.save(current);
         user.getComments().add(comment);
+
+        commentRepository.save(comment);
+        mapRepository.save(current);
         userRepository.save(user);
-        return "Success";
-    }
-
-    public String addRating(RatingDTO ratingDTO){
 
         return "Success";
     }
+
+
     public String addUser(UserDTO userDTO){
 
         return "Success";

@@ -13,13 +13,6 @@ public class Rating {
     private Long rating_id;
 
     private int rating;
-    @ManyToOne
-    @JoinColumn(name = "user_id")  // Foreign key column in the order table
-    private UserAccount user;
-
-    @OneToOne
-    @JoinColumn(name = "map_id")  // Foreign key column in the order table
-    private GameMap gameMap;
 
 
 }
