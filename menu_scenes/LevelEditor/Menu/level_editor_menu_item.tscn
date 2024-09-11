@@ -1,35 +1,40 @@
-[gd_scene load_steps=2 format=3 uid="uid://ddd8ed1kevi6j"]
+[gd_scene load_steps=3 format=3 uid="uid://ddd8ed1kevi6j"]
 
 [ext_resource type="Script" path="res://menu_scenes/LevelEditor/Menu/level_editor_menu_item.gd" id="1_yhgmr"]
+[ext_resource type="PackedScene" uid="uid://ocda6wj7wys8" path="res://menu_scenes/battle_slot_picker_scenes/MapPreview/map_preview.tscn" id="2_86urp"]
 
 [node name="LevelEditorMenuItem" type="Panel"]
-custom_minimum_size = Vector2(500, 100)
+custom_minimum_size = Vector2(550, 100)
 script = ExtResource("1_yhgmr")
 
 [node name="NameLabel" type="Label" parent="."]
 layout_mode = 0
-offset_left = 16.0
-offset_top = 37.0
-offset_right = 101.0
-offset_bottom = 60.0
+offset_left = 106.0
+offset_top = 8.0
+offset_right = 191.0
+offset_bottom = 31.0
 text = "Map Name"
 
 [node name="EditButton" type="Button" parent="."]
 layout_mode = 0
-offset_left = 311.0
+offset_left = 365.0
 offset_top = 36.0
-offset_right = 384.0
+offset_right = 438.0
 offset_bottom = 67.0
 text = "Edit"
 
 [node name="PlayButton" type="Button" parent="."]
 layout_mode = 0
-offset_left = 401.0
+offset_left = 455.0
 offset_top = 36.0
-offset_right = 474.0
+offset_right = 528.0
 offset_bottom = 67.0
 text = "Play
 "
+
+[node name="MapPreview" parent="." instance=ExtResource("2_86urp")]
+position = Vector2(10, 10)
+scale = Vector2(0.08, 0.08)
 
 [connection signal="pressed" from="EditButton" to="." method="_on_edit_button_pressed"]
 [connection signal="pressed" from="PlayButton" to="." method="_on_play_button_pressed"]

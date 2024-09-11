@@ -14,3 +14,5 @@ layer_1/name = "block_layer"
 layer_1/tile_data = PackedInt32Array()
 layer_2/name = "preview_layer"
 layer_2/tile_data = PackedInt32Array()
+
+[connection signal="tree_exited" from="." to="." method="_on_tree_exited"]

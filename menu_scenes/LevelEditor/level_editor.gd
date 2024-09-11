@@ -7,10 +7,11 @@ class_name LevelEditor
 @onready var default_build_mode_button = $Camera2D/HUD/BuildModes/DefaultBuildModeButton
 @onready var draw_build_mode_button = $Camera2D/HUD/BuildModes/DrawBuildModeButton
 @onready var bucket_fill_build_mode_button = $Camera2D/HUD/BuildModes/BucketFillBuildModeButton
-@onready var map_name = $Camera2D/HUD/mapname
 @onready var tile_selection = $Camera2D/HUD/TileSelection
 
 @onready var board_handler: LevelEditorBoardHandler
+
+var map_name: String
 
 enum BuildMode { DEFAULT, DRAW, BUCKET_FILL }
 var _build_mode: BuildMode = BuildMode.DEFAULT
@@ -64,6 +65,7 @@ func create_editor_game_state(map_dto:MapDTO):
 
 func load_map(map_dto: MapDTO):
 	create_editor_game_state(map_dto)
+	map_name = map_dto.map_name
 	var spawner_entities = []
 	for entity in map_dto.entities:
 		if is_instance_of(entity, SpawnerDTO):
@@ -79,7 +81,6 @@ func load_map(map_dto: MapDTO):
 	wave_settings.set_monster_waves(map_dto.waves)
 	wave_settings.update_spawner_waves()
 	wave_settings.update_items()
-	map_name.text = map_dto.map_name
 
 
 #We can use unhandled input here, so that when clicking on a (hud) button the drawing wont trigger
@@ -179,7 +180,7 @@ func _on_bucket_fill_build_mode_button_pressed():
 func _on_save_button_pressed():
 	var monster_waves = wave_settings.get_monster_waves()
 	var settings = settings.get_setting_properties()
-	board_handler.save_board(monster_waves, settings, map_name.text)
+	board_handler.save_board(monster_waves, settings, map_name)
 	
 func _on_settings_button_pressed():
 	settings.open()
