@@ -4,6 +4,7 @@ class_name AccountInfoDTO
 var account_name:String
 var account_progress#:Array=[]
 var unlocked_colors#:Array[Turret.Hue]
+var _active_token=""
 
 var unlocked_turret_mods#: Array[ItemBlockDTO]
 #array of blueprintsDTOs 
