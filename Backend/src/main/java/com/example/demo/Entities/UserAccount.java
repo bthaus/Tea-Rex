@@ -19,6 +19,9 @@ public class UserAccount {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int user_id;
 
+    private String pw;
+    private String token;
+
     @Column(unique = true)
     private String name;
 
