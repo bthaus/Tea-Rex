@@ -2,9 +2,10 @@ extends Panel
 
 var map_name: String
 
-func set_map(map_name: String):
-	self.map_name = map_name
-	$NameLabel.text = map_name
+func set_map(map_dto: MapDTO):
+	self.map_name = map_dto.map_name
+	$NameLabel.text = map_dto.map_name
+	$MapPreview.set_map(map_dto, false)
 	
 func _on_edit_button_pressed():
 	var map_dto = MapDTO.new()
@@ -18,3 +19,4 @@ func _on_play_button_pressed():
 	picker.map_name = map_name
 	MainMenu.change_content(picker)
 	picker.enable_sandbox_mode()
+

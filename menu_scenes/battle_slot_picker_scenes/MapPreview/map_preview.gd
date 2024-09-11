@@ -2,12 +2,13 @@ extends Node2D
 
 var gamestate: GameState
 var board_paths = []
-var final_scale = Vector2(1, 1)
+var redraw = false
 
 func _ready():
 	$Board.tile_set.tile_size = Vector2(GameboardConstants.TILE_SIZE, GameboardConstants.TILE_SIZE)
 
-func set_map(map_dto: MapDTO):
+func set_map(map_dto: MapDTO, show_path: bool = true):
+	var final_scale = scale
 	scale = Vector2(1, 1)
 	_draw_border()
 	gamestate = load("res://Game/simulation_scene.tscn").instantiate()
@@ -27,13 +28,16 @@ func set_map(map_dto: MapDTO):
 		spawner.hide() #Hides old lines
 	
 	scale = final_scale
-	call_deferred("queue_redraw")
+	if show_path:
+		redraw = true
+		call_deferred("queue_redraw")
 
 func _draw():
+	if not redraw: return
+	
 	for path in board_paths:
 		for i in path.board_positions.size()-1:
 			draw_line($Board.map_to_local(path.board_positions[i]), $Board.map_to_local(path.board_positions[i+1]), path.color, 1, true)
-
 
 func _draw_border():
 	for y in range(-1, GameboardConstants.BOARD_HEIGHT+1):
@@ -50,3 +54,9 @@ class Path:
 	func _init(board_positions, color):
 		self.board_positions = board_positions
 		self.color = color
+
+
+func _on_tree_exited():
+	if gamestate != null:
+		pass
+		#gamestate.free()
