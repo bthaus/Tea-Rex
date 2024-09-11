@@ -62,7 +62,7 @@ func GET(route):
 	pass;	
 func send_map(map_dto:MapDTO):
 	var id=MainMenu.get_account_dto().id
-	var dto=ServerDTOs.get_map_dto(map_dto,"John Doe")
+	var dto=ServerDTOs.get_map_dto(map_dto,"JohnDoe")
 	POST("add_map",dto)
 	pass;	
 func get_map(map_name:String):
@@ -70,7 +70,7 @@ func get_map(map_name:String):
 	pass;	
 func send_comment(comment:String,mapname:String):
 	var id=MainMenu.get_account_dto().id
-	var dto=ServerDTOs.get_comment_dto(comment,"John Doe",mapname)
+	var dto=ServerDTOs.get_comment_dto(comment,"JohnDoe",mapname)
 	POST("add_comment",dto)
 	pass;	
 func get_comments(mapname:String):
@@ -98,4 +98,30 @@ func _on_map_pressed():
 	map.restore("sim_debug")
 	send_map(map)
 
+	pass # Replace with function body.
+
+
+func _on_button_pressed():
+	get_map("sim_debug")
+	pass # Replace with function body.
+
+func get_maps_from_user(username):
+	GET("get_maps_from_user/"+username)
+	
+func _on_get_maps_from_user_pressed():
+	get_maps_from_user("JohnDoe")
+	pass # Replace with function body.
+
+func add_rating_to_map(rating:int,map_name:String,user_name:String):
+	var dto=ServerDTOs.get_rating_dto(map_name,user_name,rating);
+	POST("add_rating_to_map",dto)
+func get_rating_from_map(map_name:String):
+	GET("get_rating_from_map/"+map_name)	
+func _on_button_2_pressed():
+	add_rating_to_map(5,"sim_debug","JohnDoe")
+	pass # Replace with function body.
+
+
+func _on_get_rating_pressed():
+	get_rating_from_map("sim_debug")
 	pass # Replace with function body.

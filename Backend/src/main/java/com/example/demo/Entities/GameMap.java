@@ -1,6 +1,6 @@
 package com.example.demo.Entities;
 
-import com.example.demo.DTOs.MapDTO;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -48,23 +48,15 @@ public class GameMap {
         this.reduced_waves = reduced_waves;
     }
 
-    @OneToMany(fetch = FetchType.EAGER)
-    @JoinColumn(name = "rating_id")  // Foreign key column in the order table
+    @OneToMany(cascade = CascadeType.PERSIST,fetch = FetchType.EAGER)
+    @JsonIgnore  // Avoid infinite recursion  // Foreign key column in the order table
     private Set<Rating> ratings;
 
     @OneToMany(cascade = CascadeType.PERSIST)
     @JsonIgnore  // Avoid infinite recursion
     private Set<Comment> comments;
 
-    public MapDTO getDto(){
-        MapDTO mapDTO = new MapDTO();
-        mapDTO.setName(name);
-        mapDTO.setReduced_shapes(reduced_shapes);
-        mapDTO.setReduced_entities(reduced_entities);
-        mapDTO.setReduced_waves(reduced_waves);
-        mapDTO.setUser_name(user_name);
-        return mapDTO;
-    }
+
 
 
 }

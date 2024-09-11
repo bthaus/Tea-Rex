@@ -1,19 +1,18 @@
 package com.example.demo.Services;
 
 
-import com.example.demo.DTOs.MapDTO;
-
-import com.example.demo.DTOs.UserDTO;
 import com.example.demo.Entities.Comment;
 import com.example.demo.Entities.GameMap;
+import com.example.demo.Entities.Rating;
 import com.example.demo.Entities.UserAccount;
 import com.example.demo.Repositories.CommentRepository;
 import com.example.demo.Repositories.MapRepository;
 import com.example.demo.Repositories.RatingRepository;
 import com.example.demo.Repositories.UserRepository;
-import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.Set;
 
 @Service
 @AllArgsConstructor
@@ -23,6 +22,7 @@ public class DBService {
     private MapRepository mapRepository;
     private RatingRepository ratingRepository;
     private UserRepository userRepository;
+    private InputChecker inputChecker;
 
     public String add_map(GameMap gameMap){
         UserAccount user=userRepository.findByName(gameMap.getUser_name());
@@ -39,16 +39,45 @@ public class DBService {
         userRepository.save(user);
         return String.valueOf(gameMap.getMap_id());
     }
-    @Transactional
-    public String addComment(Comment comment){
-        UserAccount user=userRepository.findByName(comment.getUser_name());
+    public String add_rating(Rating rating){
+        UserAccount user=getUserAccount(rating.getUser_name());
+        GameMap map=getMap(rating.getMap_name());
+        for(Rating r:user.getRatings()){
+            if(r.getMap_name()==rating.getMap_name()){
+               rating=r;
+               r.setRating(rating.getRating());
+               break;
+            }
+        }
+        ratingRepository.save(rating);
+        user.getRatings().add(rating);
+        userRepository.save(user);
+        map.getRatings().add(rating);
+        mapRepository.save(map);
+
+
+        return String.valueOf(rating.getRating_id());
+
+
+    }
+
+    public Set<GameMap> get_maps_from_user(String user_name){
+        UserAccount user = getUserAccount(user_name);
+        return user.getGameMaps();
+    }
+
+
+    private UserAccount getUserAccount(String user_name) {
+        UserAccount user=userRepository.findByName(user_name);
         if (user==null){
-            return "User not found";
+            throw new IllegalArgumentException("User not found");
         }
-        GameMap current=mapRepository.findByName(comment.getMap_name());
-        if (current==null){
-            return "Map doesnt exist";
-        }
+        return user;
+    }
+
+    public String addComment(Comment comment){
+        UserAccount user=getUserAccount(comment.getUser_name());
+        GameMap current = getMap(comment.getMap_name());
 
         current.getComments().add(comment);
         user.getComments().add(comment);
@@ -61,12 +90,18 @@ public class DBService {
     }
 
 
-    public String addUser(UserDTO userDTO){
-
-        return "Success";
+    public int addUser(UserAccount userDTO){
+        if (userRepository.findByName(userDTO.getName())!=null){
+            throw new IllegalArgumentException("Username already exists");
+        }
+        if (inputChecker.containsInvalidHttpChars(userDTO.getName())){
+            throw new IllegalArgumentException("Name contains invalid characters");
+        }
+        userRepository.save(userDTO);
+        return userDTO.getUser_id();
     }
 
-    public GameMap get_map(String map_name){
+    public GameMap getMap(String map_name){
         GameMap map = mapRepository.findByName(map_name);
         if (map==null){
             throw new IllegalArgumentException("Map not found");

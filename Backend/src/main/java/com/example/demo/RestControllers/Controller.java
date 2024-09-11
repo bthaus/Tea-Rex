@@ -1,9 +1,10 @@
 package com.example.demo.RestControllers;
 
 
-import com.example.demo.DTOs.MapDTO;
+
 import com.example.demo.Entities.Comment;
 import com.example.demo.Entities.GameMap;
+import com.example.demo.Entities.Rating;
 import com.example.demo.Repositories.UserRepository;
 import com.example.demo.Entities.UserAccount;
 import com.example.demo.Services.DBService;
@@ -70,7 +71,7 @@ public class Controller {
     @GetMapping("get_comments_from_map/{map_name}")
     Set<Comment> get_comments_from_map(@PathVariable String map_name)
     {
-        GameMap map=dbService.get_map(map_name);
+        GameMap map=dbService.getMap(map_name);
 
         Set<Comment> comments= map.getComments();
         System.out.println(comments.size() +" comments from map: "+map.getName()+" requested");
@@ -79,7 +80,35 @@ public class Controller {
 
 
     }
+    @GetMapping("get_maps_from_user/{user_name}")
+    Set<GameMap> get_maps_from_user(@PathVariable String user_name){
+        Set<GameMap> maps=dbService.get_maps_from_user(user_name);
+        System.out.println("maps from requested from"+user_name);
+        return maps;
 
+
+    }
+    @PostMapping("add_rating_to_map")
+    String add_rating_to_map(@RequestBody String rating) throws JsonProcessingException {
+
+        Rating r=objectMapper.readValue(rating, Rating.class);
+        System.out.println(r.getRating());
+        return dbService.add_rating(r);
+    }
+    @GetMapping("get_rating_from_map/{map_name}")
+    int get_rating_from_map(@PathVariable String map_name){
+        GameMap map=dbService.getMap(map_name);
+        int sum=0;
+       int counter=0;
+        for (Rating r:map.getRatings()) {
+            sum+=r.getRating();
+            counter++;
+        }
+        if (counter==0){
+            return 0;
+        }
+        return sum/counter;
+    }
     @PostMapping("/add_map")
     String add_map(@RequestBody String map) throws JsonProcessingException {
         System.out.println(map);
@@ -90,10 +119,9 @@ public class Controller {
         return response;
     }
     @GetMapping("/get_map/{map_name}")
-    MapDTO get_map(@PathVariable String map_name) {
-        GameMap map=dbService.get_map(map_name);
-        MapDTO dto=map.getDto();
-        System.out.println(dto.getName()+" requested");
-        return dto;
+    GameMap get_map(@PathVariable String map_name) {
+        GameMap map=dbService.getMap(map_name);
+        System.out.println(map.getName()+" requested");
+        return map;
     }
 }

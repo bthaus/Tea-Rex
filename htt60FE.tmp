@@ -53,17 +53,9 @@ offset_bottom = 106.327
 text = "add_rating_to_map
 "
 
-[node name="get_rating" type="Button" parent="."]
-offset_left = 213.0
-offset_top = 136.0
-offset_right = 307.0
-offset_bottom = 167.0
-text = "get_ratings"
-
 [connection signal="pressed" from="sen" to="HTTPRequest" method="_on_sen_pressed"]
 [connection signal="pressed" from="get" to="HTTPRequest" method="_on_get_pressed"]
 [connection signal="pressed" from="map" to="HTTPRequest" method="_on_map_pressed"]
 [connection signal="pressed" from="Button" to="HTTPRequest" method="_on_button_pressed"]
 [connection signal="pressed" from="get_maps_from_user" to="HTTPRequest" method="_on_get_maps_from_user_pressed"]
 [connection signal="pressed" from="Button2" to="HTTPRequest" method="_on_button_2_pressed"]
-[connection signal="pressed" from="get_rating" to="HTTPRequest" method="_on_get_rating_pressed"]

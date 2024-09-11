@@ -43,8 +43,8 @@ public class UserAccount {
     @JsonIgnore  // Avoid infinite recursion
     private Set<Comment> comments;
 
-    @OneToMany
-    @JoinColumn(name="rating_id")
+    @OneToMany(cascade = CascadeType.PERSIST)
+    @JsonIgnore  // Avoid infinite recursion
     private Set<Rating> ratings;
 
 }

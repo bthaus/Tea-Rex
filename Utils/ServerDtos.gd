@@ -16,6 +16,12 @@ static func get_map_dto(map_dto:MapDTO,user_name):
 		"reduced_waves":map_dto._reduced_waves,
 		"user_name":user_name
 	}
-	
+static func get_rating_dto(map_name,user_name,rating):
+	return {
+		"rating":rating,
+		"user_name":user_name,
+		"map_name":map_name
+	}
+		
 		
 
