@@ -1,35 +1,33 @@
-[gd_scene load_steps=36 format=3 uid="uid://c1jrn7vi6wxab"]
+[gd_scene load_steps=34 format=3 uid="uid://c1jrn7vi6wxab"]
 
 [ext_resource type="PackedScene" uid="uid://d3553ynahp4sx" path="res://Game/Minimap.tscn" id="1_e6okl"]
 [ext_resource type="Script" path="res://menu_scenes/UI_scenes/ui.gd" id="1_t51w1"]
-[ext_resource type="Texture2D" uid="uid://cypv8i1ng7eq" path="res://Assets/UI/trasparent background/background.png" id="2_xms8d"]
-[ext_resource type="Texture2D" uid="uid://cy7vu8rotmx1l" path="res://Assets/UI/description_banner.png" id="3_77n4y"]
-[ext_resource type="Texture2D" uid="uid://xxf4ln6vtwpw" path="res://Assets/UI/battle_Label/battle_label_text.png" id="4_227c2"]
-[ext_resource type="Texture2D" uid="uid://b270np8lfqnei" path="res://Assets/UI/battle_Label/battle_label_an1.png" id="5_5e541"]
-[ext_resource type="Texture2D" uid="uid://dmlxjfjy017tb" path="res://Assets/UI/battle_Label/battle_label_an2.png" id="6_q8i3l"]
-[ext_resource type="Texture2D" uid="uid://bb1m2f130e8cc" path="res://Assets/UI/battle_Label/battle_label_an3.png" id="7_visp7"]
-[ext_resource type="Texture2D" uid="uid://c7fyqlm32m4ca" path="res://Assets/UI/battle_Label/battle_label_an4.png" id="8_vm3uh"]
-[ext_resource type="Texture2D" uid="uid://07wke7sjvn0u" path="res://Assets/UI/battle_Label/battle_label_an5.png" id="9_0slpw"]
-[ext_resource type="Texture2D" uid="uid://cqvtjee0rppi6" path="res://Assets/UI/battle_Label/battle_label_an6.png" id="10_24jhn"]
-[ext_resource type="Texture2D" uid="uid://bnjls4yxt4cr" path="res://Assets/UI/battle_Label/battle_label_an7.png" id="11_ac51e"]
+[ext_resource type="Texture2D" uid="uid://df4rcbllm14t2" path="res://Assets/UI/trasparent background/background.png" id="2_xms8d"]
+[ext_resource type="Texture2D" uid="uid://5kqo8ucaa2vn" path="res://Assets/UI/description_banner.png" id="3_77n4y"]
+[ext_resource type="Texture2D" uid="uid://dsnlhpdq5t3dj" path="res://Assets/UI/battle_Label/battle_label_text.png" id="4_227c2"]
+[ext_resource type="Texture2D" uid="uid://b5juw7nysoct5" path="res://Assets/UI/battle_Label/battle_label_an1.png" id="5_5e541"]
+[ext_resource type="Texture2D" uid="uid://bgc6114qj2vuh" path="res://Assets/UI/battle_Label/battle_label_an2.png" id="6_q8i3l"]
+[ext_resource type="Texture2D" uid="uid://bqa087tneq0a7" path="res://Assets/UI/battle_Label/battle_label_an3.png" id="7_visp7"]
+[ext_resource type="Texture2D" uid="uid://dsicxl0o306yr" path="res://Assets/UI/battle_Label/battle_label_an4.png" id="8_vm3uh"]
+[ext_resource type="Texture2D" uid="uid://qfw0g51oqumx" path="res://Assets/UI/battle_Label/battle_label_an5.png" id="9_0slpw"]
+[ext_resource type="Texture2D" uid="uid://cfcyhxn6i8d6h" path="res://Assets/UI/battle_Label/battle_label_an6.png" id="10_24jhn"]
+[ext_resource type="Texture2D" uid="uid://b4w47185m63yy" path="res://Assets/UI/battle_Label/battle_label_an7.png" id="11_ac51e"]
 [ext_resource type="PackedScene" uid="uid://dfv1yobm3u5hn" path="res://Cards/hand.tscn" id="12_qsj48"]
-[ext_resource type="Texture2D" uid="uid://bdevr8e5j76ef" path="res://Assets/UI/label_maxCards.png" id="13_q5pjg"]
-[ext_resource type="PackedScene" uid="uid://b1awhns1b5kw3" path="res://menu_scenes/hover_hint.tscn" id="14_j5okt"]
-[ext_resource type="Texture2D" uid="uid://b5cbrc3bi4g6n" path="res://Assets/UI/label.png" id="15_vr2fe"]
-[ext_resource type="Texture2D" uid="uid://bd73npt4gtmpx" path="res://Assets/UI/label_redrawCards.png" id="16_lhd71"]
-[ext_resource type="Texture2D" uid="uid://c1b3prkf7whrb" path="res://Assets/UI/label_wave.png" id="17_gvwhb"]
-[ext_resource type="Texture2D" uid="uid://of2rndwdpmoi" path="res://Assets/UI/health_xp_bar/health_bar_empty.png" id="18_i0jfr"]
-[ext_resource type="Texture2D" uid="uid://bx6b4khbyfmjk" path="res://Assets/UI/health_xp_bar/health_bar_full.png" id="19_vpt3x"]
-[ext_resource type="Texture2D" uid="uid://dbkvv62e4w0m1" path="res://Assets/UI/health_xp_bar/exp_bar_empty.png" id="20_wg7to"]
-[ext_resource type="Texture2D" uid="uid://b53uqnkeq72yj" path="res://Assets/UI/health_xp_bar/exp_bar_full.png" id="21_bffi1"]
-[ext_resource type="Texture2D" uid="uid://c4wc0i1tvyilx" path="res://Assets/UI/block_empty.png" id="22_2s6nm"]
-[ext_resource type="Texture2D" uid="uid://h5a54ayfyf40" path="res://Assets/UI/block_full.png" id="23_sk277"]
-[ext_resource type="Texture2D" uid="uid://cmqh886i30ew2" path="res://Assets/UI/Phase_banner.png" id="24_kexve"]
-[ext_resource type="Texture2D" uid="uid://b4fkxofc8vxqu" path="res://Assets/UI/trasparent background/0B663119-D32F-4FA6-AC1E-3040989151F2.png" id="25_0k66t"]
-[ext_resource type="Texture2D" uid="uid://bktv1hmp420aq" path="res://Assets/UI/trasparent background/51A96E2A-E987-4DD6-9C49-37027C877AC6.png" id="26_uiwdb"]
-[ext_resource type="Texture2D" uid="uid://ci6ymrn5fohga" path="res://Assets/UI/trasparent background/DB3FCCDF-C9DB-4949-A256-86B28C643560.png" id="27_grqb4"]
-[ext_resource type="Texture2D" uid="uid://kxn06xuwbjg8" path="res://Assets/UI/trasparent background/F4D3C18B-4BE6-4A76-99CA-B95B70916A82.png" id="28_qd8my"]
-[ext_resource type="Texture2D" uid="uid://cjdhxojqft41b" path="res://Assets/UI/options_button.png" id="29_nfpk7"]
+[ext_resource type="Texture2D" uid="uid://d086qb5ga4503" path="res://Assets/UI/label_maxCards.png" id="13_q5pjg"]
+[ext_resource type="Texture2D" uid="uid://ub8ali3ulal6" path="res://Assets/UI/label_redrawCards.png" id="16_lhd71"]
+[ext_resource type="Texture2D" uid="uid://bo4dwm0nf4d6s" path="res://Assets/UI/label_wave.png" id="17_gvwhb"]
+[ext_resource type="Texture2D" uid="uid://b3ta8luqjh0bp" path="res://Assets/UI/health_xp_bar/health_bar_empty.png" id="18_i0jfr"]
+[ext_resource type="Texture2D" uid="uid://cxuffpdkcxjux" path="res://Assets/UI/health_xp_bar/health_bar_full.png" id="19_vpt3x"]
+[ext_resource type="Texture2D" uid="uid://b0eq8xikgqdh" path="res://Assets/UI/health_xp_bar/exp_bar_empty.png" id="20_wg7to"]
+[ext_resource type="Texture2D" uid="uid://c702rymlsrfa8" path="res://Assets/UI/health_xp_bar/exp_bar_full.png" id="21_bffi1"]
+[ext_resource type="Texture2D" uid="uid://d37kpb1s0d2wl" path="res://Assets/UI/block_empty.png" id="22_2s6nm"]
+[ext_resource type="Texture2D" uid="uid://je1318xrtgye" path="res://Assets/UI/block_full.png" id="23_sk277"]
+[ext_resource type="Texture2D" uid="uid://bdokt0vfvhq7a" path="res://Assets/UI/Phase_banner.png" id="24_kexve"]
+[ext_resource type="Texture2D" uid="uid://b3t81dvgsum81" path="res://Assets/UI/trasparent background/0B663119-D32F-4FA6-AC1E-3040989151F2.png" id="25_0k66t"]
+[ext_resource type="Texture2D" uid="uid://bm7dn44wtxu7h" path="res://Assets/UI/trasparent background/51A96E2A-E987-4DD6-9C49-37027C877AC6.png" id="26_uiwdb"]
+[ext_resource type="Texture2D" uid="uid://58rwvcf783rt" path="res://Assets/UI/trasparent background/DB3FCCDF-C9DB-4949-A256-86B28C643560.png" id="27_grqb4"]
+[ext_resource type="Texture2D" uid="uid://b5e48n27vv5n4" path="res://Assets/UI/trasparent background/F4D3C18B-4BE6-4A76-99CA-B95B70916A82.png" id="28_qd8my"]
+[ext_resource type="Texture2D" uid="uid://chiaoogdxx4hw" path="res://Assets/UI/options_button.png" id="29_nfpk7"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_nendl"]
 font_size = 32
@@ -185,24 +183,6 @@ offset_bottom = 36.0
 text = "MaxCards"
 scroll_active = false
 
-[node name="HoverHint" parent="maxcards" instance=ExtResource("14_j5okt")]
-position = Vector2(-5.30973, 5.30984)
-scale = Vector2(2.275, 1.555)
-
-[node name="maxhint" type="Label" parent="maxcards"]
-layout_mode = 0
-offset_left = 111.504
-offset_top = 1.77002
-offset_right = 151.504
-offset_bottom = 24.77
-text = "Space for cards"
-
-[node name="Sprite2D" type="Sprite2D" parent="maxcards/maxhint"]
-show_behind_parent = true
-position = Vector2(77.8766, 10.6195)
-scale = Vector2(1.173, 0.918)
-texture = ExtResource("15_vr2fe")
-
 [node name="redraws" type="Label" parent="."]
 offset_left = 97.3451
 offset_top = 1072.57
@@ -226,24 +206,6 @@ offset_bottom = 36.4602
 text = "Redraws"
 scroll_active = false
 
-[node name="HoverHint" parent="redraws" instance=ExtResource("14_j5okt")]
-position = Vector2(-3.53982, 8.84956)
-scale = Vector2(2.28, 1.605)
-
-[node name="redrawhint" type="Label" parent="redraws"]
-layout_mode = 0
-offset_left = 104.425
-offset_top = 3.53982
-offset_right = 284.425
-offset_bottom = 26.5398
-text = "Cards drawn per round"
-
-[node name="Sprite2D" type="Sprite2D" parent="redraws/redrawhint"]
-show_behind_parent = true
-position = Vector2(86.7255, 12.3859)
-scale = Vector2(1.173, 0.918)
-texture = ExtResource("15_vr2fe")
-
 [node name="Wave" type="Label" parent="."]
 offset_left = 97.3451
 offset_top = 833.628
@@ -266,24 +228,6 @@ offset_right = 113.248
 offset_bottom = 36.4602
 text = "Wave"
 scroll_active = false
-
-[node name="wavehint" type="Label" parent="Wave"]
-layout_mode = 0
-offset_left = 120.354
-offset_top = 3.54019
-offset_right = 240.354
-offset_bottom = 58.5402
-text = "Waves survived"
-
-[node name="Sprite2D2" type="Sprite2D" parent="Wave/wavehint"]
-show_behind_parent = true
-position = Vector2(77.8761, 12.3894)
-scale = Vector2(1.173, 0.918)
-texture = ExtResource("15_vr2fe")
-
-[node name="HoverHint" parent="Wave" instance=ExtResource("14_j5okt")]
-position = Vector2(0, 5.30968)
-scale = Vector2(2.405, 1.65)
 
 [node name="Hpbar" type="TextureProgressBar" parent="."]
 offset_left = -5.30973
@@ -322,20 +266,6 @@ offset_bottom = 48.0
 text = "0"
 horizontal_alignment = 2
 
-[node name="cathint" type="Label" parent="."]
-offset_left = 230.089
-offset_top = 649.557
-offset_right = 569.089
-offset_bottom = 724.557
-text = "Catastrophy Timer"
-vertical_alignment = 1
-
-[node name="Sprite2D" type="Sprite2D" parent="cathint"]
-show_behind_parent = true
-position = Vector2(83.1858, 38.938)
-scale = Vector2(1.173, 0.918)
-texture = ExtResource("15_vr2fe")
-
 [node name="CatBar" type="TextureProgressBar" parent="."]
 offset_left = 14.1593
 offset_top = 596.46
@@ -355,10 +285,6 @@ offset_top = 35.3982
 offset_right = 239.814
 offset_bottom = 58.3982
 text = "next Catastropy"
-
-[node name="HoverHint" parent="." instance=ExtResource("14_j5okt")]
-position = Vector2(102.655, 676.106)
-scale = Vector2(2.62, 2.62)
 
 [node name="DamageDealt" type="Label" parent="."]
 offset_left = 243.658
