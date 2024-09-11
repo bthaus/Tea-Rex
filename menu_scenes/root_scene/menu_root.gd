@@ -71,12 +71,12 @@ func _on_delete_all_pressed():
 	delete_dir(dir,dirs)
 	var root=DirAccess.open("user://")
 	
-	dirs.reverse()	
+	dirs.reverse()
 	for directory in dirs:
 		directory.erase(0,7)
 		root.remove(directory)
 		
-	dirs.clear()	
+	dirs.clear()
 	
 	pass # Replace with function body.
 

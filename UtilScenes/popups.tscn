@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://bgefladhq2k20"]
 
-[ext_resource type="Script" path="res://menu_scenes/UI_scenes/popups.gd" id="1_g4lyt"]
+[ext_resource type="Script" path="res://UtilScenes/popups.gd" id="1_g4lyt"]
 [ext_resource type="StyleBox" uid="uid://b0qhmxvb2s50r" path="res://Styles/default_button.tres" id="2_rwmg1"]
 [ext_resource type="Script" path="res://UtilScenes/Animations/open_close_scale_animation.gd" id="3_ru8yg"]
 

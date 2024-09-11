@@ -21,7 +21,8 @@ boot_splash/minimum_display_time=1000
 
 [autoload]
 
-Popups="*res://menu_scenes/UI_scenes/popups.tscn"
+Popups="*res://UtilScenes/popups.tscn"
+SceneChanger="*res://UtilScenes/scene_changer.gd"
 
 [display]
 
