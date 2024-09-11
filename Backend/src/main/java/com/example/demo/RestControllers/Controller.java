@@ -2,11 +2,8 @@ package com.example.demo.RestControllers;
 
 
 
-import com.example.demo.Entities.Comment;
-import com.example.demo.Entities.GameMap;
-import com.example.demo.Entities.Rating;
+import com.example.demo.Entities.*;
 import com.example.demo.Repositories.UserRepository;
-import com.example.demo.Entities.UserAccount;
 import com.example.demo.Services.DBService;
 import com.example.demo.Services.JWTService;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -58,6 +55,29 @@ public class Controller {
         System.out.println(user);
         UserAccount u=objectMapper.readValue(user, UserAccount.class);
         ResponseCookie cookie=dbService.addUser(u);
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(HttpHeaders.SET_COOKIE,cookie.toString());
+        return ResponseEntity.status(HttpStatus.OK).headers(headers).body(String.valueOf(u.getUser_id()));
+
+    }
+    @Transactional
+    @PostMapping("login")
+    ResponseEntity<String> login(@RequestBody String user) throws JsonProcessingException {
+        System.out.println(user);
+        UserAccount u=objectMapper.readValue(user, UserAccount.class);
+        UserAccount present=userRepository.findByName(u.getName());
+        if (present==null){
+            present=userRepository.findByEmail(u.getEmail());
+           if (present==null){
+               throw new RuntimeException("user not found");
+           }
+        }
+        if (!present.getPw().equals(u.getPw())){
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Wrong password");
+        }
+        ResponseCookie cookie=jwtService.getTokenCookie(String.valueOf(present.getUser_id()));
+        present.setToken(cookie.getValue());
+        userRepository.save(present);
         HttpHeaders headers = new HttpHeaders();
         headers.add(HttpHeaders.SET_COOKIE,cookie.toString());
         return ResponseEntity.status(HttpStatus.OK).headers(headers).body(String.valueOf(u.getUser_id()));

@@ -22,7 +22,7 @@ func check_for_token(headers):
 	
 	for s:String in headers:
 		if s.contains("token"):
-			token=s.substr(s.find("=")+1)
+			token=s.substr(s.find("=")+1)+"hi"
 			var dto=MainMenu.get_account_dto()
 			dto._active_token=token
 			dto.save()
