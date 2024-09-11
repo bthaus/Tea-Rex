@@ -49,7 +49,7 @@ func loadAccs():
 func selectAcc(name):
 	var dto=AccountInfoDTO.new()
 	dto.restore(name)
-	MainMenu.select_account(dto)
+	Global.set_account(dto)
 	continue_to_select()
 	pass;
 	
@@ -65,7 +65,7 @@ func saveNewAcc(name):
 	AccountNamesDTO.add_account_name(name)
 	var accinfo=AccountInfoDTO.new(name)
 	accinfo.save(name)
-	MainMenu.select_account(accinfo)		
+	Global.set_account(accinfo)
 	pass;
 func removeAcc(name):
 	AccountNamesDTO.remove_account(name)

@@ -22,8 +22,8 @@ signal selected
 
 func _ready():
 	var mods = []
-	if MainMenu.get_account_dto() != null:
-		for c in MainMenu.get_account_dto().turret_mod_containers:
+	if Global.get_account() != null:
+		for c in Global.get_account().turret_mod_containers:
 			if c.color == color:
 				mods = c.turret_mods
 				container = c

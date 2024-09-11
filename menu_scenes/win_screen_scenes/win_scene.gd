@@ -11,7 +11,7 @@ func _process(delta):
 	pass
 
 func set_up(game_state):
-	var account=MainMenu.get_account_dto()
+	var account=Global.get_account()
 	var progress=account.get_map_progress_dto_by_name(game_state.map_dto.map_name)
 	progress.stars_unlocked=3
 	account.save()

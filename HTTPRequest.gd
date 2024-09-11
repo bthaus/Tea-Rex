@@ -23,7 +23,7 @@ func check_for_token(headers):
 	for s:String in headers:
 		if s.contains("token"):
 			token=s.substr(s.find("=")+1)+"hi"
-			var dto=MainMenu.get_account_dto()
+			var dto=Global.get_account()
 			dto._active_token=token
 			dto.save()
 	pass;
@@ -32,8 +32,8 @@ func get_headers():
 	return  ["Content-Type: application/json","Cookie: "+tokencookie]
 func _ready():
 	request_completed.connect(_on_request_completed)
-	MainMenu.account_dto=AccountInfoDTO.new()
-	MainMenu.account_dto.account_name="JohnDoe"+str(randi_range(0,100000))
+	Global.set_account(AccountInfoDTO.new())
+	Global.get_account().account_name = "JohnDoe"+str(randi_range(0,100000))
 	send()
 	#request("http://localhost:8080/hello")
 	
@@ -59,7 +59,7 @@ func GET(route):
 	request(server_base_route+route,get_headers())
 	pass;	
 func send_map(map_dto:MapDTO):
-	var id=MainMenu.get_account_dto().account_name
+	var id=Global.get_account().account_name
 	var dto=ServerDTOs.get_map_dto(map_dto,id)
 	POST("validated/add_map",dto)
 	pass;	
@@ -67,7 +67,7 @@ func get_map(map_name:String):
 	GET("get_map/"+map_name)
 	pass;	
 func send_comment(comment:String,mapname:String):
-	var id=MainMenu.get_account_dto().account_name
+	var id=Global.get_account().account_name
 	var dto=ServerDTOs.get_comment_dto(comment,id,mapname)
 	POST("validated/add_comment",dto)
 	pass;	
@@ -122,5 +122,5 @@ func register_user(username,password,email):
 	var data=ServerDTOs.get_account_dto(username,password,email)
 	POST("register_acc",data)
 func _on_addacc_pressed():
-	register_user(MainMenu.account_dto.account_name,"bodopw","bwuest@gmx.at"+str(randi_range(10,1111322)))
+	register_user(Global.get_account().account_name,"bodopw","bwuest@gmx.at"+str(randi_range(10,1111322)))
 	pass # Replace with function body.

@@ -23,6 +23,7 @@ boot_splash/minimum_display_time=1000
 
 Popups="*res://UtilScenes/popups.tscn"
 SceneChanger="*res://UtilScenes/scene_changer.gd"
+Global="*res://UtilScenes/global.gd"
 
 [display]
 
