@@ -94,3 +94,9 @@ func checkDescription(delta):
 	description.modulate=Color(m,m,m,m)	
 	
 	pass;
+
+
+func _on_back_button_pressed():
+	var picker = SceneHandler.get_scene_instance(SceneHandler.Scene.BATTLE_SLOT_PICKER)
+	picker.map_name = gamestate.map_dto.map_name
+	SceneHandler.change_scene(picker)

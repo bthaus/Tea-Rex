@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://c1jrn7vi6wxab"]
+[gd_scene load_steps=35 format=3 uid="uid://c1jrn7vi6wxab"]
 
 [ext_resource type="PackedScene" uid="uid://d3553ynahp4sx" path="res://Game/Minimap.tscn" id="1_e6okl"]
 [ext_resource type="Script" path="res://menu_scenes/UI_scenes/ui.gd" id="1_t51w1"]
@@ -29,7 +29,6 @@
 [ext_resource type="Texture2D" uid="uid://b5e48n27vv5n4" path="res://Assets/UI/trasparent background/F4D3C18B-4BE6-4A76-99CA-B95B70916A82.png" id="28_qd8my"]
 [ext_resource type="Texture2D" uid="uid://chiaoogdxx4hw" path="res://Assets/UI/options_button.png" id="29_nfpk7"]
 [ext_resource type="Script" path="res://UtilScenes/Animations/hover_scale_animation.gd" id="29_o75mk"]
-[ext_resource type="Script" path="res://UtilScenes/scene_navigation.gd" id="30_hy8a4"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_nendl"]
 font_size = 32
@@ -398,10 +397,7 @@ text = "Back"
 [node name="HoverScaleAnimation" type="Node" parent="BackButton"]
 script = ExtResource("29_o75mk")
 
-[node name="SceneNavigation" type="Node" parent="BackButton"]
-script = ExtResource("30_hy8a4")
-navigate_to = 4
-
 [connection signal="pressed" from="SpeedButton" to="." method="_on_speed_button_pressed" binds= [1]]
 [connection signal="pressed" from="SpeedButton2" to="." method="_on_speed_button_pressed" binds= [-1]]
 [connection signal="pressed" from="StartBattlePhase" to="." method="_on_start_battle_phase_pressed"]
+[connection signal="pressed" from="BackButton" to="." method="_on_back_button_pressed"]
