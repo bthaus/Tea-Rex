@@ -63,7 +63,7 @@ func hideDescription():
 
 func showDeathScreen():
 	
-	$CanvasLayer/AnimationPlayer.play("DeathScreen")
+	#$CanvasLayer/AnimationPlayer.play("DeathScreen")
 	pass;
 
 var m:float=0	

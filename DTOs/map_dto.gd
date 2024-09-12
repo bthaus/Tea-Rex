@@ -42,8 +42,13 @@ func restore(dest,acc="",dir="maps"):
 			var ma=m.split("_")
 			wave_dtos.append(MonsterWaveDTO.new(int(ma[0]),int(ma[1]),int(ma[2])))
 		if wave_dtos.is_empty():continue
-		waves.append(wave_dtos)	
-	block_cycle=BlockCycleEntryDTO.cycles_from_string(_reduced_shapes)	
+		waves.append(wave_dtos)
+	var slot_amount=_reduced_shapes.substr(_reduced_shapes.find("§§§"))		
+	slot_amount=slot_amount.replace("§§§","")
+	slot_amount=int(slot_amount)	
+	_reduced_shapes=_reduced_shapes.substr(0,_reduced_shapes.find("§§§"))
+	block_cycle=BlockCycleEntryDTO.cycles_from_string(_reduced_shapes)
+
 func reduce():
 	_reduced_entities=""
 	_reduced_waves=""
@@ -58,7 +63,7 @@ func reduce():
 	
 	for block in block_cycle:
 		_reduced_shapes+=block.get_compact_string()
-	
+	_reduced_shapes+="§§§"+str(battle_slots.amount)+"§§§"	
 	pass;		
 func save(dest,acc="",dir="maps"):
 	MapNameDTO.add_map_name(dest)

@@ -57,6 +57,7 @@ class Path:
 
 
 func _on_tree_exited():
+	
 	if gamestate != null:
 		pass
-		#gamestate.free()
+		gamestate.free()

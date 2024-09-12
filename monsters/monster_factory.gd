@@ -20,5 +20,6 @@ static func createMonster(type:Monster.MonsterName):
 	base.hp=base.hp*instance.base_hp
 	base.damage=base.damage*instance.base_damage
 	base.name_id=type
+	base.visible=true
 	return base
 	pass;

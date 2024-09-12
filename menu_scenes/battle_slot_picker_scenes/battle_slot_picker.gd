@@ -23,7 +23,11 @@ func enable_sandbox_mode():
 
 func _on_start_button_pressed():
 	var gamestate = SceneHandler.get_scene_instance(SceneHandler.Scene.MAIN_SCENE)
+	var map_dto=MapDTO.new()
+	map_dto.restore(map_name)
+	map=map_dto
 	gamestate.map_dto = map
+	$Panel/SubViewportContainer/SubViewport/MapPreview.free()
 	gamestate.register_battle_slot_containers($BlockSelector.selected_containers)
 	SceneHandler.change_scene(gamestate)
 

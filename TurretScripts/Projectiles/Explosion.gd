@@ -72,7 +72,7 @@ func playSound():
 		sound.play(0.10)
 	pass ;
 static func addToCache(done):
-	var temp = scene.instantiate();
+	var temp = scene.duplicate();
 
 	cache.push_back(temp)
 	done.call()

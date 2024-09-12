@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://4otg8drx5rwi"]
+[gd_scene load_steps=32 format=3 uid="uid://4otg8drx5rwi"]
 
 [ext_resource type="Script" path="res://TurretScripts/Projectiles/projectile_factory.gd" id="1_7qlu0"]
 [ext_resource type="Texture2D" uid="uid://raoax8o4vipw" path="res://Assets/Turrets/Projectiles/BLUE_projectile.png" id="1_dw666"]
@@ -15,6 +15,7 @@
 [ext_resource type="Script" path="res://TurretScripts/Projectiles/green_projectile.gd" id="12_7mdqh"]
 [ext_resource type="Texture2D" uid="uid://bbhc5rkgcx0fb" path="res://Assets/Effects/particles/pentacle-pentagram-pentacle-picture-d2c19b0c487217a0f496a65fca393f04.png" id="12_b8m1t"]
 [ext_resource type="Script" path="res://TurretScripts/Projectiles/magenta_projectile.gd" id="15_6s2gk"]
+[ext_resource type="Shader" path="res://pulsating_distortion.gdshader" id="15_fa22t"]
 [ext_resource type="Texture2D" uid="uid://xhoxxsaxh276" path="res://Assets/Effects/particles/light_03.png" id="15_oupr7"]
 [ext_resource type="Script" path="res://TurretScripts/Projectiles/red_projectile.gd" id="16_7b50o"]
 [ext_resource type="Texture2D" uid="uid://bwj5i4k0ocqx4" path="res://Assets/Effects/particles/circle_05.png" id="16_w8utr"]
@@ -47,6 +48,9 @@ colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
 [sub_resource type="Gradient" id="Gradient_3sk3a"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cu1nj"]
+shader = ExtResource("15_fa22t")
 
 [sub_resource type="Curve" id="Curve_msaaw"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -189,6 +193,7 @@ script = ExtResource("16_7b50o")
 damage_types = Array[int]([5])
 
 [node name="orb" type="Sprite2D" parent="red_projectile"]
+material = SubResource("ShaderMaterial_cu1nj")
 position = Vector2(0, -528.515)
 scale = Vector2(0.515, 0.515)
 texture = ExtResource("15_oupr7")
