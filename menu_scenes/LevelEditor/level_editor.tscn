@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://ceo4ed4nntj6h"]
+[gd_scene load_steps=15 format=3 uid="uid://ceo4ed4nntj6h"]
 
 [ext_resource type="Script" path="res://menu_scenes/LevelEditor/level_editor.gd" id="1_nibhe"]
 [ext_resource type="Texture2D" uid="uid://btp3q1rq0vmmt" path="res://Assets/Tiles/Ground/ground.png" id="2_exj2q"]
@@ -9,7 +9,8 @@
 [ext_resource type="PackedScene" uid="uid://cpal4oo6lrf4t" path="res://menu_scenes/LevelEditor/TileSelection/tile_selection.tscn" id="6_mdk6g"]
 [ext_resource type="PackedScene" uid="uid://cpwwc5ods0k2t" path="res://menu_scenes/LevelEditor/Settings/level_editor_settings.tscn" id="7_a46x8"]
 [ext_resource type="Script" path="res://UtilScenes/Animations/hover_scale_animation.gd" id="9_bwm5j"]
-[ext_resource type="Script" path="res://UtilScenes/scene_navigation.gd" id="10_fw21r"]
+[ext_resource type="StyleBox" uid="uid://b0qhmxvb2s50r" path="res://Styles/default_button.tres" id="10_kuex6"]
+[ext_resource type="Script" path="res://UtilScenes/Animations/open_close_scale_animation.gd" id="11_g8y0q"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ghpgt"]
 texture = ExtResource("2_exj2q")
@@ -55,13 +56,6 @@ script = ExtResource("4_0cb1y")
 offset_top = 80.0
 offset_right = 258.0
 offset_bottom = 559.0
-
-[node name="SaveButton" type="Button" parent="Camera2D/HUD"]
-offset_left = 1030.0
-offset_top = 546.0
-offset_right = 1116.0
-offset_bottom = 599.0
-text = "save"
 
 [node name="SettingsButton" type="Button" parent="Camera2D/HUD"]
 offset_left = 1038.0
@@ -109,23 +103,151 @@ offset_right = 141.0
 offset_bottom = 207.0
 text = "Bucket Fill Mode"
 
-[node name="BackButton" type="Button" parent="."]
+[node name="MenuButton" type="Button" parent="Camera2D/HUD"]
 offset_left = 15.0
 offset_top = 15.0
 offset_right = 78.0
 offset_bottom = 58.0
-text = "Back"
+text = "Menu"
 
-[node name="HoverScaleAnimation" type="Node" parent="BackButton"]
+[node name="HoverScaleAnimation" type="Node" parent="Camera2D/HUD/MenuButton"]
 script = ExtResource("9_bwm5j")
 
-[node name="SceneNavigation" type="Node" parent="BackButton"]
-script = ExtResource("10_fw21r")
-navigate_to = 7
+[node name="Menu" type="Panel" parent="Camera2D/HUD"]
+visible = false
+offset_left = 372.0
+offset_top = 168.0
+offset_right = 785.0
+offset_bottom = 460.0
+size_flags_horizontal = 4
+theme_override_styles/panel = ExtResource("10_kuex6")
 
-[connection signal="pressed" from="Camera2D/HUD/SaveButton" to="." method="_on_save_button_pressed"]
+[node name="OpenCloseScaleAnimation" type="Node" parent="Camera2D/HUD/Menu"]
+script = ExtResource("11_g8y0q")
+
+[node name="ResumeButton" type="Button" parent="Camera2D/HUD/Menu"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -92.5
+offset_top = 49.0
+offset_right = 92.5
+offset_bottom = 89.0
+grow_horizontal = 2
+text = "Resume"
+
+[node name="HoverScaleAnimation" type="Node" parent="Camera2D/HUD/Menu/ResumeButton"]
+script = ExtResource("9_bwm5j")
+
+[node name="SaveButton" type="Button" parent="Camera2D/HUD/Menu"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -92.5
+offset_top = 101.0
+offset_right = 92.5
+offset_bottom = 141.0
+grow_horizontal = 2
+text = "Save"
+
+[node name="HoverScaleAnimation" type="Node" parent="Camera2D/HUD/Menu/SaveButton"]
+script = ExtResource("9_bwm5j")
+
+[node name="SaveExitButton" type="Button" parent="Camera2D/HUD/Menu"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -92.5
+offset_top = 152.0
+offset_right = 92.5
+offset_bottom = 192.0
+grow_horizontal = 2
+text = "Save & Exit"
+
+[node name="HoverScaleAnimation" type="Node" parent="Camera2D/HUD/Menu/SaveExitButton"]
+script = ExtResource("9_bwm5j")
+
+[node name="ExitButton" type="Button" parent="Camera2D/HUD/Menu"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -92.5
+offset_top = 203.0
+offset_right = 92.5
+offset_bottom = 243.0
+grow_horizontal = 2
+text = "Exit"
+
+[node name="HoverScaleAnimation" type="Node" parent="Camera2D/HUD/Menu/ExitButton"]
+script = ExtResource("9_bwm5j")
+
+[node name="ExitWarning" type="Panel" parent="Camera2D/HUD"]
+visible = false
+offset_left = 425.0
+offset_top = 225.0
+offset_right = 730.0
+offset_bottom = 394.0
+theme_override_styles/panel = ExtResource("10_kuex6")
+
+[node name="OpenCloseScaleAnimation" type="Node" parent="Camera2D/HUD/ExitWarning"]
+script = ExtResource("11_g8y0q")
+
+[node name="Title" type="Label" parent="Camera2D/HUD/ExitWarning"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 10.0
+offset_bottom = 36.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 20
+text = "Warning!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Description" type="Label" parent="Camera2D/HUD/ExitWarning"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -82.0
+offset_top = -22.5
+offset_right = 82.0
+offset_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "All unsaved changes will be lost!"
+
+[node name="WarningExitButton" type="Button" parent="Camera2D/HUD/ExitWarning"]
+layout_mode = 0
+offset_left = 226.0
+offset_top = 123.0
+offset_right = 293.0
+offset_bottom = 156.0
+text = "Exit"
+
+[node name="WarningCancelButton" type="Button" parent="Camera2D/HUD/ExitWarning"]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 123.0
+offset_right = 86.0
+offset_bottom = 156.0
+text = "Cancel"
+
 [connection signal="pressed" from="Camera2D/HUD/SettingsButton" to="." method="_on_settings_button_pressed"]
 [connection signal="pressed" from="Camera2D/HUD/WaveSettingsButton" to="." method="_on_wave_settings_button_pressed"]
 [connection signal="pressed" from="Camera2D/HUD/BuildModes/DefaultBuildModeButton" to="." method="_on_default_build_mode_button_pressed"]
 [connection signal="pressed" from="Camera2D/HUD/BuildModes/DrawBuildModeButton" to="." method="_on_draw_build_mode_button_pressed"]
 [connection signal="pressed" from="Camera2D/HUD/BuildModes/BucketFillBuildModeButton" to="." method="_on_bucket_fill_build_mode_button_pressed"]
+[connection signal="pressed" from="Camera2D/HUD/MenuButton" to="." method="_on_menu_button_pressed"]
+[connection signal="pressed" from="Camera2D/HUD/Menu/ResumeButton" to="." method="_on_resume_button_pressed"]
+[connection signal="pressed" from="Camera2D/HUD/Menu/SaveButton" to="." method="_on_save_button_pressed"]
+[connection signal="pressed" from="Camera2D/HUD/Menu/SaveExitButton" to="." method="_on_save_exit_button_pressed"]
+[connection signal="pressed" from="Camera2D/HUD/Menu/ExitButton" to="." method="_on_exit_button_pressed"]
+[connection signal="pressed" from="Camera2D/HUD/ExitWarning/WarningExitButton" to="." method="_on_warning_exit_button_pressed"]
+[connection signal="pressed" from="Camera2D/HUD/ExitWarning/WarningCancelButton" to="." method="_on_warning_cancel_button_pressed"]

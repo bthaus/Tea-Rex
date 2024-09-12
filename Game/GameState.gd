@@ -136,7 +136,6 @@ func _draw():
 	pass;
 		
 func _process(delta):
-	print(spawners.size())
 	for i in range(game_speed):
 		for turret in Turret.turrets:
 			if is_instance_valid(turret): turret.do(delta/game_speed);

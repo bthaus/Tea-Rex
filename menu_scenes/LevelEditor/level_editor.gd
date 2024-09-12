@@ -9,6 +9,11 @@ class_name LevelEditor
 @onready var bucket_fill_build_mode_button = $Camera2D/HUD/BuildModes/BucketFillBuildModeButton
 @onready var tile_selection = $Camera2D/HUD/TileSelection
 
+@onready var menu = $Camera2D/HUD/Menu
+@onready var menu_animation = $Camera2D/HUD/Menu/OpenCloseScaleAnimation
+@onready var exit_warning = $Camera2D/HUD/ExitWarning
+@onready var exit_warning_animation = $Camera2D/HUD/ExitWarning/OpenCloseScaleAnimation
+
 @onready var board_handler: LevelEditorBoardHandler
 
 var map_name: String
@@ -156,6 +161,11 @@ func _update_spawner_entities():
 			if spawner.map_position == positions[i]:
 				spawner.spawner_id = i
 
+func _save_level():
+	var monster_waves = wave_settings.get_monster_waves()
+	var settings = settings.get_setting_properties()
+	board_handler.save_board(monster_waves, settings, map_name)
+
 func _on_default_build_mode_button_pressed():
 	_build_mode = BuildMode.DEFAULT
 	_set_button_selected(default_build_mode_button, true)
@@ -177,10 +187,7 @@ func _on_bucket_fill_build_mode_button_pressed():
 	_set_button_selected(bucket_fill_build_mode_button, true)
 	$Camera2D.disable_dragging(false)
 
-func _on_save_button_pressed():
-	var monster_waves = wave_settings.get_monster_waves()
-	var settings = settings.get_setting_properties()
-	board_handler.save_board(monster_waves, settings, map_name)
+
 	
 func _on_settings_button_pressed():
 	settings.open()
@@ -208,3 +215,28 @@ func _set_button_selected(sender, selected: bool):
 
 func dragging_camera():
 	ignore_click = true
+
+func _on_menu_button_pressed(): 
+	menu_animation.open()
+	
+func _on_resume_button_pressed(): 
+	menu_animation.close(menu.hide)
+	exit_warning_animation.close(exit_warning.hide)
+	
+func _on_save_button_pressed():
+	_save_level()
+	menu_animation.close(menu.hide)
+	
+func _on_save_exit_button_pressed():
+	_save_level()
+	SceneHandler.change_scene(SceneHandler.get_scene_instance(SceneHandler.Scene.LEVEL_EDITOR_MENU))
+	
+func _on_exit_button_pressed():
+	if not exit_warning.visible:
+		exit_warning_animation.open()
+	
+func _on_warning_exit_button_pressed(): 
+	SceneHandler.change_scene(SceneHandler.get_scene_instance(SceneHandler.Scene.LEVEL_EDITOR_MENU))
+	
+func _on_warning_cancel_button_pressed():
+	exit_warning_animation.close(exit_warning.hide)
