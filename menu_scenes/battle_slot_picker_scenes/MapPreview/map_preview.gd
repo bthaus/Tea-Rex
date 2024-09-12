@@ -10,7 +10,7 @@ func _ready():
 func set_map(map_dto: MapDTO, show_path: bool = true):
 	var final_scale = scale
 	scale = Vector2(1, 1)
-	_draw_border()
+	GameboardUtils.draw_border($Board)
 	gamestate = load("res://Game/simulation_scene.tscn").instantiate()
 	gamestate.map_dto=map_dto
 	add_child(gamestate)
@@ -34,19 +34,9 @@ func set_map(map_dto: MapDTO, show_path: bool = true):
 
 func _draw():
 	if not redraw: return
-	
 	for path in board_paths:
 		for i in path.board_positions.size()-1:
 			draw_line($Board.map_to_local(path.board_positions[i]), $Board.map_to_local(path.board_positions[i+1]), path.color, 1, true)
-
-func _draw_border():
-	for y in range(-1, GameboardConstants.BOARD_HEIGHT+1):
-		$Board.set_cell(GameboardConstants.MapLayer.BLOCK_LAYER, Vector2(-1, y), GameboardConstants.WALL_TILE_ID, Vector2(0,0))
-		$Board.set_cell(GameboardConstants.MapLayer.BLOCK_LAYER, Vector2(GameboardConstants.BOARD_WIDTH, y), GameboardConstants.WALL_TILE_ID, Vector2(0,0))
-
-	for x in range(-1, GameboardConstants.BOARD_WIDTH+1):
-		$Board.set_cell(GameboardConstants.MapLayer.BLOCK_LAYER, Vector2(x, -1), GameboardConstants.WALL_TILE_ID, Vector2(0,0))
-		$Board.set_cell(GameboardConstants.MapLayer.BLOCK_LAYER, Vector2(x, GameboardConstants.BOARD_HEIGHT), GameboardConstants.WALL_TILE_ID, Vector2(0,0))
 
 class Path:
 	var color

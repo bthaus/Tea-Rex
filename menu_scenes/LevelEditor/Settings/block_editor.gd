@@ -16,7 +16,7 @@ func set_block(block: Block):
 func _input(event):
 	var mouse_just_pressed = InputUtils.is_action_just_pressed(event, "left_click") or InputUtils.is_action_just_pressed(event, "right_click")
 	var mouse_just_released = InputUtils.is_action_just_released(event, "left_click") or InputUtils.is_action_just_released(event, "right_click")
-	var board_pos = GameboardConstants.local_to_map_on_scaled_board($Board, get_local_mouse_position())
+	var board_pos = GameboardUtils.local_to_map_on_scaled_board($Board, get_local_mouse_position())
 	
 	#Check if we are at a new tile
 	var at_new_tile = true if board_pos != previous_board_position else false

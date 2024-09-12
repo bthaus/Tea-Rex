@@ -32,6 +32,7 @@ func _ready():
 	gameState=GameState.gameState
 	randomize()
 	$Board.tile_set.tile_size = Vector2(GameboardConstants.TILE_SIZE, GameboardConstants.TILE_SIZE)
+	GameboardUtils.draw_border($Board)
 	
 	block_handler = BlockHandler.new($Board)
 	

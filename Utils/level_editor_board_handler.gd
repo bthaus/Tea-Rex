@@ -109,6 +109,8 @@ func bucket_fill(tile: TileSelection.TileItem, map_position: Vector2):
 	Spawner.refresh_all_paths()
 
 func clear_cell_layer(map_position: Vector2):
+	if not _is_in_editor_bounds(map_position): return
+	
 	var entity = editor_game_state.collisionReference.get_entity(GameboardConstants.MapLayer.BLOCK_LAYER, map_position)
 	if entity != null and entity is Spawner: #There was a spawner below
 		_remove_spawner_at(map_position)

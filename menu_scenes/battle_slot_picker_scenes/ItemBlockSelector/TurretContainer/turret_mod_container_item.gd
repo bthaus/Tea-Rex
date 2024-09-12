@@ -35,7 +35,7 @@ func _ready():
 
 func _process(delta):
 	$Board.clear_layer(ItemBlockConstants.MapLayer.PREVIEW_LAYER)
-	var board_pos = GameboardConstants.local_to_map_on_scaled_board($Board, get_local_mouse_position())
+	var board_pos = GameboardUtils.local_to_map_on_scaled_board($Board, get_local_mouse_position())
 	if board_pos.x < 0 or board_pos.x > WIDTH-1 or board_pos.y < 0 or board_pos.y > HEIGHT-1:
 		if is_focused: focused.emit(null) #Focus now lost
 		is_focused = false
@@ -52,7 +52,7 @@ func _process(delta):
 func _input(event):
 	if not is_focused: return
 	if event.is_action_released("left_click"):
-		var board_pos = GameboardConstants.local_to_map_on_scaled_board($Board, get_local_mouse_position())
+		var board_pos = GameboardUtils.local_to_map_on_scaled_board($Board, get_local_mouse_position())
 		#Place down
 		if selected_item != null:
 			if item_handler.can_place_item_block(selected_item, board_pos):

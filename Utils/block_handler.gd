@@ -125,7 +125,7 @@ func can_place_block(block: Block, map_position: Vector2,  spawners) -> bool:
 		if build_entity != null and build_entity is Build: #There is a build restriction present
 			if build_entity.allowed_color == GameboardConstants.TileColor.NONE: #No color allowed here
 				return false
-			if build_entity.allowed_color != GameboardConstants.turret_color_to_tile_color(piece.color): #Wrong color
+			if build_entity.allowed_color != GameboardUtils.turret_color_to_tile_color(piece.color): #Wrong color
 				return false
 		
 		#Check underlying turret

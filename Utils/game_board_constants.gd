@@ -40,9 +40,6 @@ enum MapLayer { GROUND_LAYER = 0, BUILD_LAYER = 1, BLOCK_LAYER = 2, PREVIEW_LAYE
 #COLORS
 enum TileColor { NONE=0, RED=1, GREEN=2, BLUE=3, YELLOW=4, WHITE=5, MAGENTA=6 };
 
-static func turret_color_to_tile_color(color: Turret.Hue):
-	return TileColor.get(Turret.Hue.keys()[color])
-
 static func tile_to_dto(tile_id: int) -> EntityDTO:
 	match (tile_id):
 		#SPECIAL ENTITIES
@@ -54,6 +51,3 @@ static func tile_to_dto(tile_id: int) -> EntityDTO:
 		_: return EntityDTO.new(tile_id)
 
 	return null
-
-static func local_to_map_on_scaled_board(board: TileMap, local_position: Vector2) -> Vector2:
-	return board.local_to_map((local_position - board.position) / board.scale)
