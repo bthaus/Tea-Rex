@@ -35,7 +35,7 @@ var editor_game_state: EditorGameState
 func _ready():
 	$Board.tile_set.tile_size = Vector2(GameboardConstants.TILE_SIZE, GameboardConstants.TILE_SIZE)
 	$Background.tile_set.tile_size = Vector2(GameboardConstants.TILE_SIZE, GameboardConstants.TILE_SIZE)
-	GameboardUtils.draw_border($Board)
+	GameboardUtils.draw_border($Background)
 	
 	#Set background lines
 	for y in range(0, GameboardConstants.BOARD_HEIGHT):
