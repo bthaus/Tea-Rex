@@ -30,6 +30,7 @@ offset_bottom = 612.0
 text = "Create New"
 
 [node name="NewLevel" type="Panel" parent="."]
+z_index = 10
 offset_left = 376.0
 offset_top = 199.0
 offset_right = 813.0
