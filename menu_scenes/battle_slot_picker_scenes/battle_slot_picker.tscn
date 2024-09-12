@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://wxxetrhi2blb"]
+[gd_scene load_steps=6 format=3 uid="uid://wxxetrhi2blb"]
 
 [ext_resource type="Script" path="res://menu_scenes/battle_slot_picker_scenes/battle_slot_picker.gd" id="1_dtjat"]
 [ext_resource type="PackedScene" uid="uid://dhta83lpekmrd" path="res://menu_scenes/battle_slot_picker_scenes/ItemBlockSelector/item_block_selector.tscn" id="2_ug7ge"]
 [ext_resource type="PackedScene" uid="uid://ocda6wj7wys8" path="res://menu_scenes/battle_slot_picker_scenes/MapPreview/map_preview.tscn" id="3_34lw5"]
 [ext_resource type="Script" path="res://Utils/board_camera.gd" id="3_aplah"]
+[ext_resource type="Script" path="res://UtilScenes/Animations/hover_scale_animation.gd" id="5_jvehl"]
 
 [node name="battle_slot_picker" type="Node2D"]
 script = ExtResource("1_dtjat")
@@ -62,4 +63,15 @@ position = Vector2(500, 500)
 zoom = Vector2(0.25, 0.25)
 script = ExtResource("3_aplah")
 
+[node name="BackButton" type="Button" parent="."]
+offset_left = 15.0
+offset_top = 15.0
+offset_right = 78.0
+offset_bottom = 58.0
+text = "Back"
+
+[node name="HoverScaleAnimation" type="Node" parent="BackButton"]
+script = ExtResource("5_jvehl")
+
 [connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="BackButton" to="." method="_on_back_button_pressed"]

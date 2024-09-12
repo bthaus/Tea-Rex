@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://c1jrn7vi6wxab"]
+[gd_scene load_steps=36 format=3 uid="uid://c1jrn7vi6wxab"]
 
 [ext_resource type="PackedScene" uid="uid://d3553ynahp4sx" path="res://Game/Minimap.tscn" id="1_e6okl"]
 [ext_resource type="Script" path="res://menu_scenes/UI_scenes/ui.gd" id="1_t51w1"]
@@ -28,6 +28,8 @@
 [ext_resource type="Texture2D" uid="uid://58rwvcf783rt" path="res://Assets/UI/trasparent background/DB3FCCDF-C9DB-4949-A256-86B28C643560.png" id="27_grqb4"]
 [ext_resource type="Texture2D" uid="uid://b5e48n27vv5n4" path="res://Assets/UI/trasparent background/F4D3C18B-4BE6-4A76-99CA-B95B70916A82.png" id="28_qd8my"]
 [ext_resource type="Texture2D" uid="uid://chiaoogdxx4hw" path="res://Assets/UI/options_button.png" id="29_nfpk7"]
+[ext_resource type="Script" path="res://UtilScenes/Animations/hover_scale_animation.gd" id="29_o75mk"]
+[ext_resource type="Script" path="res://UtilScenes/scene_navigation.gd" id="30_hy8a4"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_nendl"]
 font_size = 32
@@ -231,9 +233,9 @@ scroll_active = false
 
 [node name="Hpbar" type="TextureProgressBar" parent="."]
 offset_left = -5.30973
-offset_top = 31.8584
+offset_top = 111.138
 offset_right = 253.69
-offset_bottom = 223.858
+offset_bottom = 303.137
 scale = Vector2(1.175, 1.175)
 value = 100.0
 texture_under = ExtResource("18_i0jfr")
@@ -251,9 +253,9 @@ horizontal_alignment = 2
 
 [node name="EXPbar" type="TextureProgressBar" parent="."]
 offset_left = 3.53982
-offset_top = 95.5752
+offset_top = 174.854
 offset_right = 366.54
-offset_bottom = 287.575
+offset_bottom = 366.854
 texture_under = ExtResource("20_wg7to")
 texture_progress = ExtResource("21_bffi1")
 
@@ -302,9 +304,9 @@ position = Vector2(923.894, 557.522)
 
 [node name="saving" type="Label" parent="."]
 offset_left = 40.708
-offset_top = 17.6991
+offset_top = 96.9783
 offset_right = 167.708
-offset_bottom = 40.6991
+offset_bottom = 119.978
 text = "Saving the game
 "
 
@@ -385,6 +387,20 @@ offset_top = 521.0
 offset_right = 337.0
 offset_bottom = 573.0
 text = "0 expected damage"
+
+[node name="BackButton" type="Button" parent="."]
+offset_left = 15.0
+offset_top = 15.0
+offset_right = 78.0
+offset_bottom = 58.0
+text = "Back"
+
+[node name="HoverScaleAnimation" type="Node" parent="BackButton"]
+script = ExtResource("29_o75mk")
+
+[node name="SceneNavigation" type="Node" parent="BackButton"]
+script = ExtResource("30_hy8a4")
+navigate_to = 4
 
 [connection signal="pressed" from="SpeedButton" to="." method="_on_speed_button_pressed" binds= [1]]
 [connection signal="pressed" from="SpeedButton2" to="." method="_on_speed_button_pressed" binds= [-1]]

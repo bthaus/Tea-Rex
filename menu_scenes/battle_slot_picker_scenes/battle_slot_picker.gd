@@ -26,3 +26,8 @@ func _on_start_button_pressed():
 	gamestate.map_dto = map
 	gamestate.register_battle_slot_containers($BlockSelector.selected_containers)
 	SceneHandler.change_scene(gamestate)
+
+
+func _on_back_button_pressed():
+	var scene = SceneHandler.Scene.LEVEL_EDITOR_MENU if Global.is_playing_custom_level else SceneHandler.Scene.LEVEL_SELECTION
+	SceneHandler.change_scene(SceneHandler.get_scene_instance(scene))

@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://ekovq0qfritq"]
+[gd_scene load_steps=4 format=3 uid="uid://ekovq0qfritq"]
 
 [ext_resource type="Script" path="res://menu_scenes/chapter_editor_scenes/chapter_editor.gd" id="1_fjnog"]
+[ext_resource type="Script" path="res://UtilScenes/Animations/hover_scale_animation.gd" id="2_w25kk"]
+[ext_resource type="Script" path="res://UtilScenes/scene_navigation.gd" id="3_7a350"]
 
 [node name="ScrollContainer" type="ScrollContainer"]
 offset_right = 1144.0
@@ -33,6 +35,16 @@ text = "add chapter"
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.13
+
+[node name="BackButton" type="Button" parent="."]
+layout_mode = 2
+text = "Back"
+
+[node name="HoverScaleAnimation" type="Node" parent="BackButton"]
+script = ExtResource("2_w25kk")
+
+[node name="SceneNavigation" type="Node" parent="BackButton"]
+script = ExtResource("3_7a350")
 
 [connection signal="tree_entered" from="chapter_editor" to="chapter_editor" method="_on_tree_entered"]
 [connection signal="multi_selected" from="chapter_editor/all_maps/maps" to="chapter_editor" method="_on_maps_multi_selected"]

@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://cav451lwmjfkq"]
+[gd_scene load_steps=5 format=3 uid="uid://cav451lwmjfkq"]
 
 [ext_resource type="Script" path="res://menu_scenes/LevelSelection/level_selection.gd" id="1_4gnyc"]
 [ext_resource type="PackedScene" uid="uid://cmo60xvnyw41u" path="res://menu_scenes/LevelSelection/level_selection_item.tscn" id="2_jrjd7"]
+[ext_resource type="Script" path="res://UtilScenes/Animations/hover_scale_animation.gd" id="3_jip70"]
+[ext_resource type="Script" path="res://UtilScenes/scene_navigation.gd" id="4_0afkk"]
 
 [node name="LevelSelection" type="Node2D"]
 script = ExtResource("1_4gnyc")
@@ -64,3 +66,17 @@ layout_mode = 2
 
 [node name="LevelSelectionItem5" parent="ScrollContainer/MarginContainer/LevelRowsContainer/HBoxContainer2" instance=ExtResource("2_jrjd7")]
 layout_mode = 2
+
+[node name="BackButton" type="Button" parent="."]
+offset_left = 15.0
+offset_top = 15.0
+offset_right = 78.0
+offset_bottom = 58.0
+text = "Back"
+
+[node name="HoverScaleAnimation" type="Node" parent="BackButton"]
+script = ExtResource("3_jip70")
+
+[node name="SceneNavigation" type="Node" parent="BackButton"]
+script = ExtResource("4_0afkk")
+navigate_to = 2

@@ -1,7 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://btt1p72y8bu75"]
+[gd_scene load_steps=7 format=3 uid="uid://btt1p72y8bu75"]
 
 [ext_resource type="PackedScene" uid="uid://het7mtvkb5uw" path="res://menu_scenes/ChapterSelection/chapter_point.tscn" id="1_oqt2r"]
 [ext_resource type="Script" path="res://menu_scenes/ChapterSelection/chapter_selection.gd" id="1_vdyvk"]
+[ext_resource type="Script" path="res://UtilScenes/Animations/hover_scale_animation.gd" id="3_iaf4w"]
+[ext_resource type="Script" path="res://UtilScenes/scene_navigation.gd" id="4_rujfv"]
 
 [sub_resource type="Curve2D" id="Curve2D_srcrt"]
 _data = {
@@ -19,53 +21,69 @@ point_count = 3
 script = ExtResource("1_vdyvk")
 
 [node name="ChapterPoint" parent="." node_paths=PackedStringArray("next_point_path") instance=ExtResource("1_oqt2r")]
-offset_left = 6.0
-offset_top = 7.0
-offset_right = 51.0
-offset_bottom = 52.0
+offset_left = 80.0
+offset_top = 135.0
+offset_right = 125.0
+offset_bottom = 180.0
 next_point_path = NodePath("../Path2D")
 chapter_name = "custom"
 
 [node name="ChapterPoint2" parent="." node_paths=PackedStringArray("next_point_path") instance=ExtResource("1_oqt2r")]
-offset_left = 162.0
-offset_top = 55.0
-offset_right = 197.0
-offset_bottom = 88.0
+offset_left = 236.0
+offset_top = 183.0
+offset_right = 271.0
+offset_bottom = 216.0
 index = 1
 next_point_path = NodePath("../Path2D2")
 chapter_name = "forrest"
 
 [node name="ChapterPoint3" parent="." instance=ExtResource("1_oqt2r")]
-offset_left = 350.0
-offset_top = 165.0
-offset_right = 385.0
-offset_bottom = 198.0
+offset_left = 424.0
+offset_top = 293.0
+offset_right = 459.0
+offset_bottom = 326.0
 index = 2
 chapter_name = "vulcano"
 
 [node name="Path2D" type="Path2D" parent="."]
+position = Vector2(74, 128)
 curve = SubResource("Curve2D_srcrt")
 
 [node name="Path2D2" type="Path2D" parent="."]
+position = Vector2(74, 128)
 curve = SubResource("Curve2D_ftixr")
 
 [node name="Label" type="Label" parent="."]
-offset_left = 5.0
-offset_top = 53.0
-offset_right = 63.0
-offset_bottom = 76.0
+offset_left = 79.0
+offset_top = 181.0
+offset_right = 137.0
+offset_bottom = 204.0
 text = "custom"
 
 [node name="Label2" type="Label" parent="."]
-offset_left = 153.0
-offset_top = 88.0
-offset_right = 211.0
-offset_bottom = 111.0
+offset_left = 227.0
+offset_top = 216.0
+offset_right = 285.0
+offset_bottom = 239.0
 text = "forrest"
 
 [node name="Label3" type="Label" parent="."]
-offset_left = 338.0
-offset_top = 196.0
-offset_right = 396.0
-offset_bottom = 219.0
+offset_left = 412.0
+offset_top = 324.0
+offset_right = 473.0
+offset_bottom = 347.0
 text = "vulcano"
+
+[node name="BackButton" type="Button" parent="."]
+offset_left = 15.0
+offset_top = 15.0
+offset_right = 78.0
+offset_bottom = 58.0
+text = "Back"
+
+[node name="HoverScaleAnimation" type="Node" parent="BackButton"]
+script = ExtResource("3_iaf4w")
+
+[node name="SceneNavigation" type="Node" parent="BackButton"]
+script = ExtResource("4_rujfv")
+navigate_to = 1

@@ -1,8 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://d23yd2kujc20t"]
+[gd_scene load_steps=6 format=3 uid="uid://d23yd2kujc20t"]
 
 [ext_resource type="PackedScene" uid="uid://ddd8ed1kevi6j" path="res://menu_scenes/LevelEditor/Menu/level_editor_menu_item.tscn" id="1_0abjd"]
 [ext_resource type="Script" path="res://menu_scenes/LevelEditor/Menu/level_editor_menu.gd" id="1_u8g4u"]
 [ext_resource type="StyleBox" uid="uid://b0qhmxvb2s50r" path="res://Styles/default_button.tres" id="3_bclem"]
+[ext_resource type="Script" path="res://UtilScenes/Animations/hover_scale_animation.gd" id="4_kuj0x"]
+[ext_resource type="Script" path="res://UtilScenes/scene_navigation.gd" id="5_8e3p2"]
 
 [node name="LevelEditorMenu" type="Node2D"]
 script = ExtResource("1_u8g4u")
@@ -77,6 +79,19 @@ offset_top = 128.0
 offset_right = 101.0
 offset_bottom = 175.0
 text = "Cancel"
+
+[node name="BackButton" type="Button" parent="."]
+offset_left = 15.0
+offset_top = 15.0
+offset_right = 78.0
+offset_bottom = 58.0
+text = "Back"
+
+[node name="HoverScaleAnimation" type="Node" parent="BackButton"]
+script = ExtResource("4_kuj0x")
+
+[node name="SceneNavigation" type="Node" parent="BackButton"]
+script = ExtResource("5_8e3p2")
 
 [connection signal="pressed" from="NewLevelButton" to="." method="_on_new_level_button_pressed"]
 [connection signal="pressed" from="NewLevel/CreateButton" to="." method="_on_create_button_pressed"]

@@ -18,4 +18,3 @@ func set_up(game_state):
 
 func _on_continue_pressed():
 	SceneHandler.change_scene(SceneHandler.get_scene_instance(SceneHandler.Scene.LEVEL_SELECTION))
-

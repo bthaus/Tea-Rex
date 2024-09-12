@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://ceo4ed4nntj6h"]
+[gd_scene load_steps=14 format=3 uid="uid://ceo4ed4nntj6h"]
 
 [ext_resource type="Script" path="res://menu_scenes/LevelEditor/level_editor.gd" id="1_nibhe"]
 [ext_resource type="Texture2D" uid="uid://btp3q1rq0vmmt" path="res://Assets/Tiles/Ground/ground.png" id="2_exj2q"]
@@ -8,6 +8,8 @@
 [ext_resource type="PackedScene" uid="uid://bq3cptvw55c8" path="res://menu_scenes/LevelEditor/WaveSettings/wave_settings.tscn" id="4_3dmyq"]
 [ext_resource type="PackedScene" uid="uid://cpal4oo6lrf4t" path="res://menu_scenes/LevelEditor/TileSelection/tile_selection.tscn" id="6_mdk6g"]
 [ext_resource type="PackedScene" uid="uid://cpwwc5ods0k2t" path="res://menu_scenes/LevelEditor/Settings/level_editor_settings.tscn" id="7_a46x8"]
+[ext_resource type="Script" path="res://UtilScenes/Animations/hover_scale_animation.gd" id="9_bwm5j"]
+[ext_resource type="Script" path="res://UtilScenes/scene_navigation.gd" id="10_fw21r"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ghpgt"]
 texture = ExtResource("2_exj2q")
@@ -50,9 +52,9 @@ script = ExtResource("4_0cb1y")
 [node name="HUD" type="CanvasLayer" parent="Camera2D"]
 
 [node name="TileSelection" parent="Camera2D/HUD" instance=ExtResource("6_mdk6g")]
-offset_top = 54.0
+offset_top = 80.0
 offset_right = 258.0
-offset_bottom = 533.0
+offset_bottom = 559.0
 
 [node name="SaveButton" type="Button" parent="Camera2D/HUD"]
 offset_left = 1030.0
@@ -106,6 +108,20 @@ offset_top = 147.0
 offset_right = 141.0
 offset_bottom = 207.0
 text = "Bucket Fill Mode"
+
+[node name="BackButton" type="Button" parent="."]
+offset_left = 15.0
+offset_top = 15.0
+offset_right = 78.0
+offset_bottom = 58.0
+text = "Back"
+
+[node name="HoverScaleAnimation" type="Node" parent="BackButton"]
+script = ExtResource("9_bwm5j")
+
+[node name="SceneNavigation" type="Node" parent="BackButton"]
+script = ExtResource("10_fw21r")
+navigate_to = 7
 
 [connection signal="pressed" from="Camera2D/HUD/SaveButton" to="." method="_on_save_button_pressed"]
 [connection signal="pressed" from="Camera2D/HUD/SettingsButton" to="." method="_on_settings_button_pressed"]

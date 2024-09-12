@@ -1,24 +1,10 @@
 extends Node2D
 
-func _on_start_button_pressed():
-	SceneHandler.change_scene(SceneHandler.get_scene_instance(SceneHandler.Scene.ACCOUNTS))
-
-func _on_settings_pressed():
-	pass # Replace with function body.
-	
-
-func _on_level_editor_pressed():
-	SceneHandler.change_scene(SceneHandler.get_scene_instance(SceneHandler.Scene.LEVEL_EDITOR_MENU))
-
 func _on_exit_game_pressed():
 	pass # Replace with function body.
 
 
 #DEBUG ONLY
-
-
-func _on_chapter_editor_pressed():
-	SceneHandler.change_scene(SceneHandler.get_scene_instance(SceneHandler.Scene.CHAPTER_EDITOR))
 
 
 func _on_delete_all_maps_pressed():
