@@ -17,5 +17,5 @@ func set_up(game_state):
 	account.save()
 
 func _on_continue_pressed():
-	SceneChanger.change_scene(SceneChanger.get_scene_instance(SceneChanger.LEVEL_SELECTION_PATH))
+	SceneHandler.change_scene(SceneHandler.get_scene_instance(SceneHandler.Scene.LEVEL_SELECTION))
 

@@ -22,8 +22,7 @@ func enable_sandbox_mode():
 	$BlockSelector.enable_sandbox_mode()
 
 func _on_start_button_pressed():
-	
-	var gamestate = SceneChanger.get_scene_instance(SceneChanger.GAME_STATE_PATH)
+	var gamestate = SceneHandler.get_scene_instance(SceneHandler.Scene.MAIN_SCENE)
 	gamestate.map_dto = map
 	gamestate.register_battle_slot_containers($BlockSelector.selected_containers)
-	SceneChanger.change_scene(gamestate)
+	SceneHandler.change_scene(gamestate)

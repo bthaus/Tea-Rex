@@ -54,7 +54,7 @@ func _process(delta):
 			$Camera2D.disable_dragging(true)
 
 func create_editor_game_state(map_dto:MapDTO):
-	var state=load("res://Game/main_scene.tscn").instantiate()
+	var state = SceneHandler.get_scene_instance(SceneHandler.Scene.MAIN_SCENE)
 	state.set_script(load("res://Game/editor_gamestate.gd"))
 	editor_game_state=state
 	editor_game_state.map_dto=map_dto

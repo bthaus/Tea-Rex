@@ -1,15 +1,14 @@
 extends Node2D
 
 func _on_start_button_pressed():
-	SceneChanger.change_scene(SceneChanger.get_scene_instance(SceneChanger.ACCOUNTS_PATH))
-
+	SceneHandler.change_scene(SceneHandler.get_scene_instance(SceneHandler.Scene.ACCOUNTS))
 
 func _on_settings_pressed():
 	pass # Replace with function body.
 	
 
 func _on_level_editor_pressed():
-	SceneChanger.change_scene(SceneChanger.get_scene_instance(SceneChanger.LEVEL_EDITOR_MENU_PATH))
+	SceneHandler.change_scene(SceneHandler.get_scene_instance(SceneHandler.Scene.LEVEL_EDITOR_MENU))
 
 func _on_exit_game_pressed():
 	pass # Replace with function body.
@@ -19,7 +18,7 @@ func _on_exit_game_pressed():
 
 
 func _on_chapter_editor_pressed():
-	SceneChanger.change_scene(SceneChanger.get_scene_instance(SceneChanger.CHAPTER_EDITOR_PATH))
+	SceneHandler.change_scene(SceneHandler.get_scene_instance(SceneHandler.Scene.CHAPTER_EDITOR))
 
 
 func _on_delete_all_maps_pressed():

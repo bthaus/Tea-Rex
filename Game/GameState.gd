@@ -22,11 +22,6 @@ var current_expected_damage=0:
 		current_expected_damage=value
 		updateUI()
 static var gameState:GameState
-	#get:
-		#if gameState==null:
-			#gameState=load("res://Game/main_scene.tscn").instantiate()
-			#MainMenu.instance.add_child(gameState)
-		#return gameState	
 var account: String = "dede";
 
 #Todo: remove and replace with battle_slot_logic
