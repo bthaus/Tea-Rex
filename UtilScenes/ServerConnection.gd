@@ -43,16 +43,14 @@ func get_map(map_id:int):
 func add_rating_to_map(rating:int,map_id:int,user_name:String):
 	var dto=ServerDTOs.get_rating_dto(map_id,user_name,rating);
 	POST("validated/add_rating_to_map",dto)
-func get_rating_from_map(map_name:String):
-	GET("get_rating_from_map/"+map_name)	
 			
 func send_comment(comment:String,map_id:int):
 	var id=Global.get_account().account_name
 	var dto=ServerDTOs.get_comment_dto(comment,id,map_id)
 	POST("validated/add_comment",dto)
 	pass;	
-func get_comments(mapname:String):
-	GET("get_comments_from_map/"+mapname)
+func get_comments(map_id:int):
+	GET("get_comments_from_map/"+str(map_id))
 	pass;	
 
 
@@ -74,7 +72,7 @@ func _on_sen_pressed():
 
 
 func _on_get_pressed():
-	get_comments("sim_debug")
+	get_comments(1)
 	pass # Replace with function body.
 
 
@@ -102,9 +100,6 @@ func _on_button_2_pressed():
 	pass # Replace with function body.
 
 
-func _on_get_rating_pressed():
-	get_rating_from_map("sim_debug")
-	pass # Replace with function body.
 
 
 func _on_addacc_pressed():

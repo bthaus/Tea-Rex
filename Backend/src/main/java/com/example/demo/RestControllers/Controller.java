@@ -98,10 +98,10 @@ public class Controller {
         return resonse;
     }
     @Transactional
-    @GetMapping("get_comments_from_map/{map_name}")
-    Set<Comment> get_comments_from_map(@PathVariable String map_name)
+    @GetMapping("get_comments_from_map/{map_id}")
+    Set<Comment> get_comments_from_map(@PathVariable int map_id)
     {
-        GameMap map=dbService.getMap(map_name);
+        GameMap map=dbService.getMapByID(map_id);
 
         Set<Comment> comments= map.getComments();
         System.out.println(comments.size() +" comments from map: "+map.getName()+" requested");
@@ -125,15 +125,8 @@ public class Controller {
         System.out.println(r.getRating());
         return dbService.add_rating(r);
     }
-    @GetMapping("get_rating_from_map/{map_name}")
-    int get_rating_from_map(@PathVariable String map_name){
-        GameMap map=dbService.getMap(map_name);
-        return map.getAverage_rating();
-    }
-    @GetMapping("get_map_names")
-    public String[] get_maps(){
-    return dbService.getMapNames();
-    }
+
+
     @GetMapping("get_map_infos")
     public List<MapDTO> get_map_infos(){
         List<GameMap> maps=dbService.getAllMaps();
@@ -143,6 +136,7 @@ public class Controller {
         }
        return dtos;
     }
+
     @PostMapping("validated/add_map")
     String add_map(@RequestBody String map,@CookieValue(name = "token", defaultValue = "no.to.ken")String token) throws JsonProcessingException {
         UserAccount user=dbService.getUserFromToken(token);
@@ -154,7 +148,7 @@ public class Controller {
         System.out.println(response);
         return response;
     }
-   
+
     @GetMapping("/get_map/{map_id}")
     GameMap get_map(@PathVariable int map_id) {
         GameMap map=dbService.getMapByID(map_id);
