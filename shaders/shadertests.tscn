@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://dcrgliobupvw2"]
+
+[ext_resource type="Texture2D" uid="uid://cfbvcmros3bh2" path="res://Assets/UI/Menu/Screenshot 2024-05-09 220548.png" id="1_v5iln"]
+[ext_resource type="Shader" path="res://shaders/shock_wave.gdshader" id="2_5xtui"]
+[ext_resource type="Texture2D" uid="uid://lt0t5g583pm6" path="res://Assets/Turrets/Projectiles/new projectiles/Projectile_saw_orb.png" id="3_c7n4q"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xibv5"]
+shader = ExtResource("2_5xtui")
+shader_parameter/global_position = null
+shader_parameter/screen_size = null
+shader_parameter/force = null
+shader_parameter/size = null
+shader_parameter/thickness = null
+
+[node name="Shadertests" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-22, -52)
+texture = ExtResource("1_v5iln")
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_xibv5")
+position = Vector2(-12, 100)
+scale = Vector2(0.263008, 0.292539)
+texture = ExtResource("3_c7n4q")
