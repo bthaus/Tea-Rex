@@ -22,17 +22,17 @@ public class Comment {
 
     private String user_name;
 
-    private String map_name;
+    private int map_id;
 
 
     @JsonCreator
     public Comment(
             @JsonProperty("comment") String comment,
             @JsonProperty("user_name") String user_name,
-            @JsonProperty("map_name") String map_name) {
+            @JsonProperty("map_id") int map_id) {
         this.user_name = user_name;
         this.comment = comment;
-        this.map_name = map_name;
+        this.map_id = map_id;
     }
 
 

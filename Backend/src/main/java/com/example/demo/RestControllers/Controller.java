@@ -2,6 +2,7 @@ package com.example.demo.RestControllers;
 
 
 
+import com.example.demo.DTOs.MapDTO;
 import com.example.demo.Entities.*;
 import com.example.demo.Repositories.UserRepository;
 import com.example.demo.Services.DBService;
@@ -11,13 +12,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 
-import org.h2.engine.User;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
@@ -127,20 +128,20 @@ public class Controller {
     @GetMapping("get_rating_from_map/{map_name}")
     int get_rating_from_map(@PathVariable String map_name){
         GameMap map=dbService.getMap(map_name);
-        int sum=0;
-       int counter=0;
-        for (Rating r:map.getRatings()) {
-            sum+=r.getRating();
-            counter++;
-        }
-        if (counter==0){
-            return 0;
-        }
-        return sum/counter;
+        return map.getAverage_rating();
     }
     @GetMapping("get_map_names")
     public String[] get_maps(){
     return dbService.getMapNames();
+    }
+    @GetMapping("get_map_infos")
+    public List<MapDTO> get_map_infos(){
+        List<GameMap> maps=dbService.getAllMaps();
+        List<MapDTO>dtos=new LinkedList<>();
+        for (GameMap map:maps){
+            dtos.add(objectMapper.convertValue(map, MapDTO.class));
+        }
+       return dtos;
     }
     @PostMapping("validated/add_map")
     String add_map(@RequestBody String map,@CookieValue(name = "token", defaultValue = "no.to.ken")String token) throws JsonProcessingException {
@@ -153,9 +154,10 @@ public class Controller {
         System.out.println(response);
         return response;
     }
-    @GetMapping("/get_map/{map_name}")
-    GameMap get_map(@PathVariable String map_name) {
-        GameMap map=dbService.getMap(map_name);
+   
+    @GetMapping("/get_map/{map_id}")
+    GameMap get_map(@PathVariable int map_id) {
+        GameMap map=dbService.getMapByID(map_id);
         System.out.println(map.getName()+" requested");
         return map;
     }
