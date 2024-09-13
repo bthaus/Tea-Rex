@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://2efwcak85shk"]
 
-[ext_resource type="Script" path="res://cell_fire.gd" id="1_q37or"]
+[ext_resource type="Script" path="res://effects/cell_fire.gd" id="1_q37or"]
 
 [sub_resource type="Gradient" id="Gradient_npyex"]
 offsets = PackedFloat32Array(0, 0.215962, 0.532864, 0.835681, 1)

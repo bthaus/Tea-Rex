@@ -16,7 +16,7 @@
 [ext_resource type="Script" path="res://TurretScripts/Projectiles/red_projectile.gd" id="12_7mdqh"]
 [ext_resource type="Texture2D" uid="uid://bbhc5rkgcx0fb" path="res://Assets/Effects/particles/pentacle-pentagram-pentacle-picture-d2c19b0c487217a0f496a65fca393f04.png" id="12_b8m1t"]
 [ext_resource type="Script" path="res://TurretScripts/Projectiles/magenta_projectile.gd" id="15_6s2gk"]
-[ext_resource type="Shader" path="res://pulsating_distortion.gdshader" id="15_fa22t"]
+[ext_resource type="Shader" path="res://shaders/pulsating_distortion.gdshader" id="15_fa22t"]
 [ext_resource type="Script" path="res://TurretScripts/Projectiles/green_projectile.gd" id="16_7b50o"]
 [ext_resource type="Texture2D" uid="uid://bwj5i4k0ocqx4" path="res://Assets/Effects/particles/circle_05.png" id="16_w8utr"]
 [ext_resource type="Texture2D" uid="uid://lt0t5g583pm6" path="res://Assets/Turrets/Projectiles/new projectiles/Projectile_saw_orb.png" id="17_i1vko"]
