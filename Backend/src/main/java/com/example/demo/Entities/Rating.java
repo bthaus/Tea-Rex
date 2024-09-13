@@ -15,16 +15,16 @@ public class Rating {
     private Long rating_id;
     private int rating;
     private String user_name;
-    private String map_name;
+    private int map_id;
 
     @JsonCreator
     public Rating(
             @JsonProperty("rating") int rating,
             @JsonProperty("user_name") String user_name,
-            @JsonProperty("map_name")String map_name){
+            @JsonProperty("map_id")int map_id){
         this.rating = rating;
         this.user_name = user_name;
-        this.map_name = map_name;
+        this.map_id = map_id;
     }
 
 

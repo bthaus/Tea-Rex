@@ -20,19 +20,14 @@ public class GameMap {
     @Column(unique = true)
     private String name;
     private String description;
-    @Lob
-    @Column(columnDefinition = "TEXT")  // Explicitly define the column type for databases like Oracle
-    private String reduced_entities;
-    @Lob
-    @Column(columnDefinition = "TEXT")  // Explicitly define the column type for databases like Oracle
-
-    private String reduced_shapes;
-    @Lob
-    @Column(columnDefinition = "TEXT")  // Explicitly define the column type for databases like Oracle
-
-    private String reduced_waves;
 
     private String user_name;
+    private int slot_amount;
+    private int number_of_waves;
+    private int average_rating;
+    private int number_of_comments;
+    private int difficulty_rating;
+
 
     @JsonCreator
     public GameMap(
@@ -40,13 +35,44 @@ public class GameMap {
             @JsonProperty("reduced_entities") String reduced_entities,
             @JsonProperty("reduced_shapes") String reduced_shapes,
             @JsonProperty("reduced_waves") String reduced_waves,
-            @JsonProperty("user_name") String user_name){
+            @JsonProperty("user_name") String user_name,
+            @JsonProperty("description") String description){
         this.user_name = user_name;
         this.name = name;
         this.reduced_entities = reduced_entities;
         this.reduced_shapes = reduced_shapes;
         this.reduced_waves = reduced_waves;
+        this.description = description;
     }
+    public void add_comment(Comment comment){
+        this.number_of_comments++;
+        getComments().add(comment);
+    }
+    public void add_rating(Rating rating){
+        ratings.add(rating);
+        int sum=0;
+        int counter=0;
+        for (Rating r:getRatings()) {
+            sum+=r.getRating();
+            counter++;
+        }
+        if (counter==0){
+           average_rating=0;
+           return;
+
+        }
+        average_rating = sum/counter;
+    }
+    @Lob
+    @Column(columnDefinition = "TEXT")  // Explicitly define the column type for databases like Oracle
+    private String reduced_entities;
+    @Lob
+    @Column(columnDefinition = "TEXT")  // Explicitly define the column type for databases like Oracle
+    private String reduced_shapes;
+    @Lob
+    @Column(columnDefinition = "TEXT")  // Explicitly define the column type for databases like Oracle
+    private String reduced_waves;
+
 
     @OneToMany(cascade = CascadeType.PERSIST,fetch = FetchType.EAGER)
     @JsonIgnore  // Avoid infinite recursion  // Foreign key column in the order table

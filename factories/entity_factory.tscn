@@ -21,6 +21,7 @@ visible = false
 tile_id = 22
 collides_with_bullets = true
 processing = true
+moving_types = Array[int]([1])
 map_layer = 2
 
 [node name="Forest" parent="." instance=ExtResource("3_bvhim")]

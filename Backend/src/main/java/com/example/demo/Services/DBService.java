@@ -41,9 +41,9 @@ public class DBService {
     }
     public String add_rating(Rating rating){
         UserAccount user=getUserAccount(rating.getUser_name());
-        GameMap map=getMap(rating.getMap_name());
+        GameMap map=getMapByID(rating.getMap_id());
         for(Rating r:user.getRatings()){
-            if(r.getMap_name()==rating.getMap_name()){
+            if(r.getMap_id()==rating.getMap_id()){
                rating=r;
                r.setRating(rating.getRating());
                break;
@@ -52,7 +52,7 @@ public class DBService {
         ratingRepository.save(rating);
         user.getRatings().add(rating);
         userRepository.save(user);
-        map.getRatings().add(rating);
+        map.add_rating(rating);
         mapRepository.save(map);
 
 
@@ -77,9 +77,9 @@ public class DBService {
 
     public String addComment(Comment comment){
         UserAccount user=getUserAccount(comment.getUser_name());
-        GameMap current = getMap(comment.getMap_name());
+        GameMap current = getMapByID(comment.getMap_id());
 
-        current.getComments().add(comment);
+        current.add_comment(comment);
         user.getComments().add(comment);
 
         commentRepository.save(comment);
@@ -136,5 +136,17 @@ public class DBService {
           arr[i]=maps.get(i).getName();
       }
       return arr;
+    }
+
+    public List<GameMap> getAllMaps() {
+        return  mapRepository.findAll();
+    }
+
+    public GameMap getMapByID(int mapId) {
+        Optional<GameMap> map = mapRepository.findById(mapId);
+        if (map.isEmpty()){
+            throw new IllegalArgumentException("Map not found");
+        }
+        return map.get();
     }
 }

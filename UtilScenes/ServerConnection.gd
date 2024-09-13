@@ -1,6 +1,6 @@
 extends HTTPRequest
-const server_base_route="https://rgba-latest.onrender.com/"
-
+#const server_base_route="https://rgba-latest.onrender.com/"
+const server_base_route="http://localhost:8080/"
 var token=""
 signal request_finished(result,response_code)
 func _ready():
@@ -22,43 +22,35 @@ func check_for_token(headers):
 			dto.save()
 	pass;
 func register_user(username,password,email):
-	var data=ServerDTOs.get_account_dto(username,password,email)
+	var data=ServerDTOs.get_account(username,password,email)
 	POST("register_acc",data)	
 func get_headers():
 	var tokencookie="token="+token
 	return  ["Content-Type: application/json","Cookie: "+tokencookie]
 
-func _ready():
-	request_completed.connect(_on_request_completed)
-	Global.set_account(AccountInfoDTO.new())
-	Global.get_account().account_name = "JohnDoe"+str(randi_range(0,100000))
-	send()
-	#request("http://localhost:8080/hello")
 
 func get_maps_from_user(username):
 	GET("get_maps_from_user/"+username)
 	
 func send_map(map_dto:MapDTO):
-	var id=MainMenu.get_account_dto().account_name
+	var id=Global.get_account().account_name
 	var dto=ServerDTOs.get_map_dto(map_dto,id)
 	POST("validated/add_map",dto)
 	pass;	
-func get_map(map_name:String):
-	GET("get_map/"+map_name)
+func get_map(map_id:int):
+	GET("get_map/"+str(map_id))
 	pass;
-func add_rating_to_map(rating:int,map_name:String,user_name:String):
-	var dto=ServerDTOs.get_rating_dto(map_name,user_name,rating);
+func add_rating_to_map(rating:int,map_id:int,user_name:String):
+	var dto=ServerDTOs.get_rating_dto(map_id,user_name,rating);
 	POST("validated/add_rating_to_map",dto)
-func get_rating_from_map(map_name:String):
-	GET("get_rating_from_map/"+map_name)	
 			
-func send_comment(comment:String,mapname:String):
-	var id=MainMenu.get_account_dto().account_name
-	var dto=ServerDTOs.get_comment_dto(comment,id,mapname)
+func send_comment(comment:String,map_id:int):
+	var id=Global.get_account().account_name
+	var dto=ServerDTOs.get_comment_dto(comment,id,map_id)
 	POST("validated/add_comment",dto)
 	pass;	
-func get_comments(mapname:String):
-	GET("get_comments_from_map/"+mapname)
+func get_comments(map_id:int):
+	GET("get_comments_from_map/"+str(map_id))
 	pass;	
 
 
@@ -71,45 +63,30 @@ func GET(route):
 	request(server_base_route+route,get_headers())
 	pass;	
 
-func send_map(map_dto:MapDTO):
-	var id=Global.get_account().account_name
-	var dto=ServerDTOs.get_map_dto(map_dto,id)
-	POST("validated/add_map",dto)
-	pass;	
-func get_map(map_name:String):
-	GET("get_map/"+map_name)
-	pass;	
-func send_comment(comment:String,mapname:String):
-	var id=Global.get_account().account_name
-	var dto=ServerDTOs.get_comment_dto(comment,id,mapname)
-	POST("validated/add_comment",dto)
-	pass;	
-func get_comments(mapname:String):
-	GET("get_comments_from_map/"+mapname)
-	pass;
-	
+
 #region Debuggin button connections
 
 func _on_sen_pressed():
-	send_comment("geile map","sim_debug")
+	send_comment("geile map",1)
 	pass # Replace with function body.
 
 
 func _on_get_pressed():
-	get_comments("sim_debug")
+	get_comments(1)
 	pass # Replace with function body.
 
 
 func _on_map_pressed():
 	var map=MapDTO.new()
 	map.restore("sim_debug")
+	#map.map_name+=str(randi())
 	send_map(map)
 
 	pass # Replace with function body.
 
 
 func _on_button_pressed():
-	get_map("sim_debug")
+	get_map(1)
 	pass # Replace with function body.
 
 	
@@ -119,22 +96,19 @@ func _on_get_maps_from_user_pressed():
 
 
 func _on_button_2_pressed():
-	add_rating_to_map(5,"sim_debug","JohnDoe")
+	add_rating_to_map(5,1,"JohnDoe")
 	pass # Replace with function body.
 
 
-func _on_get_rating_pressed():
-	get_rating_from_map("sim_debug")
-	pass # Replace with function body.
 
 
 func _on_addacc_pressed():
-	register_user(Global.get_account().account_name,"bodopw","bwuest@gmx.at"+str(randi_range(10,1111322)))
+	register_user(Global.get_account().account_name+str(randi_range(10,1111322)),"bodopw","bwuest@gmx.at"+str(randi_range(10,1111322)))
 	pass # Replace with function body.
 
 
 func _on_getmaps_pressed():
-	GET("get_map_names")
+	GET("get_map_infos")
 	pass # Replace with function body.
 
 #endregion
