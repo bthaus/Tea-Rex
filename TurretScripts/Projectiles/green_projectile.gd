@@ -1,27 +1,53 @@
 extends Projectile
+class_name GreenProjectile
 
+var rotation_direction=CLOCKWISE
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-func _shoot_duplicate(projectile,angle):
-	projectile.offset=util.rotate_vector(Vector2(100,0),angle*2)
-	super(projectile,angle)
+func on_creation():
+	#z_index=2
+	
+	super()
+	pass;
+
+func get_global():
+	return $orb.global_position	
+func add_emitter(emitter):
+	emitters.append(emitter)
+	$orb.add_child(emitter)
+	pass;	
+	
+func toggle_emitter(b):
+	
+	pass;	
+var prev_pos=Vector2(0,0)	
+func move(delta):
+	
+	penetrations=1
+	if not is_duplicate:
+		rotate(delta)
+		direction = (get_global() - prev_pos).normalized()
+		prev_pos=get_global()
+	else:
+		super(delta)	
+	pass;
+
+func remove():
+	pass;
+func _get_duplicate():
+	var t= Projectile.factory.duplicate_bullet(self)
+	t.get_child(0).scale=Vector2(0.25,0.25)
+	t.get_child(0).position=Vector2(0,0)
+		
+	return t
+func duplicate_and_shoot(angle,origin=null)->Projectile:	
+	var temp=super(angle,self)
+	temp.is_duplicate=true
+	get_tree().create_timer(0.5).timeout.connect(temp.destroy)
+	return temp
 	pass;
 	
-var offset=Vector2(0,0)
-func shoot(target):
-	if target==null or !is_instance_valid(target):return
-	var pos=target.global_position+offset
-	global_position = pos;
-	self.target=target
-	visible=true;
-	penetrations=penetrations-1
-	get_tree().create_timer(1).timeout.connect(func():
-		Explosion.create(Turret.Hue.GREEN, damage, pos, associate, 0.5)
-		remove()
-	)
-	pass;
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
+
+			
+func destroy():
+	is_duplicate=false;
+	super.remove()

@@ -1,6 +1,6 @@
 extends HTTPRequest
-#const server_base_route="https://rgba-latest.onrender.com/"
-const server_base_route="http://localhost:8080/"
+const server_base_route="https://rgba-latest.onrender.com/"
+#const server_base_route="http://localhost:8080/"
 var token=""
 signal request_finished(result,response_code)
 func _ready():
