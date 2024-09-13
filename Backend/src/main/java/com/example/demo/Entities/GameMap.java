@@ -17,7 +17,6 @@ public class GameMap {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int map_id;
-    @Column(unique = true)
     private String name;
     private String description;
 
