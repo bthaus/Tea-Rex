@@ -16,9 +16,9 @@
 [ext_resource type="Texture2D" uid="uid://bbhc5rkgcx0fb" path="res://Assets/Effects/particles/pentacle-pentagram-pentacle-picture-d2c19b0c487217a0f496a65fca393f04.png" id="12_b8m1t"]
 [ext_resource type="Script" path="res://TurretScripts/Projectiles/magenta_projectile.gd" id="15_6s2gk"]
 [ext_resource type="Shader" path="res://pulsating_distortion.gdshader" id="15_fa22t"]
-[ext_resource type="Texture2D" uid="uid://xhoxxsaxh276" path="res://Assets/Effects/particles/light_03.png" id="15_oupr7"]
 [ext_resource type="Script" path="res://TurretScripts/Projectiles/red_projectile.gd" id="16_7b50o"]
 [ext_resource type="Texture2D" uid="uid://bwj5i4k0ocqx4" path="res://Assets/Effects/particles/circle_05.png" id="16_w8utr"]
+[ext_resource type="Texture2D" uid="uid://lt0t5g583pm6" path="res://Assets/Turrets/Projectiles/new projectiles/Projectile_saw_orb.png" id="17_i1vko"]
 
 [sub_resource type="Environment" id="Environment_m8uol"]
 background_mode = 3
@@ -195,8 +195,7 @@ damage_types = Array[int]([5])
 [node name="orb" type="Sprite2D" parent="red_projectile"]
 material = SubResource("ShaderMaterial_cu1nj")
 position = Vector2(0, -528.515)
-scale = Vector2(0.515, 0.515)
-texture = ExtResource("15_oupr7")
+texture = ExtResource("17_i1vko")
 
 [node name="magenta_projectile" type="Node2D" parent="."]
 visible = false
