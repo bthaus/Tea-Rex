@@ -5,6 +5,7 @@ var board: TileMap
 var editor_game_state: EditorGameState
 
 var spawner_map_positions: PackedVector2Array = [] #Holds all the spawners on the board. Index indicates which spawner is which.
+var chapters: MapChapterDTO
 
 signal spawner_added
 signal spawner_removed
@@ -14,6 +15,8 @@ signal base_removed(base)
 
 func _init(board: TileMap):
 	self.board = board
+	chapters = MapChapterDTO.new()
+	chapters.restore()
 
 func _place_entity(entity: BaseEntity, refresh_spawner_paths: bool = true):
 	entity.place_on_board(board)
@@ -166,6 +169,8 @@ func save_board(monster_waves, setting_properties: LevelEditorSettings.Propertie
 	battle_slot_dto.amount = setting_properties.battle_slots_amount
 	var map_dto = MapDTO.new(entities, monster_waves, setting_properties.block_cycle, setting_properties.color_cycle, battle_slot_dto, map_name)
 	map_dto.save(map_name)
+	
+	chapters.add_map_to_chapter(map_name, "custom")
 
 func _get_entity(layer: int, map_position: Vector2):
 	var entity = GameboardConstants.tile_to_dto(board.get_cell_source_id(layer, map_position))
