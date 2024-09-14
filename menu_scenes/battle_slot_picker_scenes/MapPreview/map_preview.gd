@@ -20,6 +20,7 @@ func set_map(map_dto: MapDTO, show_path: bool = true):
 	#Then, we scale everything down, and gather the new points using the previously saved points -> map to local.
 	board_paths = []
 	for spawner in gamestate.spawners:
+		if spawner.paths == null: continue
 		for path in spawner.paths:
 			var positions = []
 			for path_pos in path.path:

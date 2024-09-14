@@ -10,6 +10,7 @@ const MAX_NUMBER_OF_WAVES = 100
 const MAX_NUMBER_OF_MONSTERS_PER_TYPE = 50
 
 const NUMBER_OF_ACCOUNTS = 6
+const CUSTOM_LEVELS_CHAPTER_NAME = "custom" #Maybe move to a more appropriate file
 
 const DEBUFF_STANDART_LIFETIME = 3
 

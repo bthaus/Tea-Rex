@@ -170,7 +170,7 @@ func save_board(monster_waves, setting_properties: LevelEditorSettings.Propertie
 	var map_dto = MapDTO.new(entities, monster_waves, setting_properties.block_cycle, setting_properties.color_cycle, battle_slot_dto, map_name)
 	map_dto.save(map_name)
 	
-	chapters.add_map_to_chapter(map_name, "custom")
+	chapters.add_map_to_chapter(map_name, GameplayConstants.CUSTOM_LEVELS_CHAPTER_NAME)
 
 func _get_entity(layer: int, map_position: Vector2):
 	var entity = GameboardConstants.tile_to_dto(board.get_cell_source_id(layer, map_position))
