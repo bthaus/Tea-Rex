@@ -12,14 +12,13 @@ func _ready():
 	chapters=MapChapterDTO.new()
 	chapters.restore()
 	
-	for chapter in chapters.chapter_dictionary.keys():
-		for map_name in chapters.get_mapnames_from_chapter(chapter):
-			var map_dto = MapDTO.new()
-			map_dto.restore(map_name)
-			var item = load("res://menu_scenes/LevelEditor/Menu/level_editor_menu_item.tscn").instantiate()
-			item.set_map(map_dto)
-			item.delete.connect(_on_item_delete)
-			level_container.add_child(item)
+	for map_name in chapters.get_mapnames_from_chapter(GameplayConstants.CUSTOM_LEVELS_CHAPTER_NAME):
+		var map_dto = MapDTO.new()
+		map_dto.restore(map_name)
+		var item = load("res://menu_scenes/LevelEditor/Menu/level_editor_menu_item.tscn").instantiate()
+		item.set_map(map_dto)
+		item.delete.connect(_on_item_delete)
+		level_container.add_child(item)
 
 
 func _on_item_delete(sender):
