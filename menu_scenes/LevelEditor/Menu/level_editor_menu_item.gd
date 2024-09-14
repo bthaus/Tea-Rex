@@ -1,6 +1,7 @@
 extends Panel
 
 var map_name: String
+signal delete
 
 func set_map(map_dto: MapDTO):
 	self.map_name = map_dto.map_name
@@ -21,3 +22,6 @@ func _on_play_button_pressed():
 	SceneHandler.change_scene(picker)
 	picker.enable_sandbox_mode()
 
+
+func _on_delete_button_pressed():
+	delete.emit(self)
