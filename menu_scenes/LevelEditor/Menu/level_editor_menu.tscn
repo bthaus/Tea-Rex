@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://d23yd2kujc20t"]
+[gd_scene load_steps=7 format=3 uid="uid://d23yd2kujc20t"]
 
 [ext_resource type="PackedScene" uid="uid://ddd8ed1kevi6j" path="res://menu_scenes/LevelEditor/Menu/level_editor_menu_item.tscn" id="1_0abjd"]
 [ext_resource type="Script" path="res://menu_scenes/LevelEditor/Menu/level_editor_menu.gd" id="1_u8g4u"]
 [ext_resource type="StyleBox" uid="uid://b0qhmxvb2s50r" path="res://Styles/default_button.tres" id="3_bclem"]
 [ext_resource type="Script" path="res://UtilScenes/Animations/hover_scale_animation.gd" id="4_kuj0x"]
 [ext_resource type="Script" path="res://UtilScenes/scene_navigation.gd" id="5_8e3p2"]
+[ext_resource type="Script" path="res://UtilScenes/Animations/open_close_scale_animation.gd" id="6_6yukm"]
 
 [node name="LevelEditorMenu" type="Node2D"]
 script = ExtResource("1_u8g4u")
@@ -36,6 +37,9 @@ offset_top = 199.0
 offset_right = 813.0
 offset_bottom = 386.0
 theme_override_styles/panel = ExtResource("3_bclem")
+
+[node name="OpenCloseScaleAnimation" type="Node" parent="NewLevel"]
+script = ExtResource("6_6yukm")
 
 [node name="LevelName" type="LineEdit" parent="NewLevel"]
 layout_mode = 0
@@ -94,6 +98,65 @@ script = ExtResource("4_kuj0x")
 [node name="SceneNavigation" type="Node" parent="BackButton"]
 script = ExtResource("5_8e3p2")
 
+[node name="DeleteWarning" type="Panel" parent="."]
+visible = false
+z_index = 10
+offset_left = 425.0
+offset_top = 225.0
+offset_right = 730.0
+offset_bottom = 394.0
+theme_override_styles/panel = ExtResource("3_bclem")
+
+[node name="OpenCloseScaleAnimation" type="Node" parent="DeleteWarning"]
+script = ExtResource("6_6yukm")
+
+[node name="Title" type="Label" parent="DeleteWarning"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 10.0
+offset_bottom = 36.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 20
+text = "Warning!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Description" type="Label" parent="DeleteWarning"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -82.0
+offset_top = -22.5
+offset_right = 82.0
+offset_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Do you really want to delete 
+map \"name\"?"
+horizontal_alignment = 1
+
+[node name="WarningDeleteButton" type="Button" parent="DeleteWarning"]
+layout_mode = 0
+offset_left = 226.0
+offset_top = 123.0
+offset_right = 293.0
+offset_bottom = 156.0
+text = "Delete"
+
+[node name="WarningCancelButton" type="Button" parent="DeleteWarning"]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 123.0
+offset_right = 86.0
+offset_bottom = 156.0
+text = "Cancel"
+
 [connection signal="pressed" from="NewLevelButton" to="." method="_on_new_level_button_pressed"]
 [connection signal="pressed" from="NewLevel/CreateButton" to="." method="_on_create_button_pressed"]
 [connection signal="pressed" from="NewLevel/CancelButton" to="." method="_on_cancel_button_pressed"]
+[connection signal="pressed" from="DeleteWarning/WarningDeleteButton" to="." method="_on_warning_delete_button_pressed"]
+[connection signal="pressed" from="DeleteWarning/WarningCancelButton" to="." method="_on_warning_cancel_button_pressed"]
