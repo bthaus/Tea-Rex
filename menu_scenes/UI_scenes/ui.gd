@@ -98,5 +98,5 @@ func checkDescription(delta):
 
 func _on_back_button_pressed():
 	var picker = SceneHandler.get_scene_instance(SceneHandler.Scene.BATTLE_SLOT_PICKER)
-	picker.map_name = gamestate.map_dto.map_name
+	picker.map_dto = gamestate.map_dto
 	SceneHandler.change_scene(picker)

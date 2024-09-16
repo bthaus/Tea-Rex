@@ -1,7 +1,6 @@
 extends GameObject2D
 class_name BattleSlotPicker
-var map_name
-var map
+var map_dto: MapDTO
 
 @onready var camera = $Panel/SubViewportContainer/SubViewport/Camera2D
 @onready var map_preview = $Panel/SubViewportContainer/SubViewport/MapPreview
@@ -9,24 +8,18 @@ var map
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	var map_dto=MapDTO.new()
-	map_dto.restore(map_name)
-	map=map_dto
-	
-	$BlockSelector.set_map(map)
+	#map_dto parameter must be initialized first
+	$BlockSelector.set_map(map_dto)
 	camera.max_zoom_in = 2
 	camera.max_zoom_out = 0.2
-	map_preview.set_map(map)
+	map_preview.set_map(map_dto)
 
 func enable_sandbox_mode():
 	$BlockSelector.enable_sandbox_mode()
 
 func _on_start_button_pressed():
 	var gamestate = SceneHandler.get_scene_instance(SceneHandler.Scene.MAIN_SCENE)
-	var map_dto=MapDTO.new()
-	map_dto.restore(map_name)
-	map=map_dto
-	gamestate.map_dto = map
+	gamestate.map_dto = map_dto
 	$Panel/SubViewportContainer/SubViewport/MapPreview.free()
 	gamestate.register_battle_slot_containers($BlockSelector.selected_containers)
 	SceneHandler.change_scene(gamestate)

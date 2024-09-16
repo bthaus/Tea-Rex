@@ -1,11 +1,11 @@
 extends Button
 
-var _map_name: String
+var _map_dto: MapDTO
 var unlocked: bool = true #testing
 
-func set_level(map_name: String):
-	_map_name = map_name
-	text = map_name
+func set_map(map_dto: MapDTO):
+	_map_dto = map_dto
+	text = map_dto.map_name
 	#TODO: Set stars, name etc.
 	#var account_dto = Global.get_account()
 	#var progress_dto = account_dto.get_map_progress_dto_by_name(map_name)
@@ -16,5 +16,5 @@ func set_level(map_name: String):
 func _on_pressed():
 	Global.is_playing_custom_level = false
 	var picker = SceneHandler.get_scene_instance(SceneHandler.Scene.BATTLE_SLOT_PICKER)
-	picker.map_name = _map_name
+	picker.map_dto = _map_dto
 	SceneHandler.change_scene(picker)

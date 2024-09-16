@@ -31,7 +31,7 @@ func _ready():
 
 func _on_item_delete(sender):
 	selected_item = sender
-	delete_warning_description.text = str("Do you really want to delete\nlevel \"", sender.map_name, "\"?")
+	delete_warning_description.text = str("Do you really want to delete\nlevel \"", sender.map_dto.map_name, "\"?")
 	delete_warning_animation.open()
 
 func _on_new_level_button_pressed(): 
@@ -46,12 +46,9 @@ func _on_cancel_button_pressed():
 	new_level_animation.close(new_level.hide)
 
 func _on_warning_delete_button_pressed():
-	var dir = DirAccess.open(str("user://maps//", GameplayConstants.CUSTOM_LEVELS_CHAPTER_NAME, selected_item.map_name))
-	chapters.remove_map_from_chapter(selected_item.map_name, GameplayConstants.CUSTOM_LEVELS_CHAPTER_NAME)
+	selected_item.map_dto.delete()
 	level_container.remove_child(selected_item)
 	selected_item.queue_free()
-	#Todo: remove actual map from file system here
-	
 	delete_warning_animation.close(delete_warning.hide)
 
 
