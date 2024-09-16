@@ -4,6 +4,7 @@ const server_base_route="https://rgba-latest.onrender.com/"
 var token=""
 signal request_finished(result,response_code)
 func _ready():
+
 	request_completed.connect(_on_request_completed)
 	
 func _on_request_completed(result, response_code, headers, body):

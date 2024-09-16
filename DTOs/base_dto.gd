@@ -28,6 +28,8 @@ func get_json():
 			val=_get_if_is_2D_array_of_dtos(val)	
 			val=_get_if_is_array_of_dtos(val)
 			val=_get_if_is_dto(val)
+			val=_get_if_is_obj_arr(val)
+			val=_get_if_is_obj(val)
 			var d={p["name"]:val}
 			values.append(d)
 	var json=JSON.stringify(values," ")	
@@ -48,6 +50,7 @@ static func get_json_from_object(object):
 			val=_get_if_is_2D_array_of_dtos(val)	
 			val=_get_if_is_array_of_dtos(val)
 			val=_get_if_is_dto(val)
+			
 			var d={p["name"]:val}
 			values.append(d)
 	var json=JSON.stringify(values," ")	
@@ -61,7 +64,25 @@ static func _get_if_is_array_of_dtos(val):
 				for i in arr:
 					val.append(i.get_json())
 	return val					
+static func _get_if_is_obj_arr(val):
+	if val is Array:
+		var arr=val
+		val=[] as Array
+		for o in arr:
+			var temp=_get_if_is_obj(o);
+			val.append(temp)
+	return val			
+	pass;
 
+static func _get_if_is_obj(val):
+	if val is Object:
+		if not val.has_method("get_script"):return val
+		var s=val.get_script().get_script_property_list().pop_front()
+		val=s["hint_string"]
+		print("object stringified")
+	return val	
+	pass;
+	
 static func _get_if_is_2D_array_of_dtos(val):
 	if val is Array:
 				if !val.is_empty() and val[0] is Array and !val[0].is_empty() and val[0][0] is BaseDTO:
@@ -115,7 +136,13 @@ static func _restore_fields(obj,arr):
 				val.append(idto)
 					
 		if val is String and val.contains("dto.gd"):
-			val=get_dto_from_json(val)	
+			val=get_dto_from_json(val)
+		elif val is Array and !val.is_empty() and val[0] is String and val[0].contains(".gd"):
+			var arrv=val;
+			val = []
+			for i in arrv:
+				var t=load(i).new()
+				val.append(t)			
 		elif val is String and val.contains(".gd"):
 			val=load(val).new()	
 		obj.set(dakey,val)

@@ -60,6 +60,9 @@ func start(wavenumber:int):
 	start_wave(wavenumber)	
 	pass;
 func start_wave(number):
+	numMonstersActive=0
+	numSpawned=0
+	numDied=0
 	for dto in waves[number]:
 		for i in range(dto.count):
 			numMonstersActive=numMonstersActive+1
@@ -156,6 +159,7 @@ func monsterReachedSpawn(monster:Monster):
 		
 	pass;	
 func monsterDied(monster:Monster):
+	print(numMonstersActive)
 	numDied=numDied+1;
 	numMonstersActive=numMonstersActive-1;
 	
