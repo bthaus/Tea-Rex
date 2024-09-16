@@ -19,6 +19,7 @@ func _init(board: TileMap):
 	chapters.restore()
 
 func _place_entity(entity: BaseEntity, refresh_spawner_paths: bool = true):
+	_clear_entity(entity.map_layer, entity.map_position, false) #Clear anything that is at this position
 	entity.place_on_board(board)
 	if refresh_spawner_paths:
 		Spawner.refresh_all_paths()
@@ -43,10 +44,8 @@ func set_cell(tile: TileSelection.TileItem, map_position: Vector2, refresh_spawn
 	var entity = GameboardConstants.tile_to_dto(tile.tile_id).get_object()
 	entity.map_position = map_position
 	
-	var below_entity = editor_game_state.collisionReference.get_entity(GameboardConstants.MapLayer.BLOCK_LAYER, map_position)
-	var is_spawner_below = below_entity != null and below_entity is Spawner
-	if is_spawner_below and not (entity is Spawner): #If there is a spawner below, remove it (unless the holding piece is a spawner)
-		_remove_spawner_at(map_position)
+	var board_block_entity = editor_game_state.collisionReference.get_entity(GameboardConstants.MapLayer.BLOCK_LAYER, map_position)
+	var is_spawner_below = board_block_entity != null and board_block_entity is Spawner
 	
 	match (tile.map_layer):
 		GameboardConstants.MapLayer.GROUND_LAYER:
@@ -54,6 +53,8 @@ func set_cell(tile: TileSelection.TileItem, map_position: Vector2, refresh_spawn
 			
 		GameboardConstants.MapLayer.BUILD_LAYER:
 			_place_entity(entity, refresh_spawner_paths)
+			if is_spawner_below:
+				_remove_spawner_at(map_position)
 			_clear_entity(GameboardConstants.MapLayer.BLOCK_LAYER, map_position, refresh_spawner_paths)
 			
 		GameboardConstants.MapLayer.BLOCK_LAYER:
@@ -64,6 +65,10 @@ func set_cell(tile: TileSelection.TileItem, map_position: Vector2, refresh_spawn
 				_clear_entity(GameboardConstants.MapLayer.BUILD_LAYER, map_position, refresh_spawner_paths)
 				spawner_added.emit()
 				return
+			
+			if is_spawner_below: #Spawner is below + we are not holding a spawner
+				_remove_spawner_at(map_position)
+			
 			if entity is PlayerBase:
 				base_added.emit()
 			
