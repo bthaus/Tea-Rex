@@ -14,7 +14,6 @@ func set_map(map_dto: MapDTO):
 	#$map_preview.text=map_name
 
 func _on_pressed():
-	Global.is_playing_custom_level = false
 	var picker = SceneHandler.get_scene_instance(SceneHandler.Scene.BATTLE_SLOT_PICKER)
 	picker.map_dto = _map_dto
 	SceneHandler.change_scene(picker)

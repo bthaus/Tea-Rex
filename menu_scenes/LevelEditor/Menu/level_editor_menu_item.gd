@@ -14,7 +14,6 @@ func _on_edit_button_pressed():
 	level_editor.load_map(map_dto)
 
 func _on_play_button_pressed():
-	Global.is_playing_custom_level = true
 	var picker = SceneHandler.get_scene_instance(SceneHandler.Scene.BATTLE_SLOT_PICKER)
 	picker.map_dto = map_dto
 	SceneHandler.change_scene(picker)

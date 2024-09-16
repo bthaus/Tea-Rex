@@ -66,6 +66,7 @@ func _update_container_items():
 				items.append(mod.get_item())
 				
 	elif Global.get_account() != null:
+		var mods = Global.get_account().unlocked_turret_mods
 		for mod in Global.get_account().unlocked_turret_mods:
 			if mod.type == _selected_tab.turret_mod_type:
 				items.append(mod.get_item())

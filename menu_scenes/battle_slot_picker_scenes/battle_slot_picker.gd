@@ -20,11 +20,14 @@ func enable_sandbox_mode():
 func _on_start_button_pressed():
 	var gamestate = SceneHandler.get_scene_instance(SceneHandler.Scene.MAIN_SCENE)
 	gamestate.map_dto = map_dto
-	$Panel/SubViewportContainer/SubViewport/MapPreview.free()
+	map_preview.free()
 	gamestate.register_battle_slot_containers($BlockSelector.selected_containers)
 	SceneHandler.change_scene(gamestate)
 
 
 func _on_back_button_pressed():
-	var scene = SceneHandler.Scene.LEVEL_EDITOR_MENU if Global.is_playing_custom_level else SceneHandler.Scene.LEVEL_SELECTION
+	var chapters = MapChapterDTO.new()
+	chapters.restore()
+	var chapter = chapters.get_chapter_of_map(map_dto.map_name)
+	var scene = SceneHandler.Scene.LEVEL_EDITOR_MENU if chapter == GameplayConstants.CUSTOM_LEVELS_CHAPTER_NAME else SceneHandler.Scene.LEVEL_SELECTION
 	SceneHandler.change_scene(SceneHandler.get_scene_instance(scene))
