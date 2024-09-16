@@ -73,3 +73,10 @@ func save(dest,acc="",dir="maps"):
 	entities.clear()
 	return super.save("map_"+dest,"",dir+"/"+dest)
 		
+func delete():
+	MapNameDTO.remove_mapnname(map_name)
+	var chapters=MapChapterDTO.new()
+	chapters.restore()
+	chapters.remove_map(map_name)
+	super()
+	pass;

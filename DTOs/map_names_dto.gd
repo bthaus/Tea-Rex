@@ -25,8 +25,9 @@ static func exists_map_name(name:String):
 	dto.restore()
 	return dto.names.find(name)!=-1
 	
-static func remove_account(name:String):
+static func remove_mapnname(name:String):
 	var dto=MapNameDTO.new()
 	dto.restore()
 	dto.names.erase(name)
+	dto.save()
 	pass;	

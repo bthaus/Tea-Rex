@@ -1,11 +1,17 @@
 extends GameObjectCounted
 class_name BaseDTO
+var __destination=""
+var __account=""
+var __directory=""
 
 
 func save(destination,account,directory):
+
 	var json=get_json()
 	return GameSaver.save(json,destination,account,directory)!=-1 
-	
+func delete():
+	return GameSaver.delete(__destination,__directory,__account);
+	pass;	
 func get_json():
 	var props=get_script().get_script_property_list() as Array
 	var values=[]
@@ -14,6 +20,7 @@ func get_json():
 	var removal_arr=[]
 	for p in props:
 		if p["name"].contains(".gd"): removal_arr.append(p)
+		if p["name"].contains("__"): removal_arr.append(p)
 	for p in removal_arr:
 		props.erase(p)
 	for p in props:
@@ -33,6 +40,7 @@ static func get_json_from_object(object):
 	var removal_arr=[]
 	for p in props:
 		if p["name"].contains(".gd"): removal_arr.append(p)
+		
 	for p in removal_arr:
 		props.erase(p)
 	for p in props:
@@ -118,6 +126,9 @@ func restore(destination,account,directory):
 	var data=JSON.parse_string(json)
 	data.pop_front()
 	_restore_fields(self,data)
+	self.__destination=destination
+	self.__account=account
+	self.__directory=directory
 	return true;
 	
 func get_object():
