@@ -7,8 +7,11 @@ func save(a=1,b=1,c=1):
 	super.save("account_names","","acc_infos")
 	pass;
 func restore(a=1,b=1,c=1):
-	if super.restore("account_names","","acc_infos"): return
+	super.restore("account_names","","acc_infos")
+	if names!=null:return
 	#if no account_names dto is present, create one
+	print("no accountdto found, creating new one")
+	names=[]
 	save()
 	
 		

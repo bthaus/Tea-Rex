@@ -24,6 +24,8 @@ func _ready():
 	map.restore(map_name)
 	gameState.map_dto=map
 	add_child(gameState)
+	var dto=AccountInfoDTO.new()
+	dto.restore("Slot 1")
 	
 	for s in gameState.spawners:
 		s._is_simulation=true

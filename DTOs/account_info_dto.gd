@@ -33,15 +33,17 @@ func _init(name="-1"):
 
 func _insert_test_items():
 	unlocked_turret_mods = []
-	unlocked_turret_mods.append_array([FireTrailMod.new(), PenetratingAmmunition.new(), ForkingAmmunitionMod.new(), LightningAmmunitionMod.new(), FrozenBloodKillMod.new(), AirBlockMod.new()])
+	unlocked_turret_mods.append_array([FireTrailMod.new(), PenetratingAmmunition.new()])
 	
-	turret_mod_containers[0].turret_mods.append(ItemBlockDTO.new(Turret.Hue.BLUE, Block.BlockShape.L, ItemBlockConstants.BLUE_TILE_ID, 0, Vector2(1,1)))
+	turret_mod_containers[0].turret_mods.append(FireAmmunitionMod.new().get_item())
 
 func save(name="-1",acc="-1",dir="-1"):
 	if name=="-1" and account_name!=null:
 		name=account_name
 		
 	AccountNamesDTO.add_account_name(name)
+	print(unlocked_turret_mods[0] is GDScript)
+	print(typeof(unlocked_turret_mods[0]))
 	super.save(name,"","acc_infos/"+name)
 	pass;
 
