@@ -105,7 +105,6 @@ func move(delta):
 	if origin==null or !is_instance_valid(origin) or target==null or !is_instance_valid(target):return
 	
 	buildup=buildup+delta*2
-	print(direction)
 	#if direction would be updated if duplicate and not connected it wouldnt do anything (direction==0,0)
 	if not _is_duplicate:
 		direction = (target.global_position - origin.global_position).normalized()

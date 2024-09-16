@@ -126,3 +126,8 @@ func on_remove(projectile:Projectile):
 func remove():
 	visual.queue_free()
 	pass;
+	
+func equals(mod):
+	var s1=get_script().get_script_property_list().pop_front()["hint_string"]
+	var s2=mod.get_script().get_script_property_list().pop_front()["hint_string"]
+	return s1==s2
