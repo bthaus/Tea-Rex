@@ -74,7 +74,6 @@ func set_cell(tile: TileSelection.TileItem, map_position: Vector2, refresh_spawn
 func bucket_fill(tile: TileSelection.TileItem, map_position: Vector2):
 	if not _is_in_editor_bounds(map_position): return
 	
-	var dto = GameboardConstants.tile_to_dto(tile.tile_id)
 	var tile_layer
 	if tile == null:
 		tile_layer = get_highest_used_layer(map_position)
@@ -103,7 +102,7 @@ func bucket_fill(tile: TileSelection.TileItem, map_position: Vector2):
 				
 				var tile_id = board.get_cell_source_id(tile_layer, pos)
 				if tile_id == board_id:
-					if tile == null: clear_cell_layer(pos)
+					if tile == null: clear_cell_at_highest_layer(pos, false)
 					else: set_cell(tile, pos, false)
 					
 					if not (visited.has(pos) or stack.has(pos)): #Piece is already present in either all the visited pieces or the current stack
@@ -111,7 +110,9 @@ func bucket_fill(tile: TileSelection.TileItem, map_position: Vector2):
 	
 	Spawner.refresh_all_paths()
 
-func clear_cell_layer(map_position: Vector2):
+
+#Clears the the cell with the highest layer
+func clear_cell_at_highest_layer(map_position: Vector2, refresh_spawner_paths: bool = true):
 	if not _is_in_editor_bounds(map_position): return
 	
 	var entity = editor_game_state.collisionReference.get_entity(GameboardConstants.MapLayer.BLOCK_LAYER, map_position)
@@ -121,7 +122,7 @@ func clear_cell_layer(map_position: Vector2):
 	#Clear one layer at a time: Block -> Build -> GROUND
 	var layer = get_highest_used_layer(map_position)
 	if layer == -1: return
-	_clear_entity(layer, map_position)
+	_clear_entity(layer, map_position, refresh_spawner_paths)
 
 func get_highest_used_layer(map_position: Vector2) -> int:
 	if not _is_cell_empty(GameboardConstants.MapLayer.BLOCK_LAYER, map_position):

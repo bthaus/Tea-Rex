@@ -117,7 +117,7 @@ func _unhandled_input(event):
 		if Input.is_action_pressed("left_click"):
 			board_handler.set_cell(selected_tile, board_pos)
 		elif Input.is_action_pressed("right_click"):
-			board_handler.clear_cell_layer(board_pos)
+			board_handler.clear_cell_at_highest_layer(board_pos)
 	
 	#Handle default and bucket fill mode
 	elif InputUtils.is_action_just_released(event, "left_click"):
@@ -128,7 +128,7 @@ func _unhandled_input(event):
 				
 	elif InputUtils.is_action_just_released(event, "right_click"):
 		match (_build_mode):
-			BuildMode.DEFAULT: board_handler.clear_cell_layer(board_pos)
+			BuildMode.DEFAULT: board_handler.clear_cell_at_highest_layer(board_pos)
 			BuildMode.BUCKET_FILL: board_handler.bucket_fill(null, board_pos)
 
 func _on_tile_selected(tile: TileSelection.TileItem):
