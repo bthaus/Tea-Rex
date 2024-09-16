@@ -61,7 +61,7 @@ signal start_build_phase;
 signal start_combat_phase;
 
 static var collisionReference:CollisionReference=CollisionReference.new()
-var map_dto;
+var map_dto:MapDTO;
 
 static var monsters
 var containers=[]
@@ -200,6 +200,7 @@ func startBattlePhase():
 	
 	pass # Replace with function body.
 func start_wave(wave):
+	if wave==map_dto.number_of_waves: win_game()
 	for s in spawners:
 		s.start(wave)
 	pass;
