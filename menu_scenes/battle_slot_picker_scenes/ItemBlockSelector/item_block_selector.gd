@@ -70,14 +70,16 @@ func _on_item_selected(item_block: ItemBlockDTO):
 func _on_item_placed():
 	$Board.clear_layer(ItemBlockConstants.MapLayer.BLOCK_LAYER)
 	_set_selected_item(null)
+	if item_origin == null: $ItemBlockSelectorContainer.update_container_items()
 	item_origin = null
+	
 
 func _on_item_picked_up(sender, map_position: Vector2, item_block: ItemBlockDTO):
 	_set_selected_item(item_block)
 	item_origin = ItemOrigin.new(sender, item_block.clone())
 
 func _input(event):
-	$Board.position = get_global_mouse_position()
+	$Board.position = get_local_mouse_position()
 	if selected_item == null: return
 	
 	if event.is_action_released("right_click"):
