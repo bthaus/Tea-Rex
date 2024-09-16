@@ -15,7 +15,13 @@ static func save(content:String, destination:String, save:String="",directory:St
 	file.store_string(content)
 	
 	pass;
-
+static func delete(_destination,_directory,_account):
+	var dir=DirAccess.open("user://"+_directory)
+	if dir==null: return
+	dir.remove("save_game"+_destination+"_"+_account+".dat")
+	var root=DirAccess.open("user://")	
+	root.remove(_directory)
+	pass;
 static func loadfile(destination:String, save:String="",directory:String=""):
 	var file = FileAccess.open("user://"+directory+"/save_game"+destination+"_"+save+".dat", FileAccess.READ)
 	var err=FileAccess.get_open_error()

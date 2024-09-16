@@ -9,7 +9,11 @@ func _ready():
 func _on_request_completed(result, response_code, headers, body):
 	check_for_token(headers)
 	var json = body.get_string_from_utf8()
-	var data=JSON.parse_string(json) 
+	
+	var data=JSON.parse_string(json) as Array
+	var point=data[0] as Dictionary
+	print(point["description"])
+	
 	request_finished.emit(data,response_code)
 	print(json)
 
@@ -112,3 +116,10 @@ func _on_getmaps_pressed():
 	pass # Replace with function body.
 
 #endregion
+
+
+func _on_delete_map_pressed():
+	var dto=MapDTO.new()
+	dto.restore("asdf")
+	dto.delete()
+	pass # Replace with function body.
