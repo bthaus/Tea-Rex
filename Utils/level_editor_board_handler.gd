@@ -25,9 +25,10 @@ func _place_entity(entity: BaseEntity, refresh_spawner_paths: bool = true):
 		Spawner.refresh_all_paths()
 
 func _clear_entity(layer: int, map_position: Vector2, refresh_spawner_paths: bool = true):
-	var entity = editor_game_state.collisionReference.get_entity(layer, map_position)
+	var entity = editor_game_state.collisionReference.get_entity(layer, map_position) as BaseEntity
 	if entity != null:
-		editor_game_state.collisionReference.remove_entity_from_position(entity, board.map_to_local(map_position))
+		entity.remove_from_board(board)
+		#editor_game_state.collisionReference.remove_entity_from_position(entity, board.map_to_local(map_position))
 		if entity is PlayerBase:
 			base_removed.emit(entity)
 		entity.queue_free()
@@ -174,6 +175,8 @@ func save_board(monster_waves, setting_properties: LevelEditorSettings.Propertie
 	var battle_slot_dto = BattleSlotDTO.new()
 	battle_slot_dto.amount = setting_properties.battle_slots_amount
 	var map_dto = MapDTO.new(entities, monster_waves, setting_properties.block_cycle, setting_properties.color_cycle, battle_slot_dto, map_name)
+	var ids=GameState.gameState.map_dto.treasure_ids
+	map_dto.treasure_ids=ids
 	map_dto.save(map_name)
 	
 	chapters.add_map_to_chapter(map_name, GameplayConstants.CUSTOM_LEVELS_CHAPTER_NAME)

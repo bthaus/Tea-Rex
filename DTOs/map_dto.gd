@@ -2,6 +2,8 @@ extends BaseDTO
 class_name MapDTO
 
 var entities: Array[BaseDTO]
+var treasures=[]
+var treasure_ids=[]
 
 var waves
 #TODO: change that to an actual number

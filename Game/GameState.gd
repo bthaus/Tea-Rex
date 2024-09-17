@@ -59,6 +59,7 @@ static var bulletHolder;
 signal player_died
 signal start_build_phase;
 signal start_combat_phase;
+signal game_won;
 
 static var collisionReference:CollisionReference=CollisionReference.new()
 var map_dto:MapDTO;
@@ -107,6 +108,9 @@ func _ready():
 	hand.visible = true;	
 	startGame()
 	pass # Replace with function body.
+func show_unlockable(u):
+	
+	pass;	
 func target_minions(cells):
 	var turret_dic={} as Dictionary
 	for cell in cells:
