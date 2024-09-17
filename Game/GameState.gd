@@ -151,6 +151,13 @@ func _process(delta):
 		$BulletHolder.do(delta/game_speed)
 		$EntityHolder.do(delta/game_speed)
 	
+	if Input.is_action_just_pressed("save"):
+		for e in $EntityHolder.get_children():
+			if e.buildable:
+				var l = Label.new()
+				l.text="OOO"
+				l.global_position=e.get_global()
+				add_child(l)	
 	pass
 func recalculate_minion_paths():
 	for m:Monster in minions.get_children():
