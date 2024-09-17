@@ -21,9 +21,6 @@ func _ready():
 
 func enable_sandbox_mode():
 	_sandbox_mode = true
-	for container in $TurretModGridContainer.get_children():
-		container.clear_mods()
-	
 	$ItemBlockSelectorContainer.enable_sandbox_mode()
 
 func set_map(map: MapDTO):

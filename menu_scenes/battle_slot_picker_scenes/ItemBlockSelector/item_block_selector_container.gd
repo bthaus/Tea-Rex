@@ -95,7 +95,7 @@ func enable_sandbox_mode():
 	update_container_items()
 
 func _on_item_selected(item_block: ItemBlockDTO):
-	item_selected.emit(item_block)#item_block.clone())
+	item_selected.emit(item_block)
 	update_container_items()
 
 func _init_tab_colors():
