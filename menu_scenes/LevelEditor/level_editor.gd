@@ -54,6 +54,7 @@ func _ready():
 	_set_button_selected(default_build_mode_button, true)
 	_set_button_selected(draw_build_mode_button, false)
 	_set_button_selected(bucket_fill_build_mode_button, false)
+	
 
 func _process(delta):
 	#Check if editor has focus

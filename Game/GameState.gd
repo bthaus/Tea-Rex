@@ -82,8 +82,23 @@ func apply_mods_before_start():
 		for item:ItemBlockDTO in c.turret_mods:
 			item.turret_mod.before_game_start(c.color)
 	pass;
-
+func _notification(what):
+	if (what == NOTIFICATION_PREDELETE):
+		if util.valid(monsters):
+			for child in monsters.get_children():
+				util.erase(child)
+		for child in Turret.turrets:
+			util.erase(child)
 func _ready():
+	if util.valid(monsters):
+			for child in monsters.get_children():
+				util.erase(child)
+	
+	for child in Turret.turrets:
+		util.erase(child)
+	portals.clear()
+	spawners.clear()
+	targets.clear()	
 	ui=$CanvasLayer/UI
 	hand=ui.hand
 	gameState = self;
@@ -254,16 +269,7 @@ func startBuildPhase():
 	updateUI()
 	
 	pass ;
-func _notification(what):
-	if (what == NOTIFICATION_PREDELETE):
-		if util.valid(monsters):
-			for child in monsters.get_children():
-				util.erase(child)
-		portals.clear()
-		spawners.clear()
-		targets.clear()
-		for child in Turret.turrets:
-			util.erase(child)
+
 		
 	
 		
