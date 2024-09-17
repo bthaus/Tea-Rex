@@ -74,6 +74,7 @@ func create_editor_game_state(map_dto:MapDTO):
 	editor_game_state.board=$Board
 	board_handler.editor_game_state = state
 	add_child(editor_game_state)
+	await editor_game_state.ready
 
 
 func load_map(map_dto: MapDTO):

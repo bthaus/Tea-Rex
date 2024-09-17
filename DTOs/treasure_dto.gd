@@ -12,7 +12,7 @@ static func add_treasure_to_map(map_name,treasure):
 	treasure_dto.treasure=treasure
 	
 	if map.treasure_ids.has(map_name):
-		map.treasures.clear()
+		map.treasures=[]
 		map.treasures.append(treasure_dto)
 		map.save(map_name)
 	pass;
