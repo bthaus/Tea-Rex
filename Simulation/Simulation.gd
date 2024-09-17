@@ -28,7 +28,7 @@ func _ready():
 	ss.restore(map_name)
 	gameState.map_dto=map
 	add_child(gameState)
-	TreasureDTO.add_treasure_to_map("9_3_qqqq","qqqq",FireTrailMod.new())
+	
 	for s in gameState.spawners:
 		s._is_simulation=true
 	gameState.game_speed

@@ -7,7 +7,7 @@ var collected
 
 func place_on_board(b:TileMap):
 	var map_dto=GameState.gameState.map_dto;
-	id=str(map_position.x)+"_"+str(map_position.y)+"_"+map_dto.map_name
+	id=map_dto.map_name#str(map_position.x)+"_"+str(map_position.y)+"_"+map_dto.map_name
 	if GameState.gameState is EditorGameState:
 		GameState.gameState.map_dto.treasure_ids.append(id)
 		print("id added: "+id)

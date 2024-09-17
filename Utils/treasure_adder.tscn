@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://ddafo0yfmilml"]
+
+[ext_resource type="Script" path="res://Utils/Treasure_adder.gd" id="1_ls36r"]
+
+[node name="Treasure_adder" type="Node2D"]
+script = ExtResource("1_ls36r")
