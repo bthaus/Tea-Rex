@@ -70,6 +70,7 @@ func create_editor_game_state(map_dto:MapDTO):
 	editor_game_state=state
 	editor_game_state.map_dto=map_dto
 	map_dto.treasure_ids.clear()
+	
 	editor_game_state.board=$Board
 	board_handler.editor_game_state = state
 	add_child(editor_game_state)

@@ -15,19 +15,20 @@ func place_on_board(b:TileMap):
 		for i in GameState.gameState.map_dto.treasure_ids:
 			print(i)
 	else:
-		register_in_gamestate()
+		if not register_in_gamestate(): return
 	super(b)
 	pass;
 func register_in_gamestate():
 	var account=Global.get_account();
 	if util.valid(account) and account.unlocked_treasures.has(id):
 		queue_free()
-		return;
+		return false;
 	for t in GameState.gameState.map_dto.treasures:
 		if t is TreasureDTO and t.id==id:
 			item=t.treasure;
 	if item == null:
 		print("treasure chest without content warning, id: "+id)			
+	return true
 	pass;	
 
 func trigger_minion(m:Monster):
@@ -48,8 +49,11 @@ func remove_from_board(b:TileMap):
 	pass;	
 func collect():
 	#GameState.gameState.show_unlockable(Unlockable.create(item))
+	var acc=Global.get_account() as AccountInfoDTO
+	acc.unlocked_treasures.append(id)
+	acc.save()
 	if item is TurretBaseMod:
-		Global.get_account().add_unlocked_mod(item)
+		acc.add_unlocked_mod(item)
 	if item is String:
-		Global.get_account().add_unlocked_map(item)	
+		acc.add_unlocked_map(item)	
 	pass;	
