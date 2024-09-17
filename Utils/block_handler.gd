@@ -111,6 +111,7 @@ func can_place_block(block: Block, map_position: Vector2,  spawners) -> bool:
 		if board.get_cell_source_id(GameboardConstants.MapLayer.GROUND_LAYER, board_pos) == -1:
 			GameBoard.current_tutorial = TutorialHolder.tutNames.Outside
 			return false
+		#check if there are entities that are not buildable	
 		if not GameState.collisionReference.is_buildable_map(board_pos):return false
 		#Check if there is something that is not a tower or a tower with the wrong color underneath
 		var board_entity = GameState.collisionReference.get_entity(GameboardConstants.MapLayer.BLOCK_LAYER, board_pos)

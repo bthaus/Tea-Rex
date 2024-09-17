@@ -25,7 +25,7 @@ func register_in_gamestate():
 		return;
 	for t in GameState.gameState.map_dto.treasures:
 		if t is TreasureDTO and t.id==id:
-			item=t.item;
+			item=t.treasure;
 	if item == null:
 		print("treasure chest without content warning, id: "+id)			
 	pass;	
@@ -47,7 +47,7 @@ func remove_from_board(b:TileMap):
 	super(b)	
 	pass;	
 func collect():
-	GameState.gameState.show_unlockable(Unlockable.create(item))
+	#GameState.gameState.show_unlockable(Unlockable.create(item))
 	if item is TurretBaseMod:
 		Global.get_account().add_unlocked_mod(item)
 	if item is String:

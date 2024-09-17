@@ -154,6 +154,7 @@ moving_types = Array[int]([])
 
 [node name="Treasure Chest" type="Node2D" parent="."]
 script = ExtResource("13_xg3wn")
+collect_on_win = false
 tile_id = 24
 moving_types = Array[int]([0, 1, 2])
 description = "Can be collected to get treasures"

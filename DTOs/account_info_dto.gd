@@ -30,13 +30,14 @@ func _init(name="-1"):
 	pass;
 
 func _insert_test_items():
-	unlocked_turret_mods.append_array([FireTrailMod.new(), PenetratingAmmunition.new()])
+	unlocked_turret_mods.append_array([PenetratingAmmunition.new()])
 	
 	turret_mod_containers[0].turret_mods.append(FireAmmunitionMod.new().get_item())
 func add_unlocked_mod(mod:TurretBaseMod):
 	for m in unlocked_turret_mods:
 		if mod.equals(m):return; 
 	unlocked_turret_mods.append(mod)
+	save()
 	pass;
 func add_unlocked_map(map:String):
 	if unlocked_maps.has(map):return;
