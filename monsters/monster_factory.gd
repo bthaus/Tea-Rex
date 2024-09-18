@@ -1,9 +1,11 @@
 extends GameObject2D
 class_name MonsterFactory
 static var instance=load("res://monsters/monster_factory.tscn").instantiate()
-
+## default value every attribute is multiplicated with. 
 @export var base_hp:float = 1;
+## default value every attribute is multiplicated with. 
 @export var base_damage:float = 5;
+## default value every attribute is multiplicated with. 
 @export var base_speed:float = 1.28;
 
 enum MonsterSpeed {Fast=125,Very_Fast=150,Normal=100,Slow=75,Very_Slow=50}

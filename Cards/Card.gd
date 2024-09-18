@@ -2,7 +2,6 @@ extends GameObject2D
 class_name Card
 var card;
 var state:GameState;
-var description:String;
 static var isCardSelected=false;
 static var selectedCard;
 signal mouseIn
@@ -149,8 +148,6 @@ func _on_button_mouse_entered():
 	
 	var tween = create_tween()
 	tween.tween_property(self, "global_position", originalPosition+Vector2(0, -25), 0.5)
-	state.ui.showDescription(description)
-	
 	pass # Replace with function body.
 
 
@@ -159,7 +156,6 @@ func _on_button_mouse_exited():
 		z_index=originalZ
 	var tween = create_tween()
 	tween.tween_property(self, "global_position", originalPosition, 0.5)
-	state.ui.hideDescription()
 	mouseOut.emit()
 	pass # Replace with function body.
 

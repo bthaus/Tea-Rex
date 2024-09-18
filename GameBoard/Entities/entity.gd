@@ -4,14 +4,21 @@ class_name BaseEntity
 
 
 var map_position: Vector2
+## This ID needs to be set according to the tilesheet. 
 @export var tile_id: int=1
+## If true, bullets cant pass this entitiy
 @export var collides_with_bullets=false;
+## If true, the "do" function is called by the gamestate. 
 @export var processing=false;
+## The movement types of monsters that are allowed on this entitiy
 @export var moving_types:Array[Monster.MonsterMovingType]=[Monster.MonsterMovingType.GROUND,Monster.MonsterMovingType.AIR]
-@export var description:String=""
+## idk ask jojo
 @export var map_layer:GameboardConstants.MapLayer=GameboardConstants.MapLayer.GROUND_LAYER
+## Determines the speed at which the monsters move on this entity. Lower values mean faster, higher values mean slower
 @export_range(0,5) var move_weight:float=1
+## Movingtypes in this array agnore the move weight
 @export var weight_excludes:Array[Monster.MonsterMovingType]=[Monster.MonsterMovingType.AIR]
+## If true, turrets can be built on top of this entitiy. i have no clue what happens then. I assume the entity just stays below the turret?
 @export var buildable:bool=false;
 
 func _init(tile_id: int = -1, map_layer: int = -1, map_position: Vector2 = Vector2(0, 0)):
@@ -24,10 +31,7 @@ func print_data():
 	print(data)
 	pass;	
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body
-	
+
 func place_on_board(board: TileMap):
 	board.set_cell(map_layer, map_position, tile_id, Vector2(0, 0))
 	global_position = board.map_to_local(map_position)
