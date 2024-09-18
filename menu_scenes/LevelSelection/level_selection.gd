@@ -38,7 +38,9 @@ func set_levels(chapter_name: String):
 			level_rows_container.add_child(container)
 		
 		var item = load("res://menu_scenes/LevelSelection/level_selection_item.tscn").instantiate()
-		item.set_level(level)
+		var map_dto = MapDTO.new()
+		map_dto.restore(level)
+		item.set_map(map_dto)
 		level_rows_container.get_child(row).add_child(item)
 		if row % 2 == 1:
 			level_rows_container.get_child(row).move_child(item, 0) #Reverse order for odd-numbered rows

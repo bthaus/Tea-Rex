@@ -14,12 +14,13 @@ func set_map(map_dto: MapDTO, show_path: bool = true):
 	gamestate = load("res://Game/simulation_scene.tscn").instantiate()
 	gamestate.map_dto=map_dto
 	add_child(gamestate)
-	
+	await gamestate.ready
 	#Problem is that the path lines of the spawners are not at the correct position when scaling or repositioning.
 	#To solve that, we retrieve the paths of the spawners, and memorize where they are at the (unscaled) map -> local to map.
 	#Then, we scale everything down, and gather the new points using the previously saved points -> map to local.
 	board_paths = []
 	for spawner in gamestate.spawners:
+		if spawner.paths == null: continue
 		for path in spawner.paths:
 			var positions = []
 			for path_pos in path.path:
@@ -47,7 +48,6 @@ class Path:
 
 
 func _on_tree_exited():
-	
 	if gamestate != null:
 		pass
 		gamestate.free()

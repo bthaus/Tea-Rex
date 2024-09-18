@@ -17,6 +17,7 @@ func trigger_bullet(p:Projectile):
 	health-=p.damage
 			
 	pass;
+
 func explode():
 	Explosion.create(damage_type,damage,global_position,self)
 	remove_from_board(GameState.board)

@@ -56,3 +56,9 @@ func remove_chapter(chaptername):
 	chapter_dictionary.erase(chaptername)
 	save()
 	pass;	
+func remove_map(map_name):
+	var chapter=get_chapter_of_map(map_name)
+	if chapter==null:return
+	remove_map_from_chapter(map_name,chapter)	
+	save()
+	

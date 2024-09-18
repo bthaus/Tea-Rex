@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bismehfpdggum"]
+[gd_scene load_steps=14 format=3 uid="uid://bismehfpdggum"]
 
 [ext_resource type="Script" path="res://factories/entity_factory.gd" id="1_uipk3"]
 [ext_resource type="PackedScene" uid="uid://h5p4fp80ye04" path="res://GameBoard/Entities/volcano.tscn" id="2_7dhr8"]
@@ -12,6 +12,7 @@
 [ext_resource type="Script" path="res://factories/Cooldown Booster.gd" id="10_wlmdj"]
 [ext_resource type="Script" path="res://factories/Range Booster.gd" id="11_avu86"]
 [ext_resource type="Script" path="res://factories/Laser.gd" id="12_adjn3"]
+[ext_resource type="Script" path="res://factories/Treasure Chest.gd" id="13_xg3wn"]
 
 [node name="EntityFactory" type="Node2D"]
 script = ExtResource("1_uipk3")
@@ -150,3 +151,10 @@ shoot_max_time = 3.0
 tile_id = 17
 processing = true
 moving_types = Array[int]([])
+
+[node name="Treasure Chest" type="Node2D" parent="."]
+script = ExtResource("13_xg3wn")
+collect_on_win = false
+tile_id = 24
+moving_types = Array[int]([0, 1, 2])
+description = "Can be collected to get treasures"

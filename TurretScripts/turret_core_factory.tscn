@@ -1,9 +1,10 @@
-[gd_scene load_steps=31 format=3 uid="uid://dmhesplq1yqqt"]
+[gd_scene load_steps=32 format=3 uid="uid://dmhesplq1yqqt"]
 
 [ext_resource type="Shader" path="res://shaders/outline.gdshader" id="1_0p7qn"]
 [ext_resource type="Script" path="res://TurretScripts/turret_core_factory.gd" id="2_t1mch"]
 [ext_resource type="Texture2D" uid="uid://dpcl3osga8evf" path="res://Assets/Level/blackBackgroundLabel.png" id="3_1m0q2"]
 [ext_resource type="Texture2D" uid="uid://d2gvjcqige384" path="res://Assets/Turrets/Bases/RED_base.png" id="3_gmvb0"]
+[ext_resource type="Texture2D" uid="uid://bkqhnq3plw6od" path="res://Assets/Turrets/Turret designs/pew pew_raven/Turret_PewPew_Raven.png" id="4_hcdyn"]
 [ext_resource type="Script" path="res://TurretScripts/REDLASER_base.gd" id="5_dxa78"]
 [ext_resource type="Texture2D" uid="uid://bx5e0bmbqsb7x" path="res://Assets/Turrets/Barrels/REDLASER_barrel.png" id="6_p7jbo"]
 [ext_resource type="Texture2D" uid="uid://b5k8umt4kec2f" path="res://Assets/Turrets/Bases/BLUE_base.png" id="7_ilila"]
@@ -74,10 +75,10 @@ position = Vector2(3, -8)
 texture = ExtResource("3_1m0q2")
 
 [node name="BLUE_base" type="Sprite2D" parent="."]
-visible = false
 z_index = 3
 material = SubResource("ShaderMaterial_l3v4h")
-texture = ExtResource("7_ilila")
+scale = Vector2(-0.25, -0.25)
+texture = ExtResource("4_hcdyn")
 script = ExtResource("8_61sru")
 turretRange = 3
 
@@ -347,6 +348,7 @@ material = SubResource("ShaderMaterial_l3v4h")
 position = Vector2(0.135429, -6.4111)
 
 [node name="MAGENTA_base" type="Sprite2D" parent="."]
+visible = false
 z_index = 3
 material = SubResource("ShaderMaterial_l3v4h")
 texture = ExtResource("7_ilila")

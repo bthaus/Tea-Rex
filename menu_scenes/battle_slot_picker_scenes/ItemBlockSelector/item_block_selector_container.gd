@@ -50,25 +50,33 @@ func _select_tab(tab: Button):
 			_selected_tab = t
 			break
 	_update_container_color()
-	_update_container_items()
+	update_container_items()
 
-func _update_container_items():
+func update_container_items():
 	var children = item_container.get_children()
 	for child in children:
 		item_container.remove_child(child)
 		child.queue_free()
-	var items = []
 	
+	#Gather all items that are currently in containers
+	var items_in_use = []
+	for container in Global.get_account().turret_mod_containers:
+		for mod in container.turret_mods:
+			items_in_use.append(mod.turret_mod)
+	
+	#Gather all items that are unlocked (if it is sandbox mode -> all), ignoring items that are already in use
+	var items = []
 	if _sandbox_mode:
 		for mod_class in GameplayConstants.turret_mods.keys():
 			var mod = mod_class.new()
-			if mod.type == _selected_tab.turret_mod_type:
+			if mod.type == _selected_tab.turret_mod_type and not _contains_mod(items_in_use, mod):
 				items.append(mod.get_item())
 				
 	elif Global.get_account() != null:
 		for mod in Global.get_account().unlocked_turret_mods:
-			if mod.type == _selected_tab.turret_mod_type:
+			if mod.type == _selected_tab.turret_mod_type and not _contains_mod(items_in_use, mod):
 				items.append(mod.get_item())
+	
 	
 	for item in items:
 		var child = load("res://menu_scenes/battle_slot_picker_scenes/ItemBlockSelector/item_block_selector_item.tscn").instantiate()
@@ -76,12 +84,19 @@ func _update_container_items():
 		child.clicked.connect(_on_item_selected)
 		item_container.add_child(child)
 
+func _contains_mod(mod_array, mod: TurretBaseMod):
+	for element in mod_array:
+		if element.equals(mod):
+			return true
+	return false
+
 func enable_sandbox_mode():
 	_sandbox_mode = true
-	_update_container_items()
+	update_container_items()
 
 func _on_item_selected(item_block: ItemBlockDTO):
-	item_selected.emit(item_block.clone())
+	item_selected.emit(item_block)
+	update_container_items()
 
 func _init_tab_colors():
 	for entry in _tabs:

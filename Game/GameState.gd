@@ -59,9 +59,10 @@ static var bulletHolder;
 signal player_died
 signal start_build_phase;
 signal start_combat_phase;
+signal game_won;
 
 static var collisionReference:CollisionReference=CollisionReference.new()
-var map_dto;
+var map_dto:MapDTO;
 
 static var monsters
 var containers=[]
@@ -81,8 +82,23 @@ func apply_mods_before_start():
 		for item:ItemBlockDTO in c.turret_mods:
 			item.turret_mod.before_game_start(c.color)
 	pass;
-
+func _notification(what):
+	if (what == NOTIFICATION_PREDELETE):
+		if util.valid(monsters):
+			for child in monsters.get_children():
+				util.erase(child)
+		for child in Turret.turrets:
+			util.erase(child)
 func _ready():
+	if util.valid(monsters):
+			for child in monsters.get_children():
+				util.erase(child)
+	
+	for child in Turret.turrets:
+		util.erase(child)
+	portals.clear()
+	spawners.clear()
+	targets.clear()	
 	ui=$CanvasLayer/UI
 	hand=ui.hand
 	gameState = self;
@@ -107,6 +123,9 @@ func _ready():
 	hand.visible = true;	
 	startGame()
 	pass # Replace with function body.
+func show_unlockable(u):
+	
+	pass;	
 func target_minions(cells):
 	var turret_dic={} as Dictionary
 	for cell in cells:
@@ -147,6 +166,13 @@ func _process(delta):
 		$BulletHolder.do(delta/game_speed)
 		$EntityHolder.do(delta/game_speed)
 	
+	if Input.is_action_just_pressed("save"):
+		for e in $EntityHolder.get_children():
+			if e.buildable:
+				var l = Label.new()
+				l.text="OOO"
+				l.global_position=e.get_global()
+				add_child(l)	
 	pass
 func recalculate_minion_paths():
 	for m:Monster in minions.get_children():
@@ -200,6 +226,7 @@ func startBattlePhase():
 	
 	pass # Replace with function body.
 func start_wave(wave):
+	if wave==map_dto.number_of_waves: win_game()
 	for s in spawners:
 		s.start(wave)
 	pass;
@@ -242,16 +269,7 @@ func startBuildPhase():
 	updateUI()
 	
 	pass ;
-func _notification(what):
-	if (what == NOTIFICATION_PREDELETE):
-		if util.valid(monsters):
-			for child in monsters.get_children():
-				util.erase(child)
-		portals.clear()
-		spawners.clear()
-		targets.clear()
-		for child in Turret.turrets:
-			util.erase(child)
+
 		
 	
 		

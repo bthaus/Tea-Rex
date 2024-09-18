@@ -22,6 +22,10 @@ func _ready():
 	gameState=load("res://Game/simulation_scene.tscn").instantiate()
 	var map=MapDTO.new()
 	map.restore(map_name)
+	map.treasures["id"]=FireTrailMod.new()
+	map.save(map_name)
+	var ss=MapDTO.new()
+	ss.restore(map_name)
 	gameState.map_dto=map
 	add_child(gameState)
 	

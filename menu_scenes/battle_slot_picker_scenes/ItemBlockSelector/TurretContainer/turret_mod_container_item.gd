@@ -68,10 +68,6 @@ func _input(event):
 func place_item(item: ItemBlockDTO):
 	item_handler.place_item_block(item, item.map_position)
 
-func clear_mods():
-	item_handler.item_blocks.clear()
-	$Board.clear_layer(GameboardConstants.MapLayer.BLOCK_LAYER)
-
 func set_selected_item(item: ItemBlockDTO):
 	selected_item = item
 

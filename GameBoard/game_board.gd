@@ -132,10 +132,10 @@ func _input(event):
 
 func check_mouse_cell_traversal(map_position: Vector2):
 	if map_position!=previous_mouse_pos:
-		var turret_or_not_to_unhover=GameState.gameState.collisionReference.get_turret_from_board(previous_mouse_pos)
+		var turret_or_not_to_unhover= gameState.collisionReference.get_turret_from_board(previous_mouse_pos)
 		if turret_or_not_to_unhover!=null:
 			turret_or_not_to_unhover.on_unhover()
-		var turret_or_not=GameState.gameState.collisionReference.get_turret_from_board(map_position)
+		var turret_or_not= gameState.collisionReference.get_turret_from_board(map_position)
 		if turret_or_not!=null:
 			turret_or_not.on_hover()
 		
@@ -217,7 +217,7 @@ func link_spawners_to_waves(map_dto):
 	Spawner.all_movement_types.clear()
 	Spawner.grids.clear()
 	Spawner.invisible_grids.clear()
-	for spawner in GameState.gameState.spawners:
+	for spawner in gameState.spawners:
 		for w in map_dto.waves:
 			var wave=[]
 			for v in w:
@@ -238,13 +238,13 @@ func _spawn_turrets(block: Block, map_position: Vector2):
 
 func _remove_turrets(block: Block, map_position: Vector2):
 	for piece in block.pieces:
-		var turret = GameState.collisionReference.get_turret_from_board(map_position + piece.position)
+		var turret = gameState.collisionReference.get_turret_from_board(map_position + piece.position)
 		if turret != null:
 			turret.queue_free()
 
 func _upgrade_turrets(block: Block, map_position: Vector2):
 	for piece in block.pieces:
-		var turret = GameState.collisionReference.get_turret_from_board(map_position + piece.position)
+		var turret = gameState.collisionReference.get_turret_from_board(map_position + piece.position)
 		if turret != null:
 			if block.extension != null: turret.extension = block.extension
 			if not turret.is_max_level():

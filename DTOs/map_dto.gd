@@ -2,6 +2,8 @@ extends BaseDTO
 class_name MapDTO
 
 var entities: Array[BaseDTO]
+var treasures=[]
+var treasure_ids=[]
 
 var waves
 #TODO: change that to an actual number
@@ -23,8 +25,10 @@ func _init(entities: Array[BaseDTO] = [], waves = [], block_cycle: Array[BaseDTO
 	self.color_cycle = color_cycle
 	self.battle_slots = battle_slots
 	self.map_name=mapname
-
+	
 func restore(dest,acc="",dir="maps"):
+	
+	
 	super.restore("map_"+dest,"",dir+"/"+dest)
 	var packed=_reduced_entities.split("-")
 	for p in packed:
@@ -48,7 +52,6 @@ func restore(dest,acc="",dir="maps"):
 	slot_amount=int(slot_amount)	
 	_reduced_shapes=_reduced_shapes.substr(0,_reduced_shapes.find("§§§"))
 	block_cycle=BlockCycleEntryDTO.cycles_from_string(_reduced_shapes)
-
 func reduce():
 	_reduced_entities=""
 	_reduced_waves=""
@@ -73,3 +76,11 @@ func save(dest,acc="",dir="maps"):
 	entities.clear()
 	return super.save("map_"+dest,"",dir+"/"+dest)
 		
+func delete():
+	MapNameDTO.remove_mapnname(map_name)
+	var chapters=MapChapterDTO.new()
+	chapters.restore()
+	chapters.remove_map(map_name)
+	super()
+	pass;
+

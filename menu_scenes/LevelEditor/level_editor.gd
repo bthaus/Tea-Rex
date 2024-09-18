@@ -54,6 +54,7 @@ func _ready():
 	_set_button_selected(default_build_mode_button, true)
 	_set_button_selected(draw_build_mode_button, false)
 	_set_button_selected(bucket_fill_build_mode_button, false)
+	
 
 func _process(delta):
 	#Check if editor has focus
@@ -68,9 +69,12 @@ func create_editor_game_state(map_dto:MapDTO):
 	state.set_script(load("res://Game/editor_gamestate.gd"))
 	editor_game_state=state
 	editor_game_state.map_dto=map_dto
+	map_dto.treasure_ids.clear()
+	
 	editor_game_state.board=$Board
 	board_handler.editor_game_state = state
 	add_child(editor_game_state)
+	await editor_game_state.ready
 
 
 func load_map(map_dto: MapDTO):
@@ -117,7 +121,7 @@ func _unhandled_input(event):
 		if Input.is_action_pressed("left_click"):
 			board_handler.set_cell(selected_tile, board_pos)
 		elif Input.is_action_pressed("right_click"):
-			board_handler.clear_cell_layer(board_pos)
+			board_handler.clear_cell_at_highest_layer(board_pos)
 	
 	#Handle default and bucket fill mode
 	elif InputUtils.is_action_just_released(event, "left_click"):
@@ -128,7 +132,7 @@ func _unhandled_input(event):
 				
 	elif InputUtils.is_action_just_released(event, "right_click"):
 		match (_build_mode):
-			BuildMode.DEFAULT: board_handler.clear_cell_layer(board_pos)
+			BuildMode.DEFAULT: board_handler.clear_cell_at_highest_layer(board_pos)
 			BuildMode.BUCKET_FILL: board_handler.bucket_fill(null, board_pos)
 
 func _on_tile_selected(tile: TileSelection.TileItem):

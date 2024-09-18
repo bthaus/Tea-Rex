@@ -94,7 +94,7 @@ func hit():
 			ms.append_array(c)	
 	for m in ms:
 		if not is_instance_valid(m):continue
-		if m.hit(type, damage)&&associate != null:
+		if m.hit(type, damage)&&associate != null and associate.has_method("addKill"):
 			associate.addKill()
 		if associate != null&&associate.has_method("addDamage"):
 			associate.addDamage(damage)
