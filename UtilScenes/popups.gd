@@ -37,7 +37,8 @@ func show_popup_at(position: Vector2, content: PopupContent):
 			_resize_label(item)
 	
 	panel.size = Vector2i.ZERO
-	panel.position = position
+	panel.set_global_position(position)
+	
 	animation.setup()
 	animation.open()
 
@@ -96,6 +97,3 @@ class PopupContent:
 		label.add_theme_font_size_override("bold_font_size", font_size)
 		label.add_theme_font_size_override("italics_font_size", font_size)
 		label.add_theme_font_size_override("mono_font_size", font_size)
-
-
-

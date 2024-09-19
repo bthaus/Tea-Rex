@@ -42,6 +42,7 @@ script = ExtResource("5_bwwec")
 tile_id = 21
 collides_with_bullets = true
 moving_types = Array[int]([0])
+immunities = Array[int]([0])
 
 [node name="ExplosiveBarrel" type="Sprite2D" parent="."]
 script = ExtResource("6_kfdg1")
@@ -97,6 +98,8 @@ tile_id = 18
 script = ExtResource("4_p1llm")
 tile_id = 4
 buildable = true
+description = "Buildable, movable soil."
+name_title = "Ground"
 
 [node name="LAVA" type="Sprite2D" parent="."]
 script = ExtResource("4_p1llm")
@@ -109,6 +112,8 @@ tile_id = 7
 collides_with_bullets = true
 moving_types = Array[int]([1])
 map_layer = 2
+description = "Indescructible"
+name_title = "Wall"
 
 [node name="Base Preview" type="Sprite2D" parent="."]
 script = ExtResource("4_p1llm")

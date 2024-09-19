@@ -162,4 +162,3 @@ func get_object():
 	
 	return self;
 	
-

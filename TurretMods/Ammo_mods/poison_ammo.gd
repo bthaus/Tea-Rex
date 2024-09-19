@@ -12,4 +12,3 @@ func on_hit(p:Projectile,m:Monster):
 	poison.register(m)
 	super(p,m)
 	pass;
-

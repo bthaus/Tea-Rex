@@ -1,14 +1,19 @@
 extends GameObject2D
 class_name MonsterCore
 signal death_animation_done
+## The speed the monster moves at. Clamped at 0 and 9999
 @export var speed:MonsterFactory.MonsterSpeed = MonsterFactory.MonsterSpeed.Normal :
 	set(val):
 		speed=clamp(val,0,9999);
+## Max Hp of the monster.		
 @export var hp:MonsterFactory.MonsterHP =MonsterFactory.MonsterHP.Normal ;
+## Damage it deals to the playerbase
 @export var damage:MonsterFactory.MonsterDamage = MonsterFactory.MonsterDamage.Normal;
-
+## The time between each special attack of the monster. Ignored if no special attack is present. 
 @export var special_cooldown:MonsterFactory.MonsterCooldown=MonsterFactory.MonsterCooldown.Normal		
+## Used to differentiate between bosses and regular minions
 @export var type:Monster.Monstertype
+## Determines where this monster can move. If it has no moving type it cant move. 
 @export var movable_cells:Array[Monster.MonsterMovingType]=[Monster.MonsterMovingType.GROUND]
 var cooldown=special_cooldown
 var name_id
@@ -64,5 +69,3 @@ func hit(color: Turret.Hue, damage, type="default", noise=true):
 		on_death()
 		return true;
 	return false;
-
-

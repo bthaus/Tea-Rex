@@ -132,12 +132,12 @@ func _input(event):
 
 func check_mouse_cell_traversal(map_position: Vector2):
 	if map_position!=previous_mouse_pos:
-		var turret_or_not_to_unhover= gameState.collisionReference.get_turret_from_board(previous_mouse_pos)
+		var turret_or_not_to_unhover= gameState.collisionReference.get_upper_entity(previous_mouse_pos)
 		if turret_or_not_to_unhover!=null:
 			turret_or_not_to_unhover.on_unhover()
-		var turret_or_not= gameState.collisionReference.get_turret_from_board(map_position)
+		var turret_or_not= gameState.collisionReference.get_upper_entity(map_position)
 		if turret_or_not!=null:
-			turret_or_not.on_hover()
+			turret_or_not.on_hover($Board.map_to_local(map_position))
 		
 		_draw_selected_block_preview(map_position)
 		previous_mouse_pos=map_position

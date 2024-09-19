@@ -230,6 +230,3 @@ func _toggle_emission(b):
 	#projectile.global_rotation = projectile.direction.angle() + PI / 2.0
 	#projectile.shot=true
 	#pass;	
-
-
-

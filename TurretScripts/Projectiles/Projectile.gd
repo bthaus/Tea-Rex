@@ -16,6 +16,7 @@ var target
 var associate;
 var playerDied = false;
 var emitters=[]
+## the type of damage this projectile deals. E.g. if it has fire damage, it explodes certain entities. 
 @export var damage_types:Array[GameplayConstants.DamageTypes]=[GameplayConstants.DamageTypes.NORMAL]
 signal removed
 var ignore_next_enemy=false;

@@ -1,0 +1,16 @@
+[gd_scene load_steps=5 format=3 uid="uid://b3v8jxeadnuc2"]
+
+[ext_resource type="Script" path="res://CardFactory.gd" id="1_ti0nk"]
+[ext_resource type="Script" path="res://Cards/BlockCard.gd" id="2_bbc12"]
+[ext_resource type="Texture2D" uid="uid://cscp8owhb8mwi" path="res://Assets/Cards/FIREBALL_card.jpg" id="3_4ylmh"]
+[ext_resource type="Script" path="res://Cards/SpecialCardBase.gd" id="3_f4xx2"]
+
+[node name="CardFactory" type="Node2D"]
+script = ExtResource("1_ti0nk")
+
+[node name="BlockCard" type="Sprite2D" parent="."]
+script = ExtResource("2_bbc12")
+
+[node name="Fireball" type="Sprite2D" parent="."]
+texture = ExtResource("3_4ylmh")
+script = ExtResource("3_f4xx2")

@@ -30,5 +30,3 @@ static func loadfile(destination:String, save:String="",directory:String=""):
 		return "";
 	var content = file.get_as_text()
 	return content
-
-

@@ -2,7 +2,15 @@ extends Node2D
 class_name GameObject2D
 
 var status_effects={}
+## This object is not affected by these status effects. Immunities do not carry over -> FREEZING != FROZEN
 @export var immunities:Array[StatusEffect.Name]=[]
+## This description is shown in the pop-up that appears on hover.
+@export var description:String
+## node name is taken by default, is used for the pop-up that appears on hover 
+@export var name_title:String=""
+@export var show_popup_in_menu=false;
+
+
 #@export var resistances:Array[Resistance]
 func apply_status_effects(delta):
 	for d in status_effects:
@@ -51,4 +59,31 @@ func get_map():
 func _ready():
 	pass # Replace with function body.
 
-
+func on_hover(mouse_position):
+	issue_popup(mouse_position)
+	pass;
+func issue_popup(mouse_position):
+	if not show_popup_in_menu and GameState.gameState is SimulationState: return
+	var content= Popups.PopupContent.new()
+	add_title(content)
+	add_description(content)
+	add_image(content)
+	show_popup(content,mouse_position)
+	pass;
+func show_popup(c,mouse_position):
+	Popups.show_popup_at(get_global(),c)
+	pass;	
+func add_title(c):
+	if name_title=="":
+		c.append_title(name)
+	else:
+		c.append_title(name_title)	
+	pass;		
+func add_image(c):
+	pass;	
+func add_description(c):
+	c.append_description(description)
+	pass;	
+func on_unhover():
+	Popups.hide_popup()
+	pass;	

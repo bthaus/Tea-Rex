@@ -45,12 +45,16 @@ static func getStringFromEnumExtension(type:Turret.Extension):
 	return "";
 
 
-
+static func get_next_color():
+	var gamestate=GameState.gameState
+	gamestate.color_index+=1
+	return gamestate.color_cycle[gamestate.color_index]
+	pass;
 static func getRandomBlock(lvl,gamestate):
 	gamestate.color_index+=1
-	gamestate.block_index+=1
+	gamestate.card_index+=1
 	var color=gamestate.color_cycle[gamestate.color_index]
-	var block=gamestate.block_cycle[gamestate.block_index]
+	var block=gamestate.card_cycle[gamestate.card_index]
 	var pieces=[]
 	for piece in block.pieces:
 		var p=Block.Piece.new(piece.position,color,piece.level)

@@ -9,4 +9,3 @@ class_name TurretModContainerDTO
 var turret_mods = []
 
 var color: Turret.Hue
-

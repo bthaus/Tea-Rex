@@ -81,6 +81,8 @@ scale = Vector2(-0.25, -0.25)
 texture = ExtResource("4_hcdyn")
 script = ExtResource("8_61sru")
 turretRange = 3
+description = "This is a blue tower"
+name_title = "Pew pew"
 
 [node name="Barrel1" type="Sprite2D" parent="BLUE_base"]
 material = SubResource("ShaderMaterial_l3v4h")

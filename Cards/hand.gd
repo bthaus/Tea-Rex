@@ -1,6 +1,6 @@
 extends GameObject2D
 @export var state:GameState;
-@export var description:Label
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	child_order_changed.connect(reorder)

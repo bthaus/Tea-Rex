@@ -10,4 +10,3 @@ func on_hit(p:Projectile,m:Monster):
 	fire.register(m)
 	super(p,m)
 	pass;
-

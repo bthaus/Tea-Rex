@@ -6,4 +6,3 @@ func do(delta):
 		entity.do(delta)
 		pass;
 	pass;
-

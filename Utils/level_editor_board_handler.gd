@@ -174,7 +174,7 @@ func save_board(monster_waves, setting_properties: LevelEditorSettings.Propertie
 	
 	var battle_slot_dto = BattleSlotDTO.new()
 	battle_slot_dto.amount = setting_properties.battle_slots_amount
-	var map_dto = MapDTO.new(entities, monster_waves, setting_properties.block_cycle, setting_properties.color_cycle, battle_slot_dto, map_name)
+	var map_dto = MapDTO.new(entities, monster_waves, setting_properties.card_cycle, setting_properties.color_cycle, battle_slot_dto, map_name)
 	var ids=GameState.gameState.map_dto.treasure_ids
 	map_dto.treasure_ids=ids
 	map_dto.treasures=GameState.gameState.map_dto.treasures
