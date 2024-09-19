@@ -64,15 +64,15 @@ func reduce():
 			_reduced_waves+=str(m.spawner_id)+"_"+str(m.monster_id)+"_"+str(m.count)+"-"
 		_reduced_waves+="&&"
 	
-	for block in card_cycle:
-		_reduced_shapes+=block.get_compact_string()
-	_reduced_shapes+="§§§"+str(battle_slots.amount)+"§§§"	
+	#for block in card_cycle:
+		#_reduced_shapes+=block.get_compact_string()
+	#_reduced_shapes+="§§§"+str(battle_slots.amount)+"§§§"	
 	pass;		
 func save(dest,acc="",dir="maps"):
 	MapNameDTO.add_map_name(dest)
 	reduce()
 	waves.clear()	
-	card_cycle.clear()	
+	#card_cycle.clear()	
 	entities.clear()
 	return super.save("map_"+dest,"",dir+"/"+dest)
 		
