@@ -11,5 +11,5 @@ static func get_block_card(block):
 	card.initialise(block)
 	return card
 static func get_special_Card(card_name):
-	return instance.get_node(card_name).duplicate()
+	return instance.get_node(SpecialCardBase.Cardname.find_key(card_name)).duplicate()
 	pass;

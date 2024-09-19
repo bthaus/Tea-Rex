@@ -106,12 +106,13 @@ func _ready():
 	$selection.selected.connect(target_minions)
 	target = $Base
 	for block_dto in map_dto.card_cycle:
-		card_cycle.append(block_dto.get_object())
+		card_cycle.append(block_dto)
 		
 	for color in map_dto.color_cycle:
-		
 		if unlockedColors.has(color as Turret.Hue):
 			color_cycle.append(color)
+	card_cycle.push_front(SpecialCardCycleEntryDTO.new(SpecialCardBase.Cardname.Fireball))
+	card_cycle.push_front(SpecialCardCycleEntryDTO.new(SpecialCardBase.Cardname.Fireball))		
 	cam=$Camera2D	
 	cam.move_to(Vector2(500, 500), func(): print("done"))
 	TutorialHolder.showTutorial(TutorialHolder.tutNames.Starting, self, func():
@@ -128,7 +129,8 @@ func show_unlockable(u):
 	pass;
 func get_next_card():
 	card_index+=1;
-	return card_cycle[card_index].get_object()
+	var card= card_cycle[card_index].get_object()
+	return card
 			
 func target_minions(cells):
 	var turret_dic={} as Dictionary

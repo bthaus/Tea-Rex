@@ -50,8 +50,8 @@ func restore(dest,acc="",dir="maps"):
 	var slot_amount=_reduced_shapes.substr(_reduced_shapes.find("§§§"))		
 	slot_amount=slot_amount.replace("§§§","")
 	slot_amount=int(slot_amount)	
-	_reduced_shapes=_reduced_shapes.substr(0,_reduced_shapes.find("§§§"))
-	card_cycle=BlockCycleEntryDTO.cycles_from_string(_reduced_shapes)
+	#_reduced_shapes=_reduced_shapes.substr(0,_reduced_shapes.find("§§§"))
+	#card_cycle=BlockCycleEntryDTO.cycles_from_string(_reduced_shapes)
 func reduce():
 	_reduced_entities=""
 	_reduced_waves=""

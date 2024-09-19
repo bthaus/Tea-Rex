@@ -14,6 +14,7 @@ func get_object():
 	var block= Block.new(pieces)
 	block.color=color
 	var card=CardFactory.get_block_card(block)
+	return card
 	
 func get_compact_string():
 	var s=""
