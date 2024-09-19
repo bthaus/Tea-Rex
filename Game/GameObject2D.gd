@@ -8,6 +8,7 @@ var status_effects={}
 @export var description:String
 ## node name is taken by default, is used for the pop-up that appears on hover 
 @export var name_title:String=""
+@export var show_popup_in_menu=false;
 
 
 #@export var resistances:Array[Resistance]
@@ -62,6 +63,7 @@ func on_hover(mouse_position):
 	issue_popup(mouse_position)
 	pass;
 func issue_popup(mouse_position):
+	if not show_popup_in_menu and GameState.gameState is SimulationState: return
 	var content= Popups.PopupContent.new()
 	add_title(content)
 	add_description(content)
@@ -83,5 +85,5 @@ func add_description(c):
 	c.append_description(description)
 	pass;	
 func on_unhover():
-	
+	Popups.hide_popup()
 	pass;	

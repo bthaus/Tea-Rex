@@ -249,6 +249,12 @@ func on_hover(mouse_position):
 	GameState.gameState.showCount(base.killcount, base.damagedealt)
 	super(mouse_position)
 	pass # Replace with function body.
+func add_description(c):
+	c.append_description(base.description)
+	
+	pass;	
+func add_title(c):
+	c.append_title(base.name_title)	
 func on_unhover():
 	show_box=false;
 	detectorvisible = false;

@@ -44,7 +44,8 @@ func show_popup_at(position: Vector2, content: PopupContent):
 			_resize_label(item)
 	
 	panel.size = Vector2i.ZERO
-	panel.position = position
+	panel.set_global_position(position)
+	
 	animation.setup()
 	animation.open()
 

@@ -38,6 +38,7 @@ func place_on_board(board: TileMap):
 	GameState.gameState.register_entity(self)
 
 func remove_from_board(board:TileMap):
+	board.set_cell(map_layer,map_position,-1,Vector2.ZERO)
 	GameState.gameState.unregister_entity(self)
 	pass;
 func can_move(type:Monster.MonsterMovingType):
