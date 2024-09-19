@@ -8,7 +8,14 @@ var max_width: float = 500.0
 var is_opening = true
 
 func show_popup(sender, content: PopupContent):
-	var rect = Rect2(Vector2i(sender.global_position), Vector2(sender.size))
+	var extent
+	if sender is Sprite2D and sender.texture!=null:
+		extent=sender.texture.get_size()
+	elif sender is Node2D:
+		extent=Vector2(20,20)
+	else:	
+		extent=sender.size	
+	var rect = Rect2(Vector2i(sender.global_position), Vector2(extent))
 	var mouse_pos = get_viewport().get_mouse_position()
 	var correction
 	var padding = 4
@@ -37,7 +44,8 @@ func show_popup_at(position: Vector2, content: PopupContent):
 			_resize_label(item)
 	
 	panel.size = Vector2i.ZERO
-	panel.position = position
+	panel.set_global_position(position)
+	
 	animation.setup()
 	animation.open()
 

@@ -404,7 +404,20 @@ func get_weight_from_cell(pos,monster_type:Monster.MonsterMovingType):
 	if weight !=1:
 		print("hi")	
 	return weight
-	pass;	
+	pass;
+func get_upper_entity(map):
+	if isOutOfBoundsVector(map):return
+	var turr=get_turret_from_map(map)
+	if turr != null : return turr;
+	var es=get_entities_from_map(map)
+	var highest_map_layer=-5
+	var selected_entity
+	for e in es:
+		if e.map_layer>highest_map_layer:
+			selected_entity=e
+			highest_map_layer=e.map_layer
+	return selected_entity		
+			
 func is_buildable_global(glob)->bool:
 	var p=getMapPositionNormalised(glob)
 	for e:BaseEntity in map[p.y][p.x].entities:

@@ -41,8 +41,7 @@ func show_tutorial(tut:Tutorial):
 	tween.tween_property(tut,"modulate",Color(1,1,1,1),1)
 	pass;
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
+
 func _on_start_battle_phase_pressed():
 	gamestate.startBattlePhase()
 	pass # Replace with function body.
@@ -51,15 +50,7 @@ func _on_speed_button_pressed(val):
 	gamestate.toggleSpeed(val)
 	pass # Replace with function body.
 	
-@export var description:Label
-func showDescription(s):
-	#description.text=s
-	#sd=true;
-	pass;
-	
-func hideDescription():
-	sd=false;
-	pass;
+
 
 func showDeathScreen():
 	
@@ -80,19 +71,6 @@ func checkSaving(delta):
 		s=s-2*delta	
 	s=clamp(s,0,1)		
 	$CanvasLayer/UI/saving.modulate=Color(s,s,s,s)
-	pass;
-func checkDescription(delta):
-	
-	if (sd and m >=1) or (not sd and m<=0):
-		return
-	
-	if sd:
-		m=m+2*delta;
-	else:
-		m=m-2*delta	
-	m=clamp(m,0,1)	
-	description.modulate=Color(m,m,m,m)	
-	
 	pass;
 
 

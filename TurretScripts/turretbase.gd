@@ -229,24 +229,7 @@ func show_infobox():
 func add_status_effect(effect:StatusEffect):
 	effect.register(base)
 	pass;	
-func on_hover():
 
-	base.showRangeOutline()
-	for t in cardBuddys:
-		t.showRangeOutline()
-	if placed:
-		show_box=true;
-		show_infobox()
-		
-		
-	#elif extension != 1:
-	#	GameState.gameState.ui.showDescription(Stats.getDescription(Turret.Extension.keys()[extension - 1]))
-	#else:
-	#	GameState.gameState.ui.showDescription(Stats.getDescription(util.getStringFromEnum(color)))
-	
-	GameState.gameState.showCount(base.killcount, base.damagedealt)
-	
-	pass # Replace with function body.
 var detectorvisible = false;
 
 var m = 0;
@@ -255,9 +238,25 @@ func on_moved():
 	collisionReference.unregister_turret(self,placed)
 	pass;
 
+func on_hover(mouse_position):
+
+	base.showRangeOutline()
+	for t in cardBuddys:
+		t.showRangeOutline()
+	if placed:
+		show_box=true;
+		show_infobox()
+	GameState.gameState.showCount(base.killcount, base.damagedealt)
+	super(mouse_position)
+	pass # Replace with function body.
+func add_description(c):
+	c.append_description(base.description)
+	
+	pass;	
+func add_title(c):
+	c.append_title(base.name_title)	
 func on_unhover():
 	show_box=false;
-	#GameState.gameState.ui.hideDescription()
 	detectorvisible = false;
 	GameState.gameState.hideCount()
 	GameState.gameState.gameBoard.clear_range_outline()

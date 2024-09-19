@@ -2,7 +2,6 @@ extends GameObject2D
 class_name Card
 var card;
 var state:GameState;
-var description:String;
 static var isCardSelected=false;
 static var selectedCard;
 signal mouseIn
@@ -54,52 +53,11 @@ static func create(gameState:GameState,card=-1):
 		c.setCard(BlockCard.create(gameState))
 	c.state=gameState;
 
-	#if c.card is SpecialCard:
-		##enum SpecialCards {HEAL=1,FIREBALL=2,UPHEALTH=3,CRYOBALL=4,MOVE=5, BULLDOZER=6,GLUE=7,POISON=8, UPDRAW=9, UPMAXCARDS=10}
-		#var label=""
-		#gameState.start_build_phase.connect(func():
-			#if c==null:return
-			#match c.card.cardName:
-				#1:c.description=	"Heals "+str(c.card.getHealAmount())+" HP. The longer you hold it, the more it heals. "
-				#2:label="Deals "+str(c.card.damage)+" damage."
-				#3:c.description=	"Gives "+str(c.card.getHealAmount())+" HP. The longer you hold it, the more it gives you."
-				#4:label="Deals "+str(c.card.damage)+" damage."
-				#6:label="Removes "+str(c.card.damage)+"x"+str(c.card.range)+" blocks."
-				#5:label="Moves 1 block"
-				#7:label="Slows enemies"
-				#8:label="Poisons for "+str(c.card.damage)+"."
-				#9:label="Draw 1 card more."
-				#10:label="Handsize +1."
-			#
-			#c.get_child(1).text=""	
-					#)
-		#match c.card.cardName:
-			#1:c.description=	"Heals "+str(c.card.getHealAmount())+" HP. The longer you hold it, the more it heals. "
-			#2:label="Deals "+str(c.card.damage)+" damage."
-			#3:c.description=	"Gives "+str(c.card.getHealAmount())+" HP. The longer you hold it, the more it gives you."
-			#4:label="Deals "+str(c.card.damage)+" damage."
-			#6:label="Removes "+str(c.card.damage)+"x"+str(c.card.range)+" blocks."
-			#5:label="Moves 1 block"
-			#7:label="Slows enemies"
-			#8:label="Poisons for "+str(c.card.damage)+"."
-			#9:label="Draw 1 card more."
-			#10:label="Handsize +1."
-			#
-		#c.get_child(1).text=""
-		#c.get_child(1).visible=true;
-		#var cardname=c.card.cardName;
-		#c.get_node("Button").icon=load("res://Assets/SpecialCards/"+Stats.getStringFromSpecialCardEnum(cardname)+"_preview.png")
-		#if c.description=="":
-			#c.description=Stats.getDescription(Stats.getStringFromSpecialCardEnum(cardname))
 	if c.card is BlockCard:
 		
 		
 		var extension=c.card.block.extension;
 		var color=c.card.block.color;
-		#if extension==1:
-		#	c.get_node("Label").text=Stats.getName(Turret.Hue.find_key(color))
-		#else:
-		#	c.get_node("Label").text=Stats.getName(Turret.Extension.find_key(extension))	
 		c.get_node("Label").text=""
 		var ic=load("res://Assets/Cards/Testcard_"+util.getStringFromEnum(color).to_lower()+".png")
 		if ic==null:
@@ -149,8 +107,6 @@ func _on_button_mouse_entered():
 	
 	var tween = create_tween()
 	tween.tween_property(self, "global_position", originalPosition+Vector2(0, -25), 0.5)
-	state.ui.showDescription(description)
-	
 	pass # Replace with function body.
 
 
@@ -159,7 +115,6 @@ func _on_button_mouse_exited():
 		z_index=originalZ
 	var tween = create_tween()
 	tween.tween_property(self, "global_position", originalPosition, 0.5)
-	state.ui.hideDescription()
 	mouseOut.emit()
 	pass # Replace with function body.
 
