@@ -14,14 +14,14 @@ func delayedSelect(done):
 	if isCardSelected&&selectedCard!=self:
 		
 		if (selectedCard.card!=null)&&(selectedCard.card is BlockCard):
-			state.gameBoard._action_finished(false)
+			GameState.gameState.gameBoard._action_finished(false)
 			selectedCard=self;
 		#elif (selectedCard.card!=null)&&(selectedCard.card is SpecialCard):
 			#selectedCard.card.interrupt()
 			#selectedCard=self;	
 	
-	if self is BlockCard and state.phase!=GameState.GamePhase.BUILD:
-		return;
+	#if self is BlockCard and state.phase!=GameState.GamePhase.BUILD:
+		#return;
 	$DisableButton/DisableCard.show()
 	$DisableButton.mouse_filter=0;
 	$Button.mouse_filter=2;	
@@ -41,42 +41,20 @@ func setCard(c):
 	card=c;
 	add_child(c)
 	pass;
-static func create(gameState:GameState,card=-1):
+static func create(gameState:GameState):
 	counter=counter+1;
 	var c=load("res://Cards/card.tscn").instantiate() as Card
-	
-	
 	var btn=c.get_child(0) as Button
-	if card is Card:
-		c.setCard(card)
-	else:	
-		c.setCard(BlockCard.create(gameState))
-	c.state=gameState;
-
-	if c.card is BlockCard:
-		
-		
-		var extension=c.card.block.extension;
-		var color=c.card.block.color;
-		c.get_node("Label").text=""
-		var ic=load("res://Assets/Cards/Testcard_"+util.getStringFromEnum(color).to_lower()+".png")
-		if ic==null:
-			ic=load("res://Assets/Cards/Testcard_white.png")
-		c.get_node("Button").icon=ic	#use this to change color/text of card
-		c.preview=load("res://Cards/block_preview.tscn").instantiate()
-		c.preview.set_block(c.card.block, true)
-		c.preview.position=Vector2(50,100)
-		c.preview.scale=Vector2(0.3,0.3)
-		btn.add_child(c.preview)
-	
+	var created_card=CardFactory.get_card()
+	c.setCard(created_card)
 	return c
-var preview	
+
 func played(interrupted:bool):
 	
 	if  interrupted:
 		if card is BlockCard:
-			preview.clear_preview();
-			preview.queue_free()
+			card.preview.clear_preview();
+			card.preview.queue_free()
 		queue_free()
 		finished.emit(self)
 	if isCardSelected:
@@ -84,16 +62,8 @@ func played(interrupted:bool):
 	pass;
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	
-	
 	originalPosition=global_position
 	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
-
 
 func _on_button_pressed():
 	select(played)
@@ -128,7 +98,7 @@ func _on_disable_button_pressed():
 	isCardSelected=false;	
 	GameState.gameState.gameBoard.action=GameBoard.BoardAction.NONE
 	if (selectedCard.card!=null)&&(selectedCard.card is BlockCard):
-			state.gameBoard._action_finished(false)
+			GameState.gameState.gameBoard._action_finished(false)
 			selectedCard=null;
 	#elif (selectedCard.card!=null)&&(selectedCard.card is SpecialCard):
 			#selectedCard.card.interrupt()
