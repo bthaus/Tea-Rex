@@ -9,9 +9,8 @@ func _ready():
 	pass # Replace with function body.
 static var showRotateTut=true
 
-func initialise():
+func initialise(block):
 	state=GameState.gameState
-	block=util.getRandomBlock(1,state);
 	var color=block.color;
 	var ic=load("res://Assets/Cards/Testcard_"+util.getStringFromEnum(color).to_lower()+".png")
 	texture=ic

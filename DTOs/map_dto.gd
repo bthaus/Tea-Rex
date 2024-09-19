@@ -10,7 +10,7 @@ var waves
 var number_of_waves: int = 2
 var map_name: String = ""
 var battle_slots: BattleSlotDTO
-var block_cycle: Array[BaseDTO]
+var card_cycle: Array[BaseDTO]
 var color_cycle: Array
 var description:String="This is a map."
 
@@ -18,10 +18,10 @@ var _reduced_entities=""
 var _reduced_waves=""
 var _reduced_shapes=""
 
-func _init(entities: Array[BaseDTO] = [], waves = [], block_cycle: Array[BaseDTO] = [], color_cycle: Array = [], battle_slots: BattleSlotDTO = null, mapname = ""):
+func _init(entities: Array[BaseDTO] = [], waves = [], card_cycle: Array[BaseDTO] = [], color_cycle: Array = [], battle_slots: BattleSlotDTO = null, mapname = ""):
 	self.entities = entities
 	self.waves = waves
-	self.block_cycle = block_cycle
+	self.card_cycle = card_cycle
 	self.color_cycle = color_cycle
 	self.battle_slots = battle_slots
 	self.map_name=mapname
@@ -51,7 +51,7 @@ func restore(dest,acc="",dir="maps"):
 	slot_amount=slot_amount.replace("§§§","")
 	slot_amount=int(slot_amount)	
 	_reduced_shapes=_reduced_shapes.substr(0,_reduced_shapes.find("§§§"))
-	block_cycle=BlockCycleEntryDTO.cycles_from_string(_reduced_shapes)
+	card_cycle=BlockCycleEntryDTO.cycles_from_string(_reduced_shapes)
 func reduce():
 	_reduced_entities=""
 	_reduced_waves=""
@@ -64,7 +64,7 @@ func reduce():
 			_reduced_waves+=str(m.spawner_id)+"_"+str(m.monster_id)+"_"+str(m.count)+"-"
 		_reduced_waves+="&&"
 	
-	for block in block_cycle:
+	for block in card_cycle:
 		_reduced_shapes+=block.get_compact_string()
 	_reduced_shapes+="§§§"+str(battle_slots.amount)+"§§§"	
 	pass;		
@@ -72,7 +72,7 @@ func save(dest,acc="",dir="maps"):
 	MapNameDTO.add_map_name(dest)
 	reduce()
 	waves.clear()	
-	block_cycle.clear()	
+	card_cycle.clear()	
 	entities.clear()
 	return super.save("map_"+dest,"",dir+"/"+dest)
 		
@@ -83,4 +83,3 @@ func delete():
 	chapters.remove_map(map_name)
 	super()
 	pass;
-

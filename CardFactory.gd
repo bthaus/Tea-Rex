@@ -6,3 +6,10 @@ static func get_card():
 	card.initialise()
 	return card
 	pass;
+static func get_block_card(block):
+	var card=instance.get_node("BlockCard").duplicate()
+	card.initialise(block)
+	return card
+static func get_special_Card(card_name):
+	return instance.get_node(card_name).duplicate()
+	pass;

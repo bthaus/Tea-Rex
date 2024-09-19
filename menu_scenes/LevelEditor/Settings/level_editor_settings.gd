@@ -42,7 +42,7 @@ func _set_color_permutator(colors: Array[Turret.Hue]):
 func load_settings(map_dto: MapDTO):
 	battle_slots.load_settings(map_dto.battle_slots)
 	var blocks: Array[Block] = []
-	for block in map_dto.block_cycle:
+	for block in map_dto.card_cycle:
 		blocks.append(block.get_object())
 	_set_block_permutator(blocks)
 	
@@ -88,19 +88,19 @@ func _on_close_button_pressed():
 func get_setting_properties() -> Properties:
 	var settings = Properties.new()
 	settings.battle_slots_amount = battle_slots.get_amount()
-	settings.block_cycle = get_block_cycle()
+	settings.card_cycle = get_card_cycle()
 	settings.color_cycle = get_color_cycle()
 	return settings
 
-func get_block_cycle() -> Array[BaseDTO]:
+func get_card_cycle() -> Array[BaseDTO]:
 	var objects = block_permutator.get_objects()
-	var block_cycle: Array[BaseDTO] = []
+	var card_cycle: Array[BaseDTO] = []
 	for obj in objects:
 		var positions = []
 		for piece in obj.value.pieces:
 			positions.append({"x": piece.position.x, "y": piece.position.y})
-		block_cycle.append(BlockCycleEntryDTO.new(positions))
-	return block_cycle
+		card_cycle.append(BlockCycleEntryDTO.new(positions))
+	return card_cycle
 
 func get_color_cycle() -> Array:
 	var objects = color_permutator.get_objects()
@@ -111,5 +111,5 @@ func get_color_cycle() -> Array:
 
 class Properties:
 	var battle_slots_amount: int
-	var block_cycle: Array
+	var card_cycle: Array
 	var color_cycle: Array

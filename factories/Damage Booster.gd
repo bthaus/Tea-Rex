@@ -7,5 +7,3 @@ func on_turret_built(turret:Turret):
 	turret.add_buff(buff)
 	super(turret)
 	pass
-
-

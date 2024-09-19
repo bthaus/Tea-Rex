@@ -57,4 +57,3 @@ func after_built():
 		#get_tree().create_timer(i*1.5).timeout.connect(shoot.bind(null))
 
 	pass;	
-

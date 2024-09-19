@@ -104,6 +104,3 @@ class PopupContent:
 		label.add_theme_font_size_override("bold_font_size", font_size)
 		label.add_theme_font_size_override("italics_font_size", font_size)
 		label.add_theme_font_size_override("mono_font_size", font_size)
-
-
-
