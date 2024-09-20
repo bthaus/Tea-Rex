@@ -6,6 +6,7 @@ var gameState
 @export var phase:GameState.GamePhase
 @export var instant = false;
 @export var soundeffect:AudioStream
+@export var discardable=true;
 
 var cardName:Cardname
 var selected = false;
@@ -39,6 +40,7 @@ func cast():
 	if Card.contemplatingInterrupt and not instant:
 		interrupt()
 		return ;
+	remove_child(preview)	
 	_trigger_play_effect()
 	done.call(true)
 	
@@ -75,6 +77,7 @@ func _input(event):
 func interrupt():
 	selected = false;
 	done.call(false)
+	self.preview.visible=false;
 	pass ;
 
 func isPhaseValid() -> bool:

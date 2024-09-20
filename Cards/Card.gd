@@ -132,6 +132,7 @@ func _on_disable_button_mouse_exited():
 
 func _on_discard_pressed() -> void:
 	interrupt_Card()
-	selectedCard.on_discard()
+	if card.discardable:
+		selectedCard.on_discard()
 	queue_free()
 	pass # Replace with function body.
