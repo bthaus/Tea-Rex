@@ -127,6 +127,8 @@ func _ready():
 func show_unlockable(u):
 	
 	pass;
+	
+	
 func get_next_card():
 	card_index+=1;
 	var card= card_cycle[card_index].get_card()

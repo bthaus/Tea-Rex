@@ -16,7 +16,7 @@ func _ready():
 	counter = counter + 1;
 
 	pass ;
-static func create(type, damage, position, root, scale=1, noise=true):
+static func create(type, damage, p, root, scale=1, noise=true):
 	var temp;
 	
 	if cache.size() == 0:
@@ -41,7 +41,7 @@ static func create(type, damage, position, root, scale=1, noise=true):
 	temp.range=scale;
 	#temp.get_node("Area2D").monitoring = true;
 	temp.get_node("AnimatedSprite2D").visible = true
-	temp.global_position = position;
+	temp.global_position = p;
 	temp.get_node("AnimatedSprite2D").play("default")
 	temp.get_node("AnimationPlayer").play("lightup")
 	temp.associate = root;
@@ -108,16 +108,6 @@ func _process(delta):
 	pass
 
 var num = 0;
-func _on_area_2d_area_entered(area):
-	if (area.get_parent() is Monster):
-		
-		num = num + 1;
-		if area.get_parent().hit(type, damage)&&associate != null:
-			associate.addKill()
-		if associate != null&&associate.has_method("addDamage"):
-			associate.addDamage(damage)
-	
-	pass # Replace with function body.
 
 func _on_animated_sprite_2d_animation_finished():
 	$AnimatedSprite2D.visible = false;

@@ -34,7 +34,9 @@ func select(done: Callable):
 	pass ;
 func set_preview():
 	preview=CardFactory.get_default_preview()
-	preview.reparent(self)
+	if preview.get_parent()!=null:
+		preview.reparent(self)
+	else: add_child(preview)
 	pass;
 func cast():
 	if Card.contemplatingInterrupt and not instant:
@@ -65,7 +67,7 @@ func reparentToState():
 func _input(event):
 	if !selected:
 		return ;
-	preview.global_position=get_global_mouse_position()	
+	preview.global_position=get_mouse_pos()
 	if ignoreNextClick:
 		ignoreNextClick = false;
 		return ;
@@ -73,6 +75,11 @@ func _input(event):
 		selected = false;
 		cast()
 	pass ;
+func get_mouse_pos():
+	var screen_mouse_position = get_viewport().get_mouse_position() # Get the mouse position on the screen
+	# Convert it to world coordinates
+	var mouse_pos = (get_viewport().get_screen_transform() * get_viewport().get_canvas_transform()).affine_inverse() * screen_mouse_position
+	return mouse_pos	
 
 func interrupt():
 	selected = false;

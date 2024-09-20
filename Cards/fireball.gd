@@ -6,8 +6,9 @@ class_name Fireball
 
 
 func _trigger_play_effect():
-	Explosion.create(GameplayConstants.DamageTypes.FIRE,damage,get_global_mouse_position(),self,range)	
+	Explosion.create(GameplayConstants.DamageTypes.FIRE,damage,get_mouse_pos(),self,range)	
 	pass;
 func _trigger_turn_effect():
 	GameState.gameState.changeHealth(-turn_player_damage)
 	pass;
+	

@@ -17,7 +17,6 @@ script = ExtResource("2_bbc12")
 texture = ExtResource("3_a735y")
 script = ExtResource("4_pdgf6")
 phase = 3
-discardable = false
 
 [node name="OtherSpecialCard" type="Sprite2D" parent="."]
 texture = ExtResource("5_1tjhv")
