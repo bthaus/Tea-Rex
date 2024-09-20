@@ -55,4 +55,3 @@ func _on_decrease_button_pressed():
 
 func _set_monster_count_text(count: int):
 	$CountEdit.text = str(count)
-

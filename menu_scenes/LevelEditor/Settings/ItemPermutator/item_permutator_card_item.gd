@@ -39,8 +39,7 @@ func open_editor():
 	var editor = load("res://menu_scenes/LevelEditor/Settings/block_editor.tscn").instantiate()
 	editor.set_block(_object.block)
 	editor.saved.connect(_on_editor_saved)
-	editor.canceled.connect(func(): input_enabled.emit(true))
-	editor.position = Vector2(200, 100)
+	editor.canceled.connect(_on_editor_canceled)
 	_parent.add_child(editor)
 	editor.open()
 	
@@ -48,7 +47,10 @@ func _on_editor_saved(block: Block):
 	_object.block = block
 	set_object(_object)
 	input_enabled.emit(true)
-	
+
+func _on_editor_canceled():
+	input_enabled.emit(true)
+
 func enable_focus(enable: bool):
 	var filter = MOUSE_FILTER_STOP if enable else MOUSE_FILTER_IGNORE
 	$Content/EditButton.mouse_filter = filter
