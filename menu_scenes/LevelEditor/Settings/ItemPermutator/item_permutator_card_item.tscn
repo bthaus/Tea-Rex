@@ -19,8 +19,13 @@ scale = Vector2(0.15, 0.15)
 
 [node name="Card" type="Node2D" parent="Content"]
 
-[node name="CardPreview" type="Sprite2D" parent="Content/Card"]
-position = Vector2(33.2702, 33.7979)
+[node name="CardPreview" type="Label" parent="Content/Card"]
+offset_top = 24.0
+offset_right = 70.0
+offset_bottom = 57.0
+theme_override_font_sizes/font_size = 10
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="EditButton" type="Button" parent="Content"]
 offset_top = 70.0

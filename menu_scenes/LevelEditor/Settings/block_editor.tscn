@@ -6,9 +6,9 @@
 [ext_resource type="Script" path="res://UtilScenes/Animations/open_close_scale_animation.gd" id="3_ajy1d"]
 
 [node name="BlockEditor" type="Panel"]
-offset_left = 200.0
+offset_left = 150.0
 offset_top = 100.0
-offset_right = 700.0
+offset_right = 650.0
 offset_bottom = 400.0
 theme_override_styles/panel = ExtResource("1_ctwwr")
 script = ExtResource("1_tiset")

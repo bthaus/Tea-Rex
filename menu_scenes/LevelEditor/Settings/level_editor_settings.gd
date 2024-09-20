@@ -9,6 +9,7 @@ class_name LevelEditorSettings
 @onready var card_item_path = "res://menu_scenes/LevelEditor/Settings/ItemPermutator/item_permutator_card_item.tscn"
 @onready var color_item_path = "res://menu_scenes/LevelEditor/Settings/ItemPermutator/item_permutator_color_item.tscn"
 @onready var editor_path = "res://menu_scenes/LevelEditor/Settings/block_editor.tscn"
+@onready var card_selector_path = "res://menu_scenes/LevelEditor/Settings/CardSelector/card_selector.tscn"
 
 func _ready():
 	$BlockSelector.block_selected.connect(_on_new_block_selected)
@@ -35,7 +36,7 @@ func _set_card_permutator(blocks: Array[Block]):
 	for block in blocks:
 		block_objects.append(ItemPermutatorCardItem.BlockPermutationObject.new(block))
 	card_permutator.set_objects(card_item_path, block_objects)
-	card_permutator.append_object(card_item_path, ItemPermutatorCardItem.CardPermutationObject.new(load("res://Assets/Monsters/monster_blue/1.png")))
+	card_permutator.append_object(card_item_path, ItemPermutatorCardItem.CardPermutationObject.new(SpecialCardBase.Cardname.Fireball))
 
 func _set_color_permutator(colors: Array[Turret.Hue]):
 	var color_objects: Array[ItemPermutator.PermutationObject] = []
@@ -69,7 +70,17 @@ func _color_to_texture(color: Turret.Hue) -> Texture2D:
 
 func _on_add_block_button_pressed():
 	$BlockSelector.open()
+
+func _on_add_card_button_pressed():
+	var selector = load(card_selector_path).instantiate()
+	add_child(selector)
+	selector.card_selected.connect(_on_new_card_selected)
+	selector.open()
 	
+func _on_new_card_selected(card: SpecialCardBase.Cardname):
+	var object = ItemPermutatorCardItem.CardPermutationObject.new(card)
+	card_permutator.append_object(card_item_path, object)
+
 func _on_new_block_selected(block: Block):
 	var object = ItemPermutatorCardItem.BlockPermutationObject.new(block)
 	card_permutator.append_object(card_item_path, object)

@@ -1,0 +1,106 @@
+[gd_scene load_steps=4 format=3 uid="uid://nhjild8uxlge"]
+
+[ext_resource type="StyleBox" uid="uid://b0qhmxvb2s50r" path="res://Styles/default_button.tres" id="1_0yst2"]
+[ext_resource type="Script" path="res://menu_scenes/LevelEditor/Settings/CardSelector/card_selector.gd" id="2_fqvtr"]
+[ext_resource type="Script" path="res://UtilScenes/Animations/open_close_scale_animation.gd" id="3_oym7s"]
+
+[node name="CardSelector" type="Panel"]
+offset_left = 150.0
+offset_top = 100.0
+offset_right = 650.0
+offset_bottom = 475.0
+theme_override_styles/panel = ExtResource("1_0yst2")
+script = ExtResource("2_fqvtr")
+
+[node name="OpenCloseScaleAnimation" type="Node" parent="."]
+script = ExtResource("3_oym7s")
+
+[node name="Title" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -52.5
+offset_top = 10.0
+offset_right = 52.5
+offset_bottom = 33.0
+grow_horizontal = 2
+text = "Select a card"
+
+[node name="TabContainer" type="TabContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -214.0
+offset_top = -136.5
+offset_right = 214.0
+offset_bottom = 124.5
+grow_horizontal = 2
+grow_vertical = 2
+current_tab = 0
+
+[node name="All Cards" type="MarginContainer" parent="TabContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 60
+theme_override_constants/margin_top = 10
+metadata/_tab_index = 0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="TabContainer/All Cards"]
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="AllContainer" type="GridContainer" parent="TabContainer/All Cards/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 10
+columns = 4
+
+[node name="Blessed Cards" type="MarginContainer" parent="TabContainer"]
+visible = false
+layout_mode = 2
+theme_override_constants/margin_left = 60
+theme_override_constants/margin_top = 10
+metadata/_tab_index = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="TabContainer/Blessed Cards"]
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="BlessedContainer" type="GridContainer" parent="TabContainer/Blessed Cards/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 10
+columns = 4
+
+[node name="Cursed Cards" type="MarginContainer" parent="TabContainer"]
+visible = false
+layout_mode = 2
+theme_override_constants/margin_left = 60
+theme_override_constants/margin_top = 10
+metadata/_tab_index = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="TabContainer/Cursed Cards"]
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="CursedContainer" type="GridContainer" parent="TabContainer/Cursed Cards/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 10
+columns = 4
+
+[node name="CancelButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 11.0
+offset_top = 327.0
+offset_right = 78.0
+offset_bottom = 362.0
+text = "Cancel"
+
+[connection signal="pressed" from="CancelButton" to="." method="_on_cancel_button_pressed"]
