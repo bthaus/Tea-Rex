@@ -35,25 +35,64 @@ text = " "
 label_settings = SubResource("LabelSettings_dena1")
 autowrap_mode = 3
 
-[node name="DisableButton" type="Button" parent="."]
+[node name="PutBack" type="Button" parent="."]
 self_modulate = Color(1, 1, 1, 0)
 offset_left = -61.0
-offset_top = -98.0
-offset_right = 54.0
+offset_top = -3.0
+offset_right = 56.0
 offset_bottom = 92.0
 mouse_filter = 2
 
-[node name="DisableCard" type="Sprite2D" parent="DisableButton"]
+[node name="DisableCard" type="Sprite2D" parent="PutBack"]
 visible = false
 z_index = 100
-position = Vector2(57, 96)
+position = Vector2(64, 51)
+scale = Vector2(1.06897, 0.5)
 texture = ExtResource("3_fiia3")
+
+[node name="Label" type="Label" parent="PutBack"]
+visible = false
+layout_mode = 0
+offset_left = 32.0
+offset_top = 16.0
+offset_right = 100.0
+offset_bottom = 39.0
+text = "Put Back
+"
+
+[node name="Discard" type="Button" parent="."]
+self_modulate = Color(1, 1, 1, 0)
+offset_left = -57.0
+offset_top = -95.0
+offset_right = 54.0
+offset_bottom = -1.0
+mouse_filter = 2
+
+[node name="DisableCard" type="Sprite2D" parent="Discard"]
+visible = false
+z_index = 100
+position = Vector2(60.0003, 46)
+scale = Vector2(1.06897, 0.5)
+texture = ExtResource("3_fiia3")
+
+[node name="Label" type="Label" parent="Discard"]
+visible = false
+layout_mode = 0
+offset_left = 29.0003
+offset_top = 9.0
+offset_right = 97.0003
+offset_bottom = 32.0
+text = "Discard
+"
 
 [connection signal="mouse_entered" from="Button" to="." method="_on_disable_button_mouse_entered"]
 [connection signal="mouse_entered" from="Button" to="." method="_on_button_mouse_entered"]
 [connection signal="mouse_exited" from="Button" to="." method="_on_disable_button_mouse_exited"]
 [connection signal="mouse_exited" from="Button" to="." method="_on_button_mouse_exited"]
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
-[connection signal="mouse_entered" from="DisableButton" to="." method="_on_disable_button_mouse_entered"]
-[connection signal="mouse_exited" from="DisableButton" to="." method="_on_disable_button_mouse_exited"]
-[connection signal="pressed" from="DisableButton" to="." method="_on_disable_button_pressed"]
+[connection signal="mouse_entered" from="PutBack" to="." method="_on_disable_button_mouse_entered"]
+[connection signal="mouse_exited" from="PutBack" to="." method="_on_disable_button_mouse_exited"]
+[connection signal="pressed" from="PutBack" to="." method="_on_disable_button_pressed"]
+[connection signal="mouse_entered" from="Discard" to="." method="_on_disable_button_mouse_entered"]
+[connection signal="mouse_exited" from="Discard" to="." method="_on_disable_button_mouse_exited"]
+[connection signal="pressed" from="Discard" to="." method="_on_discard_pressed"]

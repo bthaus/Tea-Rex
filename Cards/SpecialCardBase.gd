@@ -10,16 +10,14 @@ var gameState
 var cardName:Cardname
 var selected = false;
 var active = false;
-#var damage;
-#var range;
-#var done: Callable;
-
-
-#var tasks = []
 
 static var ignoreNextClick = false;
 static var rng = RandomNumberGenerator.new()
-
+var preview
+func _ready() -> void:
+	gameState=GameState.gameState
+	GameState.gameState.start_build_phase.connect(_trigger_turn_effect)
+	pass;
 func select(done: Callable):
 	self.done = done;
 	if !isPhaseValid():
@@ -31,19 +29,29 @@ func select(done: Callable):
 		return ;
 		
 	selected = true;
-	$Preview.visible = true;
+	set_preview()
 	pass ;
-
+func set_preview():
+	preview=CardFactory.get_default_preview()
+	preview.reparent(self)
+	pass;
 func cast():
 	if Card.contemplatingInterrupt and not instant:
 		interrupt()
 		return ;
-	reparentToState()
-	
-	$EffectSound.play();
+	_trigger_play_effect()
+	done.call(true)
 	
 	pass ;
-
+func _trigger_play_effect():
+	
+	pass;
+func _trigger_turn_effect():
+	
+	pass;
+func on_discard():
+	
+	pass
 func addKill():
 	pass ;
 func addDamage(damage):
@@ -55,12 +63,12 @@ func reparentToState():
 func _input(event):
 	if !selected:
 		return ;
+	preview.global_position=get_global_mouse_position()	
 	if ignoreNextClick:
 		ignoreNextClick = false;
 		return ;
 	if event.is_action_released("left_click"):
 		selected = false;
-		$Preview.visible = false;
 		cast()
 	pass ;
 

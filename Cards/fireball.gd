@@ -1,0 +1,2 @@
+extends SpecialCardBase
+class_name Fireball
