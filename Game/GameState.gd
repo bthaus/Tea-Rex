@@ -129,7 +129,7 @@ func show_unlockable(u):
 	pass;
 func get_next_card():
 	card_index+=1;
-	var card= card_cycle[card_index].get_object()
+	var card= card_cycle[card_index].get_card()
 	return card
 			
 func target_minions(cells):

@@ -5,7 +5,10 @@ func _init(card_name:SpecialCardBase.Cardname):
 	self.card_name=card_name
 
 func get_object():
-	return CardFactory.get_special_Card(card_name);
+	return card_name
 	pass;
-	
+
+func get_card():
+	return CardFactory.get_special_Card(get_object())
+	pass;	
 	

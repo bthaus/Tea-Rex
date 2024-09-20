@@ -2,7 +2,7 @@ extends GameObject2D
 class_name Monster;
 
 var moving_type: MonsterMovingType
-enum MonsterMovingType { GROUND, AIR, LAVA}
+enum MonsterMovingType { GROUND, AIR, LAVA, WATER}
 enum Monstertype {REGULAR=0,BOSS=1}
 enum MonsterName {SWARM=0,TANK=1,MINION=2,PYTHON=3,PYRO=4,YETI=5,SNOWMAN=6,
 WIZARD=7,BAT=8,NECROMANCER=9,DRAGON=10,VAMPIR=11,
