@@ -7,6 +7,7 @@ var gameState
 @export var instant = false;
 @export var soundeffect:AudioStream
 @export var discardable=true;
+var player=AudioStreamPlayer.new()
 
 var cardName:Cardname
 var selected = false;
@@ -42,6 +43,12 @@ func cast():
 	if Card.contemplatingInterrupt and not instant:
 		interrupt()
 		return ;
+	player.stream=soundeffect
+	add_child(player)
+	player.play(0)
+	reparentToState()
+	hide()
+	player.finished.connect(queue_free)
 	remove_child(preview)	
 	_trigger_play_effect()
 	done.call(true)
@@ -67,7 +74,7 @@ func reparentToState():
 func _input(event):
 	if !selected:
 		return ;
-	preview.global_position=get_mouse_pos()
+	preview.global_position=get_global_mouse_position()
 	if ignoreNextClick:
 		ignoreNextClick = false;
 		return ;
