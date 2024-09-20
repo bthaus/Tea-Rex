@@ -1,19 +1,26 @@
 [gd_scene load_steps=3 format=3 uid="uid://bs7wkvqfrdagp"]
 
-[ext_resource type="Script" path="res://menu_scenes/LevelEditor/Settings/ItemPermutator/item_permutator_block_item.gd" id="1_qdke3"]
-[ext_resource type="PackedScene" uid="uid://b5vg0xq00ba77" path="res://Cards/block_preview.tscn" id="2_h0q5i"]
+[ext_resource type="Script" path="res://menu_scenes/LevelEditor/Settings/ItemPermutator/item_permutator_card_item.gd" id="1_sdb65"]
+[ext_resource type="PackedScene" uid="uid://b5vg0xq00ba77" path="res://Cards/block_preview.tscn" id="2_sui6i"]
 
-[node name="ItemPermutatorBlockItem" type="Panel"]
+[node name="ItemPermutatorCardItem" type="Panel"]
 clip_contents = true
 custom_minimum_size = Vector2(70, 90)
 mouse_filter = 1
-script = ExtResource("1_qdke3")
+script = ExtResource("1_sdb65")
 
 [node name="Content" type="Node2D" parent="."]
 
-[node name="BlockPreview" parent="Content" instance=ExtResource("2_h0q5i")]
+[node name="Block" type="Node2D" parent="Content"]
+
+[node name="BlockPreview" parent="Content/Block" instance=ExtResource("2_sui6i")]
 position = Vector2(30, 27)
 scale = Vector2(0.15, 0.15)
+
+[node name="Card" type="Node2D" parent="Content"]
+
+[node name="CardPreview" type="Sprite2D" parent="Content/Card"]
+position = Vector2(33.2702, 33.7979)
 
 [node name="EditButton" type="Button" parent="Content"]
 offset_top = 70.0

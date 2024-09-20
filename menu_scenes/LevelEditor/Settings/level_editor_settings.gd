@@ -30,14 +30,14 @@ func _ready():
 func _set_block_permutator(blocks: Array[Block]):
 	var block_objects: Array[ItemPermutator.PermutationObject] = []
 	for block in blocks:
-		block_objects.append(ItemPermutator.PermutationObject.new(block, null))
-	block_permutator.set_objects("res://menu_scenes/LevelEditor/Settings/ItemPermutator/item_permutator_block_item.tscn", block_objects)
+		block_objects.append(ItemPermutatorCardItem.BlockPermutationObject.new(block))
+	block_permutator.set_objects("res://menu_scenes/LevelEditor/Settings/ItemPermutator/item_permutator_card_item.tscn", block_objects)
 
 func _set_color_permutator(colors: Array[Turret.Hue]):
 	var color_objects: Array[ItemPermutator.PermutationObject] = []
 	for color in colors:
-		color_objects.append(ItemPermutator.PermutationObject.new(color, _color_to_texture(color)))
-	color_permutator.set_objects("res://menu_scenes/LevelEditor/Settings/ItemPermutator/item_permutator_sprite_item.tscn", color_objects)
+		color_objects.append(ItemPermutatorColorItem.ColorPermutationObject.new(color, _color_to_texture(color)))
+	color_permutator.set_objects("res://menu_scenes/LevelEditor/Settings/ItemPermutator/item_permutator_color_item.tscn", color_objects)
 
 func load_settings(map_dto: MapDTO):
 	battle_slots.load_settings(map_dto.battle_slots)
@@ -67,7 +67,7 @@ func _on_add_block_button_pressed():
 	$BlockSelector.open()
 	
 func _on_new_block_selected(block: Block):
-	var object = ItemPermutator.PermutationObject.new(block, null)
+	var object = ItemPermutatorCardItem.BlockPermutationObject.new(block)
 	block_permutator.append_object("res://menu_scenes/LevelEditor/Settings/ItemPermutator/item_permutator_block_item.tscn", object)
 
 func _on_custom_block_selected():
@@ -75,7 +75,7 @@ func _on_custom_block_selected():
 	$BlockEditor.open()
 
 func _on_block_editor_saved(block: Block):
-	var object = ItemPermutator.PermutationObject.new(block, null)
+	var object = ItemPermutatorCardItem.BlockPermutationObject.new(block)
 	block_permutator.append_object("res://menu_scenes/LevelEditor/Settings/ItemPermutator/item_permutator_block_item.tscn", object)
 	$BlockSelector.close()
 
