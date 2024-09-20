@@ -17,11 +17,16 @@ func _ready():
 	
 	#Init Block Permutator
 	randomize()
-	var blocks: Array[Block] = []
+	var card_cycle = []
 	for shape in Block.BlockShape.keys():
-		blocks.append(BlockUtils.get_block_from_shape(Block.BlockShape.get(shape), Turret.Hue.WHITE))
-	blocks.shuffle()
-	_set_card_permutator(blocks)
+		var positions = BlockUtils.get_positions_from_block_shape(Block.BlockShape.get(shape))
+		var formatted_positions = []
+		for pos in positions:
+			formatted_positions.append({"x": pos.x, "y": pos.y})
+		card_cycle.append(BlockCycleEntryDTO.new(formatted_positions))
+		
+	card_cycle.shuffle()
+	_set_card_permutator(card_cycle)
 	
 	#Init Color Permutator
 	randomize()
@@ -31,12 +36,16 @@ func _ready():
 	colors.shuffle()
 	_set_color_permutator(colors)
 
-func _set_card_permutator(blocks: Array[Block]):
-	var block_objects: Array[ItemPermutator.PermutationObject] = []
-	for block in blocks:
-		block_objects.append(ItemPermutatorCardItem.BlockPermutationObject.new(block))
-	card_permutator.set_objects(card_item_path, block_objects)
-	card_permutator.append_object(card_item_path, ItemPermutatorCardItem.CardPermutationObject.new(SpecialCardBase.Cardname.Fireball))
+func _set_card_permutator(card_cycle: Array):
+	var card_objects: Array[ItemPermutator.PermutationObject] = []
+	for card_dto in card_cycle:
+		var object = card_dto.get_object()
+		if card_dto is BlockCycleEntryDTO:
+			card_objects.append(ItemPermutatorCardItem.BlockPermutationObject.new(object))
+		elif card_dto is SpecialCardCycleEntryDTO:
+			card_objects.append(ItemPermutatorCardItem.CardPermutationObject.new(object))
+	
+	card_permutator.set_objects(card_item_path, card_objects)
 
 func _set_color_permutator(colors: Array[Turret.Hue]):
 	var color_objects: Array[ItemPermutator.PermutationObject] = []
@@ -46,10 +55,7 @@ func _set_color_permutator(colors: Array[Turret.Hue]):
 
 func load_settings(map_dto: MapDTO):
 	battle_slots.load_settings(map_dto.battle_slots)
-	var blocks: Array[Block] = []
-	for block in map_dto.card_cycle:
-		blocks.append(block.get_object())
-	_set_card_permutator(blocks)
+	_set_card_permutator(map_dto.card_cycle)
 	
 	var colors: Array[Turret.Hue] = []
 	for color in map_dto.color_cycle:
@@ -114,17 +120,22 @@ func get_card_cycle() -> Array[BaseDTO]:
 	var objects = card_permutator.get_objects()
 	var card_cycle: Array[BaseDTO] = []
 	for obj in objects:
-		var positions = []
-		for piece in obj.value.pieces:
-			positions.append({"x": piece.position.x, "y": piece.position.y})
-		card_cycle.append(BlockCycleEntryDTO.new(positions))
+		if obj is ItemPermutatorCardItem.BlockPermutationObject:
+			var positions = []
+			for piece in obj.block.pieces:
+				positions.append({"x": piece.position.x, "y": piece.position.y})
+			card_cycle.append(BlockCycleEntryDTO.new(positions))
+			
+		elif obj is ItemPermutatorCardItem.CardPermutationObject:
+			card_cycle.append(SpecialCardCycleEntryDTO.new(obj.card))
+			
 	return card_cycle
 
 func get_color_cycle() -> Array:
 	var objects = color_permutator.get_objects()
 	var color_cycle = []
 	for obj in objects:
-		color_cycle.append(obj.value)
+		color_cycle.append(obj.color)
 	return color_cycle
 
 class Properties:
