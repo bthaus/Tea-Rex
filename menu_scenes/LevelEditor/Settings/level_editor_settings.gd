@@ -2,7 +2,7 @@ extends Panel
 class_name LevelEditorSettings
 
 @onready var battle_slots = $ScrollContainer/VBoxContainer/BattleSlotsSettings
-@onready var block_permutator = $ScrollContainer/VBoxContainer/BlockPermutator
+@onready var card_permutator = $ScrollContainer/VBoxContainer/CardPermutator
 @onready var color_permutator = $ScrollContainer/VBoxContainer/ColorPermutator
 @onready var tile_set = load("res://TileSets/game_board_tileset.tres")
 
@@ -17,7 +17,7 @@ func _ready():
 	for shape in Block.BlockShape.keys():
 		blocks.append(BlockUtils.get_block_from_shape(Block.BlockShape.get(shape), Turret.Hue.WHITE))
 	blocks.shuffle()
-	_set_block_permutator(blocks)
+	_set_card_permutator(blocks)
 	
 	#Init Color Permutator
 	randomize()
@@ -27,11 +27,12 @@ func _ready():
 	colors.shuffle()
 	_set_color_permutator(colors)
 
-func _set_block_permutator(blocks: Array[Block]):
+func _set_card_permutator(blocks: Array[Block]):
 	var block_objects: Array[ItemPermutator.PermutationObject] = []
 	for block in blocks:
 		block_objects.append(ItemPermutatorCardItem.BlockPermutationObject.new(block))
-	block_permutator.set_objects("res://menu_scenes/LevelEditor/Settings/ItemPermutator/item_permutator_card_item.tscn", block_objects)
+	card_permutator.set_objects("res://menu_scenes/LevelEditor/Settings/ItemPermutator/item_permutator_card_item.tscn", block_objects)
+	card_permutator.append_object("res://menu_scenes/LevelEditor/Settings/ItemPermutator/item_permutator_card_item.tscn", ItemPermutatorCardItem.CardPermutationObject.new(load("res://Assets/Monsters/monster_blue/1.png")))
 
 func _set_color_permutator(colors: Array[Turret.Hue]):
 	var color_objects: Array[ItemPermutator.PermutationObject] = []
@@ -44,7 +45,7 @@ func load_settings(map_dto: MapDTO):
 	var blocks: Array[Block] = []
 	for block in map_dto.card_cycle:
 		blocks.append(block.get_object())
-	_set_block_permutator(blocks)
+	_set_card_permutator(blocks)
 	
 	var colors: Array[Turret.Hue] = []
 	for color in map_dto.color_cycle:
@@ -68,7 +69,7 @@ func _on_add_block_button_pressed():
 	
 func _on_new_block_selected(block: Block):
 	var object = ItemPermutatorCardItem.BlockPermutationObject.new(block)
-	block_permutator.append_object("res://menu_scenes/LevelEditor/Settings/ItemPermutator/item_permutator_block_item.tscn", object)
+	card_permutator.append_object("res://menu_scenes/LevelEditor/Settings/ItemPermutator/item_permutator_block_item.tscn", object)
 
 func _on_custom_block_selected():
 	$BlockEditor.set_block(Block.new([]))
@@ -76,7 +77,7 @@ func _on_custom_block_selected():
 
 func _on_block_editor_saved(block: Block):
 	var object = ItemPermutatorCardItem.BlockPermutationObject.new(block)
-	block_permutator.append_object("res://menu_scenes/LevelEditor/Settings/ItemPermutator/item_permutator_block_item.tscn", object)
+	card_permutator.append_object("res://menu_scenes/LevelEditor/Settings/ItemPermutator/item_permutator_block_item.tscn", object)
 	$BlockSelector.close()
 
 func open():
@@ -93,7 +94,7 @@ func get_setting_properties() -> Properties:
 	return settings
 
 func get_card_cycle() -> Array[BaseDTO]:
-	var objects = block_permutator.get_objects()
+	var objects = card_permutator.get_objects()
 	var card_cycle: Array[BaseDTO] = []
 	for obj in objects:
 		var positions = []

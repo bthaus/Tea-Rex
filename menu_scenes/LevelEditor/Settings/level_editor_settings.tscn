@@ -43,12 +43,12 @@ text = "Battle Slots"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="BlockPermutator" parent="ScrollContainer/VBoxContainer" node_paths=PackedStringArray("parent") instance=ExtResource("1_fudny")]
+[node name="CardPermutator" parent="ScrollContainer/VBoxContainer" node_paths=PackedStringArray("parent") instance=ExtResource("1_fudny")]
 custom_minimum_size = Vector2(525, 250)
 layout_mode = 2
 parent = NodePath("../../..")
 
-[node name="AddBlockButton" type="Button" parent="ScrollContainer/VBoxContainer/BlockPermutator"]
+[node name="AddBlockButton" type="Button" parent="ScrollContainer/VBoxContainer/CardPermutator"]
 layout_mode = 0
 offset_left = 448.0
 offset_top = 8.0
@@ -57,7 +57,7 @@ offset_bottom = 34.0
 theme_override_font_sizes/font_size = 12
 text = "Add new"
 
-[node name="Title" type="Label" parent="ScrollContainer/VBoxContainer/BlockPermutator"]
+[node name="Title" type="Label" parent="ScrollContainer/VBoxContainer/CardPermutator"]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
@@ -134,5 +134,5 @@ offset_bottom = 150.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[connection signal="pressed" from="ScrollContainer/VBoxContainer/BlockPermutator/AddBlockButton" to="." method="_on_add_block_button_pressed"]
+[connection signal="pressed" from="ScrollContainer/VBoxContainer/CardPermutator/AddBlockButton" to="." method="_on_add_block_button_pressed"]
 [connection signal="pressed" from="CloseButton" to="." method="_on_close_button_pressed"]
