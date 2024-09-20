@@ -1,9 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://b3v8jxeadnuc2"]
+[gd_scene load_steps=7 format=3 uid="uid://b3v8jxeadnuc2"]
 
 [ext_resource type="Script" path="res://CardFactory.gd" id="1_ti0nk"]
 [ext_resource type="Script" path="res://Cards/BlockCard.gd" id="2_bbc12"]
-[ext_resource type="Texture2D" uid="uid://cscp8owhb8mwi" path="res://Assets/Cards/FIREBALL_card.jpg" id="3_4ylmh"]
-[ext_resource type="Script" path="res://Cards/SpecialCardBase.gd" id="3_f4xx2"]
+[ext_resource type="Texture2D" uid="uid://cm34k3xl2c3l5" path="res://Assets/SpecialCards/FIREBALL_preview.png" id="3_a735y"]
+[ext_resource type="Script" path="res://Cards/fireball.gd" id="4_pdgf6"]
+[ext_resource type="Texture2D" uid="uid://dif5kg887ybr7" path="res://Assets/SpecialCards/POISON_preview.png" id="5_1tjhv"]
+[ext_resource type="Texture2D" uid="uid://b0ifl8pbokbul" path="res://Assets/UI/Target_Cross.png" id="6_52wau"]
 
 [node name="CardFactory" type="Node2D"]
 script = ExtResource("1_ti0nk")
@@ -12,5 +14,13 @@ script = ExtResource("1_ti0nk")
 script = ExtResource("2_bbc12")
 
 [node name="Fireball" type="Sprite2D" parent="."]
-texture = ExtResource("3_4ylmh")
-script = ExtResource("3_f4xx2")
+texture = ExtResource("3_a735y")
+script = ExtResource("4_pdgf6")
+phase = 3
+discardable = false
+
+[node name="OtherSpecialCard" type="Sprite2D" parent="."]
+texture = ExtResource("5_1tjhv")
+
+[node name="DefaultPreview" type="Sprite2D" parent="."]
+texture = ExtResource("6_52wau")
