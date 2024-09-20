@@ -56,7 +56,7 @@ func _on_editor_canceled():
 
 func open_card_selection():
 	input_enabled.emit(false)
-	var selection = load("res://menu_scenes/LevelEditor/Settings/CardSelector/card_selector.tscn").instantiate()
+	var selection = load("res://menu_scenes/LevelEditor/Settings/SpecialCardSelector/special_card_selector.tscn").instantiate()
 	selection.card_selected.connect(_on_card_selected)
 	selection.canceled.connect(_on_card_selection_canceled)
 	_parent.add_child(selection)

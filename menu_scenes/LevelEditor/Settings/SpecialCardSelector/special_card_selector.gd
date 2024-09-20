@@ -10,7 +10,7 @@ signal canceled
 func _ready():
 	var card_names = SpecialCardBase.Cardname.keys()
 	for i in card_names.size():
-		var item = load("res://menu_scenes/LevelEditor/Settings/CardSelector/card_selector_item.tscn").instantiate()
+		var item = load("res://menu_scenes/LevelEditor/Settings/SpecialCardSelector/special_card_selector_item.tscn").instantiate()
 		item.set_card(SpecialCardBase.Cardname.get(card_names[i]))
 		item.clicked.connect(_on_item_clicked)
 		all_container.add_child(item)

@@ -1,8 +1,8 @@
 [gd_scene load_steps=2 format=3 uid="uid://cvqmqq53kmhgk"]
 
-[ext_resource type="Script" path="res://menu_scenes/LevelEditor/Settings/CardSelector/card_selector_item.gd" id="1_41go2"]
+[ext_resource type="Script" path="res://menu_scenes/LevelEditor/Settings/SpecialCardSelector/speical_card_selector_item.gd" id="1_41go2"]
 
-[node name="CardSelectorItem" type="Button"]
+[node name="SpecialCardSelectorItem" type="Button"]
 custom_minimum_size = Vector2(70, 100)
 offset_right = 8.0
 offset_bottom = 8.0

@@ -5,7 +5,7 @@
 [ext_resource type="StyleBox" uid="uid://b0qhmxvb2s50r" path="res://Styles/default_button.tres" id="1_nfgmx"]
 [ext_resource type="Script" path="res://UtilScenes/Animations/open_close_scale_animation.gd" id="3_5scue"]
 [ext_resource type="PackedScene" uid="uid://mw4gtrxl3rlv" path="res://menu_scenes/LevelEditor/Settings/battle_slots_settings.tscn" id="4_o8h5x"]
-[ext_resource type="PackedScene" uid="uid://datben78qhgng" path="res://menu_scenes/LevelEditor/Settings/BlockSelector/block_selector.tscn" id="5_t6xs8"]
+[ext_resource type="PackedScene" uid="uid://datben78qhgng" path="res://menu_scenes/LevelEditor/Settings/BlockCardSelector/block_card_selector.tscn" id="5_t6xs8"]
 
 [node name="LevelEditorSettings" type="Panel"]
 offset_right = 800.0
@@ -113,7 +113,7 @@ offset_right = 786.0
 offset_bottom = 483.0
 text = "Close"
 
-[node name="BlockSelector" parent="." instance=ExtResource("5_t6xs8")]
+[node name="BlockCardSelector" parent="." instance=ExtResource("5_t6xs8")]
 visible = false
 layout_mode = 1
 anchors_preset = 8

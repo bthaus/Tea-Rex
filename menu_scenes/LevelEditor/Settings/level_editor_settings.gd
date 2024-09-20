@@ -9,11 +9,11 @@ class_name LevelEditorSettings
 @onready var card_item_path = "res://menu_scenes/LevelEditor/Settings/ItemPermutator/item_permutator_card_item.tscn"
 @onready var color_item_path = "res://menu_scenes/LevelEditor/Settings/ItemPermutator/item_permutator_color_item.tscn"
 @onready var editor_path = "res://menu_scenes/LevelEditor/Settings/block_editor.tscn"
-@onready var card_selector_path = "res://menu_scenes/LevelEditor/Settings/CardSelector/card_selector.tscn"
+@onready var card_selector_path = "res://menu_scenes/LevelEditor/Settings/SpecialCardSelector/special_card_selector.tscn"
 
 func _ready():
-	$BlockSelector.block_selected.connect(_on_new_block_selected)
-	$BlockSelector.custom_selected.connect(_on_custom_block_selected)
+	$BlockCardSelector.block_selected.connect(_on_new_block_selected)
+	$BlockCardSelector.custom_selected.connect(_on_custom_block_selected)
 	
 	#Init Block Permutator
 	randomize()
@@ -69,7 +69,7 @@ func _color_to_texture(color: Turret.Hue) -> Texture2D:
 	return atlas.texture
 
 func _on_add_block_button_pressed():
-	$BlockSelector.open()
+	$BlockCardSelector.open()
 
 func _on_add_card_button_pressed():
 	var selector = load(card_selector_path).instantiate()
@@ -95,7 +95,7 @@ func _on_custom_block_selected():
 func _on_block_editor_saved(sender, block: Block):
 	var object = ItemPermutatorCardItem.BlockPermutationObject.new(block)
 	card_permutator.append_object(card_item_path, object)
-	$BlockSelector.close()
+	$BlockCardSelector.close()
 
 func open():
 	$OpenCloseScaleAnimation.open()

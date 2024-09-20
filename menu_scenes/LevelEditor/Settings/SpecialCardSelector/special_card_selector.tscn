@@ -1,19 +1,19 @@
 [gd_scene load_steps=4 format=3 uid="uid://nhjild8uxlge"]
 
-[ext_resource type="StyleBox" uid="uid://b0qhmxvb2s50r" path="res://Styles/default_button.tres" id="1_0yst2"]
-[ext_resource type="Script" path="res://menu_scenes/LevelEditor/Settings/CardSelector/card_selector.gd" id="2_fqvtr"]
-[ext_resource type="Script" path="res://UtilScenes/Animations/open_close_scale_animation.gd" id="3_oym7s"]
+[ext_resource type="StyleBox" uid="uid://b0qhmxvb2s50r" path="res://Styles/default_button.tres" id="1_3kvnp"]
+[ext_resource type="Script" path="res://menu_scenes/LevelEditor/Settings/SpecialCardSelector/special_card_selector.gd" id="2_652qn"]
+[ext_resource type="Script" path="res://UtilScenes/Animations/open_close_scale_animation.gd" id="3_lp1me"]
 
-[node name="CardSelector" type="Panel"]
+[node name="SpecialCardSelector" type="Panel"]
 offset_left = 150.0
 offset_top = 100.0
 offset_right = 650.0
 offset_bottom = 475.0
-theme_override_styles/panel = ExtResource("1_0yst2")
-script = ExtResource("2_fqvtr")
+theme_override_styles/panel = ExtResource("1_3kvnp")
+script = ExtResource("2_652qn")
 
 [node name="OpenCloseScaleAnimation" type="Node" parent="."]
-script = ExtResource("3_oym7s")
+script = ExtResource("3_lp1me")
 
 [node name="Title" type="Label" parent="."]
 layout_mode = 1

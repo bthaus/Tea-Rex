@@ -1,10 +1,10 @@
 [gd_scene load_steps=4 format=3 uid="uid://datben78qhgng"]
 
 [ext_resource type="StyleBox" uid="uid://b0qhmxvb2s50r" path="res://Styles/default_button.tres" id="1_0v54e"]
-[ext_resource type="Script" path="res://menu_scenes/LevelEditor/Settings/BlockSelector/block_selector.gd" id="1_sofn8"]
+[ext_resource type="Script" path="res://menu_scenes/LevelEditor/Settings/BlockCardSelector/block_card_selector.gd" id="1_sofn8"]
 [ext_resource type="Script" path="res://UtilScenes/Animations/open_close_scale_animation.gd" id="3_bnu1l"]
 
-[node name="BlockSelector" type="Panel"]
+[node name="BlockCardSelector" type="Panel"]
 offset_right = 500.0
 offset_bottom = 300.0
 theme_override_styles/panel = ExtResource("1_0v54e")
