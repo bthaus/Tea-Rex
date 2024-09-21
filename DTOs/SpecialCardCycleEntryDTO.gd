@@ -1,7 +1,7 @@
 extends BaseDTO
 class_name SpecialCardCycleEntryDTO
 var card_name
-func _init(card_name:SpecialCardBase.Cardname = SpecialCardBase.Cardname.Fireball):
+func _init(card_name:SpecialCardBase.Cardname = SpecialCardBase.Cardname.FIREBALL):
 	self.card_name=card_name
 
 func get_object():

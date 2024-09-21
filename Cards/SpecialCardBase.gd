@@ -1,7 +1,7 @@
 extends Sprite2D
 class_name SpecialCardBase
 var done:Callable
-enum Cardname{Fireball}
+enum Cardname{FIREBALL,DUMMY}
 var gameState
 @export var phase:GameState.GamePhase
 @export var instant = false;

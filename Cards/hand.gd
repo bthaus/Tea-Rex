@@ -4,7 +4,8 @@ extends GameObject2D
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	child_order_changed.connect(reorder)
-	GameState.gameState.start_build_phase.connect(trigger_turn_effects)
+	if util.valid(GameState.gameState):
+		GameState.gameState.start_build_phase.connect(trigger_turn_effects)
 	pass # Replace with function body.
 
 func drawCard(card:Card=null):

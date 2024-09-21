@@ -111,8 +111,7 @@ func _ready():
 	for color in map_dto.color_cycle:
 		if unlockedColors.has(color as Turret.Hue):
 			color_cycle.append(color)
-	card_cycle.push_front(SpecialCardCycleEntryDTO.new(SpecialCardBase.Cardname.Fireball))
-	card_cycle.push_front(SpecialCardCycleEntryDTO.new(SpecialCardBase.Cardname.Fireball))		
+		
 	cam=$Camera2D	
 	cam.move_to(Vector2(500, 500), func(): print("done"))
 	TutorialHolder.showTutorial(TutorialHolder.tutNames.Starting, self, func():
