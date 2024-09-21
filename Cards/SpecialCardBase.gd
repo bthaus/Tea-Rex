@@ -58,7 +58,7 @@ func _trigger_play_effect():
 	
 	pass;
 func _trigger_turn_effect():
-	player.stream=
+	#player.stream=
 	
 	player.play(0)
 	pass;
