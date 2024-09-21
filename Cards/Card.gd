@@ -79,6 +79,7 @@ func _on_button_mouse_entered():
 	
 	var tween = create_tween()
 	tween.tween_property(self, "global_position", originalPosition+Vector2(0, -25), 0.5)
+	card.on_hover()
 	pass # Replace with function body.
 
 
@@ -86,6 +87,7 @@ func _on_button_mouse_exited():
 	if selectedCard!=self:
 		z_index=originalZ
 	var tween = create_tween()
+	#card.on_unhover()
 	tween.tween_property(self, "global_position", originalPosition, 0.5)
 	mouseOut.emit()
 	pass # Replace with function body.
@@ -110,7 +112,6 @@ static var hoveredCard=null
 func _on_disable_button_mouse_entered():
 	hoveredCard=self
 	contemplatingInterrupt=true;
-	
 	pass # Replace with function body.
 
 func interrupt_Card():
@@ -131,14 +132,13 @@ func _on_disable_button_mouse_exited():
 
 func trigger_turn_effect():
 	var tw=create_tween()
-	tw.tween_property(self,"position.y",position.y+10,0.2)
-	tw.tween_property(self,"position.y",position.y-10,0.2)
-	
-	card.trigger_turn_effect()
+	tw.tween_property(self,"position",position-Vector2(0,10),0.4)
+	tw.tween_property(self,"position",position,0.4)
+	card._trigger_turn_effect()
 	pass;
 func _on_discard_pressed() -> void:
 	interrupt_Card()
 	if card.discardable:
-		selectedCard.on_discard()
+		card.on_discard()
 	queue_free()
 	pass # Replace with function body.

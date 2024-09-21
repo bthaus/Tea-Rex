@@ -107,7 +107,7 @@ func load_json(destination,account,directory):
 		return null;
 	return json
 	
-static func get_dto_from_json(json)->BaseDTO:
+static func get_dto_from_json(json):
 	var data=JSON.parse_string(json)as Array
 	var obj=load(data.pop_front()).new()
 	_restore_fields(obj,data)
