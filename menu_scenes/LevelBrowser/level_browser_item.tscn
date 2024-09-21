@@ -1,0 +1,4 @@
+[gd_scene format=3 uid="uid://cvavwo4xoqbdf"]
+
+[node name="LevelBrowserItem" type="Panel"]
+custom_minimum_size = Vector2(500, 125)
