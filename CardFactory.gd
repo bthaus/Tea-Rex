@@ -13,7 +13,8 @@ static func get_block_card(block):
 	card.visible=true;
 	return card
 static func get_special_Card(card_name):
-	var card = instance.get_node(SpecialCardBase.Cardname.find_key(card_name)).duplicate()
+	var searchstring=SpecialCardBase.Cardname.keys()[card_name]
+	var card = instance.get_node(searchstring).duplicate()
 	card.visible=true
 	return card
 	

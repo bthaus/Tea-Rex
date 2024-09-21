@@ -15,7 +15,7 @@ script = ExtResource("1_ti0nk")
 [node name="BlockCard" type="Sprite2D" parent="."]
 script = ExtResource("2_bbc12")
 
-[node name="Fireball" type="Sprite2D" parent="."]
+[node name="FIREBALL" type="Sprite2D" parent="."]
 texture = ExtResource("3_a735y")
 script = ExtResource("4_pdgf6")
 phase = 3
