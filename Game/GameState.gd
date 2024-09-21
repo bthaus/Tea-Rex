@@ -6,10 +6,10 @@ class_name GameState;
 @onready var ui
 @export var cam: Camera2D;
 
-var block_cycle=[]
-var block_index=0:
+var card_cycle=[]
+var card_index=0:
 	set(value):
-		block_index=value%block_cycle.size()
+		card_index=value%card_cycle.size()
 
 var color_cycle=[]
 var color_index=0:
@@ -105,13 +105,13 @@ func _ready():
 	ui.initialise()
 	$selection.selected.connect(target_minions)
 	target = $Base
-	for block_dto in map_dto.block_cycle:
-		block_cycle.append(block_dto.get_object())
+	for block_dto in map_dto.card_cycle:
+		card_cycle.append(block_dto)
 		
 	for color in map_dto.color_cycle:
-		
 		if unlockedColors.has(color as Turret.Hue):
 			color_cycle.append(color)
+		
 	cam=$Camera2D	
 	cam.move_to(Vector2(500, 500), func(): print("done"))
 	TutorialHolder.showTutorial(TutorialHolder.tutNames.Starting, self, func():
@@ -125,7 +125,14 @@ func _ready():
 	pass # Replace with function body.
 func show_unlockable(u):
 	
-	pass;	
+	pass;
+	
+	
+func get_next_card():
+	card_index+=1;
+	var card= card_cycle[card_index].get_card()
+	return card
+			
 func target_minions(cells):
 	var turret_dic={} as Dictionary
 	for cell in cells:

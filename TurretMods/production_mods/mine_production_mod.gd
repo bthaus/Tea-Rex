@@ -6,4 +6,3 @@ func get_timeout():
 	pass;
 func instantiate_produce():
 	return load("res://TurretMods/production_mods/mod_produce/MineModProduce.tscn").instantiate()
-

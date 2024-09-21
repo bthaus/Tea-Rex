@@ -3,6 +3,7 @@ extends Panel
 var previous_board_position = Vector2(-1, -1)
 var block: Block = Block.new([])
 signal saved
+signal canceled
 
 func _ready():
 	hide()
@@ -34,9 +35,10 @@ func open():
 	$OpenCloseScaleAnimation.open()
 	
 func close():
-	$OpenCloseScaleAnimation.close(func(): queue_free)
+	$OpenCloseScaleAnimation.close(queue_free)
 
 func _on_cancel_button_pressed():
+	canceled.emit()
 	close()
 
 func _on_save_button_pressed():

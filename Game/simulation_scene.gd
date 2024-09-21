@@ -6,5 +6,3 @@ func _ready():
 	startGame()
 	#board.hide()
 	pass # Replace with function body.
-
-

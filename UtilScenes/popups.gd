@@ -8,14 +8,7 @@ var max_width: float = 500.0
 var is_opening = true
 
 func show_popup(sender, content: PopupContent):
-	var extent
-	if sender is Sprite2D and sender.texture!=null:
-		extent=sender.texture.get_size()
-	elif sender is Node2D:
-		extent=Vector2(20,20)
-	else:	
-		extent=sender.size	
-	var rect = Rect2(Vector2i(sender.global_position), Vector2(extent))
+	var rect = Rect2(Vector2i(sender.global_position), Vector2(sender.size))
 	var mouse_pos = get_viewport().get_mouse_position()
 	var correction
 	var padding = 4
@@ -104,6 +97,3 @@ class PopupContent:
 		label.add_theme_font_size_override("bold_font_size", font_size)
 		label.add_theme_font_size_override("italics_font_size", font_size)
 		label.add_theme_font_size_override("mono_font_size", font_size)
-
-
-

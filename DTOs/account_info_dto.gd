@@ -65,5 +65,3 @@ func get_map_progress_dto_by_name(name)-> MapStatusDTO:
 	var new_dto= MapStatusDTO.new(name)
 	account_progress.append(new_dto)
 	return new_dto	
-
-

@@ -69,5 +69,3 @@ func hit(color: Turret.Hue, damage, type="default", noise=true):
 		on_death()
 		return true;
 	return false;
-
-

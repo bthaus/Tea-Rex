@@ -10,7 +10,18 @@ func get_object():
 	var pieces = []
 	for pos in piece_positions:
 		pieces.append(Block.Piece.new(Vector2(pos.x, pos.y), Turret.Hue.WHITE, 1))
-	return Block.new(pieces)
+	var block= Block.new(pieces)
+	return block
+	
+func get_card():
+	var block=get_object()
+	var color=util.get_next_color()
+	block.color=color
+	for p in block.pieces:
+		p.color=color
+	var card=CardFactory.get_block_card(block)
+	return card
+	
 func get_compact_string():
 	var s=""
 	for piece in piece_positions:
