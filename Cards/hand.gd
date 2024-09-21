@@ -33,6 +33,7 @@ func trigger_turn_effects():
 		pass;
 	pass;
 func reorder():
+	print("reordering")
 	var children=get_children()
 	if children.is_empty():return;
 	var off=clamp(800/get_child_count(),15,75)

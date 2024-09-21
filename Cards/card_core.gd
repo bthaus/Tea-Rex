@@ -14,6 +14,12 @@ func _ready() -> void:
 func select(done:Callable):
 	self.done=done
 	pass;
+func on_click():
+	
+	pass;	
+func on_drop():
+	
+	pass;	
 	
 func _trigger_turn_effect():
 	if turn_sound_effect!=null:

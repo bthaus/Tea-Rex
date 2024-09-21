@@ -6,8 +6,54 @@ static var isCardSelected=false;
 static var selectedCard;
 signal mouseIn
 signal mouseOut
+var dragged=false;
+var try_drag=false;
+var drag_confirmed=false;
+const drag_recognition_time=0.1
+static var ignore_next_click=false;
+func _input(event: InputEvent) -> void:
+	if not dragged:return;
+	if event.is_action_released(&"left_click"):
+		if drag_confirmed:
+			card.on_drop()
+			drag_confirmed=false;
+		
+		try_drag=false;
+		dragged=false;
+		try_place()
+		GameState.gameState.hand.reorder()
+		
+		
+		
+		
+	pass;
+func _on_button_button_down() -> void:
+	dragged=true;
+	try_drag=true;
+	card.on_click()
+	get_tree().create_timer(drag_recognition_time).timeout.connect(try_init_drag)
+	pass # Replace with function body.
 
+func try_place():
+	if TrashCan.dumping:
+		_on_discard_pressed()
+	print("try discard")
+	pass;	
+func try_init_drag():
+	if not try_drag: return
+	drag_confirmed=true;
+	ignore_next_click=true;
+	
+	pass
+func _process(delta: float) -> void:
+	if not dragged:return
+	global_position=get_global_mouse_position()
+	pass;
 func select(done:Callable):
+	if ignore_next_click:
+		ignore_next_click=false;
+		return
+	if dragged:return
 	get_tree().create_timer(GameplayConstants.CARD_PLACEMENT_DELAY).timeout.connect(delayedSelect.bind(done))
 	pass;
 func delayedSelect(done):
@@ -78,17 +124,19 @@ func _on_button_mouse_entered():
 	z_index=2000
 	
 	var tween = create_tween()
-	tween.tween_property(self, "global_position", originalPosition+Vector2(0, -25), 0.5)
-	card.on_hover()
+	if not dragged:
+		tween.tween_property(self, "global_position", originalPosition+Vector2(0, -25), 0.5)
+		card.on_hover()
 	pass # Replace with function body.
 
 
 func _on_button_mouse_exited():
 	if selectedCard!=self:
 		z_index=originalZ
+		
 	var tween = create_tween()
-	#card.on_unhover()
-	tween.tween_property(self, "global_position", originalPosition, 0.5)
+	if not dragged:
+		tween.tween_property(self, "global_position", originalPosition, 0.5)
 	mouseOut.emit()
 	pass # Replace with function body.
 
@@ -140,5 +188,5 @@ func _on_discard_pressed() -> void:
 	interrupt_Card()
 	if card.discardable:
 		card.on_discard()
-	queue_free()
+		queue_free()
 	pass # Replace with function body.

@@ -4,13 +4,16 @@ class_name Fireball
 @export var damage:int=500
 @export var range:int=2
 
-func select(done:Callable):
+
+func on_click():
 	$selected.emitting=true
-	super(done)
-	pass;
+	pass;	
 func interrupt():
 	$selected.emitting=false;
 	super()
+	pass;	
+func on_drop():
+	$selected.emitting=false;
 	pass;	
 func _trigger_play_effect():
 	Explosion.create(GameplayConstants.DamageTypes.FIRE,damage,get_global_mouse_position(),self,range)	

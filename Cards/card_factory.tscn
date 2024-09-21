@@ -63,9 +63,11 @@ script = ExtResource("2_bbc12")
 visible = false
 texture = ExtResource("3_a735y")
 script = ExtResource("4_pdgf6")
+instant = true
 phase = 3
 soundeffect = ExtResource("5_fq2g4")
 turn_sound_effect = ExtResource("5_fq2g4")
+discardable = false
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="FIREBALL"]
 
