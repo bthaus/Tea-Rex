@@ -16,13 +16,13 @@ func set_objects(scene_path, objects: Array[PermutationObject]):
 		
 func append_object(scene_path, object: PermutationObject):
 	var item = load(scene_path).instantiate()
+	grid_container.add_child(item)
 	item.mouse_entered.connect(func(): focused_item = item)
 	item.mouse_exited.connect(func(): focused_item = null)
 	item.input_enabled.connect(func(enabled: bool): input_enabled = enabled)
 	item.duplicated.connect(_on_item_duplicated)
 	item.set_parent(parent)
 	item.set_object(object)
-	grid_container.add_child(item)
 	return item
 
 func insert_object_at(scene_path, object: PermutationObject, index: int):
@@ -34,7 +34,7 @@ func _on_item_duplicated(sender):
 	var items = grid_container.get_children()
 	for i in items.size():
 		if items[i] == sender:
-			var object = PermutationObject.new(sender.get_object().value, sender.get_object().node)
+			var object = sender.get_object().clone()
 			insert_object_at(sender.scene_file_path, object, i+1)
 			return
 
@@ -113,8 +113,5 @@ func _deselect_items():
 	for item in grid_container.get_children(): item.enable_focus(true)
 
 class PermutationObject:
-	var value #Any value that will be assigned to this object
-	var node #Any node that might be used for display
-	func _init(value, node):
-		self.value = value
-		self.node = node
+	func clone() -> PermutationObject:
+		return null
