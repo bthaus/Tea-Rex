@@ -129,7 +129,13 @@ func _on_disable_button_mouse_exited():
 		
 	pass # Replace with function body.
 
-
+func trigger_turn_effect():
+	var tw=create_tween()
+	tw.tween_property(self,"position.y",position.y+10,0.2)
+	tw.tween_property(self,"position.y",position.y-10,0.2)
+	
+	card.trigger_turn_effect()
+	pass;
 func _on_discard_pressed() -> void:
 	interrupt_Card()
 	if card.discardable:

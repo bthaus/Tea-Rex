@@ -17,8 +17,8 @@ static var ignoreNextClick = false;
 static var rng = RandomNumberGenerator.new()
 var preview
 func _ready() -> void:
+	add_child(player)
 	gameState=GameState.gameState
-	GameState.gameState.start_build_phase.connect(_trigger_turn_effect)
 	pass;
 func select(done: Callable):
 	self.done = done;
@@ -44,7 +44,7 @@ func cast():
 		interrupt()
 		return ;
 	player.stream=soundeffect
-	add_child(player)
+	
 	player.play(0)
 	reparentToState()
 	hide()
@@ -58,7 +58,9 @@ func _trigger_play_effect():
 	
 	pass;
 func _trigger_turn_effect():
+	player.stream=
 	
+	player.play(0)
 	pass;
 func on_discard():
 	

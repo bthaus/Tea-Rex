@@ -4,6 +4,7 @@ extends GameObject2D
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	child_order_changed.connect(reorder)
+	GameState.gameState.start_build_phase.connect(trigger_turn_effects)
 	pass # Replace with function body.
 
 func drawCard(card:Card=null):
@@ -20,7 +21,13 @@ func _process(delta):
 	#add fancification here for reordering of cards on playing cards
 	
 	pass
-
+func trigger_turn_effects():
+	var counter=0;
+	for card in get_children():
+		get_tree().create_timer(counter).timeout.connect(card.trigger_turn_effect)
+		counter+=0.5
+		pass;
+	pass;
 func reorder():
 	var children=get_children()
 	if children.is_empty():return;
