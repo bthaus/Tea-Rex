@@ -1,9 +1,12 @@
 extends GameObject2D
 @export var state:GameState;
+const turn_trigger_delay=0.3
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	child_order_changed.connect(reorder)
+	if util.valid(GameState.gameState):
+		GameState.gameState.start_build_phase.connect(trigger_turn_effects)
 	pass # Replace with function body.
 
 func drawCard(card:Card=null):
@@ -17,11 +20,20 @@ func drawCard(card:Card=null):
 	pass; 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	if Input.is_action_just_pressed(&"save"):
+		trigger_turn_effects()
 	#add fancification here for reordering of cards on playing cards
 	
 	pass
-
+func trigger_turn_effects():
+	var counter=0;
+	for card in get_children():
+		get_tree().create_timer(counter).timeout.connect(card.trigger_turn_effect)
+		counter+=turn_trigger_delay
+		pass;
+	pass;
 func reorder():
+	print("reordering")
 	var children=get_children()
 	if children.is_empty():return;
 	var off=clamp(800/get_child_count(),15,75)

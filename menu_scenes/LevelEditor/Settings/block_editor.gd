@@ -35,7 +35,7 @@ func open():
 	$OpenCloseScaleAnimation.open()
 	
 func close():
-	$OpenCloseScaleAnimation.close(func(): queue_free)
+	$OpenCloseScaleAnimation.close(queue_free)
 
 func _on_cancel_button_pressed():
 	canceled.emit()

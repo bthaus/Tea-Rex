@@ -57,6 +57,7 @@ func _ready():
 	Turret.camera=self;
 	
 func _input(event):
+	if Card.contemplatingInterrupt:return
 	if Input.is_action_pressed("shift"):return
 	if InputUtils.is_action_just_pressed(event, "left_click"):
 		mouse_start_pos = event.position

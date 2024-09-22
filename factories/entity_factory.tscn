@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://bismehfpdggum"]
+[gd_scene load_steps=15 format=3 uid="uid://bismehfpdggum"]
 
 [ext_resource type="Script" path="res://factories/entity_factory.gd" id="1_uipk3"]
 [ext_resource type="PackedScene" uid="uid://h5p4fp80ye04" path="res://GameBoard/Entities/volcano.tscn" id="2_7dhr8"]
@@ -12,6 +12,7 @@
 [ext_resource type="Script" path="res://factories/Cooldown Booster.gd" id="10_wlmdj"]
 [ext_resource type="Script" path="res://factories/Range Booster.gd" id="11_avu86"]
 [ext_resource type="Script" path="res://factories/Laser.gd" id="12_adjn3"]
+[ext_resource type="Script" path="res://factories/block_cutter.gd" id="12_l4mt5"]
 [ext_resource type="Script" path="res://factories/Treasure Chest.gd" id="13_xg3wn"]
 
 [node name="EntityFactory" type="Node2D"]
@@ -36,6 +37,14 @@ visible = false
 script = ExtResource("4_p1llm")
 tile_id = 11
 moving_types = Array[int]([1])
+
+[node name="Water" type="Sprite2D" parent="."]
+visible = false
+script = ExtResource("4_p1llm")
+tile_id = 25
+moving_types = Array[int]([3, 1])
+move_weight = 1.25
+buildable = true
 
 [node name="Tunnel" type="Sprite2D" parent="."]
 script = ExtResource("5_bwwec")
@@ -105,6 +114,7 @@ name_title = "Ground"
 script = ExtResource("4_p1llm")
 tile_id = 23
 moving_types = Array[int]([2, 1])
+buildable = true
 
 [node name="Wall" type="Sprite2D" parent="."]
 script = ExtResource("4_p1llm")
@@ -149,6 +159,10 @@ map_layer = 2
 script = ExtResource("4_p1llm")
 tile_id = 601
 map_layer = 2
+
+[node name="BlockCutter" type="Sprite2D" parent="."]
+script = ExtResource("12_l4mt5")
+tile_id = 26
 
 [node name="Laser" type="Node2D" parent="."]
 script = ExtResource("12_adjn3")

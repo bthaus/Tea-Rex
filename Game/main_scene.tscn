@@ -3,9 +3,9 @@
 [ext_resource type="Script" path="res://Game/GameState.gd" id="1_g64db"]
 [ext_resource type="PackedScene" uid="uid://c1jrn7vi6wxab" path="res://menu_scenes/UI_scenes/ui.tscn" id="4_4sohq"]
 [ext_resource type="Texture2D" uid="uid://chsgerkqrpoy6" path="res://Assets/Level/Backgrounddummy.png" id="4_ykfqr"]
-[ext_resource type="AudioStream" uid="uid://b13fmg2prbsaj" path="res://Assets/Sounds/Soundeffects/new sounds/Start.wav" id="6_qpv2c"]
+[ext_resource type="AudioStream" uid="uid://42ole6syfbwo" path="res://Assets/Sounds/Soundeffects/new sounds/Start.wav" id="6_qpv2c"]
 [ext_resource type="Script" path="res://Assets/Sounds/Sounds.gd" id="7_cb883"]
-[ext_resource type="AudioStream" uid="uid://bni8ou2pe4d70" path="res://Assets/Sounds/Music/menu music looppart.wav" id="8_b02dq"]
+[ext_resource type="AudioStream" uid="uid://dxdr5dmv4vknl" path="res://Assets/Sounds/Music/menu music looppart.wav" id="8_b02dq"]
 [ext_resource type="Script" path="res://Utils/board_camera.gd" id="9_18cub"]
 [ext_resource type="Script" path="res://Game/LightThresholds.gd" id="11_n87cu"]
 [ext_resource type="PackedScene" uid="uid://buxrixa70ofmb" path="res://Utils/selection.tscn" id="11_u7m6a"]
@@ -17,9 +17,9 @@
 background_mode = 3
 ambient_light_color = Color(0.552642, 0.483134, 0.873833, 1)
 tonemap_white = 1.67
+glow_enabled = true
 glow_normalized = true
-glow_intensity = 4.63
-glow_strength = 0.94
+glow_strength = 0.39
 glow_bloom = 0.29
 glow_blend_mode = 0
 fog_light_energy = 5.04

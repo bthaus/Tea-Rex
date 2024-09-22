@@ -5,6 +5,7 @@ class_name MagentaProjectile
 var start_emitter:GPUParticles2D
 var end_emitter:GPUParticles2D
 var beam_emitter:GPUParticles2D
+var beam
 
 var children_lasers=[]	
 var ignore_position
@@ -40,6 +41,7 @@ func on_creation():
 	start_emitter=$fire
 	end_emitter=$hit
 	beam_emitter=$beam
+	beam=$beam_plasma
 	
 	connected=false
 	buildup=0.1
@@ -101,6 +103,7 @@ func delete():
 
 func move(delta):
 	fade(delta)	
+	
 	if target!=null:check_collision()
 	if origin==null or !is_instance_valid(origin) or target==null or !is_instance_valid(target):return
 	
@@ -131,7 +134,9 @@ func move(delta):
 	beam_emitter.process_material.emission_box_extents.x=(origin.global_position-global_position).length()*0.5
 	beam_emitter.global_position=lerp(global_position,origin.global_position,0.5)
 	beam_emitter.global_rotation_degrees= rad_to_deg((origin.global_position-global_position).angle() + PI / 2.0)+90
-	
+	#beam.scale.x=beam_emitter.process_material.emission_box_extents.x/50
+	#beam.global_rotation_degrees=beam_emitter.global_rotation_degrees
+	#beam.global_position=beam_emitter.global_position
 	beam_emitter.amount_ratio=2*buildup
 	if _is_duplicate and distance_travelled.length_squared()>associate.trueRangeSquared and not connected:
 		remove()
@@ -177,6 +182,7 @@ func fade(delta):
 	if shot and buildup<0.1:
 		super.remove()
 	line.default_color.a=buildup
+	#beam.material.set_shader_parameter("progress",buildup)
 	line.width=lerp(0,12,buildup)	
 	pass;	
 

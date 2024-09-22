@@ -111,8 +111,7 @@ func _ready():
 	for color in map_dto.color_cycle:
 		if unlockedColors.has(color as Turret.Hue):
 			color_cycle.append(color)
-	card_cycle.push_front(SpecialCardCycleEntryDTO.new(SpecialCardBase.Cardname.Fireball))
-	card_cycle.push_front(SpecialCardCycleEntryDTO.new(SpecialCardBase.Cardname.Fireball))		
+		
 	cam=$Camera2D	
 	cam.move_to(Vector2(500, 500), func(): print("done"))
 	TutorialHolder.showTutorial(TutorialHolder.tutNames.Starting, self, func():
@@ -127,9 +126,11 @@ func _ready():
 func show_unlockable(u):
 	
 	pass;
+	
+	
 func get_next_card():
 	card_index+=1;
-	var card= card_cycle[card_index].get_object()
+	var card= card_cycle[card_index].get_card()
 	return card
 			
 func target_minions(cells):
@@ -208,7 +209,8 @@ func unregister_entity(entity:BaseEntity):
 		
 	pass;	
 func startBattlePhase():
-	print(spawners.size())
+	
+	phase = GameState.GamePhase.BATTLE
 	for turret in Turret.turrets:
 		turret.clear_path()
 	for s in spawners:
@@ -227,7 +229,7 @@ func startBattlePhase():
 	$Camera2D/SoundPlayer.play(0.2)
 	
 	start_wave(wave)
-	phase = GameState.GamePhase.BATTLE
+	
 	updateUI()
 	
 	pass # Replace with function body.
@@ -239,7 +241,7 @@ func start_wave(wave):
 
 
 func startBuildPhase():
-	
+	phase = GameState.GamePhase.BUILD
 	if GameState.game_speed!=null:
 		GameState.restore_speed=GameState.game_speed
 		GameState.game_speed=1
@@ -270,7 +272,7 @@ func startBuildPhase():
 	ui.get_node("StartBattlePhase").disabled = false;
 
 	
-	phase = GameState.GamePhase.BUILD
+	
 	drawCards(cardRedraws)
 	updateUI()
 	

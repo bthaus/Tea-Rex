@@ -1,9 +1,9 @@
 [gd_scene load_steps=3 format=3 uid="uid://ewfpjt42t81v"]
 
-[ext_resource type="Script" path="res://menu_scenes/LevelEditor/Settings/BlockSelector/block_selector_item.gd" id="1_3q7kr"]
+[ext_resource type="Script" path="res://menu_scenes/LevelEditor/Settings/BlockCardSelector/block_card_selector_item.gd" id="1_3q7kr"]
 [ext_resource type="PackedScene" uid="uid://b5vg0xq00ba77" path="res://Cards/block_preview.tscn" id="1_r6mm7"]
 
-[node name="BlockSelectorItem" type="Button"]
+[node name="BlockCardSelectorItem" type="Button"]
 custom_minimum_size = Vector2(140, 30)
 script = ExtResource("1_3q7kr")
 

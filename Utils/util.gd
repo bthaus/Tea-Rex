@@ -105,3 +105,17 @@ static func copy_object_shallow(obj):
 	var props=obj.get_script().get_script_property_list() as Array
 	return load(props.pop_front()["hint_string"]).new()
 	pass;
+static func get_sprite_rect(sprite) -> Rect2:
+	if sprite.texture == null:
+		return Rect2()  # Return an empty rectangle if there's no texture
+
+	# Get the size of the texture
+	var texture_size = sprite.texture.get_size()
+
+	# Calculate the top-left corner (considering position, offset, and scaling)
+	var top_left = sprite.global_position - (texture_size * sprite.offset * sprite.scale)
+
+	# Calculate the rectangle based on the texture size and sprite's scaling
+	return Rect2(top_left, texture_size * sprite.scale)
+static func is_rectangle_within(outer: Rect2, inner: Rect2) -> bool:
+	return outer.has_point(inner.position) and outer.has_point(inner.position + Vector2(inner.size.x, 0)) and outer.has_point(inner.position + inner.size) and outer.has_point(inner.position + Vector2(0, inner.size.y))
