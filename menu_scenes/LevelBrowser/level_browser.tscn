@@ -1,79 +1,14 @@
-[gd_scene load_steps=5 format=3 uid="uid://cs45tgv8yjp7a"]
+[gd_scene load_steps=2 format=3 uid="uid://b4g6xyexapvhd"]
 
 [ext_resource type="PackedScene" uid="uid://cvavwo4xoqbdf" path="res://menu_scenes/LevelBrowser/level_browser_item.tscn" id="1_6vlyn"]
-[ext_resource type="Script" path="res://UtilScenes/Animations/hover_scale_animation.gd" id="1_fpqhw"]
-[ext_resource type="Script" path="res://UtilScenes/scene_navigation.gd" id="2_5qtp4"]
-[ext_resource type="ButtonGroup" uid="uid://coevk0j50vmlx" path="res://menu_scenes/LevelBrowser/sorting_button_group.tres" id="4_omosv"]
 
 [node name="LevelBrowser" type="Node2D"]
 
-[node name="MapIdEdit" type="LineEdit" parent="."]
-offset_left = 132.0
-offset_top = 105.0
-offset_right = 316.0
-offset_bottom = 136.0
-placeholder_text = "Enter a Map ID"
-
-[node name="MapNameEdit" type="LineEdit" parent="."]
-offset_left = 480.0
-offset_top = 105.0
-offset_right = 664.0
-offset_bottom = 136.0
-placeholder_text = "Enter a Map Name"
-
-[node name="AuthorEdit" type="LineEdit" parent="."]
-offset_left = 794.0
-offset_top = 105.0
-offset_right = 978.0
-offset_bottom = 136.0
-placeholder_text = "Enter an Author"
-
-[node name="SearchButton" type="Button" parent="."]
-offset_left = 1020.0
-offset_top = 104.0
-offset_right = 1081.0
-offset_bottom = 135.0
-text = "Search"
-
-[node name="MapIdLabel" type="Label" parent="."]
-offset_left = 63.0
-offset_top = 108.0
-offset_right = 127.0
-offset_bottom = 131.0
-text = "Map ID: "
-
-[node name="MapNameLabel" type="Label" parent="."]
-offset_left = 378.0
-offset_top = 110.0
-offset_right = 467.0
-offset_bottom = 133.0
-text = "Map Name:"
-
-[node name="AuthorLabel" type="Label" parent="."]
-offset_left = 724.0
-offset_top = 109.0
-offset_right = 783.0
-offset_bottom = 132.0
-text = "Author:"
-
-[node name="Title" type="Label" parent="."]
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_top = 12.0
-offset_right = 1153.0
-offset_bottom = 64.0
-grow_horizontal = 2
-theme_override_font_sizes/font_size = 25
-text = "Browse Maps"
-horizontal_alignment = 1
-vertical_alignment = 1
-
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
-offset_left = 364.0
-offset_top = 174.0
-offset_right = 914.0
-offset_bottom = 590.0
+offset_left = 320.0
+offset_top = 132.0
+offset_right = 870.0
+offset_bottom = 617.0
 
 [node name="MapContainer" type="VBoxContainer" parent="ScrollContainer"]
 layout_mode = 2
@@ -91,74 +26,26 @@ layout_mode = 2
 [node name="LevelBrowserItem4" parent="ScrollContainer/MapContainer" instance=ExtResource("1_6vlyn")]
 layout_mode = 2
 
-[node name="BackButton" type="Button" parent="."]
-offset_left = 9.0
-offset_top = 9.0
-offset_right = 103.0
-offset_bottom = 52.0
-text = "Back"
+[node name="SortByLabel" type="Label" parent="."]
+offset_left = 711.0
+offset_top = 97.0
+offset_right = 767.0
+offset_bottom = 120.0
+text = "Sort By
+"
 
-[node name="HoverScaleAnimation" type="Node" parent="BackButton"]
-script = ExtResource("1_fpqhw")
-
-[node name="SceneNavigation" type="Node" parent="BackButton"]
-script = ExtResource("2_5qtp4")
-
-[node name="Sorting" type="Node2D" parent="."]
-position = Vector2(35, 210)
-
-[node name="SortByLabel" type="Label" parent="Sorting"]
-offset_right = 55.0
-offset_bottom = 23.0
-text = "Sort by"
-
-[node name="MostRecentCheckbox" type="CheckBox" parent="Sorting"]
-offset_left = 8.0
-offset_top = 26.0
-offset_right = 32.0
-offset_bottom = 50.0
-button_pressed = true
-button_group = ExtResource("4_omosv")
-text = "Most Recent"
-
-[node name="MostDownloadsCheckBox" type="CheckBox" parent="Sorting"]
-offset_left = 8.0
-offset_top = 53.0
-offset_right = 164.0
-offset_bottom = 84.0
-button_group = ExtResource("4_omosv")
-text = "Most Downloads"
-
-[node name="HighestRatingCheckBox" type="CheckBox" parent="Sorting"]
-offset_left = 8.0
-offset_top = 79.0
-offset_right = 86.0
-offset_bottom = 110.0
-button_group = ExtResource("4_omosv")
-text = "Highest Rating"
-
-[node name="Filtering" type="Node2D" parent="."]
-position = Vector2(35, 380)
-
-[node name="FilterByLabel" type="Label" parent="Filtering"]
-offset_right = 40.0
-offset_bottom = 23.0
-text = "Filter by"
-
-[node name="HSlider" type="HSlider" parent="Filtering"]
-offset_left = -2.0
-offset_top = 56.0
-offset_right = 154.0
-offset_bottom = 72.0
-min_value = 5.0
-step = 5.0
-value = 100.0
-
-[node name="ClearRateLabel" type="Label" parent="Filtering"]
-offset_left = -1.0
-offset_top = 31.0
-offset_right = 153.0
-offset_bottom = 54.0
-text = "Clear Rate %"
-horizontal_alignment = 1
-vertical_alignment = 1
+[node name="SortOptionButton" type="OptionButton" parent="."]
+offset_left = 781.0
+offset_top = 99.0
+offset_right = 813.0
+offset_bottom = 119.0
+selected = 0
+item_count = 5
+popup/item_0/text = "Recent"
+popup/item_1/text = "Rating"
+popup/item_1/id = 1
+popup/item_2/text = "Downloads"
+popup/item_2/id = 2
+popup/item_3/text = "Waves"
+popup/item_3/id = 3
+popup/item_4/id = 4
