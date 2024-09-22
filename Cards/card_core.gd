@@ -24,6 +24,7 @@ func _ready() -> void:
 	pass;
 
 func toggle_shine():
+	if !util.valid(holder):return
 	var mat=holder.shine.material as ShaderMaterial
 	mat.set_shader_parameter("active",isPhaseValid())
 	pass;

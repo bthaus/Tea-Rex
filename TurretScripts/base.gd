@@ -68,7 +68,7 @@ var minions;
 var target;
 var buildup = 0;
 var targetposition;
-
+static var shield=load("res://shaders/energy shield.tscn").instantiate() as SubViewport
 func get_average_damage():
 	var val = damage * damagefactor / (cooldown * cooldownfactor) * average_minions_hit
 	return 1 # val
@@ -76,10 +76,14 @@ func get_average_damage():
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	GameState.gameState.add_child(shield)
+	var sprite=Sprite2D.new()
+	sprite.texture=shield.get_texture()
+	add_child(sprite)
 	
 	barrels = get_children()
-	for b in barrels:
-		remove_child(b)
+	#for b in barrels:
+		#remove_child(b)
 	pass # Replace with function body.
 	
 func clear_path():
@@ -179,6 +183,8 @@ func on_target_lost():
 	pass ;
 	
 func do(delta):
+	var children=get_children()
+	
 	if not functional:return
 	delta*=action_speed
 	reduceCooldown(delta)
@@ -385,12 +391,12 @@ func setLevel(lvl: int):
 	for mod:TurretBaseMod in turret_mods:
 		mod.on_level_up(lvl)
 	damagefactor=lvl	
-	var children = barrels
-	level = lvl;
-	for i in range(lvl):
-		if i < children.size():
-			add_child(children[i])
-			children[i].visible = true;
+	#var children = barrels
+	#level = lvl;
+	#for i in range(lvl):
+		#if i < children.size():
+			#add_child(children[i])
+			#children[i].visible = true;
 
 	pass ;
 	
