@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://b3v8jxeadnuc2"]
+[gd_scene load_steps=23 format=3 uid="uid://b3v8jxeadnuc2"]
 
 [ext_resource type="Script" path="res://CardFactory.gd" id="1_ti0nk"]
 [ext_resource type="Script" path="res://Cards/BlockCard.gd" id="2_bbc12"]
@@ -16,6 +16,8 @@
 [ext_resource type="Texture2D" uid="uid://1yn00b6dh1ng" path="res://Assets/Cards/Testcard_white.png" id="6_ceapf"]
 [ext_resource type="Texture2D" uid="uid://cxkgl0lpk4xdv" path="res://Assets/Effects/Explosion_1/e7.png" id="7_b8u21"]
 [ext_resource type="Texture2D" uid="uid://darr5tfbd3na5" path="res://Assets/Cards/Testcard_green.png" id="7_trvv3"]
+[ext_resource type="Shader" path="res://Cards/liquid.gdshader" id="17_p0etb"]
+[ext_resource type="Texture2D" uid="uid://b8n0busmwromw" path="res://icon.svg" id="18_k2mqo"]
 
 [sub_resource type="Curve" id="Curve_830so"]
 _data = [Vector2(0.0567686, 0.956044), 0.0, 0.0, 0, 0, Vector2(0.803493, 0.626374), 0.0, 0.0, 0, 0, Vector2(0.973799, 0.010989), 0.0, 0.0, 0, 0]
@@ -26,6 +28,19 @@ colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
 [sub_resource type="Gradient" id="Gradient_tkdb4"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fxlx1"]
+shader = ExtResource("17_p0etb")
+shader_parameter/backFillColour = Color(0.62, 1, 1, 1)
+shader_parameter/frontFillInnerColour = Color(0.35, 1, 1, 1)
+shader_parameter/frontFillOuterColour = Color(0, 0.35, 1, 1)
+shader_parameter/ringColour = Color(0, 0.16, 0.13, 1)
+shader_parameter/fresnelColour = Color(0, 0.88, 1, 1)
+shader_parameter/innerRingGlowColour = Color(0, 1, 1, 1)
+shader_parameter/fillcolour = Color(1, 1, 1, 1)
+shader_parameter/ringWidth = 0.14
+shader_parameter/innerCircleRadiusOffset = 0.0
+shader_parameter/fill_value = 0.172
 
 [node name="CardFactory" type="Node2D"]
 script = ExtResource("1_ti0nk")
@@ -189,3 +204,10 @@ texture = ExtResource("5_1tjhv")
 [node name="DefaultPreview" type="Sprite2D" parent="."]
 visible = false
 texture = ExtResource("6_52wau")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
+material = SubResource("ShaderMaterial_fxlx1")
+position = Vector2(124, -3)
+scale = Vector2(1, 1.04688)
+texture = ExtResource("18_k2mqo")
