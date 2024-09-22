@@ -32,7 +32,9 @@ func _trigger_play_effect():
 	
 func on_hover():
 	pass;		
-
+func on_unhover():
+	pass;
+	
 func interrupt():
 	pass
 	
