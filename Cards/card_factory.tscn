@@ -34,36 +34,41 @@ script = ExtResource("1_ti0nk")
 visible = false
 texture = ExtResource("2_eujw7")
 script = ExtResource("2_bbc12")
+phase = 2
 
 [node name="REDBlockCard" type="Sprite2D" parent="."]
 visible = false
 texture = ExtResource("4_digsc")
 script = ExtResource("2_bbc12")
+phase = 2
 
 [node name="YELLOWBlockCard" type="Sprite2D" parent="."]
 visible = false
 texture = ExtResource("5_t6nmf")
 script = ExtResource("2_bbc12")
+phase = 2
 
 [node name="MAGENTABlockCard" type="Sprite2D" parent="."]
-visible = false
 texture = ExtResource("6_ceapf")
 script = ExtResource("2_bbc12")
+phase = 2
 
 [node name="WHITEBlockCard" type="Sprite2D" parent="."]
 visible = false
 texture = ExtResource("6_ceapf")
 script = ExtResource("2_bbc12")
+phase = 2
 
 [node name="GREENBlockCard" type="Sprite2D" parent="."]
+visible = false
 texture = ExtResource("7_trvv3")
 script = ExtResource("2_bbc12")
+phase = 2
 
 [node name="FIREBALL" type="Sprite2D" parent="."]
-visible = false
 texture = ExtResource("3_a735y")
 script = ExtResource("4_pdgf6")
-phase = 3
+phase = 1
 soundeffect = ExtResource("5_fq2g4")
 turn_sound_effect = ExtResource("5_fq2g4")
 discardable = false

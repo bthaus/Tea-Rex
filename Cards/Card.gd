@@ -4,28 +4,13 @@ var card;
 var state:GameState;
 static var isCardSelected=false;
 static var selectedCard;
+@onready var shine=$shine
+
+
+#region lifecycles
 signal mouseIn
 signal mouseOut
-
-var originalPosition;
-var originalZ=0;
-
-	
-static var counter=0;
 signal finished(card)
-
-func setCard(c):
-	card=c;
-	add_child(c)
-	pass;
-static func create(gameState:GameState):
-	counter=counter+1;
-	var c=load("res://Cards/card.tscn").instantiate() as Card
-	var btn=c.get_child(0) as Button
-	var created_card=gameState.get_next_card()
-	c.setCard(created_card)
-	return c
-
 func played(success:bool):
 	if not success and isCardSelected:
 		_on_disable_button_pressed()
@@ -37,13 +22,6 @@ func played(success:bool):
 	finished.emit(self)
 		
 	pass;
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	originalPosition=global_position
-	pass # Replace with function body.
-
-
-
 
 func trigger_turn_effect():
 	var tw=create_tween()
@@ -51,13 +29,18 @@ func trigger_turn_effect():
 	tw.tween_property(self,"position",position,0.4)
 	card._trigger_turn_effect()
 	pass;
+	
 func discard() -> void:
 	interrupt_Card()
 	if card.discardable:
 		card.on_discard()
 		queue_free()
 	pass # Replace with function body.
-#################select logic##########################
+	
+#endregion
+
+#region select logic
+
 
 func _on_button_pressed():
 	select(played)
@@ -83,7 +66,9 @@ func delayedSelect(done):
 	card.select(done)
 	pass;
 		
-###########################interrup logic###########################
+#endregion
+
+#region interrupt logic
 func _on_disable_button_pressed():
 	scale=Vector2(1,1)
 	z_index=originalZ
@@ -110,7 +95,10 @@ func interrupt_Card():
 	selectedCard=null;	
 	pass;
 		
-##############drag logic################
+#endregion
+
+#region drag logic
+
 var dragged=false;
 var try_drag=false;
 var drag_confirmed=false;
@@ -149,7 +137,13 @@ func _process(delta: float) -> void:
 	pass;
 
 	
-#################hover events	##########################
+#endregion
+
+#region hover events
+
+var originalPosition;
+var originalZ=0;
+
 func _on_button_mouse_entered():
 	originalZ=z_index;
 	z_index=2000
@@ -171,7 +165,9 @@ func _on_button_mouse_exited():
 	mouseOut.emit()
 	pass # Replace with function body.
 	
-############################ignore click logic##############################	
+#endregion
+
+#region ignore click
 #contemplating interruipts are called on the putback button hover events, because they are only active if the card is selected
 static var contemplatingInterrupt=false;
 static var hoveredCard=null
@@ -188,3 +184,31 @@ func _on_disable_button_mouse_exited():
 	if hoveredCard==null:
 		contemplatingInterrupt=false;	
 	pass # Replace with function body.
+	
+#endregion
+
+#region creation
+	
+static var counter=0;
+
+
+func setCard(c):
+	card=c;
+	c.holder=self
+	
+	
+	pass;
+static func create(gameState:GameState):
+	counter=counter+1;
+	var c=load("res://Cards/card.tscn").instantiate() as Card
+	var btn=c.get_child(0) as Button
+	var created_card=gameState.get_next_card()
+	c.setCard(created_card)
+	return c	
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	originalPosition=global_position
+	add_child(card)
+	pass # Replace with function body.
+	
+#endregion

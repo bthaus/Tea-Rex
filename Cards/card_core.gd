@@ -7,10 +7,33 @@ class_name CardCore
 var gameState
 var player=AudioStreamPlayer.new()
 var done:Callable
+var holder:Card
 func _ready() -> void:
 	add_child(player)
 	gameState=GameState.gameState
+	gameState.start_combat_phase.connect(on_battle_phase_started)
+	gameState.start_build_phase.connect(on_build_phase_started)
+	
+	gameState.start_combat_phase.connect(toggle_shine)
+	gameState.start_build_phase.connect(toggle_shine)
+	
+	#var mat=holder.shine.material as ShaderMaterial
+	#var shine_wait_cylces_rand=randi_range(3,8)
+	#mat.set_shader_parameter("wait_cycles",shine_wait_cylces_rand)
+	toggle_shine()
 	pass;
+
+func toggle_shine():
+	var mat=holder.shine.material as ShaderMaterial
+	mat.set_shader_parameter("active",isPhaseValid())
+	pass;
+func on_battle_phase_started():
+	
+	pass;
+	
+func on_build_phase_started():
+	
+	pass;		
 func select(done:Callable):
 	self.done=done
 	pass;
@@ -51,7 +74,7 @@ func addKill():
 func addDamage(damage):
 	pass ;
 func isPhaseValid() -> bool:
-	return gameState.phase == phase||phase == GameState.GamePhase.BOTH||gameState.phase == GameState.GamePhase.BOTH
+	return gameState.phase == phase||phase == GameState.GamePhase.BOTH
 	
 func get_mouse_pos():
 	var screen_mouse_position = get_viewport().get_mouse_position() # Get the mouse position on the screen

@@ -73,5 +73,6 @@ func interrupt():
 	super()
 	selected = false;
 	done.call(false)
-	self.preview.visible=false;
+	if util.valid(self.preview):
+		self.preview.visible=false;
 	pass ;

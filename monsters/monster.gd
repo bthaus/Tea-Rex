@@ -101,12 +101,43 @@ var distance_travelled=0;
 var distance_to_next_edge=-1;
 var travel_index=0;
 var ignore_next_portal=false;
+var porting=false;
 func trigger_teleport():
 	if not _is_next_step_portal(): return
+	if porting:return;
 	distance_travelled=distance_to_next_edge
-	global_position=path[travel_index+1]
-	translateTowardEdge(0.16)
+	var tw = create_tween()
+	var mat=load('res://shaders/TELEPORT.tres') as ShaderMaterial
+	core.get_node("Animation").material=mat
+	tw.tween_method(set_param.bind("progress",mat),0.0,1.0,1)
+	tw.finished.connect(complete_teleport.bind(tw))
+	porting=true;
 	pass;
+func set_param(tweenval,param,mat):
+	print(tweenval)
+	mat.set_shader_parameter(param,tweenval)
+	pass;
+var oldval_appear=1
+func appear_again(tweenval,param,mat):
+	if tweenval>oldval_appear:return
+	print(tweenval)
+	oldval_appear=tweenval
+	mat.set_shader_parameter(param,tweenval)
+	pass
+func complete_teleport(old_tween):
+	old_tween.kill()
+	global_position=path[travel_index+1]
+	var tw = create_tween()
+	var mat=core.get_node("Animation").material
+	tw.tween_method(appear_again.bind("progress",mat),1 as float,0 as float,1)
+	tw.finished.connect(post_complete_teleport)
+	
+	pass;
+func post_complete_teleport():
+	oldval_appear=1
+	porting=false;
+	translateTowardEdge(0.16)
+	pass;		
 func _is_next_step_portal():
 	var current=path[travel_index]
 	var next=path[travel_index+1]
@@ -114,7 +145,8 @@ func _is_next_step_portal():
 		
 var direction
 func do(delta):
-	translateTowardEdge(delta)
+	if not porting:
+		translateTowardEdge(delta)
 	core.do(delta)
 	pass;	
 

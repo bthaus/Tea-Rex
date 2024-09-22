@@ -1,19 +1,29 @@
-[gd_scene load_steps=6 format=3 uid="uid://bm6i67pq5hjlm"]
+[gd_scene load_steps=8 format=3 uid="uid://bm6i67pq5hjlm"]
 
 [ext_resource type="Script" path="res://Cards/Card.gd" id="1_tep7i"]
-[ext_resource type="Texture2D" uid="uid://1yn00b6dh1ng" path="res://Assets/Cards/Testcard_white.png" id="2_80oib"]
+[ext_resource type="Shader" path="res://shaders/shine.gdshader" id="3_8k3ml"]
 [ext_resource type="Texture2D" uid="uid://bn1alymc8hger" path="res://Assets/Cards/chancel card.png" id="3_fiia3"]
+[ext_resource type="Texture2D" uid="uid://blnc4ghpnkv2c" path="res://Assets/Turrets/empty.png" id="4_dvotc"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_c2wsv"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_dena1"]
 line_spacing = -3.0
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rpnre"]
+resource_local_to_scene = true
+shader = ExtResource("3_8k3ml")
+shader_parameter/shine_color = Color(1, 1, 1, 0.760784)
+shader_parameter/line_width = 0.24
+shader_parameter/angle = 0.785398
+shader_parameter/active = true
+shader_parameter/speed = 1.3
+shader_parameter/wait_cycles = 3.0
+
 [node name="Card" type="Node2D"]
 script = ExtResource("1_tep7i")
 
 [node name="Button" type="Button" parent="."]
-self_modulate = Color(1, 1, 1, 0)
 offset_left = -62.0
 offset_top = -102.0
 offset_right = 62.0
@@ -23,7 +33,6 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_c2wsv")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_c2wsv")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_c2wsv")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_c2wsv")
-icon = ExtResource("2_80oib")
 
 [node name="Label" type="Label" parent="."]
 z_index = 10
@@ -38,9 +47,9 @@ autowrap_mode = 3
 [node name="PutBack" type="Button" parent="."]
 self_modulate = Color(1, 1, 1, 0)
 offset_left = -62.0
-offset_top = -110.0
+offset_top = -118.0
 offset_right = 56.0
-offset_bottom = 99.0
+offset_bottom = 91.0
 mouse_filter = 2
 
 [node name="DisableCard" type="Sprite2D" parent="PutBack"]
@@ -48,6 +57,13 @@ visible = false
 z_index = 100
 position = Vector2(63, 109)
 texture = ExtResource("3_fiia3")
+
+[node name="shine" type="Sprite2D" parent="."]
+z_index = 6
+material = SubResource("ShaderMaterial_rpnre")
+position = Vector2(-2, 0.999999)
+scale = Vector2(110, 185)
+texture = ExtResource("4_dvotc")
 
 [connection signal="button_down" from="Button" to="." method="_on_button_button_down"]
 [connection signal="button_up" from="Button" to="." method="_on_button_button_up"]
