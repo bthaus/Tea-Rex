@@ -2,7 +2,7 @@ extends TurretBaseMod
 class_name HullBaseMod
 
 var base_reload_time=5
-var shield
+var shield:ShieldSprite
 var reload_tween
 func get_timeout():
 	return base_reload_time/level
@@ -38,8 +38,9 @@ func add_immunity_stack():
 	var current_stacks=associate.get_immunity_stacks(get_type())
 	if current_stacks==get_max_stacks():return
 	var shine=GameState.gameState.create_tween()
-	shine.tween_property(shield,"modulate",Color(2,2,2,1),0.2)
-	shine.tween_property(shield,"modulate",shield.modulate,0.2)
+	shine.tween_property(shield,"scale",Vector2(1.15,1.15),0.2)
+	shine.tween_property(shield,"scale",Vector2(1,1),0.2)
+	#shield.shine()
 	associate.add_immunity_stack(get_type())
 	refresh_tween()	
 	
@@ -54,7 +55,9 @@ func refresh_tween():
 	print(interpol)
 	print("inbetween tween val")
 	var current=shield.material.get_shader_parameter("dissolve_value")
-	reload_tween.tween_method(set_shader_dissolve,current,interpol,get_timeout())
+	reload_tween.tween_method(set_shader_dissolve,current,interpol,get_timeout()).set_ease(Tween.EASE_IN)
+
+	
 	pass;	
 func get_interpolated_value(stack):
 	var max_stacks=get_max_stacks()
