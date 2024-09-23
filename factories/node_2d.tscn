@@ -10,6 +10,7 @@ noise = SubResource("FastNoiseLite_ny86l")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_pbnga"]
 shader = ExtResource("1_1wmjw")
+shader_parameter/scale_factor = 0.5
 shader_parameter/dissolve_value = 0.588
 shader_parameter/burn_size = 0.0
 shader_parameter/burn_color = null

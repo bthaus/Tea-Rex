@@ -1,10 +1,9 @@
-[gd_scene load_steps=16 format=3 uid="uid://e1uj40gdr6o8"]
+[gd_scene load_steps=14 format=3 uid="uid://e1uj40gdr6o8"]
 
 [ext_resource type="Shader" path="res://Cards/hexa.gdshader" id="1_fl8e4"]
 [ext_resource type="Script" path="res://factories/shield_factory.gd" id="1_oohgk"]
 [ext_resource type="Shader" path="res://shaders/3dtest.gdshader" id="2_qox71"]
 [ext_resource type="Script" path="res://shaders/rotate.gd" id="3_r3qvb"]
-[ext_resource type="Material" uid="uid://cuwkqfn4rvfao" path="res://shaders/dissolve.tres" id="5_30kp4"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8ulcc"]
 resource_local_to_scene = true
@@ -96,9 +95,6 @@ shader_parameter/shield_power = 0.267
 shader_parameter/rim_power = 2.157
 shader_parameter/pulse_frequency = 2.452
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_4milr"]
-viewport_path = NodePath("energy_1")
-
 [node name="shield_factory" type="Node3D"]
 script = ExtResource("1_oohgk")
 
@@ -173,8 +169,3 @@ gi_mode = 0
 mesh = SubResource("SphereMesh_hvpag")
 skeleton = NodePath("../../../..")
 script = ExtResource("3_r3qvb")
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-material = ExtResource("5_30kp4")
-position = Vector2(592, 382)
-texture = SubResource("ViewportTexture_4milr")

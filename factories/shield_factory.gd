@@ -6,7 +6,7 @@ enum ShieldType{energy}
 static func get_shield_texture(type:ShieldType,level:int):
 	set_singleton()
 	var searchstring=ShieldType.keys()[type]+"_"+str(level)
-	var sprite=Sprite2D.new()
+	var sprite=ShieldSprite.new()
 	sprite.material=load('res://shaders/dissolve.tres')
 	var node=instance.get_node(searchstring) as SubViewport
 	sprite.texture=node.get_texture()
