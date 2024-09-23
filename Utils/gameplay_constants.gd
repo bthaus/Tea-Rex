@@ -89,7 +89,7 @@ static var turret_mods = {
 	ChainProductionMod:d(o,prod, ItemBlockConstants.GREEN_TILE_ID),
 	TrapdoorProductionMod:d(o,prod, ItemBlockConstants.GREEN_TILE_ID),
 	
-	FrostHullMod:d(o,hull, ItemBlockConstants.BLUE_TILE_ID),
+	FrostHullMod:d(tiny,hull, ItemBlockConstants.BLUE_TILE_ID),
 	StunHullMod:d(o,hull, ItemBlockConstants.BLUE_TILE_ID)
 	
 	

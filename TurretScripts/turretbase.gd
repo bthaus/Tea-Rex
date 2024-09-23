@@ -228,7 +228,9 @@ func show_infobox():
 func add_status_effect(effect:StatusEffect):
 	effect.register(base)
 	pass;	
-
+func status_effect_registered(effect:StatusEffect):
+	base.status_effect_registered(effect)
+	pass;
 var detectorvisible = false;
 
 var m = 0;

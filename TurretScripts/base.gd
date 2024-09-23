@@ -121,7 +121,7 @@ func setUpTower(holder):
 	if ref_proj!=null: ref_proj.visible = false;
 
 	for mod in turret_mods:
-		mod.initialise(self)
+		if placed:mod.initialise(self)
 		#if not placed:
 			#mod.visual.visible=false
 	setLevel(stacks)	
@@ -144,7 +144,13 @@ func reduceCooldown(delta):
 	if cdt < 0:
 		onCooldown = false;
 	pass
-
+func status_effect_registered(effect:StatusEffect):
+	for mod in turret_mods:
+		if mod is not HullBaseMod: continue;
+		var type=mod.get_type().new().type
+		if type == effect.get_name():
+			mod.hit()
+	pass;
 var waitingForMinions = false;
 func on_target_found(monster: Monster):
 	monster.status_changed.connect(checkTarget)
@@ -387,7 +393,7 @@ func addDamage(Damage):
 func setLevel(lvl: int):
 	stacks=lvl
 	for mod:TurretBaseMod in turret_mods:
-		mod.on_level_up(lvl)
+		if placed:mod.on_level_up(lvl)
 	damagefactor=lvl	
 	#var children = barrels
 	#level = lvl;

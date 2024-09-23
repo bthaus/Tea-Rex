@@ -15,7 +15,7 @@ void vertex() {
     );
 
     // Apply rotation to the vertex position
-    
+
     // Transform the vertex by the world matrix
     MODELVIEW_MATRIX *= rotation_matrix;
 }

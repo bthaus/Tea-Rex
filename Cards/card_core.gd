@@ -49,7 +49,7 @@ func _trigger_turn_effect():
 	if turn_sound_effect!=null:
 		player.stream=turn_sound_effect
 		player.play(0)
-	pass;
+	pass
 	
 func _trigger_play_effect():
 	pass;

@@ -7,7 +7,7 @@ static func get_shield_texture(type:ShieldType,level:int):
 	set_singleton()
 	var searchstring=ShieldType.keys()[type]+"_"+str(level)
 	var sprite=ShieldSprite.new()
-	sprite.material=load('res://shaders/dissolve.tres')
+	sprite.material=load('res://shaders/dissolve.tres').duplicate(true)
 	var node=instance.get_node(searchstring) as SubViewport
 	sprite.texture=node.get_texture()
 	return sprite;
