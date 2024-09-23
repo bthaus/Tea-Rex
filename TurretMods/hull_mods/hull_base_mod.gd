@@ -37,6 +37,9 @@ func add_immunity_stack():
 	print("added")
 	var current_stacks=associate.get_immunity_stacks(get_type())
 	if current_stacks==get_max_stacks():return
+	var shine=GameState.gameState.create_tween()
+	shine.tween_property(shield,"modulate",Color(2,2,2,1),0.2)
+	shine.tween_property(shield,"modulate",shield.modulate,0.2)
 	associate.add_immunity_stack(get_type())
 	refresh_tween()	
 	
