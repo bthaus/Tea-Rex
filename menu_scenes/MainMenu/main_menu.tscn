@@ -92,6 +92,20 @@ script = ExtResource("1_xsmy3")
 script = ExtResource("3_fopi8")
 navigate_to = 9
 
+[node name="LevelBrowserButton" type="Button" parent="."]
+offset_left = 144.0
+offset_top = 139.0
+offset_right = 318.0
+offset_bottom = 231.0
+text = "Browse Levels"
+
+[node name="HoverScaleAnimation" type="Node" parent="LevelBrowserButton"]
+script = ExtResource("1_xsmy3")
+
+[node name="SceneNavigation" type="Node" parent="LevelBrowserButton"]
+script = ExtResource("3_fopi8")
+navigate_to = 10
+
 [connection signal="pressed" from="exit_game" to="." method="_on_exit_game_pressed"]
 [connection signal="pressed" from="delete_all_maps" to="." method="_on_delete_all_maps_pressed"]
 [connection signal="pressed" from="delete_all_accounts" to="." method="_on_delete_all_accounts_pressed"]

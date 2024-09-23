@@ -1,29 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://cs45tgv8yjp7a"]
+[gd_scene load_steps=4 format=3 uid="uid://cs45tgv8yjp7a"]
 
+[ext_resource type="Script" path="res://menu_scenes/LevelBrowser/Menu/level_browser_menu.gd" id="1_g0wsc"]
 [ext_resource type="Script" path="res://UtilScenes/Animations/hover_scale_animation.gd" id="2_3jo0b"]
 [ext_resource type="Script" path="res://UtilScenes/scene_navigation.gd" id="3_lf1yg"]
 
 [node name="LevelBrowserMenu" type="Node2D"]
-
-[node name="OptionButton" type="OptionButton" parent="."]
-offset_left = 330.0
-offset_top = 239.0
-offset_right = 451.0
-offset_bottom = 270.0
-selected = 0
-item_count = 3
-popup/item_0/text = "Map Name"
-popup/item_1/text = "Map ID"
-popup/item_1/id = 1
-popup/item_2/text = "Author"
-popup/item_2/id = 2
-
-[node name="SearchEdit" type="LineEdit" parent="."]
-offset_left = 463.394
-offset_top = 239.024
-offset_right = 837.394
-offset_bottom = 270.024
-placeholder_text = "Enter a map name"
+script = ExtResource("1_g0wsc")
 
 [node name="SearchButton" type="Button" parent="."]
 offset_left = 1021.0
@@ -58,49 +40,73 @@ script = ExtResource("2_3jo0b")
 [node name="SceneNavigation" type="Node" parent="BackButton"]
 script = ExtResource("3_lf1yg")
 
-[node name="Filtering" type="Node2D" parent="."]
-position = Vector2(534, 247)
+[node name="SearchByOptionButton" type="OptionButton" parent="."]
+offset_left = 330.0
+offset_top = 239.0
+offset_right = 451.0
+offset_bottom = 270.0
+selected = 0
+item_count = 3
+popup/item_0/text = "Map Name"
+popup/item_1/text = "Map ID"
+popup/item_1/id = 1
+popup/item_2/text = "Author"
+popup/item_2/id = 2
 
-[node name="ClearRateSlider" type="HSlider" parent="Filtering"]
-offset_left = -2.0
-offset_top = 124.0
-offset_right = 154.0
-offset_bottom = 140.0
+[node name="SearchByLabel" type="Label" parent="."]
+offset_left = 239.0
+offset_top = 242.0
+offset_right = 315.0
+offset_bottom = 265.0
+text = "Search By"
+
+[node name="SearchEdit" type="LineEdit" parent="."]
+offset_left = 463.394
+offset_top = 239.024
+offset_right = 837.394
+offset_bottom = 270.024
+placeholder_text = "Enter a map name"
+
+[node name="ClearRateSlider" type="HSlider" parent="."]
+offset_left = 532.0
+offset_top = 371.0
+offset_right = 688.0
+offset_bottom = 387.0
 min_value = 5.0
 step = 5.0
 value = 100.0
 
-[node name="ClearRateLabel" type="Label" parent="Filtering"]
-offset_left = -146.0
-offset_top = 117.0
-offset_right = 8.0
-offset_bottom = 140.0
+[node name="ClearRateLabel" type="Label" parent="."]
+offset_left = 388.0
+offset_top = 364.0
+offset_right = 542.0
+offset_bottom = 387.0
 text = "Clear Rate"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="MonsterWavesLabel" type="Label" parent="Filtering"]
-offset_left = -202.984
-offset_top = 50.9194
-offset_right = -152.984
-offset_bottom = 73.9194
+[node name="MonsterWavesLabel" type="Label" parent="."]
+offset_left = 331.016
+offset_top = 297.919
+offset_right = 381.016
+offset_bottom = 320.919
 text = "Waves"
 
-[node name="ClearRatePercent" type="Label" parent="Filtering"]
-offset_left = 163.0
-offset_top = 120.0
-offset_right = 227.0
-offset_bottom = 143.0
+[node name="ClearRatePercentLabel" type="Label" parent="."]
+offset_left = 697.0
+offset_top = 367.0
+offset_right = 761.0
+offset_bottom = 390.0
 text = "<= 100%"
 
-[node name="VeryShortCheckBox" type="CheckBox" parent="Filtering"]
-offset_left = -136.0
-offset_top = 49.0
-offset_right = -27.0
-offset_bottom = 80.0
+[node name="VeryShortCheckBox" type="CheckBox" parent="."]
+offset_left = 398.0
+offset_top = 296.0
+offset_right = 507.0
+offset_bottom = 327.0
 text = "Very Short"
 
-[node name="Label" type="Label" parent="Filtering/VeryShortCheckBox"]
+[node name="Label" type="Label" parent="VeryShortCheckBox"]
 layout_mode = 0
 offset_left = 25.0
 offset_top = 27.0
@@ -110,14 +116,15 @@ theme_override_font_sizes/font_size = 12
 text = "1 - 5"
 horizontal_alignment = 1
 
-[node name="ShortCheckBox" type="CheckBox" parent="Filtering"]
-offset_left = -12.0
-offset_top = 49.0
-offset_right = 97.0
-offset_bottom = 80.0
+[node name="ShortCheckBox" type="CheckBox" parent="."]
+offset_left = 522.0
+offset_top = 296.0
+offset_right = 631.0
+offset_bottom = 327.0
 text = "Short"
 
-[node name="Label" type="Label" parent="Filtering/ShortCheckBox"]
+[node name="Label" type="Label" parent="ShortCheckBox"]
+layout_mode = 0
 offset_left = 5.0
 offset_top = 27.0
 offset_right = 68.0
@@ -126,14 +133,15 @@ theme_override_font_sizes/font_size = 12
 text = "6 - 10"
 horizontal_alignment = 1
 
-[node name="MediumCheckBox" type="CheckBox" parent="Filtering"]
-offset_left = 75.0
-offset_top = 49.0
-offset_right = 184.0
-offset_bottom = 80.0
+[node name="MediumCheckBox" type="CheckBox" parent="."]
+offset_left = 609.0
+offset_top = 296.0
+offset_right = 718.0
+offset_bottom = 327.0
 text = "Medium"
 
-[node name="Label" type="Label" parent="Filtering/MediumCheckBox"]
+[node name="Label" type="Label" parent="MediumCheckBox"]
+layout_mode = 0
 offset_left = 25.0
 offset_top = 27.0
 offset_right = 89.0
@@ -142,14 +150,15 @@ theme_override_font_sizes/font_size = 12
 text = "11 - 20"
 horizontal_alignment = 1
 
-[node name="LongCheckBox" type="CheckBox" parent="Filtering"]
-offset_left = 189.0
-offset_top = 49.0
-offset_right = 298.0
-offset_bottom = 80.0
+[node name="LongCheckBox" type="CheckBox" parent="."]
+offset_left = 723.0
+offset_top = 296.0
+offset_right = 832.0
+offset_bottom = 327.0
 text = "Long"
 
-[node name="Label" type="Label" parent="Filtering/LongCheckBox"]
+[node name="Label" type="Label" parent="LongCheckBox"]
+layout_mode = 0
 offset_left = 24.0
 offset_top = 27.0
 offset_right = 64.0
@@ -158,18 +167,22 @@ theme_override_font_sizes/font_size = 12
 text = "21 - 50"
 horizontal_alignment = 1
 
-[node name="XLCheckBox" type="CheckBox" parent="Filtering"]
-offset_left = 277.0
-offset_top = 49.0
-offset_right = 386.0
-offset_bottom = 80.0
+[node name="XLCheckBox" type="CheckBox" parent="."]
+offset_left = 811.0
+offset_top = 296.0
+offset_right = 920.0
+offset_bottom = 327.0
 text = "XL"
 
-[node name="Label" type="Label" parent="Filtering/XLCheckBox"]
+[node name="Label" type="Label" parent="XLCheckBox"]
+layout_mode = 0
 offset_left = 24.0
 offset_top = 27.0
 offset_right = 45.0
 offset_bottom = 50.0
 theme_override_font_sizes/font_size = 12
-text = "50+"
+text = "51+"
 horizontal_alignment = 1
+
+[connection signal="pressed" from="SearchButton" to="." method="_on_search_button_pressed"]
+[connection signal="value_changed" from="ClearRateSlider" to="." method="_on_clear_rate_slider_value_changed"]
