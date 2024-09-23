@@ -1,29 +1,27 @@
-[gd_scene load_steps=19 format=3 uid="uid://wb1erjrh6bnd"]
+[gd_scene load_steps=23 format=3 uid="uid://wb1erjrh6bnd"]
 
 [ext_resource type="Script" path="res://TurretMods/mod_visual_factory.gd" id="1_80rsx"]
 [ext_resource type="Texture2D" uid="uid://chsgerkqrpoy6" path="res://Assets/Level/Backgrounddummy.png" id="1_wplut"]
 [ext_resource type="Texture2D" uid="uid://cw36qv6rxfwpx" path="res://Assets/Effects/particles/scorch_03.png" id="2_sl62v"]
 [ext_resource type="Script" path="res://TurretMods/mod_visual.gd" id="2_weiop"]
 [ext_resource type="Script" path="res://TurretMods/visual_on_projectile.gd" id="3_g73qt"]
-[ext_resource type="PackedScene" uid="uid://8t85xiueiif3" path="res://shaders/energy shield.tscn" id="4_3k52e"]
 [ext_resource type="Texture2D" uid="uid://jobgij4i5sxe" path="res://Assets/Effects/Explosion_1/e1.png" id="4_y8l7j"]
 [ext_resource type="Texture2D" uid="uid://cxkgl0lpk4xdv" path="res://Assets/Effects/Explosion_1/e7.png" id="5_wf3h1"]
+[ext_resource type="Shader" path="res://TurretMods/cracked.gdshader" id="8_vuc2q"]
+[ext_resource type="Texture2D" uid="uid://b8n0busmwromw" path="res://icon.svg" id="9_udwku"]
 
-[sub_resource type="Environment" id="Environment_8gxwn"]
-background_mode = 3
-ambient_light_color = Color(0.552642, 0.483134, 0.873833, 1)
-tonemap_white = 1.67
-glow_enabled = true
-glow_normalized = true
-glow_intensity = 1.55
-glow_bloom = 0.3
-glow_blend_mode = 0
-fog_enabled = true
-fog_light_energy = 5.04
-adjustment_enabled = true
-adjustment_brightness = 1.08
-adjustment_contrast = 1.1
-adjustment_saturation = 1.34
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_nwisb"]
+as_normal_map = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_igy68"]
+resource_local_to_scene = true
+shader = ExtResource("8_vuc2q")
+shader_parameter/dissolve_value = 0.746
+shader_parameter/burn_size = 1.0
+shader_parameter/ash_color = Color(0, 0, 0, 1)
+shader_parameter/burn_color = Color(0.882, 0.777, 0.169, 1)
+shader_parameter/proburn_color = Color(0.804, 0.2, 0.093, 1)
+shader_parameter/dissolve_texture = SubResource("NoiseTexture2D_nwisb")
 
 [sub_resource type="Curve" id="Curve_oy700"]
 _data = [Vector2(0.0567686, 0.956044), 0.0, 0.0, 0, 0, Vector2(0.803493, 0.626374), 0.0, 0.0, 0, 0, Vector2(0.973799, 0.010989), 0.0, 0.0, 0, 0]
@@ -80,18 +78,33 @@ scale_max = 0.05
 color = Color(0.705882, 0, 0.305882, 1)
 color_ramp = SubResource("GradientTexture1D_j7rp6")
 
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ys452"]
+width = 50
+height = 50
+seamless = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_iltuy"]
+shader = ExtResource("8_vuc2q")
+shader_parameter/dissolve_value = 0.642
+shader_parameter/burn_size = 0.63
+shader_parameter/ash_color = Color(0, 0, 0, 1)
+shader_parameter/burn_color = Color(0.882, 0.777, 0.169, 1)
+shader_parameter/proburn_color = Color(0.804, 0.2, 0.093, 1)
+shader_parameter/dissolve_texture = SubResource("NoiseTexture2D_ys452")
+
 [node name="mod_visual_factory" type="Node2D"]
 script = ExtResource("1_80rsx")
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
+visible = false
 color = Color(0.396078, 0.396078, 0.396078, 1)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_8gxwn")
 
 [node name="Sprite2D2" type="Sprite2D" parent="."]
 z_index = -10
-position = Vector2(79, 1150)
+material = SubResource("ShaderMaterial_igy68")
+position = Vector2(76, 1151)
 scale = Vector2(19.475, 19.475)
 texture = ExtResource("1_wplut")
 
@@ -247,7 +260,16 @@ z_index = 50
 position = Vector2(-2, 2)
 script = ExtResource("2_weiop")
 
-[node name="idle" parent="burning_projectile" instance=ExtResource("4_3k52e")]
+[node name="idle" type="GPUParticles2D" parent="burning_projectile"]
+visible = false
+modulate = Color(5, 1, 1, 1)
+z_index = 10
+amount = 10
+process_material = SubResource("ParticleProcessMaterial_7a8oc")
+texture = ExtResource("2_sl62v")
+lifetime = 10.0
+speed_scale = 0.5
+randomness = 1.0
 
 [node name="on_projectile" type="Node2D" parent="burning_projectile"]
 script = ExtResource("3_g73qt")
@@ -311,3 +333,7 @@ lifetime = 0.6
 one_shot = true
 explosiveness = 1.0
 visibility_rect = Rect2(0, 0, 4000, 4000)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_iltuy")
+texture = ExtResource("9_udwku")

@@ -68,7 +68,7 @@ var minions;
 var target;
 var buildup = 0;
 var targetposition;
-static var shield=load("res://shaders/energy shield.tscn").instantiate() as SubViewport
+
 func get_average_damage():
 	var val = damage * damagefactor / (cooldown * cooldownfactor) * average_minions_hit
 	return 1 # val
@@ -76,10 +76,8 @@ func get_average_damage():
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	GameState.gameState.add_child(shield)
-	var sprite=Sprite2D.new()
-	sprite.texture=shield.get_texture()
-	add_child(sprite)
+	
+	
 	
 	barrels = get_children()
 	#for b in barrels:
@@ -115,7 +113,7 @@ func setUpTower(holder):
 	self.holder = holder
 	
 	if placed: minions = GameState.gameState.minions
-	setLevel(stacks)
+	
 	trueRangeSquared = turretRange * GameboardConstants.TILE_SIZE + GameboardConstants.TILE_SIZE
 	trueRangeSquared = trueRangeSquared * trueRangeSquared;
 	
@@ -126,7 +124,7 @@ func setUpTower(holder):
 		mod.initialise(self)
 		#if not placed:
 			#mod.visual.visible=false
-		
+	setLevel(stacks)	
 	setupCollision(true)
 	after_built()
 	pass ;

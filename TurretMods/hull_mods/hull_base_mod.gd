@@ -3,7 +3,7 @@ class_name HullBaseMod
 
 var base_reload_time=5
 var timer=Timer.new()
-
+var shield
 func get_timeout():
 	return base_reload_time/level
 func get_type():
@@ -17,6 +17,9 @@ func initialise(turret:TurretCore):
 	turret.add_child(timer)
 	timer.start(get_timeout())
 	timer.timeout.connect(add_immunity_stack)
+	var shield=ShieldFactory.get_shield_texture(ShieldFactory.ShieldType.energy,level)
+	self.shield=shield
+	turret.add_child(shield)
 	pass;	
 
 func add_immunity_stack():
@@ -25,3 +28,14 @@ func add_immunity_stack():
 		associate.holder.add_immunity_stack(get_type())
 	timer.start(get_timeout())
 	pass;
+func remove():
+	util.erase(shield)
+	super()
+	pass;
+func on_level_up(lvl):
+	super(lvl)
+	util.erase(shield)
+	var shield=ShieldFactory.get_shield_texture(ShieldFactory.ShieldType.energy,lvl)
+	self.shield=shield
+	associate.add_child(shield)
+	pass;	
