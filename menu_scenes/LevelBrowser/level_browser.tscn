@@ -31,18 +31,18 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="SortByLabel" type="Label" parent="."]
-offset_left = 711.0
-offset_top = 97.0
-offset_right = 767.0
-offset_bottom = 120.0
+offset_left = 538.0
+offset_top = 98.0
+offset_right = 594.0
+offset_bottom = 121.0
 text = "Sort By
 "
 
 [node name="SortOptionButton" type="OptionButton" parent="."]
-offset_left = 781.0
-offset_top = 99.0
-offset_right = 813.0
-offset_bottom = 119.0
+offset_left = 605.0
+offset_top = 95.0
+offset_right = 724.0
+offset_bottom = 126.0
 selected = 0
 item_count = 5
 popup/item_0/text = "Recent"
@@ -60,5 +60,30 @@ offset_top = 10.0
 offset_right = 63.0
 offset_bottom = 43.0
 text = "Back"
+
+[node name="OrderByOptionButton" type="OptionButton" parent="."]
+offset_left = 731.0
+offset_top = 95.0
+offset_right = 853.0
+offset_bottom = 126.0
+selected = 1
+item_count = 2
+popup/item_0/text = "Ascending"
+popup/item_1/text = "Descending"
+popup/item_1/id = 1
+
+[node name="PreviousPageButton" type="Button" parent="."]
+offset_left = 234.0
+offset_top = 330.0
+offset_right = 284.0
+offset_bottom = 375.0
+text = "<"
+
+[node name="NextPageButton" type="Button" parent="."]
+offset_left = 907.0
+offset_top = 330.0
+offset_right = 958.0
+offset_bottom = 375.0
+text = ">"
 
 [connection signal="pressed" from="BackButton" to="." method="_on_back_button_pressed"]
