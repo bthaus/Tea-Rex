@@ -77,9 +77,11 @@ func get_average_damage():
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	
+	
+	
 	barrels = get_children()
-	for b in barrels:
-		remove_child(b)
+	#for b in barrels:
+		#remove_child(b)
 	pass # Replace with function body.
 	
 func clear_path():
@@ -111,7 +113,7 @@ func setUpTower(holder):
 	self.holder = holder
 	
 	if placed: minions = GameState.gameState.minions
-	setLevel(stacks)
+	
 	trueRangeSquared = turretRange * GameboardConstants.TILE_SIZE + GameboardConstants.TILE_SIZE
 	trueRangeSquared = trueRangeSquared * trueRangeSquared;
 	
@@ -119,10 +121,10 @@ func setUpTower(holder):
 	if ref_proj!=null: ref_proj.visible = false;
 
 	for mod in turret_mods:
-		mod.initialise(self)
+		if placed:mod.initialise(self)
 		#if not placed:
 			#mod.visual.visible=false
-		
+	setLevel(stacks)	
 	setupCollision(true)
 	after_built()
 	pass ;
@@ -142,7 +144,13 @@ func reduceCooldown(delta):
 	if cdt < 0:
 		onCooldown = false;
 	pass
-
+func status_effect_registered(effect:StatusEffect):
+	for mod in turret_mods:
+		if mod is not HullBaseMod: continue;
+		var type=mod.get_type().new().type
+		if type == effect.get_name():
+			mod.hit()
+	pass;
 var waitingForMinions = false;
 func on_target_found(monster: Monster):
 	monster.status_changed.connect(checkTarget)
@@ -179,6 +187,8 @@ func on_target_lost():
 	pass ;
 	
 func do(delta):
+	var children=get_children()
+	
 	if not functional:return
 	delta*=action_speed
 	reduceCooldown(delta)
@@ -383,14 +393,14 @@ func addDamage(Damage):
 func setLevel(lvl: int):
 	stacks=lvl
 	for mod:TurretBaseMod in turret_mods:
-		mod.on_level_up(lvl)
+		if placed:mod.on_level_up(lvl)
 	damagefactor=lvl	
-	var children = barrels
-	level = lvl;
-	for i in range(lvl):
-		if i < children.size():
-			add_child(children[i])
-			children[i].visible = true;
+	#var children = barrels
+	#level = lvl;
+	#for i in range(lvl):
+		#if i < children.size():
+			#add_child(children[i])
+			#children[i].visible = true;
 
 	pass ;
 	

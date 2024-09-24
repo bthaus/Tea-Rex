@@ -1,24 +1,18 @@
-extends Sprite2D
+extends CardCore
 class_name BlockCard
 var block:Block;
 var state
 var cardName;
 var preview
-var discardable=true
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
+
 static var showRotateTut=true
 
 func initialise(block):
 	state=GameState.gameState
 	var color=block.color;
 	self.block=block
-	var ic=load("res://Assets/Cards/Testcard_"+util.getStringFromEnum(color).to_lower()+".png")
-	texture=ic
 	preview=load("res://Cards/block_preview.tscn").instantiate()
 	preview.set_block(block, true)
-	#preview.position=Vector2(50,100)
 	preview.scale=Vector2(0.3,0.3)
 	add_child(preview)
 	
@@ -27,11 +21,11 @@ func select(done:Callable):
 		done.call(false);
 		return
 	state.gameBoard.select_block(block,done)
+	super(done)
 	pass;
-func on_discard():
-	
-	pass	
+
 func interrupt():
 	GameState.gameState.gameBoard.action=GameBoard.BoardAction.NONE
 	GameState.gameState.gameBoard._action_finished(false)
+	super()
 	pass;

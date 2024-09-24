@@ -209,7 +209,8 @@ func unregister_entity(entity:BaseEntity):
 		
 	pass;	
 func startBattlePhase():
-	print(spawners.size())
+	
+	phase = GameState.GamePhase.BATTLE
 	for turret in Turret.turrets:
 		turret.clear_path()
 	for s in spawners:
@@ -228,7 +229,7 @@ func startBattlePhase():
 	$Camera2D/SoundPlayer.play(0.2)
 	
 	start_wave(wave)
-	phase = GameState.GamePhase.BATTLE
+	
 	updateUI()
 	
 	pass # Replace with function body.
@@ -240,7 +241,7 @@ func start_wave(wave):
 
 
 func startBuildPhase():
-	
+	phase = GameState.GamePhase.BUILD
 	if GameState.game_speed!=null:
 		GameState.restore_speed=GameState.game_speed
 		GameState.game_speed=1
@@ -271,7 +272,7 @@ func startBuildPhase():
 	ui.get_node("StartBattlePhase").disabled = false;
 
 	
-	phase = GameState.GamePhase.BUILD
+	
 	drawCards(cardRedraws)
 	updateUI()
 	

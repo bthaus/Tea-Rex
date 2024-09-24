@@ -1,12 +1,11 @@
 [gd_scene load_steps=5 format=3 uid="uid://cq7fvblvncfxh"]
 
 [ext_resource type="Script" path="res://monsters/monster.gd" id="1_g1k27"]
-[ext_resource type="Texture2D" uid="uid://ohauaq7ck6to" path="res://Assets/Monsters/minion_healthbar/minionhealthbar_red.png" id="4_f0nli"]
-[ext_resource type="AudioStream" uid="uid://caxs4sbxqrb6p" path="res://Assets/Sounds/Soundeffects/new sounds/Minion die sound.wav" id="20_230yg"]
-[ext_resource type="AudioStream" uid="uid://bxe1kduqy6i72" path="res://Assets/Sounds/Soundeffects/BLUE_hit.wav" id="21_v7uw0"]
+[ext_resource type="Texture2D" uid="uid://cvdqbp0hrrtf4" path="res://Assets/Monsters/minion_healthbar/minionhealthbar_red.png" id="4_f0nli"]
+[ext_resource type="AudioStream" uid="uid://bo5x5lig2gv50" path="res://Assets/Sounds/Soundeffects/new sounds/Minion die sound.wav" id="20_230yg"]
+[ext_resource type="AudioStream" uid="uid://biwq8c7ftgboq" path="res://Assets/Sounds/Soundeffects/BLUE_hit.wav" id="21_v7uw0"]
 
 [node name="Monster" type="Node2D"]
-process_mode = 4
 script = ExtResource("1_g1k27")
 color = 2
 

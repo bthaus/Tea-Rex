@@ -19,7 +19,7 @@ func get_card():
 	block.color=color
 	for p in block.pieces:
 		p.color=color
-	var card=CardFactory.get_block_card(block)
+	var card=CardCoreFactory.get_block_card(block)
 	return card
 	
 func get_compact_string():
