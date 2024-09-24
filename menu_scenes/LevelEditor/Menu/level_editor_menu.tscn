@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://d23yd2kujc20t"]
+[gd_scene load_steps=8 format=3 uid="uid://d23yd2kujc20t"]
 
 [ext_resource type="PackedScene" uid="uid://ddd8ed1kevi6j" path="res://menu_scenes/LevelEditor/Menu/level_editor_menu_item.tscn" id="1_0abjd"]
 [ext_resource type="Script" path="res://menu_scenes/LevelEditor/Menu/level_editor_menu.gd" id="1_u8g4u"]
 [ext_resource type="StyleBox" uid="uid://b0qhmxvb2s50r" path="res://Styles/default_button.tres" id="3_bclem"]
 [ext_resource type="Script" path="res://UtilScenes/Animations/hover_scale_animation.gd" id="4_kuj0x"]
 [ext_resource type="Script" path="res://UtilScenes/scene_navigation.gd" id="5_8e3p2"]
+[ext_resource type="PackedScene" uid="uid://cvsyvekqjnvfq" path="res://UtilScenes/UI/ui_button.tscn" id="5_vmi76"]
 [ext_resource type="Script" path="res://UtilScenes/Animations/open_close_scale_animation.gd" id="6_6yukm"]
 
 [node name="LevelEditorMenu" type="Node2D"]
@@ -23,11 +24,11 @@ theme_override_constants/separation = 10
 [node name="LevelEditorMenuItem" parent="LevelScrollContainer/LevelVBoxContainer" instance=ExtResource("1_0abjd")]
 layout_mode = 2
 
-[node name="NewLevelButton" type="Button" parent="."]
-offset_left = 989.0
-offset_top = 557.0
-offset_right = 1111.0
-offset_bottom = 612.0
+[node name="NewLevelButton" parent="." instance=ExtResource("5_vmi76")]
+offset_left = 1001.0
+offset_top = 560.0
+offset_right = 1120.0
+offset_bottom = 619.0
 text = "Create New"
 
 [node name="NewLevel" type="Panel" parent="."]
@@ -69,20 +70,20 @@ offset_right = 177.0
 offset_bottom = 92.0
 text = "Name: "
 
-[node name="CreateButton" type="Button" parent="NewLevel"]
+[node name="CreateButton" parent="NewLevel" instance=ExtResource("5_vmi76")]
 layout_mode = 0
-offset_left = 336.0
-offset_top = 128.0
-offset_right = 425.0
-offset_bottom = 175.0
+offset_left = 335.0
+offset_top = 126.0
+offset_right = 426.0
+offset_bottom = 177.0
 text = "Create"
 
-[node name="CancelButton" type="Button" parent="NewLevel"]
+[node name="CancelButton" parent="NewLevel" instance=ExtResource("5_vmi76")]
 layout_mode = 0
 offset_left = 12.0
-offset_top = 128.0
-offset_right = 101.0
-offset_bottom = 175.0
+offset_top = 125.0
+offset_right = 102.0
+offset_bottom = 176.0
 text = "Cancel"
 
 [node name="BackButton" type="Button" parent="."]
@@ -139,20 +140,20 @@ text = "Do you really want to delete
 map \"name\"?"
 horizontal_alignment = 1
 
-[node name="WarningDeleteButton" type="Button" parent="DeleteWarning"]
+[node name="WarningDeleteButton" parent="DeleteWarning" instance=ExtResource("5_vmi76")]
 layout_mode = 0
-offset_left = 226.0
-offset_top = 123.0
-offset_right = 293.0
-offset_bottom = 156.0
+offset_left = 225.0
+offset_top = 127.0
+offset_right = 294.0
+offset_bottom = 158.0
 text = "Delete"
 
-[node name="WarningCancelButton" type="Button" parent="DeleteWarning"]
+[node name="WarningCancelButton" parent="DeleteWarning" instance=ExtResource("5_vmi76")]
 layout_mode = 0
-offset_left = 16.0
-offset_top = 123.0
-offset_right = 86.0
-offset_bottom = 156.0
+offset_left = 11.0
+offset_top = 124.0
+offset_right = 79.0
+offset_bottom = 158.0
 text = "Cancel"
 
 [connection signal="pressed" from="NewLevelButton" to="." method="_on_new_level_button_pressed"]

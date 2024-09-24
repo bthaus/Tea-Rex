@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://wxxetrhi2blb"]
+[gd_scene load_steps=7 format=3 uid="uid://wxxetrhi2blb"]
 
 [ext_resource type="Script" path="res://menu_scenes/battle_slot_picker_scenes/battle_slot_picker.gd" id="1_dtjat"]
+[ext_resource type="PackedScene" uid="uid://cvsyvekqjnvfq" path="res://UtilScenes/UI/ui_button.tscn" id="2_nb08s"]
 [ext_resource type="PackedScene" uid="uid://dhta83lpekmrd" path="res://menu_scenes/battle_slot_picker_scenes/ItemBlockSelector/item_block_selector.tscn" id="2_ug7ge"]
 [ext_resource type="PackedScene" uid="uid://ocda6wj7wys8" path="res://menu_scenes/battle_slot_picker_scenes/MapPreview/map_preview.tscn" id="3_34lw5"]
 [ext_resource type="Script" path="res://Utils/board_camera.gd" id="3_aplah"]
@@ -9,15 +10,15 @@
 [node name="battle_slot_picker" type="Node2D"]
 script = ExtResource("1_dtjat")
 
+[node name="StartButton" parent="." instance=ExtResource("2_nb08s")]
+offset_left = 1015.0
+offset_top = 560.0
+offset_right = 1127.0
+offset_bottom = 625.0
+text = "Start"
+
 [node name="BlockSelector" parent="." instance=ExtResource("2_ug7ge")]
 position = Vector2(2, 44)
-
-[node name="StartButton" type="Button" parent="."]
-offset_left = 1020.0
-offset_top = 565.0
-offset_right = 1135.0
-offset_bottom = 627.0
-text = "Start"
 
 [node name="Title" type="Label" parent="."]
 offset_left = 1.0

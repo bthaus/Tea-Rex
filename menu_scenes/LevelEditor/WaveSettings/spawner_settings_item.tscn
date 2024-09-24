@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://bvxla7lbtrw8l"]
+[gd_scene load_steps=4 format=3 uid="uid://bvxla7lbtrw8l"]
 
 [ext_resource type="Script" path="res://menu_scenes/LevelEditor/WaveSettings/spawner_settings_item.gd" id="1_g1dqd"]
+[ext_resource type="PackedScene" uid="uid://cvsyvekqjnvfq" path="res://UtilScenes/UI/ui_button.tscn" id="2_nvfl1"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5bg07"]
 bg_color = Color(0.945098, 0.941176, 0.945098, 1)
@@ -33,20 +34,20 @@ vertical_scroll_mode = 0
 [node name="MonsterItemContainer" type="HBoxContainer" parent="MonsterScrollContainer"]
 layout_mode = 2
 
-[node name="CopyButton" type="Button" parent="."]
+[node name="CopyButton" parent="." instance=ExtResource("2_nvfl1")]
 layout_mode = 0
 offset_left = 600.0
-offset_top = 23.0
-offset_right = 670.0
-offset_bottom = 54.0
+offset_top = 19.0
+offset_right = 669.0
+offset_bottom = 56.0
 text = "Copy"
 
-[node name="PasteButton" type="Button" parent="."]
+[node name="PasteButton" parent="." instance=ExtResource("2_nvfl1")]
 layout_mode = 0
-offset_left = 600.0
-offset_top = 62.0
-offset_right = 670.0
-offset_bottom = 93.0
+offset_left = 601.0
+offset_top = 63.0
+offset_right = 669.0
+offset_bottom = 99.0
 text = "Paste"
 
 [node name="CopiedLabel" type="Label" parent="."]

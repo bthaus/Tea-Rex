@@ -51,3 +51,7 @@ func _on_search_button_pressed() -> void:
 
 func _on_clear_rate_slider_value_changed(value: float) -> void:
 	$ClearRatePercentLabel.text = str("<=", value, "%")
+
+
+func _on_start_button_pressed() -> void:
+	pass # Replace with function body.

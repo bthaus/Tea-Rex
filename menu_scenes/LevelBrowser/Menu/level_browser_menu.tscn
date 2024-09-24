@@ -1,17 +1,18 @@
-[gd_scene load_steps=4 format=3 uid="uid://cs45tgv8yjp7a"]
+[gd_scene load_steps=5 format=3 uid="uid://cs45tgv8yjp7a"]
 
 [ext_resource type="Script" path="res://menu_scenes/LevelBrowser/Menu/level_browser_menu.gd" id="1_g0wsc"]
 [ext_resource type="Script" path="res://UtilScenes/Animations/hover_scale_animation.gd" id="2_3jo0b"]
+[ext_resource type="PackedScene" uid="uid://cvsyvekqjnvfq" path="res://UtilScenes/UI/ui_button.tscn" id="2_wj0vt"]
 [ext_resource type="Script" path="res://UtilScenes/scene_navigation.gd" id="3_lf1yg"]
 
 [node name="LevelBrowserMenu" type="Node2D"]
 script = ExtResource("1_g0wsc")
 
-[node name="SearchButton" type="Button" parent="."]
-offset_left = 1021.0
-offset_top = 566.0
-offset_right = 1107.0
-offset_bottom = 613.0
+[node name="SearchButton" parent="." instance=ExtResource("2_wj0vt")]
+offset_left = 1022.0
+offset_top = 573.0
+offset_right = 1113.0
+offset_bottom = 624.0
 text = "Search"
 
 [node name="Title" type="Label" parent="."]

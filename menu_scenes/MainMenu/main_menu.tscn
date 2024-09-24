@@ -1,60 +1,30 @@
-[gd_scene load_steps=4 format=3 uid="uid://dmb1q0dw154l5"]
+[gd_scene load_steps=5 format=3 uid="uid://dmb1q0dw154l5"]
 
 [ext_resource type="Script" path="res://menu_scenes/MainMenu/main_menu.gd" id="1_pqx1w"]
 [ext_resource type="Script" path="res://UtilScenes/Animations/hover_scale_animation.gd" id="1_xsmy3"]
+[ext_resource type="PackedScene" uid="uid://cvsyvekqjnvfq" path="res://UtilScenes/UI/ui_button.tscn" id="2_8gibk"]
 [ext_resource type="Script" path="res://UtilScenes/scene_navigation.gd" id="3_fopi8"]
 
 [node name="MainMenu" type="Node2D"]
 script = ExtResource("1_pqx1w")
 
-[node name="StartButton" type="Button" parent="."]
-offset_left = 409.0
-offset_top = 95.0
-offset_right = 650.0
-offset_bottom = 202.0
-text = "start game"
-
-[node name="HoverScaleAnimation" type="Node" parent="StartButton"]
-script = ExtResource("1_xsmy3")
+[node name="StartButton" parent="." instance=ExtResource("2_8gibk")]
+offset_left = 421.0
+offset_top = 142.0
+offset_right = 646.0
+offset_bottom = 217.0
+text = "Start"
 
 [node name="SceneNavigation" type="Node" parent="StartButton"]
 script = ExtResource("3_fopi8")
 navigate_to = 1
 
-[node name="settings" type="Button" parent="."]
-offset_left = 412.0
-offset_top = 281.0
-offset_right = 653.0
-offset_bottom = 388.0
-text = "settings"
-
-[node name="HoverScaleAnimation" type="Node" parent="settings"]
-script = ExtResource("1_xsmy3")
-
-[node name="exit_game" type="Button" parent="."]
-offset_left = 413.0
-offset_top = 430.0
-offset_right = 654.0
-offset_bottom = 537.0
-text = "exit game
-"
-
-[node name="HoverScaleAnimation" type="Node" parent="exit_game"]
-script = ExtResource("1_xsmy3")
-
-[node name="level_editor" type="Button" parent="."]
-offset_left = 142.0
-offset_top = 284.0
-offset_right = 323.0
-offset_bottom = 397.0
-text = "level editor"
-
-[node name="HoverScaleAnimation" type="Node" parent="level_editor"]
-script = ExtResource("1_xsmy3")
-
-[node name="SceneNavigation" type="Node" parent="level_editor"]
-script = ExtResource("3_fopi8")
-navigate_to = 7
+[node name="SettingsButton" parent="." instance=ExtResource("2_8gibk")]
+offset_left = 991.0
+offset_top = 40.0
+offset_right = 1104.0
+offset_bottom = 108.0
+text = "Settings"
 
 [node name="delete_all_maps" type="Button" parent="."]
 offset_left = 948.0
@@ -92,20 +62,34 @@ script = ExtResource("1_xsmy3")
 script = ExtResource("3_fopi8")
 navigate_to = 9
 
-[node name="LevelBrowserButton" type="Button" parent="."]
-offset_left = 144.0
-offset_top = 139.0
-offset_right = 318.0
-offset_bottom = 231.0
-text = "Browse Levels"
+[node name="ExitButton" parent="." instance=ExtResource("2_8gibk")]
+offset_left = 418.0
+offset_top = 447.0
+offset_right = 643.0
+offset_bottom = 522.0
+text = "Exit"
 
-[node name="HoverScaleAnimation" type="Node" parent="LevelBrowserButton"]
-script = ExtResource("1_xsmy3")
+[node name="LevelBrowserButton" parent="." instance=ExtResource("2_8gibk")]
+offset_left = 419.0
+offset_top = 344.0
+offset_right = 644.0
+offset_bottom = 419.0
+text = "Browse Levels"
 
 [node name="SceneNavigation" type="Node" parent="LevelBrowserButton"]
 script = ExtResource("3_fopi8")
 navigate_to = 10
 
-[connection signal="pressed" from="exit_game" to="." method="_on_exit_game_pressed"]
+[node name="LevelEditorButton" parent="." instance=ExtResource("2_8gibk")]
+offset_left = 421.0
+offset_top = 243.0
+offset_right = 646.0
+offset_bottom = 318.0
+text = "Level Editor"
+
+[node name="SceneNavigation" type="Node" parent="LevelEditorButton"]
+script = ExtResource("3_fopi8")
+navigate_to = 7
+
 [connection signal="pressed" from="delete_all_maps" to="." method="_on_delete_all_maps_pressed"]
 [connection signal="pressed" from="delete_all_accounts" to="." method="_on_delete_all_accounts_pressed"]

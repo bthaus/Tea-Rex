@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://cfri5gx571j6m"]
+[gd_scene load_steps=6 format=3 uid="uid://cfri5gx571j6m"]
 
 [ext_resource type="TileSet" uid="uid://dcf0fhqgihare" path="res://TileSets/game_board_tileset.tres" id="1_b2j0o"]
 [ext_resource type="StyleBox" uid="uid://b0qhmxvb2s50r" path="res://Styles/default_button.tres" id="1_ctwwr"]
 [ext_resource type="Script" path="res://menu_scenes/LevelEditor/Settings/block_editor.gd" id="1_tiset"]
 [ext_resource type="Script" path="res://UtilScenes/Animations/open_close_scale_animation.gd" id="3_ajy1d"]
+[ext_resource type="PackedScene" uid="uid://cvsyvekqjnvfq" path="res://UtilScenes/UI/ui_button.tscn" id="5_3q5tt"]
 
 [node name="BlockEditor" type="Panel"]
 offset_left = 150.0
@@ -54,21 +55,22 @@ grow_horizontal = 2
 grow_vertical = 2
 text = "Left-click to place, Right-click to delete"
 
-[node name="CancelButton" type="Button" parent="."]
+[node name="SaveButton" parent="." instance=ExtResource("5_3q5tt")]
 layout_mode = 0
-offset_left = 23.0
-offset_top = 250.0
-offset_right = 83.0
-offset_bottom = 281.0
-text = "Cancel"
-
-[node name="SaveButton" type="Button" parent="."]
-layout_mode = 0
-offset_left = 421.0
-offset_top = 250.0
-offset_right = 481.0
-offset_bottom = 281.0
+offset_left = 420.0
+offset_top = 252.0
+offset_right = 488.0
+offset_bottom = 287.0
 text = "Save"
 
-[connection signal="pressed" from="CancelButton" to="." method="_on_cancel_button_pressed"]
+[node name="CancelButton" parent="." instance=ExtResource("5_3q5tt")]
+layout_mode = 0
+offset_left = 13.0
+offset_top = 251.0
+offset_right = 77.0
+offset_bottom = 286.0
+text = "Cancel
+"
+
 [connection signal="pressed" from="SaveButton" to="." method="_on_save_button_pressed"]
+[connection signal="pressed" from="CancelButton" to="." method="_on_cancel_button_pressed"]
