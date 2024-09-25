@@ -1,9 +1,13 @@
-[gd_scene load_steps=5 format=3 uid="uid://cs45tgv8yjp7a"]
+[gd_scene load_steps=9 format=3 uid="uid://cs45tgv8yjp7a"]
 
 [ext_resource type="Script" path="res://menu_scenes/LevelBrowser/Menu/level_browser_menu.gd" id="1_g0wsc"]
 [ext_resource type="Script" path="res://UtilScenes/Animations/hover_scale_animation.gd" id="2_3jo0b"]
 [ext_resource type="PackedScene" uid="uid://cvsyvekqjnvfq" path="res://UtilScenes/UI/ui_button.tscn" id="2_wj0vt"]
 [ext_resource type="Script" path="res://UtilScenes/scene_navigation.gd" id="3_lf1yg"]
+[ext_resource type="PackedScene" uid="uid://bqbu5gb1fldni" path="res://UtilScenes/UI/ui_label_title.tscn" id="3_pojcl"]
+[ext_resource type="PackedScene" uid="uid://cuyydm2bqtrwn" path="res://UtilScenes/UI/ui_label_large.tscn" id="6_hxuyy"]
+[ext_resource type="PackedScene" uid="uid://d1j84r2v483s" path="res://UtilScenes/UI/ui_label_medium.tscn" id="7_sykvg"]
+[ext_resource type="PackedScene" uid="uid://dlc2rd4vh13dc" path="res://UtilScenes/UI/ui_label_small.tscn" id="8_tpfhm"]
 
 [node name="LevelBrowserMenu" type="Node2D"]
 script = ExtResource("1_g0wsc")
@@ -15,18 +19,11 @@ offset_right = 1113.0
 offset_bottom = 624.0
 text = "Search"
 
-[node name="Title" type="Label" parent="."]
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_top = 50.0
+[node name="Title" parent="." instance=ExtResource("3_pojcl")]
+offset_top = 20.0
 offset_right = 1153.0
-offset_bottom = 102.0
-grow_horizontal = 2
-theme_override_font_sizes/font_size = 25
+offset_bottom = 55.0
 text = "Browse Maps"
-horizontal_alignment = 1
-vertical_alignment = 1
 
 [node name="BackButton" type="Button" parent="."]
 offset_left = 9.0
@@ -54,11 +51,11 @@ popup/item_1/id = 1
 popup/item_2/text = "Author"
 popup/item_2/id = 2
 
-[node name="SearchByLabel" type="Label" parent="."]
-offset_left = 239.0
-offset_top = 242.0
-offset_right = 315.0
-offset_bottom = 265.0
+[node name="SearchByLabel" parent="." instance=ExtResource("6_hxuyy")]
+offset_left = 222.0
+offset_top = 238.0
+offset_right = 317.0
+offset_bottom = 266.0
 text = "Search By"
 
 [node name="SearchEdit" type="LineEdit" parent="."]
@@ -77,27 +74,26 @@ min_value = 5.0
 step = 5.0
 value = 100.0
 
-[node name="ClearRateLabel" type="Label" parent="."]
-offset_left = 388.0
-offset_top = 364.0
-offset_right = 542.0
-offset_bottom = 387.0
-text = "Clear Rate"
-horizontal_alignment = 1
-vertical_alignment = 1
+[node name="ClearRateLabel" parent="." instance=ExtResource("6_hxuyy")]
+offset_left = 414.0
+offset_top = 362.0
+offset_right = 513.0
+offset_bottom = 390.0
+text = "Clear Rate
+"
 
-[node name="MonsterWavesLabel" type="Label" parent="."]
-offset_left = 331.016
-offset_top = 297.919
-offset_right = 381.016
-offset_bottom = 320.919
+[node name="MonsterWavesLabel" parent="." instance=ExtResource("6_hxuyy")]
+offset_left = 323.0
+offset_top = 299.0
+offset_right = 386.0
+offset_bottom = 327.0
 text = "Waves"
 
-[node name="ClearRatePercentLabel" type="Label" parent="."]
-offset_left = 697.0
-offset_top = 367.0
-offset_right = 761.0
-offset_bottom = 390.0
+[node name="ClearRatePercentLabel" parent="." instance=ExtResource("7_sykvg")]
+offset_left = 698.618
+offset_top = 366.983
+offset_right = 758.618
+offset_bottom = 388.983
 text = "<= 100%"
 
 [node name="VeryShortCheckBox" type="CheckBox" parent="."]
@@ -107,13 +103,12 @@ offset_right = 507.0
 offset_bottom = 327.0
 text = "Very Short"
 
-[node name="Label" type="Label" parent="VeryShortCheckBox"]
+[node name="UILabelSmall" parent="VeryShortCheckBox" instance=ExtResource("8_tpfhm")]
 layout_mode = 0
-offset_left = 25.0
+offset_left = 26.0
 offset_top = 27.0
 offset_right = 106.0
-offset_bottom = 50.0
-theme_override_font_sizes/font_size = 12
+offset_bottom = 44.0
 text = "1 - 5"
 horizontal_alignment = 1
 
@@ -124,13 +119,11 @@ offset_right = 631.0
 offset_bottom = 327.0
 text = "Short"
 
-[node name="Label" type="Label" parent="ShortCheckBox"]
-layout_mode = 0
-offset_left = 5.0
+[node name="UILabelSmall" parent="ShortCheckBox" instance=ExtResource("8_tpfhm")]
+offset_left = 26.0
 offset_top = 27.0
 offset_right = 68.0
-offset_bottom = 50.0
-theme_override_font_sizes/font_size = 12
+offset_bottom = 44.0
 text = "6 - 10"
 horizontal_alignment = 1
 
@@ -141,13 +134,11 @@ offset_right = 718.0
 offset_bottom = 327.0
 text = "Medium"
 
-[node name="Label" type="Label" parent="MediumCheckBox"]
-layout_mode = 0
-offset_left = 25.0
+[node name="UILabelSmall" parent="MediumCheckBox" instance=ExtResource("8_tpfhm")]
+offset_left = 26.0
 offset_top = 27.0
 offset_right = 89.0
-offset_bottom = 50.0
-theme_override_font_sizes/font_size = 12
+offset_bottom = 44.0
 text = "11 - 20"
 horizontal_alignment = 1
 
@@ -158,13 +149,11 @@ offset_right = 832.0
 offset_bottom = 327.0
 text = "Long"
 
-[node name="Label" type="Label" parent="LongCheckBox"]
-layout_mode = 0
-offset_left = 24.0
+[node name="UILabelSmall" parent="LongCheckBox" instance=ExtResource("8_tpfhm")]
+offset_left = 25.0
 offset_top = 27.0
 offset_right = 64.0
-offset_bottom = 50.0
-theme_override_font_sizes/font_size = 12
+offset_bottom = 44.0
 text = "21 - 50"
 horizontal_alignment = 1
 
@@ -175,13 +164,11 @@ offset_right = 920.0
 offset_bottom = 327.0
 text = "XL"
 
-[node name="Label" type="Label" parent="XLCheckBox"]
-layout_mode = 0
-offset_left = 24.0
+[node name="UILabelSmall" parent="XLCheckBox" instance=ExtResource("8_tpfhm")]
+offset_left = 26.0
 offset_top = 27.0
-offset_right = 45.0
-offset_bottom = 50.0
-theme_override_font_sizes/font_size = 12
+offset_right = 47.0
+offset_bottom = 44.0
 text = "51+"
 horizontal_alignment = 1
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://d23yd2kujc20t"]
+[gd_scene load_steps=10 format=3 uid="uid://d23yd2kujc20t"]
 
 [ext_resource type="PackedScene" uid="uid://ddd8ed1kevi6j" path="res://menu_scenes/LevelEditor/Menu/level_editor_menu_item.tscn" id="1_0abjd"]
 [ext_resource type="Script" path="res://menu_scenes/LevelEditor/Menu/level_editor_menu.gd" id="1_u8g4u"]
@@ -7,6 +7,8 @@
 [ext_resource type="Script" path="res://UtilScenes/scene_navigation.gd" id="5_8e3p2"]
 [ext_resource type="PackedScene" uid="uid://cvsyvekqjnvfq" path="res://UtilScenes/UI/ui_button.tscn" id="5_vmi76"]
 [ext_resource type="Script" path="res://UtilScenes/Animations/open_close_scale_animation.gd" id="6_6yukm"]
+[ext_resource type="PackedScene" uid="uid://cuyydm2bqtrwn" path="res://UtilScenes/UI/ui_label_large.tscn" id="6_h1lr0"]
+[ext_resource type="PackedScene" uid="uid://d1j84r2v483s" path="res://UtilScenes/UI/ui_label_medium.tscn" id="7_5nnm5"]
 
 [node name="LevelEditorMenu" type="Node2D"]
 script = ExtResource("1_u8g4u")
@@ -44,31 +46,28 @@ script = ExtResource("6_6yukm")
 
 [node name="LevelName" type="LineEdit" parent="NewLevel"]
 layout_mode = 0
-offset_left = 192.0
+offset_left = 182.0
 offset_top = 65.0
-offset_right = 372.0
+offset_right = 362.0
 offset_bottom = 97.0
 placeholder_text = "Level Name"
 max_length = 25
 
-[node name="Title" type="Label" parent="NewLevel"]
-layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-offset_top = 17.0
-offset_bottom = 40.0
-grow_horizontal = 2
+[node name="Title" parent="NewLevel" instance=ExtResource("6_h1lr0")]
+layout_mode = 0
+offset_top = 10.0
+offset_right = 437.0
+offset_bottom = 38.0
 text = "Create a New Level"
 horizontal_alignment = 1
-vertical_alignment = 1
 
-[node name="Name" type="Label" parent="NewLevel"]
+[node name="Name" parent="NewLevel" instance=ExtResource("7_5nnm5")]
 layout_mode = 0
 offset_left = 122.0
 offset_top = 69.0
-offset_right = 177.0
-offset_bottom = 92.0
-text = "Name: "
+offset_right = 170.0
+offset_bottom = 91.0
+text = "Name:"
 
 [node name="CreateButton" parent="NewLevel" instance=ExtResource("5_vmi76")]
 layout_mode = 0
@@ -100,7 +99,6 @@ script = ExtResource("4_kuj0x")
 script = ExtResource("5_8e3p2")
 
 [node name="DeleteWarning" type="Panel" parent="."]
-visible = false
 z_index = 10
 offset_left = 425.0
 offset_top = 225.0
@@ -111,34 +109,25 @@ theme_override_styles/panel = ExtResource("3_bclem")
 [node name="OpenCloseScaleAnimation" type="Node" parent="DeleteWarning"]
 script = ExtResource("6_6yukm")
 
-[node name="Title" type="Label" parent="DeleteWarning"]
-layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-offset_top = 10.0
-offset_bottom = 36.0
-grow_horizontal = 2
-theme_override_font_sizes/font_size = 20
-text = "Warning!"
+[node name="Title" parent="DeleteWarning" instance=ExtResource("6_h1lr0")]
+layout_mode = 0
+offset_top = 9.0
+offset_right = 305.0
+offset_bottom = 59.0
+text = "Delete \"map name\"?"
+horizontal_alignment = 1
+
+[node name="Description" parent="DeleteWarning" instance=ExtResource("7_5nnm5")]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 58.0
+offset_right = 246.0
+offset_bottom = 108.0
+theme_override_colors/font_color = Color(0.94902, 0, 0, 1)
+text = "These changes cannot be
+undone."
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[node name="Description" type="Label" parent="DeleteWarning"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -82.0
-offset_top = -22.5
-offset_right = 82.0
-offset_bottom = 0.5
-grow_horizontal = 2
-grow_vertical = 2
-text = "Do you really want to delete 
-map \"name\"?"
-horizontal_alignment = 1
 
 [node name="WarningDeleteButton" parent="DeleteWarning" instance=ExtResource("5_vmi76")]
 layout_mode = 0

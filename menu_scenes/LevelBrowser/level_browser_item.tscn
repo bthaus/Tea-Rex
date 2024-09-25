@@ -1,75 +1,80 @@
-[gd_scene load_steps=2 format=3 uid="uid://cvavwo4xoqbdf"]
+[gd_scene load_steps=6 format=3 uid="uid://cvavwo4xoqbdf"]
 
 [ext_resource type="PackedScene" uid="uid://ocda6wj7wys8" path="res://menu_scenes/battle_slot_picker_scenes/MapPreview/map_preview.tscn" id="1_ixagn"]
+[ext_resource type="Script" path="res://menu_scenes/LevelBrowser/level_browser_item.gd" id="1_uq1t1"]
+[ext_resource type="PackedScene" uid="uid://cvsyvekqjnvfq" path="res://UtilScenes/UI/ui_button.tscn" id="3_bskdj"]
+[ext_resource type="PackedScene" uid="uid://cuyydm2bqtrwn" path="res://UtilScenes/UI/ui_label_large.tscn" id="3_ckiq3"]
+[ext_resource type="PackedScene" uid="uid://d1j84r2v483s" path="res://UtilScenes/UI/ui_label_medium.tscn" id="4_l30r4"]
 
 [node name="LevelBrowserItem" type="Panel"]
 custom_minimum_size = Vector2(525, 125)
+script = ExtResource("1_uq1t1")
 
 [node name="MapPreview" parent="." instance=ExtResource("1_ixagn")]
 scale = Vector2(0.08, 0.08)
 
-[node name="MapNameLabel" type="Label" parent="."]
+[node name="MapNameLabel" parent="." instance=ExtResource("3_ckiq3")]
 layout_mode = 0
-offset_left = 124.0
+offset_left = 125.5
 offset_top = 5.0
-offset_right = 330.0
-offset_bottom = 40.0
-theme_override_font_sizes/font_size = 22
-text = "Some Map Name"
+offset_right = 231.5
+offset_bottom = 33.0
+text = "Map Name"
 
-[node name="AuthorLabel" type="Label" parent="."]
+[node name="AuthorLabel" parent="." instance=ExtResource("4_l30r4")]
 layout_mode = 0
-offset_left = 126.0
-offset_top = 33.0
-offset_right = 249.0
-offset_bottom = 56.0
-text = "by some Author"
+offset_left = 127.0
+offset_top = 31.0
+offset_right = 199.0
+offset_bottom = 53.0
+text = "by Author"
 
-[node name="ViewButton" type="Button" parent="."]
+[node name="IDLabel" parent="." instance=ExtResource("4_l30r4")]
 layout_mode = 0
-offset_left = 453.0
-offset_top = 51.0
-offset_right = 511.0
-offset_bottom = 82.0
-text = "View"
-
-[node name="IDLabel" type="Label" parent="."]
-layout_mode = 0
-offset_left = 450.0
-offset_top = 4.0
-offset_right = 520.0
-offset_bottom = 27.0
-theme_override_font_sizes/font_size = 14
+offset_left = 442.0
+offset_top = 3.0
+offset_right = 517.0
+offset_bottom = 25.0
 text = "ID: 123456"
 
-[node name="ClearRateLabel" type="Label" parent="."]
+[node name="WaveCountLabel" parent="." instance=ExtResource("4_l30r4")]
 layout_mode = 0
-offset_left = 314.0
+offset_left = 251.0
 offset_top = 95.0
-offset_right = 369.0
+offset_right = 269.0
+offset_bottom = 117.0
+text = "15"
+
+[node name="ClearRateLabel" parent="." instance=ExtResource("4_l30r4")]
+layout_mode = 0
+offset_left = 321.0
+offset_top = 96.0
+offset_right = 373.0
 offset_bottom = 118.0
 text = "50.00%"
 
-[node name="DownloadsLabel" type="Label" parent="."]
+[node name="DownloadsLabel" parent="." instance=ExtResource("4_l30r4")]
 layout_mode = 0
-offset_left = 408.0
-offset_top = 95.0
-offset_right = 451.0
+offset_left = 415.0
+offset_top = 96.0
+offset_right = 450.0
 offset_bottom = 118.0
 text = "100k"
 
-[node name="RatingLabel" type="Label" parent="."]
+[node name="RatingLabel" parent="." instance=ExtResource("4_l30r4")]
 layout_mode = 0
-offset_left = 485.0
-offset_top = 95.0
-offset_right = 525.0
-offset_bottom = 118.0
+offset_left = 492.0
+offset_top = 97.0
+offset_right = 514.0
+offset_bottom = 119.0
 text = "4.3"
 
-[node name="WaveCountLabel" type="Label" parent="."]
+[node name="ViewButton" parent="." instance=ExtResource("3_bskdj")]
 layout_mode = 0
-offset_left = 242.0
-offset_top = 96.0
-offset_right = 282.0
-offset_bottom = 119.0
-text = "15"
+offset_left = 447.0
+offset_top = 44.0
+offset_right = 508.0
+offset_bottom = 79.0
+text = "View"
+
+[connection signal="pressed" from="ViewButton" to="." method="_on_view_button_pressed"]

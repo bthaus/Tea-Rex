@@ -1,0 +1,5 @@
+[gd_scene format=3 uid="uid://d1j84r2v483s"]
+
+[node name="UILabelMedium" type="Label"]
+theme_override_font_sizes/font_size = 15
+text = "Text"

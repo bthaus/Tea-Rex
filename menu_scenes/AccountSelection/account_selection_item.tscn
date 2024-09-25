@@ -1,19 +1,20 @@
-[gd_scene load_steps=3 format=3 uid="uid://lrwfptv7fypd"]
+[gd_scene load_steps=4 format=3 uid="uid://lrwfptv7fypd"]
 
 [ext_resource type="StyleBox" uid="uid://b0qhmxvb2s50r" path="res://Styles/default_button.tres" id="1_62kq8"]
 [ext_resource type="Script" path="res://menu_scenes/AccountSelection/account_selection_item.gd" id="2_twcwy"]
+[ext_resource type="PackedScene" uid="uid://d1j84r2v483s" path="res://UtilScenes/UI/ui_label_medium.tscn" id="3_01b2l"]
 
 [node name="AccountSelectionItem" type="Button"]
 custom_minimum_size = Vector2(300, 75)
 theme_override_styles/normal = ExtResource("1_62kq8")
 script = ExtResource("2_twcwy")
 
-[node name="Name" type="Label" parent="."]
+[node name="Name" parent="." instance=ExtResource("3_01b2l")]
 layout_mode = 0
-offset_left = 24.0
+offset_left = 18.0
 offset_top = 25.0
-offset_right = 184.0
-offset_bottom = 56.0
+offset_right = 62.0
+offset_bottom = 47.0
 text = "Name"
 
 [connection signal="pressed" from="." to="." method="_on_pressed"]

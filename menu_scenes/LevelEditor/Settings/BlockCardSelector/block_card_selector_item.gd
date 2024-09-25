@@ -11,7 +11,7 @@ func get_block() -> Block:
 	return _block
 
 func set_title(text: String):
-	$Title.text = text
+	$Name.text = text
 
 func _on_pressed():
 	clicked.emit(_block)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://cpwwc5ods0k2t"]
+[gd_scene load_steps=10 format=3 uid="uid://cpwwc5ods0k2t"]
 
 [ext_resource type="PackedScene" uid="uid://b0wxnmfknd8yg" path="res://menu_scenes/LevelEditor/Settings/ItemPermutator/item_permutator.tscn" id="1_fudny"]
 [ext_resource type="Script" path="res://menu_scenes/LevelEditor/Settings/level_editor_settings.gd" id="1_n3gl6"]
@@ -6,7 +6,9 @@
 [ext_resource type="Script" path="res://UtilScenes/Animations/open_close_scale_animation.gd" id="3_5scue"]
 [ext_resource type="PackedScene" uid="uid://mw4gtrxl3rlv" path="res://menu_scenes/LevelEditor/Settings/battle_slots_settings.tscn" id="4_o8h5x"]
 [ext_resource type="PackedScene" uid="uid://datben78qhgng" path="res://menu_scenes/LevelEditor/Settings/BlockCardSelector/block_card_selector.tscn" id="5_t6xs8"]
+[ext_resource type="PackedScene" uid="uid://cuyydm2bqtrwn" path="res://UtilScenes/UI/ui_label_large.tscn" id="5_ufv1k"]
 [ext_resource type="PackedScene" uid="uid://cvsyvekqjnvfq" path="res://UtilScenes/UI/ui_button.tscn" id="6_jxl8a"]
+[ext_resource type="PackedScene" uid="uid://bqbu5gb1fldni" path="res://UtilScenes/UI/ui_label_title.tscn" id="8_xsqkl"]
 
 [node name="LevelEditorSettings" type="Panel"]
 offset_right = 800.0
@@ -20,9 +22,9 @@ script = ExtResource("3_5scue")
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
 layout_mode = 0
 offset_left = 111.0
-offset_top = 54.0
+offset_top = 79.0
 offset_right = 685.0
-offset_bottom = 474.0
+offset_bottom = 499.0
 horizontal_scroll_mode = 0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer"]
@@ -32,16 +34,13 @@ size_flags_horizontal = 6
 [node name="BattleSlotsSettings" parent="ScrollContainer/VBoxContainer" instance=ExtResource("4_o8h5x")]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/BattleSlotsSettings"]
-layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
+[node name="Title" parent="ScrollContainer/VBoxContainer/BattleSlotsSettings" instance=ExtResource("5_ufv1k")]
+layout_mode = 0
 offset_top = 5.0
-offset_bottom = 28.0
-grow_horizontal = 2
+offset_right = 525.0
+offset_bottom = 33.0
 text = "Battle Slots"
 horizontal_alignment = 1
-vertical_alignment = 1
 
 [node name="CardPermutator" parent="ScrollContainer/VBoxContainer" node_paths=PackedStringArray("parent") instance=ExtResource("1_fudny")]
 custom_minimum_size = Vector2(525, 250)
@@ -64,43 +63,31 @@ offset_right = 520.0
 offset_bottom = 37.0
 text = "Add Card"
 
-[node name="Title" type="Label" parent="ScrollContainer/VBoxContainer/CardPermutator"]
-layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
+[node name="Title" parent="ScrollContainer/VBoxContainer/CardPermutator" instance=ExtResource("5_ufv1k")]
+layout_mode = 0
 offset_top = 5.0
-offset_bottom = 28.0
-grow_horizontal = 2
+offset_right = 526.0
+offset_bottom = 33.0
 text = "Card Cycle"
 horizontal_alignment = 1
-vertical_alignment = 1
 
 [node name="ColorPermutator" parent="ScrollContainer/VBoxContainer" node_paths=PackedStringArray("parent") instance=ExtResource("1_fudny")]
 layout_mode = 2
 parent = NodePath(".")
 
-[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/ColorPermutator"]
-layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
+[node name="Title" parent="ScrollContainer/VBoxContainer/ColorPermutator" instance=ExtResource("5_ufv1k")]
+layout_mode = 0
 offset_top = 5.0
-offset_bottom = 28.0
-grow_horizontal = 2
+offset_right = 524.0
+offset_bottom = 33.0
 text = "Color Cycle"
 horizontal_alignment = 1
-vertical_alignment = 1
 
-[node name="Title" type="Label" parent="."]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -48.5
-offset_top = 6.0
-offset_right = 48.5
-offset_bottom = 41.0
-grow_horizontal = 2
-theme_override_font_sizes/font_size = 25
+[node name="Title" parent="." instance=ExtResource("8_xsqkl")]
+layout_mode = 0
+offset_top = 10.0
+offset_right = 800.0
+offset_bottom = 49.0
 text = "Settings"
 
 [node name="CloseButton" parent="." instance=ExtResource("6_jxl8a")]
