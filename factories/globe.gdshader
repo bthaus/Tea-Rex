@@ -10,14 +10,14 @@ uniform sampler2D noise_texture;
 void fragment() {
     float px = 2.0 * (UV.x - 0.5);
     float py = 2.0 * (UV.y - 0.5);
-    
+
     if (px * px + py * py > 1.0) {
         // Outside of "sphere"
         COLOR.a = 0.0;
     } else {
         px = asin(px / sqrt(1.0 - py * py)) * 2.0 / PI;
         py = asin(py) * 2.0 / PI;
-        
+
         COLOR = texture(noise_texture, vec2(
             0.5 * (px + 1.0) / aspect_ratio - TIME * rotation_speed,
             0.5 * (py + 1.0)));

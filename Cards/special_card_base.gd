@@ -37,11 +37,8 @@ func cast():
 		interrupt()
 		return ;
 	player.stream=soundeffect
-	
 	player.play(0)
 	reparentToState()
-	hide()
-	player.finished.connect(queue_free)
 	remove_child(preview)	
 	_trigger_play_effect()
 	done.call(true)
@@ -53,8 +50,7 @@ func _trigger_turn_effect():
 	pass;
 
 func reparentToState():
-	get_parent().remove_child(self)
-	gameState.add_child(self)
+	reparent(GameState.gameState.ui)
 	pass ;
 func _input(event):
 	if !selected:

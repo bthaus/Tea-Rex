@@ -9,6 +9,11 @@ static func get_shield_texture(type:ShieldType,level:int):
 	var searchstring=ShieldType.keys()[type]+"_"+str(level)
 	var sprite=ShieldSprite.new()
 	sprite.material=dissolve_ressource.duplicate()
+	#var shine=Sprite2D.new()
+	#shine.material=load('res://shaders/shinematerial.tres').duplicate()
+	#shine.texture=load("res://.godot/imported/empty.png-ca44899624833181660f8f3cd24b3803.ctex")
+	#sprite.clip_children=CanvasItem.CLIP_CHILDREN_AND_DRAW
+	#sprite.add_child(shine)
 	
 	var node=instance.get_node(searchstring) as SubViewport
 	sprite.texture=node.get_texture()

@@ -29,3 +29,11 @@ func interrupt():
 	GameState.gameState.gameBoard._action_finished(false)
 	super()
 	pass;
+func on_discard(odd:Callable):
+	preview.clear_preview();
+	if discard_effect!=null:
+		material=discard_effect
+		$AnimationPlayer.play(&'dissolve')
+		
+	super(odd)
+	pass;

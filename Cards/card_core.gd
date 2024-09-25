@@ -4,12 +4,16 @@ class_name CardCore
 @export var soundeffect:AudioStream
 @export var turn_sound_effect:AudioStream
 @export var discardable=true;
+@export var discard_effect:ShaderMaterial
+@export var animated_discard=false;
+var discard_done:Callable
 var gameState
 var player=AudioStreamPlayer.new()
 var done:Callable
 var holder:Card
 func _ready() -> void:
 	add_child(player)
+	if discard_effect!=null:discard_effect=discard_effect.duplicate()
 	gameState=GameState.gameState
 	gameState.start_combat_phase.connect(on_battle_phase_started)
 	gameState.start_build_phase.connect(on_build_phase_started)
@@ -66,7 +70,12 @@ func get_text():
 	return texture
 	
 	
-func on_discard():
+func on_discard(discard_done:Callable):
+	
+	
+	self.discard_done=discard_done
+	if animated_discard:return
+	on_discard_done()
 	pass
 	
 func addKill():
@@ -82,3 +91,7 @@ func get_mouse_pos():
 	# Convert it to world coordinates
 	var mouse_pos = (get_viewport().get_screen_transform() * get_viewport().get_canvas_transform()).affine_inverse() * screen_mouse_position
 	return mouse_pos	
+
+func on_discard_done():
+	discard_done.call()
+	pass;
