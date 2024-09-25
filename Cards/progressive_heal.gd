@@ -10,8 +10,6 @@ func _trigger_play_effect():
 func _trigger_turn_effect():
 	GameState.gameState.changeHealth(turn_heal_amount)
 	pass;
-func on_discard():
-	
-	pass
+
 
 # Called when the node enters the scene tree for the first time.

@@ -15,11 +15,8 @@ func played(success:bool):
 	if not success and isCardSelected:
 		_on_disable_button_pressed()
 	if not success:return
-	if card is BlockCard:
-		card.preview.clear_preview();
-		card.preview.queue_free()
-	queue_free()
-	finished.emit(self)
+	discard(true)
+	
 		
 	pass;
 
@@ -30,13 +27,20 @@ func trigger_turn_effect():
 	card._trigger_turn_effect()
 	pass;
 	
-func discard() -> void:
+func discard(played=false) -> void:
 	interrupt_Card()
-	if card.discardable:
-		card.on_discard()
-		queue_free()
+	if card.discardable or played:
+		on_unhover()
+		$Button.queue_free()
+		$PutBack.queue_free()
+		$shine.queue_free()
+		card.on_discard(on_discard_done)
+		
 	pass # Replace with function body.
-	
+func on_discard_done():
+	util.erase(self)
+	util.erase(card)
+	pass;	
 #endregion
 
 #region select logic
@@ -114,6 +118,9 @@ func _input(event: InputEvent) -> void:
 		try_drag=false;
 		dragged=false;
 		if TrashCan.dumping:
+			dragged=false;
+			reparent(GameState.gameState.ui,true)
+			originalPosition=global_position
 			discard()
 		GameState.gameState.hand.reorder()
 		
@@ -148,8 +155,9 @@ func _on_button_mouse_entered():
 	originalZ=z_index;
 	z_index=2000
 	
-	var tween = create_tween()
+	
 	if not dragged:
+		var tween = create_tween()
 		tween.tween_property(self, "global_position", originalPosition+Vector2(0, -25), 0.5)
 		card.on_hover()
 	pass # Replace with function body.
@@ -158,8 +166,8 @@ func _on_button_mouse_exited():
 	if selectedCard!=self:
 		z_index=originalZ
 		
-	var tween = create_tween()
 	if not dragged:
+		var tween = create_tween()
 		tween.tween_property(self, "global_position", originalPosition, 0.5)
 		card.on_unhover()
 	mouseOut.emit()
@@ -201,7 +209,6 @@ func setCard(c):
 static func create(gameState:GameState):
 	counter=counter+1;
 	var c=load("res://Cards/card.tscn").instantiate() as Card
-	var btn=c.get_child(0) as Button
 	var created_card=gameState.get_next_card()
 	c.setCard(created_card)
 	return c	

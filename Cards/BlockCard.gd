@@ -29,3 +29,7 @@ func interrupt():
 	GameState.gameState.gameBoard._action_finished(false)
 	super()
 	pass;
+func on_discard(odd:Callable):
+	preview.clear_preview();
+	super(odd)
+	pass;

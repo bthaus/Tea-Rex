@@ -24,5 +24,5 @@ static func get_default_preview():
 		instance.default_preview=instance.get_node("DefaultPreview")
 	var pr= instance.default_preview
 	pr.show()
-	return pr
+	return pr.duplicate()
 	pass;
