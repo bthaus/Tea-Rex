@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://b3v8jxeadnuc2"]
+[gd_scene load_steps=39 format=3 uid="uid://b3v8jxeadnuc2"]
 
 [ext_resource type="Script" path="res://CardFactory.gd" id="1_ti0nk"]
 [ext_resource type="Script" path="res://Cards/BlockCard.gd" id="2_bbc12"]
@@ -17,13 +17,60 @@
 [ext_resource type="Material" uid="uid://cuwkqfn4rvfao" path="res://shaders/dissolve.tres" id="6_hlk0r"]
 [ext_resource type="Texture2D" uid="uid://cxkgl0lpk4xdv" path="res://Assets/Effects/Explosion_1/e7.png" id="7_b8u21"]
 [ext_resource type="Texture2D" uid="uid://darr5tfbd3na5" path="res://Assets/Cards/Testcard_green.png" id="7_trvv3"]
+[ext_resource type="Shader" path="res://shaders/fire_dissolve1.gdshader" id="9_hwiy7"]
 [ext_resource type="Material" uid="uid://cawovg6krhn8v" path="res://shaders/burn_card.tres" id="9_jf3ll"]
 [ext_resource type="Shader" path="res://Cards/liquid.gdshader" id="17_p0etb"]
 [ext_resource type="Texture2D" uid="uid://b8n0busmwromw" path="res://icon.svg" id="18_k2mqo"]
 
+[sub_resource type="Gradient" id="Gradient_onl4p"]
+offsets = PackedFloat32Array(0, 0.401674, 0.891213, 1)
+colors = PackedColorArray(2.163, 1.621, 27.568, 1, 0.345098, 0, 1, 1, 0.184314, 0, 1, 0.054902, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_lyyrb"]
+gradient = SubResource("Gradient_onl4p")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_vb3wn"]
+noise_type = 4
+seed = 30
+frequency = 0.0459
+fractal_type = 3
+fractal_lacunarity = 5.705
+fractal_weighted_strength = 1.0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_4btpg"]
+seamless = true
+noise = SubResource("FastNoiseLite_vb3wn")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hvbcx"]
+resource_local_to_scene = true
+shader = ExtResource("9_hwiy7")
+shader_parameter/progress = -0.75
+shader_parameter/width = 0.989
+shader_parameter/timed = false
+shader_parameter/speed = 1.0
+shader_parameter/angle = 0.0
+shader_parameter/noise = SubResource("NoiseTexture2D_4btpg")
+shader_parameter/colorCurve = SubResource("GradientTexture1D_lyyrb")
+
+[sub_resource type="Animation" id="Animation_1y6lf"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:discard_effect:shader_parameter/progress")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-0.75]
+}
+
 [sub_resource type="Animation" id="Animation_ireo6"]
 resource_name = "dissolve"
 length = 2.0
+loop_mode = 1
 tracks/0/type = "method"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -48,22 +95,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0, 1.93333),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [-0.75, 1.953]
-}
-
-[sub_resource type="Animation" id="Animation_1y6lf"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:discard_effect:shader_parameter/progress")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [-0.75]
+"values": [-0.75, 1.95286]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_q5f2m"]
@@ -71,6 +103,32 @@ _data = {
 "RESET": SubResource("Animation_1y6lf"),
 "dissolve": SubResource("Animation_ireo6")
 }
+
+[sub_resource type="Gradient" id="Gradient_7533k"]
+offsets = PackedFloat32Array(0, 0.221757, 0.707113, 0.987448)
+colors = PackedColorArray(0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ut8ld"]
+gradient = SubResource("Gradient_7533k")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_7hpgd"]
+frequency = 0.0009
+fractal_type = 2
+fractal_octaves = 1
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ahg3c"]
+seamless_blend_skirt = 0.0
+noise = SubResource("FastNoiseLite_7hpgd")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fowax"]
+shader = ExtResource("9_hwiy7")
+shader_parameter/progress = -0.75
+shader_parameter/width = 1.445
+shader_parameter/timed = false
+shader_parameter/speed = 1.0
+shader_parameter/angle = 0.0
+shader_parameter/noise = SubResource("NoiseTexture2D_ahg3c")
+shader_parameter/colorCurve = SubResource("GradientTexture1D_ut8ld")
 
 [sub_resource type="Curve" id="Curve_830so"]
 _data = [Vector2(0.0567686, 0.956044), 0.0, 0.0, 0, 0, Vector2(0.803493, 0.626374), 0.0, 0.0, 0, 0, Vector2(0.973799, 0.010989), 0.0, 0.0, 0, 0]
@@ -122,12 +180,25 @@ visible = false
 texture = ExtResource("6_ceapf")
 script = ExtResource("2_bbc12")
 phase = 2
+discard_effect = SubResource("ShaderMaterial_hvbcx")
+animated_discard = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="MAGENTABlockCard"]
+libraries = {
+"": SubResource("AnimationLibrary_q5f2m")
+}
 
 [node name="WHITEBlockCard" type="Sprite2D" parent="."]
-visible = false
 texture = ExtResource("6_ceapf")
 script = ExtResource("2_bbc12")
 phase = 2
+discard_effect = SubResource("ShaderMaterial_fowax")
+animated_discard = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="WHITEBlockCard"]
+libraries = {
+"": SubResource("AnimationLibrary_q5f2m")
+}
 
 [node name="GREENBlockCard" type="Sprite2D" parent="."]
 visible = false
@@ -136,12 +207,14 @@ script = ExtResource("2_bbc12")
 phase = 2
 
 [node name="FIREBALL" type="Sprite2D" parent="."]
+visible = false
 texture = ExtResource("3_a735y")
 script = ExtResource("4_pdgf6")
 phase = 3
 soundeffect = ExtResource("5_fq2g4")
 turn_sound_effect = ExtResource("5_fq2g4")
 discard_effect = ExtResource("9_jf3ll")
+animated_discard = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="FIREBALL"]
 libraries = {

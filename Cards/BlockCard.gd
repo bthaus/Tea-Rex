@@ -31,5 +31,9 @@ func interrupt():
 	pass;
 func on_discard(odd:Callable):
 	preview.clear_preview();
+	if discard_effect!=null:
+		material=discard_effect
+		$AnimationPlayer.play(&'dissolve')
+		
 	super(odd)
 	pass;
