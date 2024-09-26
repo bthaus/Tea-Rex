@@ -1,0 +1,33 @@
+[gd_resource type="ShaderMaterial" load_steps=6 format=3 uid="uid://d8r0en1r4ntp"]
+
+[ext_resource type="Shader" path="res://shaders/fire_dissolve1.gdshader" id="1_5mnpb"]
+
+[sub_resource type="Gradient" id="Gradient_1sfqn"]
+offsets = PackedFloat32Array(0, 0.774834, 1)
+colors = PackedColorArray(1, 1, 0, 1, 1, 0, 0, 1, 1, 0, 0, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_o6nv2"]
+gradient = SubResource("Gradient_1sfqn")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_awp3d"]
+noise_type = 0
+frequency = 0.0018
+fractal_octaves = 10
+fractal_lacunarity = 1.88
+fractal_gain = 0.62
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_nfrm3"]
+invert = true
+in_3d_space = true
+noise = SubResource("FastNoiseLite_awp3d")
+
+[resource]
+resource_local_to_scene = true
+shader = ExtResource("1_5mnpb")
+shader_parameter/progress = -0.75
+shader_parameter/width = 0.989
+shader_parameter/timed = false
+shader_parameter/speed = 1.0
+shader_parameter/angle = 0.0
+shader_parameter/noise = SubResource("NoiseTexture2D_nfrm3")
+shader_parameter/colorCurve = SubResource("GradientTexture1D_o6nv2")

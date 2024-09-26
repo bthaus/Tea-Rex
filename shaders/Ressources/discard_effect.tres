@@ -1,0 +1,16 @@
+[gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://cr13hyn8t65ny"]
+
+[ext_resource type="Shader" path="res://shaders/Ressources/card_discard.gdshader" id="1_0wcrh"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_ua8ri"]
+frequency = 0.004
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ljt5a"]
+noise = SubResource("FastNoiseLite_ua8ri")
+
+[resource]
+shader = ExtResource("1_0wcrh")
+shader_parameter/dissolve_value = 1.0
+shader_parameter/burn_size = 0.02
+shader_parameter/burn_color = Color(1, 0.739469, 0.511507, 1)
+shader_parameter/noise = SubResource("NoiseTexture2D_ljt5a")
