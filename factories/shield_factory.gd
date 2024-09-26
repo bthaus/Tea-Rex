@@ -1,7 +1,7 @@
 extends Node3D
 class_name ShieldFactory
 static var instance=load("res://factories/shield_factory.tscn").instantiate()
-static var dissolve_ressource=load('res://shaders/Ressources/dissolve.tres')
+static var dissolve_ressource=load('res://shaders/Ressources/shield_dissolve_shader.tres')
 enum ShieldType{energy}
 
 static func get_shield_texture(type:ShieldType,level:int):

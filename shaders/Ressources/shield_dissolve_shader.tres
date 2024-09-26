@@ -1,0 +1,25 @@
+[gd_resource type="ShaderMaterial" load_steps=6 format=3 uid="uid://d3jvrehk245uw"]
+
+[ext_resource type="Shader" path="res://shaders/Ressources/shield_dissolve_shader.gdshader" id="1_oapk0"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_hvbce"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_acm76"]
+noise = SubResource("FastNoiseLite_hvbce")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_pi02x"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_sowwy"]
+noise = SubResource("FastNoiseLite_pi02x")
+
+[resource]
+shader = ExtResource("1_oapk0")
+shader_parameter/scale_factor = 0.5
+shader_parameter/dissolve_value = null
+shader_parameter/burn_size = null
+shader_parameter/burn_color = null
+shader_parameter/speed = 1.0
+shader_parameter/dissolve_movement_direction = Vector2(1, 1)
+shader_parameter/second_dissolve_directoin = Vector2(-1.2, -1.4)
+shader_parameter/text_map = SubResource("NoiseTexture2D_acm76")
+shader_parameter/texture2 = SubResource("NoiseTexture2D_sowwy")
