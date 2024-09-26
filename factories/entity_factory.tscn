@@ -155,6 +155,11 @@ script = ExtResource("4_p1llm")
 tile_id = 501
 map_layer = 2
 
+[node name="Blue Base2" type="Sprite2D" parent="."]
+script = ExtResource("4_p1llm")
+tile_id = 502
+map_layer = 2
+
 [node name="Magenta Base" type="Sprite2D" parent="."]
 script = ExtResource("4_p1llm")
 tile_id = 601
