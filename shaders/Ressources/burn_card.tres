@@ -24,7 +24,7 @@ noise = SubResource("FastNoiseLite_awp3d")
 [resource]
 resource_local_to_scene = true
 shader = ExtResource("1_1n2u0")
-shader_parameter/progress = -0.75
+shader_parameter/progress = 0.683
 shader_parameter/width = 0.989
 shader_parameter/timed = false
 shader_parameter/speed = 1.0
