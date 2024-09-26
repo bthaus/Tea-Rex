@@ -1,0 +1,82 @@
+[gd_scene load_steps=5 format=3 uid="uid://6efy3848kgb3"]
+
+[ext_resource type="PackedScene" uid="uid://bqbu5gb1fldni" path="res://UtilScenes/UI/ui_label_title.tscn" id="1_udn0y"]
+[ext_resource type="PackedScene" uid="uid://ocda6wj7wys8" path="res://menu_scenes/battle_slot_picker_scenes/MapPreview/map_preview.tscn" id="1_w4gyo"]
+[ext_resource type="PackedScene" uid="uid://cuyydm2bqtrwn" path="res://UtilScenes/UI/ui_label_large.tscn" id="2_swvq2"]
+[ext_resource type="PackedScene" uid="uid://cvsyvekqjnvfq" path="res://UtilScenes/UI/ui_button.tscn" id="4_6xctf"]
+
+[node name="WebLevelPreview" type="Node2D"]
+
+[node name="LevelNameLabel" parent="." instance=ExtResource("1_udn0y")]
+offset_top = 20.0
+offset_right = 1152.0
+offset_bottom = 55.0
+text = "Level Name"
+
+[node name="AuthorLabel" parent="." instance=ExtResource("2_swvq2")]
+offset_left = 498.0
+offset_top = 56.0
+offset_right = 644.0
+offset_bottom = 84.0
+text = "by Author"
+horizontal_alignment = 1
+
+[node name="MapPreview" parent="." instance=ExtResource("1_w4gyo")]
+position = Vector2(396, 144)
+scale = Vector2(0.5, 0.5)
+
+[node name="LevelIDLabel" parent="." instance=ExtResource("2_swvq2")]
+offset_left = 23.0
+offset_top = 128.0
+offset_right = 179.0
+offset_bottom = 156.0
+text = "Level ID: 123456"
+
+[node name="DownloadsLabel" parent="." instance=ExtResource("2_swvq2")]
+offset_left = 70.0
+offset_top = 252.0
+offset_right = 116.0
+offset_bottom = 280.0
+text = "100k"
+
+[node name="ClearRateLabel" parent="." instance=ExtResource("2_swvq2")]
+offset_left = 65.0
+offset_top = 212.0
+offset_right = 134.0
+offset_bottom = 240.0
+text = "50.00%"
+
+[node name="WavesLabel" parent="." instance=ExtResource("2_swvq2")]
+offset_left = 75.0
+offset_top = 171.0
+offset_right = 98.0
+offset_bottom = 199.0
+text = "15"
+
+[node name="RatingLabel" parent="." instance=ExtResource("2_swvq2")]
+offset_left = 70.0
+offset_top = 290.0
+offset_right = 112.0
+offset_bottom = 318.0
+text = "4.3"
+
+[node name="PlayButton" parent="." instance=ExtResource("4_6xctf")]
+offset_left = 435.0
+offset_top = 538.0
+offset_right = 721.0
+offset_bottom = 583.0
+text = "Play"
+
+[node name="InfoButton" parent="." instance=ExtResource("4_6xctf")]
+offset_left = 1048.0
+offset_top = 137.0
+offset_right = 1126.0
+offset_bottom = 176.0
+text = "Info"
+
+[node name="RateButton" parent="." instance=ExtResource("4_6xctf")]
+offset_left = 1050.0
+offset_top = 205.0
+offset_right = 1128.0
+offset_bottom = 244.0
+text = "Rate"

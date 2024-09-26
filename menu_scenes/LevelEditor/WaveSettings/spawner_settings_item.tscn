@@ -52,6 +52,7 @@ offset_bottom = 99.0
 text = "Paste"
 
 [node name="CopiedLabel" parent="." instance=ExtResource("4_h02ii")]
+visible = false
 layout_mode = 0
 offset_left = 612.455
 offset_top = 29.6756
