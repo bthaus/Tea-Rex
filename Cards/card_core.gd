@@ -1,4 +1,4 @@
-extends Sprite2D
+extends MultiViewPort
 class_name CardCore
 @export var phase:GameState.GamePhase
 @export var soundeffect:AudioStream
@@ -6,14 +6,33 @@ class_name CardCore
 @export var discardable=true;
 @export var discard_effect:ShaderMaterial
 @export var animated_discard=false;
+@export var ditch_effect=preload("res://shaders/Ressources/discard_effect.tres")
 var discard_done:Callable
 var gameState
 var player=AudioStreamPlayer.new()
 var done:Callable
 var holder:Card
+func _random_seed(mat:ShaderMaterial):
+	randomize()
+	var noise=mat.get_shader_parameter("noise") as NoiseTexture2D
+	if noise!=null:
+		var noise_text=noise.get_noise() as FastNoiseLite
+		noise_text.seed=randi_range(0,500)
+		mat.set_shader_parameter("noise",noise)
+			
+	pass;
 func _ready() -> void:
+	shader_array.push_front(load('res://shaders/Ressources/shine_shader_cards.tres'))
+	shader_array.push_front(load('res://shaders/Ressources/shadow_2d.tres'))
+	super()
 	add_child(player)
-	if discard_effect!=null:discard_effect=discard_effect.duplicate()
+	if discard_effect!=null:
+		discard_effect=discard_effect.duplicate()
+		_random_seed(discard_effect)
+		
+	if ditch_effect!=null:
+		ditch_effect=ditch_effect.duplicate()
+		_random_seed(ditch_effect)
 	gameState=GameState.gameState
 	gameState.start_combat_phase.connect(on_battle_phase_started)
 	gameState.start_build_phase.connect(on_build_phase_started)
@@ -71,13 +90,21 @@ func get_text():
 	
 	
 func on_discard(discard_done:Callable):
-	
-	
 	self.discard_done=discard_done
 	if animated_discard:return
 	on_discard_done()
 	pass
-	
+func on_ditched(ditch_done:Callable):
+	var tw= create_tween()
+	material=ditch_effect
+	tw.tween_method(_set_param.bind("dissolve_value",material),1.0,0.0,2);
+	tw.finished.connect(ditch_done)
+	pass;
+func _set_param(tweenval:float,paramname,mat:ShaderMaterial):
+	print(tweenval)
+	mat.set_shader_parameter(paramname,tweenval)
+	pass;	
+		
 func addKill():
 	pass ;
 	

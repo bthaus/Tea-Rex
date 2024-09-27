@@ -34,7 +34,7 @@ var toUnlock = []
 var phase: GameState.GamePhase = GameState.GamePhase.BUILD;
 var HP = GameplayConstants.playerHP;
 var maxHP = GameplayConstants.playerMaxHP;
-var maxCards = 5;
+var maxCards = 10;
 var cardRedraws = 2;
 
 

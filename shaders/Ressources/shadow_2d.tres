@@ -1,0 +1,11 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://ddhd0ii5yoncp"]
+
+[ext_resource type="Shader" path="res://shaders/shadow.gdshader" id="1_wyfng"]
+
+[resource]
+shader = ExtResource("1_wyfng")
+shader_parameter/borderScale = 2.0
+shader_parameter/offset = Vector2(-10, -10)
+shader_parameter/color = Color(0, 0, 0, 0.392157)
+shader_parameter/modulate = Color(1, 1, 1, 1)
+shader_parameter/debug = false

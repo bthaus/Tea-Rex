@@ -1,6 +1,6 @@
 extends GameObject2D
 class_name Card
-var card;
+var card:CardCore;
 var state:GameState;
 static var isCardSelected=false;
 static var selectedCard;
@@ -15,8 +15,8 @@ func played(success:bool):
 	if not success and isCardSelected:
 		_on_disable_button_pressed()
 	if not success:return
-	discard(true)
-	
+	destroy()
+	card.on_discard(on_destroy_done)
 		
 	pass;
 
@@ -27,17 +27,15 @@ func trigger_turn_effect():
 	card._trigger_turn_effect()
 	pass;
 	
-func discard(played=false) -> void:
+func destroy() -> void:
 	interrupt_Card()
-	if card.discardable or played:
-		on_unhover()
-		$Button.queue_free()
-		$PutBack.queue_free()
-		$shine.queue_free()
-		card.on_discard(on_discard_done)
-		
+	on_unhover()
+	$Button.queue_free()
+	$PutBack.queue_free()
+	$shine.queue_free()
+	
 	pass # Replace with function body.
-func on_discard_done():
+func on_destroy_done():
 	util.erase(self)
 	util.erase(card)
 	pass;	
@@ -121,7 +119,8 @@ func _input(event: InputEvent) -> void:
 			dragged=false;
 			reparent(GameState.gameState.ui,true)
 			originalPosition=global_position
-			discard()
+			destroy()
+			card.on_ditched(on_destroy_done)
 		GameState.gameState.hand.reorder()
 		
 	pass;

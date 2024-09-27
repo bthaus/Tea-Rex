@@ -1,38 +1,39 @@
-[gd_resource type="TileSet" load_steps=67 format=3 uid="uid://dcf0fhqgihare"]
+[gd_resource type="TileSet" load_steps=69 format=3 uid="uid://dcf0fhqgihare"]
 
-[ext_resource type="Texture2D" uid="uid://ssq4eucxoc4" path="res://Assets/Tiles/turret_range_preview.png" id="1_phxli"]
-[ext_resource type="Texture2D" uid="uid://dhcd6oxm5j8af" path="res://Assets/Tiles/legal_placement.png" id="2_3m5w7"]
-[ext_resource type="Texture2D" uid="uid://cq5vebcwtvkkg" path="res://Assets/Tiles/Entity/Barrel.png" id="3_dmfgj"]
-[ext_resource type="Texture2D" uid="uid://ddd56jv0wxi3w" path="res://Assets/Tiles/Entity/TurretBase/turret_base_white.png" id="3_kk80h"]
-[ext_resource type="Texture2D" uid="uid://d04bng0sw2ggc" path="res://Assets/Tiles/illegal_placement.png" id="4_ghx45"]
-[ext_resource type="Texture2D" uid="uid://csqoyadp3oo20" path="res://Assets/Tiles/Entity/TurretBase/turret_base_green.png" id="5_0fxsv"]
-[ext_resource type="Texture2D" uid="uid://coc4nhhqj287a" path="res://Assets/Tiles/Entity/Canyon.png" id="5_yufc0"]
-[ext_resource type="Texture2D" uid="uid://dvgjbw0x355ii" path="res://Assets/Tiles/Entity/TurretBase/turret_base_preview.png" id="6_bjtcg"]
-[ext_resource type="Texture2D" uid="uid://swj5q2lje25d" path="res://Assets/Tiles/wall.png" id="6_gkxlx"]
-[ext_resource type="Texture2D" uid="uid://t0imrxwgjbxq" path="res://Assets/Tiles/Entity/CooldownBooster.png" id="6_ns2cs"]
-[ext_resource type="Texture2D" uid="uid://dwyfoi341lntb" path="res://Assets/Tiles/Entity/TurretBase/turret_base_red.png" id="7_edt4a"]
-[ext_resource type="Texture2D" uid="uid://cmnk5hl6ohvbd" path="res://Assets/Tiles/Entity/DamageBooster.png" id="7_joywt"]
-[ext_resource type="Texture2D" uid="uid://3efkpadvmssq" path="res://Assets/Tiles/Entity/ExplosiveBarrel.png" id="8_c57fs"]
-[ext_resource type="Texture2D" uid="uid://btp3q1rq0vmmt" path="res://Assets/Tiles/Ground/ground.png" id="8_i42ux"]
-[ext_resource type="Texture2D" uid="uid://cv76kjffpfah7" path="res://Assets/Tiles/Entity/Forest.png" id="9_hixfx"]
-[ext_resource type="Texture2D" uid="uid://crslymasjrwta" path="res://Assets/Tiles/Entity/TurretBase/turret_base_yellow.png" id="9_k857m"]
-[ext_resource type="Texture2D" uid="uid://b4cc70wgwxr2k" path="res://Assets/Tiles/Entity/HighGrass.png" id="10_4cqcx"]
-[ext_resource type="Texture2D" uid="uid://1rtmlrb1cmbu" path="res://Assets/Tiles/Entity/PlayerBase/player_base_green.png" id="10_npnwj"]
-[ext_resource type="Texture2D" uid="uid://bqamyklvcvd14" path="res://Assets/Tiles/Entity/Laser.png" id="11_iv33d"]
-[ext_resource type="Texture2D" uid="uid://bye8xuv25pgos" path="res://Assets/Tiles/Entity/TurretBase/turret_base_blue.png" id="11_lk4f0"]
-[ext_resource type="Texture2D" uid="uid://bbacsx7bacdfo" path="res://Assets/Tiles/Entity/RangeBooster.png" id="12_fx0ke"]
-[ext_resource type="Texture2D" uid="uid://c0wvsgkks1d16" path="res://Assets/Tiles/Entity/Spawner/spawner_green.png" id="12_kh04h"]
-[ext_resource type="Texture2D" uid="uid://cbwcwb53svq5b" path="res://Assets/Tiles/Entity/Spielverderber.png" id="13_6q5bq"]
-[ext_resource type="Texture2D" uid="uid://ttlrv8ok2i6c" path="res://Assets/Tiles/Entity/TurretBase/turret_base_magenta.png" id="13_dyqu5"]
-[ext_resource type="Texture2D" uid="uid://dsc66wq8yp7xt" path="res://Assets/Tiles/Build/build_none.png" id="14_0jjdj"]
-[ext_resource type="Texture2D" uid="uid://dr871nc70b8w0" path="res://Assets/Tiles/Entity/Portal/portal.png" id="15_qgvtj"]
-[ext_resource type="Texture2D" uid="uid://cg6wudiv3to7d" path="res://Assets/Tiles/Entity/Street.png" id="15_qwjo3"]
-[ext_resource type="Texture2D" uid="uid://brja8mtdfrvsi" path="res://Assets/Tiles/Entity/Tunnel.png" id="17_wu2bj"]
-[ext_resource type="Texture2D" uid="uid://dj836to7mnjyf" path="res://Assets/Tiles/Entity/Vulcan.png" id="18_jv08a"]
-[ext_resource type="Texture2D" uid="uid://lxbc8t4cdo6f" path="res://Assets/Tiles/Lava.png" id="19_rph83"]
-[ext_resource type="Texture2D" uid="uid://belr2yegggmki" path="res://Assets/Tiles/Entity/TreasureChest.png" id="20_wgmxo"]
-[ext_resource type="Texture2D" uid="uid://cutxswpgchq14" path="res://Assets/Tiles/Water.png" id="21_q5usk"]
-[ext_resource type="Texture2D" uid="uid://4o6np6hiblmw" path="res://Assets/Tiles/Entity/BlockCutter.png" id="22_jypl3"]
+[ext_resource type="Texture2D" uid="uid://bbruimdiav7tj" path="res://Assets/Tiles/turret_range_preview.png" id="1_phxli"]
+[ext_resource type="Texture2D" uid="uid://dltfxe2mf4q2v" path="res://Assets/Tiles/legal_placement.png" id="2_3m5w7"]
+[ext_resource type="Texture2D" uid="uid://c3135igc2euc7" path="res://Assets/Tiles/Entity/Barrel.png" id="3_dmfgj"]
+[ext_resource type="Texture2D" uid="uid://cjrgp56hadrf6" path="res://Assets/Tiles/Entity/TurretBase/turret_base_white.png" id="3_kk80h"]
+[ext_resource type="Texture2D" uid="uid://c1qxr1fq0q108" path="res://Assets/Tiles/illegal_placement.png" id="4_ghx45"]
+[ext_resource type="Texture2D" uid="uid://cqi8dge867itf" path="res://Assets/Tiles/Entity/TurretBase/turret_base_green.png" id="5_0fxsv"]
+[ext_resource type="Texture2D" uid="uid://savsl4o6uems" path="res://Assets/Tiles/Entity/Canyon.png" id="5_yufc0"]
+[ext_resource type="Texture2D" uid="uid://c1wi14857e3g0" path="res://Assets/Tiles/Entity/TurretBase/turret_base_preview.png" id="6_bjtcg"]
+[ext_resource type="Texture2D" uid="uid://dakoa0g1e3ub6" path="res://Assets/Tiles/wall.png" id="6_gkxlx"]
+[ext_resource type="Texture2D" uid="uid://ct5h2w481nspd" path="res://Assets/Tiles/Entity/CooldownBooster.png" id="6_ns2cs"]
+[ext_resource type="Texture2D" uid="uid://cbkdley85sc06" path="res://Assets/Tiles/Entity/TurretBase/turret_base_red.png" id="7_edt4a"]
+[ext_resource type="Texture2D" uid="uid://b1wj7eyew7e1v" path="res://Assets/Tiles/Entity/DamageBooster.png" id="7_joywt"]
+[ext_resource type="Texture2D" uid="uid://btp6wohy2c5hi" path="res://Assets/Tiles/Entity/ExplosiveBarrel.png" id="8_c57fs"]
+[ext_resource type="Texture2D" uid="uid://s280x8h2kdey" path="res://Assets/Tiles/Ground/ground.png" id="8_i42ux"]
+[ext_resource type="Texture2D" uid="uid://cxtm7wrqco5dv" path="res://Assets/Tiles/Entity/Forest.png" id="9_hixfx"]
+[ext_resource type="Texture2D" uid="uid://blqod807ywylq" path="res://Assets/Tiles/Entity/TurretBase/turret_base_yellow.png" id="9_k857m"]
+[ext_resource type="Texture2D" uid="uid://xj33ejqtp5qq" path="res://Assets/Tiles/Entity/HighGrass.png" id="10_4cqcx"]
+[ext_resource type="Texture2D" uid="uid://c3qkjo2rmha8n" path="res://Assets/Tiles/Entity/PlayerBase/player_base_green.png" id="10_npnwj"]
+[ext_resource type="Texture2D" uid="uid://0oi4o2tgnu47" path="res://Assets/Tiles/Entity/Laser.png" id="11_iv33d"]
+[ext_resource type="Texture2D" uid="uid://d2p5r54nm0bh8" path="res://Assets/Tiles/Entity/TurretBase/turret_base_blue.png" id="11_lk4f0"]
+[ext_resource type="Texture2D" uid="uid://f300tvfsumqv" path="res://Assets/Tiles/Entity/RangeBooster.png" id="12_fx0ke"]
+[ext_resource type="Texture2D" uid="uid://crjeq20jbtwa7" path="res://Assets/Tiles/Entity/Spawner/spawner_green.png" id="12_kh04h"]
+[ext_resource type="Texture2D" uid="uid://d0wqtxh326b86" path="res://Assets/Tiles/Entity/Spielverderber.png" id="13_6q5bq"]
+[ext_resource type="Texture2D" uid="uid://cleyt6o7gkod4" path="res://Assets/Tiles/Entity/TurretBase/turret_base_magenta.png" id="13_dyqu5"]
+[ext_resource type="Texture2D" uid="uid://d2cbl186c5302" path="res://Assets/Tiles/Build/build_none.png" id="14_0jjdj"]
+[ext_resource type="Texture2D" uid="uid://oa8ppa0dqo3g" path="res://Assets/Tiles/Entity/Portal/portal.png" id="15_qgvtj"]
+[ext_resource type="Texture2D" uid="uid://dy28twhp68cg1" path="res://Assets/Tiles/Entity/Street.png" id="15_qwjo3"]
+[ext_resource type="Texture2D" uid="uid://cs5tmdv5korf" path="res://Assets/Tiles/Entity/Tunnel.png" id="17_wu2bj"]
+[ext_resource type="Texture2D" uid="uid://cb80y7d6y54ob" path="res://Assets/Tiles/Entity/Vulcan.png" id="18_jv08a"]
+[ext_resource type="Texture2D" uid="uid://bi7x05oy4sxj4" path="res://Assets/Tiles/Lava.png" id="19_rph83"]
+[ext_resource type="Texture2D" uid="uid://d1iolb6yhcgtr" path="res://Assets/Tiles/Entity/TreasureChest.png" id="20_wgmxo"]
+[ext_resource type="Texture2D" uid="uid://dlgk182g1e16g" path="res://Assets/Tiles/Water.png" id="21_q5usk"]
+[ext_resource type="Texture2D" uid="uid://cpwmmt1j0l77m" path="res://Assets/Tiles/Entity/BlockCutter.png" id="22_jypl3"]
+[ext_resource type="Texture2D" uid="uid://b0wvmc7804hn6" path="res://Assets/Tiles/Entity/TurretBase/turret_base_blue_2.png" id="29_ot3v7"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qw80p"]
 texture = ExtResource("1_phxli")
@@ -180,6 +181,11 @@ texture_region_size = Vector2i(64, 64)
 0:0/0 = 0
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ltk7w"]
+texture = ExtResource("29_ot3v7")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_g3wiq"]
 texture = ExtResource("12_kh04h")
 texture_region_size = Vector2i(64, 64)
@@ -243,3 +249,4 @@ sources/23 = SubResource("TileSetAtlasSource_df1nh")
 sources/24 = SubResource("TileSetAtlasSource_gkmaq")
 sources/25 = SubResource("TileSetAtlasSource_3p5pt")
 sources/26 = SubResource("TileSetAtlasSource_dayhx")
+sources/502 = SubResource("TileSetAtlasSource_ltk7w")

@@ -1,0 +1,10 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://cuwkqfn4rvfao"]
+
+[ext_resource type="Shader" path="res://shaders/Ressources/card_discard.gdshader" id="1_4swgs"]
+
+[resource]
+resource_local_to_scene = true
+shader = ExtResource("1_4swgs")
+shader_parameter/dissolve_value = 0.522
+shader_parameter/burn_size = 0.06
+shader_parameter/burn_color = Color(0, 0.643137, 1, 0.25098)
