@@ -1,0 +1,13 @@
+[gd_scene load_steps=5 format=3 uid="uid://dee36drxmk255"]
+
+[ext_resource type="Script" path="res://multiviewport.gd" id="1_r1akq"]
+[ext_resource type="Texture2D" uid="uid://b8n0busmwromw" path="res://icon.svg" id="1_xinfg"]
+[ext_resource type="Material" uid="uid://j1o3mfjowfja" path="res://shaders/dissolve.tres" id="4_pvnaa"]
+[ext_resource type="Material" uid="uid://3tdwxr278cmr" path="res://shaders/Ressources/lightning_circle.tres" id="4_vchf1"]
+
+[node name="multiviewport" type="Sprite2D"]
+position = Vector2(578, 347)
+scale = Vector2(3.90625, 3.42188)
+texture = ExtResource("1_xinfg")
+script = ExtResource("1_r1akq")
+shader_array = Array[ShaderMaterial]([ExtResource("4_pvnaa"), ExtResource("4_vchf1")])
