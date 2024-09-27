@@ -10,14 +10,14 @@ gradient = SubResource("Gradient_mu2g8")
 
 [resource]
 shader = ExtResource("1_m6mfp")
-shader_parameter/alpha_tresh = 0.63
-shader_parameter/shrink = 2.41
+shader_parameter/alpha_tresh = 1.0
+shader_parameter/shrink = -13.7
 shader_parameter/offset_mul = 2.48
 shader_parameter/coff_angle = 0.61
-shader_parameter/coff_mul = 0.325
-shader_parameter/coff_std = 0.9
+shader_parameter/coff_mul = -2.05
+shader_parameter/coff_std = 1.9
 shader_parameter/amp1 = 2.005
-shader_parameter/freq1 = 4.0
+shader_parameter/freq1 = 9.22
 shader_parameter/speed1 = 5.0
 shader_parameter/amp2 = 0.01
 shader_parameter/freq2 = 10.295
