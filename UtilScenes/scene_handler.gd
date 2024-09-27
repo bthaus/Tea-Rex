@@ -12,7 +12,8 @@ enum Scene {
 	LEVEL_EDITOR,
 	CHAPTER_EDITOR,
 	LEVEL_BROWSER_MENU,
-	LEVEL_BROWSER
+	LEVEL_BROWSER,
+	WEB_LEVEL_PREVIEW
 	}
 
 func get_scene_path(scene: Scene) -> String:
@@ -29,6 +30,8 @@ func get_scene_path(scene: Scene) -> String:
 		Scene.CHAPTER_EDITOR: return "res://menu_scenes/chapter_editor_scenes/chapter_editor.tscn"
 		Scene.LEVEL_BROWSER_MENU: return "res://menu_scenes/LevelBrowser/Menu/level_browser_menu.tscn"
 		Scene.LEVEL_BROWSER: return "res://menu_scenes/LevelBrowser/level_browser.tscn"
+		Scene.WEB_LEVEL_PREVIEW: return "res://menu_scenes/LevelBrowser/WebLevel/web_level_preview.tscn"
+		
 	return ""
 
 var current_scene = null
