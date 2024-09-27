@@ -30,10 +30,6 @@ Global="*res://UtilScenes/global.gd"
 window/stretch/mode="canvas_items"
 window/vsync/vsync_mode=0
 
-[editor_plugins]
-
-enabled=PackedStringArray("res://addons/sprite-shader-mixer/plugin.cfg")
-
 [input]
 
 ui_menu={

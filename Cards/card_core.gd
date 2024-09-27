@@ -1,4 +1,4 @@
-extends Sprite2D
+extends MultiViewPort
 class_name CardCore
 @export var phase:GameState.GamePhase
 @export var soundeffect:AudioStream
@@ -22,6 +22,7 @@ func _random_seed(mat:ShaderMaterial):
 			
 	pass;
 func _ready() -> void:
+	super()
 	add_child(player)
 	if discard_effect!=null:
 		discard_effect=discard_effect.duplicate()
