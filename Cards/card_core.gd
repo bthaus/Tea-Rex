@@ -22,6 +22,8 @@ func _random_seed(mat:ShaderMaterial):
 			
 	pass;
 func _ready() -> void:
+	shader_array.push_front(load('res://shaders/Ressources/shine_shader_cards.tres'))
+	shader_array.push_front(load('res://shaders/Ressources/shadow_2d.tres'))
 	super()
 	add_child(player)
 	if discard_effect!=null:

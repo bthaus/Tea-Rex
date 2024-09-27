@@ -14,6 +14,7 @@ func initialise(block):
 	preview=load("res://Cards/block_preview.tscn").instantiate()
 	preview.set_block(block, true)
 	preview.scale=Vector2(0.3,0.3)
+	
 	add_child(preview)
 	
 func select(done:Callable):

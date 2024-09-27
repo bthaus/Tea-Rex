@@ -1,10 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://dee36drxmk255"]
+[gd_scene load_steps=6 format=3 uid="uid://dee36drxmk255"]
 
 [ext_resource type="Script" path="res://multiviewport.gd" id="1_r1akq"]
 [ext_resource type="Texture2D" uid="uid://b8n0busmwromw" path="res://icon.svg" id="1_xinfg"]
+[ext_resource type="Material" uid="uid://cfcp87dd0who8" path="res://shaders/Ressources/water_wobble.tres" id="3_7mj0e"]
+[ext_resource type="Material" uid="uid://ddhd0ii5yoncp" path="res://shaders/Ressources/shadow_2d.tres" id="3_qompv"]
+[ext_resource type="Material" uid="uid://b270mb5kxv3j4" path="res://shaders/Ressources/transparent_edge_distorted.tres" id="3_x0vky"]
 
 [node name="multiviewport" type="Sprite2D"]
 position = Vector2(498, 326)
 scale = Vector2(3.90625, 3.42188)
 texture = ExtResource("1_xinfg")
 script = ExtResource("1_r1akq")
+shader_array = Array[ShaderMaterial]([ExtResource("3_qompv"), ExtResource("3_7mj0e"), ExtResource("3_x0vky")])
