@@ -61,13 +61,13 @@ offset_right = 450.0
 offset_bottom = 118.0
 text = "100k"
 
-[node name="RatingLabel" parent="." instance=ExtResource("4_l30r4")]
+[node name="LikesLabel" parent="." instance=ExtResource("4_l30r4")]
 layout_mode = 0
-offset_left = 492.0
+offset_left = 487.0
 offset_top = 97.0
-offset_right = 514.0
+offset_right = 517.0
 offset_bottom = 119.0
-text = "4.3"
+text = "4.3k"
 
 [node name="ViewButton" parent="." instance=ExtResource("3_bskdj")]
 layout_mode = 0
