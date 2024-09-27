@@ -14,8 +14,17 @@ func initialise(block):
 	preview=load("res://Cards/block_preview.tscn").instantiate()
 	preview.set_block(block, true)
 	preview.scale=Vector2(0.3,0.3)
-	
-	add_child(preview)
+	var card_text=Sprite2D.new()
+	card_text.texture=texture
+	var viewport=SubViewport.new()
+	viewport.add_child(card_text)
+	viewport.add_child(preview)
+	viewport.add_child(Camera2D.new())
+	viewport.transparent_bg=true
+	viewport.render_target_update_mode=SubViewport.UPDATE_ONCE
+	add_child(viewport)
+	texture=viewport.get_texture()
+	#add_child(preview)
 	
 func select(done:Callable):
 	if state.phase==GameState.GamePhase.BATTLE:
