@@ -175,8 +175,10 @@ func _draw_selected_block_preview(map_position: Vector2):
 
 func _place_block(block: Block, map_position: Vector2):
 	var piece = block_handler.get_piece_from_board(map_position)
+	var upgraded=false;
 	if piece != null: # There is already a piece -> upgrade
 		_upgrade_turrets(block, map_position)
+		upgraded=true
 	else:
 		_spawn_turrets(block, map_position)
 	#soundMechanic:
@@ -185,8 +187,8 @@ func _place_block(block: Block, map_position: Vector2):
 	for p in block.pieces:
 		get_tree().create_timer(delay).timeout.connect(func(): Sounds.playFromCamera(gameState, Sounds.placeBlock.pick_random()))
 		delay = delay + inc;
-		
-	block_handler.draw_block(block, map_position)
+	if not upgraded:	
+		block_handler.draw_block(block, map_position)
 	
 func _action_finished(finished: bool):
 	if not finished and moved_from_block != null: # Restore block if there is something to restore

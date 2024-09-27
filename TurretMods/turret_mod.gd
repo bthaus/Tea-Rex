@@ -124,7 +124,8 @@ func on_remove(projectile:Projectile):
 	visual.on_remove(projectile)
 	pass;
 func remove():
-	visual.queue_free()
+	util.erase(visual)
+	
 	pass;
 	
 func equals(mod):

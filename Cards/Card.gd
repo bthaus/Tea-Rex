@@ -1,6 +1,6 @@
 extends GameObject2D
 class_name Card
-var card;
+var card:CardCore;
 var state:GameState;
 static var isCardSelected=false;
 static var selectedCard;
@@ -15,11 +15,8 @@ func played(success:bool):
 	if not success and isCardSelected:
 		_on_disable_button_pressed()
 	if not success:return
-	if card is BlockCard:
-		card.preview.clear_preview();
-		card.preview.queue_free()
-	queue_free()
-	finished.emit(self)
+	destroy()
+	card.on_discard(on_destroy_done)
 		
 	pass;
 
@@ -30,13 +27,18 @@ func trigger_turn_effect():
 	card._trigger_turn_effect()
 	pass;
 	
-func discard() -> void:
+func destroy() -> void:
 	interrupt_Card()
-	if card.discardable:
-		card.on_discard()
-		queue_free()
-	pass # Replace with function body.
+	on_unhover()
+	$Button.queue_free()
+	$PutBack.queue_free()
+	$shine.queue_free()
 	
+	pass # Replace with function body.
+func on_destroy_done():
+	util.erase(self)
+	util.erase(card)
+	pass;	
 #endregion
 
 #region select logic
@@ -114,7 +116,11 @@ func _input(event: InputEvent) -> void:
 		try_drag=false;
 		dragged=false;
 		if TrashCan.dumping:
-			discard()
+			dragged=false;
+			reparent(GameState.gameState.ui,true)
+			originalPosition=global_position
+			destroy()
+			card.on_ditched(on_destroy_done)
 		GameState.gameState.hand.reorder()
 		
 	pass;
@@ -148,8 +154,9 @@ func _on_button_mouse_entered():
 	originalZ=z_index;
 	z_index=2000
 	
-	var tween = create_tween()
+	
 	if not dragged:
+		var tween = create_tween()
 		tween.tween_property(self, "global_position", originalPosition+Vector2(0, -25), 0.5)
 		card.on_hover()
 	pass # Replace with function body.
@@ -158,8 +165,8 @@ func _on_button_mouse_exited():
 	if selectedCard!=self:
 		z_index=originalZ
 		
-	var tween = create_tween()
 	if not dragged:
+		var tween = create_tween()
 		tween.tween_property(self, "global_position", originalPosition, 0.5)
 		card.on_unhover()
 	mouseOut.emit()
@@ -201,7 +208,6 @@ func setCard(c):
 static func create(gameState:GameState):
 	counter=counter+1;
 	var c=load("res://Cards/card.tscn").instantiate() as Card
-	var btn=c.get_child(0) as Button
 	var created_card=gameState.get_next_card()
 	c.setCard(created_card)
 	return c	

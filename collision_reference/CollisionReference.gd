@@ -343,6 +343,7 @@ func _trigger_monsters_for_entity_at_pos(entity,pos):
 	pass;	
 func remove_entity(entity:BaseEntity):
 	var pos=entity.get_reference()
+	var holder=map[pos.y][pos.x]
 	map[pos.y][pos.x].entities.erase(entity)
 	for e in map[pos.y][pos.x].entities:
 		if e.collides_with_bullets:

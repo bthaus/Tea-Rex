@@ -11,6 +11,7 @@ uniform float angle: hint_range(0.0, 6.28318530718, 0.1308996939) = 0.7853981633
 uniform bool active=false;
 uniform float speed: hint_range(0.0, 10.0, 0.1) = 1.0;
 uniform float wait_cycles: hint_range(0.0, 10.0, 0.1) = 1.0;
+uniform float my_time;
 
 // --- Functions --- //
 vec2 rotate_precalculated(vec2 _pos, float _sine, float _cosine) {

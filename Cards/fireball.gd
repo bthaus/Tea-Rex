@@ -4,7 +4,8 @@ class_name Fireball
 @export var damage:int=500
 @export var range:int=2
 
-
+func _process(delta: float) -> void:
+	print(discard_effect.get_shader_parameter("progress"))
 func on_click():
 	$selected.emitting=true
 	pass;	
@@ -24,4 +25,8 @@ func _trigger_turn_effect():
 	GameState.gameState.changeHealth(-turn_player_damage)
 	super()
 	pass;
-	
+func on_discard(discard_done:Callable):
+	material=discard_effect
+	$AnimationPlayer.play(&'dissolve')
+	super(discard_done)
+	pass;	

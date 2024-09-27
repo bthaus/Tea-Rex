@@ -1,0 +1,30 @@
+[gd_resource type="ShaderMaterial" load_steps=7 format=3 uid="uid://j1o3mfjowfja"]
+
+[ext_resource type="Shader" uid="uid://b28dclfas2tmv" path="res://shaders/Ressources/shield_dissolve.tres" id="1_ij23g"]
+[ext_resource type="Texture2D" uid="uid://duvxgqbtlhx0n" path="res://shaders/circular_gradient.png" id="2_xmwl8"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_iveep"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_g4up3"]
+seamless = true
+noise = SubResource("FastNoiseLite_iveep")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_o604u"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_lonar"]
+seamless = true
+noise = SubResource("FastNoiseLite_o604u")
+
+[resource]
+resource_local_to_scene = true
+shader = ExtResource("1_ij23g")
+shader_parameter/scale_factor = 0.5
+shader_parameter/dissolve_value = 0.308
+shader_parameter/burn_size = 0.06
+shader_parameter/burn_color = Color(0, 0.643137, 1, 0.25098)
+shader_parameter/speed = 0.03
+shader_parameter/dissolve_movement_direction = Vector2(-1.37, 1.83)
+shader_parameter/second_dissolve_directoin = Vector2(-0.45, 0.3)
+shader_parameter/text_map = ExtResource("2_xmwl8")
+shader_parameter/dissolve_texture = SubResource("NoiseTexture2D_g4up3")
+shader_parameter/texture2 = SubResource("NoiseTexture2D_lonar")

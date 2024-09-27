@@ -128,10 +128,9 @@ func is_max_level()->bool:
 func setUpTower():
 	base = TurretCoreFactory.getBase(color, extension);
 	base.placed=placed
-	base.setLevel(level)
 	add_child(base)
-	
 	base.setUpTower(self)
+	base.setLevel(level)
 	collisionReference.register_turret(self,placed)
 	$LVL.text = str(level)
 	$AudioStreamPlayer2D.stream = load("res://Assets/Sounds/Soundeffects/" + util.getStringFromEnum(color) + util.getStringFromEnumExtension(extension) + "_shot.wav")
@@ -229,7 +228,9 @@ func show_infobox():
 func add_status_effect(effect:StatusEffect):
 	effect.register(base)
 	pass;	
-
+func status_effect_registered(effect:StatusEffect):
+	base.status_effect_registered(effect)
+	pass;
 var detectorvisible = false;
 
 var m = 0;

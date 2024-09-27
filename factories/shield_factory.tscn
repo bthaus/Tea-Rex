@@ -1,0 +1,171 @@
+[gd_scene load_steps=14 format=3 uid="uid://e1uj40gdr6o8"]
+
+[ext_resource type="Shader" path="res://Cards/hexa.gdshader" id="1_fl8e4"]
+[ext_resource type="Script" path="res://factories/shield_factory.gd" id="1_oohgk"]
+[ext_resource type="Shader" path="res://shaders/3dtest.gdshader" id="2_qox71"]
+[ext_resource type="Script" path="res://shaders/rotate.gd" id="3_r3qvb"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8ulcc"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("1_fl8e4")
+shader_parameter/hex_size = Vector2(0.05, 0.08)
+shader_parameter/scan_color = Vector4(0, 1, 0.3, 0.07)
+shader_parameter/scan_line_size = 0.001
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3g6hm"]
+resource_local_to_scene = true
+render_priority = 0
+next_pass = SubResource("ShaderMaterial_8ulcc")
+shader = ExtResource("2_qox71")
+shader_parameter/base_color = Color(0, 0.5, 1, 1)
+shader_parameter/pulse_color = Color(0.5, 0.7, 1, 1)
+shader_parameter/speed = 0.1
+shader_parameter/scale = 0.799
+shader_parameter/distortion = 0.327
+shader_parameter/shield_power = 0.028
+shader_parameter/rim_power = 2.157
+shader_parameter/pulse_frequency = 2.452
+
+[sub_resource type="SphereMesh" id="SphereMesh_hvpag"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4070j"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("1_fl8e4")
+shader_parameter/hex_size = Vector2(0.05, 0.08)
+shader_parameter/scan_color = Vector4(0, 1, 0.3, 0.195)
+shader_parameter/scan_line_size = 0.001
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_f1k2u"]
+resource_local_to_scene = true
+render_priority = 0
+next_pass = SubResource("ShaderMaterial_4070j")
+shader = ExtResource("2_qox71")
+shader_parameter/base_color = Color(0, 0.5, 1, 1)
+shader_parameter/pulse_color = Color(0.5, 0.7, 1, 1)
+shader_parameter/speed = 0.1
+shader_parameter/scale = 0.799
+shader_parameter/distortion = 0.426
+shader_parameter/shield_power = 0.145
+shader_parameter/rim_power = 2.157
+shader_parameter/pulse_frequency = 2.452
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nntau"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("1_fl8e4")
+shader_parameter/hex_size = Vector2(0.05, 0.08)
+shader_parameter/scan_color = Vector4(0, 1, 0.3, 0.715)
+shader_parameter/scan_line_size = 0.001
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_m0lde"]
+resource_local_to_scene = true
+render_priority = 0
+next_pass = SubResource("ShaderMaterial_nntau")
+shader = ExtResource("2_qox71")
+shader_parameter/base_color = Color(0, 0.5, 1, 1)
+shader_parameter/pulse_color = Color(0.5, 0.7, 1, 1)
+shader_parameter/speed = 0.1
+shader_parameter/scale = 0.799
+shader_parameter/distortion = 0.999
+shader_parameter/shield_power = 0.191
+shader_parameter/rim_power = 2.157
+shader_parameter/pulse_frequency = 2.452
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_sfeht"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("1_fl8e4")
+shader_parameter/hex_size = Vector2(0.05, 0.08)
+shader_parameter/scan_color = Vector4(0, 1, 0.3, 0.715)
+shader_parameter/scan_line_size = 0.002
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ntp2k"]
+resource_local_to_scene = true
+render_priority = 0
+next_pass = SubResource("ShaderMaterial_sfeht")
+shader = ExtResource("2_qox71")
+shader_parameter/base_color = Color(0, 0.5, 1, 1)
+shader_parameter/pulse_color = Color(0.5, 0.7, 1, 1)
+shader_parameter/speed = 0.1
+shader_parameter/scale = 0.799
+shader_parameter/distortion = 1.77
+shader_parameter/shield_power = 0.267
+shader_parameter/rim_power = 2.157
+shader_parameter/pulse_frequency = 2.452
+
+[node name="shield_factory" type="Node3D"]
+script = ExtResource("1_oohgk")
+
+[node name="energy_1" type="SubViewport" parent="."]
+transparent_bg = true
+
+[node name="Camera3D" type="Camera3D" parent="energy_1"]
+transform = Transform3D(1, -7.45012e-09, -8.32216e-11, 0, -0.0111698, 0.999938, -7.45058e-09, -0.999938, -0.0111698, 0.0343458, 1.23203, -2.68737)
+projection = 1
+size = 1.6
+far = 1.2
+
+[node name="shield_charge1" type="MeshInstance3D" parent="energy_1"]
+transform = Transform3D(-0.790497, 0.24869, -0.559703, 0.577858, 1.81399e-07, -0.816138, -0.202965, -0.968583, -0.143708, 0.0324476, 0, -2.67225)
+material_override = SubResource("ShaderMaterial_3g6hm")
+cast_shadow = 0
+gi_mode = 0
+mesh = SubResource("SphereMesh_hvpag")
+skeleton = NodePath("../../../..")
+script = ExtResource("3_r3qvb")
+
+[node name="energy_2" type="SubViewport" parent="."]
+transparent_bg = true
+
+[node name="Camera3D" type="Camera3D" parent="energy_2"]
+transform = Transform3D(1, -7.45012e-09, -8.32223e-11, 0, -0.0111698, 0.999938, -7.45058e-09, -0.999938, -0.0111698, 0.0343458, 1.23203, -0.897588)
+projection = 1
+size = 1.6
+far = 1.2
+
+[node name="shield_charge2" type="MeshInstance3D" parent="energy_2"]
+transform = Transform3D(-0.790497, 0.24869, -0.559703, 0.577858, 4.3627e-08, -0.816138, -0.202965, -0.968583, -0.143707, 0.0324476, 0, -0.882464)
+material_override = SubResource("ShaderMaterial_f1k2u")
+cast_shadow = 0
+gi_mode = 0
+mesh = SubResource("SphereMesh_hvpag")
+skeleton = NodePath("../../../..")
+script = ExtResource("3_r3qvb")
+
+[node name="energy_3" type="SubViewport" parent="."]
+transparent_bg = true
+
+[node name="Camera3D" type="Camera3D" parent="energy_3"]
+transform = Transform3D(1, -7.45012e-09, -8.32223e-11, 0, -0.0111698, 0.999938, -7.45058e-09, -0.999938, -0.0111698, 0.0343458, 1.23203, 0.866426)
+projection = 1
+size = 1.6
+far = 1.2
+
+[node name="shield_charge3" type="MeshInstance3D" parent="energy_3"]
+transform = Transform3D(-0.790497, 0.24869, -0.559703, 0.577858, 4.3627e-08, -0.816138, -0.202965, -0.968583, -0.143707, 0.0324476, 0, 0.88155)
+material_override = SubResource("ShaderMaterial_m0lde")
+cast_shadow = 0
+gi_mode = 0
+mesh = SubResource("SphereMesh_hvpag")
+skeleton = NodePath("../../../..")
+script = ExtResource("3_r3qvb")
+
+[node name="energy_4" type="SubViewport" parent="."]
+transparent_bg = true
+
+[node name="Camera3D" type="Camera3D" parent="energy_4"]
+transform = Transform3D(1, 2.15388e-07, 6.20143e-08, -5.96046e-08, -0.0111696, 0.999938, 2.16067e-07, -0.999938, -0.0111696, 0.0343463, 1.23203, 3.13587)
+projection = 1
+size = 1.6
+far = 1.2
+
+[node name="shield_charge4" type="MeshInstance3D" parent="energy_4"]
+transform = Transform3D(-0.790497, 0.24869, -0.559703, 0.577858, 1.72788e-07, -0.816138, -0.202965, -0.968583, -0.143707, 0.0324476, 0, 3.15099)
+material_override = SubResource("ShaderMaterial_ntp2k")
+cast_shadow = 0
+gi_mode = 0
+mesh = SubResource("SphereMesh_hvpag")
+skeleton = NodePath("../../../..")
+script = ExtResource("3_r3qvb")

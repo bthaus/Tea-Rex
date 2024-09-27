@@ -1,0 +1,10 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://bykkweqjnkjys"]
+
+[ext_resource type="Shader" path="res://shaders/TELEPORT.gdshader" id="1_l8doj"]
+
+[resource]
+shader = ExtResource("1_l8doj")
+shader_parameter/progress = 0.374
+shader_parameter/noise_desnity = 60.0
+shader_parameter/beam_size = null
+shader_parameter/color = Vector4(6.88, 1.095, 1.2, 1)

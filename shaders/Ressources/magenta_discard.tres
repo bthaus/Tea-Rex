@@ -1,0 +1,32 @@
+[gd_resource type="ShaderMaterial" load_steps=6 format=3 uid="uid://ce4e8npclrwt4"]
+
+[ext_resource type="Shader" path="res://shaders/fire_dissolve1.gdshader" id="1_hl3s6"]
+
+[sub_resource type="Gradient" id="Gradient_onl4p"]
+offsets = PackedFloat32Array(0, 0.401674, 0.891213, 1)
+colors = PackedColorArray(2.163, 1.621, 27.568, 1, 0.345098, 0, 1, 1, 0.184314, 0, 1, 0.054902, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_lyyrb"]
+gradient = SubResource("Gradient_onl4p")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_vb3wn"]
+noise_type = 4
+frequency = 0.0459
+fractal_type = 3
+fractal_lacunarity = 5.705
+fractal_weighted_strength = 1.0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_4btpg"]
+seamless = true
+noise = SubResource("FastNoiseLite_vb3wn")
+
+[resource]
+resource_local_to_scene = true
+shader = ExtResource("1_hl3s6")
+shader_parameter/progress = -0.75
+shader_parameter/width = 0.989
+shader_parameter/timed = false
+shader_parameter/speed = 1.0
+shader_parameter/angle = 0.0
+shader_parameter/noise = SubResource("NoiseTexture2D_4btpg")
+shader_parameter/colorCurve = SubResource("GradientTexture1D_lyyrb")

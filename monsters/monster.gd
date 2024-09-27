@@ -107,7 +107,7 @@ func trigger_teleport():
 	if porting:return;
 	distance_travelled=distance_to_next_edge
 	var tw = create_tween()
-	var mat=load('res://shaders/TELEPORT.tres') as ShaderMaterial
+	var mat=load('res://shaders/Ressources/TELEPORT.tres') as ShaderMaterial
 	core.get_node("Animation").material=mat
 	tw.tween_method(set_param.bind("progress",mat),0.0,1.0,1)
 	tw.finished.connect(complete_teleport.bind(tw))
