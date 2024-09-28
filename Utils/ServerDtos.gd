@@ -12,17 +12,39 @@ static func get_list_level_dto(
 	page_number: int,
 	page_size: int
 	):
-		return {
-			"map_id": map_id,
-			"map_name": map_name,
-			"username": username,
-			"wave_lengths": wave_lengths,
-			"clear_rate_up_to": clear_rate_up_to,
-			"sort_by": sort_by,
-			"order_by": order_by,
-			"page_number": page_number,
-			"page_size": page_size
-			}
+	return {
+		"map_id": map_id,
+		"map_name": map_name,
+		"username": username,
+		"wave_lengths": wave_lengths,
+		"clear_rate_up_to": clear_rate_up_to,
+		"sort_by": sort_by,
+		"order_by": order_by,
+		"page_number": page_number,
+		"page_size": page_size
+		}
+
+static func get_list_comments_dto(
+	map_id: String,
+	sort_by: String,
+	order_by: String,
+	page_number: int,
+	page_size: int
+):
+	return {
+		"map_id": map_id,
+		"sort_by": sort_by,
+		"order_by": order_by,
+		"page_number": page_number,
+		"page_size": page_size
+		}
+
+static func get_user_dto(
+	username: String
+):
+	return {
+		"username": username
+	}
 
 static func get_comment_dto(comment:String,user_name:String,map_id:int):
 	return {
