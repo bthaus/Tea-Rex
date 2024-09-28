@@ -16,7 +16,6 @@ func _ready() -> void:
 	var root=self
 	for node:PortNode in nodes:
 		add_child(node.viewport)
-		#root.viewport.add_child(node.viewport)
 		root=node
 	root.sprite.texture=texture
 	var leaf=root;
