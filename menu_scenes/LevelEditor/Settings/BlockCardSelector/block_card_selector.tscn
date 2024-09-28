@@ -1,8 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://datben78qhgng"]
+[gd_scene load_steps=6 format=3 uid="uid://datben78qhgng"]
 
 [ext_resource type="StyleBox" uid="uid://b0qhmxvb2s50r" path="res://Styles/default_button.tres" id="1_0v54e"]
 [ext_resource type="Script" path="res://menu_scenes/LevelEditor/Settings/BlockCardSelector/block_card_selector.gd" id="1_sofn8"]
 [ext_resource type="Script" path="res://UtilScenes/Animations/open_close_scale_animation.gd" id="3_bnu1l"]
+[ext_resource type="PackedScene" uid="uid://cuyydm2bqtrwn" path="res://UtilScenes/UI/ui_label_large.tscn" id="4_dsn1y"]
+[ext_resource type="PackedScene" uid="uid://cvsyvekqjnvfq" path="res://UtilScenes/UI/ui_button.tscn" id="4_fxhbb"]
 
 [node name="BlockCardSelector" type="Panel"]
 offset_right = 500.0
@@ -13,17 +15,14 @@ script = ExtResource("1_sofn8")
 [node name="OpenCloseScaleAnimation" type="Node" parent="."]
 script = ExtResource("3_bnu1l")
 
-[node name="Title" type="Label" parent="."]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -52.5
+[node name="Title" parent="." instance=ExtResource("4_dsn1y")]
+layout_mode = 0
+offset_left = 0.5
 offset_top = 10.0
-offset_right = 52.5
-offset_bottom = 33.0
-grow_horizontal = 2
-text = "Select a block"
+offset_right = 499.5
+offset_bottom = 38.0
+text = "Select a Block"
+horizontal_alignment = 1
 
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
 layout_mode = 1
@@ -33,9 +32,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -250.0
-offset_top = -91.0
+offset_top = -90.0
 offset_right = 250.0
-offset_bottom = 114.0
+offset_bottom = 115.0
 grow_horizontal = 2
 grow_vertical = 2
 horizontal_scroll_mode = 0
@@ -47,29 +46,22 @@ theme_override_constants/h_separation = 10
 theme_override_constants/v_separation = 10
 columns = 3
 
-[node name="CancelButton" type="Button" parent="."]
+[node name="CustomButton" parent="." instance=ExtResource("4_fxhbb")]
 layout_mode = 0
-offset_left = 11.0
-offset_top = 258.0
-offset_right = 71.0
-offset_bottom = 289.0
-text = "Cancel"
-
-[node name="CustomButton" type="Button" parent="."]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -70.0
-offset_top = -81.0
-offset_right = 70.0
-offset_bottom = -51.0
-grow_horizontal = 2
-grow_vertical = 0
-theme_override_font_sizes/font_size = 15
+offset_left = 182.0
+offset_top = 222.0
+offset_right = 318.0
+offset_bottom = 253.0
 text = "Custom..."
 
-[connection signal="pressed" from="CancelButton" to="." method="_on_cancel_button_pressed"]
+[node name="CancelButton" parent="." instance=ExtResource("4_fxhbb")]
+layout_mode = 0
+offset_left = 13.0
+offset_top = 248.0
+offset_right = 89.0
+offset_bottom = 286.0
+text = "Cancel
+"
+
 [connection signal="pressed" from="CustomButton" to="." method="_on_custom_button_pressed"]
+[connection signal="pressed" from="CancelButton" to="." method="_on_cancel_button_pressed"]

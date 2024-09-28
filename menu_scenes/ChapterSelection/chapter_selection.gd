@@ -92,9 +92,9 @@ func _on_chapter_point_clicked(sender: ChapterPoint):
 		level_selection.set_levels(sender.chapter_name)
 
 	if _is_moving:
-		if sender.index > _move_to_point.index:
+		if sender.index > _current_point.index:
 			_is_forward_direction = true
-		if sender.index < _move_to_point.index:
+		if sender.index <= _current_point.index:
 			_is_forward_direction = false
 	_move_to_point = sender
 

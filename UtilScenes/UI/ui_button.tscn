@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://cvsyvekqjnvfq"]
+
+[ext_resource type="StyleBox" uid="uid://b0qhmxvb2s50r" path="res://Styles/default_button.tres" id="1_qljme"]
+[ext_resource type="Script" path="res://UtilScenes/Animations/hover_scale_animation.gd" id="2_w8o7o"]
+
+[node name="UI_Button" type="Button"]
+offset_right = 53.0
+offset_bottom = 31.0
+theme_override_styles/focus = ExtResource("1_qljme")
+theme_override_styles/hover_pressed = ExtResource("1_qljme")
+theme_override_styles/hover = ExtResource("1_qljme")
+theme_override_styles/pressed = ExtResource("1_qljme")
+theme_override_styles/normal_mirrored = ExtResource("1_qljme")
+theme_override_styles/normal = ExtResource("1_qljme")
+text = "Text"
+
+[node name="HoverScaleAnimation" type="Node" parent="."]
+script = ExtResource("2_w8o7o")
+hover_scale = Vector2(1.15, 1.15)

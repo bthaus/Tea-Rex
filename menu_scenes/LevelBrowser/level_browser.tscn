@@ -1,0 +1,91 @@
+[gd_scene load_steps=4 format=3 uid="uid://b4g6xyexapvhd"]
+
+[ext_resource type="PackedScene" uid="uid://cvavwo4xoqbdf" path="res://menu_scenes/LevelBrowser/level_browser_item.tscn" id="1_6vlyn"]
+[ext_resource type="Script" path="res://menu_scenes/LevelBrowser/level_browser.gd" id="1_s0nke"]
+[ext_resource type="PackedScene" uid="uid://d1j84r2v483s" path="res://UtilScenes/UI/ui_label_medium.tscn" id="3_goox2"]
+
+[node name="LevelBrowser" type="Node2D"]
+script = ExtResource("1_s0nke")
+
+[node name="HTTPRequest" type="HTTPRequest" parent="."]
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+offset_left = 320.0
+offset_top = 132.0
+offset_right = 870.0
+offset_bottom = 617.0
+
+[node name="MapContainer" type="VBoxContainer" parent="ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+
+[node name="LevelBrowserItem" parent="ScrollContainer/MapContainer" instance=ExtResource("1_6vlyn")]
+layout_mode = 2
+
+[node name="LevelBrowserItem2" parent="ScrollContainer/MapContainer" instance=ExtResource("1_6vlyn")]
+layout_mode = 2
+
+[node name="LevelBrowserItem3" parent="ScrollContainer/MapContainer" instance=ExtResource("1_6vlyn")]
+layout_mode = 2
+
+[node name="LevelBrowserItem4" parent="ScrollContainer/MapContainer" instance=ExtResource("1_6vlyn")]
+layout_mode = 2
+
+[node name="SortByLabel" parent="." instance=ExtResource("3_goox2")]
+offset_left = 547.0
+offset_top = 99.0
+offset_right = 599.0
+offset_bottom = 121.0
+text = "Sort by"
+
+[node name="SortOptionButton" type="OptionButton" parent="."]
+offset_left = 605.0
+offset_top = 95.0
+offset_right = 724.0
+offset_bottom = 126.0
+selected = 0
+item_count = 5
+popup/item_0/text = "Recent"
+popup/item_1/text = "Likes"
+popup/item_1/id = 1
+popup/item_2/text = "Downloads"
+popup/item_2/id = 2
+popup/item_3/text = "Waves"
+popup/item_3/id = 3
+popup/item_4/id = 4
+
+[node name="BackButton" type="Button" parent="."]
+offset_left = 11.0
+offset_top = 10.0
+offset_right = 63.0
+offset_bottom = 43.0
+text = "Back"
+
+[node name="OrderByOptionButton" type="OptionButton" parent="."]
+offset_left = 731.0
+offset_top = 95.0
+offset_right = 853.0
+offset_bottom = 126.0
+selected = 1
+item_count = 2
+popup/item_0/text = "Ascending"
+popup/item_1/text = "Descending"
+popup/item_1/id = 1
+
+[node name="PreviousPageButton" type="Button" parent="."]
+offset_left = 234.0
+offset_top = 330.0
+offset_right = 284.0
+offset_bottom = 375.0
+text = "<"
+
+[node name="NextPageButton" type="Button" parent="."]
+offset_left = 907.0
+offset_top = 330.0
+offset_right = 958.0
+offset_bottom = 375.0
+text = ">"
+
+[connection signal="pressed" from="BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="PreviousPageButton" to="." method="_on_previous_page_button_pressed"]
+[connection signal="pressed" from="NextPageButton" to="." method="_on_next_page_button_pressed"]

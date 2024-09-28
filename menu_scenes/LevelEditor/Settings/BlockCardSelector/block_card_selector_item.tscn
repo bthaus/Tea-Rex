@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://ewfpjt42t81v"]
+[gd_scene load_steps=4 format=3 uid="uid://ewfpjt42t81v"]
 
 [ext_resource type="Script" path="res://menu_scenes/LevelEditor/Settings/BlockCardSelector/block_card_selector_item.gd" id="1_3q7kr"]
 [ext_resource type="PackedScene" uid="uid://b5vg0xq00ba77" path="res://Cards/block_preview.tscn" id="1_r6mm7"]
+[ext_resource type="PackedScene" uid="uid://d1j84r2v483s" path="res://UtilScenes/UI/ui_label_medium.tscn" id="3_loplk"]
 
 [node name="BlockCardSelectorItem" type="Button"]
 custom_minimum_size = Vector2(140, 30)
@@ -11,21 +12,12 @@ script = ExtResource("1_3q7kr")
 position = Vector2(14, 13)
 scale = Vector2(0.08, 0.08)
 
-[node name="Title" type="Label" parent="."]
-layout_mode = 1
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -99.0
-offset_top = -11.5
-offset_right = -10.0
-offset_bottom = 11.5
-grow_horizontal = 0
-grow_vertical = 2
-theme_override_font_sizes/font_size = 15
+[node name="Name" parent="." instance=ExtResource("3_loplk")]
+layout_mode = 0
+offset_left = 84.0
+offset_top = 4.0
+offset_right = 140.0
+offset_bottom = 26.0
 text = "Name"
-horizontal_alignment = 2
 
 [connection signal="pressed" from="." to="." method="_on_pressed"]

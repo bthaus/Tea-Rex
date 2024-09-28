@@ -1,0 +1,108 @@
+[gd_scene load_steps=7 format=3 uid="uid://6efy3848kgb3"]
+
+[ext_resource type="Script" path="res://menu_scenes/LevelBrowser/WebLevel/web_level_preview.gd" id="1_q2fl8"]
+[ext_resource type="PackedScene" uid="uid://bqbu5gb1fldni" path="res://UtilScenes/UI/ui_label_title.tscn" id="1_udn0y"]
+[ext_resource type="PackedScene" uid="uid://ocda6wj7wys8" path="res://menu_scenes/battle_slot_picker_scenes/MapPreview/map_preview.tscn" id="1_w4gyo"]
+[ext_resource type="PackedScene" uid="uid://cuyydm2bqtrwn" path="res://UtilScenes/UI/ui_label_large.tscn" id="2_swvq2"]
+[ext_resource type="PackedScene" uid="uid://cvsyvekqjnvfq" path="res://UtilScenes/UI/ui_button.tscn" id="4_6xctf"]
+[ext_resource type="Script" path="res://Utils/board_camera.gd" id="6_kf785"]
+
+[node name="WebLevelPreview" type="Node2D"]
+script = ExtResource("1_q2fl8")
+
+[node name="LevelNameLabel" parent="." instance=ExtResource("1_udn0y")]
+offset_top = 20.0
+offset_right = 1152.0
+offset_bottom = 55.0
+text = "Level Name"
+
+[node name="AuthorLabel" parent="." instance=ExtResource("2_swvq2")]
+offset_left = 498.0
+offset_top = 56.0
+offset_right = 644.0
+offset_bottom = 84.0
+text = "by Author"
+horizontal_alignment = 1
+
+[node name="LevelIDLabel" parent="." instance=ExtResource("2_swvq2")]
+offset_left = 23.0
+offset_top = 128.0
+offset_right = 179.0
+offset_bottom = 156.0
+text = "Level ID: 123456"
+
+[node name="DownloadsLabel" parent="." instance=ExtResource("2_swvq2")]
+offset_left = 70.0
+offset_top = 252.0
+offset_right = 116.0
+offset_bottom = 280.0
+text = "100k"
+
+[node name="ClearRateLabel" parent="." instance=ExtResource("2_swvq2")]
+offset_left = 65.0
+offset_top = 212.0
+offset_right = 134.0
+offset_bottom = 240.0
+text = "50.00%"
+
+[node name="WavesLabel" parent="." instance=ExtResource("2_swvq2")]
+offset_left = 75.0
+offset_top = 171.0
+offset_right = 98.0
+offset_bottom = 199.0
+text = "15"
+
+[node name="LikesLabel" parent="." instance=ExtResource("2_swvq2")]
+offset_left = 70.0
+offset_top = 290.0
+offset_right = 112.0
+offset_bottom = 318.0
+text = "4.3k"
+
+[node name="PlayButton" parent="." instance=ExtResource("4_6xctf")]
+offset_left = 435.0
+offset_top = 538.0
+offset_right = 760.0
+offset_bottom = 583.0
+text = "Play"
+
+[node name="InfoButton" parent="." instance=ExtResource("4_6xctf")]
+offset_left = 1024.0
+offset_top = 137.0
+offset_right = 1102.0
+offset_bottom = 176.0
+text = "Info"
+
+[node name="RateButton" parent="." instance=ExtResource("4_6xctf")]
+offset_left = 1024.0
+offset_top = 205.0
+offset_right = 1104.0
+offset_bottom = 244.0
+text = "Rate"
+
+[node name="Panel" type="Panel" parent="."]
+offset_left = 318.0
+offset_top = 130.0
+offset_right = 868.0
+offset_bottom = 480.0
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="Panel"]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 545.0
+offset_bottom = 345.0
+
+[node name="SubViewport" type="SubViewport" parent="Panel/SubViewportContainer"]
+handle_input_locally = false
+size = Vector2i(540, 340)
+render_target_update_mode = 4
+
+[node name="MapPreview" parent="Panel/SubViewportContainer/SubViewport" instance=ExtResource("1_w4gyo")]
+
+[node name="Camera2D" type="Camera2D" parent="Panel/SubViewportContainer/SubViewport"]
+position = Vector2(500, 500)
+zoom = Vector2(0.25, 0.25)
+script = ExtResource("6_kf785")
+
+[connection signal="pressed" from="PlayButton" to="." method="_on_play_button_pressed"]

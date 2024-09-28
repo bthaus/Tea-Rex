@@ -19,6 +19,5 @@ func _on_play_button_pressed():
 	SceneHandler.change_scene(picker)
 	picker.enable_sandbox_mode()
 
-
 func _on_delete_button_pressed():
 	delete.emit(self)

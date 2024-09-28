@@ -1,9 +1,12 @@
-[gd_scene load_steps=5 format=3 uid="uid://cfri5gx571j6m"]
+[gd_scene load_steps=8 format=3 uid="uid://cfri5gx571j6m"]
 
 [ext_resource type="TileSet" uid="uid://dcf0fhqgihare" path="res://TileSets/game_board_tileset.tres" id="1_b2j0o"]
 [ext_resource type="StyleBox" uid="uid://b0qhmxvb2s50r" path="res://Styles/default_button.tres" id="1_ctwwr"]
 [ext_resource type="Script" path="res://menu_scenes/LevelEditor/Settings/block_editor.gd" id="1_tiset"]
 [ext_resource type="Script" path="res://UtilScenes/Animations/open_close_scale_animation.gd" id="3_ajy1d"]
+[ext_resource type="PackedScene" uid="uid://cvsyvekqjnvfq" path="res://UtilScenes/UI/ui_button.tscn" id="5_3q5tt"]
+[ext_resource type="PackedScene" uid="uid://cuyydm2bqtrwn" path="res://UtilScenes/UI/ui_label_large.tscn" id="5_j8vj3"]
+[ext_resource type="PackedScene" uid="uid://d1j84r2v483s" path="res://UtilScenes/UI/ui_label_medium.tscn" id="6_pvsjr"]
 
 [node name="BlockEditor" type="Panel"]
 offset_left = 150.0
@@ -26,49 +29,38 @@ layer_0/tile_data = PackedInt32Array(0, 4, 0, -65536, 4, 0, -1, 4, 0, 65535, 4, 
 layer_1/name = "build_layer"
 layer_2/name = "block_layer"
 
-[node name="Title" type="Label" parent="."]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -46.5
-offset_top = 7.0
-offset_right = 46.5
-offset_bottom = 30.0
-grow_horizontal = 2
-theme_override_font_sizes/font_size = 25
+[node name="Title" parent="." instance=ExtResource("5_j8vj3")]
+layout_mode = 0
+offset_top = 10.0
+offset_right = 499.0
+offset_bottom = 38.0
 text = "Block Editor"
+horizontal_alignment = 1
 
-[node name="Description" type="Label" parent="."]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -147.5
-offset_top = -99.5
-offset_right = 147.5
-offset_bottom = -76.5
-grow_horizontal = 2
-grow_vertical = 2
+[node name="Description" parent="." instance=ExtResource("6_pvsjr")]
+layout_mode = 0
+offset_top = 51.0
+offset_right = 499.0
+offset_bottom = 73.0
 text = "Left-click to place, Right-click to delete"
+horizontal_alignment = 1
 
-[node name="CancelButton" type="Button" parent="."]
+[node name="SaveButton" parent="." instance=ExtResource("5_3q5tt")]
 layout_mode = 0
-offset_left = 23.0
-offset_top = 250.0
-offset_right = 83.0
-offset_bottom = 281.0
-text = "Cancel"
-
-[node name="SaveButton" type="Button" parent="."]
-layout_mode = 0
-offset_left = 421.0
-offset_top = 250.0
-offset_right = 481.0
-offset_bottom = 281.0
+offset_left = 420.0
+offset_top = 252.0
+offset_right = 488.0
+offset_bottom = 287.0
 text = "Save"
 
-[connection signal="pressed" from="CancelButton" to="." method="_on_cancel_button_pressed"]
+[node name="CancelButton" parent="." instance=ExtResource("5_3q5tt")]
+layout_mode = 0
+offset_left = 13.0
+offset_top = 251.0
+offset_right = 77.0
+offset_bottom = 286.0
+text = "Cancel
+"
+
 [connection signal="pressed" from="SaveButton" to="." method="_on_save_button_pressed"]
+[connection signal="pressed" from="CancelButton" to="." method="_on_cancel_button_pressed"]
