@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://dhta83lpekmrd"]
+[gd_scene load_steps=6 format=3 uid="uid://dhta83lpekmrd"]
 
 [ext_resource type="Script" path="res://menu_scenes/battle_slot_picker_scenes/ItemBlockSelector/item_block_selector.gd" id="1_ekup2"]
 [ext_resource type="PackedScene" uid="uid://cagcvoxx1smh4" path="res://menu_scenes/battle_slot_picker_scenes/ItemBlockSelector/TurretContainer/turret_mod_container_item.tscn" id="2_vu3vo"]
 [ext_resource type="TileSet" uid="uid://cgyibnoibofru" path="res://TileSets/item_block_tileset.tres" id="3_a0p0s"]
 [ext_resource type="PackedScene" uid="uid://bv34txjrodcmi" path="res://menu_scenes/battle_slot_picker_scenes/ItemBlockSelector/item_block_selector_container.tscn" id="4_jc33w"]
+[ext_resource type="PackedScene" uid="uid://cuyydm2bqtrwn" path="res://UtilScenes/UI/ui_label_large.tscn" id="4_o7edx"]
 
 [node name="ItemBlockSelector" type="Node2D"]
 script = ExtResource("1_ekup2")
@@ -53,13 +54,12 @@ color = 6
 position = Vector2(17, 408)
 scale = Vector2(0.9, 0.9)
 
-[node name="BattleSlotsAmountLabel" type="Label" parent="."]
-offset_top = 17.0
-offset_right = 463.0
-offset_bottom = 66.0
+[node name="BattleSlotsAmountLabel" parent="." instance=ExtResource("4_o7edx")]
+offset_left = 145.0
+offset_top = 35.0
+offset_right = 315.0
+offset_bottom = 63.0
 text = "Slots Selected: ?/?"
-horizontal_alignment = 1
-vertical_alignment = 1
 
 [node name="Board" type="TileMap" parent="."]
 scale = Vector2(0.25, 0.25)
@@ -67,6 +67,4 @@ tile_set = ExtResource("3_a0p0s")
 format = 2
 layer_0/name = "ground_layer"
 layer_1/name = "block_layer"
-layer_1/tile_data = PackedInt32Array()
 layer_2/name = "preview_layer"
-layer_2/tile_data = PackedInt32Array()

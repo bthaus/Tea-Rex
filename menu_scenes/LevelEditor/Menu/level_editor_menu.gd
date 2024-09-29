@@ -6,7 +6,7 @@ extends Node2D
 @onready var new_level_animation = $NewLevel/OpenCloseScaleAnimation
 @onready var delete_warning = $DeleteWarning
 @onready var delete_warning_animation = $DeleteWarning/OpenCloseScaleAnimation
-@onready var delete_warning_description = $DeleteWarning/Description
+@onready var delete_warning_title = $DeleteWarning/Title
 
 var selected_item
 var chapters: MapChapterDTO
@@ -31,7 +31,7 @@ func _ready():
 
 func _on_item_delete(sender):
 	selected_item = sender
-	delete_warning_description.text = str("Do you really want to delete\nlevel \"", sender.map_dto.map_name, "\"?")
+	delete_warning_title.text = str("Delete \"", sender.map_dto.map_name, "\"?")
 	delete_warning_animation.open()
 
 func _on_new_level_button_pressed(): 

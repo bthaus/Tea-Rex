@@ -1,8 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://nhjild8uxlge"]
+[gd_scene load_steps=6 format=3 uid="uid://nhjild8uxlge"]
 
 [ext_resource type="StyleBox" uid="uid://b0qhmxvb2s50r" path="res://Styles/default_button.tres" id="1_3kvnp"]
 [ext_resource type="Script" path="res://menu_scenes/LevelEditor/Settings/SpecialCardSelector/special_card_selector.gd" id="2_652qn"]
 [ext_resource type="Script" path="res://UtilScenes/Animations/open_close_scale_animation.gd" id="3_lp1me"]
+[ext_resource type="PackedScene" uid="uid://cuyydm2bqtrwn" path="res://UtilScenes/UI/ui_label_large.tscn" id="4_0eqon"]
+[ext_resource type="PackedScene" uid="uid://cvsyvekqjnvfq" path="res://UtilScenes/UI/ui_button.tscn" id="5_8fyro"]
 
 [node name="SpecialCardSelector" type="Panel"]
 offset_left = 150.0
@@ -15,17 +17,13 @@ script = ExtResource("2_652qn")
 [node name="OpenCloseScaleAnimation" type="Node" parent="."]
 script = ExtResource("3_lp1me")
 
-[node name="Title" type="Label" parent="."]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -52.5
+[node name="Title" parent="." instance=ExtResource("4_0eqon")]
+layout_mode = 0
 offset_top = 10.0
-offset_right = 52.5
-offset_bottom = 33.0
-grow_horizontal = 2
-text = "Select a card"
+offset_right = 500.0
+offset_bottom = 38.0
+text = "Select a Card"
+horizontal_alignment = 1
 
 [node name="TabContainer" type="TabContainer" parent="."]
 layout_mode = 1
@@ -95,12 +93,12 @@ theme_override_constants/h_separation = 10
 theme_override_constants/v_separation = 10
 columns = 4
 
-[node name="CancelButton" type="Button" parent="."]
+[node name="CancelButton" parent="." instance=ExtResource("5_8fyro")]
 layout_mode = 0
-offset_left = 11.0
-offset_top = 327.0
-offset_right = 78.0
-offset_bottom = 362.0
+offset_left = 10.0
+offset_top = 326.0
+offset_right = 79.0
+offset_bottom = 364.0
 text = "Cancel"
 
 [connection signal="pressed" from="CancelButton" to="." method="_on_cancel_button_pressed"]

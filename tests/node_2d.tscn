@@ -1,0 +1,94 @@
+[gd_scene load_steps=18 format=3 uid="uid://gg633h8yrowh"]
+
+[ext_resource type="Texture2D" uid="uid://b0vjaywamx3yp" path="res://Assets/Lights/spotlight.png" id="1_fw038"]
+[ext_resource type="Texture2D" uid="uid://d0nahfucfax0o" path="res://Assets/Level/floor.jpeg" id="2_emeh7"]
+[ext_resource type="Texture2D" uid="uid://cm2icsixaowhy" path="res://Assets/Turrets/Turret designs/pew pew_raven/pew_pew_rave_normal.png" id="2_vtwdw"]
+[ext_resource type="Texture2D" uid="uid://ftt4p27v4n8g" path="res://Assets/Level/woodnormal.png" id="3_0qaax"]
+[ext_resource type="Shader" path="res://shaders/epic_bloom.gdshader" id="5_edri7"]
+[ext_resource type="Texture2D" uid="uid://bi2srty0gxkma" path="res://Assets/Turrets/Turret designs/pew pew_raven/raven_inverse.png" id="6_bsys6"]
+[ext_resource type="Shader" path="res://tests/node_2d.gdshader" id="7_pwpic"]
+[ext_resource type="Texture2D" uid="uid://sg3tcbt3xh1v" path="res://Assets/Turrets/Turret designs/saw_eye/Turret_Eye_Saw 256px.png" id="8_d28i0"]
+
+[sub_resource type="Environment" id="Environment_xm7nc"]
+background_mode = 3
+glow_enabled = true
+glow_strength = 0.85
+glow_bloom = 0.43
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_cvpfw"]
+diffuse_texture = ExtResource("2_emeh7")
+normal_texture = ExtResource("3_0qaax")
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_jpemx"]
+load_path = "res://.godot/imported/Turret_PewPew_Raven.png-3d0682add5658a53b3c03bfe55860848.ctex"
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_8cxdk"]
+diffuse_texture = SubResource("CompressedTexture2D_jpemx")
+normal_texture = ExtResource("2_vtwdw")
+
+[sub_resource type="Curve" id="Curve_7a1tk"]
+_data = [Vector2(0, 0.659341), 0.0, 0.0, 0, 0, Vector2(1, 1), 1.4, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_po8n4"]
+curve = SubResource("Curve_7a1tk")
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_n6evn"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xqo3o"]
+shader = ExtResource("5_edri7")
+shader_parameter/fireball_scale_y = 1.0
+shader_parameter/glow_scale_y = 1.0
+shader_parameter/glow_strength = 1.0
+shader_parameter/glow_intensity = 0.0
+shader_parameter/pixel_size = 1
+shader_parameter/glow_position = Vector2(-0.005, 0.115)
+shader_parameter/glow_size = Vector2(0.805, 0.755)
+shader_parameter/pulsate = true
+shader_parameter/pulsation_speed = 1.0
+shader_parameter/glow_intensity_start = 0.82
+shader_parameter/glow_intensity_stop = 1.0
+shader_parameter/noise = SubResource("NoiseTexture2D_n6evn")
+shader_parameter/colo_curve = SubResource("CurveTexture_po8n4")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_10s6j"]
+shader = ExtResource("7_pwpic")
+shader_parameter/rect_size = Vector2(0.1, 0.1)
+shader_parameter/bness = 1.0
+shader_parameter/fall_off_scale = 3.0
+shader_parameter/b_offset = 0.0
+
+[node name="Node2D" type="Node2D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_xm7nc")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(-154, -67)
+scale = Vector2(10.0998, 10.0998)
+energy = 3.18
+texture = ExtResource("1_fw038")
+texture_scale = 1.35
+
+[node name="Sprite2D3" type="Sprite2D" parent="."]
+position = Vector2(180, -133)
+scale = Vector2(0.26, 0.26)
+texture = SubResource("CanvasTexture_cvpfw")
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color(0.54099, 0.54099, 0.54099, 1)
+
+[node name="Node2D" type="Sprite2D" parent="."]
+position = Vector2(-279, -9)
+rotation = -6.28319
+texture = SubResource("CanvasTexture_8cxdk")
+
+[node name="Sprite2D" type="Sprite2D" parent="Node2D"]
+material = SubResource("ShaderMaterial_xqo3o")
+texture = ExtResource("6_bsys6")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_10s6j")
+position = Vector2(47, 18)
+scale = Vector2(1.75781, 1.22656)
+texture = ExtResource("8_d28i0")

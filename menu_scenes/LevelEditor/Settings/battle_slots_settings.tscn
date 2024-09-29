@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://mw4gtrxl3rlv"]
+[gd_scene load_steps=3 format=3 uid="uid://mw4gtrxl3rlv"]
 
 [ext_resource type="Script" path="res://menu_scenes/LevelEditor/Settings/battle_slots_settings.gd" id="1_q1q5h"]
+[ext_resource type="PackedScene" uid="uid://d1j84r2v483s" path="res://UtilScenes/UI/ui_label_medium.tscn" id="2_kavqp"]
 
 [node name="BattleSlotsSettings" type="Panel"]
 custom_minimum_size = Vector2(0, 100)
@@ -59,12 +60,12 @@ theme_override_font_sizes/font_size = 15
 text = "3"
 alignment = 1
 
-[node name="AmountLabel" type="Label" parent="."]
+[node name="AmountLabel" parent="." instance=ExtResource("2_kavqp")]
 layout_mode = 0
 offset_left = 163.0
 offset_top = 51.0
-offset_right = 234.0
-offset_bottom = 74.0
+offset_right = 212.0
+offset_bottom = 73.0
 text = "Slots:"
 
 [connection signal="pressed" from="AmountDecreaseButton" to="." method="_on_amount_decrease_button_pressed"]
