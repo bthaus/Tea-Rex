@@ -16,8 +16,9 @@ func _on_edit_button_pressed():
 func _on_play_button_pressed():
 	var picker = SceneHandler.get_scene_instance(SceneHandler.Scene.BATTLE_SLOT_PICKER)
 	picker.map_dto = map_dto
-	SceneHandler.change_scene(picker, SceneHandler.TransitionEffect.SWIPE_LEFT)
-	picker.enable_sandbox_mode()
+	SceneHandler.change_scene(picker, SceneHandler.TransitionEffect.SWIPE_LEFT, func():
+		picker.enable_sandbox_mode()
+		)
 
 func _on_delete_button_pressed():
 	delete.emit(self)

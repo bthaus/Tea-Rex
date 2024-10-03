@@ -88,8 +88,9 @@ func set_character_to_chapter(chapter_name: String):
 func _on_chapter_point_clicked(sender: ChapterPoint):
 	if _move_to_point == sender:
 		var level_selection = SceneHandler.get_scene_instance(SceneHandler.Scene.LEVEL_SELECTION)
-		SceneHandler.change_scene(level_selection, SceneHandler.TransitionEffect.SWIPE_LEFT)
-		level_selection.set_levels(sender.chapter_name)
+		SceneHandler.change_scene(level_selection, SceneHandler.TransitionEffect.SWIPE_LEFT, func():
+			level_selection.set_levels(sender.chapter_name)
+			)
 
 	if _is_moving:
 		if sender.index > _current_point.index:

@@ -49,20 +49,22 @@ func get_scene_instance(scene: Scene):
 	var scene_path = get_scene_path(scene)
 	return load(scene_path).instantiate()
 	
-func change_scene(scene, effect: TransitionEffect = TransitionEffect.NONE): #Use together with get_scene_instance
-	call_deferred("_change_scene", scene, effect)
+func change_scene(scene, effect: TransitionEffect = TransitionEffect.NONE, callback: Callable = func(): pass): #Use together with get_scene_instance
+	call_deferred("_change_scene", scene, effect, callback)
 
-func _change_scene(scene, effect: TransitionEffect = TransitionEffect.NONE):
+func _change_scene(scene, effect: TransitionEffect = TransitionEffect.NONE, callback: Callable = func(): pass): #Callback will be called once the new scene is ready
 	if is_transitioning: return
 	is_transitioning = true
+	get_tree().root.add_child(scene)
+	if not scene.is_node_ready(): await scene.ready()
+	callback.call()
+	
 	match(effect):
 		TransitionEffect.NONE:
-			get_tree().root.add_child(scene)
 			_switch_scene(current_scene, scene)
 		TransitionEffect.SWIPE_LEFT:
 			var width = get_viewport().size.x
 			scene.position.x = width
-			get_tree().root.add_child(scene)
 			var tween = get_tree().create_tween()
 			tween.set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 			tween.tween_property(scene, "position:x", 0, transition_effect_interval)
@@ -71,7 +73,6 @@ func _change_scene(scene, effect: TransitionEffect = TransitionEffect.NONE):
 		TransitionEffect.SWIPE_RIGHT:
 			var width = get_viewport().size.x
 			scene.position.x = -width
-			get_tree().root.add_child(scene)
 			var tween = get_tree().create_tween()
 			tween.set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 			tween.tween_property(scene, "position:x", 0, transition_effect_interval)
