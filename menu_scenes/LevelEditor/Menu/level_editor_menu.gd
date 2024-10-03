@@ -40,7 +40,7 @@ func _on_new_level_button_pressed():
 func _on_create_button_pressed():
 	var level_editor = SceneHandler.get_scene_instance(SceneHandler.Scene.LEVEL_EDITOR)
 	level_editor.map_name = level_name.text
-	SceneHandler.change_scene(level_editor)
+	SceneHandler.change_scene(level_editor, SceneHandler.TransitionEffect.SWIPE_LEFT)
 
 func _on_cancel_button_pressed():
 	new_level_animation.close(new_level.hide)

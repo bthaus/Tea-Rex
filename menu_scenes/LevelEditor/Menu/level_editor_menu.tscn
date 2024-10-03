@@ -97,6 +97,7 @@ script = ExtResource("4_kuj0x")
 
 [node name="SceneNavigation" type="Node" parent="BackButton"]
 script = ExtResource("5_8e3p2")
+transition_effect = 2
 
 [node name="DeleteWarning" type="Panel" parent="."]
 z_index = 10

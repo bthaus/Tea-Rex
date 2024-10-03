@@ -11,4 +11,4 @@ func set_level(level):
 func _on_view_button_pressed() -> void:
 	var web_level = SceneHandler.get_scene_instance(SceneHandler.Scene.WEB_LEVEL_PREVIEW)
 	web_level.set_level(level)
-	SceneHandler.change_scene(web_level)
+	SceneHandler.change_scene(web_level, SceneHandler.TransitionEffect.SWIPE_LEFT)

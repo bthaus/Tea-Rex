@@ -36,18 +36,14 @@ tile_set = SubResource("TileSet_obf8t")
 format = 2
 layer_0/name = "ground_layer"
 layer_1/name = "block_layer"
-layer_1/tile_data = PackedInt32Array()
 layer_2/name = "preview_layer"
-layer_2/tile_data = PackedInt32Array()
 
 [node name="Board" type="TileMap" parent="."]
 tile_set = ExtResource("2_itsd3")
 format = 2
 layer_0/name = "ground_layer"
 layer_1/name = "build_layer"
-layer_1/tile_data = PackedInt32Array()
 layer_2/name = "block_layer"
-layer_2/tile_data = PackedInt32Array()
 
 [node name="SpawnerLabels" type="Node2D" parent="."]
 
@@ -61,6 +57,7 @@ script = ExtResource("4_0cb1y")
 offset_top = 80.0
 offset_right = 258.0
 offset_bottom = 559.0
+current_tab = 0
 
 [node name="SettingsButton" type="Button" parent="Camera2D/HUD"]
 offset_left = 1038.0

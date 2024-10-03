@@ -46,3 +46,4 @@ script = ExtResource("3_var3l")
 
 [node name="SceneNavigation" type="Node" parent="BackButton"]
 script = ExtResource("4_vlwg2")
+transition_effect = 2
