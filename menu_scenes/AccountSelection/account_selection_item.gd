@@ -9,4 +9,4 @@ func set_account(account_dto: AccountInfoDTO):
 
 func _on_pressed():
 	Global.set_account(_account_dto)
-	SceneHandler.change_scene(SceneHandler.get_scene_instance(SceneHandler.Scene.CHAPTER_SELECTION))
+	SceneHandler.change_scene(SceneHandler.get_scene_instance(SceneHandler.Scene.CHAPTER_SELECTION), SceneHandler.TransitionEffect.SWIPE_LEFT)

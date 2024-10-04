@@ -80,3 +80,4 @@ script = ExtResource("3_jip70")
 [node name="SceneNavigation" type="Node" parent="BackButton"]
 script = ExtResource("4_0afkk")
 navigate_to = 2
+transition_effect = 2

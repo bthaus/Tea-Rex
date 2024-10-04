@@ -79,6 +79,13 @@ func _input(event):
 	$Board.position = get_local_mouse_position()
 	if selected_item == null: return
 	
+	if event.is_action_released("left_click"):
+		if $ItemBlockSelectorContainer.has_focus():
+			_set_selected_item(null)
+			_draw_item_block_hand(null)
+			item_origin = null
+			$ItemBlockSelectorContainer.update_container_items()
+	
 	if event.is_action_released("right_click"):
 		item_handler.rotate_item(selected_item)
 		if focused_container == null: #No container has currently the focus

@@ -225,14 +225,14 @@ func _on_save_button_pressed():
 	
 func _on_save_exit_button_pressed():
 	_save_level()
-	SceneHandler.change_scene(SceneHandler.get_scene_instance(SceneHandler.Scene.LEVEL_EDITOR_MENU))
+	SceneHandler.change_scene(SceneHandler.get_scene_instance(SceneHandler.Scene.LEVEL_EDITOR_MENU), SceneHandler.TransitionEffect.SWIPE_RIGHT)
 	
 func _on_exit_button_pressed():
 	if not exit_warning.visible:
 		exit_warning_animation.open()
 	
 func _on_warning_exit_button_pressed(): 
-	SceneHandler.change_scene(SceneHandler.get_scene_instance(SceneHandler.Scene.LEVEL_EDITOR_MENU))
+	SceneHandler.change_scene(SceneHandler.get_scene_instance(SceneHandler.Scene.LEVEL_EDITOR_MENU), SceneHandler.TransitionEffect.SWIPE_RIGHT)
 	
 func _on_warning_cancel_button_pressed():
 	exit_warning_animation.close(exit_warning.hide)
