@@ -98,7 +98,7 @@ func _on_custom_block_selected():
 	editor.saved.connect(_on_block_editor_saved)
 	editor.open()
 
-func _on_block_editor_saved(sender, block: Block):
+func _on_block_editor_saved(block: Block):
 	var object = ItemPermutatorCardItem.BlockPermutationObject.new(block)
 	card_permutator.append_object(card_item_path, object)
 	$BlockCardSelector.close()

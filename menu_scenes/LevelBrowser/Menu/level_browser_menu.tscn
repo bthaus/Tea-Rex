@@ -37,6 +37,7 @@ script = ExtResource("2_3jo0b")
 
 [node name="SceneNavigation" type="Node" parent="BackButton"]
 script = ExtResource("3_lf1yg")
+transition_effect = 2
 
 [node name="SearchByOptionButton" type="OptionButton" parent="."]
 offset_left = 330.0
@@ -120,6 +121,7 @@ offset_bottom = 327.0
 text = "Short"
 
 [node name="UILabelSmall" parent="ShortCheckBox" instance=ExtResource("8_tpfhm")]
+layout_mode = 0
 offset_left = 26.0
 offset_top = 27.0
 offset_right = 68.0
@@ -135,6 +137,7 @@ offset_bottom = 327.0
 text = "Medium"
 
 [node name="UILabelSmall" parent="MediumCheckBox" instance=ExtResource("8_tpfhm")]
+layout_mode = 0
 offset_left = 26.0
 offset_top = 27.0
 offset_right = 89.0
@@ -150,6 +153,7 @@ offset_bottom = 327.0
 text = "Long"
 
 [node name="UILabelSmall" parent="LongCheckBox" instance=ExtResource("8_tpfhm")]
+layout_mode = 0
 offset_left = 25.0
 offset_top = 27.0
 offset_right = 64.0
@@ -165,6 +169,7 @@ offset_bottom = 327.0
 text = "XL"
 
 [node name="UILabelSmall" parent="XLCheckBox" instance=ExtResource("8_tpfhm")]
+layout_mode = 0
 offset_left = 26.0
 offset_top = 27.0
 offset_right = 47.0

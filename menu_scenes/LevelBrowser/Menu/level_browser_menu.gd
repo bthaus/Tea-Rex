@@ -46,7 +46,7 @@ func _on_search_button_pressed() -> void:
 	
 	var browser = SceneHandler.get_scene_instance(SceneHandler.Scene.LEVEL_BROWSER)
 	browser.init_search_properties(map_id, map_name, author, wave_lengths, clear_rate_up_to)
-	SceneHandler.change_scene(browser)
+	SceneHandler.change_scene(browser, SceneHandler.TransitionEffect.SWIPE_LEFT)
 
 
 func _on_clear_rate_slider_value_changed(value: float) -> void:

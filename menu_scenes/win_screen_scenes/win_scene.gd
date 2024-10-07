@@ -17,4 +17,4 @@ func set_up(game_state):
 	account.save()
 
 func _on_continue_pressed():
-	SceneHandler.change_scene(SceneHandler.get_scene_instance(SceneHandler.Scene.LEVEL_SELECTION))
+	SceneHandler.change_scene(SceneHandler.get_scene_instance(SceneHandler.Scene.LEVEL_SELECTION), SceneHandler.TransitionEffect.SWIPE_LEFT)

@@ -173,3 +173,6 @@ layout_mode = 2
 position = Vector2(0, -13)
 
 [node name="TabHeight" type="Node2D" parent="."]
+
+[connection signal="mouse_entered" from="Panel" to="." method="_on_panel_mouse_entered"]
+[connection signal="mouse_exited" from="Panel" to="." method="_on_panel_mouse_exited"]

@@ -7,6 +7,7 @@ var _style_box: StyleBoxFlat = load("res://Styles/item_block_selector_tab.tres")
 var _group: ButtonGroup
 var _selected_tab: TabEntry = null
 var _sandbox_mode = false
+var _has_focus = false
 signal item_selected
 
 class TabEntry:
@@ -111,3 +112,12 @@ func _update_container_color():
 	var style = $Panel.get_theme_stylebox("panel")
 	style.bg_color = _selected_tab.display_color
 	$Panel.add_theme_stylebox_override("panel", style)
+
+func has_focus() -> bool:
+	return _has_focus
+
+func _on_panel_mouse_entered() -> void:
+	_has_focus = true
+
+func _on_panel_mouse_exited() -> void:
+	_has_focus = false

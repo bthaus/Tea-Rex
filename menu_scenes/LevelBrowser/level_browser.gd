@@ -36,8 +36,7 @@ func update_container():
 func _on_back_button_pressed() -> void:
 	var menu = SceneHandler.get_scene_instance(SceneHandler.Scene.LEVEL_BROWSER_MENU)
 	menu.init_search_properties(map_id, map_name, author, wave_lengths, clear_rate_up_to)
-	SceneHandler.change_scene(menu)
-
+	SceneHandler.change_scene(menu, SceneHandler.TransitionEffect.SWIPE_LEFT)
 
 func _on_previous_page_button_pressed() -> void:
 	if page_number > 1:
@@ -46,7 +45,6 @@ func _on_previous_page_button_pressed() -> void:
 	
 	if page_number <= 1:
 		$PreviousPageButton.visible = false
-
 
 func _on_next_page_button_pressed() -> void:
 	page_number += 1

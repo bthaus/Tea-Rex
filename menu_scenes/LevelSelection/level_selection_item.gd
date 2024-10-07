@@ -16,4 +16,4 @@ func set_map(map_dto: MapDTO):
 func _on_pressed():
 	var picker = SceneHandler.get_scene_instance(SceneHandler.Scene.BATTLE_SLOT_PICKER)
 	picker.map_dto = _map_dto
-	SceneHandler.change_scene(picker)
+	SceneHandler.change_scene(picker, SceneHandler.TransitionEffect.SWIPE_RIGHT)
