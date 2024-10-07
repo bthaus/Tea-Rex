@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://dmhesplq1yqqt"]
+[gd_scene load_steps=32 format=3 uid="uid://dmhesplq1yqqt"]
 
 [ext_resource type="Shader" path="res://shaders/outline.gdshader" id="1_0p7qn"]
 [ext_resource type="Script" path="res://TurretScripts/turret_core_factory.gd" id="2_t1mch"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://TurretScripts/REDLASER_base.gd" id="5_dxa78"]
 [ext_resource type="Texture2D" uid="uid://bx5e0bmbqsb7x" path="res://Assets/Turrets/Barrels/REDLASER_barrel.png" id="6_p7jbo"]
 [ext_resource type="Texture2D" uid="uid://b5k8umt4kec2f" path="res://Assets/Turrets/Bases/BLUE_base.png" id="7_ilila"]
+[ext_resource type="Texture2D" uid="uid://dqagp4fk63lkn" path="res://Assets/Turrets/Turret designs/pew pew_raven/Turret_PewPew_Raven - Kopie.png" id="7_tc0j3"]
 [ext_resource type="Script" path="res://TurretScripts/base.gd" id="8_61sru"]
 [ext_resource type="Script" path="res://TurretScripts/red_turret_core.gd" id="8_qrtxs"]
 [ext_resource type="Texture2D" uid="uid://ddg8t2ge16mte" path="res://Assets/Turrets/Barrels/BLUE_barrel.png" id="9_hvcdk"]
@@ -74,6 +75,11 @@ texture = ExtResource("9_hvcdk")
 [node name="bp" type="Node2D" parent="BLUE_base/Barrel1"]
 material = SubResource("ShaderMaterial_l3v4h")
 position = Vector2(0, -7.5)
+
+[node name="Sprite2D" type="Sprite2D" parent="BLUE_base"]
+visible = false
+self_modulate = Color(1, 1, 10, 1)
+texture = ExtResource("7_tc0j3")
 
 [node name="RED_base" type="Sprite2D" parent="."]
 visible = false

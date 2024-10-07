@@ -1,6 +1,6 @@
 extends HTTPRequest
-const server_base_route="https://rgba-latest.onrender.com/"
-#const server_base_route="http://localhost:8080/"
+#const server_base_route="https://rgba-latest.onrender.com/"
+const server_base_route="http://localhost:8080/"
 var token=""
 signal request_finished(result,response_code)
 func _ready():
@@ -11,12 +11,13 @@ func _on_request_completed(result, response_code, headers, body):
 	check_for_token(headers)
 	var json = body.get_string_from_utf8()
 	
-	var data=JSON.parse_string(json) as Array
-	var point=data[0] as Dictionary
-	print(point["description"])
-	
-	request_finished.emit(data,response_code)
 	print(json)
+	#var data=JSON.parse_string(json) as Array
+	#var point=data[0] as Dictionary
+	#print(point["description"])
+	
+	#request_finished.emit(data,response_code)
+
 
 func check_for_token(headers):
 	for s:String in headers:
@@ -38,8 +39,9 @@ func get_maps_from_user(username):
 	GET("get_maps_from_user/"+username)
 	
 func send_map(map_dto:MapDTO):
-	var id=Global.get_account().account_name
-	var dto=ServerDTOs.get_map_dto(map_dto,id)
+	var acc_name=Global.get_account().account_name
+	acc_name="Bodo"
+	var dto=ServerDTOs.get_map_dto(map_dto,acc_name)
 	POST("validated/add_map",dto)
 	pass;	
 func get_map(map_id:int):
@@ -83,7 +85,7 @@ func _on_get_pressed():
 
 func _on_map_pressed():
 	var map=MapDTO.new()
-	map.restore("sim_debug")
+	map.restore("fasd")
 	#map.map_name+=str(randi())
 	send_map(map)
 
@@ -106,9 +108,9 @@ func _on_button_2_pressed():
 
 
 
-
+#Global.get_account().account_name+str(randi_range(10,1111322))
 func _on_addacc_pressed():
-	register_user(Global.get_account().account_name+str(randi_range(10,1111322)),"bodopw","bwuest@gmx.at"+str(randi_range(10,1111322)))
+	register_user("Bodo2","bodopw","bwuest@gmx.at"+str(randi_range(10,1111322)))
 	pass # Replace with function body.
 
 
@@ -121,6 +123,15 @@ func _on_getmaps_pressed():
 
 func _on_delete_map_pressed():
 	var dto=MapDTO.new()
-	dto.restore("asdf")
+	dto.restore("fasd")
 	dto.delete()
+	pass # Replace with function body.
+
+
+func _on_by_filter_pressed() -> void:
+	var dic=ServerDTOs.get_map_filter_dto();
+	dic["username"]="Bodo"
+	dic["wave_lengths"]=[1,2,3,4,5,20]
+	dic["sort_by"]="wave_lengths"
+	POST("get_maps_by_filter",dic);
 	pass # Replace with function body.

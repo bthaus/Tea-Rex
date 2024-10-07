@@ -25,7 +25,7 @@ public class DBService {
     private InputChecker inputChecker;
 
     public String add_map(GameMap gameMap){
-        UserAccount user=userRepository.findByName(gameMap.getUser_name());
+        UserAccount user=userRepository.findByName(gameMap.getUsername());
         if (user==null){
             return "User not found";
         }
@@ -37,7 +37,7 @@ public class DBService {
         mapRepository.save(gameMap);
         user.getGameMaps().add(gameMap);
         userRepository.save(user);
-        return String.valueOf(gameMap.getMap_id());
+        return String.valueOf(gameMap.getMapID());
     }
     public String add_rating(Rating rating){
         UserAccount user=getUserAccount(rating.getUser_name());

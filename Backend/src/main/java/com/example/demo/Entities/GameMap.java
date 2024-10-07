@@ -16,16 +16,16 @@ import java.util.Set;
 public class GameMap {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int map_id;
+    private int mapID;
     private String name;
     private String description;
 
-    private String user_name;
+    private String username;
     private int slot_amount;
-    private int number_of_waves;
-    private int average_rating;
+    private int numberOfWaves;
+    private int averageRating;
     private int number_of_comments;
-    private int difficulty_rating;
+    private int difficultyRating;
 
 
     @JsonCreator
@@ -34,9 +34,11 @@ public class GameMap {
             @JsonProperty("reduced_entities") String reduced_entities,
             @JsonProperty("reduced_shapes") String reduced_shapes,
             @JsonProperty("reduced_waves") String reduced_waves,
-            @JsonProperty("user_name") String user_name,
-            @JsonProperty("description") String description){
-        this.user_name = user_name;
+            @JsonProperty("user_name") String username,
+            @JsonProperty("description") String description,
+            @JsonProperty("number_of_waves") int number_of_waves){
+        this.numberOfWaves = number_of_waves;
+        this.username = username;
         this.name = name;
         this.reduced_entities = reduced_entities;
         this.reduced_shapes = reduced_shapes;
@@ -56,11 +58,11 @@ public class GameMap {
             counter++;
         }
         if (counter==0){
-           average_rating=0;
+           averageRating =0;
            return;
 
         }
-        average_rating = sum/counter;
+        averageRating = sum/counter;
     }
     @Lob
     @Column(columnDefinition = "TEXT")  // Explicitly define the column type for databases like Oracle

@@ -75,9 +75,26 @@ offset_bottom = 52.0
 text = "get maps"
 
 [node name="delete_map" type="Button" parent="."]
-offset_right = 8.0
-offset_bottom = 8.0
+offset_left = -28.0
+offset_top = 67.0
+offset_right = 68.0
+offset_bottom = 98.0
 text = "delete map"
+
+[node name="delete_map2" type="Button" parent="."]
+offset_left = -28.0
+offset_top = 67.0
+offset_right = 68.0
+offset_bottom = 98.0
+text = "delete map"
+
+[node name="by_filter" type="Button" parent="."]
+offset_left = 246.0
+offset_top = 33.0
+offset_right = 317.0
+offset_bottom = 64.0
+text = "by_filter
+"
 
 [connection signal="pressed" from="sen" to="HTTPRequest" method="_on_sen_pressed"]
 [connection signal="pressed" from="get" to="HTTPRequest" method="_on_get_pressed"]
@@ -89,3 +106,5 @@ text = "delete map"
 [connection signal="pressed" from="addacc" to="HTTPRequest" method="_on_addacc_pressed"]
 [connection signal="pressed" from="getmaps" to="HTTPRequest" method="_on_getmaps_pressed"]
 [connection signal="pressed" from="delete_map" to="HTTPRequest" method="_on_delete_map_pressed"]
+[connection signal="pressed" from="delete_map2" to="HTTPRequest" method="_on_delete_map_pressed"]
+[connection signal="pressed" from="by_filter" to="HTTPRequest" method="_on_by_filter_pressed"]

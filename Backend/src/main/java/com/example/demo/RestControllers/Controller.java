@@ -3,7 +3,9 @@ package com.example.demo.RestControllers;
 
 
 import com.example.demo.DTOs.MapDTO;
+import com.example.demo.DTOs.MapFilter;
 import com.example.demo.Entities.*;
+import com.example.demo.Repositories.MapRepository;
 import com.example.demo.Repositories.UserRepository;
 import com.example.demo.Services.DBService;
 import com.example.demo.Services.JWTService;
@@ -12,21 +14,21 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 
+import org.hibernate.mapping.Collection;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 
 @AllArgsConstructor
 @RestController
 public class Controller {
 
+    private final MapRepository mapRepository;
     ObjectMapper objectMapper;
     UserRepository userRepository;
     DBService dbService;
@@ -118,6 +120,29 @@ public class Controller {
 
 
     }
+    @PostMapping("get_maps_by_filter")
+    List<GameMap> get_maps_by_filter(@RequestBody MapFilter f){
+        System.out.println("maps requested by filter");
+        int map_id=f.getMap_id();
+        String mapname=f.getMap_name();
+        String unsername=f.getUsername();
+        int[] lenghts=f.getWave_lengths();
+        Set<Integer>seti=new HashSet<>();
+        for(int i : lenghts){
+            Integer a=i;
+            seti.add(a);
+        }
+        if (lenghts.length==0){
+            seti=null;
+        }
+        System.out.println("lenghts: ");
+        System.out.println(Arrays.toString(f.getWave_lengths()));
+        List<GameMap> set=mapRepository.findMaps(map_id,mapname,unsername,seti,f.getSort_by());
+        System.out.println(set.size()+" requested by filter");
+       //List<GameMap> set= mapRepository.findAllByUser_name(filter.getUsername());
+        return set;
+    }
+
     @PostMapping("validated/add_rating_to_map")
     String add_rating_to_map(@RequestBody String rating) throws JsonProcessingException {
 
@@ -132,7 +157,8 @@ public class Controller {
         List<GameMap> maps=dbService.getAllMaps();
         List<MapDTO>dtos=new LinkedList<>();
         for (GameMap map:maps){
-            dtos.add(objectMapper.convertValue(map, MapDTO.class));
+           dtos.add(new MapDTO(map.getMapID(),map.getName(),map.getUsername(),map.getDescription(),map.getSlot_amount(),map.getNumberOfWaves(),map.getAverageRating(),map.getNumber_of_comments(),map.getDifficultyRating()));
+            // dtos.add(objectMapper.convertValue(map, MapDTO.class));
         }
        return dtos;
     }
@@ -143,7 +169,7 @@ public class Controller {
         System.out.println(map);
         GameMap gameMap;
         gameMap=objectMapper.readValue(map, GameMap.class);
-        gameMap.setUser_name(user.getName());
+        gameMap.setUsername(user.getName());
         var response= dbService.add_map(gameMap);
         System.out.println(response);
         return response;

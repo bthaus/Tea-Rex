@@ -178,6 +178,7 @@ func save_board(monster_waves, setting_properties: LevelEditorSettings.Propertie
 	var ids=GameState.gameState.map_dto.treasure_ids
 	map_dto.treasure_ids=ids
 	map_dto.treasures=GameState.gameState.map_dto.treasures
+	map_dto.number_of_waves=monster_waves.size()
 	map_dto.save(map_name)
 	
 	chapters.add_map_to_chapter(map_name, GameplayConstants.CUSTOM_LEVELS_CHAPTER_NAME)
