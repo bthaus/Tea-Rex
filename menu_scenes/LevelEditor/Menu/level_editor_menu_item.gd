@@ -10,8 +10,9 @@ func set_map(map_dto: MapDTO):
 	
 func _on_edit_button_pressed():
 	var level_editor = SceneHandler.get_scene_instance(SceneHandler.Scene.LEVEL_EDITOR)
-	SceneHandler.change_scene(level_editor, SceneHandler.TransitionEffect.SWIPE_LEFT)
-	level_editor.load_map(map_dto)
+	SceneHandler.change_scene(level_editor, SceneHandler.TransitionEffect.SWIPE_LEFT, func():
+		level_editor.load_map(map_dto)
+		)
 
 func _on_play_button_pressed():
 	var picker = SceneHandler.get_scene_instance(SceneHandler.Scene.BATTLE_SLOT_PICKER)
