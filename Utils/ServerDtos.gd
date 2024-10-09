@@ -1,16 +1,16 @@
 extends Node
 class_name ServerDTOs
 
-static func get_list_level_dto(
-	map_id: String,
-	map_name: String,
-	username: String,
-	wave_lengths: Array[int], #Contains all allowed wave lengths so 1-5 -> [1, 2, 3, 4, 5]
-	clear_rate_up_to: float, #Value between 0.0 and 1.0, 
-	sort_by: String,
-	order_by: String,
-	page_number: int,
-	page_size: int
+static func get_map_filter_dto(
+	map_id: int=-1,
+	map_name: String="",
+	username: String="",
+	wave_lengths: Array[int]=[], #Contains all allowed wave lengths so 1-5 -> [1, 2, 3, 4, 5]
+	clear_rate_up_to: float=-1.0, #Value between 0.0 and 1.0, 
+	sort_by: String="",
+	order_by: String="",
+	page_number: int=-1,
+	page_size: int=-1
 	):
 	return {
 		"map_id": map_id,

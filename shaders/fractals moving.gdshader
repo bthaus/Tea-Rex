@@ -35,23 +35,23 @@ float box(vec2 p, vec2 b, float r)
 void fragment()
 {
 	float pulse = pulseColor();
-	
+
 	vec2 uv = UV - 0.5;
 	vec4 baseColor = uv.x > 0.0 ? color1 : color2;
-	
+
 	vec4 color = pulse*baseColor*0.5*(0.9-cos(uv.x*8.0));
 	uv.x *= aspect;
-	
+
 	for (int i = 0; i < numBlocks; i++)
 	{
 		float z = 1.0-0.7*rand(float(i)*1.4333); // 0=far, 1=near
 		float tickTime = TIME*z*speed + float(i)*1.23753;
 		float tick = floor(tickTime);
-		
+
 		vec2 pos = vec2(0.6*aspect*(rand(tick)-0.5), sign(uv.x)*ySpread*(0.5-fract(tickTime)));
 		pos.x += 0.24*sign(pos.x); // move aside
 		if (abs(pos.x) < 0.1) pos.x++; // stupid fix; sign sometimes returns 0
-		
+
 		// vec2 size = 1.8*z*vec2(0.04, 0.04 + 0.1*rand(tick+0.2));
 		float b = box(uv-pos, size, 0.01);
 		float dust = z*smoothstep(0.22, 0.0, b)*pulse*0.5;
@@ -59,7 +59,7 @@ void fragment()
 		float shine = 0.6*z*pulse*smoothstep(-0.002, b, 0.007);
 		color += dust*baseColor + block*z + shine;
 	}
-	
+
 	color -= rand2(uv)*0.04;
 	COLOR = vec4(color);
 }

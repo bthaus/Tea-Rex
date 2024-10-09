@@ -909,7 +909,6 @@ sprite_frames = SubResource("SpriteFrames_rysxa")
 animation = &"move"
 
 [node name="BAT" type="Node2D" parent="."]
-visible = false
 script = ExtResource("7_861mn")
 speed = 125
 hp = 75
@@ -1016,6 +1015,7 @@ script = ExtResource("12_svbms")
 damage_types = Array[int]([5])
 
 [node name="SNOWMAN" type="Node2D" parent="."]
+visible = false
 material = SubResource("ShaderMaterial_tq8nl")
 script = ExtResource("11_hnnj1")
 
