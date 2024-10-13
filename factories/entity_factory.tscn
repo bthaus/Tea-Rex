@@ -129,6 +129,7 @@ name_title = "Wall"
 script = ExtResource("4_p1llm")
 tile_id = 3
 map_layer = 2
+usable_in_level_editor = false
 
 [node name="White Base" type="Sprite2D" parent="."]
 script = ExtResource("4_p1llm")

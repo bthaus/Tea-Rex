@@ -20,6 +20,8 @@ var map_position: Vector2
 @export var weight_excludes:Array[Monster.MonsterMovingType]=[Monster.MonsterMovingType.AIR]
 ## If true, turrets can be built on top of this entitiy. i have no clue what happens then. I assume the entity just stays below the turret?
 @export var buildable:bool=false;
+#If set to true, the entity will be visible in the level editor and can be placed
+@export var usable_in_level_editor:bool=true
 
 func _init(tile_id: int = -1, map_layer: int = -1, map_position: Vector2 = Vector2(0, 0)):
 	#self.tile_id = tile_id

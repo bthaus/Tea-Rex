@@ -21,6 +21,8 @@ signal tile_selected
 func _ready():
 	var nodes = EntityFactory.get_all()
 	for node in nodes:
+		if not node.usable_in_level_editor: continue
+		
 		var item = TileItem.new(node.tile_id, node.map_layer, node.name)
 		all_tile_items.append(item)
 	
